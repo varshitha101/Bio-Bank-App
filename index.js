@@ -1091,17 +1091,20 @@ function saveToFirebase(data) {
 
   });
 
-  const dueDate = new Date(timestamp);     
-dueDate.setMonth(dueDate.getMonth() + 6);
+const dueDate = new Date();     
+// dueDate.setMonth(dueDate.getMonth() + 6);  // Add 6 months to the current date
+    dueDate.setMinutes(dueDate.getMinutes() + 3);  // Optionally, add extra minutes if needed
 
 const bioBankPath = `pfw/${bioBankId}`;
+console.log("dueDate", dueDate);  // Logs the correct Date object
 
 db.ref(bioBankPath).once('value')
   .then((snapshot) => {
     if (snapshot.exists()) {
       console.log('Path already exists. Not storing in pfw.');
     } else {
-      db.ref(bioBankPath).set(dueDate)
+      // Convert the dueDate to a timestamp before storing
+      db.ref(bioBankPath).set(dueDate.getTime())  // Store as Unix timestamp (milliseconds since 1970)
         .then(() => {
           console.log('Stored in pfw');
         })
