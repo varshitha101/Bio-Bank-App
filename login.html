@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+
+  <title>Login</title>
+
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/login-custom.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container-fluid wrapper">
+    <div class="account-wall">
+      <div class="log_img">
+        <img src="assets/images/nccpr-logo.png" style="height: 50%; width: 60%;" alt="">
+      </div>
+      <form class="form-signin" id="loginForm">
+        <label for="Email">Email</label>
+        <input type="text" id="email" class="form-control" placeholder="Email" required autofocus>
+        <br>
+        <label for="password">Password</label>
+        <input type="password" id="password" class="form-control" placeholder="Password" required>
+        <div id="remember" class="checkbox">
+          <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">
+          Sign in
+        </button>
+      </form>
+    </div>
+  </div>
+  <div id="recaptcha-container"></div>
+
+
+  <div class="modal fade bd-example-modal-sm" id="exampleModalCenter" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+      <div class="modal-content">
+
+        <div class="modal-body">
+          <form class="form-signin" id="otplogin">
+            <div>
+              <h2>OTP Verification</h2>
+              <div>
+                <p style="font-size: small;">We have sent otp to +91XXXXXXXXXX</p>
+              </div>
+            </div>
+            <div class="row justify-content-center">
+              <div class="col-2">
+                <input type="text" class="form-control otp-input text-center"
+                  style="height: 40px; width: 30px; padding: 0px;" maxlength="1" required>
+              </div>
+              <div class="col-2">
+                <input type="text" class="form-control otp-input text-center"
+                  style=" height: 40px; width: 30px; padding: 0px;" maxlength="1" required>
+              </div>
+              <div class="col-2">
+                <input type="text" class="form-control otp-input text-center"
+                  style=" height: 40px; width: 30px; padding: 0px;" maxlength="1" required>
+              </div>
+              <div class="col-2">
+                <input type="text" class="form-control otp-input text-center"
+                  style=" height: 40px; width: 30px; padding: 0px;" maxlength="1" required>
+              </div>
+              <div class="col-2">
+                <input type="text" class="form-control otp-input text-center"
+                  style=" height: 40px; width: 30px; padding: 0px;" maxlength="1" required>
+              </div>
+              <div class="col-2">
+                <input type="text" class="form-control otp-input text-center"
+                  style=" height: 40px; width: 30px; padding: 0px;" maxlength="1" required>
+              </div>
+            </div>
+            <br>
+            <div class="col text-center">
+              <button type="submit" id="submitBtn" style="width: 200px;" class="btn btn-primary">Verify OTP</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+
+  <!-- Firebase -->
+  <script type="module">
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDIFI_4lVb7FJmKgzWMbq6ZfKcBwpj-K4E",
+      authDomain: "biobank-development.firebaseapp.com",
+      databaseURL: "https://biobank-development-default-rtdb.firebaseio.com",
+      projectId: "biobank-development",
+      storageBucket: "biobank-development.firebasestorage.app",
+      messagingSenderId: "31278898937",
+      appId: "1:31278898937:web:01f96df7a640d9c1410c28",
+      measurementId: "G-B98TGR5Q8Q"
+    };
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-auth.js";
+    import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-database.js";
+    import { RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-auth.js";
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    function setupRecaptcha() {
+      window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
+        'size': 'invisible',
+        'callback': (response) => {
+          console.log("Recaptcha verified: " + response);
+        }
+      }, auth);
+
+      window.recaptchaVerifier.render().then(function (widgetId) {
+        window.recaptchaWidgetId = widgetId;
+      }).catch((error) => {
+        console.error("Error rendering reCAPTCHA: ", error);
+      });
+    }
+
+    // function submitLogin(event) {
+    //   event.preventDefault();
+
+    //   let email = document.getElementById("email").value;
+    //   let password = document.getElementById("password").value;
+
+    //   signInWithEmailAndPassword(auth, email, password)
+    //     .then((userCredential) => {
+    //       const user = userCredential.user;
+    //       const db = getDatabase();
+    //       const userRef = ref(db, 'users/' + user.uid);
+
+    //       get(userRef).then((snapshot) => {
+    //         if (snapshot.exists()) {
+    //           const phone = snapshot.val().phone;
+
+    //           sendOTP(phone);
+
+    //         }
+    //       });
+
+    //       $('#exampleModalCenter').modal('show');
+    //       // window.location.href = 'home.html';
+
+    //     })
+    //     .catch((error) => {
+    //       const errorMessage = error.message;
+    //       alert(`Error: ${errorMessage}`);
+    //     });
+    // }
+    let UUID;
+    let db;
+    function submitLogin(event) {
+      event.preventDefault();
+
+      let email = document.getElementById("email").value;
+      let password = document.getElementById("password").value;
+
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          db = getDatabase();
+          const userRef = ref(db, 'users/' + user.uid);
+
+          UUID = user.uid;
+
+          get(userRef).then((snapshot) => {
+            if (snapshot.exists()) {
+              const phone = snapshot.val().phone;
+              const storedPCIdentifier = snapshot.val().loginDetails.pcIdentifier; // Updated to access pcIdentifier from loginDetails
+              const currentPCIdentifier = hashString(window.navigator.userAgent);
+
+              const loginTime = new Date(snapshot.val().loginDetails.loginTime).getTime(); // Updated to access loginTime from loginDetails
+              const currentTime = new Date().getTime();
+              const thirtyDaysInMillis = 2 * 60 * 1000; // 2 minutes in milliseconds
+              //const thirtyDaysInMillis = 30 * 24 * 60 * 60 * 1000; // 30 days in milliseconds
+
+              if (storedPCIdentifier !== currentPCIdentifier || (currentTime - loginTime) > thirtyDaysInMillis) {
+                sendOTP(phone);
+                $('#exampleModalCenter').modal('show');
+              } else {
+                window.location.href = 'home.html'; // Redirect to home after successful login
+              }
+            }
+          });
+        })
+        .catch((error) => {
+          const errorMessage = error.message;
+          alert(`Error: ${errorMessage}`);
+        });
+    }
+
+    // function sendOTP(phoneNumber) {
+    //   // console.log("OTP sent to: " + phoneNumber);
+    //   // Ensure phoneNumber is a string and check for proper E.164 format (starting with "+")
+    //   if (typeof phoneNumber !== 'string') {
+    //     phoneNumber = String(phoneNumber);  // Convert to string if it's not already
+    //   }
+
+    //   // Validate and format the phone number to E.164 if needed
+    //   if (!phoneNumber.startsWith('+')) {
+    //     // Assuming country code +91 (for India). Adjust this based on your requirement.
+    //     phoneNumber = '+91' + phoneNumber;  // Prepend +91 if missing
+    //   }
+
+
+    //   setupRecaptcha();
+
+    //   const appVerifier = window.recaptchaVerifier;
+    //   console.log("app Verifier =  ", appVerifier);
+    //   console.log("phoneNumber =  ", phoneNumber);
+    //   console.log("auth =  ", auth);
+
+
+    //   signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+    //     .then((confirmationResult) => {
+    //       window.confirmationResult = confirmationResult;
+    //       console.log("OTP sent to: " + phoneNumber);
+    //     }).catch((error) => {
+    //       alert("Error sending OTP: " + error.message);
+    //     });
+    // }
+    function sendOTP(phoneNumber) {
+      phoneNumber = "+91" + phoneNumber;
+      const phoneRegex = /^\+91\d{10}$/;
+      if (!phoneRegex.test(phoneNumber)) {
+        alert("Please enter a valid Indian phone number in E.164 format (e.g., +919876543210).");
+        return;
+      }
+
+      setupRecaptcha();
+
+      signInWithPhoneNumber(auth, phoneNumber, window.recaptchaVerifier)
+        .then((confirmationResult) => {
+          window.confirmationResult = confirmationResult;
+          alert("OTP sent successfully!");
+          $('#otpModal').modal('show'); // Show OTP modal after sending OTP
+        })
+        .catch((error) => {
+          console.error("Error sending OTP:", error.message);
+          alert("Failed to send OTP. Check console for details.");
+        });
+    }
+
+    document.getElementById("submitBtn").addEventListener("click", function (event) {
+      event.preventDefault();
+
+      const otpInputs = document.querySelectorAll(".otp-input");
+      let otp = '';
+      otpInputs.forEach(input => {
+        otp += input.value;
+      });
+
+      window.confirmationResult.confirm(otp).then((result) => {
+        console.log("OTP verification successful");
+        window.location.href = 'home.html';
+      }).catch((error) => {
+        alert("Invalid OTP: " + error.message);
+      });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const form = document.getElementById("loginForm");
+      form.addEventListener("submit", submitLogin);
+    });
+
+    // Function to hash the IP address (for demonstration purposes)
+    function hashString(str) {
+      return btoa(str); // Simple base64 encoding as a hash (for demonstration)
+    }
+
+    document.getElementById('loginForm').insertAdjacentHTML('beforeend', '<div id="recaptcha-container"></div>');
+  </script>
+
+</body>
+
+</html>
