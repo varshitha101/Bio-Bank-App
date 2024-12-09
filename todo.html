@@ -219,7 +219,9 @@
   </script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      const sevenDaysInMillis = 7 * 24 * 60 * 60 * 1000;
+      // const sevenDaysInMillis = 7 * 24 * 60 * 60 ;
+      const sevenDaysInMillis = 3 * 60;
+
       const currentTime = Date.now();
 
       db.ref("sef").once("value", (snapshot) => {
@@ -230,18 +232,18 @@
         if (allData) {
           Object.keys(allData).forEach((bioBankId) => {
             const sections = allData[bioBankId];
-            console.log("sections",sections)
+            console.log("sections", sections)
 
             Object.keys(sections).forEach((sectionKey) => {
               const section = sections[sectionKey];
 
               Object.keys(section).forEach((timestampKey) => {
                 const dataEntry = section[timestampKey];
-                const timestamp = parseInt(timestampKey, 10) * 1000;
+                const timestamp = parseInt(timestampKey, 10);
                 const patient = dataEntry.ie || {};
 
                 const fields = ['bpg', 'bsg', 'bbcg', 'ftg', 'fng'];
-                console.log('dataEntry',patient)
+                console.log('dataEntry', patient)
 
                 let boxName = '';
                 let seatList = [];
@@ -466,12 +468,12 @@
         console.log("brKeys", brKeys);
 
         brKeys.forEach((key) => {
-          const dateStr = pfwData[key];
-          const dateParts = dateStr.split("/");
-          const formattedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
-          console.log("formattedDate", formattedDate);
-          const timestamp = new Date(formattedDate).getTime();
+          const timestamp = pfwData[key];  // Assuming this is already a timestamp
           console.log("timestamp", timestamp);
+
+          const dateObj = new Date(timestamp);  // Create a Date object from the timestamp
+          const formattedDate = `${dateObj.getFullYear()}-${(dateObj.getMonth() + 1).toString().padStart(2, '0')}-${dateObj.getDate().toString().padStart(2, '0')}`;
+          console.log("formattedDate", formattedDate);
 
           if (timestamp < todayTimestamp) {
             const sefRef = db.ref(`sef/${key}`);
@@ -487,6 +489,7 @@
             });
           }
         });
+
       });
 
       function populatePatientTable(data, biobankID) {
