@@ -180,15 +180,20 @@
           get(userRef).then((snapshot) => {
             if (snapshot.exists()) {
               const phone = snapshot.val().phone;
-              const storedPCIdentifier = snapshot.val().loginDetails.pcIdentifier; // Updated to access pcIdentifier from loginDetails
+              const storedPCIdentifier = ''; // Updated to access pcIdentifier from loginDetails
+              const loginTime =  ''; // Updated to access loginTime from loginDetails
+
+              if(snapshot.val().loginDetails!= undefined){
+                const storedPCIdentifier = snapshot.val()?.loginDetails.pcIdentifier || ''; // Updated to access pcIdentifier from loginDetails
+                const loginTime = new Date(snapshot.val().loginDetails.loginTime).getTime() || ''; // Updated to access loginTime from loginDetails
+              }
               const currentPCIdentifier = hashString(window.navigator.userAgent);
 
-              const loginTime = new Date(snapshot.val().loginDetails.loginTime).getTime(); // Updated to access loginTime from loginDetails
               const currentTime = new Date().getTime();
               const thirtyDaysInMillis = 2 * 60 * 1000; // 2 minutes in milliseconds
               //const thirtyDaysInMillis = 30 * 24 * 60 * 60 * 1000; // 30 days in milliseconds
 
-              if (storedPCIdentifier !== currentPCIdentifier || (currentTime - loginTime) > thirtyDaysInMillis) {
+              if ((storedPCIdentifier !== currentPCIdentifier || (currentTime - loginTime) > thirtyDaysInMillis) || (storedPCIdentifier != '' || loginTime != '') || (storedPCIdentifier === 'undefined' || loginTime === 'undefined')) {
                 sendOTP(phone);
                 $('#exampleModalCenter').modal('show');
               } else {
@@ -254,7 +259,20 @@
           alert("Failed to send OTP. Check console for details.");
         });
     }
+    document.querySelectorAll('.otp-input').forEach((input, index, array) => {
+      input.addEventListener('input', (e) => {
+        if (input.value.length === 1 && index < array.length - 1) {
+          array[index + 1].focus();
+        }
+      });
 
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && input.value === '' && index > 0) {
+          array[index - 1].focus(); 
+        }
+      });
+    });
+    
     document.getElementById("submitBtn").addEventListener("click", function (event) {
       event.preventDefault();
 
