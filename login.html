@@ -190,7 +190,7 @@
               const currentPCIdentifier = hashString(window.navigator.userAgent);
 
               const currentTime = new Date().getTime();
-              const thirtyDaysInMillis = 2 * 60 * 1000; // 2 minutes in milliseconds
+              const thirtyDaysInMillis = 10 * 60 * 1000; // 2 minutes in milliseconds
               //const thirtyDaysInMillis = 30 * 24 * 60 * 60 * 1000; // 30 days in milliseconds
 
               if ((storedPCIdentifier !== currentPCIdentifier || (currentTime - loginTime) > thirtyDaysInMillis) || (storedPCIdentifier != '' || loginTime != '') || (storedPCIdentifier === 'undefined' || loginTime === 'undefined')) {
