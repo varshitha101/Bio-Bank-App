@@ -596,10 +596,9 @@
       }
     }
 
-    // Sam change page function
     function samChangePage(page) {
       currentPage = page;
-      displaySamPatients(filteredPatientData);  // Refresh the data for the selected page
+      displaySamPatients(filteredPatientData); 
     }
 
 
@@ -609,17 +608,17 @@
       event.preventDefault();
 
       const bioID = document.getElementById('bioInput').value.trim().toLowerCase();
-      const filteredSefEntries = [];
+      const filteredSefEntries = {};
 
       Object.keys(window.sefData).forEach(bioBankId => {
         if (bioBankId.toLowerCase().includes(bioID)) {
-          filteredSefEntries.push(window.sefData[bioBankId]);
+          filteredSefEntries[bioBankId] = window.sefData[bioBankId];
         }
       });
       console.log("filteredSefEntries", filteredSefEntries)
 
       filteredSefData = filteredSefEntries;
-      displayIndSefEntries(filteredSefEntries);
+      displayIndSefEntries(filteredSefEntries,bioID);
     }
 
     document.addEventListener("DOMContentLoaded", function () {
@@ -643,7 +642,7 @@
         });
     });
 
-    function displayIndSefEntries(data) {
+    function displayIndSefEntries(data,bioId) {
       const tbody = document.querySelector('.patientTableBody');
       tbody.innerHTML = '';
 
@@ -670,7 +669,7 @@
         row.classList.add('patientRow');
         row.innerHTML = `
         <th scope="row" class="sno">${start + index + 1}</th>
-        <td class="patientName">${bioBankId}</td>
+        <td class="bioid">${bioBankId}</td>
         <td class="age">${patient.ie.ag || '-'}</td>
         <td class="gender">${patient.ie.sx || '-'}</td>
         <td class="cancerType">${patient.ie.ct || '-'}</td>
