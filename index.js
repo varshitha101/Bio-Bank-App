@@ -1282,16 +1282,20 @@ function pages_display(mode, bioBankId, seq, timestampKey) {
           switch (mode) {
             case 'SearchView':
             case 'PendingView':
+              localStorage.setItem("selectedGrid","");
               window.location.href = `default.html?hideMnrId=true`;
               break;
             case 'SearchEdit':
             case 'PendingEdit':
+              localStorage.setItem("selectedGrid","");
               window.location.href = `default.html?update=true`;
               break;
             case 'EditFollowUps':
+              localStorage.setItem("selectedGrid","");
               window.location.href = `default.html?mode=edit`;
               break;
             case 'ViewFollowUps':
+              localStorage.setItem("selectedGrid","");
               window.location.href = `default.html?mode=view`;
               break;
             default:
@@ -1306,6 +1310,7 @@ function pages_display(mode, bioBankId, seq, timestampKey) {
       });
   }
   else if(mode===""){
+    localStorage.setItem("selectedGrid","");
     window.location.href = "default.html";
   }
 }
@@ -1564,7 +1569,6 @@ function submitFollowup() {
 
 
 function updateBB(info) {
-  // Split the input data by '/' to get box_name, seat_list, and sampleType
   const parts = info.split('/');
   if (parts.length !== 3) {
     console.error("Invalid data format. Expected 'box_name/seat_ids/sampleType'.");
@@ -1572,24 +1576,20 @@ function updateBB(info) {
   }
   const bioBankId = document.getElementById('bioBankId').value;
 
-  const boxName = parts[0].trim();           // Extract box name, e.g., 'Blood2'
-  const seatList = parts[1].split(',');      // Extract seat IDs (e.g., 'B7', 'B6') and split them into an array
-  const sampleType = parts[2].trim();        // Extract sample type, e.g., 'Plasma'
+  const boxName = parts[0].trim();           
+  const seatList = parts[1].split(',');      
+  const sampleType = parts[2].trim();        
 
-  // Retrieve the bioBankId from localStorage
-  console.log("bioBankId",bioBankId)
+  console.log("bioBankId", bioBankId);
   if (!bioBankId) {
     console.error("No bioBankId found in localStorage");
     return;
   }
 
-  let dbRef = firebase.database().ref('bb');
-  dbRef.once('value')
+  db.ref(`bb/${boxName}`).once('value')
     .then(snapshot => {
-      let seatData = snapshot.val();
-      // Find the box matching the provided boxName
-      let box = seatData[boxName];
-      
+      let box = snapshot.val();
+
       if (!box) {
         console.error(`No box found with the name: ${boxName}`);
         return;
@@ -1597,34 +1597,109 @@ function updateBB(info) {
 
       console.log("seatList", seatList);
 
-      // Loop through the seatList and update each seat in the box
       seatList.forEach(seatID => {
         seatID = seatID.trim();
         console.log("seatID", seatID);
 
-        let seatIndex = getSeatIndex(seatID);  // Convert seatID (like 'B7') into the correct index
+        let seatIndex = getSeatIndex(seatID);  
+        
         if (box[seatIndex]) {
-          box[seatIndex].bioBankId = bioBankId;   // Set bioBankId
-          box[seatIndex].sampleType = sampleType; // Set the sampleType
-          box[seatIndex].status = "o";            // Set status to 'o'
+          const seatUpdate = {
+            bioBankId: bioBankId,
+            sampleType: sampleType,
+            status: "o"
+          };
+
+          db.ref(`bb/${boxName}/${seatIndex}`).update(seatUpdate)
+            .then(() => {
+              console.log(`Seat ${seatID} updated successfully in Firebase.`);
+            })
+            .catch(error => {
+              console.error(`Error updating seat ${seatID}:`, error);
+            });
         }
       });
-
-      // Update the modified seat data back in Firebase
-      dbRef.update(seatData)
-        .then(() => {
-          console.log("Seat data updated successfully in Firebase.");
-        })
-        .catch(error => {
-          console.error("Error updating seat data:", error);
-        });
     })
     .catch(error => {
       console.error("Error fetching seat data from Firebase:", error);
     });
 }
 
-// Helper function to get the seat index based on seatID like 'B7'
+// function updateBB(info) {
+//   const parts = info.split('/');
+//   if (parts.length !== 3) {
+//     console.error("Invalid data format. Expected 'box_name/seat_ids/sampleType'.");
+//     return;
+//   }
+//   const bioBankId = document.getElementById('bioBankId').value;
+
+//   const boxName = parts[0].trim();      
+//   const seatList = parts[1].split(',');
+//   const sampleType = parts[2].trim();
+
+//   console.log("bioBankId",bioBankId)
+//   if (!bioBankId) {
+//     console.error("No bioBankId found in localStorage");
+//     return;
+//   }
+//   let dbRef = firebase.database().ref('bb');
+
+//     dbRef.once('value')
+//     .then(snapshot => {
+//       let seatData = snapshot.val();
+//       let box = seatData[boxName];
+      
+//       if (!box) {
+//         console.error(`No box found with the name: ${boxName}`);
+//         return;
+//       }
+
+//       console.log("seatList", seatList);
+
+//       seatList.forEach(seatID => {
+//         seatID = seatID.trim();
+//         console.log("seatID", seatID);
+//         console.log("sampleType", sampleType);
+        
+
+//         let seatIndex = getSeatIndex(seatID);
+//         console.log("seatIndex",seatIndex + " sampleType",sampleType + " seatID",seatID + " boxName",boxName  + " seatList",seatList);
+        
+//         if (box[seatIndex]) {
+//           box[seatIndex].bioBankId = bioBankId; 
+//           box[seatIndex].sampleType = sampleType; 
+//           box[seatIndex].status = "o";
+//         }
+//         console.log("Box Data",box);
+        
+
+        
+//         // db.ref(`bb/${boxName}/${seatIndex}`).set(box)
+//         // .then(() => {
+//         //   console.log("Seat data updated successfully in Firebase.");
+//         // })
+//         // .catch(error => {
+//         //   console.error("Error updating seat data:", error);
+//         // });
+        
+        
+//       });
+//       const bbVar =  dbRef.ref(`bb/${boxName}/${seatIndex}`);
+//         // bbVar.set({
+//         //   bioBankId = bioBankId ,
+//         //   sampleType = sampleType,
+//         //   status = "o"
+            
+//         //     });
+     
+//     })
+//     .catch(error => {
+//       console.error("Error fetching seat data from Firebase:", error);
+//     });
+// }
+
+
+
 function getSeatIndex(seatID) {
   const rowLetter = seatID[0];   // e.g., 'B'
   const colNumber = seatID.slice(1);  // e.g., '7'
@@ -1640,32 +1715,28 @@ function getSeatIndex(seatID) {
 
 
 function updateSB(info) {
-    // Split the input data by '/' to get box_name, seat_list, and sampleType
-    const parts = info.split('/');
-    if (parts.length !== 3) {
-      console.error("Invalid data format. Expected 'box_name/seat_ids/sampleType'.");
-      return;
-    }
-    const bioBankId = document.getElementById('bioBankId').value;
-  
-    const boxName = parts[0].trim();           // Extract box name, e.g., 'Blood2'
-    const seatList = parts[1].split(',');      // Extract seat IDs (e.g., 'B7', 'B6') and split them into an array
-    const sampleType = parts[2].trim();        // Extract sample type, e.g., 'Plasma'
-  
-    // Retrieve the bioBankId from localStorage
-    console.log("bioBankId",bioBankId)
-    if (!bioBankId) {
-      console.error("No bioBankId found in localStorage");
-      return;
-    }
+  const parts = info.split('/');
+  if (parts.length !== 3) {
+    console.error("Invalid data format. Expected 'box_name/seat_ids/sampleType'.");
+    return;
+  }
+  const bioBankId = document.getElementById('bioBankId').value;
 
-  let dbRef = firebase.database().ref('sb'); // Reference to specimen node
-  dbRef.once('value')
+  const boxName = parts[0].trim();           
+  const seatList = parts[1].split(',');      
+  const sampleType = parts[2].trim();        
+
+  // Check if bioBankId is available
+  console.log("bioBankId", bioBankId);
+  if (!bioBankId) {
+    console.error("No bioBankId found in localStorage");
+    return;
+  }
+
+  db.ref(`sb/${boxName}`).once('value')
     .then(snapshot => {
-      let seatData = snapshot.val();
-      // Find the box matching the provided boxName
-      let box = seatData[boxName];
-      
+      let box = snapshot.val();
+
       if (!box) {
         console.error(`No box found with the name: ${boxName}`);
         return;
@@ -1679,24 +1750,28 @@ function updateSB(info) {
         console.log("seatID", seatID);
 
         let seatIndex = getSeatIndex(seatID);  // Convert seatID (like 'B7') into the correct index
+        
         if (box[seatIndex]) {
-          box[seatIndex].bioBankId = bioBankId;   // Set bioBankId
-          box[seatIndex].sampleType = sampleType; // Set the sampleType
-          box[seatIndex].status = "o";            // Set status to 'o'
+          // Prepare the specific seat update
+          const seatUpdate = {
+            bioBankId: bioBankId,
+            sampleType: sampleType,
+            status: "o"
+          };
+
+          // Update only the specific seat index in Firebase
+          db.ref(`sb/${boxName}/${seatIndex}`).update(seatUpdate)
+            .then(() => {
+              console.log(`Seat ${seatID} updated successfully in Firebase.`);
+            })
+            .catch(error => {
+              console.error(`Error updating seat ${seatID}:`, error);
+            });
         }
       });
-
-      // Update the data in Firebase
-      dbRef.update(seatData)
-        .then(() => {
-          console.log("Specimen seat data updated successfully in Firebase.");
-        })
-        .catch(error => {
-          console.error("Error updating specimen seat data:", error);
-        });
     })
     .catch(error => {
-      console.error("Error fetching specimen seat data from Firebase:", error);
+      console.error("Error fetching seat data from Firebase:", error);
     });
 }
 
@@ -1752,6 +1827,7 @@ function shareDate(mode, selectedPatients) {
 
   switch (mode) {
     case 'share':
+      localStorage.setItem("selectedGrid","");
       window.location.href = `default.html?shared=true`;
       break;
     default:
