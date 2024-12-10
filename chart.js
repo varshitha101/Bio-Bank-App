@@ -1,4 +1,10 @@
-function ageChart(){
+function ageChart(countUnder30, count30to40, count41to50, count51to60, countAbove60){
+  console.log("Age categories count:");
+  console.log("<30: " + countUnder30);
+  console.log("30-40: " + count30to40);
+  console.log("41-50: " + count41to50);
+  console.log("51-60: " + count51to60);
+  console.log(">60: " + countAbove60);
   var chartDom = document.getElementById('chart1');
   var myChart = echarts.init(chartDom);
   var option;
@@ -36,11 +42,11 @@ function ageChart(){
           show: false
         },
         data: [
-          { value: 232, name: '<30y' },
-          { value: 135, name: '30y-40y' },
-          { value: 90, name: '40y-50y' },
-          { value: 64, name: '50y-60y' },
-          { value: 59, name: '>60y' }
+          { value: countUnder30, name: '<30y' },
+          { value: count30to40, name: '30y-40y' },
+          { value: count41to50, name: '40y-50y' },
+          { value: count51to60, name: '50y-60y' },
+          { value: countAbove60, name: '>60y' }
         ]
       }
     ]
@@ -49,7 +55,7 @@ function ageChart(){
   option && myChart.setOption(option);
 }
 
-function cancerChart(){
+function cancerChart(breastCancer, ThroatCancer, liverCancer, lungCancer){
 var chartDom = document.getElementById('chart2');
 var myChart = echarts.init(chartDom);
 var option;
@@ -87,10 +93,10 @@ option = {
         show: false
       },
       data: [
-        { value: 249, name: 'Breast' },
-        { value: 183, name: 'Throat' },
-        { value: 94, name: 'Liver' },
-        { value: 60, name: 'Lung' }
+        { value: breastCancer, name: 'Breast' },
+        { value: ThroatCancer, name: 'Throat' },
+        { value: liverCancer, name: 'Liver' },
+        { value: lungCancer, name: 'Lung' }
       ]
     }
   ]
@@ -99,7 +105,7 @@ option = {
 option && myChart.setOption(option);
 }
 
-function procedureChart(){
+function procedureChart(biopsy, resection, bothProcedures){
 var chartDom = document.getElementById('chart3');
 var myChart = echarts.init(chartDom);
 var option;
@@ -137,10 +143,9 @@ option = {
         show: false
       },
       data: [
-        { value: 315, name: 'Breast Conservation Surgery' },
-        { value: 152, name: 'LABL' },
-        { value: 73, name: 'TM+ALND' },
-        { value: 46, name: 'TM+AC' }
+        { value: biopsy, name: 'Biopsy' },
+        { value: resection, name: 'Resection' },
+        { value: bothProcedures, name: 'Both' }
       ]
     }
   ]
@@ -149,7 +154,7 @@ option = {
 option && myChart.setOption(option);
 }
 
-function smapleTypeChart(){
+function sampleTypeChart(countBS, countSS, countOS){
 var chartDom = document.getElementById('chart4');
 var myChart = echarts.init(chartDom);
 var option;
@@ -187,9 +192,9 @@ option = {
         show: false
       },
       data: [
-        { value: 325, name: 'Blood' },
-        { value: 186, name: 'Specimen' },
-        { value: 75, name: 'Both' }
+        { value: countBS, name: 'Blood' },
+        { value: countSS, name: 'Specimen' },
+        { value: countOS, name: 'Other' }
       ]
     }
   ]
