@@ -23,14 +23,16 @@ const firebaseConfig = {
 let currentBloodBoxIndex = 0;
 let boxKeys = [];
 
-function populateBBData() {
+function populateBBData(debug) {
   const path = 'bb/';
-
+  console.log("")
+  var boxVal = '';
   db.ref(path).once('value')
     .then(snapshot => {
       const boxes = snapshot.val();
       if (boxes) {
         boxKeys = Object.keys(boxes); // Populate boxKeys here
+
 
         const activeBoxIndex = boxKeys.findIndex(boxKey => boxes[boxKey].bxsts === 'AC');
 
@@ -40,7 +42,7 @@ function populateBBData() {
           console.warn('No active box found with bxsts = "AC".');
         }
 
-        const boxVal = boxKeys[currentBloodBoxIndex]; // Use the determined or default index
+        boxVal = boxKeys[currentBloodBoxIndex]; // Use the determined or default index
         console.log("Active boxVal:", boxVal);
 
         document.getElementById('box_id').textContent = boxVal;
@@ -52,7 +54,7 @@ function populateBBData() {
     .then(snapshot => {
       const data = snapshot.val();
       if (data) {
-        populateBBLabels(data);
+        populateBBLabels(data, boxVal, "call from populateBBData");
       }
     })
     .catch(error => {
@@ -60,7 +62,8 @@ function populateBBData() {
     });
 }
 
-function populateBBLabels(data) {
+function populateBBLabels(data, boxVal, debug) {
+  console.log("inside populate BB labels - ", debug, " -- ", boxVal);
   const rows = 'ABCDEFGHIJ';
   const cols = 10;
 
@@ -84,122 +87,157 @@ function populateBBLabels(data) {
       if (labelElement) {
         labelElement.textContent = `${bioBankIds[index]} \n ${sample[index]}` || '';
         labelElement.style.fontWeight = "bold";
+
+        // Remove existing event listeners to prevent multiple fetches
+        const newLabelElement = labelElement.cloneNode(true);
+        labelElement.parentNode.replaceChild(newLabelElement, labelElement);
+
         if (sts[index] === "o") {
-          labelElement.style.background = "rgb(129, 129, 192)";
+          newLabelElement.style.background = "rgb(129, 129, 192)";
+          const matchedData = [];
 
           // Add click event for status "o"
-          labelElement.addEventListener('click', async function () {
+          newLabelElement.addEventListener('click', async function () {
             console.log('Fetching data for:', labelName);
 
             const bioBankId = bioBankIds[index];
             const sampleType = sample[index];
 
-           
-              const dbRef = db.ref(`sef/${bioBankId}`);
-              const snapshot = await dbRef.get();
+            const dbRef = db.ref(`sef/${bioBankId}`);
+            const snapshot = await dbRef.get();
 
-              if (!snapshot.exists()) {
-                console.log("No data found for bioBankId:", bioBankId);
-                return;
-              }
+            if (!snapshot.exists()) {
+              console.log("No data found for bioBankId:", bioBankId);
+              return;
+            }
 
-              const dbData = snapshot.val();
-              const matchedData = [];
+            const dbData = snapshot.val();
+            console.log("dbData", dbData);
 
-              Object.keys(dbData).forEach(seqNum => {
-                const seqData = dbData[seqNum];
+            Object.keys(dbData).forEach(seqNum => {
+              const seqData = dbData[seqNum];
+              console.log("seqData", seqData);
 
-                Object.keys(seqData).forEach(timestamp => {
-                  const timestampData = seqData[timestamp];
-                  console.log("timestampData",timestampData)
-                  console.log("timestampData",sampleType)
-                  let mode = "SearchView"
+              Object.keys(seqData).forEach(timestamp => {
+                const timestampData = seqData[timestamp];
+                console.log("timestampData", timestampData);
 
-                  if ((sampleType === "Plasma"|| sampleType === "MPlasma") && timestampData.ie) {
-                    const bpg = timestampData.ie.bpg;
-                    const bpgIndex1 = bpg.split('/')[1];
-                    console.log("bpgIndex1", bpgIndex1);
-                    console.log("bpgIndex1", getSeatLabel(index));
+                if ((sampleType === "Plasma" || sampleType === "MPlasma") && timestampData.ie) {
+                  const bpg = timestampData.ie.bpg;
+                  const boxName = bpg.split('/')[0];
+                  const bpgIndex1 = bpg.split('/')[1];
 
-                    if (bpgIndex1 && bpgIndex1.split(',').includes(getSeatLabel(index))) {
-                      matchedData.push({
-                        bioBankId,
-                        seq: seqNum,
-                        timestamp
-                      });
-                      pages_display(mode, bioBankId, seqNum, timestamp)
-                    }
+                  if (bpgIndex1 && bpgIndex1.includes(getSeatLabel(index))) {
+                    matchedData.push({
+                      mode: "SearchView",
+                      bioBankId,
+                      seq: seqNum,
+                      timestamp
+                    });
+                    console.log("Matched:", {
+                      mode: "SearchView",
+                      bioBankId,
+                      seqNum,
+                      timestamp
+                    });
                   }
-                  if ((sampleType === "Serum" || sampleType === "MSerum")&& timestampData.ie) {
-                    const bsg = timestampData.ie.bsg;
-                    console.log("bsg", bsg);
-                    console.log("bsgIndex1", getSeatLabel(index));
-                    const bsgIndex1 = bsg.split('/')[1]; // get index1
-                    console.log("bsgIndex1", bsgIndex1);
+                }
+                if ((sampleType === "Serum" || sampleType === "MSerum") && timestampData.ie) {
+                  const bsg = timestampData.ie.bsg;
+                  console.log("bsg", bsg);
+                  console.log("bsgIndex1", getSeatLabel(index));
+                  const bsgIndex1 = bsg.split('/')[1]; // get index1
+                  console.log("bsgIndex1", bsgIndex1);
 
-                    if (bsgIndex1 && bsgIndex1.split(',').includes(getSeatLabel(index))) {
-                      matchedData.push({
-                        bioBankId,
-                        seq: seqNum,
-                        timestamp
-                      });
-                      pages_display(mode, bioBankId, seqNum, timestamp)
-
-                    }
+                  if (bsgIndex1 && bsgIndex1.split(',').includes(getSeatLabel(index))) {
+                    matchedData.push({
+                      mode: "SearchView",
+                      bioBankId,
+                      seq: seqNum,
+                      timestamp
+                    });
+                    console.log("Matched:", {
+                      mode: "SearchView",
+                      bioBankId,
+                      seqNum,
+                      timestamp
+                    });
                   }
-                  if ((sampleType === "Buffy Coat" || sampleType === "MBuffy Coat") && timestampData.ie) {
-                    const bbcg = timestampData.ie.bbcg;
-                    console.log("bbcg", bbcg);
-                    console.log("bbcgIndex1", getSeatLabel(index));
-                    const bbcgIndex1 = bbcg.split('/')[1];
-                    console.log("bbcgIndex1", bbcgIndex1);
+                }
+                if ((sampleType === "Buffy Coat" || sampleType === "MBuffy Coat") && timestampData.ie) {
+                  const bbcg = timestampData.ie.bbcg;
+                  console.log("bbcg", bbcg);
+                  console.log("bbcgIndex1", getSeatLabel(index));
+                  const bbcgIndex1 = bbcg.split('/')[1];
+                  console.log("bbcgIndex1", bbcgIndex1);
 
-                    if (bbcgIndex1 && bbcgIndex1.split(',').includes(getSeatLabel(index))) {
-                      matchedData.push({
-                        bioBankId,
-                        seq: seqNum,
-                        timestamp
-                      });
-                      pages_display(mode, bioBankId, seqNum, timestamp)
-                    }
+                  if (bbcgIndex1 && bbcgIndex1.split(',').includes(getSeatLabel(index))) {
+                    matchedData.push({
+                      mode: "SearchView",
+                      bioBankId,
+                      seq: seqNum,
+                      timestamp
+                    });
+                    console.log("Matched:", {
+                      mode: "SearchView",
+                      bioBankId,
+                      seqNum,
+                      timestamp
+                    });
                   }
-                  if ((sampleType === "Other" || sampleType ===  "MOther") && timestampData.ie) {
-                    const osg = timestampData.ie.osg;
-                    console.log("osg", osg);
-                    console.log("osgIndex1", getSeatLabel(index));
-                    const osgIndex1 = osg.split('/')[1];
-                    console.log("osgIndex1", osgIndex1);
+                }
+                if ((sampleType === "Other" || sampleType === "MOther") && timestampData.ie) {
+                  const osg = timestampData.ie.osg;
+                  console.log("osg", osg);
+                  console.log("osgIndex1", getSeatLabel(index));
+                  const osgIndex1 = osg.split('/')[1];
+                  console.log("osgIndex1", osgIndex1);
 
-                    if (osgIndex1 && osgIndex1.includes(getSeatLabel(index))) {
-                      matchedData.push({
-                        bioBankId,
-                        seq: seqNum,
-                        timestamp
-                      });
-                      pages_display(mode, bioBankId, seqNum, timestamp)
-                    }
+                  if (osgIndex1 && osgIndex1.includes(getSeatLabel(index))) {
+                    matchedData.push({
+                      mode: "SearchView",
+                      bioBankId,
+                      seq: seqNum,
+                      timestamp
+                    });
+                    console.log("Matched:", {
+                      mode: "SearchView",
+                      bioBankId,
+                      seqNum,
+                      timestamp
+                    });
                   }
-                });
+                }
               });
+            });
 
-              if (matchedData.length > 0) {
-                console.log('Matched Data:', matchedData);
-              } else {
-                console.log('No match found for:', labelName);
-              }
+            if (matchedData.length > 0) {
+              console.log('Matched Data:', matchedData);
+              matchedData.forEach(item => {
+                console.log(`Mode: ${item.mode}`);
+                console.log(`BioBank ID: ${item.bioBankId}`);
+                console.log(`Sequence: ${item.seq}`);
+                console.log(`Timestamp: ${item.timestamp}`);
+                // Call your display function here
+                pages_display(item.mode, item.bioBankId, item.seq, item.timestamp);
+              });
+            } else {
+              console.log('No match found for:', labelName);
+            }
           });
         }
+
         if (sts[index] === "s") {
-          labelElement.style.background = "rgb(180, 180, 180)";
+          newLabelElement.style.background = "rgb(180, 180, 180)";
         }
         if (sts[index] === "ps") {
-          labelElement.style.background = "rgb(193, 154, 107)";
+          newLabelElement.style.background = "rgb(193, 154, 107)";
         }
         if (sts[index] === "e") {
-          labelElement.style.background = "rgb(143, 218, 187)";
-          // Add click event only if the status is 'e'
-          labelElement.addEventListener('click', function () {
-            console.log("sts[index]",sts[index]);
+          newLabelElement.style.background = "rgb(143, 218, 187)";
+
+          newLabelElement.addEventListener('click', function () {
+            console.log("sts[index]", sts[index]);
             console.log('label name of clicked seat:', labelName);
             $('#exampleModalCenter').modal('show');
           });
@@ -208,6 +246,7 @@ function populateBBLabels(data) {
     }
   }
 }
+
 
 function getSeatLabel(index) {
   const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
@@ -273,7 +312,7 @@ function loadBBox() {
     loadprogress.style.display = "none"
 
     container.style.display = "block"
-    populateBBDataForCurrentBox();
+    // populateBBDataForCurrentBox();
   }, 1000);
 }
 
@@ -289,7 +328,7 @@ function populateBBDataForCurrentBox() {
     .then(snapshot => {
       const data = snapshot.val();
       if (data) {
-        populateBBLabels(data);
+        populateBBLabels(data, boxVal, "call from populateBBDataForCurrentBox");
       }
     })
     .catch(error => {
@@ -297,10 +336,10 @@ function populateBBDataForCurrentBox() {
     });
 }
 
-// Initial call to populate the first box when the page loads
-window.onload = function () {
-  populateBBData(); // Populate the first box on page load
-};
+// // Initial call to populate the first box when the page loads
+// window.onload = function () {
+//   populateBBData(); // Populate the first box on page load
+// };
 
 
 
@@ -399,85 +438,110 @@ function populateSBLabels(data) {
         labelElement.textContent = `${bioBankIds[index]} \n ${sample[index]}` || '';
         labelElement.style.fontWeight = "bold"
 
+        const newLabelElement = labelElement.cloneNode(true);
+        labelElement.parentNode.replaceChild(newLabelElement, labelElement);
+
         if (sts[index] === "o") {
-          labelElement.style.background = "rgb(129, 129, 192)"
-          labelElement.addEventListener('click', async function () {
+          newLabelElement.style.background = "rgb(129, 129, 192)";
+          const matchedData = [];
+
+          // Add click event for status "o"
+          newLabelElement.addEventListener('click', async function () {
             console.log('Fetching data for:', labelName);
 
             const bioBankId = bioBankIds[index];
             const sampleType = sample[index];
 
-           
-              const dbRef = db.ref(`sef/${bioBankId}`);
-              const snapshot = await dbRef.get();
+            const dbRef = db.ref(`sef/${bioBankId}`);
+            const snapshot = await dbRef.get();
 
-              if (!snapshot.exists()) {
-                console.log("No data found for bioBankId:", bioBankId);
-                return;
-              }
+            if (!snapshot.exists()) {
+              console.log("No data found for bioBankId:", bioBankId);
+              return;
+            }
 
-              const dbData = snapshot.val();
-              const matchedData = [];
+            const dbData = snapshot.val();
+            console.log("dbData", dbData);
 
-              Object.keys(dbData).forEach(seqNum => {
-                const seqData = dbData[seqNum];
+            Object.keys(dbData).forEach(seqNum => {
+              const seqData = dbData[seqNum];
+              console.log("seqData", seqData);
 
-                Object.keys(seqData).forEach(timestamp => {
-                  const timestampData = seqData[timestamp];
-                  console.log("timestampData",timestampData)
-                  console.log("timestampData",sampleType)
-                  let mode = "SearchView"
+              Object.keys(seqData).forEach(timestamp => {
+                const timestampData = seqData[timestamp];
+                console.log("timestampData", timestampData);
 
-                  if ((sampleType === "FT-1"|| "MFT-1") && timestampData.ie) {
-                    const ftg = timestampData.ie.ftg;
-                    const ftgIndex1 = ftg.split('/')[1];
-                    console.log("ftgIndex1", ftgIndex1);
-                    console.log("ftgIndex1", getSeatLabel(index));
+                if ((sampleType.includes('FT') || sampleType.includes('MFT')) && timestampData.ie) {
+                  const ftg = timestampData.ie.ftg;
+                  const boxName = ftg.split('/')[0];
+                  const ftgIndex1 = ftg.split('/')[1];
 
-                    if (ftgIndex1 && ftgIndex1.split(',').includes(getSeatLabel(index))) {
-                      matchedData.push({
-                        bioBankId,
-                        seq: seqNum,
-                        timestamp
-                      });
-                      pages_display(mode, bioBankId, seqNum, timestamp)
-                    }
+                  if (ftgIndex1 && ftgIndex1.includes(getSeatLabel(index))) {
+                    matchedData.push({
+                      mode: "SearchView",
+                      bioBankId,
+                      seq: seqNum,
+                      timestamp
+                    });
+                    console.log("Matched:", {
+                      mode: "SearchView",
+                      bioBankId,
+                      seqNum,
+                      timestamp
+                    });
                   }
-                  if ((sampleType === "FN-1"|| "MFN-1") && timestampData.ie) {
-                    const fng = timestampData.ie.fng;
-                    const fngIndex1 = fng.split('/')[1];
-                    console.log("fngIndex1", fngIndex1);
-                    console.log("fngIndex1", getSeatLabel(index));
+                }
+                if ((sampleType.includes('FN') || sampleType.includes('MFN')) && timestampData.ie) {
+                  const fng = timestampData.ie.fng;
+                  const boxName = fng.split('/')[0];
+                  const fngIndex1 = fng.split('/')[1];
 
-                    if (fngIndex1 && fngIndex1.split(',').includes(getSeatLabel(index))) {
-                      matchedData.push({
-                        bioBankId,
-                        seq: seqNum,
-                        timestamp
-                      });
-                      pages_display(mode, bioBankId, seqNum, timestamp)
-                    }
+                  if (fngIndex1 && fngIndex1.includes(getSeatLabel(index))) {
+                    matchedData.push({
+                      mode: "SearchView",
+                      bioBankId,
+                      seq: seqNum,
+                      timestamp
+                    });
+                    console.log("Matched:", {
+                      mode: "SearchView",
+                      bioBankId,
+                      seqNum,
+                      timestamp
+                    });
                   }
-                });
+                }
+                
               });
+            });
 
-              if (matchedData.length > 0) {
-                console.log('Matched Data:', matchedData);
-              } else {
-                console.log('No match found for:', labelName);
-              }
+            if (matchedData.length > 0) {
+              console.log('Matched Data:', matchedData);
+              matchedData.forEach(item => {
+                console.log(`Mode: ${item.mode}`);
+                console.log(`BioBank ID: ${item.bioBankId}`);
+                console.log(`Sequence: ${item.seq}`);
+                console.log(`Timestamp: ${item.timestamp}`);
+                // Call your display function here
+                pages_display(item.mode, item.bioBankId, item.seq, item.timestamp);
+              });
+            } else {
+              console.log('No match found for:', labelName);
+            }
           });
         }
+
         if (sts[index] === "s") {
-          labelElement.style.background = "rgb(180, 180, 180)"
+          newLabelElement.style.background = "rgb(180, 180, 180)";
         }
         if (sts[index] === "ps") {
-          labelElement.style.background = "rgb(82, 54, 54)"
+          newLabelElement.style.background = "rgb(193, 154, 107)";
         }
         if (sts[index] === "e") {
-          labelElement.style.background = "rgb(143, 218, 187)"
-          // Add click event only if the status is 'e'
-          labelElement.addEventListener('click', function () {
+          newLabelElement.style.background = "rgb(143, 218, 187)";
+
+          newLabelElement.addEventListener('click', function () {
+            console.log("sts[index]", sts[index]);
             console.log('label name of clicked seat:', labelName);
             $('#exampleModalCenter').modal('show');
           });
