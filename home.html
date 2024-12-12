@@ -295,6 +295,10 @@
                   style="font-size: 10px; color: rgb(255, 255, 255); text-align: center;"></label>
               </div>
             </div>
+            <div class="loadprogress mb-3" id="Bloadprogress" style="display: none;">
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              Loading...
+            </div>
             <div class="arrow-navigation" style="text-align: center;">
               <button onclick="prev1Box()" class="arrow-btn">←</button>
               <button onclick="next1Box()" class="arrow-btn">→</button>
@@ -533,7 +537,10 @@
                   style="font-size: 10px; color: rgb(255, 255, 255); text-align: center;"></label>
               </div>
             </div>
-
+            <div class="loadprogress mb-3" id="Sloadprogress" style="display: none;">
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              Loading...
+            </div>
 
             <div class="arrow-navigation" style="text-align: center;">
               <button onclick="prev2Box()" class="arrow-btn">←</button>
@@ -651,6 +658,8 @@
     </div>
   </div>
 
+  
+
   <footer id="footer" style="margin-bottom: -30px;">
     <div class="container footer-bottom clearfix">
       <div class="copyright">
@@ -675,6 +684,10 @@
     const app = firebase.initializeApp(firebaseConfig);
     const db = firebase.database(app);
 
+    if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn') !== 'true') {
+      window.location.href = "login.html";
+    }
+
     document.getElementById("addBBbox").addEventListener('click', function () {
       $('#createBloodBox').modal('show'); // Close the modal after adding the box
     });
@@ -694,7 +707,7 @@
     }
 
     function AddBloodBoxToDB(customBoxName) {
-      const invalidCharacters = ['.', '$', '#', '[', ']', '/'];
+      const invalidCharacters = ['.', '$', '#', '[', ']', '/', "!", '@', '#', '%', '^', '&', '*', '(', ')', '+', '=', '?', '₹', '<', '>', '|', ':', ';', '{', '}'];
       const alertMessage = document.getElementById('alertMessage_B');
 
 
@@ -704,7 +717,7 @@
         if (hasInvalidCharacters) {
           alertMessage.style.display = 'block';
 
-          alertMessage.innerHTML = "Please avoid using ., $, #, [, ], /.";
+          alertMessage.innerHTML = "Please avoid using Special characters";
           alertMessage.classList.remove("alert-success");
           alertMessage.classList.add("alert-danger");
           return;
@@ -745,7 +758,7 @@
 
 
     function AddSpecimenBoxToDB(customBoxName) {
-      const invalidCharacters = ['.', '$', '#', '[', ']', '/'];
+      const invalidCharacters = ['.', '$', '#', '[', ']', '/', "!", '@', '#', '%', '^', '&', '*', '(', ')', '+', '=', '?', '₹', '<', '>', '|', ':', ';', '{', '}'];
 
       const alertMessage = document.getElementById('alertMessage_S');
 
@@ -756,7 +769,7 @@
         if (hasInvalidCharacters) {
           alertMessage.style.display = 'block';
 
-          alertMessage.innerHTML = "Please avoid using ., $, #, [, ], /.";
+          alertMessage.innerHTML = "Please avoid using Special characters";
           alertMessage.classList.remove("alert-success");
           alertMessage.classList.add("alert-danger");
           return;
@@ -820,11 +833,11 @@
               localStorage.setItem("MRN", mrnNo);
               localStorage.setItem("BioVal", snapshot.val());
             } else {
+              localStorage.setItem("MRN", "");
+              localStorage.setItem("BioVal", "");
               alertMessage.innerHTML = "The MRN number doesn't exist."; // Show error message
               alertMessage.classList.remove("alert-success");
               alertMessage.classList.add("alert-danger");
-              localStorage.setItem("MRN", "");
-              localStorage.setItem("BioVal", "");
             }
             alertMessage.style.display = "block"; // Display the alert
           })
@@ -835,22 +848,42 @@
             console.error("Error checking MRN in Firebase: ", error);
           });
       } else {
+        localStorage.setItem("MRN", "");
+        localStorage.setItem("BioVal", "");
         alertMessage.innerHTML = "Please type a valid MRN number.";
         alertMessage.classList.add("alert-danger");
         alertMessage.style.display = "block"; // Display alert
       }
     }
 
+    // function loadBox() {
+    //   event.preventDefault();
+
+    //   const container = document.getElementById('blood-box-container');
+    //   const load = document.getElementById('loadprogress');
+      
+    //   container.style.display = "none"
+
+    //   console.log("Hello Bhanu");
+    //   setTimeout(() => {
+    //     load.innerHTML = '';
+    //     container.style.display = "block"
+    //     populateBBDataForCurrentBox();
+    //   }, 500);
+    // }
+
 
     test1();
     test2();
+    // let user = sessionStorage.getItem('userName');
+    // console.log("user",user)
 
     document.getElementById('logout').addEventListener('click', logout);
 
     function logout() {
-
+      sessionStorage.removeItem('isLoggedIn');
+      sessionStorage.removeItem('userName');
       window.location.href = 'login.html';
-
     }
 
     db.ref('bb').once('value', (snapshot) => {
