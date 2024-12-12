@@ -317,6 +317,7 @@
                   <th scope="col">Time</th>
                   <th scope="col">Box</th>
                   <th scope="col">Grid</th>
+                  <th scope="col">Type of Samples</th>
                   <th scope="col">Type of Cancer</th>
                   <th scope="col">Stage of Cancer</th>
                   <th scope="col">Grade of Cancer</th>
@@ -333,6 +334,7 @@
                   <td class="latestTimestamp"></td>
                   <td class="box"></td>
                   <td class="grid"></td>
+                  <td class="sampleTypes"></td>
                   <td class="cancerType"></td>
                   <td class="stage"></td>
                   <td class="grade"></td>
@@ -482,6 +484,8 @@
       $('#exampleModalCenter').modal('show');
     }
     function logout() {
+      sessionStorage.removeItem('isLoggedIn');
+      sessionStorage.removeItem('userName');
       window.location.href = 'login.html';
     }
     function handleView() {
@@ -1120,6 +1124,70 @@
     // }
 
 
+    const TypeMapping = {
+      b: 'Biopsy',
+      r: 'Resection',
+      Y: 'Yes',
+      N: 'No',
+      true: 'Yes',
+      false: 'No',
+      brst: 'Breast',
+      F: 'Female',
+      M: 'Male',
+      BL: 'Bilateral',
+      R: 'Right',
+      L: 'Left',
+      option1: 'No residual invasive carcinoma',
+      option2: 'Invasive carcinoma of no special type(ductal)',
+      option3: 'Micro - invasive carcinoma',
+      option4: 'Invasive lobular carcinoma',
+      option5: 'Invasive carcinoma with mixed ductal and lobular features',
+      option6: 'Invasive carcinoma with features of(specify)',
+      option7: 'Tubular carcinoma',
+      option8: 'Invasive cribriform carcinoma',
+      option9: 'Mucinous carcinoma',
+      option10: 'Invasive micropapillary carcinoma',
+      option11: 'Apocrine adenocarcinoma',
+      option12: 'Metaplastic carcinoma',
+      option13: 'Encapsulated papillary carcinoma with invasion',
+      option14: 'Solid papillary carcinoma with invasion',
+      option15: 'Intraductal papillary adenocarcinoma with invasion',
+      option11: 'Adenoid cystic carcinoma',
+      option12: 'Neuroendocrine tumor',
+      option13: 'Neuroendocrine carcinoma',
+      option12: 'Invasive carcinoma, type cannot be determined:',
+      other: 'Other histologic type not listed(specify)',
+      s: 'Shared',
+      ps: 'Partially Shared'
+      // Add more mappings as needed
+    };
+
+    function decodeProcedureType(encodedValue) {
+      return TypeMapping[encodedValue] || '-'; // Fallback to 'Unknown' if the value is not in the mapping
+    }
+
+    function formatTimestamp(unixTimestamp) {
+      if (!unixTimestamp || isNaN(unixTimestamp)) {
+        return '-'; // Return '-' if the input is invalid
+      }
+
+      // Determine if the timestamp is in seconds or milliseconds
+      const timestamp = unixTimestamp > 9999999999 ? unixTimestamp : unixTimestamp * 1000;
+
+      const date = new Date(timestamp); // Create a Date object
+
+      const day = String(date.getDate()).padStart(2, '0'); // Get day with leading zero
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // Get month (0-based, so +1) with leading zero
+      const year = String(date.getFullYear()).slice(-2); // Get last 2 digits of the year
+
+      const hours = String(date.getHours()).padStart(2, '0'); // Get hours with leading zero
+      const minutes = String(date.getMinutes()).padStart(2, '0'); // Get minutes with leading zero
+
+      return `${day}-${month}-${year} ${hours}:${minutes}`; // Format as DD-MM-YY HH:MM
+    }
+
+
+
     function generateExcelData() {
       const dataToExport = [];
       const patients = filteredPatientData && Object.keys(filteredPatientData).length ? filteredPatientData : window.patientData;
@@ -1142,73 +1210,104 @@
               const sample = sampleData[timestampKey];
               if (!latestSample || timestampKey > latestSample.timestamp) {
                 latestSample = {
+                  SefTimestamp: formatTimestamp(timestampKey),
                   BioBankID: bioBankId,
                   Age: sample.ie.ag || '-',
-                  Gender: sample.ie.sx || '-',
-                  CancerType: sample.ie.ct || '-',
-                  ProcedureType: sample.ie.tpr || '-',
+                  Gender: decodeProcedureType(sample.ie.sx) || '-',
+                  CancerType: decodeProcedureType(sample.ie.ct) || '-',
+                  ProcedureType: decodeProcedureType(sample.ie.tpr),
                   DetailProcedure: sample.ie.dpr || '-',
                   SurgeonName: sample.ie.srn || '-',
-                  BloodSample: sample.ie.bs,
-                  SpecimenSample: sample.ie.ss || '-',
-                  OtherSample: sample.ie.osmp || '-',
+                  BloodSample: decodeProcedureType(sample.ie.bs),
+                  SpecimenSample: decodeProcedureType(sample.ie.ss) || '-',
+                  OtherSample: decodeProcedureType(sample.ie.osmp) || '-',
                   PlasmaGrid: sample.ie.bpg || '-',
                   SerumGrid: sample.ie.bsg || '-',
                   BuffyCoatGrid: sample.ie.bbcg || '-',
                   FTTubeGrids: sample.ie.ftg || '-',
                   FNTubeGrids: sample.ie.fng || '-',
+                  OtherSample_description: sample.ie.osdsc || '-',
                   OtherSampleGrid: sample.ie.osg || '-',
-                  Timestamp: timestampKey,
-                  IschemicSample: sample.ie.iss || '-',
+                  IschemicSample: decodeProcedureType(sample.ie.iss) || '-',
                   ProcessedBy: sample.ie.prb || '-',
                   SampleEntryUpdatedBy: sample.ie.fng || '-',
-                  MetastasisSample: sample.ie.mts || '-',
-                  Consent: sample.ie.cnst || '-',
-                  SampleReceivedTime: sample.ie.srt || '-',
-                  SampleProcessedTime: sample.ie.spt || '-',
-                  BloodReceivedTime: sample.ie.brt || '-',
-                  BloodProcessedTime: sample.ie.bpt || '-',
-                  SpecimenReceivedTime: sample.ie.sprt || '-',
-                  SpecimenProcessedTime: sample.ie.sppt || '-',
-                  OtherSampleReceivedTime: sample.ie.ospt || '-',
-                  OtherSampleProcessedTime: sample.ie.osrt || '-',
+                  MetastasisSample: decodeProcedureType(sample.ie.mts) || '-',
+                  Consent: decodeProcedureType(sample.ie.cnst) || '-',
+                  SampleReceivedTime: formatTimestamp(sample.ie.srt) || '-',
+                  SampleProcessedTime: formatTimestamp(sample.ie.spt) || '-',
+                  BloodReceivedTime: formatTimestamp(sample.ie.brt) || '-',
+                  BloodProcessedTime: formatTimestamp(sample.ie.bpt) || '-',
+                  BloodSampleProcessedBy: sample.ie.bsby || '-',
+                  SpecimenReceivedTime: formatTimestamp(sample.ie.sprt) || '-',
+                  SpecimenProcessedTime: formatTimestamp(sample.ie.sppt) || '-',
+                  SpecimenSampleProcessedby: sample.ie.ssby || '-',
+                  OtherSampleReceivedTime: formatTimestamp(sample.ie.ospt) || '-',
+                  OtherSampleProcessedTime: formatTimestamp(sample.ie.osrt) || '-',
+                  OtherSampleProcessedby: sample.ie.osby || '-',
 
-                  FamilyHistoryCancer: sample.md.fhc || '-',
+                  FamilyHistoryCancer: decodeProcedureType(sample.md.fhc) || '-',
                   FamilyRelation: sample.md.fhcr || '-',
                   FamilyCancerType: sample.md.fhct || '-',
-                  ExistingComorbidities: sample.md.ec || '-',
-                  ComorbidityDetails: sample.md.ecm || '-',
+                  FoodHabbits: decodeProcedureType(sample.md.fh) || '-',
+                  HistoryOfAlcoholConsumption: decodeProcedureType(sample.md.hac) || '-',
+                  HistoryOfSmoking: decodeProcedureType(sample.md.hs) || '-',
+                  ExistingComorbidities: decodeProcedureType(sample.md.ec) || '-',
+                  ComorbidityandCorrespondingMedicationsforComorbidity: sample.md.ecm || '-',
+                  FF_QC_comments: sample.md.ffqc || '-',
+                  FF_Tissue_Remarks: sample.md.ftr || '-',
+                  Tumor_Site: sample.md.tst || '-',
+                  TumorPercentage: sample.md.tp || '-',
                   AgeAtDiagnosis: sample.md.ad || '-',
                   ClinicalStage: sample.md.cs || '-',
-                  TumorPercentage: sample.md.tp || '-',
+                  IHC_Marker_status: decodeProcedureType(sample.md.ihcm) || '-',
+                  IHC_marker_description: sample.md.ihcd || '-',
+                  Genetic_Testing: decodeProcedureType(sample.md.gt) || '-',
+                  Genetic_Testing_Description: sample.md.gtd || '-',
+                  Pathologic_Subtype: decodeProcedureType(sample.md.pst) || '-',
+                  Grade: sample.md.gd || '-',
+                  Focality: (sample.md.fc === "Y" ? "Unifocal" : sample.md.fc === "N" ? "Multifocal" : '-'),
+                  LVI: decodeProcedureType(sample.md.lvi) || '-',
+                  PNI: decodeProcedureType(sample.md.pni) || '-',
+                  pTNM: sample.md.ptnm || '-',
                   AJCCStaging: sample.md.as || '-',
                   NumberOfNodesTested: sample.md.nnt || '-',
                   NumberOfPositiveNodes: sample.md.npn || '-',
                   TumorSize: sample.md.tsz || '-',
+                  Denovo_metastasis: decodeProcedureType(sample.md.dm) || '-',
+                  Metastasis_Post_Treatment: decodeProcedureType(sample.md.mpt) || '-',
                   BiopsyTissueNumber: sample.md.btn || '-',
                   BiopsyDate: sample.md.bd || '-',
+                  nact: decodeProcedureType(sample.md.nact) || '-',
+                  NACT_Drug_Cycles: sample.md.nactdc || '-',
+                  NACT_date_of_last_cycle: sample.md.nactdlc || '-',
+                  Surgery_Tissue_Number_HPE: sample.md.stn || '-',
                   SurgeryDate: sample.md.sd || '-',
                   RCBScore: sample.md.rcbs || '-',
-                  NACT: sample.md.nact || '-',
-                  ACT: sample.md.act || '-',
-                  Radiotherapy: sample.md.rd || '-',
-                  ParaffinBlockAvailable: sample.md.ipba || '-',
+                  ACT: decodeProcedureType(sample.md.act) || '-',
+                  ACT_Drug_Cycles: sample.md.actdc || '-',
+                  ACT_Date_of_last_Cycle: sample.md.actdls || '-',
+                  Radiotherapy: decodeProcedureType(sample.md.rd) || '-',
+                  Radiotherapy_details: sample.md.rdd || '-',
+                  RT_date_of_last_cycle: sample.md.rtdls || '-',
+                  ParaffinBlockAvailable: decodeProcedureType(sample.md.ipba) || '-',
+                  Metadata_updated_by: sample.md.mdu || '-',
 
                   AgeOfMenarche: sample.brf.am || '-',
                   Parity: sample.brf.pty || '-',
                   NoOfChildren: sample.brf.noc || '-',
                   AgeAtFirstChild: sample.brf.afc || '-',
-                  Breastfed: sample.brf.bf || '-',
+                  Breastfed: decodeProcedureType(sample.brf.bf) || '-',
                   DurationBreastfeeding: sample.brf.dbf || '-',
                   MenopausalStatus: sample.brf.ms || '-',
-                  ER: sample.brf.er || '-',
-                  PR: sample.brf.pr || '-',
-                  HER2: sample.brf.h2 || '-',
+                  ER: decodeProcedureType(sample.brf.er) || '-',
+                  PR: decodeProcedureType(sample.brf.pr) || '-',
+                  HER2: decodeProcedureType(sample.brf.h2) || '-',
                   Subtype: sample.brf.sbt || '-',
                   Ki67: sample.brf.k67 || '-',
                   ClinicalStage_Brf: sample.brf.cs || '-',
                   HistologicalType: sample.brf.ht || '-',
-                  sTILsPercentScores: sample.brf.sps || '-'
+                  sTILsPercentScores: sample.brf.sps || '-',
+                  BR_form_updated_By: sample.brf.brfu || '-'
                 };
               }
             });
@@ -1232,7 +1331,7 @@
                     VitalStatus: followUp.vs || '-',
                     RecurrenceDate: followUp.rd || '-',
                     Remarks: followUp.rmks || '-',
-                    Timestamp: timestampKey
+                    Timestamp: formatTimestamp(timestampKey/1000)
                   };
                 }
               });
@@ -1266,7 +1365,7 @@
                   PI: latestTimestamp.pip || '-',
                   SharedFormUpdatedBy: latestTimestamp.os_ub || '-',
                   SampleIdentifiers: latestTimestamp.lbi || '-',
-                  OutsourceStatus: latestTimestamp.ossts || '-',
+                  OutsourceStatus: decodeProcedureType(latestTimestamp.ossts) || '-',
                   OsTimestamp: latestTimestamp.doe || '-'
                 };
               }
@@ -1277,6 +1376,7 @@
 
             const rowData = {
               // Sample and Follow-up data...
+              Timestamp: latestSample?.SefTimestamp,
               BioBankID: bioBankId,
               Age: latestSample?.Age || '-',
               Gender: latestSample?.Gender || '-',
@@ -1295,6 +1395,7 @@
               FTTubeGrids: latestSample?.FTTubeGrids || '-',         // FT tube grids
               NumberOfFNTubes: latestSample?.NumberOfFNTubes || '-', // FN Tubes
               FNTubeGrids: latestSample?.FNTubeGrids || '-',         // FN tube grids
+              OtherSample_description: latestSample?.OtherSample_description || '-',
               IschemicSample: latestSample?.IschemicSample || '-',   // Ischemic sample
               ProcessedBy: latestSample?.ProcessedBy || '-',         // Processed By
               SampleEntryUpdatedBy: latestSample?.SampleEntryUpdatedBy || '-',  // Updated By
@@ -1302,10 +1403,13 @@
               Consent: latestSample?.Consent || '-',            // Consent
               SampleReceivedTime: latestSample?.SampleReceivedTime || '-',
               SampleProcessedTime: latestSample?.SampleProcessedTime || '-',
+              SpecimenSampleProcessedby: latestSample?.SpecimenSampleProcessedby || '-',
               BloodReceivedTime: latestSample?.BloodReceivedTime || '-',
               BloodProcessedTime: latestSample?.BloodProcessedTime || '-',
+              BloodSampleProcessedBy: latestSample?.BloodSampleProcessedBy || '-',
               SpecimenReceivedTime: latestSample?.SpecimenReceivedTime || '-',
               SpecimenProcessedTime: latestSample?.SpecimenProcessedTime || '-',
+              OtherSampleProcessedby: latestSample?.OtherSampleProcessedby || '-',
               OtherSampleReceivedTime: latestSample?.OtherSampleReceivedTime || '-',
               OtherSampleProcessedTime: latestSample?.OtherSampleProcessedTime || '-',
 
@@ -1314,24 +1418,49 @@
               FamilyHistoryCancer: latestSample?.FamilyHistoryCancer || '-',
               FamilyRelation: latestSample?.FamilyRelation || '-',
               FamilyCancerType: latestSample?.FamilyCancerType || '-',
+              FoodHabbits: latestSample?.FoodHabbits || '-',
+              HistoryOfAlcoholConsumption: latestSample?.HistoryOfAlcoholConsumption || '-',
+              HistoryOfSmoking: latestSample?.HistoryOfSmoking || '-',
               ExistingComorbidities: latestSample?.ExistingComorbidities || '-',
               ComorbidityDetails: latestSample?.ComorbidityDetails || '-',
+              FF_QC_comments: latestSample?.FF_QC_comments || '-',
+              FF_Tissue_Remarks: latestSample?.FF_Tissue_Remarks || '-',
+              Tumor_Site: latestSample?.Tumor_Site || '-',
+              TumorPercentage: latestSample?.TumorPercentage || '-',
               AgeAtDiagnosis: latestSample?.AgeAtDiagnosis || '-',
               ClinicalStage: latestSample?.ClinicalStage || '-',
-              TumorPercentage: latestSample?.TumorPercentage || '-',
+              IHC_Marker_status: latestSample?.IHC_Marker_status || '-',
+              IHC_marker_description: latestSample?.IHC_marker_description || '-',
+              Genetic_Testing: latestSample?.Genetic_Testing || '-',
+              Genetic_Testing_Description: latestSample?.Genetic_Testing_Description || '-',
+              Pathologic_Subtype: latestSample?.Pathologic_Subtype || '-',
+              Grade: latestSample?.Grade || '-',
+              Focality: latestSample?.Focality || '-',
+              LVI: latestSample?.LVI || '-',
+              PNI: latestSample?.PNI || '-',
+              pTNM: latestSample?.pTNM || '-',
               AJCCStaging: latestSample?.AJCCStaging || '-',
               NumberOfNodesTested: latestSample?.NumberOfNodesTested || '-',
               NumberOfPositiveNodes: latestSample?.NumberOfPositiveNodes || '-',
               TumorSize: latestSample?.TumorSize || '-',
+              Denovo_metastasis: latestSample?.Denovo_metastasis || '-',
+              Metastasis_Post_Treatment: latestSample?.Metastasis_Post_Treatment || '-',
               BiopsyTissueNumber: latestSample?.BiopsyTissueNumber || '-',
               BiopsyDate: latestSample?.BiopsyDate || '-',
+              NACT: latestSample?.nact || '-',
+              NACT_Drug_Cycles: latestSample?.NACT_Drug_Cycles || '-',
+              NACT_date_of_last_cycle: latestSample?.NACT_date_of_last_cycle || '-',
+              Surgery_Tissue_Number_HPE: latestSample?.Surgery_Tissue_Number_HPE || '-',
               SurgeryDate: latestSample?.SurgeryDate || '-',
               RCBScore: latestSample?.RCBScore || '-',
-              NACT: latestSample?.NACT || '-',
               ACT: latestSample?.ACT || '-',
+              ACT_Drug_Cycles: latestSample?.ACT_Drug_Cycles || '-',
+              ACT_Date_of_last_Cycle: latestSample?.ACT_Date_of_last_Cycle || '-',
               Radiotherapy: latestSample?.Radiotherapy || '-',
+              Radiotherapy_details: latestSample?.Radiotherapy_details || '-',
+              RT_date_of_last_cycle: latestSample?.RT_date_of_last_cycle || '-',
               ParaffinBlockAvailable: latestSample?.ParaffinBlockAvailable || '-',
-
+              Metadata_updated_by: latestSample?.Metadata_updated_by || '-',
 
 
               AgeOfMenarche: latestSample?.AgeOfMenarche || '-',
@@ -1349,6 +1478,7 @@
               ClinicalStage_Brf: latestSample?.ClinicalStage || '-',  // To avoid duplicate field name
               HistologicalType: latestSample?.HistologicalType || '-',
               sTILsPercentScores: latestSample?.sTILsPercentScores || '-',
+              BR_form_updated_By: latestSample?.BR_form_updated_By || '-',
 
               // Other sample fields...
               LastFollowUpStatus: latestFollowUp?.LastFollowUpStatus || '-',
@@ -1356,17 +1486,17 @@
               VitalStatus: latestFollowUp?.VitalStatus || '-',
               RecurrenceDate: latestFollowUp?.RecurrenceDate || '-',
               Remarks: latestFollowUp?.Remarks || '-',
-              LatestSampleTimestamp: latestSample?.Timestamp || '-',
+              // LatestSampleTimestamp: latestSample?.Timestamp || '-',
               LatestFollowUpTimestamp: latestFollowUp?.Timestamp || '-',
 
               // Os (Shared) data
+              OsTimestamp: osSharedData?.OsTimestamp || '-',
               Department: osSharedData?.Department || '-',
               Project: osSharedData?.Project || '-',
               PI: osSharedData?.PI || '-',
               SharedFormUpdatedBy: osSharedData?.SharedFormUpdatedBy || '-',
               SampleIdentifiers: osSharedData?.SampleIdentifiers || '-',
-              OutsourceStatus: osSharedData?.OutsourceStatus || '-',
-              OsTimestamp: osSharedData?.OsTimestamp || '-'
+              OutsourceStatus: osSharedData?.OutsourceStatus || '-'
             };
 
             dataToExport.push(rowData);
@@ -1386,8 +1516,6 @@
           });
       });
     }
-
-
     // function generateExcelData() {
     //   const dataToExport = [];
     //   const patients = filteredPatientData && Object.keys(filteredPatientData).length ? filteredPatientData : window.patientData;
