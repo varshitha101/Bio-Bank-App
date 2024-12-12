@@ -305,6 +305,8 @@
     document.getElementById('logout').addEventListener('click', logout);
 
     function logout() {
+      sessionStorage.removeItem('isLoggedIn');
+      sessionStorage.removeItem('userName');
       window.location.href = 'login.html';
     }
   </script>
