@@ -229,9 +229,298 @@ function populateBBLabels(data, boxVal, debug) {
 
         if (sts[index] === "s") {
           newLabelElement.style.background = "rgb(180, 180, 180)";
+
+          const matchedData = [];
+
+          newLabelElement.addEventListener('click', async function () {
+            console.log('Fetching data for:', labelName);
+
+            const bioBankId = bioBankIds[index];
+            const sampleType = sample[index];
+
+            localStorage.setItem('sharedbioid', bioBankId);
+
+            const dbRef = db.ref(`sef/${bioBankId}`);
+            const snapshot = await dbRef.get();
+
+            if (!snapshot.exists()) {
+              console.log("No data found for bioBankId:", bioBankId);
+              return;
+            }
+
+            const dbData = snapshot.val();
+            console.log("dbData", dbData);
+
+            Object.keys(dbData).forEach(seqNum => {
+              const seqData = dbData[seqNum];
+              console.log("seqData", seqData);
+
+              Object.keys(seqData).forEach(timestamp => {
+                const timestampData = seqData[timestamp];
+                console.log("timestampData", timestampData);
+
+                if (timestampData.ie) {
+                  const bpg = timestampData.ie.bpg;
+                  const boxName = bpg.split('/')[0];
+                  const bpgIndex1 = bpg.split('/')[1];
+
+                  if (bpgIndex1 && bpgIndex1.includes(getSeatLabel(index))) {
+                    matchedData.push({
+                      mode: "sharedView",
+                      boxName,
+                      bioBankId,
+                      seq: seqNum,
+                      timestamp
+                    });
+                    console.log("Matched:", {
+                      mode: "sharedView",
+                      boxName,
+                      bioBankId,
+                      seqNum,
+                      timestamp
+                    });
+                  }
+                }
+                if ((sampleType === "Serum" || sampleType === "MSerum") && timestampData.ie) {
+                  const bsg = timestampData.ie.bsg;
+                  console.log("bsg", bsg);
+                  console.log("bsgIndex1", getSeatLabel(index));
+                  const boxName = bsg.split('/')[0];
+                  const bsgIndex1 = bsg.split('/')[1]; // get index1
+                  console.log("bsgIndex1", bsgIndex1);
+
+                  if (bsgIndex1 && bsgIndex1.split(',').includes(getSeatLabel(index))) {
+                    matchedData.push({
+                      mode: "sharedView",
+                      boxName,
+                      bioBankId,
+                      seq: seqNum,
+                      timestamp
+                    });
+                    console.log("Matched:", {
+                      mode: "sharedView",
+                      boxName,
+                      bioBankId,
+                      seqNum,
+                      timestamp
+                    });
+                  }
+                }
+                if ((sampleType === "Buffy Coat" || sampleType === "MBuffy Coat") && timestampData.ie) {
+                  const bbcg = timestampData.ie.bbcg;
+                  console.log("bbcg", bbcg);
+                  console.log("bbcgIndex1", getSeatLabel(index));
+                  const boxName = bbcg.split('/')[0];
+                  const bbcgIndex1 = bbcg.split('/')[1];
+                  console.log("bbcgIndex1", bbcgIndex1);
+
+                  if (bbcgIndex1 && bbcgIndex1.split(',').includes(getSeatLabel(index))) {
+                    matchedData.push({
+                      mode: "sharedView",
+                      boxName,
+                      bioBankId,
+                      seq: seqNum,
+                      timestamp
+                    });
+                    console.log("Matched:", {
+                      mode: "sharedView",
+                      boxName,
+                      bioBankId,
+                      seqNum,
+                      timestamp
+                    });
+                  }
+                }
+                if ((sampleType === "Other" || sampleType === "MOther") && timestampData.ie) {
+                  const osg = timestampData.ie.osg;
+                  console.log("osg", osg);
+                  console.log("osgIndex1", getSeatLabel(index));
+                  const boxName = osg.split('/')[0];
+                  const osgIndex1 = osg.split('/')[1];
+                  console.log("osgIndex1", osgIndex1);
+
+                  if (osgIndex1 && osgIndex1.includes(getSeatLabel(index))) {
+                    matchedData.push({
+                      mode: "sharedView",
+                      boxName,
+                      bioBankId,
+                      seq: seqNum,
+                      timestamp
+                    });
+                    console.log("Matched:", {
+                      mode: "sharedView",
+                      boxName,
+                      bioBankId,
+                      seqNum,
+                      timestamp
+                    });
+                  }
+                }
+                
+              });
+            });
+
+            if (matchedData.length > 0) {
+              console.log('Matched Data:', matchedData);
+              matchedData.forEach(item => {
+                console.log(`Mode: ${item.mode}`);
+                console.log(`Box Name: ${item.boxName}`);
+                console.log(`BioBank ID: ${item.bioBankId}`);
+                console.log(`Sequence: ${item.seq}`);
+                console.log(`Timestamp: ${item.timestamp}`);
+                shared_pages_display(item.mode, item.bioBankId, item.seq, item.boxName, item.timestamp);
+              });
+            } else {
+              console.log('No match found for:', labelName);
+            }
+          });
         }
         if (sts[index] === "ps") {
           newLabelElement.style.background = "rgb(193, 154, 107)";
+          const matchedData = [];
+
+          newLabelElement.addEventListener('click', async function () {
+            console.log('Fetching data for:', labelName);
+
+            const bioBankId = bioBankIds[index];
+            const sampleType = sample[index];
+
+            localStorage.setItem('sharedbioid', bioBankId);
+
+            const dbRef = db.ref(`sef/${bioBankId}`);
+            const snapshot = await dbRef.get();
+
+            if (!snapshot.exists()) {
+              console.log("No data found for bioBankId:", bioBankId);
+              return;
+            }
+
+            const dbData = snapshot.val();
+            console.log("dbData", dbData);
+
+            Object.keys(dbData).forEach(seqNum => {
+              const seqData = dbData[seqNum];
+              console.log("seqData", seqData);
+
+              Object.keys(seqData).forEach(timestamp => {
+                const timestampData = seqData[timestamp];
+                console.log("timestampData", timestampData);
+
+                if (timestampData.ie) {
+                  const bpg = timestampData.ie.bpg;
+                  const boxName = bpg.split('/')[0];
+                  const bpgIndex1 = bpg.split('/')[1];
+
+                  if (bpgIndex1 && bpgIndex1.includes(getSeatLabel(index))) {
+                    matchedData.push({
+                      mode: "sharedView",
+                      boxName,
+                      bioBankId,
+                      seq: seqNum,
+                      timestamp
+                    });
+                    console.log("Matched:", {
+                      mode: "sharedView",
+                      boxName,
+                      bioBankId,
+                      seqNum,
+                      timestamp
+                    });
+                  }
+                }
+                if ((sampleType === "Serum" || sampleType === "MSerum") && timestampData.ie) {
+                  const bsg = timestampData.ie.bsg;
+                  console.log("bsg", bsg);
+                  console.log("bsgIndex1", getSeatLabel(index));
+                  const boxName = bsg.split('/')[0];
+                  const bsgIndex1 = bsg.split('/')[1]; // get index1
+                  console.log("bsgIndex1", bsgIndex1);
+
+                  if (bsgIndex1 && bsgIndex1.split(',').includes(getSeatLabel(index))) {
+                    matchedData.push({
+                      mode: "sharedView",
+                      boxName,
+                      bioBankId,
+                      seq: seqNum,
+                      timestamp
+                    });
+                    console.log("Matched:", {
+                      mode: "sharedView",
+                      boxName,
+                      bioBankId,
+                      seqNum,
+                      timestamp
+                    });
+                  }
+                }
+                if ((sampleType === "Buffy Coat" || sampleType === "MBuffy Coat") && timestampData.ie) {
+                  const bbcg = timestampData.ie.bbcg;
+                  console.log("bbcg", bbcg);
+                  console.log("bbcgIndex1", getSeatLabel(index));
+                  const boxName = bbcg.split('/')[0];
+                  const bbcgIndex1 = bbcg.split('/')[1];
+                  console.log("bbcgIndex1", bbcgIndex1);
+
+                  if (bbcgIndex1 && bbcgIndex1.split(',').includes(getSeatLabel(index))) {
+                    matchedData.push({
+                      mode: "sharedView",
+                      boxName,
+                      bioBankId,
+                      seq: seqNum,
+                      timestamp
+                    });
+                    console.log("Matched:", {
+                      mode: "sharedView",
+                      boxName,
+                      bioBankId,
+                      seqNum,
+                      timestamp
+                    });
+                  }
+                }
+                if ((sampleType === "Other" || sampleType === "MOther") && timestampData.ie) {
+                  const osg = timestampData.ie.osg;
+                  console.log("osg", osg);
+                  console.log("osgIndex1", getSeatLabel(index));
+                  const boxName = osg.split('/')[0];
+                  const osgIndex1 = osg.split('/')[1];
+                  console.log("osgIndex1", osgIndex1);
+
+                  if (osgIndex1 && osgIndex1.includes(getSeatLabel(index))) {
+                    matchedData.push({
+                      mode: "sharedView",
+                      boxName,
+                      bioBankId,
+                      seq: seqNum,
+                      timestamp
+                    });
+                    console.log("Matched:", {
+                      mode: "sharedView",
+                      boxName,
+                      bioBankId,
+                      seqNum,
+                      timestamp
+                    });
+                  }
+                }
+                
+              });
+            });
+
+            if (matchedData.length > 0) {
+              console.log('Matched Data:', matchedData);
+              matchedData.forEach(item => {
+                console.log(`Mode: ${item.mode}`);
+                console.log(`Box Name: ${item.boxName}`);
+                console.log(`BioBank ID: ${item.bioBankId}`);
+                console.log(`Sequence: ${item.seq}`);
+                console.log(`Timestamp: ${item.timestamp}`);
+                shared_pages_display(item.mode, item.bioBankId, item.seq, item.boxName, item.timestamp);
+              });
+            } else {
+              console.log('No match found for:', labelName);
+            }
+          });
         }
         if (sts[index] === "e") {
           newLabelElement.style.background = "rgb(143, 218, 187)";
@@ -533,6 +822,101 @@ function populateSBLabels(data) {
 
         if (sts[index] === "s") {
           newLabelElement.style.background = "rgb(180, 180, 180)";
+          const matchedData = [];
+
+          newLabelElement.addEventListener('click', async function () {
+            console.log('Fetching data for:', labelName);
+
+            const bioBankId = bioBankIds[index];
+            const sampleType = sample[index];
+
+            localStorage.setItem('sharedbioid', bioBankId);
+
+            const dbRef = db.ref(`sef/${bioBankId}`);
+            const snapshot = await dbRef.get();
+
+            if (!snapshot.exists()) {
+              console.log("No data found for bioBankId:", bioBankId);
+              return;
+            }
+
+            const dbData = snapshot.val();
+            console.log("dbData", dbData);
+
+            Object.keys(dbData).forEach(seqNum => {
+              const seqData = dbData[seqNum];
+              console.log("seqData", seqData);
+
+              Object.keys(seqData).forEach(timestamp => {
+                const timestampData = seqData[timestamp];
+                console.log("timestampData", timestampData);
+
+                if ((sampleType.includes('FT') || sampleType.includes('MFT')) && timestampData.ie) {
+                  const ftg = timestampData.ie.ftg;
+                  const boxName = ftg.split('/')[0];
+                  const ftgIndex1 = ftg.split('/')[1];
+
+                  if (ftgIndex1 && ftgIndex1.includes(getSeatLabel(index))) {
+                    matchedData.push({
+                      mode: "sharedView",
+                      boxName,
+                      bioBankId,
+                      seq: seqNum,
+                      timestamp
+                    });
+                    console.log("Matched:", {
+                      mode: "sharedView",
+                      boxName,
+                      bioBankId,
+                      seqNum,
+                      timestamp
+                    });
+                  }
+                }
+                if ((sampleType.includes('FN') || sampleType.includes('MFN')) && timestampData.ie) {
+                  const fng = timestampData.ie.fng;
+                  console.log("fng", fng);
+                  console.log("fngIndex1", getSeatLabel(index));
+                  const boxName = fng.split('/')[0];
+                  const fngIndex1 = fng.split('/')[1]; // get index1
+                  console.log("bsgIndex1", fngIndex1);
+
+                  if (fngIndex1 && fngIndex1.split(',').includes(getSeatLabel(index))) {
+                    matchedData.push({
+                      mode: "sharedView",
+                      boxName,
+                      bioBankId,
+                      seq: seqNum,
+                      timestamp
+                    });
+                    console.log("Matched:", {
+                      mode: "sharedView",
+                      boxName,
+                      bioBankId,
+                      seqNum,
+                      timestamp
+                    });
+                  }
+                }
+                
+                
+              });
+            });
+
+            if (matchedData.length > 0) {
+              console.log('Matched Data:', matchedData);
+              matchedData.forEach(item => {
+                console.log(`Mode: ${item.mode}`);
+                console.log(`Box Name: ${item.boxName}`);
+                console.log(`BioBank ID: ${item.bioBankId}`);
+                console.log(`Sequence: ${item.seq}`);
+                console.log(`Timestamp: ${item.timestamp}`);
+                shared_pages_display(item.mode, item.bioBankId, item.seq, item.boxName, item.timestamp);
+              });
+            } else {
+              console.log('No match found for:', labelName);
+            }
+          });
         }
         if (sts[index] === "ps") {
           newLabelElement.style.background = "rgb(193, 154, 107)";
@@ -1307,7 +1691,7 @@ function validateForm2() {
       ecm: document.getElementById('comorbidityMedications').value || "",
       ffqc: document.getElementById('ffQcComments').value || "",
       ftr: document.getElementById('ffTissueRemarks').value || "",
-      tst: document.querySelector('input[name="tumorSite"]:checked')?.value || "",
+      tst: document.querySelector('input[name="tumorSite"]:checked')?.value === 'true' ? true : false || false,
       tp: Number(document.getElementById('tumorPercentage').value) || 0,
       ad: Number(document.getElementById('ageAtDiagnosis').value) || 0,
       cs: document.getElementById('clinicalStage')?.value || "",
@@ -1646,6 +2030,11 @@ function pages_display(mode, bioBankId, seq, timestampKey) {
               localStorage.setItem("selectedGrid", "");
               window.location.href = `default.html?mode=view`;
               break;
+            // case 'sharedView':
+            // localStorage.setItem("selectedGrid", "");
+            // window.location.href = `default.html?shared=true`;
+            // break;
+              
             default:
               console.error('Unknown mode:', mode);
           }
@@ -1696,7 +2085,9 @@ function fillIeForm(ieData) {
   document.getElementById('BprocessedBy').value = ieData.bspb || '';
   document.getElementById('SprocessedBy').value = ieData.sspb || '';
   document.getElementById('OprocessedBy').value = ieData.ospb || '';
+  document.getElementById('sefdataEB').value = ieData.sef_ub || '';
 
+  
   const formatTimestamp = (timestamp) => {
     if (!timestamp) return { date: '', time: '' };
     const dateObj = new Date(timestamp);
@@ -1740,6 +2131,7 @@ function fillIeForm(ieData) {
 }
 
 function fillMdForm(mdData) {
+  document.getElementById('mddataEB').value = mdData.mdu || 'currentUser';
   document.querySelector(`input[name="RadioFHabit"][value="${mdData.fhc}"]`).checked = true;
   document.getElementById('familyRelation').value = mdData.fhcr || '';
   document.getElementById('familyCancerType').value = mdData.fhct || '';
@@ -1791,11 +2183,11 @@ function fillMdForm(mdData) {
   document.getElementById('radiotherapyDetails').value = mdData.rdd || '';
   document.getElementById('radiotherapyLastCycleDate').value = mdData.rtdls || '';
   document.querySelector(`input[name="pbT"][value="${mdData.ipba}"]`).checked = true;
-  document.getElementById('processedBy').value = mdData.mdu || 'currentUser';
 }
 
 
 function fillBrfForm(brfData) {
+  document.getElementById('brfdataEB').value = brfData.brfu || 'currentUser';
   document.getElementById('ageAtMenarche').value = brfData.am || '';
   document.getElementById('parity').value = brfData.pty || '';
   document.getElementById('numChild').value = brfData.noc || '';
@@ -1813,7 +2205,6 @@ function fillBrfForm(brfData) {
   document.getElementById('ClinicalS').value = brfData.cs || '';
   document.getElementById('HistologicalS').value = brfData.ht || '';
   document.getElementById('sps').value = brfData.sps || '';
-  document.getElementById('processedBy').value = brfData.brfu || 'currentUser';
 }
 
 function updateToFirebase(data) {
@@ -2168,6 +2559,8 @@ function displayFollowupData(data) {
   document.getElementById('remark').value = data.rmks || '';
 
 }
+
+
 function shareDate(mode, selectedPatients) {
   // Convert the selectedPatients array into a JSON string before storing
   localStorage.setItem('selectedPatients', JSON.stringify(selectedPatients));
@@ -2184,3 +2577,201 @@ function shareDate(mode, selectedPatients) {
   }
 }
 
+function popSharedmodal() {
+  $('#bloodModalCenter').modal('show');
+
+  fetchSeatDataFromDB('bb').then(seatData => {
+    populateBSeats('blood-box', seatData);
+  });
+
+  function fetchSeatDataFromDB(nodeName) {
+    return new Promise((resolve, reject) => {
+      let dbRef = firebase.database().ref(nodeName);
+      dbRef.once('value')
+        .then(snapshot => {
+          let seatData = snapshot.val();
+          resolve(seatData);
+        })
+        .catch(error => {
+          console.error("Error fetching seat data:", error);
+          reject(error);
+        });
+    });
+  }
+
+  function populateBSeats(containerClass, seatData) {
+    let container = document.querySelector(`.${containerClass}`);
+    container.innerHTML = '';
+
+    const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+    const cols = 10;
+
+    const activeBoxEntry = Object.entries(seatData).find(([boxName, data]) => data.bxsts === 'AC');
+
+    if (!activeBoxEntry) {
+      console.error("No active box found with status 'AC'.");
+      return;
+    }
+
+    grid = localStorage.getItem("selectedGrid");
+    console.log("selected Grid Data:", grid);
+
+    const [activeBoxName, filteredSeats] = activeBoxEntry;
+    console.log("Active Box Name:", activeBoxName);
+
+    document.getElementById('currBloodBoxName').textContent = activeBoxName;
+
+
+    const indexedSeats = filteredSeats;
+    if (!indexedSeats) {
+      console.log("No indexed seats available in the active box.");
+      return;
+    }
+
+
+    for (let row = 0; row < rows.length; row++) {
+      for (let col = 1; col <= cols; col++) {
+        const labelName = `label_B${rows[row]}${col}`;
+        const seatID = `${rows[row]}${col}`;
+        const index = row * cols + (col - 1);
+
+
+        const seat = indexedSeats[index];
+
+        if (seat) {
+          container.insertAdjacentHTML(
+            "beforeend",
+            `<input type="checkbox" name="seats" id="${seatID}" />` +
+            `<label for="${seatID}" class="seat" id="${labelName}">${labelName}</label>`
+          );
+
+          document.getElementById(seatID).addEventListener('change', function (event) {
+            handleBSeatSelection(seatID, event.target.checked, seat.status);
+          });
+
+          let labelElement = document.getElementById(labelName);
+          if (labelElement) {
+            labelElement.textContent = `${seat.bioBankId || ""} \n ${seat.sampleType}` || '';
+            labelElement.style.fontWeight = "bold";
+            labelElement.style.fontSize = "10px";
+            labelElement.style.textAlign = 'center';
+            labelElement.style.color = 'white';
+
+            if (seat.status === "o" || (seatID.includes(grid))) {
+              labelElement.style.background = "rgb(129, 129, 192)";
+            } else if (seat.status === "s") {
+              labelElement.style.background = "rgb(180, 180, 180)";
+            } else if (seat.status === "ps") {
+              labelElement.style.background = "rgb(193, 154, 107)";
+            } else if (seat.status === "e") {
+              labelElement.style.background = "rgb(143, 218, 187)";
+            }
+          }
+        }
+      }
+      container.insertAdjacentHTML("beforeend", "<br/>");
+    }
+
+    
+  }
+}
+
+function retrieveOs(bioBankId) {
+  db.ref(`Os/${bioBankId}`).once('value')
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        const outSourceData = snapshot.val();
+        console.log('Retrieved OutSource data:', outSourceData);
+
+        Object.keys(outSourceData).forEach(seqNum => {
+          const seqData = outSourceData[seqNum];
+        console.log("seqnum",seqData)
+        const timestamps = Object.keys(seqData);
+        
+        const latestTimestamp = Math.max(...timestamps.map((t) => parseInt(t)));
+        
+        const latestData = seqData[latestTimestamp];
+
+        console.log("latestData", latestData);
+
+        displayOutsourceData(latestData);
+      });
+      }
+    
+      else {
+        console.log('No OutSource data found for this BioBank ID.');
+      }
+   
+    })
+    .catch((error) => {
+      console.error('Error retrieving OutSource data:', error);
+      alert('There was an error retrieving the OutSource information. Please try again.');
+    });
+}
+
+
+
+
+function shared_pages_display(mode, bioBankId, seq, boxName, timestampKey) {
+  console.log("mode", mode);
+  console.log("bioBankId", bioBankId);
+  console.log("seq", seq);
+  console.log("timestampKey", timestampKey);
+  console.log("boxName",boxName)
+  
+    var dataPath = `Os/${bioBankId}/${seq}/`;
+  
+  console.log("datapath", dataPath);
+  console.log("DataConfig", db);
+
+  localStorage.setItem('bioid', bioBankId);
+  localStorage.setItem('mode', mode)
+
+
+  if (mode != "") {
+    console.log('dataPath', dataPath);
+    db.ref(dataPath).once('value')
+      .then(snapshot => {
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          console.log("Fetched data:", data);
+          sessionStorage.setItem('sharedData', JSON.stringify(data));
+          const storedData = sessionStorage.getItem('sharedData');
+          if (storedData) {
+            const parsedData = JSON.parse(storedData); 
+            console.log('parsedData', parsedData);
+          } else {
+            console.log('No formData found in sessionStorage');
+          }
+          switch (mode) {
+            case 'sharedView':
+            localStorage.setItem("selectedGrid", "");
+            window.location.href = `default.html?shared=true`;
+            break;
+              
+            default:
+              console.error('Unknown mode:', mode);
+          }
+        } else {
+          console.error('No data found at the specified path');
+        }
+      }).catch(error => {
+        console.error("Error fetching data:", error);
+      });
+  }
+  else if (mode === "") {
+    localStorage.setItem("selectedGrid", "");
+    window.location.href = "default.html";
+  }
+}
+
+function displayOutsourceData(data) {
+  console.log('Displaying Outsource data:', data);
+  document.querySelector(`input[name="sharestatus"][value="${data.ossts}"]`).checked = true;
+  document.getElementById('startInputOutsource').value = data.doe || '';
+  document.getElementById('institute').value = data.dpt || '';
+  document.getElementById('projectName').value = data.prj || '';
+  document.getElementById('nopi').value = data.pip || '';
+  document.getElementById('parSharedRemark').value = data.psr || '';
+
+}
