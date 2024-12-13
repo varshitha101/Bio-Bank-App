@@ -297,69 +297,29 @@
                 <div class="col-sm-10 mt-2">
                   <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="MetastasisSampleY" name="MetastasisSample" class="custom-control-input"
-                      value= true required>
+                      value=true required>
                     <label class="custom-control-label" for="MetastasisSampleY">Yes</label>
                   </div>
                   <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="MetastasisSampleN" name="MetastasisSample" class="custom-control-input"
-                      value= false required>
+                      value=false required>
                     <label class="custom-control-label" for="MetastasisSampleN">No</label>
                   </div>
                 </div>
               </div>
 
               <div class="row ml-1 mb-3">
-                <label for="bloodsample" class="col-sm-2 mb-1 col-form-label">Blood Sample <span
-                    style="color: red; font-weight: bold;">*</span></label>
-                <div class="col-sm-10 mt-2">
-                  <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="bloodSampleY" name="bloodSample" class="custom-control-input" value= true
-                      required>
-                    <label class="custom-control-label" for="bloodSampleY">Yes</label>
-                  </div>
-                  <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="bloodSampleN" name="bloodSample" class="custom-control-input" value= false
-                      required>
-                    <label class="custom-control-label" for="bloodSampleN">No</label>
-                  </div>
-                </div>
-              </div>
-              <div class="row ml-1 mb-3" id="plasmatubes" style="display: none;">
-                <label for="PlasmagridNo" class="col-sm-2 mb-1 col-form-label">Plasma Grid <span
-                    style="color: red; font-weight: bold;">*</span></label>
-                <div class="col-sm-10 mt-2">
-                  <input type="button" class="form-control" id="PlasmagridNo" onclick="popPlasmamodal()"
-                    placeholder="Plasma Grid">
-                </div>
-              </div>
-              <div class="row ml-1 mb-3" id="serumtubes" style="display: none;">
-                <label for="SerumgridNo" class="col-sm-2 mb-1 col-form-label">Serum Grid <span
-                    style="color: red; font-weight: bold;">*</span></label>
-                <div class="col-sm-10 mt-2">
-                  <input type="button" class="form-control" id="SerumgridNo" onclick="popSerummodal()"
-                    placeholder="Serum Grid">
-                </div>
-              </div>
-              <div class="row ml-1 mb-3" id="bufferCoatTubes" style="display: none;">
-                <label for="bufferCoatgridNo" class="col-sm-2 mb-1 col-form-label">Buffy Coat Grid <span
-                    style="color: red; font-weight: bold;">*</span></label>
-                <div class="col-sm-10 mt-2">
-                  <input type="button" class="form-control" id="bufferCoatgridNo" onclick="popBuffermodal()"
-                    placeholder="Buffer Grid">
-                </div>
-              </div>
-              <div class="row ml-1 mb-3">
                 <label for="specimensample" class="col-sm-2 mb-1 col-form-label">Specimen Sample <span
                     style="color: red; font-weight: bold;">*</span></label>
                 <div class="col-sm-10 mt-2">
                   <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="specimenSampleY" name="specimenSample" class="custom-control-input"
-                      value= true required>
+                      value=true required>
                     <label class="custom-control-label" for="specimenSampleY">Yes</label>
                   </div>
                   <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="specimenSampleN" name="specimenSample" class="custom-control-input"
-                      value= false required>
+                      value=false required>
                     <label class="custom-control-label" for="specimenSampleN">No</label>
                   </div>
                 </div>
@@ -419,17 +379,59 @@
                     placeholder="FN Grid No.">
                 </div>
               </div>
+
+              <div class="row ml-1 mb-3">
+                <label for="bloodsample" class="col-sm-2 mb-1 col-form-label">Blood Sample <span
+                    style="color: red; font-weight: bold;">*</span></label>
+                <div class="col-sm-10 mt-2">
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="bloodSampleY" name="bloodSample" class="custom-control-input" value=true
+                      required>
+                    <label class="custom-control-label" for="bloodSampleY">Yes</label>
+                  </div>
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="bloodSampleN" name="bloodSample" class="custom-control-input" value=false
+                      required>
+                    <label class="custom-control-label" for="bloodSampleN">No</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row ml-1 mb-3" id="plasmatubes" style="display: none;">
+                <label for="PlasmagridNo" class="col-sm-2 mb-1 col-form-label">Plasma Grid <span
+                    style="color: red; font-weight: bold;">*</span></label>
+                <div class="col-sm-10 mt-2">
+                  <input type="button" class="form-control" id="PlasmagridNo" onclick="popPlasmamodal()"
+                    placeholder="Plasma Grid">
+                </div>
+              </div>
+              <div class="row ml-1 mb-3" id="serumtubes" style="display: none;">
+                <label for="SerumgridNo" class="col-sm-2 mb-1 col-form-label">Serum Grid <span
+                    style="color: red; font-weight: bold;">*</span></label>
+                <div class="col-sm-10 mt-2">
+                  <input type="button" class="form-control" id="SerumgridNo" onclick="popSerummodal()"
+                    placeholder="Serum Grid">
+                </div>
+              </div>
+              <div class="row ml-1 mb-3" id="bufferCoatTubes" style="display: none;">
+                <label for="bufferCoatgridNo" class="col-sm-2 mb-1 col-form-label">Buffy Coat Grid <span
+                    style="color: red; font-weight: bold;">*</span></label>
+                <div class="col-sm-10 mt-2">
+                  <input type="button" class="form-control" id="bufferCoatgridNo" onclick="popBuffermodal()"
+                    placeholder="Buffer Grid">
+                </div>
+              </div>
+              
               <div class="row ml-1 mb-3">
                 <label for="otherSample" class="col-sm-2 mb-1 col-form-label">Other Sample <span
                     style="color: red; font-weight: bold;">*</span></label>
                 <div class="col-sm-10 mt-2">
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="otherSampleY" name="otherSample" class="custom-control-input" value= true
+                    <input type="radio" id="otherSampleY" name="otherSample" class="custom-control-input" value=true
                       required>
                     <label class="custom-control-label" for="otherSampleY">Yes</label>
                   </div>
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="otherSampleN" name="otherSample" class="custom-control-input" value= false
+                    <input type="radio" id="otherSampleN" name="otherSample" class="custom-control-input" value=false
                       required>
                     <label class="custom-control-label" for="otherSampleN">No</label>
                   </div>
@@ -454,11 +456,12 @@
                 <label for="consent" class="col-sm-2 mb-1 col-form-label">Consent</label>
                 <div class="col-sm-10 mt-2">
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="radioConsent1" name="customConsent" class="custom-control-input" value= true>
+                    <input type="radio" id="radioConsent1" name="customConsent" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="radioConsent1">Yes</label>
                   </div>
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="radioConsent2" name="customConsent" class="custom-control-input" value= false>
+                    <input type="radio" id="radioConsent2" name="customConsent" class="custom-control-input"
+                      value=false>
                     <label class="custom-control-label" for="radioConsent2">No</label>
                   </div>
                 </div>
@@ -468,11 +471,13 @@
                     style="color: red; font-weight: bold;">*</span></label>
                 <div class="col-sm-10 mt-2">
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="radioIschemic1" name="IschemicRadio" class="custom-control-input" value= true>
+                    <input type="radio" id="radioIschemic1" name="IschemicRadio" class="custom-control-input"
+                      value=true>
                     <label class="custom-control-label" for="radioIschemic1">Yes</label>
                   </div>
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="radioIschemic2" name="IschemicRadio" class="custom-control-input" value= false>
+                    <input type="radio" id="radioIschemic2" name="IschemicRadio" class="custom-control-input"
+                      value=false>
                     <label class="custom-control-label" for="radioIschemic2">No</label>
                   </div>
                 </div>
@@ -484,12 +489,12 @@
                 <div class="col-sm-10 mt-2">
                   <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="radioprocessed1" name="processedRadio" class="custom-control-input"
-                      value= true>
+                      value=true>
                     <label class="custom-control-label" for="radioprocessed1">Yes</label>
                   </div>
                   <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="radioprocessed2" name="processedRadio" class="custom-control-input"
-                      value= false>
+                      value=false>
                     <label class="custom-control-label" for="radioprocessed2">No</label>
                   </div>
                 </div>
@@ -664,7 +669,14 @@
                   </div>
                 </div>
               </div>
-
+              <div  id="sefCurrentUser" style="display: none;">
+                <div class="row ml-1 mb-3">
+                  <label for="boxNo" class="col-sm-2 mb-1 col-form-label">Data Entry By </label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="sefdataEB" placeholder="">
+                  </div>
+                </div>
+              </div>
               <div class="col-12">
                 <div class="row" style="justify-content: space-around;">
                   <div class="col-4 mt-2" style="text-align: center;">
@@ -680,17 +692,25 @@
               <div class="row ml-1 mb-3">
                 <h3>MetaData</h3>
               </div>
+              <div  id="mdCurrentUser" style="display: none;">
+                <div class="row ml-1 mb-3">
+                  <label for="boxNo" class="col-sm-3 mb-1 col-form-label">Data Entry By </label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="mddataEB" placeholder="">
+                  </div>
+                </div>
+              </div>
               <div class="row ml-1 mb-3">
                 <label for="RadioFHabit" class="col-sm-3 mb-1 col-form-label">Family History of Cancer</label>
                 <div class="col-sm-9">
                   <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="familyHistoryCancer1" name="RadioFHabit" class="custom-control-input"
-                      value= true>
+                      value=true>
                     <label class="custom-control-label" for="familyHistoryCancer1">Yes</label>
                   </div>
                   <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="familyHistoryCancer2" name="RadioFHabit" class="custom-control-input"
-                      value= false>
+                      value=false>
                     <label class="custom-control-label" for="familyHistoryCancer2">No</label>
                   </div>
                 </div>
@@ -727,11 +747,12 @@
                 <label for="alcoholHabit" class="col-sm-3 mb-1 col-form-label">History of Alcohol Consumption</label>
                 <div class="col-sm-9">
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="AlcoholH1" name="RadioAlcoholHabit" class="custom-control-input" value= true>
+                    <input type="radio" id="AlcoholH1" name="RadioAlcoholHabit" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="AlcoholH1">Yes</label>
                   </div>
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="AlcoholH2" name="RadioAlcoholHabit" class="custom-control-input" value= false>
+                    <input type="radio" id="AlcoholH2" name="RadioAlcoholHabit" class="custom-control-input"
+                      value=false>
                     <label class="custom-control-label" for="AlcoholH2">No</label>
                   </div>
                 </div>
@@ -741,11 +762,11 @@
                 <label for="smokingHabit" class="col-sm-3 mb-1 col-form-label">History of Smoking</label>
                 <div class="col-sm-9">
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="smokeH1" name="RadioSmokeHabit" class="custom-control-input" value= true>
+                    <input type="radio" id="smokeH1" name="RadioSmokeHabit" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="smokeH1">Yes</label>
                   </div>
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="smokeH2" name="RadioSmokeHabit" class="custom-control-input" value= false>
+                    <input type="radio" id="smokeH2" name="RadioSmokeHabit" class="custom-control-input" value=false>
                     <label class="custom-control-label" for="smokeH2">No</label>
                   </div>
                 </div>
@@ -755,11 +776,11 @@
                 <label for="EComorb" class="col-sm-3 mb-1 col-form-label">Existing Comorbidities</label>
                 <div class="col-sm-9">
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="ECH1" name="ECH" class="custom-control-input" value= true>
+                    <input type="radio" id="ECH1" name="ECH" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="ECH1">Yes</label>
                   </div>
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="ECH2" name="ECH" class="custom-control-input" value= false>
+                    <input type="radio" id="ECH2" name="ECH" class="custom-control-input" value=false>
                     <label class="custom-control-label" for="ECH2">No</label>
                   </div>
                 </div>
@@ -823,11 +844,11 @@
                 <label for="IHC_Status" class="col-sm-3 mb-1 col-form-label">IHC Marker status</label>
                 <div class="col-sm-9">
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="IHC_yes" name="IHC" class="custom-control-input" value= true>
+                    <input type="radio" id="IHC_yes" name="IHC" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="IHC_yes">Yes</label>
                   </div>
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="IHC_no" name="IHC" class="custom-control-input" value= false>
+                    <input type="radio" id="IHC_no" name="IHC" class="custom-control-input" value=false>
                     <label class="custom-control-label" for="IHC_no">No</label>
                   </div>
                 </div>
@@ -842,11 +863,11 @@
                 <label for="gTest" class="col-sm-3 mb-1 col-form-label">Genetic Testing</label>
                 <div class="col-sm-9">
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="gt_yes" name="GeneticT" class="custom-control-input" value= true>
+                    <input type="radio" id="gt_yes" name="GeneticT" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="gt_yes">Yes</label>
                   </div>
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="gt_no" name="GeneticT" class="custom-control-input" value= false>
+                    <input type="radio" id="gt_no" name="GeneticT" class="custom-control-input" value=false>
                     <label class="custom-control-label" for="gt_no">No</label>
                   </div>
                 </div>
@@ -911,11 +932,11 @@
                 <label for="focality" class="col-sm-3 mb-1 col-form-label">Focality</label>
                 <div class="col-sm-9">
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="unifocal" name="focal" class="custom-control-input" value= true>
+                    <input type="radio" id="unifocal" name="focal" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="unifocal">Unifocal</label>
                   </div>
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="multifocal" name="focal" class="custom-control-input" value= false>
+                    <input type="radio" id="multifocal" name="focal" class="custom-control-input" value=false>
                     <label class="custom-control-label" for="multifocal">Multifocal</label>
                   </div>
                 </div>
@@ -924,11 +945,11 @@
                 <label for="LVI" class="col-sm-3 mb-1 col-form-label">LVI</label>
                 <div class="col-sm-9">
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="lviYes" name="LVI" class="custom-control-input" value= true>
+                    <input type="radio" id="lviYes" name="LVI" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="lviYes">Yes</label>
                   </div>
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="lviNo" name="LVI" class="custom-control-input" value= false>
+                    <input type="radio" id="lviNo" name="LVI" class="custom-control-input" value=false>
                     <label class="custom-control-label" for="lviNo">No</label>
                   </div>
                 </div>
@@ -937,11 +958,11 @@
                 <label for="PNI" class="col-sm-3 mb-1 col-form-label">PNI</label>
                 <div class="col-sm-9">
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="PNIYes" name="PNI" class="custom-control-input" value= true>
+                    <input type="radio" id="PNIYes" name="PNI" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="PNIYes">Yes</label>
                   </div>
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="PNINo" name="PNI" class="custom-control-input" value= false>
+                    <input type="radio" id="PNINo" name="PNI" class="custom-control-input" value=false>
                     <label class="custom-control-label" for="PNINo">No</label>
                   </div>
                 </div>
@@ -991,11 +1012,11 @@
                 <label for="denovo" class="col-sm-3 mb-1 col-form-label">Denovo metastasis</label>
                 <div class="col-sm-9">
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="denovoYes" name="denovo" class="custom-control-input" value= true>
+                    <input type="radio" id="denovoYes" name="denovo" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="denovoYes">Yes</label>
                   </div>
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="denovoNo" name="denovo" class="custom-control-input" value= false>
+                    <input type="radio" id="denovoNo" name="denovo" class="custom-control-input" value=false>
                     <label class="custom-control-label" for="denovoNo">No</label>
                   </div>
                 </div>
@@ -1004,11 +1025,11 @@
                 <label for="MetastasisPT" class="col-sm-3 mb-1 col-form-label">Metastasis Post Treatment</label>
                 <div class="col-sm-9">
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="MPTYes" name="MPT" class="custom-control-input" value= true>
+                    <input type="radio" id="MPTYes" name="MPT" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="MPTYes">Yes</label>
                   </div>
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="MPTNo" name="MPT" class="custom-control-input" value= false>
+                    <input type="radio" id="MPTNo" name="MPT" class="custom-control-input" value=false>
                     <label class="custom-control-label" for="MPTNo">No</label>
                   </div>
                 </div>
@@ -1030,11 +1051,11 @@
                 <label for="NACT" class="col-sm-3 mb-1 col-form-label">NACT</label>
                 <div class="col-sm-9">
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="NACTYes" name="NACT" class="custom-control-input" value= true>
+                    <input type="radio" id="NACTYes" name="NACT" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="NACTYes">Yes</label>
                   </div>
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="NACTNo" name="NACT" class="custom-control-input" value= false>
+                    <input type="radio" id="NACTNo" name="NACT" class="custom-control-input" value=false>
                     <label class="custom-control-label" for="NACTNo">No</label>
                   </div>
                 </div>
@@ -1075,11 +1096,11 @@
                 <label for="ACT" class="col-sm-3 mb-1 col-form-label">ACT</label>
                 <div class="col-sm-9">
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="ACTYes" name="ACT" class="custom-control-input" value= true>
+                    <input type="radio" id="ACTYes" name="ACT" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="ACTYes">Yes</label>
                   </div>
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="ACTNo" name="ACT" class="custom-control-input" value= false>
+                    <input type="radio" id="ACTNo" name="ACT" class="custom-control-input" value=false>
                     <label class="custom-control-label" for="ACTNo">No</label>
                   </div>
                 </div>
@@ -1100,11 +1121,11 @@
                 <label for="radioThy" class="col-sm-3 mb-1 col-form-label">Radio Therapy</label>
                 <div class="col-sm-9">
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="RTYes" name="RadioT" class="custom-control-input" value= true>
+                    <input type="radio" id="RTYes" name="RadioT" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="RTYes">Yes</label>
                   </div>
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="RTNo" name="RadioT" class="custom-control-input" value= false>
+                    <input type="radio" id="RTNo" name="RadioT" class="custom-control-input" value=false>
                     <label class="custom-control-label" for="RTNo">No</label>
                   </div>
                 </div>
@@ -1125,15 +1146,16 @@
                 <label for="paraThy" class="col-sm-3 mb-1 col-form-label">Is paraffin Block Avialble</label>
                 <div class="col-sm-9">
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="pbYes" name="pbT" class="custom-control-input" value= true>
+                    <input type="radio" id="pbYes" name="pbT" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="pbYes">Yes</label>
                   </div>
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="pbNo" name="pbT" class="custom-control-input" value= false>
+                    <input type="radio" id="pbNo" name="pbT" class="custom-control-input" value=false>
                     <label class="custom-control-label" for="pbNo">No</label>
                   </div>
                 </div>
               </div>
+              
 
               <div class="col-12">
                 <div class="row" style="justify-content: space-around;">
@@ -1150,6 +1172,14 @@
             <form class="form-group mt-3 form-step" id="form3" style="display: none;">
               <div class="row ml-1 mb-3">
                 <h3>BR Specific</h3>
+              </div>
+              <div  id="brfCurrentUser" style="display: none;">
+                <div class="row ml-1 mb-3">
+                  <label for="boxNo" class="col-sm-2 mb-1 col-form-label">Data Entry By </label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="brfdataEB" placeholder="">
+                  </div>
+                </div>
               </div>
               <div class="row ml-1 mb-3">
                 <label for="age@menarche" class="col-sm-2 mb-1 col-form-label">Age at Menarche</label>
@@ -1179,11 +1209,11 @@
                 <label for="breFd" class="col-sm-2 mb-1 col-form-label">Breastfed</label>
                 <div class="col-sm-10 mt-2">
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="breFdYes" name="breFd" class="custom-control-input" value= true>
+                    <input type="radio" id="breFdYes" name="breFd" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="breFdYes">Yes</label>
                   </div>
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="breFdNo" name="breFd" class="custom-control-input" value= false>
+                    <input type="radio" id="breFdNo" name="breFd" class="custom-control-input" value=false>
                     <label class="custom-control-label" for="breFdNo">No</label>
                   </div>
                 </div>
@@ -1224,11 +1254,11 @@
                 <label for="ER" class="col-sm-2 mb-1 col-form-label">ER</label>
                 <div class="col-sm-10 mt-2">
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="ERPos" name="ERRadio" class="custom-control-input" value= true>
+                    <input type="radio" id="ERPos" name="ERRadio" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="ERPos">Positive</label>
                   </div>
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="ERNev" name="ERRadio" class="custom-control-input" value= false>
+                    <input type="radio" id="ERNev" name="ERRadio" class="custom-control-input" value=false>
                     <label class="custom-control-label" for="ERNev">Negative</label>
                   </div>
                 </div>
@@ -1237,11 +1267,11 @@
                 <label for="PR" class="col-sm-2 mb-1 col-form-label">PR</label>
                 <div class="col-sm-10 mt-2">
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="PRPos" name="PRRadio" class="custom-control-input" value= true>
+                    <input type="radio" id="PRPos" name="PRRadio" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="PRPos">Positive</label>
                   </div>
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="PRNev" name="PRRadio" class="custom-control-input" value= false>
+                    <input type="radio" id="PRNev" name="PRRadio" class="custom-control-input" value=false>
                     <label class="custom-control-label" for="PRNev">Negative</label>
                   </div>
                 </div>
@@ -1250,11 +1280,11 @@
                 <label for="HER2" class="col-sm-2 mb-1 col-form-label">HER2</label>
                 <div class="col-sm-10 mt-2">
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="HER2Pos" name="HER2Radio" class="custom-control-input" value= true>
+                    <input type="radio" id="HER2Pos" name="HER2Radio" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="HER2Pos">Positive</label>
                   </div>
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="HER2Nev" name="HER2Radio" class="custom-control-input" value= false>
+                    <input type="radio" id="HER2Nev" name="HER2Radio" class="custom-control-input" value=false>
                     <label class="custom-control-label" for="HER2Nev">Negative</label>
                   </div>
                 </div>
@@ -1482,10 +1512,21 @@
                 <input type="text" class="form-control " placeholder="" id="parSharedRemark">
               </div>
             </div>
-            <div class="col mt-4" style="text-align: center;">
+            <div class="row ml-1 mb-3" id="sharedSampleBox" >
+              <label for="sharedSampleBox" class="col-sm-2 mb-1 col-form-label">Grid No.</label>
+              <div class="col-sm-10 mt-2">
+                <input type="button" class="form-control" id="sharedSampleBox" onclick="popSharedmodal()"
+                  placeholder="Shared Grid Box">
+              </div>
+            </div>
+            <div class="col mt-4" style="text-align: center;" id="shareSubmit">
               <button type="submit" class="btn btn-success">Submit</button>
             </div>
           </form>
+          <div class="arrow-navigation" id="navArrows" style="text-align: center; display: none;" >
+            <button id="perv" class="arrow-btn">←</button>
+            <button id="next" class="arrow-btn">→</button>
+          </div>
         </div>
       </div>
     </div>
@@ -1595,9 +1636,9 @@
 
   <script>
 
-if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn') !== 'true') {
-      window.location.href = "login.html";
-    }
+    // if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn') !== 'true') {
+    //       window.location.href = "login.html";
+    //     }
 
     const app = firebase.initializeApp(firebaseConfig);
     const db = firebase.database(app);
@@ -1617,18 +1658,40 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
     console.log("shared", shared);
 
     if (referrer.includes('home.html')) {
-      bread2.innerHTML = '<a href="home.html">Home</a>';
-      sampleInputTab.click();
-    }
-    else if (referrer.includes('search.html')) {
       if (shared === "true") {
         bread2.innerHTML = '<a href="search.html">Search</a>';
         sharedTab.click();
-      } else {
-        bread2.innerHTML = '<a href="search.html">Search</a>';
+      } 
+      else {
+        bread2.innerHTML = '<a href="home.html">Home</a>';
         sampleInputTab.click();
       }
     }
+    else if (referrer.includes('search.html')) {
+      if (shared === "true") {
+          bread2.innerHTML = '<a href="search.html">Search</a>';
+          sharedTab.click();
+      } else {
+          bread2.innerHTML = '<a href="search.html">Search</a>';
+          sampleInputTab.click();
+      }
+
+      // Clear all input fields
+      const inputs = document.querySelectorAll('input');
+      inputs.forEach(input => {
+          if (input.type === 'text' || input.type === 'textarea') {
+              input.value = ''; 
+          } else if (input.type === 'radio') {
+              input.checked = false;
+          }
+      });
+
+      const selects = document.querySelectorAll('select');
+      selects.forEach(select => {
+        select.selectedIndex = 0;
+      });
+    }
+
     // if (referrer.includes('todo.html')) {
     //   if(mode==='PendingEdit' || mode==='PendingView'){
     //     bread2.innerHTML = '<a href="todo.html">To-Do</a>';
@@ -1735,7 +1798,8 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
 
   </script>
   <script>
-    let selectedSeats = [];
+    let BloodSelectedSeats = [];
+    let SpecimenSelectedSeats = [];
 
     // function popmodal() {
     //   let sampleType = document.querySelector('#sample').value;
@@ -1828,7 +1892,7 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
 
       // Fetch seat data from the database and populate the seats in the modal
       fetchSeatDataFromDB('bb').then(seatData => {
-        populateSeats('blood-box', seatData);
+        populateBSeats('blood-box', seatData);
       });
 
       // Function to fetch seat data from the database
@@ -1847,10 +1911,10 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
         });
       }
 
-      function populateSeats(containerClass, seatData) {
+      function populateBSeats(containerClass, seatData) {
         let container = document.querySelector(`.${containerClass}`);
         container.innerHTML = '';
-        let selectedSeats = [];
+        // BloodSelectedSeats = [];
 
         const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
         const cols = 10;
@@ -1868,7 +1932,7 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
         const [activeBoxName, filteredSeats] = activeBoxEntry;
         console.log("Active Box Name:", activeBoxName);
         document.getElementById('currBloodBoxName').textContent = activeBoxName;
-        
+
         const indexedSeats = filteredSeats;
         if (!indexedSeats) {
           console.log("No indexed seats available in the active box.");
@@ -1890,7 +1954,7 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
                 `<label for="${seatID}" class="seat" id="${labelName}">${labelName}</label>`
               );
               document.getElementById(seatID).addEventListener('change', function (event) {
-                handleSeatSelection(seatID, event.target.checked, seat.status);
+                handleBSeatSelection(seatID, event.target.checked, seat.status);
               });
 
               let labelElement = document.getElementById(labelName);
@@ -1920,27 +1984,27 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
           container.insertAdjacentHTML("beforeend", "<br/>");
         }
 
-        function handleSeatSelection(seatID, isChecked, status) {
+        function handleBSeatSelection(seatID, isChecked, status) {
           if (status === 'e') {
             if (isChecked) {
-              selectedSeats.push(seatID);
+              BloodSelectedSeats.push(seatID);
             } else {
-              let seatIndex = selectedSeats.indexOf(seatID);
+              let seatIndex = BloodSelectedSeats.indexOf(seatID);
               if (seatIndex !== -1) {
-                selectedSeats.splice(seatIndex, 1);
+                BloodSelectedSeats.splice(seatIndex, 1);
               }
             }
             if (grid === null) {
-              localStorage.setItem("selectedGrid", selectedSeats);
+              localStorage.setItem("selectedGrid", BloodSelectedSeats);
             }
             else {
-              localStorage.setItem("selectedGrid", (grid + ',' + selectedSeats));
+              localStorage.setItem("selectedGrid", (grid + ',' + BloodSelectedSeats));
             }
           }
           else {
             alert("Error clicking the filled component.");
           }
-          console.log("Selected seats:", selectedSeats);
+          console.log("Selected seats:", BloodSelectedSeats);
           updatePlasmaGridInput();
         }
 
@@ -1949,13 +2013,13 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
           if (gridInput) {
             const box_name = activeBoxName;
             const status = document.querySelector('input[name="MetastasisSample"]:checked') && document.querySelector('input[name="MetastasisSample"]:checked').value === "true" ? "MPlasma" : "Plasma";
-            const grid_id = selectedSeats.join(', ');
+            const grid_id = BloodSelectedSeats.join(', ');
             gridInput.value = `${box_name}/${grid_id}/${status}`;
           }
         }
 
         window.handleDone = function () {
-          if (selectedSeats.length > 0) {
+          if (BloodSelectedSeats.length > 0) {
             updatePlasmaGridInput();
           }
           $('#bloodModalCenter').modal('hide');
@@ -1964,22 +2028,19 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
 
     }
 
-    // console.log("Selected data",localStorage.getItem("selectedGrid"))
     function popSerummodal() {
-      $('#bloodModalCenter').modal('show');  // Show the modal
+      $('#bloodModalCenter').modal('show');
 
-      // Fetch seat data from the database and populate the seats in the modal
       fetchSeatDataFromDB('bb').then(seatData => {
-        populateSeats('blood-box', seatData);
+        populateBSeats('blood-box', seatData);
       });
 
-      // Function to fetch seat data from the database
       function fetchSeatDataFromDB(nodeName) {
         return new Promise((resolve, reject) => {
           let dbRef = firebase.database().ref(nodeName);
           dbRef.once('value')
             .then(snapshot => {
-              let seatData = snapshot.val();  // Assumes seat data is stored in the 'bb' node
+              let seatData = snapshot.val();
               resolve(seatData);
             })
             .catch(error => {
@@ -1989,11 +2050,10 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
         });
       }
 
-      // Function to populate the seats in the modal based on the fetched seat data
-      function populateSeats(containerClass, seatData) {
+      function populateBSeats(containerClass, seatData) {
         let container = document.querySelector(`.${containerClass}`);
         container.innerHTML = '';
-        let selectedSeats = [];
+        let BloodSelectedSeats = [];
 
         const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
         const cols = 10;
@@ -2038,7 +2098,7 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
               );
 
               document.getElementById(seatID).addEventListener('change', function (event) {
-                handleSeatSelection(seatID, event.target.checked, seat.status);
+                handleBSeatSelection(seatID, event.target.checked, seat.status);
               });
 
               let labelElement = document.getElementById(labelName);
@@ -2064,21 +2124,21 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
           container.insertAdjacentHTML("beforeend", "<br/>");
         }
 
-        function handleSeatSelection(seatID, isChecked, status) {
+        function handleBSeatSelection(seatID, isChecked, status) {
           if (status === 'e') {
             if (isChecked) {
-              selectedSeats.push(seatID);
+              BloodSelectedSeats.push(seatID);
             } else {
-              let seatIndex = selectedSeats.indexOf(seatID);
+              let seatIndex = BloodSelectedSeats.indexOf(seatID);
               if (seatIndex !== -1) {
-                selectedSeats.splice(seatIndex, 1);
+                BloodSelectedSeats.splice(seatIndex, 1);
               }
             }
             if (grid === null) {
-              localStorage.setItem("selectedGrid", selectedSeats);
+              localStorage.setItem("selectedGrid", BloodSelectedSeats);
             }
             else {
-              localStorage.setItem("selectedGrid", (grid + ',' + selectedSeats));
+              localStorage.setItem("selectedGrid", (grid + ',' + BloodSelectedSeats));
             }
             console.log("Data check in handle", localStorage.getItem("selectedGrid"))
 
@@ -2086,7 +2146,7 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
           else {
             alert("Error clicking the filled component.");
           }
-          console.log("Selected seats:", selectedSeats);
+          console.log("Selected seats:", BloodSelectedSeats);
           updateSerumGridInput();
         }
 
@@ -2095,13 +2155,13 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
           if (gridInput) {
             const box_name = activeBoxName;
             const status = document.querySelector('input[name="MetastasisSample"]:checked') && document.querySelector('input[name="MetastasisSample"]:checked').value === "true" ? "MSerum" : "Serum";
-            const grid_id = selectedSeats.join(', ');
+            const grid_id = BloodSelectedSeats.join(', ');
             gridInput.value = `${box_name}/${grid_id}/${status}`;
           }
         }
 
         window.handleDone = function () {
-          if (selectedSeats.length > 0) {
+          if (BloodSelectedSeats.length > 0) {
             updateSerumGridInput();
           }
           $('#bloodModalCenter').modal('hide');
@@ -2110,87 +2170,18 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
     }
 
 
-    // function popSerummodal() {
-    //   $('#bloodModalCenter').modal('show');
-    //   generateSeats('blood-box', 'BR');
-
-    //   function generateSeats(containerClass, seatPrefix) {
-    //     let container = document.querySelector(`.${containerClass}`);
-    //     container.innerHTML = '';
-    //     selectedSeats = [];
-
-    //     for (let i = 0; i < 54; i++) {
-    //       let seatID = seatPrefix + '_' + (i + 1);
-    //       let booked = "";
-    //       if (i >= 0 && i <= 41) {
-    //         booked = "booked";
-    //         container.insertAdjacentHTML(
-    //           "beforeend",
-    //           `<input type="checkbox" name="seats" id="${seatID}" />` +
-    //           `<label for="${seatID}" class="seat ${booked}">${seatID}</label>`
-    //         );
-
-    //         document.getElementById(seatID).addEventListener('change', function () {
-    //           handleSeatSelection(seatID);
-    //         });
-    //       } else {
-    //         container.insertAdjacentHTML(
-    //           "beforeend",
-    //           `<input type="checkbox" name="seats" id="${seatID}" />` +
-    //           `<label for="${seatID}" class="seat ${booked}"></label>`
-    //         );
-
-    //         document.getElementById(seatID).addEventListener('change', function () {
-    //           handleSeatSelection(seatID);
-    //         });
-    //       }
-    //     }
-    //   }
-
-    //   function handleSeatSelection(seatID) {
-    //     let seatIndex = selectedSeats.indexOf(seatID);
-    //     if (seatIndex === -1) {
-    //       if (seatID === "BR_43") {
-    //         selectedSeats.push("A8");
-    //       } else if (seatID === "BR_44") {
-    //         selectedSeats.push("B8");
-    //       } else {
-    //         selectedSeats.push(seatID);
-    //       }
-    //     } else {
-    //       selectedSeats.splice(seatIndex, 1);
-    //     }
-    //     console.log("Seat index", seatID);
-    //   }
-
-    //   // Define handleDone and attach it to the window object
-    //   window.handleDone = function () {
-    //     if (selectedSeats.length > 0) {
-    //       let gridInput = document.querySelector("input[placeholder='Serum Grid']");
-    //       if (gridInput) {
-    //         gridInput.value = selectedSeats.join(', ');
-    //       }
-    //     }
-    //     // Close the modal
-    //     $('#bloodModalCenter').modal('hide');
-    //   };
-    // }
-
     function popBuffermodal() {
       $('#bloodModalCenter').modal('show');
-
-      // Fetch data from the database
       fetchSeatDataFromDB('bb').then(seatData => {
-        populateSeats('blood-box', seatData);
+        populateBSeats('blood-box', seatData);
       });
 
-      // Function to fetch seat data from the database
       function fetchSeatDataFromDB(nodeName) {
         return new Promise((resolve, reject) => {
           let dbRef = firebase.database().ref(nodeName);
           dbRef.once('value')
             .then(snapshot => {
-              let seatData = snapshot.val();  // Assumes seat data is stored in the 'bb' node
+              let seatData = snapshot.val();
               resolve(seatData);
             })
             .catch(error => {
@@ -2200,10 +2191,10 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
         });
       }
 
-      function populateSeats(containerClass, seatData) {
+      function populateBSeats(containerClass, seatData) {
         let container = document.querySelector(`.${containerClass}`);
         container.innerHTML = '';
-        selectedSeats = [];
+        let BloodSelectedSeats = [];
 
         const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
         const cols = 10;
@@ -2214,22 +2205,19 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
           console.error("No active box found with status 'AC'.");
           return;
         }
+
         grid = localStorage.getItem("selectedGrid");
         console.log("selected Grid Data:", grid);
 
-
-        // Destructure the box name and the filtered seats data
         const [activeBoxName, filteredSeats] = activeBoxEntry;
         console.log("Active Box Name:", activeBoxName);
 
         document.getElementById('currBloodBoxName').textContent = activeBoxName;
 
-
-        // Make sure indexedSeats is defined
         const indexedSeats = filteredSeats;
         if (!indexedSeats) {
           console.log("No indexed seats available in the active box.");
-          return;  // Stop further execution if no indexed seats are available
+          return;
         }
 
         for (let row = 0; row < rows.length; row++) {
@@ -2246,8 +2234,9 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
                 `<input type="checkbox" name="seats" id="${seatID}" />` +
                 `<label for="${seatID}" class="seat" id="${labelName}">${labelName}</label>`
               );
-              document.getElementById(seatID).addEventListener('change', function (event) {
-                handleSeatSelection(seatID, event.target.checked, seat.status);
+
+              document.getElementById(seatID).addEventListener('click', function (event) {
+                handleBSeatSelection(seatID, event.target.checked, seat.status, 'buffy Coat')
               });
 
               let labelElement = document.getElementById(labelName);
@@ -2272,22 +2261,25 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
           }
           container.insertAdjacentHTML("beforeend", "<br/>");
         }
+        function handleBSeatSelection(seatID, isChecked, status, debug) {
+          console.log("handleBSeatSelection", debug)
 
-        function handleSeatSelection(seatID, isChecked, status) {
           if (status === 'e') {
             if (isChecked) {
-              selectedSeats.push(seatID);
+              BloodSelectedSeats.push(seatID);
             } else {
-              let seatIndex = selectedSeats.indexOf(seatID);
+              let seatIndex = BloodSelectedSeats.indexOf(seatID);
               if (seatIndex !== -1) {
-                selectedSeats.splice(seatIndex, 1);
+                BloodSelectedSeats.splice(seatIndex, 1);
               }
             }
             if (grid === null) {
-              localStorage.setItem("selectedGrid", selectedSeats);
+              localStorage.setItem("selectedGrid", BloodSelectedSeats);
             }
             else {
-              localStorage.setItem("selectedGrid", (grid + ',' + selectedSeats));
+              localStorage.setItem("selectedGrid", (grid + ',' + BloodSelectedSeats));
+
+
             }
             console.log("Data check in handle", localStorage.getItem("selectedGrid"))
 
@@ -2295,22 +2287,21 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
           else {
             alert("Error clicking the filled component.");
           }
-          console.log("Selected seats:", selectedSeats);
+          console.log("Selected seats:", BloodSelectedSeats);
           updateBuffyGridInput();
         }
-
         function updateBuffyGridInput() {
           let gridInput = document.querySelector("input[placeholder='Buffer Grid']");
           if (gridInput) {
             const box_name = activeBoxName;
             const status = document.querySelector('input[name="MetastasisSample"]:checked') && document.querySelector('input[name="MetastasisSample"]:checked').value === "true" ? "MBuffy Coat" : "Buffy Coat";
-            const grid_id = selectedSeats.join(', ');
+            const grid_id = BloodSelectedSeats.join(', ');
             gridInput.value = `${box_name}/${grid_id}/${status}`;
           }
         }
 
         window.handleDone = function () {
-          if (selectedSeats.length > 0) {
+          if (BloodSelectedSeats.length > 0) {
             updateBuffyGridInput();
           }
           $('#bloodModalCenter').modal('hide');
@@ -2318,87 +2309,20 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
       }
     }
 
-    // function popBuffermodal() {
-    //   $('#bloodModalCenter').modal('show');
-    //   generateSeats('blood-box', 'BR');
-
-    //   function generateSeats(containerClass, seatPrefix) {
-    //     let container = document.querySelector(`.${containerClass}`);
-    //     container.innerHTML = '';
-    //     selectedSeats = [];
-
-    //     for (let i = 0; i < 54; i++) {
-    //       let seatID = seatPrefix + '_' + (i + 1);
-    //       let booked = "";
-    //       if (i >= 0 && i <= 41) {
-    //         booked = "booked";
-    //         container.insertAdjacentHTML(
-    //           "beforeend",
-    //           `<input type="checkbox" name="seats" id="${seatID}" />` +
-    //           `<label for="${seatID}" class="seat ${booked}">${seatID}</label>`
-    //         );
-
-    //         document.getElementById(seatID).addEventListener('change', function () {
-    //           handleSeatSelection(seatID);
-    //         });
-    //       } else {
-    //         container.insertAdjacentHTML(
-    //           "beforeend",
-    //           `<input type="checkbox" name="seats" id="${seatID}" />` +
-    //           `<label for="${seatID}" class="seat ${booked}"></label>`
-    //         );
-
-    //         document.getElementById(seatID).addEventListener('change', function () {
-    //           handleSeatSelection(seatID);
-    //         });
-    //       }
-    //     }
-    //   }
-
-    //   function handleSeatSelection(seatID) {
-    //     let seatIndex = selectedSeats.indexOf(seatID);
-    //     if (seatIndex === -1) {
-    //       if (seatID === "BR_43") {
-    //         selectedSeats.push("A8");
-    //       } else if (seatID === "BR_44") {
-    //         selectedSeats.push("B8");
-    //       } else {
-    //         selectedSeats.push(seatID);
-    //       }
-    //     } else {
-    //       selectedSeats.splice(seatIndex, 1);
-    //     }
-    //     console.log("Seat index", seatID);
-    //   }
-
-    //   // Define handleDone and attach it to the window object
-    //   window.handleDone = function () {
-    //     if (selectedSeats.length > 0) {
-    //       let gridInput = document.querySelector("input[placeholder='Buffer Grid']");
-    //       if (gridInput) {
-    //         gridInput.value = selectedSeats.join(', ');
-    //       }
-    //     }
-    //     // Close the modal
-    //     $('#bloodModalCenter').modal('hide');
-    //   };
-    // }
 
     function popFTmodal() {
       $('#specimenModalCenter').modal('show');
 
-      // Fetch data from the database
       fetchSeatDataFromDB('sb').then(seatData => {
-        populateSeats('specimen-box', seatData);
+        populateSSeats('specimen-box', seatData);
       });
 
-      // Function to fetch seat data from the database
       function fetchSeatDataFromDB(nodeName) {
         return new Promise((resolve, reject) => {
           let dbRef = firebase.database().ref(nodeName);
           dbRef.once('value')
             .then(snapshot => {
-              let seatData = snapshot.val();  // Assumes seat data is stored in the 'bb' node
+              let seatData = snapshot.val();
               resolve(seatData);
             })
             .catch(error => {
@@ -2408,36 +2332,29 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
         });
       }
 
-      function populateSeats(containerClass, seatData) {
+      function populateSSeats(containerClass, seatData) {
         let container = document.querySelector(`.${containerClass}`);
         container.innerHTML = '';
-        selectedSeats = [];
-        let selectionGroups = [];  // Array to store groups of selected seats
-
+        let SpecimenSelectedSeats = [];
+        let selectionGroups = [];
         const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
         const cols = 10;
-
         const activeBoxEntry = Object.entries(seatData).find(([boxName, data]) => data.bxsts === 'AC');
-
         if (!activeBoxEntry) {
           console.error("No active box found with status 'AC'.");
           return;
         }
-
         const maxSelections = parseInt(document.getElementById('ft_tubes').value, 10);
 
-        // Destructure the box name and the filtered seats data
         const [activeBoxName, filteredSeats] = activeBoxEntry;
         console.log("Active Box Name:", activeBoxName);
 
         document.getElementById('currSpecimenBoxName').textContent = activeBoxName;
 
-
-        // Make sure indexedSeats is defined
         const indexedSeats = filteredSeats;
         if (!indexedSeats) {
           console.log("No indexed seats available in the active box.");
-          return;  // Stop further execution if no indexed seats are available
+          return;
         }
 
         for (let row = 0; row < rows.length; row++) {
@@ -2454,9 +2371,10 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
                 `<input type="checkbox" name="seats" id="${seatID}" />` +
                 `<label for="${seatID}" class="seat" id="${labelName}">${labelName}</label>`
               );
-              document.getElementById(seatID).addEventListener('change', function (event) {
-                handleSeatSelection(seatID, event.target.checked, maxSelections);
-              });
+
+              document.getElementById(seatID).addEventListener('click', function (event) {
+                handleSSeatSelection(seatID, event.target.checked, maxSelections, 'FT Grid');
+              })
 
               let labelElement = document.getElementById(labelName);
               if (labelElement) {
@@ -2481,26 +2399,24 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
           container.insertAdjacentHTML("beforeend", "<br/>");
         }
 
-        
-        function handleSeatSelection(seatID, isChecked, maxSelections) {
+        function handleSSeatSelection(seatID, isChecked, maxSelections, debug) {
+          console.log("handleSSeatSelection", debug)
           if (isChecked) {
-            if (selectedSeats.length < maxSelections) {
-              selectedSeats.push(seatID);
+            if (SpecimenSelectedSeats.length < maxSelections) {
+              SpecimenSelectedSeats.push(seatID);
             } else {
-              // If the user tries to select more than allowed, uncheck the box and show a message
               document.getElementById(seatID).checked = false;
               alert(`You can select a maximum of ${maxSelections} seats.`);
             }
           } else {
-            let seatIndex = selectedSeats.indexOf(seatID);
+            let seatIndex = SpecimenSelectedSeats.indexOf(seatID);
             if (seatIndex !== -1) {
-              selectedSeats.splice(seatIndex, 1);
+              SpecimenSelectedSeats.splice(seatIndex, 1);
             }
           }
-          console.log("Selected seats:", selectedSeats);
+          console.log("Selected seats:", SpecimenSelectedSeats);
           updateFTGridInput();
         }
-
 
         function updateFTGridInput() {
           let gridInput = document.querySelector("input[placeholder='FT Grid No.']");
@@ -2508,25 +2424,24 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
             const box_name = activeBoxName;
             let ftStatuses = [];
 
-            for (let i = 1; i <= selectedSeats.length; i++) {
-              if(document.querySelector('input[name="MetastasisSample"]:checked').value === "true"){
+            for (let i = 1; i <= SpecimenSelectedSeats.length; i++) {
+              if (document.querySelector('input[name="MetastasisSample"]:checked').value === "true") {
                 ftStatuses.push(`MFT-${i}`);
               }
-              else{
+              else {
                 ftStatuses.push(`FT-${i}`);
               }
             }
 
-            // Create the grid input in the desired format
-            const grid_id = selectedSeats.join(', ');
-            const status = ftStatuses.join(', '); // Join all FT statuses with a comma
+            const grid_id = SpecimenSelectedSeats.join(', ');
+            const status = ftStatuses.join(', ');
 
             gridInput.value = `${box_name}/${grid_id}/${status}`;
           }
         }
 
         window.handleDone = function () {
-          if (selectedSeats.length > 0) {
+          if (SpecimenSelectedSeats.length > 0) {
             updateFTGridInput();
           }
           $('#specimenModalCenter').modal('hide');
@@ -2535,87 +2450,19 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
     }
 
 
-    // function popFTmodal() {
-    //   $('#specimenModalCenter').modal('show');
-    //   generateSeats('specimen-box', 'SR');
-
-    //   function generateSeats(containerClass, seatPrefix) {
-    //     let container = document.querySelector(`.${containerClass}`);
-    //     container.innerHTML = '';
-    //     selectedSeats = [];
-
-    //     for (let i = 0; i < 54; i++) {
-    //       let seatID = seatPrefix + '_' + (i + 1);
-    //       let booked = "";
-    //       if (i >= 0 && i <= 41) {
-    //         booked = "booked";
-    //         container.insertAdjacentHTML(
-    //           "beforeend",
-    //           `<input type="checkbox" name="seats" id="${seatID}" />` +
-    //           `<label for="${seatID}" class="seat ${booked}">${seatID}</label>`
-    //         );
-
-    //         document.getElementById(seatID).addEventListener('change', function () {
-    //           handleSeatSelection(seatID);
-    //         });
-    //       } else {
-    //         container.insertAdjacentHTML(
-    //           "beforeend",
-    //           `<input type="checkbox" name="seats" id="${seatID}" />` +
-    //           `<label for="${seatID}" class="seat ${booked}"></label>`
-    //         );
-
-    //         document.getElementById(seatID).addEventListener('change', function () {
-    //           handleSeatSelection(seatID);
-    //         });
-    //       }
-    //     }
-    //   }
-
-    //   function handleSeatSelection(seatID) {
-    //     let seatIndex = selectedSeats.indexOf(seatID);
-    //     if (seatIndex === -1) {
-    //       if (seatID === "BR_43") {
-    //         selectedSeats.push("A8");
-    //       } else if (seatID === "BR_44") {
-    //         selectedSeats.push("B8");
-    //       } else {
-    //         selectedSeats.push(seatID);
-    //       }
-    //     } else {
-    //       selectedSeats.splice(seatIndex, 1);
-    //     }
-    //     console.log("Seat index", seatID);
-    //   }
-
-    //   // Define handleDone and attach it to the window object
-    //   window.handleDone = function () {
-    //     if (selectedSeats.length > 0) {
-    //       let gridInput = document.querySelector("input[placeholder='FT Grid No.']");
-    //       if (gridInput) {
-    //         gridInput.value = selectedSeats.join(', ');
-    //       }
-    //     }
-    //     // Close the modal
-    //     $('#specimenModalCenter').modal('hide');
-    //   };
-    // }
-
     function popFNmodal() {
       $('#specimenModalCenter').modal('show');
 
-      // Fetch data from the database
       fetchSeatDataFromDB('sb').then(seatData => {
-        populateSeats('specimen-box', seatData);
+        populateSSeats('specimen-box', seatData);
       });
 
-      // Function to fetch seat data from the database
       function fetchSeatDataFromDB(nodeName) {
         return new Promise((resolve, reject) => {
           let dbRef = firebase.database().ref(nodeName);
           dbRef.once('value')
             .then(snapshot => {
-              let seatData = snapshot.val();  // Assumes seat data is stored in the 'bb' node
+              let seatData = snapshot.val();
               resolve(seatData);
             })
             .catch(error => {
@@ -2625,11 +2472,11 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
         });
       }
 
-      function populateSeats(containerClass, seatData) {
+      function populateSSeats(containerClass, seatData) {
         let container = document.querySelector(`.${containerClass}`);
         container.innerHTML = '';
-        selectedSeats = [];
-        let selectionGroups = [];  // Array to store groups of selected seats
+        let SpecimenSelectedSeats = [];
+        let selectionGroups = [];
 
         const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
         const cols = 10;
@@ -2671,7 +2518,7 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
                 `<label for="${seatID}" class="seat" id="${labelName}">${labelName}</label>`
               );
               document.getElementById(seatID).addEventListener('change', function (event) {
-                handleSeatSelection(seatID, event.target.checked, maxSelections);
+                handleSSeatSelection(seatID, event.target.checked, maxSelections);
               });
 
               let labelElement = document.getElementById(labelName);
@@ -2697,23 +2544,23 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
           container.insertAdjacentHTML("beforeend", "<br/>");
         }
 
-        
-        function handleSeatSelection(seatID, isChecked, maxSelections) {
+
+        function handleSSeatSelection(seatID, isChecked, maxSelections) {
           if (isChecked) {
-            if (selectedSeats.length < maxSelections) {
-              selectedSeats.push(seatID);
+            if (SpecimenSelectedSeats.length < maxSelections) {
+              SpecimenSelectedSeats.push(seatID);
             } else {
               // If the user tries to select more than allowed, uncheck the box and show a message
               document.getElementById(seatID).checked = false;
               alert(`You can select a maximum of ${maxSelections} seats.`);
             }
           } else {
-            let seatIndex = selectedSeats.indexOf(seatID);
+            let seatIndex = SpecimenSelectedSeats.indexOf(seatID);
             if (seatIndex !== -1) {
-              selectedSeats.splice(seatIndex, 1);
+              SpecimenSelectedSeats.splice(seatIndex, 1);
             }
           }
-          console.log("Selected seats:", selectedSeats);
+          console.log("Selected seats:", SpecimenSelectedSeats);
           updateFNGridInput();
         }
 
@@ -2724,17 +2571,17 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
             const box_name = activeBoxName;
             let fnStatuses = [];
 
-            for (let i = 1; i <= selectedSeats.length; i++) {
-              if(document.querySelector('input[name="MetastasisSample"]:checked').value === "true"){
+            for (let i = 1; i <= SpecimenSelectedSeats.length; i++) {
+              if (document.querySelector('input[name="MetastasisSample"]:checked').value === "true") {
                 fnStatuses.push(`MFN-${i}`);
               }
-              else{
+              else {
                 fnStatuses.push(`FN-${i}`);
               }
             }
 
             // Create the grid input in the desired format
-            const grid_id = selectedSeats.join(', ');
+            const grid_id = SpecimenSelectedSeats.join(', ');
             const status = fnStatuses.join(', '); // Join all FT statuses with a comma
 
             gridInput.value = `${box_name}/${grid_id}/${status}`;
@@ -2742,7 +2589,7 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
         }
 
         window.handleDone = function () {
-          if (selectedSeats.length > 0) {
+          if (SpecimenSelectedSeats.length > 0) {
             updateFNGridInput();
           }
           $('#specimenModalCenter').modal('hide');
@@ -2750,78 +2597,12 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
       }
     }
 
-    // function popFNmodal() {
-    //   $('#specimenModalCenter').modal('show');
-    //   generateSeats('specimen-box', 'SR');
-
-    //   function generateSeats(containerClass, seatPrefix) {
-    //     let container = document.querySelector(`.${containerClass}`);
-    //     container.innerHTML = '';
-    //     selectedSeats = [];
-
-    //     for (let i = 0; i < 54; i++) {
-    //       let seatID = seatPrefix + '_' + (i + 1);
-    //       let booked = "";
-    //       if (i >= 0 && i <= 41) {
-    //         booked = "booked";
-    //         container.insertAdjacentHTML(
-    //           "beforeend",
-    //           `<input type="checkbox" name="seats" id="${seatID}" />` +
-    //           `<label for="${seatID}" class="seat ${booked}">${seatID}</label>`
-    //         );
-
-    //         document.getElementById(seatID).addEventListener('change', function () {
-    //           handleSeatSelection(seatID);
-    //         });
-    //       } else {
-    //         container.insertAdjacentHTML(
-    //           "beforeend",
-    //           `<input type="checkbox" name="seats" id="${seatID}" />` +
-    //           `<label for="${seatID}" class="seat ${booked}"></label>`
-    //         );
-
-    //         document.getElementById(seatID).addEventListener('change', function () {
-    //           handleSeatSelection(seatID);
-    //         });
-    //       }
-    //     }
-    //   }
-
-    //   function handleSeatSelection(seatID) {
-    //     let seatIndex = selectedSeats.indexOf(seatID);
-    //     if (seatIndex === -1) {
-    //       if (seatID === "BR_43") {
-    //         selectedSeats.push("A8");
-    //       } else if (seatID === "BR_44") {
-    //         selectedSeats.push("B8");
-    //       } else {
-    //         selectedSeats.push(seatID);
-    //       }
-    //     } else {
-    //       selectedSeats.splice(seatIndex, 1);
-    //     }
-    //     console.log("Seat index", seatID);
-    //   }
-
-    //   // Define handleDone and attach it to the window object
-    //   window.handleDone = function () {
-    //     if (selectedSeats.length > 0) {
-    //       let gridInput = document.querySelector("input[placeholder='FN Grid No.']");
-    //       if (gridInput) {
-    //         gridInput.value = selectedSeats.join(', ');
-    //       }
-    //     }
-    //     // Close the modal
-    //     $('#specimenModalCenter').modal('hide');
-    //   };
-    // }
-
     function popOtherSamplemodal() {
       $('#bloodModalCenter').modal('show');
 
       // Fetch data from the database
       fetchSeatDataFromDB('bb').then(seatData => {
-        populateSeats('blood-box', seatData);
+        populateBSeats('blood-box', seatData);
       });
 
       // Function to fetch seat data from the database
@@ -2840,10 +2621,10 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
         });
       }
 
-      function populateSeats(containerClass, seatData) {
+      function populateBSeats(containerClass, seatData) {
         let container = document.querySelector(`.${containerClass}`);
         container.innerHTML = '';
-        selectedSeats = [];
+        let BloodSelectedSeats = [];
 
         const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
         const cols = 10;
@@ -2856,7 +2637,7 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
         }
         grid = localStorage.getItem("selectedGrid");
         console.log("selected Grid Data:", grid);
-        // Destructure the box name and the filtered seats data
+
         const [activeBoxName, filteredSeats] = activeBoxEntry;
         console.log("Active Box Name:", activeBoxName);
         document.getElementById('currBloodBoxName').textContent = activeBoxName;
@@ -2884,7 +2665,7 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
                 `<label for="${seatID}" class="seat" id="${labelName}">${labelName}</label>`
               );
               document.getElementById(seatID).addEventListener('change', function (event) {
-                handleSeatSelection(seatID, event.target.checked, seat.status);
+                handleBSeatSelection(seatID, event.target.checked, seat.status);
               });
 
               let labelElement = document.getElementById(labelName);
@@ -2910,21 +2691,21 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
           container.insertAdjacentHTML("beforeend", "<br/>");
         }
 
-        function handleSeatSelection(seatID, isChecked, status) {
+        function handleBSeatSelection(seatID, isChecked, status) {
           if (status === 'e') {
             if (isChecked) {
-              selectedSeats.push(seatID);
+              BloodSelectedSeats.push(seatID);
             } else {
-              let seatIndex = selectedSeats.indexOf(seatID);
+              let seatIndex = BloodSelectedSeats.indexOf(seatID);
               if (seatIndex !== -1) {
-                selectedSeats.splice(seatIndex, 1);
+                BloodSelectedSeats.splice(seatIndex, 1);
               }
             }
             if (grid === null) {
-              localStorage.setItem("selectedGrid", selectedSeats);
+              localStorage.setItem("selectedGrid", BloodSelectedSeats);
             }
             else {
-              localStorage.setItem("selectedGrid", (grid + ',' + selectedSeats));
+              localStorage.setItem("selectedGrid", (grid + ',' + BloodSelectedSeats));
             }
             console.log("Data check in handle", localStorage.getItem("selectedGrid"))
 
@@ -2932,7 +2713,7 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
           else {
             alert("Error clicking the filled component.");
           }
-          console.log("Selected seats:", selectedSeats);
+          console.log("Selected seats:", BloodSelectedSeats);
           updateOtherGridInput();
         }
 
@@ -2941,192 +2722,22 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
           if (gridInput) {
             const box_name = activeBoxName;
             const status = document.querySelector('input[name="MetastasisSample"]:checked') && document.querySelector('input[name="MetastasisSample"]:checked').value === "true" ? "MOther" : "Other";
-            const grid_id = selectedSeats.join(', ');
+            const grid_id = BloodSelectedSeats.join(', ');
             gridInput.value = `${box_name}/${grid_id}/${status}`;
           }
         }
 
         window.handleDone = function () {
-          if (selectedSeats.length > 0) {
+          if (BloodSelectedSeats.length > 0) {
             updateOtherGridInput();
           }
           $('#bloodModalCenter').modal('hide');
         };
       }
     }
-   
-    // function popOtherSamplemodal() {
-    //   $('#bloodModalCenter').modal('show');
 
-    //   // Fetch data from the database
-    //   fetchSeatDataFromDB('bb').then(seatData => {
-    //     populateSeats('blood-box', seatData);
-    //   });
 
-    //   // Function to fetch seat data from the database
-    //   function fetchSeatDataFromDB(nodeName) {
-    //     return new Promise((resolve, reject) => {
-    //       let dbRef = firebase.database().ref(nodeName);
-    //       dbRef.once('value')
-    //         .then(snapshot => {
-    //           let seatData = snapshot.val();  // Assumes seat data is stored in the 'bb' node
-    //           resolve(seatData);
-    //         })
-    //         .catch(error => {
-    //           console.error("Error fetching seat data:", error);
-    //           reject(error);
-    //         });
-    //     });
-    //   }
 
-    //   function populateSeats(containerClass, seatData) {
-    //     let container = document.querySelector(`.${containerClass}`);
-    //     container.innerHTML = '';
-    //     selectedSeats = [];
-
-    //     const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
-    //     const cols = 10;
-
-    //     const filteredSeats = Object.values(seatData).filter(seat => seat.bxsts === 'AC');
-    //     console.log("Filtered Seats:", filteredSeats);
-
-    //     const indexedSeats = filteredSeats[0];
-
-    //     for (let row = 0; row < rows.length; row++) {
-    //       for (let col = 1; col <= cols; col++) {
-    //         const labelName = `label_B${rows[row]}${col}`;
-    //         const seatID = `${rows[row]}${col}`;
-    //         const index = row * cols + (col - 1);
-
-    //         const seatData = indexedSeats[index];
-
-    //         if (seatData) {
-    //           container.insertAdjacentHTML(
-    //             "beforeend",
-    //             `<input type="checkbox" name="seats" id="${seatID}" />` +
-    //             `<label for="${seatID}" class="seat" id="${labelName}">${labelName}</label>`
-    //           );
-    //           document.getElementById(seatID).addEventListener('change', function (event) {
-    //             handleSeatSelection(seatID, event.target.checked);
-    //           });
-
-    //           let labelElement = document.getElementById(labelName);
-    //           if (labelElement) {
-    //             labelElement.textContent = `${seatData.bioBankId || ""} \n ${seatData.sampleType}` || '';
-    //             labelElement.style.fontWeight = "bold";
-    //             labelElement.style.fontSize = "10px";
-    //             labelElement.style.textAlign = 'center';
-    // labelElement.style.color = 'white';
-
-    //             if (seatData.status === "o") {
-    //               labelElement.style.background = "rgb(129, 129, 192)";
-    //             } else if (seatData.status === "s") {
-    //               labelElement.style.background = "rgb(180, 180, 180)";
-    //             } else if (seatData.status === "ps") {
-    //               labelElement.style.background = "rgb(193, 154, 107)";
-    //             } else if (seatData.status === "e") {
-    //               labelElement.style.background = "rgb(143, 218, 187)";
-    //             }
-    //           }
-    //         }
-    //       }
-    //       container.insertAdjacentHTML("beforeend", "<br/>");
-    //     }
-
-    //     function handleSeatSelection(seatID, isChecked) {
-    //       if (isChecked) {
-    //         selectedSeats.push(seatID);
-    //       } else {
-    //         let seatIndex = selectedSeats.indexOf(seatID);
-    //         if (seatIndex !== -1) {
-    //           selectedSeats.splice(seatIndex, 1);
-    //         }
-    //       }
-    //       console.log("Selected seats:", selectedSeats);
-    //       updateOtherGridInput();
-    //     }
-
-    //     function updateOtherGridInput() {
-    //       let gridInput = document.querySelector("input[placeholder='Other Sample Grid']");
-    //       if (gridInput) {
-    //         gridInput.value = selectedSeats.join(', ');
-    //       }
-    //     }
-
-    //     window.handleDone = function () {
-    //       if (selectedSeats.length > 0) {
-    //         updateOtherGridInput();
-    //       }
-    //       $('#bloodModalCenter').modal('hide');
-    //     };
-    //   }
-    // }
-
-    // function popOtherSamplemodal() {
-    //   $('#bloodModalCenter').modal('show');
-    //   generateSeats('blood-box', 'BR');
-
-    //   function generateSeats(containerClass, seatPrefix) {
-    //     let container = document.querySelector(`.${containerClass}`);
-    //     container.innerHTML = '';
-    //     selectedSeats = [];
-
-    //     for (let i = 0; i < 54; i++) {
-    //       let seatID = seatPrefix + '_' + (i + 1);
-    //       let booked = "";
-    //       if (i >= 0 && i <= 41) {
-    //         booked = "booked";
-    //         container.insertAdjacentHTML(
-    //           "beforeend",
-    //           `<input type="checkbox" name="seats" id="${seatID}" />` +
-    //           `<label for="${seatID}" class="seat ${booked}">${seatID}</label>`
-    //         );
-
-    //         document.getElementById(seatID).addEventListener('change', function () {
-    //           handleSeatSelection(seatID);
-    //         });
-    //       } else {
-    //         container.insertAdjacentHTML(
-    //           "beforeend",
-    //           `<input type="checkbox" name="seats" id="${seatID}" />` +
-    //           `<label for="${seatID}" class="seat ${booked}"></label>`
-    //         );
-
-    //         document.getElementById(seatID).addEventListener('change', function () {
-    //           handleSeatSelection(seatID);
-    //         });
-    //       }
-    //     }
-    //   }
-
-    //   function handleSeatSelection(seatID) {
-    //     let seatIndex = selectedSeats.indexOf(seatID);
-    //     if (seatIndex === -1) {
-    //       if (seatID === "BR_43") {
-    //         selectedSeats.push("A8");
-    //       } else if (seatID === "BR_44") {
-    //         selectedSeats.push("B8");
-    //       } else {
-    //         selectedSeats.push(seatID);
-    //       }
-    //     } else {
-    //       selectedSeats.splice(seatIndex, 1);
-    //     }
-    //     console.log("Seat index", seatID);
-    //   }
-
-    //   // Define handleDone and attach it to the window object
-    //   window.handleDone = function () {
-    //     if (selectedSeats.length > 0) {
-    //       let gridInput = document.querySelector("input[placeholder='Other Sample Grid']");
-    //       if (gridInput) {
-    //         gridInput.value = selectedSeats.join(', ');
-    //       }
-    //     }
-    //     // Close the modal
-    //     $('#bloodModalCenter').modal('hide');
-    //   };
-    // }
 
   </script>
 
@@ -3142,7 +2753,6 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
 
       const today = new Date();
 
-      // Set maxDate to today for startInput
       startInput.datepicker({
         format: 'dd/mm/yyyy ',
         autoclose: true,
@@ -3150,7 +2760,6 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
         maxDate: today
       });
 
-      // Set maxDate to today for endInput
       endInput.datepicker({
         format: 'dd/mm/yyyy',
         autoclose: true,
@@ -3754,6 +3363,9 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
         });
         doneBtn.style.display = 'none'
         submitBtn.style.display = 'none'
+        document.getElementById('sefCurrentUser').style.display = "block"
+        document.getElementById('mdCurrentUser').style.display =  "block"
+        document.getElementById('brfCurrentUser').style.display = "block"
       }
       // else if (mode === 'SearchEdit') {
       //   // document.getElementById('mrnNo').setAttribute('disabled', true);
@@ -3762,6 +3374,8 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
       else if (mode === 'SearchEdit' || mode === 'PendingEdit') {
         document.getElementById('mrnNo').setAttribute('disabled', true);
         document.getElementById('bioBankId').setAttribute('disabled', true);
+        
+
       }
 
 
@@ -3778,6 +3392,7 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
       }
 
       retrieveFollowup(biobankID);
+      
     });
 
     document.addEventListener('DOMContentLoaded', function () {
@@ -3808,8 +3423,8 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
   </script>
   <script>
     let userN = sessionStorage.getItem('userName');
-    console.log("User Name",userN)
-    
+    console.log("User Name", userN)
+
 
     function shareData(selectedPatients) {
       console.log("Shared patients :", selectedPatients);
@@ -3843,25 +3458,11 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
       const database = {};  // This will be your database object
 
       selectedPatients.forEach(patient => {
-        const { bioBankId, boxName, gridData } = patient;
+        const { bioBankId, seqKey, boxName, gridData } = patient;
 
         // Fetch existing sections from Firebase for the specific bioBankId
         db.ref(`Os/${bioBankId}`).once('value', snapshot => {
           const sections = snapshot.val();
-          let nextSectionIndex = 1;
-
-          // Determine the next available section index
-          if (sections) {
-            const sectionKeys = Object.keys(sections);
-            sectionKeys.forEach(key => {
-              const sectionNumber = parseInt(key.replace('s', ''), 10);
-              if (sectionNumber >= nextSectionIndex) {
-                nextSectionIndex = sectionNumber + 1;
-              }
-            });
-          }
-
-          const nextSection = `s${nextSectionIndex}`;
 
           // Create the structure for each patient
           const patientEntry = {
@@ -3870,44 +3471,64 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
             prj: projectName,
             pip: nopi || "N/A",
             os_ub: userN,
-            lbi: gridData.join(", "),
+            lbi: {},
             ossts: sharedStatus,
             psr: parSharedRemark || "N/A"
           };
 
+          // Check if this patient entry already exists in the database structure
           if (!database[bioBankId]) {
             database[bioBankId] = {};
           }
 
-          database[bioBankId][nextSection] = {};
-          database[bioBankId][nextSection][timestamp] = patientEntry;
+          // Check if the seqKey already exists in the database structure
+          if (!database[bioBankId][seqKey]) {
+            database[bioBankId][seqKey] = {};
+          }
 
-          db.ref(`Os/${bioBankId}/${nextSection}/${timestamp}`).set(patientEntry)
+          // Check if there's an existing entry for this timestamp, if not, initialize it
+          if (!database[bioBankId][seqKey][timestamp]) {
+            database[bioBankId][seqKey][timestamp] = patientEntry;
+          }
+
+          // Merge gridData based on boxName into the existing lbi structure
+          const existingEntry = database[bioBankId][seqKey][timestamp];
+          if (!existingEntry.lbi[boxName]) {
+            existingEntry.lbi[boxName] = gridData;
+          } else {
+            // If boxName already exists, concatenate the new gridData
+            existingEntry.lbi[boxName] = existingEntry.lbi[boxName].concat(gridData);
+          }
+
+          // Update Firebase with the consolidated data
+          db.ref(`Os/${bioBankId}/${seqKey}/${timestamp}`).set(existingEntry)
             .then(() => {
-              alert('Form submitted successfully for BioBank ID: ' + bioBankId + ' to section: ' + nextSection);
+              alert('Form submitted successfully for BioBank ID: ' + bioBankId);
+
+              // Update the grid status in the appropriate boxes
               gridData.forEach(seatID => {
                 seatID = seatID.trim();
-                console.log("seatID", seatID);
-
                 const index = getSeatIndex(seatID);
-                db.ref(`bb/${boxName}/${index}`).update({
-                  status: sharedStatus
-                }).then(() => {
-                  console.log('Status updated for BioBank ID:', bioBankId, 'Sample Index:', index);
-                }).catch(error => {
-                  console.error('Error updating status for BioBank ID:', bioBankId, 'Sample Index:', index, error);
-                });
-                db.ref(`sb/${boxName}/${index}`).update({
-                  status: sharedStatus
-                }).then(() => {
-                  console.log('Status updated for BioBank ID:', bioBankId, 'Sample Index:', index);
-                }).catch(error => {
-                  console.error('Error updating status for BioBank ID:', bioBankId, 'Sample Index:', index, error);
-                });
+
+                db.ref(`bb/${boxName}/${index}`).update({ status: sharedStatus })
+                  .then(() => {
+                    console.log('Status updated for BioBank ID:', bioBankId, 'Sample Index:', index);
+                  })
+                  .catch(error => {
+                    console.error('Error updating status for BioBank ID:', bioBankId, 'Sample Index:', index, error);
+                  });
+
+                db.ref(`sb/${boxName}/${index}`).update({ status: sharedStatus })
+                  .then(() => {
+                    console.log('Status updated for BioBank ID:', bioBankId, 'Sample Index:', index);
+                  })
+                  .catch(error => {
+                    console.error('Error updating status for BioBank ID:', bioBankId, 'Sample Index:', index, error);
+                  });
               });
 
             })
-            .catch((error) => {
+            .catch(error => {
               console.error('Error writing to Firebase:', error);
               alert('Error submitting form for BioBank ID: ' + bioBankId);
             });
@@ -3944,6 +3565,34 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
         console.log("BioBank ID is empty or undefined.");
       }
     });
+
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    let mode = localStorage.getItem('mode');
+    let biobankID = localStorage.getItem('sharedbioid');
+
+    if (mode === 'sharedView') {
+        const formElements = document.querySelectorAll('input, select, textarea');
+        const doneBtn = document.getElementById("sampleEntry1");
+        const submitBtn = document.getElementById("shareSubmit");
+        
+        // Disable all form elements
+        formElements.forEach(element => {
+            // Exclude the input with id 'sharedSampleBox' from being disabled
+            if (element.id !== 'sharedSampleBox') {
+                element.disabled = true;
+            }
+        });
+        document.getElementById('navArrows').style.display = 'block';
+        doneBtn.style.display = 'none';
+        submitBtn.style.display = 'none';
+    }
+
+    console.log("bhanu");
+    retrieveOs(biobankID);
+});
+
 
   </script>
 </body>
