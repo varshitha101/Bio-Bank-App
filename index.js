@@ -2130,14 +2130,86 @@ function fillIeForm(ieData) {
   document.getElementById('OtherSampleProcessedTime').value = ospt.time;
 }
 
+// function fillMdForm(mdData) {
+//   document.getElementById('mddataEB').value = mdData.mdu || 'currentUser';
+//   document.querySelector(`input[name="RadioFHabit"][value="${mdData.fhc}"]`).checked = true;
+//   document.getElementById('familyRelation').value = mdData.fhcr || '';
+//   document.getElementById('familyCancerType').value = mdData.fhct || '';
+//   document.querySelector(`input[name="RadioFdHabit"][value="${mdData.fh}"]`).checked = true;
+//   document.querySelector(`input[name="RadioAlcoholHabit"][value="${mdData.hac}"]`).checked = true;
+//   document.querySelector(`input[name="RadioSmokeHabit"][value="${mdData.hs}"]`).checked = true;
+//   document.querySelector(`input[name="ECH"][value="${mdData.ec}"]`).checked = true;
+//   document.getElementById('comorbidityMedications').value = mdData.ecm || '';
+//   document.getElementById('ffQcComments').value = mdData.ffqc || '';
+//   document.getElementById('ffTissueRemarks').value = mdData.ftr || '';
+//   document.querySelector(`input[name="tumorSite"][value="${mdData.tst}"]`).checked = true;
+//   document.getElementById('tumorPercentage').value = mdData.tp || '';
+//   document.getElementById('ageAtDiagnosis').value = mdData.ad || '';
+//   document.getElementById('clinicalStage').value = mdData.cs || '';
+//   document.querySelector(`input[name="IHC"][value="${mdData.ihcm}"]`).checked = true;
+//   document.getElementById('IHC_Description').value = mdData.ihcd || '';
+//   document.querySelector(`input[name="GeneticT"][value="${mdData.gt}"]`).checked = true;
+//   document.getElementById('GT_Description').value = mdData.gtd || '';
+//   document.getElementById('subtype').value = mdData.pst || '';
+//   document.getElementById('sampleGrade').value = mdData.gd || '';
+//   document.querySelector(`input[name="focal"][value="${mdData.fc}"]`).checked = true;
+//   document.querySelector(`input[name="LVI"][value="${mdData.lvi}"]`).checked = true;
+//   document.querySelector(`input[name="PNI"][value="${mdData.pni}"]`).checked = true;
+//   document.getElementById('pTNM').value = mdData.ptnm || '';
+//   document.getElementById('AJCC').value = mdData.as || '';
+//   document.getElementById('nodesTested').value = mdData.nnt || '';
+//   document.getElementById('positiveNodes').value = mdData.npn || '';
+//   if (mdData.tsz) {
+//     const [tL, tW, tH] = mdData.tsz.split('x');
+
+//     document.getElementById('tumorSizeL').value = tL;
+//     document.getElementById('tumorSizeW').value = tW;
+//     document.getElementById('tumorSizeH').value = tH;
+//   }
+//   document.querySelector(`input[name="denovo"][value="${mdData.dm}"]`).checked = true;
+//   document.querySelector(`input[name="MPT"][value="${mdData.mpt}"]`).checked = true;
+//   document.getElementById('btHPEInput').value = mdData.btn || '';
+//   document.getElementById('biopsyDate').value = mdData.bd || '';
+//   document.querySelector(`input[name="NACT"][value="${mdData.nact}"]`).checked = true;
+//   document.getElementById('NACT_cycle').value = mdData.nactdc || '';
+//   document.getElementById('NACT_cycle_D').value = mdData.nactdlc || '';
+//   document.getElementById('StHPEInput').value = mdData.stn || '';
+//   document.getElementById('surgeryDate').value = mdData.sd || '';
+//   document.getElementById('rcbScores').value = mdData.rcbs || '';
+//   document.querySelector(`input[name="ACT"][value="${mdData.act}"]`).checked = true;
+//   document.getElementById('actDrugCycles').value = mdData.actdc || '';
+//   document.getElementById('actDateLastCycle').value = mdData.actdls || '';
+//   document.querySelector(`input[name="RadioT"][value="${mdData.rd}"]`).checked = true;
+//   document.getElementById('radiotherapyDetails').value = mdData.rdd || '';
+//   document.getElementById('radiotherapyLastCycleDate').value = mdData.rtdls || '';
+//   document.querySelector(`input[name="pbT"][value="${mdData.ipba}"]`).checked = true;
+// }
+
 function fillMdForm(mdData) {
-  document.getElementById('mddataEB').value = mdData.mdu || 'currentUser';
+  const formElements = [
+    ...document.querySelectorAll('input, select, textarea'),
+  ];
+
+  if (!mdData.pst) {
+    // Disable all elements
+    formElements.forEach((element) => {
+      element.disabled = true;
+    });
+
+    return; // Exit the function if `pst` is not available
+  }
+
+  // Enable elements if `pst` has a value
+  formElements.forEach((element) => {
+    element.disabled = false;
+  });
+
   document.querySelector(`input[name="RadioFHabit"][value="${mdData.fhc}"]`).checked = true;
   document.getElementById('familyRelation').value = mdData.fhcr || '';
   document.getElementById('familyCancerType').value = mdData.fhct || '';
   document.querySelector(`input[name="RadioFdHabit"][value="${mdData.fh}"]`).checked = true;
-  document.querySelector(`input[name="RadioAlcoholHabit"][value="${mdData.hac}"]`).checked = true;
-  document.querySelector(`input[name="RadioSmokeHabit"][value="${mdData.hs}"]`).checked = true;
+  if (mdData.hac) document.querySelector(`input[name="RadioAlcoholHabit"][value="${mdData.hac}"]`).checked = true;
+  if (mdData.hs) document.querySelector(`input[name="RadioSmokeHabit"][value="${mdData.hs}"]`).checked = true;
   document.querySelector(`input[name="ECH"][value="${mdData.ec}"]`).checked = true;
   document.getElementById('comorbidityMedications').value = mdData.ecm || '';
   document.getElementById('ffQcComments').value = mdData.ffqc || '';
@@ -2146,15 +2218,15 @@ function fillMdForm(mdData) {
   document.getElementById('tumorPercentage').value = mdData.tp || '';
   document.getElementById('ageAtDiagnosis').value = mdData.ad || '';
   document.getElementById('clinicalStage').value = mdData.cs || '';
-  document.querySelector(`input[name="IHC"][value="${mdData.ihcm}"]`).checked = true;
+  if (mdData.ihcm) document.querySelector(`input[name="IHC"][value="${mdData.ihcm}"]`).checked = true;
   document.getElementById('IHC_Description').value = mdData.ihcd || '';
-  document.querySelector(`input[name="GeneticT"][value="${mdData.gt}"]`).checked = true;
+  if (mdData.gt) document.querySelector(`input[name="GeneticT"][value="${mdData.gt}"]`).checked = true;
   document.getElementById('GT_Description').value = mdData.gtd || '';
   document.getElementById('subtype').value = mdData.pst || '';
   document.getElementById('sampleGrade').value = mdData.gd || '';
-  document.querySelector(`input[name="focal"][value="${mdData.fc}"]`).checked = true;
-  document.querySelector(`input[name="LVI"][value="${mdData.lvi}"]`).checked = true;
-  document.querySelector(`input[name="PNI"][value="${mdData.pni}"]`).checked = true;
+  if (mdData.fc) document.querySelector(`input[name="focal"][value="${mdData.fc}"]`).checked = true;
+  if (mdData.lvi) document.querySelector(`input[name="LVI"][value="${mdData.lvi}"]`).checked = true;
+  if (mdData.pni) document.querySelector(`input[name="PNI"][value="${mdData.pni}"]`).checked = true;
   document.getElementById('pTNM').value = mdData.ptnm || '';
   document.getElementById('AJCC').value = mdData.as || '';
   document.getElementById('nodesTested').value = mdData.nnt || '';
@@ -2166,45 +2238,116 @@ function fillMdForm(mdData) {
     document.getElementById('tumorSizeW').value = tW;
     document.getElementById('tumorSizeH').value = tH;
   }
-  document.querySelector(`input[name="denovo"][value="${mdData.dm}"]`).checked = true;
-  document.querySelector(`input[name="MPT"][value="${mdData.mpt}"]`).checked = true;
+  if (mdData.dm) document.querySelector(`input[name="denovo"][value="${mdData.dm}"]`).checked = true;
+  if (mdData.mpt) document.querySelector(`input[name="MPT"][value="${mdData.mpt}"]`).checked = true;
   document.getElementById('btHPEInput').value = mdData.btn || '';
   document.getElementById('biopsyDate').value = mdData.bd || '';
-  document.querySelector(`input[name="NACT"][value="${mdData.nact}"]`).checked = true;
+  if (mdData.nact) document.querySelector(`input[name="NACT"][value="${mdData.nact}"]`).checked = true;
   document.getElementById('NACT_cycle').value = mdData.nactdc || '';
   document.getElementById('NACT_cycle_D').value = mdData.nactdlc || '';
   document.getElementById('StHPEInput').value = mdData.stn || '';
   document.getElementById('surgeryDate').value = mdData.sd || '';
   document.getElementById('rcbScores').value = mdData.rcbs || '';
-  document.querySelector(`input[name="ACT"][value="${mdData.act}"]`).checked = true;
+  if (mdData.act) document.querySelector(`input[name="ACT"][value="${mdData.act}"]`).checked = true;
   document.getElementById('actDrugCycles').value = mdData.actdc || '';
   document.getElementById('actDateLastCycle').value = mdData.actdls || '';
-  document.querySelector(`input[name="RadioT"][value="${mdData.rd}"]`).checked = true;
+  if (mdData.rd) document.querySelector(`input[name="RadioT"][value="${mdData.rd}"]`).checked = true;
   document.getElementById('radiotherapyDetails').value = mdData.rdd || '';
   document.getElementById('radiotherapyLastCycleDate').value = mdData.rtdls || '';
-  document.querySelector(`input[name="pbT"][value="${mdData.ipba}"]`).checked = true;
+  if (mdData.ipba) document.querySelector(`input[name="isParaffinBlockAvailable"][value="${mdData.ipba}"]`).checked = true;
+  document.getElementById('processedBy').value = mdData.mdu || 'currentUser';
 }
 
+// function fillBrfForm(brfData) {
+//   document.getElementById('brfdataEB').value = brfData.brfu || 'currentUser';
+//   document.getElementById('ageAtMenarche').value = brfData.am || '';
+//   document.getElementById('parity').value = brfData.pty || '';
+//   document.getElementById('numChild').value = brfData.noc || '';
+//   document.getElementById('ageAtFirstChild').value = brfData.afc || '';
+//   document.querySelector(`input[name="breFd"][value="${brfData.bf}"]`).checked = true;
+//   document.getElementById('dbf').value = brfData.dbf || '';
+//   document.querySelector(`input[name="mStatus"][value="${brfData.ms}"]`).checked = true;
+
+//   document.getElementById('ad').value = brfData.ad || '';
+//   document.querySelector(`input[name="ERRadio"][value="${brfData.er}"]`).checked = true;
+//   document.querySelector(`input[name="PRRadio"][value="${brfData.pr}"]`).checked = true;
+//   document.querySelector(`input[name="HER2Radio"][value="${brfData.h2}"]`).checked = true;
+//   document.getElementById('sbt').value = brfData.sbt || '';
+//   document.getElementById('k67').value = brfData.k67 || '';
+//   document.getElementById('ClinicalS').value = brfData.cs || '';
+//   document.getElementById('HistologicalS').value = brfData.ht || '';
+//   document.getElementById('sps').value = brfData.sps || '';
+// }
 
 function fillBrfForm(brfData) {
-  document.getElementById('brfdataEB').value = brfData.brfu || 'currentUser';
+  // Check if brfData.ms exists and has a value
+  if (!brfData.ms) {
+    console.log("brfData.ms is not provided. Disabling form elements.");
+
+    // Get all elements mentioned in the function and disable them
+    const elementsToDisable = [
+      'ageAtMenarche',
+      'parity',
+      'numChild',
+      'ageAtFirstChild',
+      'dbf',
+      'ad',
+      'sbt',
+      'k67',
+      'ClinicalS',
+      'HistologicalS',
+      'sps',
+      'processedBy',
+    ];
+
+    // Disable input fields
+    elementsToDisable.forEach(id => {
+      const element = document.getElementById(id);
+      if (element) {
+        element.disabled = true;
+      }
+    });
+
+    // Disable radio buttons
+    const radioGroups = ['breFd', 'mStatus', 'ERRadio', 'PRRadio', 'HER2Radio'];
+    radioGroups.forEach(name => {
+      const radios = document.querySelectorAll(`input[name="${name}"]`);
+      radios.forEach(radio => {
+        radio.disabled = true;
+      });
+    });
+
+    return; // Exit the function if brfData.ms has no value
+  }
+
+  // Populate data as usual if brfData.ms has a value
   document.getElementById('ageAtMenarche').value = brfData.am || '';
   document.getElementById('parity').value = brfData.pty || '';
   document.getElementById('numChild').value = brfData.noc || '';
   document.getElementById('ageAtFirstChild').value = brfData.afc || '';
-  document.querySelector(`input[name="breFd"][value="${brfData.bf}"]`).checked = true;
+  if (brfData.bf !== undefined) {
+    document.querySelector(`input[name="breFd"][value="${brfData.bf}"]`).checked = true;
+  }
   document.getElementById('dbf').value = brfData.dbf || '';
-  document.querySelector(`input[name="mStatus"][value="${brfData.ms}"]`).checked = true;
-
+  if (brfData.ms) {
+    document.querySelector(`input[name="mStatus"][value="${brfData.ms}"]`).checked = true;
+  }
   document.getElementById('ad').value = brfData.ad || '';
-  document.querySelector(`input[name="ERRadio"][value="${brfData.er}"]`).checked = true;
-  document.querySelector(`input[name="PRRadio"][value="${brfData.pr}"]`).checked = true;
-  document.querySelector(`input[name="HER2Radio"][value="${brfData.h2}"]`).checked = true;
+  if (brfData.er !== undefined) {
+    document.querySelector(`input[name="ERRadio"][value="${brfData.er}"]`).checked = true;
+  }
+  if (brfData.pr !== undefined) {
+    document.querySelector(`input[name="PRRadio"][value="${brfData.pr}"]`).checked = true;
+  }
+  if (brfData.h2 !== undefined) {
+    document.querySelector(`input[name="HER2Radio"][value="${brfData.h2}"]`).checked = true;
+  }
   document.getElementById('sbt').value = brfData.sbt || '';
   document.getElementById('k67').value = brfData.k67 || '';
   document.getElementById('ClinicalS').value = brfData.cs || '';
   document.getElementById('HistologicalS').value = brfData.ht || '';
   document.getElementById('sps').value = brfData.sps || '';
+  document.getElementById('processedBy').value = brfData.brfu || 'currentUser';
 }
 
 function updateToFirebase(data) {
