@@ -2050,6 +2050,19 @@ function pages_display(mode, bioBankId, seq, timestampKey) {
     localStorage.setItem("selectedGrid", "");
     window.location.href = "default.html";
   }
+  // else if(mode === undefined){
+  //   const formElements = [
+  //     ...document.querySelectorAll('input, select, textarea'),
+  //   ];
+  
+  //     // Disable all elements
+  //     formElements.forEach((element) => {
+  //       element.disabled = true;
+  //     });
+  
+  //     return; // Exit the function if `pst` is not available
+  
+  // }
 }
 
 
@@ -2190,19 +2203,19 @@ function fillMdForm(mdData) {
     ...document.querySelectorAll('input, select, textarea'),
   ];
 
-  if (!mdData.pst) {
-    // Disable all elements
-    formElements.forEach((element) => {
-      element.disabled = true;
-    });
+  // if (!mdData.pst) {
+  //   // Disable all elements
+  //   formElements.forEach((element) => {
+  //     element.disabled = true;
+  //   });
 
-    return; // Exit the function if `pst` is not available
-  }
+  //   return; // Exit the function if `pst` is not available
+  // }
 
   // Enable elements if `pst` has a value
-  formElements.forEach((element) => {
-    element.disabled = false;
-  });
+  // formElements.forEach((element) => {
+  //   element.disabled = false;
+  // });
 
   document.querySelector(`input[name="RadioFHabit"][value="${mdData.fhc}"]`).checked = true;
   document.getElementById('familyRelation').value = mdData.fhcr || '';
@@ -2281,44 +2294,44 @@ function fillMdForm(mdData) {
 
 function fillBrfForm(brfData) {
   // Check if brfData.ms exists and has a value
-  if (!brfData.ms) {
-    console.log("brfData.ms is not provided. Disabling form elements.");
+  // if (!brfData.ms) {
+  //   console.log("brfData.ms is not provided. Disabling form elements.");
 
-    // Get all elements mentioned in the function and disable them
-    const elementsToDisable = [
-      'ageAtMenarche',
-      'parity',
-      'numChild',
-      'ageAtFirstChild',
-      'dbf',
-      'ad',
-      'sbt',
-      'k67',
-      'ClinicalS',
-      'HistologicalS',
-      'sps',
-      'processedBy',
-    ];
+  //   // Get all elements mentioned in the function and disable them
+  //   const elementsToDisable = [
+  //     'ageAtMenarche',
+  //     'parity',
+  //     'numChild',
+  //     'ageAtFirstChild',
+  //     'dbf',
+  //     'ad',
+  //     'sbt',
+  //     'k67',
+  //     'ClinicalS',
+  //     'HistologicalS',
+  //     'sps',
+  //     'processedBy',
+  //   ];
 
-    // Disable input fields
-    elementsToDisable.forEach(id => {
-      const element = document.getElementById(id);
-      if (element) {
-        element.disabled = true;
-      }
-    });
+  //   // Disable input fields
+  //   elementsToDisable.forEach(id => {
+  //     const element = document.getElementById(id);
+  //     if (element) {
+  //       element.disabled = true;
+  //     }
+  //   });
 
-    // Disable radio buttons
-    const radioGroups = ['breFd', 'mStatus', 'ERRadio', 'PRRadio', 'HER2Radio'];
-    radioGroups.forEach(name => {
-      const radios = document.querySelectorAll(`input[name="${name}"]`);
-      radios.forEach(radio => {
-        radio.disabled = true;
-      });
-    });
+  //   // Disable radio buttons
+  //   const radioGroups = ['breFd', 'mStatus', 'ERRadio', 'PRRadio', 'HER2Radio'];
+  //   radioGroups.forEach(name => {
+  //     const radios = document.querySelectorAll(`input[name="${name}"]`);
+  //     radios.forEach(radio => {
+  //       radio.disabled = true;
+  //     });
+  //   });
 
-    return; // Exit the function if brfData.ms has no value
-  }
+  //   return; // Exit the function if brfData.ms has no value
+  // }
 
   // Populate data as usual if brfData.ms has a value
   document.getElementById('ageAtMenarche').value = brfData.am || '';
@@ -2905,6 +2918,21 @@ function shared_pages_display(mode, bioBankId, seq, boxName, timestampKey) {
   else if (mode === "") {
     localStorage.setItem("selectedGrid", "");
     window.location.href = "default.html";
+  }
+  else if(mode === undefined){
+    const formElements = [
+      ...document.querySelectorAll('input, select, textarea'),
+    ];
+  
+    // if (!mdData.pst) {
+    //   // Disable all elements
+    //   formElements.forEach((element) => {
+    //     element.disabled = true;
+    //   });
+  
+    //   return; // Exit the function if `pst` is not available
+    // }
+  
   }
 }
 
