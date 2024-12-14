@@ -170,7 +170,7 @@
 
       </div>
       <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255);">
-        Version 1.2.0
+        Version 1.3.0
       </div>
     </div>
   </footer>
@@ -179,6 +179,9 @@
   <!-- Firebase Realtime Database -->
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
   <script>
+    if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn') !== 'true') {
+      window.location.href = "login.html";
+    }
     $(document).ready(function () {
       let startInput = $('#startInput');
       let endInput = $('#endInput');
@@ -199,6 +202,10 @@
           startInput.attr('disabled', true);
           endInput.attr('disabled', true);
 
+          localStorage.setItem('startInput', '');
+          localStorage.setItem('endInput', '');
+
+
         }
         else if (selectedOption === 'day') {
           let currentDate = new Date();
@@ -213,6 +220,8 @@
 
           startInput.attr('disabled', true);
           endInput.attr('disabled', true);
+          localStorage.setItem('startInput', formattedDate);
+          localStorage.setItem('endInput', formattedDate);
         }
         else if (selectedOption === 'month') {
           let currentDate = new Date();
@@ -236,6 +245,8 @@
 
           startInput.attr('disabled', true);
           endInput.attr('disabled', true);
+          localStorage.setItem('startInput', formattedFirstDay);
+          localStorage.setItem('endInput', formattedLastDay);
         }
 
         else if (selectedOption === 'week') {
@@ -263,6 +274,8 @@
 
           startInput.attr('disabled', true);
           endInput.attr('disabled', true);
+          localStorage.setItem('startInput', formattedSunday);
+          localStorage.setItem('endInput', formattedDate);
         }
 
         else if (selectedOption === 'custom') {
@@ -281,6 +294,11 @@
             autoclose: true,
             todayHighlight: true
           });
+          var st = document.getElementById('startInput').value
+          var et = document.getElementById('endInput').value
+
+          localStorage.setItem('startInput', st);
+          localStorage.setItem('endInput', et);
         }
 
       });
@@ -313,6 +331,13 @@
   <script>
     const app = firebase.initializeApp(firebaseConfig);
     const db = firebase.database(app);
+    window.onload=function(){
+      document.getElementById("optionInput").value = "select"
+      localStorage.setItem('startInput', '');
+      localStorage.setItem('endInput', '' );
+    }
+      
+    
 
     document.addEventListener('DOMContentLoaded', function () {
       document.getElementById('searchBtn').addEventListener('click', function (event) {
@@ -321,6 +346,7 @@
           .then(snapshot => {
             const seatData = snapshot.val();
             console.log("Full seatData:", seatData);
+
 
             if (seatData) {
               let countUnder30 = 0;
@@ -341,132 +367,165 @@
               let countBS = 0;
               let countSS = 0;
               let countOS = 0;
+              let count = 0;
 
               let agesArray = [];
               let cncrTypeArray = [];
 
-              Object.keys(seatData).forEach(bioBankId => {
-                const sections = seatData[bioBankId];
+              let startDate = localStorage.getItem('startInput');
+              let endDate = localStorage.getItem('endInput');
 
-                if (sections) {
-                  const sectionKeys = Object.keys(sections);
-                  const lastSequenceKey = sectionKeys[sectionKeys.length - 1];
-                  const lastSequenceData = sections[lastSequenceKey];
-                  const timestampkeys = Object.keys(lastSequenceData);
-                  const lastTimeKey = timestampkeys[timestampkeys.length - 1];
-                  const timestampData = lastSequenceData[lastTimeKey];
+              let startTimestamp = getTimestamp(startDate); // Start of the day timestamp
+              let endTimestamp = getTimestamp(endDate, true); // End of the day timestamp
 
-                  if (timestampData && timestampData.ie && timestampData.ie.ag) {
-                    const age = timestampData.ie.ag;
-                    const cancer = timestampData.ie.ct;
-                    const procedure = timestampData.ie.tpr;
-                    const bSample = timestampData.ie.bs;
-                    const sSample = timestampData.ie.ss;
-                    const oSample = timestampData.ie.osmp;
 
-                    agesArray.push(age);
-                    cncrTypeArray.push(cancer);
 
-                    if (age < 30) {
-                      countUnder30++;
-                    } else if (age >= 30 && age <= 40) {
-                      count30to40++;
-                    } else if (age >= 41 && age <= 50) {
-                      count41to50++;
-                    } else if (age >= 51 && age <= 60) {
-                      count51to60++;
-                    } else if (age > 60) {
-                      countAbove60++;
-                    }
+              console.log("Start Input Value testing: ", startTimestamp, ' - ', startDate);
+              console.log("End Input Value testing: ", endTimestamp, ' - ', endDate);
 
-                    if (cancer === 'brst') {
-                      breastCancer++;
-                    } else if (cancer === 'throat') {
-                      ThroatCancer++;
-                    } else if (cancer === 'liver') {
-                      liverCancer++;
-                    } else if (cancer === 'lung') {
-                      lungCancer++;
-                    }
+              if (startDate !== "" && endDate !== "") {
+                Object.keys(seatData).forEach(bioBankId => {
+                  const sections = seatData[bioBankId];
 
-                    if (procedure === 'b') {
-                      biopsy++;
-                    } else if (procedure === 'r') {
-                      resection++;
-                    } else if (procedure === 'both') {
-                      bothProcedures++;
-                    }
 
-                    if (bSample === 'Y') {
-                      countBS++;
-                    }
-                    if (sSample === 'Y') {
-                      countSS++;
-                    }
-                    if (oSample === 'Y') {
-                      countOS++;
-                    }
+
+                  if (sections) {
+                    const sectionKeys = Object.keys(sections);
+
+                    sectionKeys.forEach(sectionKey => {
+                      const sequenceData = sections[sectionKey];
+                      const timestampKeys = Object.keys(sequenceData);
+                      
+
+
+                      timestampKeys.forEach(timestampKey => {
+                        const timestamp = parseInt(timestampKey, 10)*1000;
+                        if (timestamp >= startTimestamp && timestamp <= endTimestamp) {
+
+                          count = count + sectionKeys.length;
+                          console.log("sequenceData.length",sequenceData)
+                          document.getElementById('samples').innerHTML = count;
+                          const timestampData = sequenceData[timestampKey];
+
+                          if (timestampData && timestampData.ie && timestampData.ie.ag) {
+                            const age = timestampData.ie.ag;
+                            const cancer = timestampData.ie.ct;
+                            const procedure = timestampData.ie.tpr;
+                            const bSample = timestampData.ie.bs;
+                            const sSample = timestampData.ie.ss;
+                            const oSample = timestampData.ie.osmp;
+
+                            // Update the respective counters and arrays
+                            agesArray.push(age);
+                            cncrTypeArray.push(cancer);
+
+                            if (age < 30) {
+                              countUnder30++;
+                            } else if (age >= 30 && age <= 40) {
+                              count30to40++;
+                            } else if (age >= 41 && age <= 50) {
+                              count41to50++;
+                            } else if (age >= 51 && age <= 60) {
+                              count51to60++;
+                            } else if (age > 60) {
+                              countAbove60++;
+                            }
+
+                            if (cancer === 'brst') {
+                              breastCancer++;
+                            } else if (cancer === 'throat') {
+                              ThroatCancer++;
+                            } else if (cancer === 'liver') {
+                              liverCancer++;
+                            } else if (cancer === 'lung') {
+                              lungCancer++;
+                            }
+
+                            if (procedure === 'b') {
+                              biopsy++;
+                            } else if (procedure === 'r') {
+                              resection++;
+                            } else if (procedure === 'both') {
+                              bothProcedures++;
+                            }
+
+                            if (bSample === 'Y' || bSample === true) {
+                              countBS++;
+                            }
+                            if (sSample === 'Y' || sSample === true ) {
+                              countSS++;
+                            }
+                            if (oSample === 'Y' || oSample === true) {
+                              countOS++;
+                            }
+                          }
+                        }
+                      });
+                    });
                   }
-                }
-              });
-
-              const ageCategoryCounts = {
-                under30: countUnder30,
-                between30and40: count30to40,
-                between41and50: count41to50,
-                between51and60: count51to60,
-                above60: countAbove60
-              };
-
-              console.log("Age category counts:", ageCategoryCounts);
-              console.log("Breast Cancer:", breastCancer);
-              console.log("Throat Cancer:", ThroatCancer);
-              console.log("Liver Cancer:", liverCancer);
-              console.log("Lung Cancer:", lungCancer);
-              console.log("Biopsy:", biopsy);
-              console.log("Resection:", resection);
-              console.log("Both Procedures:", bothProcedures);
-              console.log("Blood Samples (BS):", countBS);
-              console.log("Stool Samples (SS):", countSS);
-              console.log("Other Samples (OS):", countOS);
-
-              ageChart(countUnder30, count30to40, count41to50, count51to60, countAbove60);
-              cancerChart(breastCancer, ThroatCancer, liverCancer, lungCancer);
-              procedureChart(biopsy, resection, bothProcedures);
-              sampleTypeChart(countBS, countSS, countOS);
-
-
-              const totalSample = countBS + countSS + countOS;
-
-              let count = 0;
-              let seqArray = [];
-
-              db.ref('sef').once('value')
-                .then(snapshot => {
-                  let snapData = snapshot.val();
-                  const bioBankIds = Object.keys(snapData);
-
-                  console.log("bioBankIds", bioBankIds);
-                  bioBankIds.forEach(bioBankId => {
-                    let bioseq = snapData[bioBankId];
-                    const seqnum = Object.keys(bioseq);
-                    console.log('seqnum.length', seqnum.length);
-
-                    count = count + seqnum.length;
-                    seqArray.push(seqnum);
-                  });
-
-                  // Log the count and seqArray after the loop has completed
-                  console.log('seqArray', seqArray);
-                  console.log("count", count);
-                  document.getElementById('samples').innerHTML = count;
-
-                })
-                .catch(error => {
-                  console.error("Error fetching seat data from Firebase:", error);
                 });
 
+                const ageCategoryCounts = {
+                  under30: countUnder30,
+                  between30and40: count30to40,
+                  between41and50: count41to50,
+                  between51and60: count51to60,
+                  above60: countAbove60
+                };
 
+                console.log("Age category counts:", ageCategoryCounts);
+                console.log("Breast Cancer:", breastCancer);
+                console.log("Throat Cancer:", ThroatCancer);
+                console.log("Liver Cancer:", liverCancer);
+                console.log("Lung Cancer:", lungCancer);
+                console.log("Biopsy:", biopsy);
+                console.log("Resection:", resection);
+                console.log("Both Procedures:", bothProcedures);
+                console.log("Blood Samples (BS):", countBS);
+                console.log("Stool Samples (SS):", countSS);
+                console.log("Other Samples (OS):", countOS);
+
+
+                ageChart(countUnder30, count30to40, count41to50, count51to60, countAbove60);
+                cancerChart(breastCancer, ThroatCancer, liverCancer, lungCancer);
+                procedureChart(biopsy, resection, bothProcedures);
+                sampleTypeChart(countBS, countSS, countOS);
+
+
+                const totalSample = countBS + countSS + countOS;
+
+                // let count = 0;
+                // let seqArray = [];
+
+                // db.ref('sef').once('value')
+                //   .then(snapshot => {
+                //     let snapData = snapshot.val();
+                //     const bioBankIds = Object.keys(snapData);
+
+                //     console.log("bioBankIds", bioBankIds);
+                //     bioBankIds.forEach(bioBankId => {
+                //       let bioseq = snapData[bioBankId];
+                //       const seqnum = Object.keys(bioseq);
+                //       console.log('seqnum.length', seqnum.length);
+
+                //       count = count + seqnum.length;
+                //       seqArray.push(seqnum);
+                //     });
+
+                //     // Log the count and seqArray after the loop has completed
+                //     console.log('seqArray', seqArray);
+                //     console.log("count", count);
+                //     document.getElementById('samples').innerHTML = count;
+
+                //   })
+                //   .catch(error => {
+                //     console.error("Error fetching seat data from Firebase:", error);
+                //   });
+
+              }
+              else {
+                alert("Please select Date");
+              }
 
               // document.getElementById('samples').innerHTML = totalSample;
 
@@ -480,6 +539,24 @@
       });
     });
 
+
+    function getTimestamp(dateString, isEndOfDay = false) {
+      // Parse the date string (assumes format 'dd/mm/yyyy')
+      let [day, month, year] = dateString.split('/').map(Number);
+
+      // Create a new Date object for the given date
+      let date = new Date(year, month - 1, day);
+
+      // Adjust time for start or end of the day
+      if (isEndOfDay) {
+        date.setHours(23, 59, 59, 999); // End of the day
+      } else {
+        date.setHours(0, 0, 0, 0); // Start of the day
+      }
+
+      // Return the timestamp in milliseconds
+      return date.getTime();
+    }
 
   </script>
 
