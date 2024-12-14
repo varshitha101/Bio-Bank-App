@@ -396,15 +396,15 @@
                       const sequenceData = sections[sectionKey];
                       const timestampKeys = Object.keys(sequenceData);
                       
-
+                          count = count + sectionKeys.length;
+                          console.log("sequenceData.length",sequenceData)
+                          document.getElementById('samples').innerHTML = count;
 
                       timestampKeys.forEach(timestampKey => {
                         const timestamp = parseInt(timestampKey, 10)*1000;
                         if (timestamp >= startTimestamp && timestamp <= endTimestamp) {
 
-                          count = count + sectionKeys.length;
-                          console.log("sequenceData.length",sequenceData)
-                          document.getElementById('samples').innerHTML = count;
+                          
                           const timestampData = sequenceData[timestampKey];
 
                           if (timestampData && timestampData.ie && timestampData.ie.ag) {
