@@ -438,7 +438,7 @@
                 </div>
               </div>
               <div class="row ml-1 mb-3" id="oSampleTubes" style="display: none;">
-                <label for="SerumgridNo" class="col-sm-2 mb-1 col-form-label">Other Sample Grid <span
+                <label for="OSgridNo" class="col-sm-2 mb-1 col-form-label">Other Sample Grid <span
                     style="color: red; font-weight: bold;">*</span></label>
                 <div class="col-sm-10 mt-2">
                   <input type="button" class="form-control" id="OSgridNo" onclick="popOtherSamplemodal()"
@@ -1512,11 +1512,14 @@
                 <input type="text" class="form-control " placeholder="" id="parSharedRemark">
               </div>
             </div>
-            <div class="row ml-1 mb-3" id="sharedSampleBox">
-              <label for="sharedSampleBox" class="col-sm-2 mb-1 col-form-label">Grid No.</label>
-              <div class="col-sm-10 mt-2">
-                <input type="button" class="form-control" id="sharedSampleBox" onclick="popSharedmodal()"
-                  placeholder="Shared Grid Box">
+            
+            <div id="sharedSampleBox" style="display: none;">
+              <div class="row ml-1 mb-3">
+                <label for="sharedSampleBox" class="col-sm-2 mb-1 col-form-label">Grid No.</label>
+                <div class="col-sm-10 mt-2">
+                  <input type="button" class="form-control" id="sharedSampleBox" onclick="popSharedmodal()"
+                    placeholder="Shared Grid Box">
+                </div>
               </div>
             </div>
             <div class="col mt-4" style="text-align: center;" id="shareSubmit">
@@ -1938,12 +1941,35 @@
                         "status": "o"
                       }
 
+        BloodSelectedSeats = []
         grid = localStorage.getItem("selectedGrid");
         console.log("selected Grid Data in Plasma:", grid);
 
         const [activeBoxName, filteredSeats] = activeBoxEntry;
         console.log("activeBoxEntry", activeBoxEntry)
         // console.log("filteredSeats", filteredSeats)
+        let psData = document.getElementById("PlasmagridNo").value;
+
+        console.log("psData",psData);
+        if(psData.length !== 0 ){
+          if(localStorage.getItem('LocalPlasma')!==null){
+            psGridData =psData.split('/')[1] ;
+            console.log("psGridData",psGridData)
+
+            let ld = psGridData+","+localStorage.getItem('LocalPlasma')
+
+            localStorage.setItem('LocalPlasma',ld);
+            console.log("FN Data from if", localStorage.getItem('LocalPlasma'))
+          }else{
+            psGridData =psData.split('/')[1] ;
+            console.log("psGridData",psGridData)
+
+            //let ld = psGridData+","+localStorage.getItem('LocalFN')
+
+            localStorage.setItem('LocalPlasma',psGridData);
+            console.log("Plasma Data from else", localStorage.getItem('LocalPlasma'))
+          }
+        }
 
 
         console.log("Active Box Name:", activeBoxName);
@@ -2019,6 +2045,15 @@
         }
 
         function handleBSeatSelection(seatID, isChecked, status) {
+          const rev=localStorage.getItem("LocalPlasma")
+          
+          if(rev !== null){
+            let arr = splitStringToArray(rev)
+            BloodSelectedSeats=arr;
+          }
+          
+          console.log("rev : ",rev," BloodSelectedSeats : ",BloodSelectedSeats)
+
           if (status === 'e') {
             if (isChecked) {
               BloodSelectedSeats.push(seatID);
@@ -2055,6 +2090,7 @@
             }
           }
           console.log("Selected seats:", BloodSelectedSeats);
+          localStorage.setItem("LocalPlasma",BloodSelectedSeats)
           updatePlasmaGridInput();
         }
 
@@ -2119,8 +2155,8 @@
       function populateBSeats(containerClass, seatData) {
         let container = document.querySelector(`.${containerClass}`);
         container.innerHTML = '';
-        let BloodSelectedSeats = [];
-
+        // let BloodSelectedSeats = [];
+        BloodSelectedSeats = [];
         const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
         const cols = 10;
 
@@ -2142,6 +2178,29 @@
 
         const [activeBoxName, filteredSeats] = activeBoxEntry;
         console.log("Active Box Name:", activeBoxName);
+
+        let ssData = document.getElementById("SerumgridNo").value;
+
+        console.log("ssData",ssData);
+        if(ssData.length !== 0 ){
+          if(localStorage.getItem('LocalSerum')!==null){
+            ssGridData =ssData.split('/')[1] ;
+            console.log("ssGridData",ssGridData)
+
+            let ld = ssGridData+","+localStorage.getItem('LocalSerum')
+
+            localStorage.setItem('LocalSerum',ld);
+            console.log("Serum Data from if", localStorage.getItem('LocalSerum'))
+          }else{
+            ssGridData =ssData.split('/')[1] ;
+            console.log("ssGridData",ssGridData)
+
+            //let ld = ssGridData+","+localStorage.getItem('LocalFN')
+
+            localStorage.setItem('LocalSerum',ssGridData);
+            console.log("Serum Data from else", localStorage.getItem('LocalSerum'))
+          }
+        }
 
         document.getElementById('currBloodBoxName').textContent = activeBoxName;
 
@@ -2214,6 +2273,13 @@
         }
 
         function handleBSeatSelection(seatID, isChecked, status) {
+          const rev=localStorage.getItem("LocalSerum")
+          if(rev !== null){
+            let arr = splitStringToArray(rev)
+            BloodSelectedSeats=arr;
+          }
+          console.log("rev : ",rev," BloodSelectedSeats : ",BloodSelectedSeats)
+
           if (status === 'e') {
             if (isChecked) {
               BloodSelectedSeats.push(seatID);
@@ -2243,7 +2309,9 @@
 
             }
           }
+          // BloodSelectedSeats = splitStringToArray(BloodSelectedSeats)
           console.log("Selected seats:", BloodSelectedSeats);
+          localStorage.setItem("LocalSerum",BloodSelectedSeats)
           updateSerumGridInput();
         }
 
@@ -2288,7 +2356,6 @@
     // }
 
     function splitStringToArray(grid) {
-      // Split the string by commas, trim the items, and remove duplicates using a Set
       const data = [...new Set(grid.split(',').map(item => item.trim()))];
       console.log("data", data);
       return data;
@@ -2344,6 +2411,29 @@
 
         const [activeBoxName, filteredSeats] = activeBoxEntry;
         console.log("Active Box Name:", activeBoxName);
+
+        let bcsData = document.getElementById("bufferCoatgridNo").value;
+
+        console.log("bcsData",bcsData);
+        if(bcsData.length !== 0 ){
+          if(localStorage.getItem('LocalBuffy')!==null){
+            bcsGridData =bcsData.split('/')[1] ;
+            console.log("bcsGridData",bcsGridData)
+
+            let ld = bcsGridData+","+localStorage.getItem('LocalBuffy')
+
+            localStorage.setItem('LocalBuffy',ld);
+            console.log("Buffy Coat Data from if", localStorage.getItem('LocalBuffy'))
+          }else{
+            bcsGridData =bcsData.split('/')[1] ;
+            console.log("bcsGridData",bcsGridData)
+
+            //let ld = bcsGridData+","+localStorage.getItem('LocalFN')
+
+            localStorage.setItem('LocalBuffy',bcsGridData);
+            console.log("Buffy Coat Data from else", localStorage.getItem('LocalBuffy'))
+          }
+        }
 
         document.getElementById('currBloodBoxName').textContent = activeBoxName;
         if(grid !== null) {
@@ -2413,6 +2503,12 @@
         }
         function handleBSeatSelection(seatID, isChecked, status, debug) {
           console.log("handleBSeatSelection", debug)
+          const rev=localStorage.getItem("LocalBuffy");
+          if(rev !== null){
+            let arr = splitStringToArray(rev)
+            BloodSelectedSeats=arr;
+          }
+          console.log("rev : ",rev," BloodSelectedSeats : ",BloodSelectedSeats)
 
           if (status === 'e') {
             if (isChecked) {
@@ -2444,6 +2540,7 @@
             }
           }
           console.log("Selected seats:", BloodSelectedSeats);
+          localStorage.setItem("LocalBuffy",BloodSelectedSeats)
           updateBuffyGridInput();
         }
         function updateBuffyGridInput() {
@@ -2528,7 +2625,33 @@
 
         const [activeBoxName, filteredSeats] = activeBoxEntry;
         console.log("Active Box Name:", activeBoxName);
+
+        let osData = document.getElementById("OSgridNo").value;
+
+        console.log("osData",osData);
+        if(osData.length !== 0 ){
+          if(localStorage.getItem('LocalOther')!==null){
+            osGridData =osData.split('/')[1] ;
+            console.log("osGridData",osGridData)
+
+            let ld = osGridData+","+localStorage.getItem('LocalOther')
+
+            localStorage.setItem('LocalOther',ld);
+            console.log("Other Data from if", localStorage.getItem('LocalOther'))
+          }else{
+            osGridData =osData.split('/')[1] ;
+            console.log("osGridData",osGridData)
+
+            //let ld = osGridData+","+localStorage.getItem('LocalOther')
+
+            localStorage.setItem('LocalOther',osGridData);
+            console.log("Other Data from else", localStorage.getItem('LocalOther'))
+          }
+        }
+
         document.getElementById('currBloodBoxName').textContent = activeBoxName;
+        
+        if(grid!==null){
         let arr = splitStringToArray(grid);
         let arrinx = [];
           arr.forEach(item =>{
@@ -2543,8 +2666,7 @@
           })
           console.log("arrinx",arrinx)
           console.log("filteredSeats",filteredSeats)
-
-
+        }
         // Make sure indexedSeats is defined
         const indexedSeats = filteredSeats;
         if (!indexedSeats) {
@@ -2594,6 +2716,15 @@
         }
 
         function handleBSeatSelection(seatID, isChecked, status) {
+          const rev=localStorage.getItem("LocalOther")
+          
+          if(rev !== null){
+            let arr = splitStringToArray(rev)
+            BloodSelectedSeats=arr;
+          }
+          
+          console.log("rev : ",rev," BloodSelectedSeats : ",BloodSelectedSeats)
+
           if (status === 'e') {
             if (isChecked) {
               BloodSelectedSeats.push(seatID);
@@ -2633,6 +2764,7 @@
             }          
           }
           console.log("Selected seats:", BloodSelectedSeats);
+          localStorage.setItem("LocalOther",BloodSelectedSeats)
           updateOtherGridInput();
         }
 
@@ -2683,6 +2815,10 @@ function removeItemFromSpecimenArray(arrS, itemToRemove) {
 window.onload = function() {
   // Clear the selected specimen grid data on page reload
   localStorage.removeItem("selectedSGrid");
+  // localStorage.removeItem("LocalPlasma");
+  // localStorage.removeItem("LocalSerum");
+  // localStorage.removeItem("LocalBuffy");
+  // localStorage.removeItem("LocalOther");  
 };
 
 function popFTmodal() {
@@ -2710,7 +2846,7 @@ function popFTmodal() {
   function populateSSeats(containerClass, seatData, type) {
     let container = document.querySelector(`.${containerClass}`);
     container.innerHTML = '';
-    let SpecimenSelectedSeats = [];
+   let SpecimenSelectedSeats = [];
 
     const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
     const cols = 10;
@@ -2726,23 +2862,51 @@ function popFTmodal() {
       "sampleType": "",
       "status": "o"
     };
+    let ftData = document.getElementById("ftgrid").value;
 
-    let spgrid = localStorage.getItem("selectedSpecimenGrid");
-    const maxSelections = parseInt(document.getElementById('ft_tubes').value, 10);
+    console.log("ftData",ftData);
+    if(ftData.length !== 0 ){
+      if(localStorage.getItem('LocalFT')!==null){
+        ftGridData =ftData.split('/')[1] ;
+        console.log("ftGridData",ftGridData)
+
+        let ld = ftGridData+","+localStorage.getItem('LocalFT')
+
+        localStorage.setItem('LocalFT',ld);
+        console.log("FT Data from if", localStorage.getItem('LocalFT'))
+      }else{
+        ftGridData =ftData.split('/')[1] ;
+        console.log("ftGridData",ftGridData)
+
+        //let ld = ftGridData+","+localStorage.getItem('LocalFT')
+
+        localStorage.setItem('LocalFT',ftGridData);
+        console.log("FT Data from else", localStorage.getItem('LocalFT'))
+      }
+    }
+
+    // localStorage.setItem("LocalFT","")
+
+    let spgrid = localStorage.getItem("selectedSGrid");
+    const maxSelectionsFT = parseInt(document.getElementById('ft_tubes').value, 10);
 
     const [activeBoxName, filteredSeats] = activeBoxEntry;
     console.log("Active Box Name:", activeBoxName);
     document.getElementById('currSpecimenBoxName').textContent = activeBoxName;
+    console.log("spgrid -- ",spgrid);
+
 
     if (spgrid !== null) {
       let arrS = splitSpecimenStringToArray(spgrid);
       let arrSinx = [];
+      console.log(" arrS = ",arrS);
       arrS.forEach(item => arrSinx.push(getSeatIndex(item)));
 
       arrSinx.forEach(item => {
         filteredSeats[item] = stsInx;
       });
     }
+    console.log("filteredSeats --- ",filteredSeats);
 
     const indexedSeats = filteredSeats;
 
@@ -2762,7 +2926,7 @@ function popFTmodal() {
           );
 
           document.getElementById(seatID).addEventListener('click', function (event) {
-            handleSSeatSelection(seatID, event.target.checked, seatData.status, maxSelections, 'FT Grid');
+            handleSSeatSelection(seatID, event.target.checked, seatData.status, maxSelectionsFT, 'FT Grid');
           });
 
           let labelElement = document.getElementById(labelName);
@@ -2789,16 +2953,24 @@ function popFTmodal() {
     }
 
     // Handle seat selection for FT grid
-    function handleSSeatSelection(seatID, isChecked, status, maxSelections, debug) {
+    function handleSSeatSelection(seatID, isChecked, status, maxSelectionsFT, debug) {
       console.log("handleSSeatSelection", debug);
+      const rev=localStorage.getItem("LocalFT")
+          
+          if(rev !== null){
+            let arr = splitSpecimenStringToArray(rev)
+            SpecimenSelectedSeats=arr;
+          }
+          
+          console.log("rev : ",rev," SpecimenSelectedSeats : ",SpecimenSelectedSeats)
 
       if (status === 'e') {
         if (isChecked) {
-          if (SpecimenSelectedSeats.length < maxSelections) {
+          if (SpecimenSelectedSeats.length < maxSelectionsFT) {
             SpecimenSelectedSeats.push(seatID);
           } else {
             document.getElementById(seatID).checked = false;
-            alert(`You can select a maximum of ${maxSelections} seats.`);
+            alert(`You can select a maximum of ${maxSelectionsFT} seats.`);
           }
         } else {
           let seatIndex = SpecimenSelectedSeats.indexOf(seatID);
@@ -2810,8 +2982,25 @@ function popFTmodal() {
           }
         }
       }
+      else {
+            let arr = splitSpecimenStringToArray(spgrid)
+            if(status === 'o' && arr.includes(seatID)){
+              let seatIndex = SpecimenSelectedSeats.indexOf(seatID);
+              if (seatIndex !== -1) {
+            SpecimenSelectedSeats.splice(seatIndex, 1);
+            let arrS = splitSpecimenStringToArray(spgrid);
+            arrS = removeItemFromSpecimenArray(arrS, seatID);
+            spgrid = arrS.join(',');
+          }
+            }
+            else{
+              alert("Error clicking the filled component.");
+            }
+          }
+
 
       console.log("Selected seats:", SpecimenSelectedSeats);
+      localStorage.setItem("LocalFT",SpecimenSelectedSeats)
       updateFTGridInput();
     }
 
@@ -2892,6 +3081,29 @@ function popFNmodal() {
       return;
     }
 
+    let fnData = document.getElementById("fngrid").value;
+
+    console.log("fnData",fnData);
+    if(fnData.length !== 0 ){
+      if(localStorage.getItem('LocalFN')!==null){
+        fnGridData =fnData.split('/')[1] ;
+        console.log("fnGridData",fnGridData)
+
+        let ld = fnGridData+","+localStorage.getItem('LocalFN')
+
+        localStorage.setItem('LocalFN',ld);
+        console.log("FN Data from if", localStorage.getItem('LocalFN'))
+      }else{
+        fnGridData =fnData.split('/')[1] ;
+        console.log("fnGridData",fnGridData)
+
+        //let ld = fnGridData+","+localStorage.getItem('LocalFN')
+
+        localStorage.setItem('LocalFN',fnGridData);
+        console.log("FN Data from else", localStorage.getItem('LocalFN'))
+      }
+    }
+
     const stsInx = {
       "bioBankId": "",
       "sampleType": "",
@@ -2961,6 +3173,15 @@ function popFNmodal() {
 
     function handleSSeatSelection(seatID, isChecked, status, maxSelections, debug) {
       console.log("handleSSeatSelection", debug);
+      const rev=localStorage.getItem("LocalFN")
+          
+      if(rev !== null){
+        let arr = splitSpecimenStringToArray(rev)
+        SpecimenSelectedSeats=arr;
+      }
+      
+      //console.log("rev : ",rev," SpecimenSelectedSeats : ",SpecimenSelectedSeats)
+      console.log(" maxSelections : ",maxSelections)
 
       if (status === 'e') {
         if (isChecked) {
@@ -2980,8 +3201,24 @@ function popFNmodal() {
           }
         }
       }
+      else {
+            let arr = splitSpecimenStringToArray(spgrid)
+            if(status === 'o' && arr.includes(seatID)){
+              let seatIndex = SpecimenSelectedSeats.indexOf(seatID);
+              if (seatIndex !== -1) {
+            SpecimenSelectedSeats.splice(seatIndex, 1);
+            let arrS = splitSpecimenStringToArray(spgrid);
+            arrS = removeItemFromSpecimenArray(arrS, seatID);
+            spgrid = arrS.join(',');
+          }
+            }
+            else{
+              alert("Error clicking the filled component.");
+            }
+          }
 
       console.log("Selected seats:", SpecimenSelectedSeats);
+      localStorage.setItem("LocalFN",SpecimenSelectedSeats);
       updateFNGridInput();
     }
 
@@ -3076,7 +3313,7 @@ function popFNmodal() {
         format: 'dd/mm/yyyy',
         autoclose: true,
         todayHighlight: true,
-        maxDate: today
+        minDate: today
       });
       reportedDate.datepicker({
         format: 'dd/mm/yyyy',
@@ -3275,10 +3512,13 @@ function popFNmodal() {
           $('#serumtubes').show();
           $('#bufferCoatTubes').show();
         }
-        else {
+        else if ($('#bloodSampleN').is(':checked')){
           $('#plasmatubes').hide();
           $('#serumtubes').hide();
           $('#bufferCoatTubes').hide();
+          $('#PlasmagridNo').val('');
+          $('#SerumgridNo').val('')
+          $('#bufferCoatgridNo').val('')
         }
       }
 
@@ -3292,9 +3532,11 @@ function popFNmodal() {
           $('#oSampleTubes').show();
           $('#oSampleDesc').show();
         }
-        else {
+        else if ($('#otherSampleN').is(':checked')) {
           $('#oSampleTubes').hide();
           $('#oSampleDesc').hide();
+          $('#OSgridNo').val('');
+          $('#otSampleDesc').val('');
         }
       }
 
@@ -3310,11 +3552,15 @@ function popFNmodal() {
           $('#countFntubes').show();
           $('#fntubes').show();
         }
-        else {
+        else if ($('#specimenSampleN').is(':checked')){
           $('#countFttubes').hide();
           $('#fttubes').hide();
           $('#countFntubes').hide();
           $('#fntubes').hide();
+          $('#ftgrid').val('');
+          $('#fngrid').val('');
+          $('#ft_tubes').val('');
+          $('#fn_tubes').val('');
         }
       }
 
@@ -3509,16 +3755,27 @@ function popFNmodal() {
         if (numChildValue > 0) {
           $('#ageFC').show();
           $('#breFd').show();
-          $('#durFeed').show();
         } else {
           $('#ageFC').hide();
           $('#breFd').hide();
-          $('#durFeed').hide();
         }
       }
       numChild();
       $('#numChild').on('change', function () {
         numChild();
+      });
+
+      function breFd() {
+        if ($('#breFdYes').is(':checked')) {
+          $('#durFeed').show();
+        }
+        else {
+          $('#durFeed').hide();
+        }
+      }
+      breFd();
+      $('#breFd').on('change', function () {
+        breFd();
       });
 
 
@@ -3628,6 +3885,13 @@ function popFNmodal() {
     window.onload = function () {
       let storedMrn = localStorage.getItem('MRN');
       let storeBio = localStorage.getItem("BioVal");
+      localStorage.removeItem("selectedSGrid");
+      localStorage.removeItem("LocalPlasma")
+      localStorage.removeItem("LocalSerum")
+      localStorage.removeItem("LocalBuffy")
+      localStorage.removeItem("LocalOther")
+      localStorage.removeItem("LocalFT");
+      localStorage.removeItem("LocalFN");
 
       if (storedMrn) {
         document.getElementById('mrnNo').value = storedMrn;
@@ -3872,6 +4136,8 @@ function popFNmodal() {
             element.disabled = true;
           }
         });
+        document.getElementById('sharedSampleBox').style.display = 'block';        
+
         document.getElementById('navArrows').style.display = 'block';
         doneBtn.style.display = 'none';
         submitBtn.style.display = 'none';
