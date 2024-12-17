@@ -98,7 +98,7 @@
         <div>
           <a href="#pendingForms" class="radio-btn" data-toggle="collapse" role="button" aria-expanded="false"
             aria-controls="pendingForms" id="pendingFormSearchBtn">
-            Pending Forms
+            Pending Follow-Ups
           </a>
         </div>
       </div>
@@ -113,8 +113,8 @@
                     <th scope="col">Bio Bank ID</th>
                     <th scope="col">Age</th>
                     <th scope="col">Gender</th>
-                    <th scope="col">Box</th>
-                    <th scope="col">Grid</th>
+                    <!-- <th scope="col">Box</th>
+                    <th scope="col">Grid</th> -->
                     <th scope="col">Type of Cancer</th>
                     <th scope="col">Stage of Cancer</th>
                     <th scope="col">Grade of Cancer</th>
@@ -127,8 +127,8 @@
                     <td class="patientName"></td>
                     <td class="age"></td>
                     <td class="gender"></td>
-                    <td class="box"></td>
-                    <td class="grid"></td>
+                    <!-- <td class="box"></td>
+                    <td class="grid"></td> -->
                     <td class="cancerType"></td>
                     <td class="stage"></td>
                     <td class="grade"></td>
@@ -225,9 +225,9 @@
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       // const sevenDaysInMillis = 7 * 24 * 60 * 60 ;
-      const sevenDaysInMillis = 1 * 60 * 60;
+      const sevenDaysInMillis = 3 * 60;
 
-      const currentTime = Date.now()/1000;
+      const currentTime = Date.now() / 1000;
 
       db.ref("sef").once("value", (snapshot) => {
         const allData = snapshot.val();
@@ -241,52 +241,62 @@
 
             Object.keys(sections).forEach((sectionKey) => {
               const section = sections[sectionKey];
+              const timestamps = Object.keys(section);
 
-              Object.keys(section).forEach((timestampKey) => {
-                const dataEntry = section[timestampKey];
-                const timestamp = parseInt(timestampKey, 10);
-                const patient = dataEntry.ie || {};
+              let timestamp = timestamps[0];
+              let newtimestamp = timestamps[timestamps.length - 1];
+              console.log("dataEntry", section)
+              console.log("timestamp", newtimestamp)
 
-                const fields = ['bpg', 'bsg', 'bbcg', 'ftg', 'fng'];
-                console.log('dataEntry', patient)
 
-                let boxName = '';
-                let seatList = [];
+              const dataEntry = section[newtimestamp];
+              console.log("timestamps", timestamps)
 
-                fields.forEach((field) => {
-                  const fieldData = patient[field];
-                  if (fieldData) {
-                    const parts = fieldData.split('/');  // Assuming the box name and seat list are separated by "/"
-                    boxName = parts[0].trim();
-                    seatList = parts[1] ? parts[1].split(',') : []; // Split the seats into an array
-                  }
-                  console.log("seatList", fieldData)
-                });
+              console.log("1st timestamp", timestamp)
+              const patient = dataEntry.ie || {};
 
-                const seatListDisplay = seatList.length ? seatList.join(', ') : '-';
+              const fields = ['bpg', 'bsg', 'bbcg', 'ftg', 'fng'];
 
-                console.log("time"+(currentTime - timestamp));
+              let boxName = '';
+              let seatList = [];
 
-                if (
-                  dataEntry &&
-                  dataEntry.md.pst === "" &&
-                  currentTime - timestamp > sevenDaysInMillis
-                ) {
-                  // Add to table data, include seq (sectionKey) in the entry
-                  tableData.push({
-                    bioBankId: bioBankId,
-                    seq: sectionKey, // Assign the seq number (sectionKey) here
-                    age: dataEntry.ie.ag || "N/A",
-                    gender: dataEntry.ie.sx || "N/A",
-                    box: boxName || "N/A",
-                    grid: seatListDisplay || "N/A",
-                    cancerType: dataEntry.ie.ct || "N/A",
-                    stage: dataEntry.ie.stc || "N/A",
-                    grade: dataEntry.md.gd || "N/A",
-                    timestampKey: timestampKey, // Store the timestampKey to pass it in the view and edit actions
-                  });
+              fields.forEach((field) => {
+                const fieldData = patient[field];
+                if (fieldData) {
+                  const parts = fieldData.split('/');  // Assuming the box name and seat list are separated by "/"
+                  boxName = parts[0].trim();
+                  seatList = parts[1] ? parts[1].split(',') : []; // Split the seats into an array
                 }
+                console.log("seatList", fieldData)
               });
+
+              const seatListDisplay = seatList.length ? seatList.join(', ') : '-';
+
+              console.log("time" + (currentTime - timestamp));
+
+              if (
+                dataEntry &&
+                dataEntry.md.pst === "" &&
+                currentTime - timestamp > sevenDaysInMillis
+              ) {
+                // Add to table data, include seq (sectionKey) in the entry
+                tableData.push({
+                  bioBankId: bioBankId,
+                  seq: sectionKey, // Assign the seq number (sectionKey) here
+                  age: dataEntry.ie.ag || "-",
+                  gender: dataEntry.ie.sx || "-",
+                  // box: boxName || "-",
+                  // grid: seatListDisplay || "-",
+                  cancerType: dataEntry.ie.ct === "brst" ? "Breast Cancer" : "-",
+                  stage: dataEntry.ie.stc || "-",
+                  grade: dataEntry.md.gd || "-",
+                  newtimestamp: newtimestamp, // Store the timestampKey to pass it in the view and edit actions
+                });
+              }
+              // });
+              console.log("tableData", tableData)
+
+
             });
           });
         }
@@ -296,6 +306,7 @@
     });
 
     function populateTable(data) {
+      console.log("data", data)
       const tableBody = document.querySelector(".patientTableBody1");
       tableBody.innerHTML = "";
 
@@ -325,15 +336,15 @@
         genderCell.textContent = entry.gender;
         row.appendChild(genderCell);
 
-        const boxCell = document.createElement("td");
-        boxCell.className = "box";
-        boxCell.textContent = entry.box;
-        row.appendChild(boxCell);
+        // const boxCell = document.createElement("td");
+        // boxCell.className = "box";
+        // boxCell.textContent = entry.box;
+        // row.appendChild(boxCell);
 
-        const gridCell = document.createElement("td");
-        gridCell.className = "grid";
-        gridCell.textContent = entry.grid;
-        row.appendChild(gridCell);
+        // const gridCell = document.createElement("td");
+        // gridCell.className = "grid";
+        // gridCell.textContent = entry.grid;
+        // row.appendChild(gridCell);
 
         const cancerTypeCell = document.createElement("td");
         cancerTypeCell.className = "cancerType";
@@ -359,7 +370,7 @@
         editBtn.addEventListener("click", () => {
           console.log(`Editing patient: ${entry.bioBankId}`);
           const seq = entry.seq;
-          const timestampKey = entry.timestampKey;
+          const timestampKey = entry.newtimestamp;
           editPatient(entry.bioBankId, seq, timestampKey);
         });
 
@@ -383,7 +394,7 @@
           console.log(`Viewing pending form for patient: ${entry.bioBankId}`);
           const seq = entry.seq;
 
-          const timestampKey = entry.timestampKey;
+          const timestampKey = entry.newtimestamp;
           console.log("seq", entry.bioBankId);
 
           viewPendingForm(entry.bioBankId, seq, timestampKey);
@@ -459,170 +470,152 @@
   </script>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const db = firebase.database();
+document.addEventListener("DOMContentLoaded", function () {
+  const db = firebase.database();
 
-      const todayTimestamp = new Date().getTime();
+  const todayTimestamp = new Date().getTime();
+  console.log("todayTimestamp", todayTimestamp);
 
-      const pfwRef = db.ref("pfw");
+  const pfwRef = db.ref("pfw");
 
-      pfwRef.once("value").then((snapshot) => {
-        const pfwData = snapshot.val();
-        const brKeys = Object.keys(pfwData).filter((key) =>
-          key.startsWith("BR_")
-        );
-        console.log("brKeys", brKeys);
+  pfwRef.once("value").then((snapshot) => {
+    const pfwData = snapshot.val();
+    const brKeys = Object.keys(pfwData).filter((key) =>
+      key.startsWith("BR_")
+    );
+    console.log("brKeys", brKeys);
 
-        brKeys.forEach((key) => {
-          const timestamp = pfwData[key];  // Assuming this is already a timestamp
-          console.log("timestamp", timestamp);
+    const allPatientData = []; // Array to hold all the patient data
 
-          const dateObj = new Date(timestamp);  // Create a Date object from the timestamp
-          const formattedDate = `${dateObj.getFullYear()}-${(dateObj.getMonth() + 1).toString().padStart(2, '0')}-${dateObj.getDate().toString().padStart(2, '0')}`;
-          console.log("formattedDate", formattedDate);
+    brKeys.forEach((biobankID) => {
+      const timestamp = pfwData[biobankID];
+      console.log("timestamp", timestamp);
 
-          if (timestamp < todayTimestamp) {
-            const sefRef = db.ref(`sef/${key}`);
+      const dateObj = new Date(timestamp);
+      const formattedDate = `${dateObj.getFullYear()}-${(dateObj.getMonth() + 1).toString().padStart(2, '0')}-${dateObj.getDate().toString().padStart(2, '0')}`;
+      console.log("formattedDate", formattedDate);
 
-            sefRef.once("value").then((sefSnapshot) => {
-              const patientData = sefSnapshot.val();
-              console.log("patientData", patientData);
+      if (timestamp < todayTimestamp) {
+        const sefRef = db.ref(`sef/${biobankID}`);
 
-              if (patientData) {
-                // Pass both the patientData and biobankID (which is the 'key') to populatePatientTable
-                populatePatientTable(patientData, key);
+        sefRef.once("value").then((sefSnapshot) => {
+          const data = sefSnapshot.val();
+          console.log("data", data);
+
+          if (data) {
+            const patientArrays = Object.keys(data);
+
+            // Iterate through each patient array
+            patientArrays.forEach(patientArrayKey => {
+              const patientArray = data[patientArrayKey];
+              console.log("patientArray", patientArray);
+
+              if (patientArray && typeof patientArray === 'object') {
+                const timestamps = Object.keys(patientArray); // These are the actual timestamps
+                console.log("timestamps", timestamps);
+
+                // Get the latest timestamp
+                const latestTimestamp = Math.max(...timestamps.map((t) => parseInt(t)));
+                const latestData = patientArray[latestTimestamp];
+                console.log("latestData", latestData);
+
+                if (latestData) {
+                  const { ie, md } = latestData;
+
+                  const patientData = {
+                    biobankID,
+                    age: ie.ag || "-",
+                    gender: ie.sx || "-",
+                    type_of_cancer: ie.ct === "brst" ? "Breast Cancer" : "-",
+                    stage_of_cancer: ie.stc || "-",
+                    grade_of_cancer: md.gd || "-",
+                    patientArrayKey,
+                    latestTimestamp
+                  };
+
+                  // Push this patient data to the array
+                  allPatientData.push(patientData);
+                }
               }
             });
           }
         });
+      }
+    });
 
-      });
+    // After all data has been collected, populate the table
+    pfwRef.once("value").then(() => {
+      const patientList2 = document.getElementById("patientList2");
+      patientList2.innerHTML = "";
 
-      function populatePatientTable(data, biobankID) {
-        const patientList2 = document.getElementById("patientList2");
-        patientList2.innerHTML = "";
-        console.log("data", data);
+      const table = document.createElement("table");
+      table.classList.add("table", "table-striped", "table-bordered");
 
-        const table = document.createElement("table");
-        table.classList.add("table", "table-striped", "table-bordered");
+      const thead = document.createElement("thead");
+      thead.innerHTML = `
+        <tr>
+          <th scope="col">S.No</th>
+          <th scope="col">Bio Bank ID</th>
+          <th scope="col">Age</th>
+          <th scope="col">Gender</th>
+          <th scope="col">Type of Cancer</th>
+          <th scope="col">Stage of Cancer</th>
+          <th scope="col">Grade of Cancer</th>
+          <th scope="col">Action</th>
+        </tr>
+      `;
 
-        const thead = document.createElement("thead");
-        thead.innerHTML = `
-          <tr>
-            <th scope="col">S.No</th>
-            <th scope="col">Bio Bank ID</th>
-            <th scope="col">Age</th>
-            <th scope="col">Gender</th>
-            <th scope="col">Box</th>
-            <th scope="col">Grid</th>
-            <th scope="col">Type of Cancer</th>
-            <th scope="col">Stage of Cancer</th>
-            <th scope="col">Grade of Cancer</th>
-            <th scope="col">Action</th>
-          </tr>
-        `;
+      const tbody = document.createElement("tbody");
 
-        const tbody = document.createElement("tbody");
+      if (allPatientData.length > 0) {
+        allPatientData.forEach((patient, index) => {
+          const row = document.createElement("tr");
 
-        const patientArrays = Object.values(data);
+          row.innerHTML = `
+            <th scope="row">${index + 1}</th> 
+            <td>${patient.biobankID || "-"}</td>
+            <td>${patient.age}</td>
+            <td>${patient.gender}</td>
+            <td>${patient.type_of_cancer}</td>
+            <td>${patient.stage_of_cancer}</td>
+            <td>${patient.grade_of_cancer}</td>
+          `;
 
-        if (patientArrays.length > 0) {
-          const patientArray = patientArrays.sort().pop();
-          console.log("patientArray", patientArray);
+          // Create buttons for action
+          const modCell = document.createElement("td");
+          const entryBtn = document.createElement("button");
+          entryBtn.classList.add("btn", "btn-primary", "btn-sm", "mr-2");
+          entryBtn.textContent = "Entry";
+          entryBtn.addEventListener("click", () => {
+            console.log(`Entrying patient: ${patient.biobankID}`);
+            const entry = "EditFollowUps";
+            pages_display(entry, patient.biobankID, patient.patientArrayKey, patient.latestTimestamp);
+            window.location.href = `default.html?mode=edit`;
+          });
 
-          if (patientArray && typeof patientArray === 'object') {
-            let index = 1;
+          const viewBtn = document.createElement("button");
+          viewBtn.classList.add("btn", "btn-secondary", "btn-sm");
+          viewBtn.textContent = "View";
+          viewBtn.addEventListener("click", () => {
+            const entry = "ViewFollowUp";
+            pages_display(entry, patient.biobankID, patient.patientArrayKey, patient.latestTimestamp);
+            window.location.href = `default.html?mode=view`;
+          });
 
-            const timestamps = Object.keys(patientArray);
-            const latestTimestamp = Math.max(...timestamps.map((t) => parseInt(t)));
-
-            const latestData = patientArray[latestTimestamp];
-            console.log("latestData", latestData);
-
-            if (latestData) {
-              const { brs, ie, md } = latestData;
-
-              const age = ie.ag || "N/A";
-              const gndr = ie.sx || "N/A";
-              const type_of_cancer = ie.ct || "N/A";
-              const stage_of_cancer = ie.stc || "N/A";
-              const grade_of_cancer = md.gd || "N/A";
-              const fields = ['bpg', 'bsg', 'bbcg', 'ftg', 'fng'];
-
-              let boxName = '';
-              let seatList = [];
-
-              fields.forEach((field) => {
-                const fieldData = ie[field];
-                if (fieldData) {
-                  const parts = fieldData.split('/');  // Assuming the box name and seat list are separated by "/"
-                  boxName = parts[0].trim();
-                  seatList = parts[1] ? parts[1].split(',') : []; // Split the seats into an array
-                }
-                // console.log("seatList", fieldData)
-              });
-
-              const seatListDisplay = seatList.length ? seatList.join(', ') : '-';
-
-
-              const row = document.createElement("tr");
-              row.innerHTML = `
-                <th scope="row">${index}</th> 
-                <td>${biobankID || "N/A"}</td>
-                <td>${age}</td>
-                <td>${gndr}</td>
-                <td>${boxName || '-'}</td>
-                <td>${seatListDisplay}</td>
-                <td>${type_of_cancer}</td>
-                <td>${stage_of_cancer}</td>
-                <td>${grade_of_cancer}</td>
-              `;
-
-              const modCell = document.createElement("td");
-
-              const entryBtn = document.createElement("button");
-              entryBtn.classList.add("btn", "btn-primary", "btn-sm", "mr-2");
-              entryBtn.textContent = "Entry";
-
-              entryBtn.addEventListener("click", () => {
-                console.log(`Entrying patient: ${biobankID}`);
-
-                const seq = '';
-                const timestampKey = latestTimestamp;
-                const entry = "EditFollowUps";
-
-                pages_display(entry, biobankID, seq, timestampKey);
-                window.location.href = `default.html?mode=edit`;
-              });
-
-              const viewBtn = document.createElement("button");
-              viewBtn.classList.add("btn", "btn-secondary", "btn-sm");
-              viewBtn.textContent = "View";
-
-              viewBtn.addEventListener("click", () => {
-                const seq = '';
-                const timestampKey = latestTimestamp;
-                const entry = "ViewFollowUp";
-
-                pages_display(entry, biobankID, seq, timestampKey);
-                window.location.href = `default.html?mode=view`;
-              });
-
-              modCell.appendChild(entryBtn);
-              modCell.appendChild(viewBtn);
-              row.appendChild(modCell);
-              tbody.appendChild(row);
-              index++;
-            }
-          }
-        }
-
-        table.appendChild(thead);
-        table.appendChild(tbody);
-        patientList2.appendChild(table);
+          modCell.appendChild(entryBtn);
+          modCell.appendChild(viewBtn);
+          row.appendChild(modCell);
+          tbody.appendChild(row);
+        });
       }
 
+      table.appendChild(thead);
+      table.appendChild(tbody);
+      patientList2.appendChild(table);
     });
+  });
+});
+
   </script>
 </body>
 
