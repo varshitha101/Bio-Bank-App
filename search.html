@@ -1184,8 +1184,14 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
                 stageInput === "All" || patient.stc === stageInput;
               const gradeMatch =
                 gradeInput === "All" || patientData.md.gd === gradeInput;
-              const nactMatch =
-                nactInput === "All" || patientData.md.nact === nactInput;
+               const nactMatch =
+                nactInput === "All" || 
+               // patientData.md.nact === nactInput;
+               (nactInput === "Y" && patientData.md.nact === "true") || 
+               (nactInput === "N" && patientData.md.nact === "false");
+
+               console.log("nactInput - ",nactInput," Pdata - ",patientData.md.nact," Padata 1 -",(patientData.md.nact === "true") ,"Pdata 2 - ",(patientData.md.nact === "false"));
+
               const pathSubtypeMatch =
                 pathSubtypeInput === "All" ||
                 patientData.md.pst === pathSubtypeInput;
