@@ -822,7 +822,7 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
         <td class="bioid">${bioBankId}</td>
         <td class="age">${patient.ie.ag || "-"}</td>
         <td class="gender">${patient.ie.sx || "-"}</td>
-        <td class="cancerType">${patient.ie.ct || "-"}</td>
+        <td class="cancerType">${patient.ie.ct==='brst'? "Breast Cancer" : "-"}</td>
         <td class="procedure">${patient.ie.stc || "-"}</td>
         <td class="grade">${patient.md.gd || "-"}</td>
 
@@ -1060,7 +1060,7 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
       <td class="box">${boxName}</td>
       <td class="grid">${seatList.join(", ") || "-"}</td>
       <td class="sampleType">${sampleType || "-"}</td>
-      <td class="cancerType">${patientData.ie?.ct || "-"}</td>
+      <td class="cancerType">${patientData.ie.ct==="brst" ? "Breast Cancer" : "-"}</td>
       <td class="stage">${patientData.ie?.stc || "-"}</td>
       <td class="grade">${patientData.md?.gd || "-"}</td>
       <td class="action">
@@ -1196,6 +1196,9 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
                 pathSubtypeInput === "All" ||
                 patientData.md.pst === pathSubtypeInput;
 
+
+                console.log("sampleTypeMatch",sampleTypeMatch)
+
               if (
                 ageMatch &&
                 cancerTypeMatch &&
@@ -1217,6 +1220,7 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
           if (Object.keys(filteredSequences).length > 0) {
             acc[bioBankId] = filteredSequences;
           }
+          console.log("filteredSequences",filteredSequences)
 
           return acc;
         },
@@ -1443,7 +1447,7 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
                   OtherSampleProcessedTime: formatTimestamp(sample.ie.osrt) || "-",
                   OtherSampleProcessedby: sample.ie.osby || "-",
 
-                  FamilyHistoryCancer: decodeProcedureType(sample.md.fhc) || "-",
+                  FamilyHistoryCancer: decodeProcedureType(sample.md.fhc),
                   FamilyRelation: sample.md.fhcr || "-",
                   FamilyCancerType: sample.md.fhct || "-",
                   FoodHabbits: decodeProcedureType(sample.md.fh) || "-",
@@ -1508,9 +1512,14 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
                   BR_form_updated_By: sample.brf.brfu || "-",
                 };
               }
+              console.log("latestSample.FamilyHistoryCancer", decodeProcedureType(sample.md.fhc)," bioBankId",bioBankId);
+
             });
           });
+          console.log("latestSample of ie",latestSample.FamilyHistoryCancer)
+
         }
+        
 
         // Fetch follow-up data from the Firebase reference `Fw/{bioBankId}`
         db.ref(`Fw/${bioBankId}`)
@@ -1624,7 +1633,7 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
                 OtherSampleReceivedTime: latestSample?.OtherSampleReceivedTime || "-",
                 OtherSampleProcessedTime: latestSample?.OtherSampleProcessedTime || "-",
 
-                FamilyHistoryCancer: latestSample?.FamilyHistoryCancer || "-",
+                FamilyHistoryCancer: latestSample.FamilyHistoryCancer || "-",
                 FamilyRelation: latestSample?.FamilyRelation || "-",
                 FamilyCancerType: latestSample?.FamilyCancerType || "-",
                 FoodHabbits: latestSample?.FoodHabbits || "-",
@@ -1706,7 +1715,9 @@ if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn'
 
               dataToExport.push(rowData);
             }
-            count++
+            count++;
+
+            
           console.log("count",count)
           console.log("patients length",Object.keys(patients).length)
         if(count === Object.keys(patients).length){
