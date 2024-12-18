@@ -480,9 +480,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   pfwRef.once("value").then((snapshot) => {
     const pfwData = snapshot.val();
-    const brKeys = Object.keys(pfwData).filter((key) =>
-      key.startsWith("BR_")
-    );
+    const brKeys = Object.keys(pfwData);
     console.log("brKeys", brKeys);
 
     const allPatientData = []; // Array to hold all the patient data
