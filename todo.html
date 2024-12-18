@@ -498,7 +498,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
         sefRef.once("value").then((sefSnapshot) => {
           const data = sefSnapshot.val();
-          console.log("data", data);
+          console.log("Seq data", data);
+          const sectionKeys = Object.keys(data);
+          console.log("sectionKeys", sectionKeys);
+          const lastSection = sectionKeys[sectionKeys.length - 1];
+          console.log("sectionKeys", lastSection);
+          const lastSectionData = data[lastSection];
+          console.log("sectionData", lastSectionData);
+
+
+          
 
           if (data) {
             const patientArrays = Object.keys(data);
@@ -514,7 +523,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 // Get the latest timestamp
                 const latestTimestamp = Math.max(...timestamps.map((t) => parseInt(t)));
-                const latestData = patientArray[latestTimestamp];
+                const latestData = lastSectionData[latestTimestamp];
                 console.log("latestData", latestData);
 
                 if (latestData) {
@@ -538,6 +547,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
           }
         });
+      
       }
     });
 
