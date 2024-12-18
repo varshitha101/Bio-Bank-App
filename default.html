@@ -400,7 +400,7 @@
                 <label for="PlasmagridNo" class="col-sm-2 mb-1 col-form-label">Plasma Grid <span
                     style="color: red; font-weight: bold;">*</span></label>
                 <div class="col-sm-10 mt-2">
-                  <input type="button" class="form-control" id="PlasmagridNo" onclick="popPlasmamodal()"
+                  <input type="button" class="form-control" id="PlasmagridNo" onclick="plasmaModal()"
                     placeholder="Plasma Grid">
                 </div>
               </div>
@@ -408,7 +408,7 @@
                 <label for="SerumgridNo" class="col-sm-2 mb-1 col-form-label">Serum Grid <span
                     style="color: red; font-weight: bold;">*</span></label>
                 <div class="col-sm-10 mt-2">
-                  <input type="button" class="form-control" id="SerumgridNo" onclick="popSerummodal()"
+                  <input type="button" class="form-control" id="SerumgridNo" onclick="serumModal()"
                     placeholder="Serum Grid">
                 </div>
               </div>
@@ -899,10 +899,10 @@
                     <option value="option13">Encapsulated papillary carcinoma with invasion</option>
                     <option value="option14">Solid papillary carcinoma with invasion</option>
                     <option value="option15">Intraductal papillary adenocarcinoma with invasion</option>
-                    <option value="option11">Adenoid cystic carcinoma</option>
-                    <option value="option12">Neuroendocrine tumor</option>
-                    <option value="option13">Neuroendocrine carcinoma</option>
-                    <option value="option12">Invasive carcinoma, type cannot be determined:</option>
+                    <option value="option16">Adenoid cystic carcinoma</option>
+                    <option value="option17">Neuroendocrine tumor</option>
+                    <option value="option18">Neuroendocrine carcinoma</option>
+                    <option value="option19">Invasive carcinoma, type cannot be determined:</option>
                     <option value="other">Other histologic type not listed (specify)</option>
                   </select>
                 </div>
@@ -1325,6 +1325,9 @@
                   <div class="col-4 mt-2" style="text-align: center;">
                     <button type="button" class="btn btn-primary btn-xs btn-prev" id="backButton2">Back</button>
                   </div>
+                  <div class="col-4 mt-2" style="text-align: center;" >
+                    <button type="button" class="btn btn-success btn-xs" id="finishButton">Finish</button>
+                  </div>
                   <div class="col-4 mt-2" style="text-align: center;">
                     <button type="button" class="btn btn-success btn-xs" id="submitButton">Submit</button>
                   </div>
@@ -1730,6 +1733,7 @@
       document.getElementById("sampleEntry1").addEventListener("click", function () {
         validateAndCollectData();
         console.log("Saved to Firebase!")
+
         // window.location.href = 'home.html';
       });
     });
@@ -1738,7 +1742,12 @@
       // Validate and collect data from all forms
       validateAndCollectData();
 
-      // window.location.href = 'home.html';
+      window.location.href = 'home.html';
+
+    });
+    document.getElementById('finishButton').addEventListener('click', function () {
+
+      window.location.href = 'home.html';
 
     });
     // document.addEventListener("DOMContentLoaded", function () {
@@ -1898,6 +1907,122 @@
     let arrinx = [];
 
     let arrSinx = [];
+
+    function plasmaModal(){
+      let mode = localStorage.getItem('mode');
+      if (mode === 'SearchView' || mode === 'PendingView' || mode === 'ViewFollowUp' || mode === 'SharedView') {
+        popVPlasmaModal()
+      }
+      else{
+        popPlasmamodal()
+      }
+    }
+    function serumModal(){
+      let mode = localStorage.getItem('mode');
+      if (mode === 'SearchView' || mode === 'PendingView' || mode === 'ViewFollowUp' || mode === 'SharedView') {
+        popVSerumModal()
+      }
+      else{
+        popSerummodal()
+      }
+    }
+
+    function popVPlasmaModal() {
+      $('#bloodModalCenter').modal('show');
+
+      fetchSeatDataFromDB('bb').then(seatData => {
+        populateBSeats('blood-box', seatData);
+      });
+
+      function fetchSeatDataFromDB(nodeName) {
+        return new Promise((resolve, reject) => {
+          let dbRef = firebase.database().ref(nodeName);
+          dbRef.once('value')
+            .then(snapshot => {
+              let seatData = snapshot.val();
+              resolve(seatData);
+            })
+            .catch(error => {
+              console.error("Error fetching seat data:", error);
+              reject(error);
+            });
+        });
+      }
+
+      function populateBSeats(containerClass, seatData) {
+        let container = document.querySelector(`.${containerClass}`);
+        container.innerHTML = '';
+
+        const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+        const cols = 10;
+
+        const plasmaBoxName = document.getElementById("PlasmagridNo").value
+        const boxname = plasmaBoxName.split('/')[0];
+        console.log("box name",boxname);
+        console.log("box name",seatData);
+        
+        const activeBoxEntry = Object.entries(seatData).find(([boxName, data]) => boxName === boxname);
+
+        
+        
+        const [activeBoxName, filteredSeats] = activeBoxEntry;
+        console.log("activeBoxEntry", activeBoxEntry);
+
+  
+        const indexedSeats = filteredSeats;
+        if (!indexedSeats) {
+          console.log("No indexed seats available in the active box.");
+          return;
+        }
+
+        for (let row = 0; row < rows.length; row++) {
+          for (let col = 1; col <= cols; col++) {
+            const labelName = `label_B${rows[row]}${col}`;
+            const seatID = `${rows[row]}${col}`;
+            const index = row * cols + (col - 1);
+
+            const seat = indexedSeats[index];
+
+            if (seat) {
+              container.insertAdjacentHTML(
+                "beforeend",
+                `<input type="checkbox" name="seats" id="${seatID}" />` +
+                `<label for="${seatID}" class="seat" id="${labelName}">${labelName}</label>`
+              );
+
+              let labelElement = document.getElementById(labelName);
+              if (labelElement) {
+                labelElement.textContent = `${seat.bioBankId || ""} \n ${seat.sampleType}` || '';
+                labelElement.style.fontWeight = "bold";
+                labelElement.style.fontSize = "10px";
+                labelElement.style.textAlign = 'center';
+                labelElement.style.color = 'white';
+
+                // if (seatID.includes(grid)) {
+                //   console.log("seatID", seatID.includes(grid) + " seatID", seatID)
+                // }
+
+                if (seat.status === "o" ) {
+                  labelElement.style.background = "rgb(129, 129, 192)";
+                } else if (seat.status === "s") {
+                  labelElement.style.background = "rgb(180, 180, 180)";
+                } else if (seat.status === "ps") {
+                  labelElement.style.background = "rgb(193, 154, 107)";
+                } else if (seat.status === "e") {
+                  labelElement.style.background = "rgb(143, 218, 187)";
+                }
+              }
+            }
+          }
+          container.insertAdjacentHTML("beforeend", "<br/>");
+        }
+        window.handleDone = function () {
+          $('#bloodModalCenter').modal('hide');
+        };
+      }
+
+    }
+
     
 
     function popPlasmamodal() {
@@ -2124,6 +2249,103 @@
           if (BloodSelectedSeats.length > 0) {
             updatePlasmaGridInput();
           }
+          $('#bloodModalCenter').modal('hide');
+        };
+      }
+
+    }
+
+
+    function popVSerumModal() {
+      $('#bloodModalCenter').modal('show');
+
+      fetchSeatDataFromDB('bb').then(seatData => {
+        populateBSeats('blood-box', seatData);
+      });
+
+      function fetchSeatDataFromDB(nodeName) {
+        return new Promise((resolve, reject) => {
+          let dbRef = firebase.database().ref(nodeName);
+          dbRef.once('value')
+            .then(snapshot => {
+              let seatData = snapshot.val();
+              resolve(seatData);
+            })
+            .catch(error => {
+              console.error("Error fetching seat data:", error);
+              reject(error);
+            });
+        });
+      }
+
+      function populateBSeats(containerClass, seatData) {
+        let container = document.querySelector(`.${containerClass}`);
+        container.innerHTML = '';
+
+        const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+        const cols = 10;
+
+        const plasmaBoxName = document.getElementById("SerumgridNo").value
+        const boxname = plasmaBoxName.split('/')[0];
+        console.log("box name",boxname);
+        console.log("box name",seatData);
+        
+        const activeBoxEntry = Object.entries(seatData).find(([boxName, data]) => boxName === boxname);
+
+        
+        
+        const [activeBoxName, filteredSeats] = activeBoxEntry;
+        console.log("activeBoxEntry", activeBoxEntry);
+
+  
+        const indexedSeats = filteredSeats;
+        if (!indexedSeats) {
+          console.log("No indexed seats available in the active box.");
+          return;
+        }
+
+        for (let row = 0; row < rows.length; row++) {
+          for (let col = 1; col <= cols; col++) {
+            const labelName = `label_B${rows[row]}${col}`;
+            const seatID = `${rows[row]}${col}`;
+            const index = row * cols + (col - 1);
+
+            const seat = indexedSeats[index];
+
+            if (seat) {
+              container.insertAdjacentHTML(
+                "beforeend",
+                `<input type="checkbox" name="seats" id="${seatID}" />` +
+                `<label for="${seatID}" class="seat" id="${labelName}">${labelName}</label>`
+              );
+
+              let labelElement = document.getElementById(labelName);
+              if (labelElement) {
+                labelElement.textContent = `${seat.bioBankId || ""} \n ${seat.sampleType}` || '';
+                labelElement.style.fontWeight = "bold";
+                labelElement.style.fontSize = "10px";
+                labelElement.style.textAlign = 'center';
+                labelElement.style.color = 'white';
+
+                // if (seatID.includes(grid)) {
+                //   console.log("seatID", seatID.includes(grid) + " seatID", seatID)
+                // }
+
+                if (seat.status === "o" ) {
+                  labelElement.style.background = "rgb(129, 129, 192)";
+                } else if (seat.status === "s") {
+                  labelElement.style.background = "rgb(180, 180, 180)";
+                } else if (seat.status === "ps") {
+                  labelElement.style.background = "rgb(193, 154, 107)";
+                } else if (seat.status === "e") {
+                  labelElement.style.background = "rgb(143, 218, 187)";
+                }
+              }
+            }
+          }
+          container.insertAdjacentHTML("beforeend", "<br/>");
+        }
+        window.handleDone = function () {
           $('#bloodModalCenter').modal('hide');
         };
       }
@@ -3324,6 +3546,37 @@ function popFNmodal() {
 
     });
     document.getElementById("nextButton1").addEventListener("click", function () {
+      const requiredFields = [
+    { field: document.getElementById('mrnNo'), name: 'MRN Number' },
+    { field: document.getElementById('bioBankId'), name: 'Bio Bank ID' },
+    { field: document.getElementById('patAge'), name: 'Age' },
+    { field: document.querySelector('input[name="customRadio"]:checked'), name: 'Gender' },
+    { field: document.querySelector('input[name="radioCancerType"]:checked'), name: 'Cancer Type' },
+    { field: document.querySelector('input[name="customProcedure"]:checked'), name: 'Procedure Types' },
+    { field: document.querySelector('input[name="MetastasisSample"]:checked'), name: 'Metastasis Sample' },
+    { field: document.querySelector('input[name="bloodSample"]:checked'), name: 'Blood Sample' },
+    { field: document.querySelector('input[name="specimenSample"]:checked'), name: 'Specimen Sample' },
+    { field: document.querySelector('input[name="otherSample"]:checked'), name: 'Other Sample' },
+    { field: document.querySelector('input[name="customConsent"]:checked'), name: 'Consent' },
+    { field: document.querySelector('input[name="IschemicRadio"]:checked'), name: 'Ischemic Sample' },
+    { field: document.querySelector('input[name="processedRadio"]:checked'), name: 'All samples Received Together' }
+  ];
+
+  let allFilled = true;
+  const emptyFields = [];
+
+  requiredFields.forEach(item => {
+    if (!item.field || (item.field.type === 'radio' && !item.field.checked) || (item.field.type === 'number' && item.field.value === '')) {
+      allFilled = false;
+      emptyFields.push(item.name);
+    }
+  });
+
+  if (!allFilled) {
+    console.log('Please fill in the following required fields:', emptyFields.join(', '));
+    alert('Please enter all the required fields. Check the console for details.');
+    return;
+  }
       // Hide form1 and show form2
       document.getElementById("form1").style.display = "none";
       document.getElementById("form2").style.display = "block";
@@ -3353,7 +3606,7 @@ function popFNmodal() {
       var selectedValue = this.value;
       var otherSubtypeDiv = document.getElementById('pSubtypeOther');
 
-      if (selectedValue === 'other' || selectedValue === 'option6' || selectedValue === 'option12') {
+      if (selectedValue === 'other' || selectedValue === 'option6' ) {
         otherSubtypeDiv.style.display = 'block';
       } else {
         otherSubtypeDiv.style.display = 'none';
@@ -3519,6 +3772,10 @@ function popFNmodal() {
           $('#PlasmagridNo').val('');
           $('#SerumgridNo').val('')
           $('#bufferCoatgridNo').val('')
+          // localStorage.removeItem("LocalPlasma");
+          // localStorage.removeItem("LocalSerum");
+          // localStorage.removeItem("LocalBuffy");
+          // localStorage.removeItem("LocalOther");  
         }
       }
 
@@ -3900,6 +4157,13 @@ function popFNmodal() {
         document.getElementById('bioBankId').value = storeBio;
       }
     };
+    $(document).ready(function () {
+    document.getElementById("bloodSampleN").addEventListener('click', function () {
+      localStorage.removeItem("LocalPlasma");
+      localStorage.removeItem("LocalSerum");
+      localStorage.removeItem("LocalBuffy");
+    });
+  });
 
     document.addEventListener('DOMContentLoaded', function () {
       const formData = sessionStorage.getItem('formData');
@@ -3910,14 +4174,30 @@ function popFNmodal() {
         const formElements = document.querySelectorAll('input, select, textarea');
         const doneBtn = document.getElementById("sampleEntry1");
         const submitBtn = document.getElementById("submitButton");
+        const finishBtn = document.getElementById('finishButton');
+
+        // formElements.forEach(element => {
+        //   element.disabled = true;
+        // });
         formElements.forEach(element => {
-          element.disabled = true;
+          if (element.id !== 'PlasmagridNo' ) {
+            element.disabled = true;
+          }
+          if (element.id !== 'SerumgridNo' ) {
+            element.disabled = true;
+          }
         });
+
+        finishBtn.style.display = 'block'
+
         doneBtn.style.display = 'none'
         submitBtn.style.display = 'none'
         document.getElementById('sefCurrentUser').style.display = "block"
         document.getElementById('mdCurrentUser').style.display = "block"
         document.getElementById('brfCurrentUser').style.display = "block"
+
+        
+
       }
       // else if (mode === 'SearchEdit') {
       //   // document.getElementById('mrnNo').setAttribute('disabled', true);
@@ -3926,8 +4206,15 @@ function popFNmodal() {
       else if (mode === 'SearchEdit' || mode === 'PendingEdit') {
         document.getElementById('mrnNo').setAttribute('disabled', true);
         document.getElementById('bioBankId').setAttribute('disabled', true);
+        const finishBtn = document.getElementById('finishButton');
 
+        finishBtn.style.display = 'none'
+      }
+      else if (mode === "undefined"){
+        console.log("mode",mode)
+        const finishBtn = document.getElementById('finishButton');
 
+        finishBtn.style.display = 'none'
       }
 
 
