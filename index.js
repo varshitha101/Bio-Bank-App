@@ -1,15 +1,34 @@
 
 
 // Firebase configuration
+// const firebaseConfig = {
+//   apiKey: "AIzaSyDIFI_4lVb7FJmKgzWMbq6ZfKcBwpj-K4E",
+//   authDomain: "biobank-development.firebaseapp.com",
+//   databaseURL: "https://biobank-development-default-rtdb.firebaseio.com",
+//   projectId: "biobank-development",
+//   storageBucket: "biobank-development.firebasestorage.app",
+//   messagingSenderId: "31278898937",
+//   appId: "1:31278898937:web:01f96df7a640d9c1410c28",
+//   measurementId: "G-B98TGR5Q8Q"
+// };
 const firebaseConfig = {
-  apiKey: "AIzaSyDIFI_4lVb7FJmKgzWMbq6ZfKcBwpj-K4E",
-  authDomain: "biobank-development.firebaseapp.com",
-  databaseURL: "https://biobank-development-default-rtdb.firebaseio.com",
-  projectId: "biobank-development",
-  storageBucket: "biobank-development.firebasestorage.app",
-  messagingSenderId: "31278898937",
-  appId: "1:31278898937:web:01f96df7a640d9c1410c28",
-  measurementId: "G-B98TGR5Q8Q"
+
+  apiKey: "AIzaSyCbpb_1jb6mDvF_7kuN8J0lwIoW7-mKd8g",
+
+  authDomain: "bio-bank-deployment.firebaseapp.com",
+
+  databaseURL: "https://bio-bank-deployment-default-rtdb.firebaseio.com",
+
+  projectId: "bio-bank-deployment",
+
+  storageBucket: "bio-bank-deployment.firebasestorage.app",
+
+  messagingSenderId: "674946404975",
+
+  appId: "1:674946404975:web:777e4171f5b473e6b3f39a",
+
+  measurementId: "G-MQP97GW8F9"
+
 };
 
 
@@ -48,7 +67,10 @@ function populateBBData(debug) {
         document.getElementById('box_id').textContent = boxVal;
         return db.ref(`bb/${boxVal}/`).once('value');
       } else {
-        throw new Error('No boxes found in Firebase.');
+        const container = document.getElementById('blood-box-container');
+        container.innerHTML = `
+       Add Box in to the container.
+      `;
       }
     })
     .then(snapshot => {
@@ -682,7 +704,10 @@ function populateSBData() {
         document.getElementById('sbox_id').textContent = boxVal;
         return db.ref(`sb/${boxVal}/`).once('value');
       } else {
-        throw new Error('No boxes found in Firebase.');
+        const container = document.getElementById('specimen-box-container');
+        container.innerHTML = `
+       Add Box in to the container.
+      `;
       }
     })
     .then(snapshot => {
@@ -1165,7 +1190,7 @@ function AppendBloodBox(boxName) {
       db.ref('bb/' + boxName + '/').set(newBoxData)
         .then(() => {
           console.log("New box added successfully to Firebase.");
-          window.location.reload(); 
+          window.location.reload();
         })
         .catch((error) => {
           console.error("Error saving new box to Firebase: ", error);
@@ -1223,7 +1248,7 @@ function AppendSpecimenBox(boxName) {
       db.ref('sb/' + boxName + '/').set(newBoxData)
         .then(() => {
           console.log("New box added successfully to Firebase.");
-          window.location.reload(); 
+          window.location.reload();
         })
         .catch((error) => {
           console.error("Error saving new box to Firebase: ", error);
@@ -1232,7 +1257,7 @@ function AppendSpecimenBox(boxName) {
     .catch((error) => {
       console.error("Error fetching existing boxes: ", error);
     });
-   
+
 }
 
 function data() {
@@ -1662,7 +1687,7 @@ function validateForm1() {
   const oPtimestamp = getDateAndTime('OtherSampleProcessedDate', 'OtherSampleProcessedTime');
 
   const form1Data = {
-    
+
     ie: {
       // ag: Number(document.getElementById('patAge').value),
       // sx: document.querySelector('input[name="customRadio"]:checked').value,
@@ -1933,7 +1958,9 @@ function saveToFirebase(data) {
 
     db.ref(`sef/${bioBankId}/${nextSection}/${timestamp}`).set(data)
       .then(() => {
-        alert('Form submitted successfully to ' + nextSection);
+        // alert('Form submitted successfully to ' + nextSection);
+        window.location.href = 'home.html';
+
       })
       .catch((error) => {
         console.error('Error writing to Firebase', error);
@@ -1952,8 +1979,8 @@ function saveToFirebase(data) {
   });
 
   const dueDate = new Date();
-  // dueDate.setMonth(dueDate.getMonth() + 6);  // Add 6 months to the current date
-  dueDate.setMinutes(dueDate.getMinutes() + 24 * 60);  // Optionally, add extra minutes if needed
+  dueDate.setMonth(dueDate.getMonth() + 6);  // Add 6 months to the current date
+  // dueDate.setMinutes(dueDate.getMonth() + 1 * 60);  // Optionally, add extra minutes if needed
 
   const bioBankPath = `pfw/${bioBankId}`;
   console.log("dueDate", dueDate);  // Logs the correct Date object
@@ -2030,7 +2057,7 @@ function patients() {
     // Save the structured data to the next available section with the timestamp
     db.ref(`Patients/${bioBankId}/${nextSection}`).set(patientInfo)
       .then(() => {
-        alert('Patient info submitted successfully to ' + nextSection);
+        // alert('Patient info submitted successfully to ' + nextSection);
       })
       .catch((error) => {
         console.error('Error writing to Firebase', error);
@@ -2511,7 +2538,7 @@ function updateToFirebase(data) {
 
       db.ref(`sef/${bioBankId}/${lastSection}/${timestamp}`).set(formattedData)
         .then(() => {
-          alert('Form submitted successfully to ' + lastSection);
+          // alert('Form submitted successfully to ' + lastSection);
         })
         .catch((error) => {
           console.error('Error writing to Firebase', error);
@@ -2522,7 +2549,9 @@ function updateToFirebase(data) {
 
       db.ref(`sef/${bioBankId}/${firstSection}/${timestamp}`).set(data)
         .then(() => {
-          alert('Form submitted successfully to ' + firstSection);
+          // alert('Form submitted successfully to ' + firstSection);
+          window.location.href = 'home.html';
+
         })
         .catch((error) => {
           console.error('Error writing to Firebase', error);
@@ -2578,26 +2607,38 @@ function submitFollowup() {
   db.ref(dataPath).set(followupData)
     .then(() => {
       console.log('Followup data saved successfully');
-      alert('Follow-up information has been saved.');
+      // alert('Follow-up information has been saved.');
     })
     .catch((error) => {
       console.error('Error saving followup data:', error);
-      alert('There was an error saving the follow-up information. Please try again.');
+      // alert('There was an error saving the follow-up information. Please try again.');
     });
 
   const timePFW = new Date()
-  console.log("time",timePFW)
+  console.log("time", timePFW)
   timePFW.setMinutes(timePFW.getMinutes() + 3);
-
-
-  db.ref(`pfw/${bioBankId}`).set(timePFW.getTime())  
+  const selectedStatus = document.querySelector('input[name="livestatus"]:checked').value;
+  console.log("selectedStatus",selectedStatus)
+  if (selectedStatus === 'Dead') {
+    // Remove data from the database if Vital Status is Dead
+    db.ref(`pfw/${bioBankId}`).remove()
+      .then(() => {
+        console.log('Data removed from pfw because Vital Status is Dead');
+      })
+      .catch((error) => {
+        console.log('Error removing data from pfw:', error);
+      });
+  }
+  else {
+    db.ref(`pfw/${bioBankId}`).set(timePFW.getTime())
     .then(() => {
       console.log('Stored in pfw');
     })
     .catch((error) => {
       console.log('Error storing in pfw:', error);
     });
-
+  }
+  
 }
 
 
