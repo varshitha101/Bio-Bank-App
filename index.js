@@ -1,5 +1,6 @@
+
+
 // Firebase configuration
-//Devolpment
 // const firebaseConfig = {
 //   apiKey: "AIzaSyDIFI_4lVb7FJmKgzWMbq6ZfKcBwpj-K4E",
 //   authDomain: "biobank-development.firebaseapp.com",
@@ -10,7 +11,7 @@
 //   appId: "1:31278898937:web:01f96df7a640d9c1410c28",
 //   measurementId: "G-B98TGR5Q8Q"
 // };
-//Deployment
+
 const firebaseConfig = {
   apiKey: "AIzaSyCbpb_1jb6mDvF_7kuN8J0lwIoW7-mKd8g",
   authDomain: "bio-bank-deployment.firebaseapp.com",
@@ -936,6 +937,101 @@ function populateSBLabels(data) {
         }
         if (sts[index] === "ps") {
           newLabelElement.style.background = "rgb(193, 154, 107)";
+          const matchedData = [];
+
+          newLabelElement.addEventListener('click', async function () {
+            console.log('Fetching data for:', labelName);
+
+            const bioBankId = bioBankIds[index];
+            const sampleType = sample[index];
+
+            localStorage.setItem('sharedbioid', bioBankId);
+
+            const dbRef = db.ref(`sef/${bioBankId}`);
+            const snapshot = await dbRef.get();
+
+            if (!snapshot.exists()) {
+              console.log("No data found for bioBankId:", bioBankId);
+              return;
+            }
+
+            const dbData = snapshot.val();
+            console.log("dbData", dbData);
+
+            Object.keys(dbData).forEach(seqNum => {
+              const seqData = dbData[seqNum];
+              console.log("seqData", seqData);
+
+              Object.keys(seqData).forEach(timestamp => {
+                const timestampData = seqData[timestamp];
+                console.log("timestampData", timestampData);
+
+                if ((sampleType.includes('FT') || sampleType.includes('MFT')) && timestampData.ie) {
+                  const ftg = timestampData.ie.ftg;
+                  const boxName = ftg.split('/')[0];
+                  const ftgIndex1 = ftg.split('/')[1];
+
+                  if (ftgIndex1 && ftgIndex1.includes(getSeatLabel(index))) {
+                    matchedData.push({
+                      mode: "sharedView",
+                      boxName,
+                      bioBankId,
+                      seq: seqNum,
+                      timestamp
+                    });
+                    console.log("Matched:", {
+                      mode: "sharedView",
+                      boxName,
+                      bioBankId,
+                      seqNum,
+                      timestamp
+                    });
+                  }
+                }
+                if ((sampleType.includes('FN') || sampleType.includes('MFN')) && timestampData.ie) {
+                  const fng = timestampData.ie.fng;
+                  console.log("fng", fng);
+                  console.log("fngIndex1", getSeatLabel(index));
+                  const boxName = fng.split('/')[0];
+                  const fngIndex1 = fng.split('/')[1]; // get index1
+                  console.log("bsgIndex1", fngIndex1);
+
+                  if (fngIndex1 && fngIndex1.split(',').includes(getSeatLabel(index))) {
+                    matchedData.push({
+                      mode: "sharedView",
+                      boxName,
+                      bioBankId,
+                      seq: seqNum,
+                      timestamp
+                    });
+                    console.log("Matched:", {
+                      mode: "sharedView",
+                      boxName,
+                      bioBankId,
+                      seqNum,
+                      timestamp
+                    });
+                  }
+                }
+
+
+              });
+            });
+
+            if (matchedData.length > 0) {
+              console.log('Matched Data:', matchedData);
+              matchedData.forEach(item => {
+                console.log(`Mode: ${item.mode}`);
+                console.log(`Box Name: ${item.boxName}`);
+                console.log(`BioBank ID: ${item.bioBankId}`);
+                console.log(`Sequence: ${item.seq}`);
+                console.log(`Timestamp: ${item.timestamp}`);
+                shared_pages_display(item.mode, item.bioBankId, item.seq, item.boxName, item.timestamp);
+              });
+            } else {
+              console.log('No match found for:', labelName);
+            }
+          });
         }
         if (sts[index] === "e") {
           newLabelElement.style.background = "rgb(143, 218, 187)";
@@ -1924,6 +2020,7 @@ function validateForm3() {
 function saveToFirebase(data) {
   const bioBankId = document.getElementById('bioBankId').value;
   const timestamp = Math.floor(Date.now() / 1000);
+  let mode = localStorage.getItem('mode');
 
   db.ref(`sef/${bioBankId}`).once('value', snapshot => {
     const sections = snapshot.val();
@@ -1946,12 +2043,11 @@ function saveToFirebase(data) {
       md: data.md,
       brf: data.brf
     };
-
+console.log("Happy Friday")
     db.ref(`sef/${bioBankId}/${nextSection}/${timestamp}`).set(data)
       .then(() => {
         // alert('Form submitted successfully to ' + nextSection);
-        window.location.href = 'home.html';
-
+        
       })
       .catch((error) => {
         console.error('Error writing to Firebase', error);
@@ -2048,7 +2144,7 @@ function patients() {
     // Save the structured data to the next available section with the timestamp
     db.ref(`Patients/${bioBankId}/${nextSection}`).set(patientInfo)
       .then(() => {
-        // alert('Patient info submitted successfully to ' + nextSection);
+        alert('Patient info submitted successfully to ' + nextSection);
       })
       .catch((error) => {
         console.error('Error writing to Firebase', error);
@@ -2172,7 +2268,7 @@ function pages_display(mode, bioBankId, seq, timestampKey) {
               localStorage.setItem("selectedGrid", "");
               window.location.href = `default.html?mode=edit`;
               break;
-            case 'ViewFollowUps':
+            case 'ViewFollowUp':
               localStorage.setItem("selectedGrid", "");
               window.location.href = `default.html?mode=view`;
               break;
@@ -2540,8 +2636,43 @@ function updateToFirebase(data) {
 
       db.ref(`sef/${bioBankId}/${firstSection}/${timestamp}`).set(data)
         .then(() => {
-          // alert('Form submitted successfully to ' + firstSection);
-          window.location.href = 'home.html';
+          alert('Form submitted successfully to ' + firstSection);
+          let mode = localStorage.getItem('mode');
+
+          db.ref(`bb/${boxName}/${seatIndex}`).update(seatUpdate)
+            .then(() => {
+              switch (mode) {
+                case 'SearchView':
+                  window.location.href = `search.html`;
+                  break;
+                case 'SearchEdit':
+                  window.location.href = `search.html`;
+                  break;
+                case 'PendingView':
+                  window.location.href = `todo.html`;
+                  break;
+                case 'PendingEdit':
+                  window.location.href = `todo.html`;
+                  break;
+                case 'EditFollowUps':
+                  window.location.href = `todo.html`;
+                  break;
+                case 'ViewFollowUp':
+                  window.location.href = `todo.html`;
+                  break;
+                case 'undefined':
+                  window.location.href = `home.html`;
+                  break;
+      
+                default:
+                  console.error('Unknown mode:', mode);
+              }
+      
+              console.log(`Seat ${seatID} updated successfully in Firebase.`);
+            })
+            .catch(error => {
+              console.error(`Error updating seat ${seatID}:`, error);
+            });
 
         })
         .catch((error) => {
@@ -2593,12 +2724,38 @@ function submitFollowup() {
   // Firebase reference to the path you want to save the data to
   const db = firebase.database();  // Initialize Firebase database reference
   const dataPath = `Fw/${bioBankId}/${timestamp}`;
-
+  let mode = localStorage.getItem('mode');
   // Push the data to Firebase
   db.ref(dataPath).set(followupData)
     .then(() => {
+      switch (mode) {
+        case 'SearchView':
+          window.location.href = `search.html`;
+          break;
+        case 'SearchEdit':
+          window.location.href = `search.html`;
+          break;
+        case 'PendingView':
+          window.location.href = `todo.html`;
+          break;
+        case 'PendingEdit':
+          window.location.href = `todo.html`;
+          break;
+        case 'EditFollowUps':
+          window.location.href = `todo.html`;
+          break;
+        case 'ViewFollowUp':
+          window.location.href = `todo.html`;
+          break;
+        case 'undefined':
+          window.location.href = `home.html`;
+          break;
+
+        default:
+          console.error('Unknown mode:', mode);
+      }
+
       console.log('Followup data saved successfully');
-      // alert('Follow-up information has been saved.');
     })
     .catch((error) => {
       console.error('Error saving followup data:', error);
@@ -2609,7 +2766,7 @@ function submitFollowup() {
   console.log("time", timePFW)
   timePFW.setMinutes(timePFW.getMinutes() + 3);
   const selectedStatus = document.querySelector('input[name="livestatus"]:checked').value;
-  console.log("selectedStatus",selectedStatus)
+  console.log("selectedStatus", selectedStatus)
   if (selectedStatus === 'Dead') {
     // Remove data from the database if Vital Status is Dead
     db.ref(`pfw/${bioBankId}`).remove()
@@ -2622,14 +2779,14 @@ function submitFollowup() {
   }
   else {
     db.ref(`pfw/${bioBankId}`).set(timePFW.getTime())
-    .then(() => {
-      console.log('Stored in pfw');
-    })
-    .catch((error) => {
-      console.log('Error storing in pfw:', error);
-    });
+      .then(() => {
+        console.log('Stored in pfw');
+      })
+      .catch((error) => {
+        console.log('Error storing in pfw:', error);
+      });
   }
-  
+
 }
 
 
@@ -2674,9 +2831,37 @@ function updateBB(info) {
             sampleType: sampleType,
             status: "o"
           };
+          let mode = localStorage.getItem('mode');
 
           db.ref(`bb/${boxName}/${seatIndex}`).update(seatUpdate)
             .then(() => {
+              switch (mode) {
+                case 'SearchView':
+                  window.location.href = `search.html`;
+                  break;
+                case 'SearchEdit':
+                  window.location.href = `search.html`;
+                  break;
+                case 'PendingView':
+                  window.location.href = `todo.html`;
+                  break;
+                case 'PendingEdit':
+                  window.location.href = `todo.html`;
+                  break;
+                case 'EditFollowUps':
+                  window.location.href = `todo.html`;
+                  break;
+                case 'ViewFollowUp':
+                  window.location.href = `todo.html`;
+                  break;
+                case 'undefined':
+                  window.location.href = `home.html`;
+                  break;
+      
+                default:
+                  console.error('Unknown mode:', mode);
+              }
+      
               console.log(`Seat ${seatID} updated successfully in Firebase.`);
             })
             .catch(error => {
@@ -2907,7 +3092,58 @@ function shareDate(mode, selectedPatients) {
   }
 }
 
-function popSharedmodal() {
+
+function popSharedmodal(bioboxName) {
+  function fetchSeatDataFromDB(nodeName) {
+    return new Promise((resolve, reject) => {
+      let dbRef = firebase.database().ref(nodeName);
+      dbRef.once('value')
+        .then(snapshot => {
+          let seatData = snapshot.val();
+          resolve(seatData);
+        })
+        .catch(error => {
+          console.error("Error fetching seat data:", error);
+          reject(error);
+        });
+    });
+  }
+  console.log("bioboxName",bioboxName)
+
+
+  fetchSeatDataFromDB('bb')
+    .then(bbData => {
+      const bbBoxEntry = Object.entries(bbData).find(([boxName]) => boxName === bioboxName);
+
+      if (bbBoxEntry) {
+        console.log(`Box name ${bioboxName} found in 'bb'`);
+        popSharedBloodmodal(bioboxName);
+      } else {
+        console.log(`Box name ${bioboxName} not found in 'bb'.`);
+      }
+    })
+    .catch(error => {
+      console.error("Error fetching 'bb' data:", error);
+    });
+
+  fetchSeatDataFromDB('sb')
+    .then(sbData => {
+      const sbBoxEntry = Object.entries(sbData).find(([boxName]) => boxName === bioboxName);
+
+      if (sbBoxEntry) {
+        console.log(`Box name ${bioboxName} found in 'sb'`);
+        popSharedSpecimenmodal(bioboxName);
+      } else {
+        console.log(`Box name ${bioboxName} not found in 'sb'.`);
+      }
+    })
+    .catch(error => {
+      console.error("Error fetching 'sb' data:", error);
+    });
+}
+
+
+function popSharedBloodmodal(bioboxName) {
   $('#bloodModalCenter').modal('show');
 
   fetchSeatDataFromDB('bb').then(seatData => {
@@ -2935,8 +3171,7 @@ function popSharedmodal() {
 
     const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
     const cols = 10;
-
-    const activeBoxEntry = Object.entries(seatData).find(([boxName, data]) => data.bxsts === 'AC');
+    const activeBoxEntry = Object.entries(seatData).find(([boxName, data]) => boxName === bioboxName);
 
     if (!activeBoxEntry) {
       console.error("No active box found with status 'AC'.");
@@ -2949,7 +3184,6 @@ function popSharedmodal() {
     const [activeBoxName, filteredSeats] = activeBoxEntry;
     console.log("Active Box Name:", activeBoxName);
 
-    document.getElementById('currBloodBoxName').textContent = activeBoxName;
 
 
     const indexedSeats = filteredSeats;
@@ -2975,9 +3209,98 @@ function popSharedmodal() {
             `<label for="${seatID}" class="seat" id="${labelName}">${labelName}</label>`
           );
 
-          document.getElementById(seatID).addEventListener('change', function (event) {
-            handleBSeatSelection(seatID, event.target.checked, seat.status);
-          });
+          let labelElement = document.getElementById(labelName);
+          if (labelElement) {
+            labelElement.textContent = `${seat.bioBankId || ""} \n ${seat.sampleType}` || '';
+            labelElement.style.fontWeight = "bold";
+            labelElement.style.fontSize = "10px";
+            labelElement.style.textAlign = 'center';
+            labelElement.style.color = 'white';
+
+            if (seat.status === "o" || (seatID.includes(grid))) {
+              labelElement.style.background = "rgb(129, 129, 192)";
+            } else if (seat.status === "s") {
+              labelElement.style.background = "rgb(180, 180, 180)";
+            } else if (seat.status === "ps") {
+              labelElement.style.background = "rgb(193, 154, 107)";
+            } else if (seat.status === "e") {
+              labelElement.style.background = "rgb(143, 218, 187)";
+            }
+          }
+        }
+      }
+      container.insertAdjacentHTML("beforeend", "<br/>");
+    }
+
+
+  }
+}
+
+function popSharedSpecimenmodal(bioboxName) {
+  $('#specimenModalCenter').modal('show');
+
+  fetchSeatDataFromDB('sb').then(seatData => {
+    populateSSeats('specimen-box', seatData);
+  });
+
+  function fetchSeatDataFromDB(nodeName) {
+    return new Promise((resolve, reject) => {
+      let dbRef = firebase.database().ref(nodeName);
+      dbRef.once('value')
+        .then(snapshot => {
+          let seatData = snapshot.val();
+          resolve(seatData);
+        })
+        .catch(error => {
+          console.error("Error fetching seat data:", error);
+          reject(error);
+        });
+    });
+  }
+
+  function populateSSeats(containerClass, seatData) {
+    let container = document.querySelector(`.${containerClass}`);
+    container.innerHTML = '';
+
+    const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+    const cols = 10;
+    const activeBoxEntry = Object.entries(seatData).find(([boxName, data]) => boxName === bioboxName);
+
+    if (!activeBoxEntry) {
+      console.error("No active box found with status 'AC'.");
+      return;
+    }
+
+    grid = localStorage.getItem("selectedGrid");
+    console.log("selected Grid Data:", grid);
+
+    const [activeBoxName, filteredSeats] = activeBoxEntry;
+    console.log("Active Box Name:", activeBoxName);
+
+
+
+    const indexedSeats = filteredSeats;
+    if (!indexedSeats) {
+      console.log("No indexed seats available in the active box.");
+      return;
+    }
+
+
+    for (let row = 0; row < rows.length; row++) {
+      for (let col = 1; col <= cols; col++) {
+        const labelName = `label_S${rows[row]}${col}`;
+        const seatID = `${rows[row]}${col}`;
+        const index = row * cols + (col - 1);
+
+
+        const seat = indexedSeats[index];
+
+        if (seat) {
+          container.insertAdjacentHTML(
+            "beforeend",
+            `<input type="checkbox" name="seats" id="${seatID}" />` +
+            `<label for="${seatID}" class="seat" id="${labelName}">${labelName}</label>`
+          );
 
           let labelElement = document.getElementById(labelName);
           if (labelElement) {
@@ -3013,31 +3336,86 @@ function retrieveOs(bioBankId) {
         const outSourceData = snapshot.val();
         console.log('Retrieved OutSource data:', outSourceData);
 
+        // Clear any existing card bodies before populating new ones
+        const container = document.querySelector('.card-container');
+        container.innerHTML = ''; 
+
+        // Loop through the sequence numbers in the data
         Object.keys(outSourceData).forEach(seqNum => {
           const seqData = outSourceData[seqNum];
-          console.log("seqnum", seqData)
+          console.log("seqnum", seqData);
+
+          // Extract timestamps from the sequence data
           const timestamps = Object.keys(seqData);
+          console.log('Timestamps:', timestamps);
 
-          const latestTimestamp = Math.max(...timestamps.map((t) => parseInt(t)));
+          // Populate a new card for each timestamp
+          timestamps.forEach(timestamp => {
+            // Convert the timestamp to IST
+            const date = new Date(timestamp * 1000); // Multiply by 1000 if timestamp is in seconds
+            const istTimestamp = date.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
 
-          const latestData = seqData[latestTimestamp];
 
-          console.log("latestData", latestData);
+            const cardTemplate = `
+              <div class="card-body row" style="justify-content: space-around;">
+                <h5 class="card-title">${bioBankId}</h5>
+                <p class="card-text">${istTimestamp}</p>
+                <a href="#" class="btn btn-primary" onclick="viewShared('${bioBankId}', ${timestamp})">View</a>
+              </div>
+            `;
 
-          displayOutsourceData(latestData);
+            // Insert the cloned card into the container
+            container.insertAdjacentHTML('beforeend', cardTemplate);
+          });
         });
-      }
-
-      else {
+      } else {
         console.log('No OutSource data found for this BioBank ID.');
+        const container = document.querySelector('.card-container');
+        container.innerHTML = '<p>No OutSource data available.</p>';
       }
-
     })
     .catch((error) => {
       console.error('Error retrieving OutSource data:', error);
       alert('There was an error retrieving the OutSource information. Please try again.');
     });
 }
+
+// Define the viewShared function globally
+function viewShared(bioBankId, timestamp) {
+  // Hide sharedCard and display shareForm when the viewShared button is clicked
+  document.getElementById('sharedCard').style.display = 'none';
+  document.getElementById('shareForm').style.display = 'block';
+
+  db.ref(`Os/${bioBankId}`).once('value')
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        const outSourceData = snapshot.val();
+        console.log('Retrieved OutSource data:', outSourceData);
+
+        Object.keys(outSourceData).forEach(seqNum => {
+          const seqData = outSourceData[seqNum];
+          console.log("seqnum", seqData);
+
+          const latestData = seqData[timestamp];
+          console.log("latestData", latestData);
+
+          displayOutsourceData(latestData); // Call your custom function to display data
+        });
+      } else {
+        console.log('No OutSource data found for this BioBank ID.');
+      }
+    })
+    .catch((error) => {
+      console.error('Error retrieving OutSource data:', error);
+      alert('There was an error retrieving the OutSource information. Please try again.');
+    });
+
+    
+
+}
+
+
+
 
 
 
@@ -3048,6 +3426,7 @@ function shared_pages_display(mode, bioBankId, seq, boxName, timestampKey) {
   console.log("seq", seq);
   console.log("timestampKey", timestampKey);
   console.log("boxName", boxName)
+  localStorage.setItem("sharedBox", boxName);
 
   var dataPath = `Os/${bioBankId}/${seq}/`;
 
@@ -3055,7 +3434,7 @@ function shared_pages_display(mode, bioBankId, seq, boxName, timestampKey) {
   console.log("DataConfig", db);
 
   localStorage.setItem('bioid', bioBankId);
-  localStorage.setItem('mode', mode)
+  localStorage.setItem('mode', mode);
 
 
   if (mode != "") {
@@ -3112,11 +3491,62 @@ function shared_pages_display(mode, bioBankId, seq, boxName, timestampKey) {
 
 function displayOutsourceData(data) {
   console.log('Displaying Outsource data:', data);
+
+  // Set form inputs based on retrieved data
   document.querySelector(`input[name="sharestatus"][value="${data.ossts}"]`).checked = true;
   document.getElementById('startInputOutsource').value = data.doe || '';
   document.getElementById('institute').value = data.dpt || '';
-  document.getElementById('projectName').value = data.prj || '';
-  document.getElementById('nopi').value = data.pip || '';
+  document.getElementById('projectName').value = data.pip || '';
+  document.getElementById('nopi').value = data.pip || '';  // Assuming 'pip' is project leader info
   document.getElementById('parSharedRemark').value = data.psr || '';
 
+  // Handle dynamic child nodes inside 'lbi'
+  const sharedSampleBox = document.getElementById('sharedSampleBox');
+  sharedSampleBox.style.display = 'block'; // Make sure it's visible
+  sharedSampleBox.innerHTML = ''; // Clear previous content
+
+  if (data.lbi) {
+    Object.keys(data.lbi).forEach(childNode => {
+      const childData = data.lbi[childNode];
+
+      if (Array.isArray(childData)) {
+        // Format the child node data if it's an array
+        const formattedSamples = childData.join(', ');
+        const childContent = `${childNode}: ${formattedSamples}`;
+
+        // Dynamically create a button for each box
+        const sampleButton = `
+          <div class="row ml-1 mb-3">
+            <label for="sharedSampleBox" class="col-sm-2 mb-1 col-form-label">${childNode} Grid No.</label>
+            <div class="col-sm-10 mt-2">
+              <input type="button" class="form-control" value="${formattedSamples}" onclick="popSharedmodal('${childNode}', '${formattedSamples}')">
+            </div>
+          </div>
+        `;
+
+        // Insert the button into the sharedSampleBox
+        sharedSampleBox.insertAdjacentHTML('beforeend', sampleButton);
+      } else {
+        // If the child node is not an array, handle it appropriately
+        sharedSampleBox.insertAdjacentHTML('beforeend', `<p>${childNode}: ${childData}</p>`);
+      }
+    });
+  }
+  
+  else {
+    sharedSampleBox.innerHTML = 'No samples available.';
+  }
+  console.log("Bhanu",document.querySelector('#radioPartial').checked)
+
+  if (document.querySelector('#radioPartial').checked) {
+    document.querySelector('#partialSamples').style.display = 'block';
+  }
+}
+
+
+
+function goToTimestampCard() {
+  document.getElementById('shareForm').style.display = 'none';
+
+  document.getElementById('sharedCard').style.display = 'block';
 }
