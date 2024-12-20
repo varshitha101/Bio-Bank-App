@@ -124,31 +124,31 @@
   <!-- Firebase -->
   <script type="module">
 
-    // const firebaseConfig = {
-    //   apiKey: "AIzaSyDIFI_4lVb7FJmKgzWMbq6ZfKcBwpj-K4E",
-    //   authDomain: "biobank-development.firebaseapp.com",
-    //   databaseURL: "https://biobank-development-default-rtdb.firebaseio.com",
-    //   projectId: "biobank-development",
-    //   storageBucket: "biobank-development.firebasestorage.app",
-    //   messagingSenderId: "31278898937",
-    //   appId: "1:31278898937:web:01f96df7a640d9c1410c28",
-    //   measurementId: "G-B98TGR5Q8Q"
-    // };
     const firebaseConfig = {
-      apiKey: "AIzaSyCbpb_1jb6mDvF_7kuN8J0lwIoW7-mKd8g",
-      authDomain: "bio-bank-deployment.firebaseapp.com",
-      databaseURL: "https://bio-bank-deployment-default-rtdb.firebaseio.com",
-      projectId: "bio-bank-deployment",
-      storageBucket: "bio-bank-deployment.firebasestorage.app",
-      messagingSenderId: "674946404975",
-      appId: "1:674946404975:web:777e4171f5b473e6b3f39a",
-      measurementId: "G-MQP97GW8F9"
+      apiKey: "AIzaSyDIFI_4lVb7FJmKgzWMbq6ZfKcBwpj-K4E",
+      authDomain: "biobank-development.firebaseapp.com",
+      databaseURL: "https://biobank-development-default-rtdb.firebaseio.com",
+      projectId: "biobank-development",
+      storageBucket: "biobank-development.firebasestorage.app",
+      messagingSenderId: "31278898937",
+      appId: "1:31278898937:web:01f96df7a640d9c1410c28",
+      measurementId: "G-B98TGR5Q8Q"
     };
+    // const firebaseConfig = {
+    //   apiKey: "AIzaSyCbpb_1jb6mDvF_7kuN8J0lwIoW7-mKd8g",
+    //   authDomain: "bio-bank-deployment.firebaseapp.com",
+    //   databaseURL: "https://bio-bank-deployment-default-rtdb.firebaseio.com",
+    //   projectId: "bio-bank-deployment",
+    //   storageBucket: "bio-bank-deployment.firebasestorage.app",
+    //   messagingSenderId: "674946404975",
+    //   appId: "1:674946404975:web:777e4171f5b473e6b3f39a",
+    //   measurementId: "G-MQP97GW8F9"
+    // };
 
 
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js";
     import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-auth.js";
-    import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-database.js";
+    import { getDatabase, ref, set, get, update } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-database.js";
     import { RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-auth.js";
 
     const app = initializeApp(firebaseConfig);
@@ -201,25 +201,42 @@
 
 
               const phone = snapshot.val().phone;
-              const storedPCIdentifier = ''; // Updated to access pcIdentifier from loginDetails
-              const loginTime = ''; // Updated to access loginTime from loginDetails
+
+             
 
               if (snapshot.val().loginDetails != undefined) {
-                const storedPCIdentifier = snapshot.val()?.loginDetails.pcIdentifier || ''; // Updated to access pcIdentifier from loginDetails
-                const loginTime = new Date(snapshot.val().loginDetails.loginTime).getTime() || ''; // Updated to access loginTime from loginDetails
-              }
+                sessionStorage.setItem('isLoggedIn', true);
+
+                // const storedPCIdentifier = snapshot.val()?.loginDetails.pcIdentifier || ''; // Updated to access pcIdentifier from loginDetails
+                // const loginTime = new Date(snapshot.val().loginDetails.loginTime).getTime() || ''; // Updated to access loginTime from loginDetails
+                const storedPCIdentifier = snapshot.val().loginDetails.pcIdentifier; // Updated to access pcIdentifier from loginDetails
               const currentPCIdentifier = hashString(window.navigator.userAgent);
 
+              const loginTime = new Date(snapshot.val().loginDetails.loginTime).getTime(); // Updated to access loginTime from loginDetails
               const currentTime = new Date().getTime();
               // const thirtyDaysInMillis = 2 * 60 * 1000; // 2 minutes in milliseconds
               const thirtyDaysInMillis = 30 * 24 * 60 * 60 * 1000; // 30 days in milliseconds
+                // const currentPCIdentifier = hashString(window.navigator.userAgent);
 
-              if ((storedPCIdentifier !== currentPCIdentifier || (currentTime - loginTime) > thirtyDaysInMillis) || (storedPCIdentifier != '' || loginTime != '') || (storedPCIdentifier === 'undefined' || loginTime === 'undefined')) {
-                sendOTP(phone);
-                $('#exampleModalCenter').modal('show');
-              } else {
-                window.location.href = 'home.html'; // Redirect to home after successful login
+                // const currentTime = new Date().getTime();
+                // // const thirtyDaysInMillis = 2 * 60 * 1000; // 2 minutes in milliseconds
+                // const thirtyDaysInMillis = 30 * 24 * 60 * 60 * 1000; // 30 days in milliseconds
+                console.log("currentTime",currentTime);
+                console.log("loginTime",loginTime);
+                
+
+                if (storedPCIdentifier !== currentPCIdentifier || (currentTime - loginTime) > thirtyDaysInMillis) {
+                  sendOTP(phone);
+                  $('#exampleModalCenter').modal('show');
+                } else {
+                  window.location.href = 'home.html'; // Redirect to home after successful login
+                }
+
+
+
+
               }
+
             }
           });
         })
@@ -242,15 +259,26 @@
       signInWithPhoneNumber(auth, phoneNumber, window.recaptchaVerifier)
         .then((confirmationResult) => {
           window.confirmationResult = confirmationResult;
-          sessionStorage.setItem('isLoggedIn', true);
           alert("OTP sent successfully!");
           $('#otpModal').modal('show'); // Show OTP modal after sending OTP
+          // const currentTime = new Date().getTime(); // Get current time in milliseconds
+          // const userRef = ref(db, 'users/' + UUID);
+
+          // update(userRef, {
+          //   'loginDetails/loginTime': currentTime
+          // }).then(() => {
+          //   console.log("Login time updated successfully.");
+          // }).catch((error) => {
+          //   console.error("Error updating login time:", error.message);
+          // });
         })
         .catch((error) => {
           console.error("Error sending OTP:", error.message);
           alert("Failed to send OTP. Check console for details.");
         });
+
     }
+
     document.querySelectorAll('.otp-input').forEach((input, index, array) => {
       input.addEventListener('input', (e) => {
         if (input.value.length === 1 && index < array.length - 1) {
@@ -268,17 +296,57 @@
     document.getElementById("submitBtn").addEventListener("click", function (event) {
       event.preventDefault();
 
+
       const otpInputs = document.querySelectorAll(".otp-input");
       let otp = '';
       otpInputs.forEach(input => {
-        otp += input.value;
+        otp += input.value; // Collecting the OTP values from each input
       });
 
+      // OTP verification
       window.confirmationResult.confirm(otp).then((result) => {
         console.log("OTP verification successful");
-        window.location.href = 'home.html';
+
+        // Proceed with storing user data and redirecting after successful OTP verification
+        const userRef = ref(db, 'users/' + UUID);
+        //const loginTime = new Date().toISOString();
+
+        const loginTime = new Intl.DateTimeFormat('en-IN', {
+          timeZone: 'Asia/Kolkata',
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false // Use 24-hour format
+        }).format(new Date());
+
+        // Fetch the user's IP address
+        fetch('https://api.ipify.org?format=json')
+          .then(response => response.json())
+          .then(data => {
+            const userIpAddress = data.ip;
+            const pcIdentifier = hashString(window.navigator.userAgent); // Simple PC identifier
+
+            // Store login time, IP address, and PC identifier in the database
+            set(ref(db, 'users/' + UUID + '/loginDetails'), {
+              loginTime: loginTime,
+              pcIdentifier: pcIdentifier,
+              // Include any other user data you want to store
+            }).then(() => {
+              console.log("User  data stored successfully.");
+              window.location.href = 'home.html'; // Redirect to home after successful login
+            }).catch((error) => {
+              console.error("Error storing user data: ", error);
+            });
+          })
+          .catch((error) => {
+            console.error("Error fetching IP address: ", error);
+          });
+
       }).catch((error) => {
-        alert("Invalid OTP: " + error.message);
+        alert("Invalid OTP: " + error.message); // Alert for invalid OTP
       });
     });
 
