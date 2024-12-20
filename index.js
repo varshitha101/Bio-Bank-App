@@ -12,6 +12,7 @@
 //   measurementId: "G-B98TGR5Q8Q"
 // };
 
+
 const firebaseConfig = {
   apiKey: "AIzaSyCbpb_1jb6mDvF_7kuN8J0lwIoW7-mKd8g",
   authDomain: "bio-bank-deployment.firebaseapp.com",
