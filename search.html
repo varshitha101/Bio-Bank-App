@@ -1037,7 +1037,7 @@
               
               // Only push sequences where the sampleType matches the sampleTypeInput
               if (sampleTypeInput === "all" || !sampleTypeInput || sampleType === sampleTypeInput || `m${sampleTypeInput}` === sampleType) {
-                sampleType= sampleType.toUpperCase();
+                // sampleType= sampleType.toUpperCase();
                 allSequences.push({
                   serialNumber: allSequences.length + 1,
                   bioBankId: bioBankId,
