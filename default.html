@@ -4364,7 +4364,6 @@
                     db.ref(`bb/${boxName}/${index}`).update({ status: sharedStatus })
                       .then(() => {
                         console.log('Status updated for BioBank ID:', bioBankId, 'Sample Index:', index);
-                        let mode = localStorage.getItem('mode');
 
 
             switch (mode) {
@@ -4412,7 +4411,6 @@
                     db.ref(`sb/${boxName}/${index}`).update({ status: sharedStatus })
                       .then(() => {
                         console.log('Status updated for BioBank ID:', bioBankId, 'Sample Index:', index);
-                        let mode = localStorage.getItem('mode');
 
 
             switch (mode) {
@@ -4460,7 +4458,8 @@
               console.error('Error writing to Firebase:', error);
               alert('Error submitting form for BioBank ID: ' + bioBankId);
             });
-            
+                                    let mode = localStorage.getItem('mode');
+
         });
       });
 
