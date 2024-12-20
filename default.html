@@ -4364,39 +4364,7 @@
                     db.ref(`bb/${boxName}/${index}`).update({ status: sharedStatus })
                       .then(() => {
                         console.log('Status updated for BioBank ID:', bioBankId, 'Sample Index:', index);
-                      })
-                      .catch(error => {
-                        console.error('Error updating status for BioBank ID:', bioBankId, 'Sample Index:', index, error);
-                      });
-                  }
-                  else {
-                    console.log("bb does not exist ")
-
-                  }
-                });
-                db.ref(`sb/${boxName}`).once('value', snapshot => {
-                  if (snapshot.exists()) {
-                    console.log("sb exist ")
-                    db.ref(`sb/${boxName}/${index}`).update({ status: sharedStatus })
-                      .then(() => {
-                        console.log('Status updated for BioBank ID:', bioBankId, 'Sample Index:', index);
-                      })
-                      .catch(error => {
-                        console.error('Error updating status for BioBank ID:', bioBankId, 'Sample Index:', index, error);
-                      });
-                  }
-                  else {
-                    console.log("sb does not exist ")
-                  }
-                });
-              });
-
-            })
-            .catch(error => {
-              console.error('Error writing to Firebase:', error);
-              alert('Error submitting form for BioBank ID: ' + bioBankId);
-            });
-            let mode = localStorage.getItem('mode');
+                        let mode = localStorage.getItem('mode');
 
 
             switch (mode) {
@@ -4428,6 +4396,71 @@
                 default:
                   console.error('Unknown mode:', mode);
               }
+                      })
+                      .catch(error => {
+                        console.error('Error updating status for BioBank ID:', bioBankId, 'Sample Index:', index, error);
+                      });
+                  }
+                  else {
+                    console.log("bb does not exist ")
+
+                  }
+                });
+                db.ref(`sb/${boxName}`).once('value', snapshot => {
+                  if (snapshot.exists()) {
+                    console.log("sb exist ")
+                    db.ref(`sb/${boxName}/${index}`).update({ status: sharedStatus })
+                      .then(() => {
+                        console.log('Status updated for BioBank ID:', bioBankId, 'Sample Index:', index);
+                        let mode = localStorage.getItem('mode');
+
+
+            switch (mode) {
+                case 'SearchView':
+                  window.location.href = `search.html`;
+                  break;
+                case 'SearchEdit':
+                  window.location.href = `search.html`;
+                  break;
+                case 'share':
+                  window.location.href = `search.html`;
+                  break;
+                case 'PendingView':
+                  window.location.href = `todo.html`;
+                  break;
+                case 'PendingEdit':
+                  window.location.href = `todo.html`;
+                  break;
+                case 'EditFollowUps':
+                  window.location.href = `todo.html`;
+                  break;
+                case 'ViewFollowUp':
+                  window.location.href = `todo.html`;
+                  break;
+                case 'undefined':
+                  window.location.href = `home.html`;
+                  break;
+      
+                default:
+                  console.error('Unknown mode:', mode);
+              }
+                      })
+                      .catch(error => {
+                        console.error('Error updating status for BioBank ID:', bioBankId, 'Sample Index:', index, error);
+                      });
+                  }
+                  else {
+                    console.log("sb does not exist ")
+                  }
+                });
+              });
+
+            })
+            .catch(error => {
+              console.error('Error writing to Firebase:', error);
+              alert('Error submitting form for BioBank ID: ' + bioBankId);
+            });
+            
         });
       });
 
