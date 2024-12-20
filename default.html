@@ -1325,7 +1325,7 @@
                   <div class="col-4 mt-2" style="text-align: center;">
                     <button type="button" class="btn btn-primary btn-xs btn-prev" id="backButton2">Back</button>
                   </div>
-                  <div class="col-4 mt-2" style="text-align: center;" >
+                  <div class="col-4 mt-2" style="text-align: center;">
                     <button type="button" class="btn btn-success btn-xs" id="finishButton">Finish</button>
                   </div>
                   <div class="col-4 mt-2" style="text-align: center;">
@@ -1464,8 +1464,18 @@
 
 
         <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="tab3-tab">
+          <div class="card" id="sharedCard" style="display: none;">
+            <!-- <div class="card-header" style="text-align: center;">
+              Featured
+            </div> -->
+            <div class="card-container">
+              <!-- Cards will be dynamically inserted here -->
+            </div>
+          </div>
 
-          <form class="form-group mt-3" id="shareForm">
+
+
+          <form class="form-group mt-3" id="shareForm" style="display: block;">
             <div class="row ml-1 mb-3">
               <label for="startInput" class="col-sm-2 mb-1 col-form-label col-form-label Bold">Date <span
                   style="color: red; font-weight: bold;">*</span></label>
@@ -1508,31 +1518,33 @@
                 </div>
               </div>
             </div>
-            <div class="row ml-1 mb-3" id="partialSamples" style="display: none;">
-              <label for="startInput" class="col-sm-2 mb-1 col-form-label col-form-label Bold">Partial shared
-                remark</label>
-              <div class="col-sm-10 mt-2">
-                <input type="text" class="form-control " placeholder="" id="parSharedRemark">
+            <div  id="partialSamples" style="display: none;">
+              <div class="row ml-1 mb-3">
+                <label for="startInput" class="col-sm-2 mb-1 col-form-label col-form-label Bold">Partial shared remark</label>
+                <div class="col-sm-10 mt-2">
+                  <input type="text" class="form-control " placeholder="" id="parSharedRemark">
+                </div>
               </div>
             </div>
             
+
             <div id="sharedSampleBox" style="display: none;">
               <div class="row ml-1 mb-3">
                 <label for="sharedSampleBox" class="col-sm-2 mb-1 col-form-label">Grid No.</label>
                 <div class="col-sm-10 mt-2">
-                  <input type="button" class="form-control" id="sharedSampleBox" onclick="popSharedmodal()"
+                  <input type="button" class="form-control" id="sharedSample" onclick="popSharedmodal()"
                     placeholder="Shared Grid Box">
                 </div>
               </div>
+            </div>
+            <div class="col mt-4" style="text-align: center;" id="backToCardBtn">
+              <button type="button" class="btn btn-primary" onclick="goToTimestampCard()">Back</button>
             </div>
             <div class="col mt-4" style="text-align: center;" id="shareSubmit">
               <button type="submit" class="btn btn-success">Submit</button>
             </div>
           </form>
-          <div class="arrow-navigation" id="navArrows" style="text-align: center; display: none;">
-            <button id="perv" class="arrow-btn">←</button>
-            <button id="next" class="arrow-btn">→</button>
-          </div>
+
         </div>
       </div>
     </div>
@@ -1643,8 +1655,8 @@
   <script>
 
     if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn') !== 'true') {
-          window.location.href = "login.html";
-        }
+      window.location.href = "login.html";
+    }
 
     const app = firebase.initializeApp(firebaseConfig);
     const db = firebase.database(app);
@@ -1742,7 +1754,7 @@
       // Validate and collect data from all forms
       validateAndCollectData();
 
-      window.location.href = 'home.html';
+      // window.location.href = 'home.html';
 
     });
     document.getElementById('finishButton').addEventListener('click', function () {
@@ -1897,32 +1909,32 @@
 
 
     let grid = '';
-    
+
     let spgrid = '';
 
     let arr = [];
-    
+
     let arrS = [];
-    
+
     let arrinx = [];
 
     let arrSinx = [];
 
-    function plasmaModal(){
+    function plasmaModal() {
       let mode = localStorage.getItem('mode');
       if (mode === 'SearchView' || mode === 'PendingView' || mode === 'ViewFollowUp' || mode === 'SharedView') {
         popVPlasmaModal()
       }
-      else{
+      else {
         popPlasmamodal()
       }
     }
-    function serumModal(){
+    function serumModal() {
       let mode = localStorage.getItem('mode');
       if (mode === 'SearchView' || mode === 'PendingView' || mode === 'ViewFollowUp' || mode === 'SharedView') {
         popVSerumModal()
       }
-      else{
+      else {
         popSerummodal()
       }
     }
@@ -1958,17 +1970,17 @@
 
         const plasmaBoxName = document.getElementById("PlasmagridNo").value
         const boxname = plasmaBoxName.split('/')[0];
-        console.log("box name",boxname);
-        console.log("box name",seatData);
-        
+        console.log("box name", boxname);
+        console.log("box name", seatData);
+
         const activeBoxEntry = Object.entries(seatData).find(([boxName, data]) => boxName === boxname);
 
-        
-        
+
+
         const [activeBoxName, filteredSeats] = activeBoxEntry;
         console.log("activeBoxEntry", activeBoxEntry);
 
-  
+
         const indexedSeats = filteredSeats;
         if (!indexedSeats) {
           console.log("No indexed seats available in the active box.");
@@ -2002,7 +2014,7 @@
                 //   console.log("seatID", seatID.includes(grid) + " seatID", seatID)
                 // }
 
-                if (seat.status === "o" ) {
+                if (seat.status === "o") {
                   labelElement.style.background = "rgb(129, 129, 192)";
                 } else if (seat.status === "s") {
                   labelElement.style.background = "rgb(180, 180, 180)";
@@ -2023,7 +2035,7 @@
 
     }
 
-    
+
 
     function popPlasmamodal() {
       $('#bloodModalCenter').modal('show');
@@ -2060,11 +2072,11 @@
           console.error("No active box found with status 'AC'.");
           return;
         }
-        const stsInx ={
-                        "bioBankId": "",
-                        "sampleType": "",
-                        "status": "o"
-                      }
+        const stsInx = {
+          "bioBankId": "",
+          "sampleType": "",
+          "status": "o"
+        }
 
         BloodSelectedSeats = []
         grid = localStorage.getItem("selectedGrid");
@@ -2075,23 +2087,23 @@
         // console.log("filteredSeats", filteredSeats)
         let psData = document.getElementById("PlasmagridNo").value;
 
-        console.log("psData",psData);
-        if(psData.length !== 0 ){
-          if(localStorage.getItem('LocalPlasma')!==null){
-            psGridData =psData.split('/')[1] ;
-            console.log("psGridData",psGridData)
+        console.log("psData", psData);
+        if (psData.length !== 0) {
+          if (localStorage.getItem('LocalPlasma') !== null) {
+            psGridData = psData.split('/')[1];
+            console.log("psGridData", psGridData)
 
-            let ld = psGridData+","+localStorage.getItem('LocalPlasma')
+            let ld = psGridData + "," + localStorage.getItem('LocalPlasma')
 
-            localStorage.setItem('LocalPlasma',ld);
+            localStorage.setItem('LocalPlasma', ld);
             console.log("FN Data from if", localStorage.getItem('LocalPlasma'))
-          }else{
-            psGridData =psData.split('/')[1] ;
-            console.log("psGridData",psGridData)
+          } else {
+            psGridData = psData.split('/')[1];
+            console.log("psGridData", psGridData)
 
             //let ld = psGridData+","+localStorage.getItem('LocalFN')
 
-            localStorage.setItem('LocalPlasma',psGridData);
+            localStorage.setItem('LocalPlasma', psGridData);
             console.log("Plasma Data from else", localStorage.getItem('LocalPlasma'))
           }
         }
@@ -2099,22 +2111,22 @@
 
         console.log("Active Box Name:", activeBoxName);
         document.getElementById('currBloodBoxName').textContent = activeBoxName;
-       if(grid !== null) {
-         console.log("grid",grid)
+        if (grid !== null) {
+          console.log("grid", grid)
           arr = splitStringToArray(grid);
-         arrinx = [];
-          arr.forEach(item =>{
-            
+          arrinx = [];
+          arr.forEach(item => {
+
             arrinx.push(getSeatIndex(item))
-            
+
           })
 
-          arrinx.forEach(item=>{
+          arrinx.forEach(item => {
             // arrinx[item]= stsInx;
-            filteredSeats[item]=stsInx;
+            filteredSeats[item] = stsInx;
           })
-          console.log("arrinx",arrinx)
-          console.log("filteredSeats",filteredSeats)
+          console.log("arrinx", arrinx)
+          console.log("filteredSeats", filteredSeats)
         }
 
 
@@ -2154,7 +2166,7 @@
                 //   console.log("seatID", seatID.includes(grid) + " seatID", seatID)
                 // }
 
-                if (seat.status === "o" ) {
+                if (seat.status === "o") {
                   labelElement.style.background = "rgb(129, 129, 192)";
                 } else if (seat.status === "s") {
                   labelElement.style.background = "rgb(180, 180, 180)";
@@ -2170,14 +2182,14 @@
         }
 
         function handleBSeatSelection(seatID, isChecked, status) {
-          const rev=localStorage.getItem("LocalPlasma")
-          
-          if(rev !== null){
+          const rev = localStorage.getItem("LocalPlasma")
+
+          if (rev !== null) {
             let arr = splitStringToArray(rev)
-            BloodSelectedSeats=arr;
+            BloodSelectedSeats = arr;
           }
-          
-          console.log("rev : ",rev," BloodSelectedSeats : ",BloodSelectedSeats)
+
+          console.log("rev : ", rev, " BloodSelectedSeats : ", BloodSelectedSeats)
 
           if (status === 'e') {
             if (isChecked) {
@@ -2200,7 +2212,7 @@
           }
           else {
             let arr = splitStringToArray(grid)
-            if(status === 'o' && arr.includes(seatID)){
+            if (status === 'o' && arr.includes(seatID)) {
               let seatIndex = BloodSelectedSeats.indexOf(seatID);
               if (seatIndex !== -1) {
                 BloodSelectedSeats.splice(seatIndex, 1);
@@ -2209,33 +2221,33 @@
                 grid = arr.join(',');
               }
             }
-            else{
+            else {
               alert("Error clicking the filled component.");
 
             }
           }
           console.log("Selected seats:", BloodSelectedSeats);
-          localStorage.setItem("LocalPlasma",BloodSelectedSeats)
+          localStorage.setItem("LocalPlasma", BloodSelectedSeats)
           updatePlasmaGridInput();
         }
 
         function updatePlasmaGridInput() {
           let gridInput = document.querySelector("input[placeholder='Plasma Grid']");
           if (grid === null) {
-               localStorage.setItem("selectedGrid", BloodSelectedSeats);
-              //localStorage.setItem("selectedGrid", JSON.stringify(BloodSelectedSeats));
-            }
-            else {
-              //grid.push(BloodSelectedSeats)
-               localStorage.setItem("selectedGrid", (grid + ',' + BloodSelectedSeats));
-             // let combinedArray = splitStringToArray(grid).concat(BloodSelectedSeats); // Concatenate both arrays
-             // localStorage.setItem("selectedGrid", JSON.stringify([...new Set(combinedArray)])); // Remove duplicates and store as array
-            }
+            localStorage.setItem("selectedGrid", BloodSelectedSeats);
+            //localStorage.setItem("selectedGrid", JSON.stringify(BloodSelectedSeats));
+          }
+          else {
+            //grid.push(BloodSelectedSeats)
+            localStorage.setItem("selectedGrid", (grid + ',' + BloodSelectedSeats));
+            // let combinedArray = splitStringToArray(grid).concat(BloodSelectedSeats); // Concatenate both arrays
+            // localStorage.setItem("selectedGrid", JSON.stringify([...new Set(combinedArray)])); // Remove duplicates and store as array
+          }
 
 
-            console.log("Data check in handle", localStorage.getItem("selectedGrid"), "grid", grid)
-            grid = localStorage.getItem("selectedGrid");
-            splitStringToArray(grid);
+          console.log("Data check in handle", localStorage.getItem("selectedGrid"), "grid", grid)
+          grid = localStorage.getItem("selectedGrid");
+          splitStringToArray(grid);
 
           if (gridInput) {
             const box_name = activeBoxName;
@@ -2287,17 +2299,17 @@
 
         const plasmaBoxName = document.getElementById("SerumgridNo").value
         const boxname = plasmaBoxName.split('/')[0];
-        console.log("box name",boxname);
-        console.log("box name",seatData);
-        
+        console.log("box name", boxname);
+        console.log("box name", seatData);
+
         const activeBoxEntry = Object.entries(seatData).find(([boxName, data]) => boxName === boxname);
 
-        
-        
+
+
         const [activeBoxName, filteredSeats] = activeBoxEntry;
         console.log("activeBoxEntry", activeBoxEntry);
 
-  
+
         const indexedSeats = filteredSeats;
         if (!indexedSeats) {
           console.log("No indexed seats available in the active box.");
@@ -2331,7 +2343,7 @@
                 //   console.log("seatID", seatID.includes(grid) + " seatID", seatID)
                 // }
 
-                if (seat.status === "o" ) {
+                if (seat.status === "o") {
                   labelElement.style.background = "rgb(129, 129, 192)";
                 } else if (seat.status === "s") {
                   labelElement.style.background = "rgb(180, 180, 180)";
@@ -2389,11 +2401,11 @@
           return;
         }
 
-        const stsInx ={
-                        "bioBankId": "",
-                        "sampleType": "",
-                        "status": "o"
-                      }
+        const stsInx = {
+          "bioBankId": "",
+          "sampleType": "",
+          "status": "o"
+        }
 
         grid = localStorage.getItem("selectedGrid");
         console.log("selected Grid Data:", grid);
@@ -2403,23 +2415,23 @@
 
         let ssData = document.getElementById("SerumgridNo").value;
 
-        console.log("ssData",ssData);
-        if(ssData.length !== 0 ){
-          if(localStorage.getItem('LocalSerum')!==null){
-            ssGridData =ssData.split('/')[1] ;
-            console.log("ssGridData",ssGridData)
+        console.log("ssData", ssData);
+        if (ssData.length !== 0) {
+          if (localStorage.getItem('LocalSerum') !== null) {
+            ssGridData = ssData.split('/')[1];
+            console.log("ssGridData", ssGridData)
 
-            let ld = ssGridData+","+localStorage.getItem('LocalSerum')
+            let ld = ssGridData + "," + localStorage.getItem('LocalSerum')
 
-            localStorage.setItem('LocalSerum',ld);
+            localStorage.setItem('LocalSerum', ld);
             console.log("Serum Data from if", localStorage.getItem('LocalSerum'))
-          }else{
-            ssGridData =ssData.split('/')[1] ;
-            console.log("ssGridData",ssGridData)
+          } else {
+            ssGridData = ssData.split('/')[1];
+            console.log("ssGridData", ssGridData)
 
             //let ld = ssGridData+","+localStorage.getItem('LocalFN')
 
-            localStorage.setItem('LocalSerum',ssGridData);
+            localStorage.setItem('LocalSerum', ssGridData);
             console.log("Serum Data from else", localStorage.getItem('LocalSerum'))
           }
         }
@@ -2427,22 +2439,22 @@
         document.getElementById('currBloodBoxName').textContent = activeBoxName;
 
 
-        if(grid !== null) {
-         console.log("grid",grid)
+        if (grid !== null) {
+          console.log("grid", grid)
           arr = splitStringToArray(grid);
-         arrinx = [];
-          arr.forEach(item =>{
-            
+          arrinx = [];
+          arr.forEach(item => {
+
             arrinx.push(getSeatIndex(item))
-            
+
           })
 
-          arrinx.forEach(item=>{
+          arrinx.forEach(item => {
             // arrinx[item]= stsInx;
-            filteredSeats[item]=stsInx;
+            filteredSeats[item] = stsInx;
           })
-          console.log("arrinx",arrinx)
-          console.log("filteredSeats",filteredSeats)
+          console.log("arrinx", arrinx)
+          console.log("filteredSeats", filteredSeats)
         }
         const indexedSeats = filteredSeats;
         if (!indexedSeats) {
@@ -2495,12 +2507,12 @@
         }
 
         function handleBSeatSelection(seatID, isChecked, status) {
-          const rev=localStorage.getItem("LocalSerum")
-          if(rev !== null){
+          const rev = localStorage.getItem("LocalSerum")
+          if (rev !== null) {
             let arr = splitStringToArray(rev)
-            BloodSelectedSeats=arr;
+            BloodSelectedSeats = arr;
           }
-          console.log("rev : ",rev," BloodSelectedSeats : ",BloodSelectedSeats)
+          console.log("rev : ", rev, " BloodSelectedSeats : ", BloodSelectedSeats)
 
           if (status === 'e') {
             if (isChecked) {
@@ -2517,7 +2529,7 @@
           }
           else {
             let arr = splitStringToArray(grid)
-            if(status === 'o' && arr.includes(seatID)){
+            if (status === 'o' && arr.includes(seatID)) {
               let seatIndex = BloodSelectedSeats.indexOf(seatID);
               if (seatIndex !== -1) {
                 BloodSelectedSeats.splice(seatIndex, 1);
@@ -2526,34 +2538,34 @@
                 grid = arr.join(',');
               }
             }
-            else{
+            else {
               alert("Error clicking the filled component.");
 
             }
           }
           // BloodSelectedSeats = splitStringToArray(BloodSelectedSeats)
           console.log("Selected seats:", BloodSelectedSeats);
-          localStorage.setItem("LocalSerum",BloodSelectedSeats)
+          localStorage.setItem("LocalSerum", BloodSelectedSeats)
           updateSerumGridInput();
         }
 
         function updateSerumGridInput() {
           let gridInput = document.querySelector("input[placeholder='Serum Grid']");
           if (grid === null) {
-               localStorage.setItem("selectedGrid", BloodSelectedSeats);
-              //localStorage.setItem("selectedGrid", JSON.stringify(BloodSelectedSeats));
-            }
-            else {
-              //grid.push(BloodSelectedSeats)
-               localStorage.setItem("selectedGrid", (grid + ',' + BloodSelectedSeats));
-             // let combinedArray = splitStringToArray(grid).concat(BloodSelectedSeats); // Concatenate both arrays
-             // localStorage.setItem("selectedGrid", JSON.stringify([...new Set(combinedArray)])); // Remove duplicates and store as array
-            }
+            localStorage.setItem("selectedGrid", BloodSelectedSeats);
+            //localStorage.setItem("selectedGrid", JSON.stringify(BloodSelectedSeats));
+          }
+          else {
+            //grid.push(BloodSelectedSeats)
+            localStorage.setItem("selectedGrid", (grid + ',' + BloodSelectedSeats));
+            // let combinedArray = splitStringToArray(grid).concat(BloodSelectedSeats); // Concatenate both arrays
+            // localStorage.setItem("selectedGrid", JSON.stringify([...new Set(combinedArray)])); // Remove duplicates and store as array
+          }
 
 
-            console.log("Data check in handle", localStorage.getItem("selectedGrid"), "grid", grid)
-            grid = localStorage.getItem("selectedGrid");
-            splitStringToArray(grid);
+          console.log("Data check in handle", localStorage.getItem("selectedGrid"), "grid", grid)
+          grid = localStorage.getItem("selectedGrid");
+          splitStringToArray(grid);
           if (gridInput) {
             const box_name = activeBoxName;
             const status = document.querySelector('input[name="MetastasisSample"]:checked') && document.querySelector('input[name="MetastasisSample"]:checked').value === "true" ? "MSerum" : "Serum";
@@ -2622,11 +2634,11 @@
           console.error("No active box found with status 'AC'.");
           return;
         }
-        const stsInx ={
-                        "bioBankId": "",
-                        "sampleType": "",
-                        "status": "o"
-                      }
+        const stsInx = {
+          "bioBankId": "",
+          "sampleType": "",
+          "status": "o"
+        }
 
         grid = localStorage.getItem("selectedGrid");
         console.log("selected Grid Data:", grid);
@@ -2636,44 +2648,44 @@
 
         let bcsData = document.getElementById("bufferCoatgridNo").value;
 
-        console.log("bcsData",bcsData);
-        if(bcsData.length !== 0 ){
-          if(localStorage.getItem('LocalBuffy')!==null){
-            bcsGridData =bcsData.split('/')[1] ;
-            console.log("bcsGridData",bcsGridData)
+        console.log("bcsData", bcsData);
+        if (bcsData.length !== 0) {
+          if (localStorage.getItem('LocalBuffy') !== null) {
+            bcsGridData = bcsData.split('/')[1];
+            console.log("bcsGridData", bcsGridData)
 
-            let ld = bcsGridData+","+localStorage.getItem('LocalBuffy')
+            let ld = bcsGridData + "," + localStorage.getItem('LocalBuffy')
 
-            localStorage.setItem('LocalBuffy',ld);
+            localStorage.setItem('LocalBuffy', ld);
             console.log("Buffy Coat Data from if", localStorage.getItem('LocalBuffy'))
-          }else{
-            bcsGridData =bcsData.split('/')[1] ;
-            console.log("bcsGridData",bcsGridData)
+          } else {
+            bcsGridData = bcsData.split('/')[1];
+            console.log("bcsGridData", bcsGridData)
 
             //let ld = bcsGridData+","+localStorage.getItem('LocalFN')
 
-            localStorage.setItem('LocalBuffy',bcsGridData);
+            localStorage.setItem('LocalBuffy', bcsGridData);
             console.log("Buffy Coat Data from else", localStorage.getItem('LocalBuffy'))
           }
         }
 
         document.getElementById('currBloodBoxName').textContent = activeBoxName;
-        if(grid !== null) {
-         console.log("grid",grid)
+        if (grid !== null) {
+          console.log("grid", grid)
           arr = splitStringToArray(grid);
-         arrinx = [];
-          arr.forEach(item =>{
-            
+          arrinx = [];
+          arr.forEach(item => {
+
             arrinx.push(getSeatIndex(item))
-            
+
           })
 
-          arrinx.forEach(item=>{
+          arrinx.forEach(item => {
             // arrinx[item]= stsInx;
-            filteredSeats[item]=stsInx;
+            filteredSeats[item] = stsInx;
           })
-          console.log("arrinx",arrinx)
-          console.log("filteredSeats",filteredSeats)
+          console.log("arrinx", arrinx)
+          console.log("filteredSeats", filteredSeats)
         }
 
         const indexedSeats = filteredSeats;
@@ -2725,12 +2737,12 @@
         }
         function handleBSeatSelection(seatID, isChecked, status, debug) {
           console.log("handleBSeatSelection", debug)
-          const rev=localStorage.getItem("LocalBuffy");
-          if(rev !== null){
+          const rev = localStorage.getItem("LocalBuffy");
+          if (rev !== null) {
             let arr = splitStringToArray(rev)
-            BloodSelectedSeats=arr;
+            BloodSelectedSeats = arr;
           }
-          console.log("rev : ",rev," BloodSelectedSeats : ",BloodSelectedSeats)
+          console.log("rev : ", rev, " BloodSelectedSeats : ", BloodSelectedSeats)
 
           if (status === 'e') {
             if (isChecked) {
@@ -2744,11 +2756,11 @@
                 grid = arr.join(',');
               }
             }
-            
+
           }
           else {
             let arr = splitStringToArray(grid)
-            if(status === 'o' && arr.includes(seatID)){
+            if (status === 'o' && arr.includes(seatID)) {
               let seatIndex = BloodSelectedSeats.indexOf(seatID);
               if (seatIndex !== -1) {
                 BloodSelectedSeats.splice(seatIndex, 1);
@@ -2757,32 +2769,32 @@
                 grid = arr.join(',');
               }
             }
-            else{
+            else {
               alert("Error clicking the filled component.");
             }
           }
           console.log("Selected seats:", BloodSelectedSeats);
-          localStorage.setItem("LocalBuffy",BloodSelectedSeats)
+          localStorage.setItem("LocalBuffy", BloodSelectedSeats)
           updateBuffyGridInput();
         }
         function updateBuffyGridInput() {
           let gridInput = document.querySelector("input[placeholder='Buffer Grid']");
           if (grid === null) {
-               localStorage.setItem("selectedGrid", BloodSelectedSeats);
-              //localStorage.setItem("selectedGrid", JSON.stringify(BloodSelectedSeats));
-            }
-            else {
-              //grid.push(BloodSelectedSeats)
-               localStorage.setItem("selectedGrid", (grid + ',' + BloodSelectedSeats));
-             // let combinedArray = splitStringToArray(grid).concat(BloodSelectedSeats); // Concatenate both arrays
-             // localStorage.setItem("selectedGrid", JSON.stringify([...new Set(combinedArray)])); // Remove duplicates and store as array
-            }
+            localStorage.setItem("selectedGrid", BloodSelectedSeats);
+            //localStorage.setItem("selectedGrid", JSON.stringify(BloodSelectedSeats));
+          }
+          else {
+            //grid.push(BloodSelectedSeats)
+            localStorage.setItem("selectedGrid", (grid + ',' + BloodSelectedSeats));
+            // let combinedArray = splitStringToArray(grid).concat(BloodSelectedSeats); // Concatenate both arrays
+            // localStorage.setItem("selectedGrid", JSON.stringify([...new Set(combinedArray)])); // Remove duplicates and store as array
+          }
 
 
-            console.log("Data check in handle", localStorage.getItem("selectedGrid"), "grid", grid)
-            grid = localStorage.getItem("selectedGrid");
-            splitStringToArray(grid);
-            if (gridInput) {
+          console.log("Data check in handle", localStorage.getItem("selectedGrid"), "grid", grid)
+          grid = localStorage.getItem("selectedGrid");
+          splitStringToArray(grid);
+          if (gridInput) {
             const box_name = activeBoxName;
             const status = document.querySelector('input[name="MetastasisSample"]:checked') && document.querySelector('input[name="MetastasisSample"]:checked').value === "true" ? "MBuffy Coat" : "Buffy Coat";
             const grid_id = BloodSelectedSeats.join(', ');
@@ -2837,11 +2849,11 @@
           console.error("No active box found with status 'AC'.");
           return;
         }
-        const stsInx ={
-                        "bioBankId": "",
-                        "sampleType": "",
-                        "status": "o"
-                      }
+        const stsInx = {
+          "bioBankId": "",
+          "sampleType": "",
+          "status": "o"
+        }
         grid = localStorage.getItem("selectedGrid");
         console.log("selected Grid Data:", grid);
 
@@ -2850,44 +2862,44 @@
 
         let osData = document.getElementById("OSgridNo").value;
 
-        console.log("osData",osData);
-        if(osData.length !== 0 ){
-          if(localStorage.getItem('LocalOther')!==null){
-            osGridData =osData.split('/')[1] ;
-            console.log("osGridData",osGridData)
+        console.log("osData", osData);
+        if (osData.length !== 0) {
+          if (localStorage.getItem('LocalOther') !== null) {
+            osGridData = osData.split('/')[1];
+            console.log("osGridData", osGridData)
 
-            let ld = osGridData+","+localStorage.getItem('LocalOther')
+            let ld = osGridData + "," + localStorage.getItem('LocalOther')
 
-            localStorage.setItem('LocalOther',ld);
+            localStorage.setItem('LocalOther', ld);
             console.log("Other Data from if", localStorage.getItem('LocalOther'))
-          }else{
-            osGridData =osData.split('/')[1] ;
-            console.log("osGridData",osGridData)
+          } else {
+            osGridData = osData.split('/')[1];
+            console.log("osGridData", osGridData)
 
             //let ld = osGridData+","+localStorage.getItem('LocalOther')
 
-            localStorage.setItem('LocalOther',osGridData);
+            localStorage.setItem('LocalOther', osGridData);
             console.log("Other Data from else", localStorage.getItem('LocalOther'))
           }
         }
 
         document.getElementById('currBloodBoxName').textContent = activeBoxName;
-        
-        if(grid!==null){
-        let arr = splitStringToArray(grid);
-        let arrinx = [];
-          arr.forEach(item =>{
-            
+
+        if (grid !== null) {
+          let arr = splitStringToArray(grid);
+          let arrinx = [];
+          arr.forEach(item => {
+
             arrinx.push(getSeatIndex(item))
-            
+
           })
 
-          arrinx.forEach(item=>{
+          arrinx.forEach(item => {
             // arrinx[item]= stsInx;
-            filteredSeats[item]=stsInx;
+            filteredSeats[item] = stsInx;
           })
-          console.log("arrinx",arrinx)
-          console.log("filteredSeats",filteredSeats)
+          console.log("arrinx", arrinx)
+          console.log("filteredSeats", filteredSeats)
         }
         // Make sure indexedSeats is defined
         const indexedSeats = filteredSeats;
@@ -2938,14 +2950,14 @@
         }
 
         function handleBSeatSelection(seatID, isChecked, status) {
-          const rev=localStorage.getItem("LocalOther")
-          
-          if(rev !== null){
+          const rev = localStorage.getItem("LocalOther")
+
+          if (rev !== null) {
             let arr = splitStringToArray(rev)
-            BloodSelectedSeats=arr;
+            BloodSelectedSeats = arr;
           }
-          
-          console.log("rev : ",rev," BloodSelectedSeats : ",BloodSelectedSeats)
+
+          console.log("rev : ", rev, " BloodSelectedSeats : ", BloodSelectedSeats)
 
           if (status === 'e') {
             if (isChecked) {
@@ -2971,7 +2983,7 @@
           }
           else {
             let arr = splitStringToArray(grid)
-            if(status === 'o' && arr.includes(seatID)){
+            if (status === 'o' && arr.includes(seatID)) {
               let seatIndex = BloodSelectedSeats.indexOf(seatID);
               if (seatIndex !== -1) {
                 BloodSelectedSeats.splice(seatIndex, 1);
@@ -2980,33 +2992,33 @@
                 grid = arr.join(',');
               }
             }
-            else{
+            else {
               alert("Error clicking the filled component.");
 
-            }          
+            }
           }
           console.log("Selected seats:", BloodSelectedSeats);
-          localStorage.setItem("LocalOther",BloodSelectedSeats)
+          localStorage.setItem("LocalOther", BloodSelectedSeats)
           updateOtherGridInput();
         }
 
         function updateOtherGridInput() {
           let gridInput = document.querySelector("input[placeholder='Other Sample Grid']");
           if (grid === null) {
-               localStorage.setItem("selectedGrid", BloodSelectedSeats);
-              //localStorage.setItem("selectedGrid", JSON.stringify(BloodSelectedSeats));
-            }
-            else {
-              //grid.push(BloodSelectedSeats)
-               localStorage.setItem("selectedGrid", (grid + ',' + BloodSelectedSeats));
-             // let combinedArray = splitStringToArray(grid).concat(BloodSelectedSeats); // Concatenate both arrays
-             // localStorage.setItem("selectedGrid", JSON.stringify([...new Set(combinedArray)])); // Remove duplicates and store as array
-            }
+            localStorage.setItem("selectedGrid", BloodSelectedSeats);
+            //localStorage.setItem("selectedGrid", JSON.stringify(BloodSelectedSeats));
+          }
+          else {
+            //grid.push(BloodSelectedSeats)
+            localStorage.setItem("selectedGrid", (grid + ',' + BloodSelectedSeats));
+            // let combinedArray = splitStringToArray(grid).concat(BloodSelectedSeats); // Concatenate both arrays
+            // localStorage.setItem("selectedGrid", JSON.stringify([...new Set(combinedArray)])); // Remove duplicates and store as array
+          }
 
 
-            console.log("Data check in handle", localStorage.getItem("selectedGrid"), "grid", grid)
-            grid = localStorage.getItem("selectedGrid");
-            splitStringToArray(grid)
+          console.log("Data check in handle", localStorage.getItem("selectedGrid"), "grid", grid)
+          grid = localStorage.getItem("selectedGrid");
+          splitStringToArray(grid)
           if (gridInput) {
             const box_name = activeBoxName;
             const status = document.querySelector('input[name="MetastasisSample"]:checked') && document.querySelector('input[name="MetastasisSample"]:checked').value === "true" ? "MOther" : "Other";
@@ -3023,466 +3035,466 @@
         };
       }
     }
-    
-function splitSpecimenStringToArray(spgrid) {
-  const Sdata = [...new Set(spgrid.split(',').map(item => item.trim()))];
-  console.log("Sdata", Sdata);
-  return Sdata;
-}
 
-function removeItemFromSpecimenArray(arrS, itemToRemove) {
-  return arrS.filter(item => item !== itemToRemove);
-}
-
-window.onload = function() {
-  // Clear the selected specimen grid data on page reload
-  localStorage.removeItem("selectedSGrid");
-  // localStorage.removeItem("LocalPlasma");
-  // localStorage.removeItem("LocalSerum");
-  // localStorage.removeItem("LocalBuffy");
-  // localStorage.removeItem("LocalOther");  
-};
-
-function popFTmodal() {
-  $('#specimenModalCenter').modal('show');
-  
-  fetchSeatDataFromDB('sb').then(seatData => {
-    populateSSeats('specimen-box', seatData, 'ft');
-  });
-
-  function fetchSeatDataFromDB(nodeName) {
-    return new Promise((resolve, reject) => {
-      let dbRef = firebase.database().ref(nodeName);
-      dbRef.once('value')
-        .then(snapshot => {
-          let seatData = snapshot.val();
-          resolve(seatData);
-        })
-        .catch(error => {
-          console.error("Error fetching seat data:", error);
-          reject(error);
-        });
-    });
-  }
-
-  function populateSSeats(containerClass, seatData, type) {
-    let container = document.querySelector(`.${containerClass}`);
-    container.innerHTML = '';
-   let SpecimenSelectedSeats = [];
-
-    const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
-    const cols = 10;
-
-    const activeBoxEntry = Object.entries(seatData).find(([boxName, data]) => data.bxsts === 'AC');
-    if (!activeBoxEntry) {
-      console.error("No active box found with status 'AC'.");
-      return;
+    function splitSpecimenStringToArray(spgrid) {
+      const Sdata = [...new Set(spgrid.split(',').map(item => item.trim()))];
+      console.log("Sdata", Sdata);
+      return Sdata;
     }
 
-    const stsInx = {
-      "bioBankId": "",
-      "sampleType": "",
-      "status": "o"
+    function removeItemFromSpecimenArray(arrS, itemToRemove) {
+      return arrS.filter(item => item !== itemToRemove);
+    }
+
+    window.onload = function () {
+      // Clear the selected specimen grid data on page reload
+      localStorage.removeItem("selectedSGrid");
+      // localStorage.removeItem("LocalPlasma");
+      // localStorage.removeItem("LocalSerum");
+      // localStorage.removeItem("LocalBuffy");
+      // localStorage.removeItem("LocalOther");  
     };
-    let ftData = document.getElementById("ftgrid").value;
 
-    console.log("ftData",ftData);
-    if(ftData.length !== 0 ){
-      if(localStorage.getItem('LocalFT')!==null){
-        ftGridData =ftData.split('/')[1] ;
-        console.log("ftGridData",ftGridData)
+    function popFTmodal() {
+      $('#specimenModalCenter').modal('show');
 
-        let ld = ftGridData+","+localStorage.getItem('LocalFT')
-
-        localStorage.setItem('LocalFT',ld);
-        console.log("FT Data from if", localStorage.getItem('LocalFT'))
-      }else{
-        ftGridData =ftData.split('/')[1] ;
-        console.log("ftGridData",ftGridData)
-
-        //let ld = ftGridData+","+localStorage.getItem('LocalFT')
-
-        localStorage.setItem('LocalFT',ftGridData);
-        console.log("FT Data from else", localStorage.getItem('LocalFT'))
-      }
-    }
-
-    // localStorage.setItem("LocalFT","")
-
-    let spgrid = localStorage.getItem("selectedSGrid");
-    const maxSelectionsFT = parseInt(document.getElementById('ft_tubes').value, 10);
-
-    const [activeBoxName, filteredSeats] = activeBoxEntry;
-    console.log("Active Box Name:", activeBoxName);
-    document.getElementById('currSpecimenBoxName').textContent = activeBoxName;
-    console.log("spgrid -- ",spgrid);
-
-
-    if (spgrid !== null) {
-      let arrS = splitSpecimenStringToArray(spgrid);
-      let arrSinx = [];
-      console.log(" arrS = ",arrS);
-      arrS.forEach(item => arrSinx.push(getSeatIndex(item)));
-
-      arrSinx.forEach(item => {
-        filteredSeats[item] = stsInx;
+      fetchSeatDataFromDB('sb').then(seatData => {
+        populateSSeats('specimen-box', seatData, 'ft');
       });
-    }
-    console.log("filteredSeats --- ",filteredSeats);
 
-    const indexedSeats = filteredSeats;
+      function fetchSeatDataFromDB(nodeName) {
+        return new Promise((resolve, reject) => {
+          let dbRef = firebase.database().ref(nodeName);
+          dbRef.once('value')
+            .then(snapshot => {
+              let seatData = snapshot.val();
+              resolve(seatData);
+            })
+            .catch(error => {
+              console.error("Error fetching seat data:", error);
+              reject(error);
+            });
+        });
+      }
 
-    for (let row = 0; row < rows.length; row++) {
-      for (let col = 1; col <= cols; col++) {
-        const labelName = `label_S${rows[row]}${col}`;
-        const seatID = `${rows[row]}${col}`;
-        const index = row * cols + (col - 1);
+      function populateSSeats(containerClass, seatData, type) {
+        let container = document.querySelector(`.${containerClass}`);
+        container.innerHTML = '';
+        let SpecimenSelectedSeats = [];
 
-        const seatData = indexedSeats[index];
+        const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+        const cols = 10;
 
-        if (seatData) {
-          container.insertAdjacentHTML(
-            "beforeend",
-            `<input type="checkbox" name="seats" id="${seatID}" />` +
-            `<label for="${seatID}" class="seat" id="${labelName}">${labelName}</label>`
-          );
+        const activeBoxEntry = Object.entries(seatData).find(([boxName, data]) => data.bxsts === 'AC');
+        if (!activeBoxEntry) {
+          console.error("No active box found with status 'AC'.");
+          return;
+        }
 
-          document.getElementById(seatID).addEventListener('click', function (event) {
-            handleSSeatSelection(seatID, event.target.checked, seatData.status, maxSelectionsFT, 'FT Grid');
-          });
+        const stsInx = {
+          "bioBankId": "",
+          "sampleType": "",
+          "status": "o"
+        };
+        let ftData = document.getElementById("ftgrid").value;
 
-          let labelElement = document.getElementById(labelName);
-          if (labelElement) {
-            labelElement.textContent = `${seatData.bioBankId || ""} \n ${seatData.sampleType}` || '';
-            labelElement.style.fontWeight = "bold";
-            labelElement.style.fontSize = "10px";
-            labelElement.style.textAlign = 'center';
-            labelElement.style.color = 'white';
+        console.log("ftData", ftData);
+        if (ftData.length !== 0) {
+          if (localStorage.getItem('LocalFT') !== null) {
+            ftGridData = ftData.split('/')[1];
+            console.log("ftGridData", ftGridData)
 
-            if (seatData.status === "o") {
-              labelElement.style.background = "rgb(129, 129, 192)";
-            } else if (seatData.status === "s") {
-              labelElement.style.background = "rgb(180, 180, 180)";
-            } else if (seatData.status === "ps") {
-              labelElement.style.background = "rgb(193, 154, 107)";
-            } else if (seatData.status === "e") {
-              labelElement.style.background = "rgb(143, 218, 187)";
-            }
+            let ld = ftGridData + "," + localStorage.getItem('LocalFT')
+
+            localStorage.setItem('LocalFT', ld);
+            console.log("FT Data from if", localStorage.getItem('LocalFT'))
+          } else {
+            ftGridData = ftData.split('/')[1];
+            console.log("ftGridData", ftGridData)
+
+            //let ld = ftGridData+","+localStorage.getItem('LocalFT')
+
+            localStorage.setItem('LocalFT', ftGridData);
+            console.log("FT Data from else", localStorage.getItem('LocalFT'))
           }
         }
-      }
-      container.insertAdjacentHTML("beforeend", "<br/>");
-    }
 
-    // Handle seat selection for FT grid
-    function handleSSeatSelection(seatID, isChecked, status, maxSelectionsFT, debug) {
-      console.log("handleSSeatSelection", debug);
-      const rev=localStorage.getItem("LocalFT")
-          
-          if(rev !== null){
+        // localStorage.setItem("LocalFT","")
+
+        let spgrid = localStorage.getItem("selectedSGrid");
+        const maxSelectionsFT = parseInt(document.getElementById('ft_tubes').value, 10);
+
+        const [activeBoxName, filteredSeats] = activeBoxEntry;
+        console.log("Active Box Name:", activeBoxName);
+        document.getElementById('currSpecimenBoxName').textContent = activeBoxName;
+        console.log("spgrid -- ", spgrid);
+
+
+        if (spgrid !== null) {
+          let arrS = splitSpecimenStringToArray(spgrid);
+          let arrSinx = [];
+          console.log(" arrS = ", arrS);
+          arrS.forEach(item => arrSinx.push(getSeatIndex(item)));
+
+          arrSinx.forEach(item => {
+            filteredSeats[item] = stsInx;
+          });
+        }
+        console.log("filteredSeats --- ", filteredSeats);
+
+        const indexedSeats = filteredSeats;
+
+        for (let row = 0; row < rows.length; row++) {
+          for (let col = 1; col <= cols; col++) {
+            const labelName = `label_S${rows[row]}${col}`;
+            const seatID = `${rows[row]}${col}`;
+            const index = row * cols + (col - 1);
+
+            const seatData = indexedSeats[index];
+
+            if (seatData) {
+              container.insertAdjacentHTML(
+                "beforeend",
+                `<input type="checkbox" name="seats" id="${seatID}" />` +
+                `<label for="${seatID}" class="seat" id="${labelName}">${labelName}</label>`
+              );
+
+              document.getElementById(seatID).addEventListener('click', function (event) {
+                handleSSeatSelection(seatID, event.target.checked, seatData.status, maxSelectionsFT, 'FT Grid');
+              });
+
+              let labelElement = document.getElementById(labelName);
+              if (labelElement) {
+                labelElement.textContent = `${seatData.bioBankId || ""} \n ${seatData.sampleType}` || '';
+                labelElement.style.fontWeight = "bold";
+                labelElement.style.fontSize = "10px";
+                labelElement.style.textAlign = 'center';
+                labelElement.style.color = 'white';
+
+                if (seatData.status === "o") {
+                  labelElement.style.background = "rgb(129, 129, 192)";
+                } else if (seatData.status === "s") {
+                  labelElement.style.background = "rgb(180, 180, 180)";
+                } else if (seatData.status === "ps") {
+                  labelElement.style.background = "rgb(193, 154, 107)";
+                } else if (seatData.status === "e") {
+                  labelElement.style.background = "rgb(143, 218, 187)";
+                }
+              }
+            }
+          }
+          container.insertAdjacentHTML("beforeend", "<br/>");
+        }
+
+        // Handle seat selection for FT grid
+        function handleSSeatSelection(seatID, isChecked, status, maxSelectionsFT, debug) {
+          console.log("handleSSeatSelection", debug);
+          const rev = localStorage.getItem("LocalFT")
+
+          if (rev !== null) {
             let arr = splitSpecimenStringToArray(rev)
-            SpecimenSelectedSeats=arr;
+            SpecimenSelectedSeats = arr;
           }
-          
-          console.log("rev : ",rev," SpecimenSelectedSeats : ",SpecimenSelectedSeats)
 
-      if (status === 'e') {
-        if (isChecked) {
-          if (SpecimenSelectedSeats.length < maxSelectionsFT) {
-            SpecimenSelectedSeats.push(seatID);
-          } else {
-            document.getElementById(seatID).checked = false;
-            alert(`You can select a maximum of ${maxSelectionsFT} seats.`);
-          }
-        } else {
-          let seatIndex = SpecimenSelectedSeats.indexOf(seatID);
-          if (seatIndex !== -1) {
-            SpecimenSelectedSeats.splice(seatIndex, 1);
-            let arrS = splitSpecimenStringToArray(spgrid);
-            arrS = removeItemFromSpecimenArray(arrS, seatID);
-            spgrid = arrS.join(',');
-          }
-        }
-      }
-      else {
-            let arr = splitSpecimenStringToArray(spgrid)
-            if(status === 'o' && arr.includes(seatID)){
+          console.log("rev : ", rev, " SpecimenSelectedSeats : ", SpecimenSelectedSeats)
+
+          if (status === 'e') {
+            if (isChecked) {
+              if (SpecimenSelectedSeats.length < maxSelectionsFT) {
+                SpecimenSelectedSeats.push(seatID);
+              } else {
+                document.getElementById(seatID).checked = false;
+                alert(`You can select a maximum of ${maxSelectionsFT} seats.`);
+              }
+            } else {
               let seatIndex = SpecimenSelectedSeats.indexOf(seatID);
               if (seatIndex !== -1) {
-            SpecimenSelectedSeats.splice(seatIndex, 1);
-            let arrS = splitSpecimenStringToArray(spgrid);
-            arrS = removeItemFromSpecimenArray(arrS, seatID);
-            spgrid = arrS.join(',');
-          }
+                SpecimenSelectedSeats.splice(seatIndex, 1);
+                let arrS = splitSpecimenStringToArray(spgrid);
+                arrS = removeItemFromSpecimenArray(arrS, seatID);
+                spgrid = arrS.join(',');
+              }
             }
-            else{
+          }
+          else {
+            let arr = splitSpecimenStringToArray(spgrid)
+            if (status === 'o' && arr.includes(seatID)) {
+              let seatIndex = SpecimenSelectedSeats.indexOf(seatID);
+              if (seatIndex !== -1) {
+                SpecimenSelectedSeats.splice(seatIndex, 1);
+                let arrS = splitSpecimenStringToArray(spgrid);
+                arrS = removeItemFromSpecimenArray(arrS, seatID);
+                spgrid = arrS.join(',');
+              }
+            }
+            else {
               alert("Error clicking the filled component.");
             }
           }
 
 
-      console.log("Selected seats:", SpecimenSelectedSeats);
-      localStorage.setItem("LocalFT",SpecimenSelectedSeats)
-      updateFTGridInput();
-    }
+          console.log("Selected seats:", SpecimenSelectedSeats);
+          localStorage.setItem("LocalFT", SpecimenSelectedSeats)
+          updateFTGridInput();
+        }
 
-    // Update FT grid input field and local storage
-    function updateFTGridInput() {
-      let gridInput = document.querySelector("input[placeholder='FT Grid No.']");
-      if (spgrid === null) {
-        localStorage.setItem("selectedSGrid", SpecimenSelectedSeats);
-      } else {
-        localStorage.setItem("selectedSGrid", (spgrid + ',' + SpecimenSelectedSeats));
-      }
-
-      spgrid = localStorage.getItem("selectedSGrid");
-      splitSpecimenStringToArray(spgrid);
-
-      if (gridInput) {
-        const box_name = activeBoxName;
-        let ftStatuses = [];
-
-        for (let i = 1; i <= SpecimenSelectedSeats.length; i++) {
-          if (document.querySelector('input[name="MetastasisSample"]:checked').value === "true") {
-            ftStatuses.push(`MFT-${i}`);
+        // Update FT grid input field and local storage
+        function updateFTGridInput() {
+          let gridInput = document.querySelector("input[placeholder='FT Grid No.']");
+          if (spgrid === null) {
+            localStorage.setItem("selectedSGrid", SpecimenSelectedSeats);
           } else {
-            ftStatuses.push(`FT-${i}`);
+            localStorage.setItem("selectedSGrid", (spgrid + ',' + SpecimenSelectedSeats));
+          }
+
+          spgrid = localStorage.getItem("selectedSGrid");
+          splitSpecimenStringToArray(spgrid);
+
+          if (gridInput) {
+            const box_name = activeBoxName;
+            let ftStatuses = [];
+
+            for (let i = 1; i <= SpecimenSelectedSeats.length; i++) {
+              if (document.querySelector('input[name="MetastasisSample"]:checked').value === "true") {
+                ftStatuses.push(`MFT-${i}`);
+              } else {
+                ftStatuses.push(`FT-${i}`);
+              }
+            }
+
+            const grid_id = SpecimenSelectedSeats.join(', ');
+            const status = ftStatuses.join(', ');
+
+            gridInput.value = `${box_name}/${grid_id}/${status}`;
           }
         }
 
-        const grid_id = SpecimenSelectedSeats.join(', ');
-        const status = ftStatuses.join(', ');
-
-        gridInput.value = `${box_name}/${grid_id}/${status}`;
+        window.handleDone = function () {
+          if (SpecimenSelectedSeats.length > 0) {
+            updateFTGridInput();
+          }
+          $('#specimenModalCenter').modal('hide');
+        };
       }
     }
 
-    window.handleDone = function () {
-      if (SpecimenSelectedSeats.length > 0) {
-        updateFTGridInput();
-      }
-      $('#specimenModalCenter').modal('hide');
-    };
-  }
-}
+    // Function to handle FN modal
+    function popFNmodal() {
+      $('#specimenModalCenter').modal('show');
 
-// Function to handle FN modal
-function popFNmodal() {
-  $('#specimenModalCenter').modal('show');
-  
-  fetchSeatDataFromDB('sb').then(seatData => {
-    populateSSeats('specimen-box', seatData, 'fn');
-  });
-
-  function fetchSeatDataFromDB(nodeName) {
-    return new Promise((resolve, reject) => {
-      let dbRef = firebase.database().ref(nodeName);
-      dbRef.once('value')
-        .then(snapshot => {
-          let seatData = snapshot.val();
-          resolve(seatData);
-        })
-        .catch(error => {
-          console.error("Error fetching seat data:", error);
-          reject(error);
-        });
-    });
-  }
-
-  function populateSSeats(containerClass, seatData, type) {
-    let container = document.querySelector(`.${containerClass}`);
-    container.innerHTML = '';
-    let SpecimenSelectedSeats = [];
-
-    const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
-    const cols = 10;
-
-    const activeBoxEntry = Object.entries(seatData).find(([boxName, data]) => data.bxsts === 'AC');
-    if (!activeBoxEntry) {
-      console.error("No active box found with status 'AC'.");
-      return;
-    }
-
-    let fnData = document.getElementById("fngrid").value;
-
-    console.log("fnData",fnData);
-    if(fnData.length !== 0 ){
-      if(localStorage.getItem('LocalFN')!==null){
-        fnGridData =fnData.split('/')[1] ;
-        console.log("fnGridData",fnGridData)
-
-        let ld = fnGridData+","+localStorage.getItem('LocalFN')
-
-        localStorage.setItem('LocalFN',ld);
-        console.log("FN Data from if", localStorage.getItem('LocalFN'))
-      }else{
-        fnGridData =fnData.split('/')[1] ;
-        console.log("fnGridData",fnGridData)
-
-        //let ld = fnGridData+","+localStorage.getItem('LocalFN')
-
-        localStorage.setItem('LocalFN',fnGridData);
-        console.log("FN Data from else", localStorage.getItem('LocalFN'))
-      }
-    }
-
-    const stsInx = {
-      "bioBankId": "",
-      "sampleType": "",
-      "status": "o"
-    };
-
-    spgrid = localStorage.getItem("selectedSGrid");
-    const maxSelections = parseInt(document.getElementById('fn_tubes').value, 10);
-
-    const [activeBoxName, filteredSeats] = activeBoxEntry;
-    console.log("Active Box Name:", activeBoxName);
-    document.getElementById('currSpecimenBoxName').textContent = activeBoxName;
-
-    if (spgrid !== null) {
-      let arrS = splitSpecimenStringToArray(spgrid);
-      let arrSinx = [];
-      arrS.forEach(item => arrSinx.push(getSeatIndex(item)));
-
-      arrSinx.forEach(item => {
-        filteredSeats[item] = stsInx;
+      fetchSeatDataFromDB('sb').then(seatData => {
+        populateSSeats('specimen-box', seatData, 'fn');
       });
-    }
 
-    const indexedSeats = filteredSeats;
+      function fetchSeatDataFromDB(nodeName) {
+        return new Promise((resolve, reject) => {
+          let dbRef = firebase.database().ref(nodeName);
+          dbRef.once('value')
+            .then(snapshot => {
+              let seatData = snapshot.val();
+              resolve(seatData);
+            })
+            .catch(error => {
+              console.error("Error fetching seat data:", error);
+              reject(error);
+            });
+        });
+      }
 
-    for (let row = 0; row < rows.length; row++) {
-      for (let col = 1; col <= cols; col++) {
-        const labelName = `label_S${rows[row]}${col}`;
-        const seatID = `${rows[row]}${col}`;
-        const index = row * cols + (col - 1);
+      function populateSSeats(containerClass, seatData, type) {
+        let container = document.querySelector(`.${containerClass}`);
+        container.innerHTML = '';
+        let SpecimenSelectedSeats = [];
 
-        const seatData = indexedSeats[index];
+        const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+        const cols = 10;
 
-        if (seatData) {
-          container.insertAdjacentHTML(
-            "beforeend",
-            `<input type="checkbox" name="seats" id="${seatID}" />` +
-            `<label for="${seatID}" class="seat" id="${labelName}">${labelName}</label>`
-          );
+        const activeBoxEntry = Object.entries(seatData).find(([boxName, data]) => data.bxsts === 'AC');
+        if (!activeBoxEntry) {
+          console.error("No active box found with status 'AC'.");
+          return;
+        }
 
-          document.getElementById(seatID).addEventListener('click', function (event) {
-            handleSSeatSelection(seatID, event.target.checked, seatData.status, maxSelections, 'FN Grid');
+        let fnData = document.getElementById("fngrid").value;
+
+        console.log("fnData", fnData);
+        if (fnData.length !== 0) {
+          if (localStorage.getItem('LocalFN') !== null) {
+            fnGridData = fnData.split('/')[1];
+            console.log("fnGridData", fnGridData)
+
+            let ld = fnGridData + "," + localStorage.getItem('LocalFN')
+
+            localStorage.setItem('LocalFN', ld);
+            console.log("FN Data from if", localStorage.getItem('LocalFN'))
+          } else {
+            fnGridData = fnData.split('/')[1];
+            console.log("fnGridData", fnGridData)
+
+            //let ld = fnGridData+","+localStorage.getItem('LocalFN')
+
+            localStorage.setItem('LocalFN', fnGridData);
+            console.log("FN Data from else", localStorage.getItem('LocalFN'))
+          }
+        }
+
+        const stsInx = {
+          "bioBankId": "",
+          "sampleType": "",
+          "status": "o"
+        };
+
+        spgrid = localStorage.getItem("selectedSGrid");
+        const maxSelections = parseInt(document.getElementById('fn_tubes').value, 10);
+
+        const [activeBoxName, filteredSeats] = activeBoxEntry;
+        console.log("Active Box Name:", activeBoxName);
+        document.getElementById('currSpecimenBoxName').textContent = activeBoxName;
+
+        if (spgrid !== null) {
+          let arrS = splitSpecimenStringToArray(spgrid);
+          let arrSinx = [];
+          arrS.forEach(item => arrSinx.push(getSeatIndex(item)));
+
+          arrSinx.forEach(item => {
+            filteredSeats[item] = stsInx;
           });
+        }
 
-          let labelElement = document.getElementById(labelName);
-          if (labelElement) {
-            labelElement.textContent = `${seatData.bioBankId || ""} \n ${seatData.sampleType}` || '';
-            labelElement.style.fontWeight = "bold";
-            labelElement.style.fontSize = "10px";
-            labelElement.style.textAlign = 'center';
-            labelElement.style.color = 'white';
+        const indexedSeats = filteredSeats;
 
-            if (seatData.status === "o") {
-              labelElement.style.background = "rgb(129, 129, 192)";
-            } else if (seatData.status === "s") {
-              labelElement.style.background = "rgb(180, 180, 180)";
-            } else if (seatData.status === "ps") {
-              labelElement.style.background = "rgb(193, 154, 107)";
-            } else if (seatData.status === "e") {
-              labelElement.style.background = "rgb(143, 218, 187)";
+        for (let row = 0; row < rows.length; row++) {
+          for (let col = 1; col <= cols; col++) {
+            const labelName = `label_S${rows[row]}${col}`;
+            const seatID = `${rows[row]}${col}`;
+            const index = row * cols + (col - 1);
+
+            const seatData = indexedSeats[index];
+
+            if (seatData) {
+              container.insertAdjacentHTML(
+                "beforeend",
+                `<input type="checkbox" name="seats" id="${seatID}" />` +
+                `<label for="${seatID}" class="seat" id="${labelName}">${labelName}</label>`
+              );
+
+              document.getElementById(seatID).addEventListener('click', function (event) {
+                handleSSeatSelection(seatID, event.target.checked, seatData.status, maxSelections, 'FN Grid');
+              });
+
+              let labelElement = document.getElementById(labelName);
+              if (labelElement) {
+                labelElement.textContent = `${seatData.bioBankId || ""} \n ${seatData.sampleType}` || '';
+                labelElement.style.fontWeight = "bold";
+                labelElement.style.fontSize = "10px";
+                labelElement.style.textAlign = 'center';
+                labelElement.style.color = 'white';
+
+                if (seatData.status === "o") {
+                  labelElement.style.background = "rgb(129, 129, 192)";
+                } else if (seatData.status === "s") {
+                  labelElement.style.background = "rgb(180, 180, 180)";
+                } else if (seatData.status === "ps") {
+                  labelElement.style.background = "rgb(193, 154, 107)";
+                } else if (seatData.status === "e") {
+                  labelElement.style.background = "rgb(143, 218, 187)";
+                }
+              }
             }
           }
+          container.insertAdjacentHTML("beforeend", "<br/>");
         }
-      }
-      container.insertAdjacentHTML("beforeend", "<br/>");
-    }
 
-    function handleSSeatSelection(seatID, isChecked, status, maxSelections, debug) {
-      console.log("handleSSeatSelection", debug);
-      const rev=localStorage.getItem("LocalFN")
-          
-      if(rev !== null){
-        let arr = splitSpecimenStringToArray(rev)
-        SpecimenSelectedSeats=arr;
-      }
-      
-      //console.log("rev : ",rev," SpecimenSelectedSeats : ",SpecimenSelectedSeats)
-      console.log(" maxSelections : ",maxSelections)
+        function handleSSeatSelection(seatID, isChecked, status, maxSelections, debug) {
+          console.log("handleSSeatSelection", debug);
+          const rev = localStorage.getItem("LocalFN")
 
-      if (status === 'e') {
-        if (isChecked) {
-          if (SpecimenSelectedSeats.length < maxSelections) {
-            SpecimenSelectedSeats.push(seatID);
-          } else {
-            document.getElementById(seatID).checked = false;
-            alert(`You can select a maximum of ${maxSelections} seats.`);
+          if (rev !== null) {
+            let arr = splitSpecimenStringToArray(rev)
+            SpecimenSelectedSeats = arr;
           }
-        } else {
-          let seatIndex = SpecimenSelectedSeats.indexOf(seatID);
-          if (seatIndex !== -1) {
-            SpecimenSelectedSeats.splice(seatIndex, 1);
-            let arrS = splitSpecimenStringToArray(spgrid);
-            arrS = removeItemFromSpecimenArray(arrS, seatID);
-            spgrid = arrS.join(',');
-          }
-        }
-      }
-      else {
-            let arr = splitSpecimenStringToArray(spgrid)
-            if(status === 'o' && arr.includes(seatID)){
+
+          //console.log("rev : ",rev," SpecimenSelectedSeats : ",SpecimenSelectedSeats)
+          console.log(" maxSelections : ", maxSelections)
+
+          if (status === 'e') {
+            if (isChecked) {
+              if (SpecimenSelectedSeats.length < maxSelections) {
+                SpecimenSelectedSeats.push(seatID);
+              } else {
+                document.getElementById(seatID).checked = false;
+                alert(`You can select a maximum of ${maxSelections} seats.`);
+              }
+            } else {
               let seatIndex = SpecimenSelectedSeats.indexOf(seatID);
               if (seatIndex !== -1) {
-            SpecimenSelectedSeats.splice(seatIndex, 1);
-            let arrS = splitSpecimenStringToArray(spgrid);
-            arrS = removeItemFromSpecimenArray(arrS, seatID);
-            spgrid = arrS.join(',');
-          }
+                SpecimenSelectedSeats.splice(seatIndex, 1);
+                let arrS = splitSpecimenStringToArray(spgrid);
+                arrS = removeItemFromSpecimenArray(arrS, seatID);
+                spgrid = arrS.join(',');
+              }
             }
-            else{
+          }
+          else {
+            let arr = splitSpecimenStringToArray(spgrid)
+            if (status === 'o' && arr.includes(seatID)) {
+              let seatIndex = SpecimenSelectedSeats.indexOf(seatID);
+              if (seatIndex !== -1) {
+                SpecimenSelectedSeats.splice(seatIndex, 1);
+                let arrS = splitSpecimenStringToArray(spgrid);
+                arrS = removeItemFromSpecimenArray(arrS, seatID);
+                spgrid = arrS.join(',');
+              }
+            }
+            else {
               alert("Error clicking the filled component.");
             }
           }
 
-      console.log("Selected seats:", SpecimenSelectedSeats);
-      localStorage.setItem("LocalFN",SpecimenSelectedSeats);
-      updateFNGridInput();
-    }
+          console.log("Selected seats:", SpecimenSelectedSeats);
+          localStorage.setItem("LocalFN", SpecimenSelectedSeats);
+          updateFNGridInput();
+        }
 
-    // Update FN grid input field and local storage
-    function updateFNGridInput() {
-      let gridInput = document.querySelector("input[placeholder='FN Grid No.']");
-      if (spgrid === null) {
-        localStorage.setItem("selectedSGrid", SpecimenSelectedSeats);
-      } else {
-        localStorage.setItem("selectedSGrid", (spgrid + ',' + SpecimenSelectedSeats));
-      }
-
-      spgrid = localStorage.getItem("selectedSGrid");
-      splitSpecimenStringToArray(spgrid);
-
-      if (gridInput) {
-        const box_name = activeBoxName;
-        let fnStatuses = [];
-
-        for (let i = 1; i <= SpecimenSelectedSeats.length; i++) {
-          if (document.querySelector('input[name="MetastasisSample"]:checked').value === "true") {
-            fnStatuses.push(`MFN-${i}`);
+        // Update FN grid input field and local storage
+        function updateFNGridInput() {
+          let gridInput = document.querySelector("input[placeholder='FN Grid No.']");
+          if (spgrid === null) {
+            localStorage.setItem("selectedSGrid", SpecimenSelectedSeats);
           } else {
-            fnStatuses.push(`FN-${i}`);
+            localStorage.setItem("selectedSGrid", (spgrid + ',' + SpecimenSelectedSeats));
+          }
+
+          spgrid = localStorage.getItem("selectedSGrid");
+          splitSpecimenStringToArray(spgrid);
+
+          if (gridInput) {
+            const box_name = activeBoxName;
+            let fnStatuses = [];
+
+            for (let i = 1; i <= SpecimenSelectedSeats.length; i++) {
+              if (document.querySelector('input[name="MetastasisSample"]:checked').value === "true") {
+                fnStatuses.push(`MFN-${i}`);
+              } else {
+                fnStatuses.push(`FN-${i}`);
+              }
+            }
+
+            const grid_id = SpecimenSelectedSeats.join(', ');
+            const status = fnStatuses.join(', ');
+
+            gridInput.value = `${box_name}/${grid_id}/${status}`;
           }
         }
 
-        const grid_id = SpecimenSelectedSeats.join(', ');
-        const status = fnStatuses.join(', ');
-
-        gridInput.value = `${box_name}/${grid_id}/${status}`;
+        window.handleDone = function () {
+          if (SpecimenSelectedSeats.length > 0) {
+            updateFNGridInput();
+          }
+          $('#specimenModalCenter').modal('hide');
+        };
       }
     }
-
-    window.handleDone = function () {
-      if (SpecimenSelectedSeats.length > 0) {
-        updateFNGridInput();
-      }
-      $('#specimenModalCenter').modal('hide');
-    };
-  }
-}
 
 
 
@@ -3547,36 +3559,36 @@ function popFNmodal() {
     });
     document.getElementById("nextButton1").addEventListener("click", function () {
       const requiredFields = [
-    { field: document.getElementById('mrnNo'), name: 'MRN Number' },
-    { field: document.getElementById('bioBankId'), name: 'Bio Bank ID' },
-    { field: document.getElementById('patAge'), name: 'Age' },
-    { field: document.querySelector('input[name="customRadio"]:checked'), name: 'Gender' },
-    { field: document.querySelector('input[name="radioCancerType"]:checked'), name: 'Cancer Type' },
-    { field: document.querySelector('input[name="customProcedure"]:checked'), name: 'Procedure Types' },
-    { field: document.querySelector('input[name="MetastasisSample"]:checked'), name: 'Metastasis Sample' },
-    { field: document.querySelector('input[name="bloodSample"]:checked'), name: 'Blood Sample' },
-    { field: document.querySelector('input[name="specimenSample"]:checked'), name: 'Specimen Sample' },
-    { field: document.querySelector('input[name="otherSample"]:checked'), name: 'Other Sample' },
-    { field: document.querySelector('input[name="customConsent"]:checked'), name: 'Consent' },
-    { field: document.querySelector('input[name="IschemicRadio"]:checked'), name: 'Ischemic Sample' },
-    { field: document.querySelector('input[name="processedRadio"]:checked'), name: 'All samples Received Together' }
-  ];
+        { field: document.getElementById('mrnNo'), name: 'MRN Number' },
+        { field: document.getElementById('bioBankId'), name: 'Bio Bank ID' },
+        { field: document.getElementById('patAge'), name: 'Age' },
+        { field: document.querySelector('input[name="customRadio"]:checked'), name: 'Gender' },
+        { field: document.querySelector('input[name="radioCancerType"]:checked'), name: 'Cancer Type' },
+        { field: document.querySelector('input[name="customProcedure"]:checked'), name: 'Procedure Types' },
+        { field: document.querySelector('input[name="MetastasisSample"]:checked'), name: 'Metastasis Sample' },
+        { field: document.querySelector('input[name="bloodSample"]:checked'), name: 'Blood Sample' },
+        { field: document.querySelector('input[name="specimenSample"]:checked'), name: 'Specimen Sample' },
+        { field: document.querySelector('input[name="otherSample"]:checked'), name: 'Other Sample' },
+        { field: document.querySelector('input[name="customConsent"]:checked'), name: 'Consent' },
+        { field: document.querySelector('input[name="IschemicRadio"]:checked'), name: 'Ischemic Sample' },
+        { field: document.querySelector('input[name="processedRadio"]:checked'), name: 'All samples Received Together' }
+      ];
 
-  let allFilled = true;
-  const emptyFields = [];
+      let allFilled = true;
+      const emptyFields = [];
 
-  requiredFields.forEach(item => {
-    if (!item.field || (item.field.type === 'radio' && !item.field.checked) || (item.field.type === 'number' && item.field.value === '')) {
-      allFilled = false;
-      emptyFields.push(item.name);
-    }
-  });
+      requiredFields.forEach(item => {
+        if (!item.field || (item.field.type === 'radio' && !item.field.checked) || (item.field.type === 'number' && item.field.value === '')) {
+          allFilled = false;
+          emptyFields.push(item.name);
+        }
+      });
 
-  if (!allFilled) {
-    console.log('Please fill in the following required fields:', emptyFields.join(', '));
-    alert('Please enter all the required fields. Check the console for details.');
-    return;
-  }
+      if (!allFilled) {
+        console.log('Please fill in the following required fields:', emptyFields.join(', '));
+        alert('Please enter all the required fields. Check the console for details.');
+        return;
+      }
       // Hide form1 and show form2
       document.getElementById("form1").style.display = "none";
       document.getElementById("form2").style.display = "block";
@@ -3606,7 +3618,7 @@ function popFNmodal() {
       var selectedValue = this.value;
       var otherSubtypeDiv = document.getElementById('pSubtypeOther');
 
-      if (selectedValue === 'other' || selectedValue === 'option6' ) {
+      if (selectedValue === 'other' || selectedValue === 'option6') {
         otherSubtypeDiv.style.display = 'block';
       } else {
         otherSubtypeDiv.style.display = 'none';
@@ -3765,7 +3777,7 @@ function popFNmodal() {
           $('#serumtubes').show();
           $('#bufferCoatTubes').show();
         }
-        else if ($('#bloodSampleN').is(':checked')){
+        else if ($('#bloodSampleN').is(':checked')) {
           $('#plasmatubes').hide();
           $('#serumtubes').hide();
           $('#bufferCoatTubes').hide();
@@ -3809,7 +3821,7 @@ function popFNmodal() {
           $('#countFntubes').show();
           $('#fntubes').show();
         }
-        else if ($('#specimenSampleN').is(':checked')){
+        else if ($('#specimenSampleN').is(':checked')) {
           $('#countFttubes').hide();
           $('#fttubes').hide();
           $('#countFntubes').hide();
@@ -4158,12 +4170,12 @@ function popFNmodal() {
       }
     };
     $(document).ready(function () {
-    document.getElementById("bloodSampleN").addEventListener('click', function () {
-      localStorage.removeItem("LocalPlasma");
-      localStorage.removeItem("LocalSerum");
-      localStorage.removeItem("LocalBuffy");
+      document.getElementById("bloodSampleN").addEventListener('click', function () {
+        localStorage.removeItem("LocalPlasma");
+        localStorage.removeItem("LocalSerum");
+        localStorage.removeItem("LocalBuffy");
+      });
     });
-  });
 
     document.addEventListener('DOMContentLoaded', function () {
       const formData = sessionStorage.getItem('formData');
@@ -4180,13 +4192,10 @@ function popFNmodal() {
         //   element.disabled = true;
         // });
         formElements.forEach(element => {
-          if (element.id !== 'PlasmagridNo' ) {
-            element.disabled = true;
-          }
-          if (element.id !== 'SerumgridNo' ) {
-            element.disabled = true;
-          }
-        });
+  if (element.id !== 'PlasmagridNo' && element.id !== 'SerumgridNo') {
+    element.disabled = true;
+  }
+});
 
         finishBtn.style.display = 'block'
 
@@ -4196,7 +4205,7 @@ function popFNmodal() {
         document.getElementById('mdCurrentUser').style.display = "block"
         document.getElementById('brfCurrentUser').style.display = "block"
 
-        
+
 
       }
       // else if (mode === 'SearchEdit') {
@@ -4210,8 +4219,8 @@ function popFNmodal() {
 
         finishBtn.style.display = 'none'
       }
-      else if (mode === "undefined"){
-        console.log("mode",mode)
+      else if (mode === "undefined") {
+        console.log("mode", mode)
         const finishBtn = document.getElementById('finishButton');
 
         finishBtn.style.display = 'none'
@@ -4349,21 +4358,37 @@ function popFNmodal() {
                 seatID = seatID.trim();
                 const index = getSeatIndex(seatID);
 
-                db.ref(`bb/${boxName}/${index}`).update({ status: sharedStatus })
-                  .then(() => {
-                    console.log('Status updated for BioBank ID:', bioBankId, 'Sample Index:', index);
-                  })
-                  .catch(error => {
-                    console.error('Error updating status for BioBank ID:', bioBankId, 'Sample Index:', index, error);
-                  });
+                db.ref(`bb/${boxName}`).once('value', snapshot => {
+                  if (snapshot.exists()) {
+                    console.log("bb exist ")
+                    db.ref(`bb/${boxName}/${index}`).update({ status: sharedStatus })
+                      .then(() => {
+                        console.log('Status updated for BioBank ID:', bioBankId, 'Sample Index:', index);
+                      })
+                      .catch(error => {
+                        console.error('Error updating status for BioBank ID:', bioBankId, 'Sample Index:', index, error);
+                      });
+                  }
+                  else {
+                    console.log("bb does not exist ")
 
-                db.ref(`sb/${boxName}/${index}`).update({ status: sharedStatus })
-                  .then(() => {
-                    console.log('Status updated for BioBank ID:', bioBankId, 'Sample Index:', index);
-                  })
-                  .catch(error => {
-                    console.error('Error updating status for BioBank ID:', bioBankId, 'Sample Index:', index, error);
-                  });
+                  }
+                });
+                db.ref(`sb/${boxName}`).once('value', snapshot => {
+                  if (snapshot.exists()) {
+                    console.log("sb exist ")
+                    db.ref(`sb/${boxName}/${index}`).update({ status: sharedStatus })
+                      .then(() => {
+                        console.log('Status updated for BioBank ID:', bioBankId, 'Sample Index:', index);
+                      })
+                      .catch(error => {
+                        console.error('Error updating status for BioBank ID:', bioBankId, 'Sample Index:', index, error);
+                      });
+                  }
+                  else {
+                    console.log("sb does not exist ")
+                  }
+                });
               });
 
             })
@@ -4371,6 +4396,38 @@ function popFNmodal() {
               console.error('Error writing to Firebase:', error);
               alert('Error submitting form for BioBank ID: ' + bioBankId);
             });
+            let mode = localStorage.getItem('mode');
+
+
+            switch (mode) {
+                case 'SearchView':
+                  window.location.href = `search.html`;
+                  break;
+                case 'SearchEdit':
+                  window.location.href = `search.html`;
+                  break;
+                case 'share':
+                  window.location.href = `search.html`;
+                  break;
+                case 'PendingView':
+                  window.location.href = `todo.html`;
+                  break;
+                case 'PendingEdit':
+                  window.location.href = `todo.html`;
+                  break;
+                case 'EditFollowUps':
+                  window.location.href = `todo.html`;
+                  break;
+                case 'ViewFollowUp':
+                  window.location.href = `todo.html`;
+                  break;
+                case 'undefined':
+                  window.location.href = `home.html`;
+                  break;
+      
+                default:
+                  console.error('Unknown mode:', mode);
+              }
         });
       });
 
@@ -4410,6 +4467,17 @@ function popFNmodal() {
     document.addEventListener('DOMContentLoaded', function () {
       let mode = localStorage.getItem('mode');
       let biobankID = localStorage.getItem('sharedbioid');
+      console.log("mode in shared :",mode)
+      if (mode === 'share') {
+        console.log("Adv. Happy New Year");
+        document.getElementById("backToCardBtn").style.display = 'none';
+        document.getElementById("sharedSampleBox").style.display = 'none';
+
+        document.getElementById('sharedCard').style.display = 'none';
+        document.getElementById('shareForm').style.display = 'block';
+
+
+      }
 
       if (mode === 'sharedView') {
         const formElements = document.querySelectorAll('input, select, textarea');
@@ -4419,20 +4487,25 @@ function popFNmodal() {
         // Disable all form elements
         formElements.forEach(element => {
           // Exclude the input with id 'sharedSampleBox' from being disabled
-          if (element.id !== 'sharedSampleBox') {
+          if (element.id !== 'sharedSample') {
             element.disabled = true;
           }
         });
-        document.getElementById('sharedSampleBox').style.display = 'block';        
+        
 
-        document.getElementById('navArrows').style.display = 'block';
+        
+        document.getElementById('sharedSampleBox').style.display = 'block';
+        document.getElementById('sharedCard').style.display = 'block';
+        document.getElementById('shareForm').style.display = 'none';
         doneBtn.style.display = 'none';
         submitBtn.style.display = 'none';
-      }
-
+      }  
+      
       console.log("bhanu");
       retrieveOs(biobankID);
     });
+
+
 
 
   </script>
