@@ -1012,48 +1012,59 @@
       let allSequences = [];
 
       Object.keys(data).forEach((bioBankId) => {
-        const patientSeq = data[bioBankId];
-        const seqKeys = Object.keys(patientSeq);
+  const patientSeq = data[bioBankId];
+  const seqKeys = Object.keys(patientSeq);
 
-        seqKeys.forEach((seqKey) => {
-          const patientTimestamps = patientSeq[seqKey];
-          const timestampKeys = Object.keys(patientTimestamps);
-          const lastTimestampKey = timestampKeys.sort().pop();
-          const patient = patientTimestamps[lastTimestampKey];
+  seqKeys.forEach((seqKey) => {
+    const patientTimestamps = patientSeq[seqKey];
+    const timestampKeys = Object.keys(patientTimestamps);
+    const lastTimestampKey = timestampKeys.sort().pop();
+    const patient = patientTimestamps[lastTimestampKey];
 
-          const fields = ["bpg", "bsg", "bbcg", "ftg", "fng", "osg"];
+    const fields = ["bpg", "bsg", "bbcg", "ftg", "fng", "osg"];
 
-          fields.forEach((field) => {
-            const fieldData = patient.ie?.[field];
+    fields.forEach((field) => {
+      const fieldData = patient.ie?.[field];
 
-            if (fieldData) {
-              const parts = fieldData.split("/");
-              let boxName = parts[0].trim();
-              const seatList = parts[1] ? parts[1].split(",") : [];
-              const sampleType = parts[2]?.trim().toLowerCase(); // Normalize sampleType to lowercase for matching
-              console.log("sampleType in",sampleType);
-              console.log("sampleTypeInput",`m${sampleTypeInput}`);
+      if (fieldData) {
+        const parts = fieldData.split("/");
+        let boxName = parts[0].trim();
 
-              
-              // Only push sequences where the sampleType matches the sampleTypeInput
-              if (sampleTypeInput === "all" || !sampleTypeInput || sampleType === sampleTypeInput || `m${sampleTypeInput}` === sampleType) {
-                // sampleType= sampleType.toUpperCase();
-                allSequences.push({
-                  serialNumber: allSequences.length + 1,
-                  bioBankId: bioBankId,
-                  seqKey: seqKey,
-                  timestampKey: lastTimestampKey,
-                  field, // Store which field (bpg, bsg, etc.)
-                  boxName,
-                  seatList,
-                  sampleType,
-                  patientData: patient,
-                });
-              }
-            }
-          });
+        // Split seatList and sampleType by commas, assuming they are aligned
+        const seatList = parts[1] ? parts[1].split(",").map(seat => seat.trim()) : [];
+        const sampleTypeList = parts[2] ? parts[2].split(",").map(type => type.trim().toLowerCase()) : [];
+
+        // Loop through each seat and its corresponding sample type
+        seatList.forEach((seat, index) => {
+          const sampleType = sampleTypeList[index] || "-"; // Get corresponding sampleType or '-' if undefined
+
+          // Retrieve the sampleTypeInput from localStorage and match
+          const sampleTypeInput = localStorage.getItem("sampleTypeInput")?.trim().toLowerCase();
+
+          // Only push sequences where the sampleType matches the sampleTypeInput or all
+          if (
+            sampleTypeInput === "all" || 
+            !sampleTypeInput || 
+            sampleType === sampleTypeInput || 
+            `m${sampleTypeInput}` === sampleType
+          ) {
+            allSequences.push({
+              serialNumber: allSequences.length + 1,
+              bioBankId: bioBankId,
+              seqKey: seqKey,
+              timestampKey: lastTimestampKey,
+              field, // Store which field (bpg, bsg, etc.)
+              boxName,
+              seat,
+              sampleType,
+              patientData: patient,
+            });
+          }
         });
-      });
+      }
+    });
+  });
+});
 
       // Paginate the filtered sequences
       const paginatedSequences = allSequences.slice(start, end);
