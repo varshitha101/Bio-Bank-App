@@ -1031,7 +1031,17 @@ Object.keys(data).forEach((bioBankId) => {
 
         // Split seatList and sampleType by commas, assuming they are aligned
         const seatList = parts[1] ? parts[1].split(",").map(seat => seat.trim()) : [];
-        const sampleTypeList = parts[2] ? parts[2].split(",").map(type => type.trim().toLowerCase()) : [];
+        let sampleTypeList = parts[2] ? parts[2].split(",").map(type => type.trim().toLowerCase()) : [];
+
+        // Define an array of sample types that should apply the same sampleType to all seats
+        const uniformSampleTypes = [
+          "plasma", "mplasma", "serum", "mserum", "buffy coat", "mbuffy coat", "mother"
+        ];
+
+        // If the sampleType matches any in uniformSampleTypes, set the same sampleType for all seats
+        if (uniformSampleTypes.includes(sampleTypeList[0])) {
+          sampleTypeList = seatList.map(() => sampleTypeList[0]); // Set same sampleType for all seats in seatList
+        }
 
         // Loop through each seat and its corresponding sample type
         seatList.forEach((seat, index) => {
@@ -1105,8 +1115,8 @@ paginatedSequences.forEach((sequence) => {
     <td class="stage">${patientData.ie?.stc || "-"}</td>
     <td class="grade">${patientData.md?.gd || "-"}</td>
     <td class="action">
-      <img src="assets/images/edit.png" style="height: 30px;    width: 15px; cursor:pointer; alt="Edit" class="edit-icon" onclick="editPatient('${bioBankId}', '${seqKey}', '${timestampKey}')" style="cursor:pointer;" />
-      <img src="assets/images/view.png" style="height: 30px;    width: 15px; cursor:pointer; alt="View" class="view-icon" onclick="viewPatient('${bioBankId}', '${seqKey}', '${timestampKey}')" style="cursor:pointer;" />
+      <img src="assets/images/edit.png" style="height: 30px; width: 15px; cursor:pointer; alt="Edit" class="edit-icon" onclick="editPatient('${bioBankId}', '${seqKey}', '${timestampKey}')" style="cursor:pointer;" />
+      <img src="assets/images/view.png" style="height: 30px; width: 15px; cursor:pointer; alt="View" class="view-icon" onclick="viewPatient('${bioBankId}', '${seqKey}', '${timestampKey}')" style="cursor:pointer;" />
       <img src="assets/images/history.png" style="height: 30px; width: 15px; cursor:pointer; alt="History" class="history-icon" onclick="handleHistory('${bioBankId}', '${seqKey}')" style="cursor:pointer;" />
     </td>
   `;
@@ -1115,7 +1125,6 @@ paginatedSequences.forEach((sequence) => {
 
 // Update pagination controls
 updateSamPagination(allSequences.length);
-
     }
 
 
