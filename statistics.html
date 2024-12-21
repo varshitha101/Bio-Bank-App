@@ -193,6 +193,9 @@
         startInput.val('');
         endInput.val('');
 
+        localStorage.removeItem('startInput');
+        localStorage.removeItem('endInput');
+
         startInput.datepicker('destroy');
         endInput.datepicker('destroy');
 
@@ -224,27 +227,63 @@
         else if (selectedOption === 'month') {
           let currentDate = new Date();
 
-          let firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-          let lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+          /* let firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+           let lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+ 
+           let formattedFirstDay = firstDay.toLocaleDateString('en-IN', {
+             year: 'numeric',
+             month: '2-digit',
+             day: '2-digit'
+           });
+           let formattedLastDay = lastDay.toLocaleDateString('en-IN', {
+             year: 'numeric',
+             month: '2-digit',
+             day: '2-digit'
+           });
+ 
+           startInput.attr('placeholder', formattedFirstDay);
+           endInput.attr('placeholder', formattedLastDay);
+ 
+           startInput.attr('disabled', true);
+           endInput.attr('disabled', true);
+           localStorage.setItem('startInput', formattedFirstDay);
+           localStorage.setItem('endInput', formattedLastDay);*/
 
-          let formattedFirstDay = firstDay.toLocaleDateString('en-IN', {
+          // Calculate the start date as 30 days ago
+          let startDate = new Date(currentDate);
+          startDate.setDate(currentDate.getDate() - 30); // 30 days ago
+
+          // Set the end date as today
+          let endDate = currentDate;
+
+          // Format the dates
+          let formattedStartDate = startDate.toLocaleDateString('en-IN', {
             year: 'numeric',
             month: '2-digit',
             day: '2-digit'
           });
-          let formattedLastDay = lastDay.toLocaleDateString('en-IN', {
+          let formattedEndDate = endDate.toLocaleDateString('en-IN', {
             year: 'numeric',
             month: '2-digit',
             day: '2-digit'
           });
 
-          startInput.attr('placeholder', formattedFirstDay);
-          endInput.attr('placeholder', formattedLastDay);
+          // Set the placeholders for the date inputs
+          startInput.attr('placeholder', formattedStartDate);
+          endInput.attr('placeholder', formattedEndDate);
 
+          // Disable the date inputs
           startInput.attr('disabled', true);
           endInput.attr('disabled', true);
-          localStorage.setItem('startInput', formattedFirstDay);
-          localStorage.setItem('endInput', formattedLastDay);
+
+          // Store the formatted dates in local storage
+          localStorage.setItem('startInput', formattedStartDate);
+          localStorage.setItem('endInput', formattedEndDate);
+
+          console.log("inside week start ", formattedStartDate);
+          console.log("inside week end ", formattedEndDate);
+
+
         }
 
         else if (selectedOption === 'week') {
@@ -329,15 +368,15 @@
             console.log(" inside custom s : ", st);
             let currentDate = new Date();
             let sunday = new Date(currentDate.setDate(st));
-          
 
-          let formattedSunday = sunday.toLocaleDateString('en-In', {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit'
-          });
 
-          localStorage.setItem('startInput', st);
+            let formattedSunday = sunday.toLocaleDateString('en-In', {
+              year: 'numeric',
+              month: '2-digit',
+              day: '2-digit'
+            });
+
+            localStorage.setItem('startInput', st);
           });
 
           endInput.datepicker({
@@ -349,25 +388,25 @@
             let currentDate = new Date();
             console.log(" inside custom e : ", et);
             let endday = new Date(currentDate.setDate(et));
-          
 
-          let eformattedDate = endday.toLocaleDateString('en-In', {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit'
+
+            let eformattedDate = endday.toLocaleDateString('en-In', {
+              year: 'numeric',
+              month: '2-digit',
+              day: '2-digit'
+            });
+
+            localStorage.setItem('endInput', et);
           });
 
-          localStorage.setItem('endInput', et);
-          });
-          
-        
+
         } else {
-            console.error("Invalid date format. Please enter dates in dd/mm/yyyy format.");
-          }
-        });
+          console.error("Invalid date format. Please enter dates in dd/mm/yyyy format.");
+        }
       });
-     
-    
+    });
+
+
   </script>
 
   <script>
@@ -426,6 +465,47 @@
       localStorage.setItem('startInput', '');
       localStorage.setItem('endInput', '');
 
+      // Set the filter to month
+      document.getElementById("optionInput").value = "month";
+      $('#optionInput').trigger('change'); // Trigger the change event to load the data
+
+      // Get the current date
+      let currentDate = new Date();
+
+      // Calculate the start date as 30 days ago
+      let startDate = new Date(currentDate);
+      startDate.setDate(currentDate.getDate() - 30); // 30 days ago
+
+      // Set the end date as today
+      let endDate = currentDate;
+
+      // Format the dates
+      let formattedStartDate = startDate.toLocaleDateString('en-IN', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      });
+      let formattedEndDate = endDate.toLocaleDateString('en-IN', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      });
+
+      // Set the placeholders for the date inputs
+      $('#startInput').attr('placeholder', formattedStartDate);
+      $('#endInput').attr('placeholder', formattedEndDate);
+
+      // Disable the date inputs
+      $('#startInput').attr('disabled', true);
+      $('#endInput').attr('disabled', true);
+
+      // Store the formatted dates in local storage
+      localStorage.setItem('startInput', formattedStartDate);
+      localStorage.setItem('endInput', formattedEndDate);
+
+      // Load the data into the charts
+      document.getElementById('searchBtn').click(); // Simulate a click on the search button to load data
+
 
     }
 
@@ -434,11 +514,22 @@
     document.addEventListener('DOMContentLoaded', function () {
       document.getElementById('searchBtn').addEventListener('click', function (event) {
         event.preventDefault();
+
+        // Retrieve start and end dates from local storage
+        let startDate = localStorage.getItem('startInput');
+        let endDate = localStorage.getItem('endInput');
+
+        // Check if startDate or endDate is empty or null
+        if (!startDate || !endDate) {
+          alert("Please select From and To Date");
+          return; // Exit the function if dates are not valid
+        }
+
+
         db.ref('sef').once('value')
           .then(snapshot => {
             const seatData = snapshot.val();
             console.log("Full seatData:", seatData);
-
 
             if (seatData) {
               let countUnder30 = 0;
@@ -448,7 +539,7 @@
               let countAbove60 = 0;
 
               let breastCancer = 0;
-              let ThroatCancer = 0;
+              let throatCancer = 0;
               let liverCancer = 0;
               let lungCancer = 0;
 
@@ -456,10 +547,13 @@
               let resection = 0;
               let bothProcedures = 0;
 
-              let countBS = 0;
-              let countSS = 0;
-              let countOS = 0;
-              let count = 0;
+              // Initialize counts for sample types
+              let countBS = 0; // Blood Samples
+              let countSS = 0; // Specimen Samples
+              let countOS = 0; // Other Samples
+              let countCombined = 0; // Combined Samples
+
+              let count = 0; // This will count the total number of sequences (s1, s2, etc.) that meet the timestamp condition
 
               let agesArray = [];
               let cncrTypeArray = [];
@@ -467,49 +561,29 @@
               let startDate = localStorage.getItem('startInput');
               let endDate = localStorage.getItem('endInput');
 
-              console.log("Start Input Value testing:",startDate);
-              console.log("Start Input Value testing:",endDate);
-
-              let startTimestamp = getTimestamp(startDate); // Start of the day timestamp
-              let endTimestamp = getTimestamp(endDate, true); // End of the day timestamp
-
-
-              console.log("Start Input Value testing: ", startTimestamp, ' - ', startDate, '-',);
-              console.log("End Input Value testing: ", endTimestamp, ' - ', endDate);
-
-
-
+              // Check if startDate and endDate are not empty
               if (startDate !== "" && endDate !== "") {
+                let startTimestamp = getTimestamp(startDate); // Start of the day timestamp
+                let endTimestamp = getTimestamp(endDate, true); // End of the day timestamp
+
                 Object.keys(seatData).forEach(bioBankId => {
                   const sections = seatData[bioBankId];
 
-
-
                   if (sections) {
                     const sectionKeys = Object.keys(sections);
+                    console.log("Processing bioBankId:", bioBankId);
 
                     sectionKeys.forEach(sectionKey => {
                       const sequenceData = sections[sectionKey];
                       const timestampKeys = Object.keys(sequenceData);
 
-
-
-
-
-                      const timestamp = timestampKeys.sort().pop();
+                      const timestamp = timestampKeys.sort().pop(); // Get the latest timestamp in this sequence
                       const timestampInMillis = parseInt(timestamp) * 1000; // Convert to milliseconds
 
-                      // console.log("Start Input Value testing: ", startTimestamp, ' - ', startDate, '-',timestampInMillis);
-                      // console.log("End Input Value testing: ", endTimestamp, ' - ', endDate);
-
-
-                      console.log("timestamp", timestampInMillis)
+                      // Check if the latest timestamp is within the date range
                       if (timestampInMillis >= startTimestamp && timestampInMillis <= endTimestamp) {
-                        console.log("timestamp", timestamp)
+                        count++; // Increment the count only if the timestamp condition is met
 
-                        count = count + sectionKeys.length;
-                        console.log("sequenceData.length", sequenceData)
-                        //document.getElementById('samples').innerHTML = count;
                         const timestampData = sequenceData[timestamp];
 
                         if (timestampData && timestampData.ie && timestampData.ie.ag) {
@@ -522,55 +596,77 @@
 
                           document.getElementById('samples').innerHTML = count;
 
-                          // Update the respective counters and arrays
                           agesArray.push(age);
                           cncrTypeArray.push(cancer);
 
-                          if (age < 30) {
-                            countUnder30++;
-                          } else if (age >= 30 && age <= 40) {
-                            count30to40++;
-                          } else if (age >= 41 && age <= 50) {
-                            count41to50++;
-                          } else if (age >= 51 && age <= 60) {
-                            count51to60++;
-                          } else if (age > 60) {
-                            countAbove60++;
-                          }
+                          // Age categories
+                          if (age < 30) countUnder30++;
+                          else if (age >= 30 && age <= 40) count30to40++;
+                          else if (age >= 41 && age <= 50) count41to50++;
+                          else if (age >= 51 && age <= 60) count51to60++;
+                          else if (age > 60) countAbove60++;
 
-                          if (cancer === 'brst') {
-                            breastCancer++;
-                          } else if (cancer === 'throat') {
-                            ThroatCancer++;
-                          } else if (cancer === 'liver') {
-                            liverCancer++;
-                          } else if (cancer === 'lung') {
-                            lungCancer++;
-                          }
+                          // Cancer types
+                          if (cancer === 'brst') breastCancer++;
+                          else if (cancer === 'throat') throatCancer++;
+                          else if (cancer === 'liver') liverCancer++;
+                          else if (cancer === 'lung') lungCancer++;
 
-                          if (procedure === 'b') {
-                            biopsy++;
-                          } else if (procedure === 'r') {
-                            resection++;
-                          } else if (procedure === 'both') {
-                            bothProcedures++;
-                          }
+                          // Procedure types
+                          if (procedure === 'b') biopsy++;
+                          else if (procedure === 'r') resection++;
+                          else if (procedure === 'both') bothProcedures++;
 
-                          if (bSample === 'Y' || bSample === "true" || bSample === true) {
-                            countBS++;
-                          }
-                          if (sSample === 'Y' || sSample === "true" || sSample === true) {
-                            countSS++;
-                          }
-                          if (oSample === 'Y' || oSample === "true" || oSample === true) {
-                            countOS++;
+                          // Sample types
+                          /* if (bSample === 'Y' || bSample === "true" || bSample === true) countBS++;
+                           if (sSample === 'Y' || sSample === "true" || sSample === true) countSS++;
+                           if (oSample === 'Y' || oSample === "true" || oSample === true) countOS++;*/
+
+
+
+                          // Inside your data processing loop
+                          let hasBlood = (bSample === 'Y' || bSample === "true" || bSample === true);
+                          let hasSpecimen = (sSample === 'Y' || sSample === "true" || sSample === true);
+                          let hasOther = (oSample === 'Y' || oSample === "true" || oSample === true);
+
+                          // Check for combined samples
+                          if (hasBlood && hasSpecimen) {
+                            countCombined++; // Increment combined count
+                          } else if (hasBlood && !hasSpecimen && !hasOther) {
+                            countBS++; // Increment blood count
+                          } else if (hasSpecimen && !hasBlood && !hasOther) {
+                            countSS++; // Increment specimen count
+                          } else if (hasOther && !hasBlood && !hasSpecimen) {
+                            countOS++; // Increment other count
                           }
 
                         }
-                      } 
+                      }
                     });
                   }
                 });
+
+
+                if (
+                  count30to40 === 0 &&
+                  count41to50 === 0 &&
+                  count51to60 === 0 &&
+                  countAbove60 === 0 &&
+                  biopsy === 0 &&
+                  resection === 0 &&
+                  bothProcedures === 0 &&
+                  countBS === 0 &&
+                  countSS === 0 &&
+                  countOS === 0 &&
+                  breastCancer === 0 &&
+                  throatCancer === 0 &&
+                  liverCancer === 0 &&
+                  lungCancer === 0
+                ) {
+                  // All counts are zero, execute your logic here
+                  console.log("All counts are zero.");
+                  document.getElementById('samples').innerHTML = count;
+                }
 
                 const ageCategoryCounts = {
                   under30: countUnder30,
@@ -582,7 +678,7 @@
 
                 console.log("Age category counts:", ageCategoryCounts);
                 console.log("Breast Cancer:", breastCancer);
-                console.log("Throat Cancer:", ThroatCancer);
+                console.log("Throat Cancer:", throatCancer);
                 console.log("Liver Cancer:", liverCancer);
                 console.log("Lung Cancer:", lungCancer);
                 console.log("Biopsy:", biopsy);
@@ -593,32 +689,14 @@
                 console.log("Other Samples (OS):", countOS);
 
                 ageChart(countUnder30, count30to40, count41to50, count51to60, countAbove60);
-                cancerChart(breastCancer, ThroatCancer, liverCancer, lungCancer);
+                cancerChart(breastCancer, throatCancer, liverCancer, lungCancer);
                 procedureChart(biopsy, resection, bothProcedures);
-                sampleTypeChart(countBS, countSS, countOS);                                
-                
-                let c1 = ageChart(countUnder30, count30to40, count41to50, count51to60, countAbove60);
-                let c2 = cancerChart(breastCancer, ThroatCancer, liverCancer, lungCancer);
-                let c3 = procedureChart(biopsy, resection, bothProcedures);
-                let c4 = sampleTypeChart(countBS, countSS, countOS);
+                //sampleTypeChart(countBS, countSS, countOS);
+                sampleTypeChart(countBS, countSS, countOS, countCombined);
 
-                if(c1 && c2 && c3 && c4){
-                  document.getElementById('samples').innerHTML = 0;
-
-                }
-
-
-                const totalSample = countBS + countSS + countOS;
-
-
-          
-
+              } else {
+                alert("Please select From and To Date");
               }
-              else {
-                alert("Please select Date -- ");
-              }
-
-
             } else {
               console.log("No seat data available.");
             }
@@ -628,7 +706,6 @@
           });
       });
     });
-
 
     function getTimestamp(dateString, isEndOfDay = false) {
       // Parse the date string (assumes format 'dd/mm/yyyy')
