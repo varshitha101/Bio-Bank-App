@@ -1204,19 +1204,21 @@ function searchSample(event) {
   displaySamPatients(filteredPatientData);
 }
 
-    function checkAgeCriterion(age, criterion, selectedAge) {
+     function checkAgeCriterion(age, criterion, selectedAge) {
       if (!selectedAge) return true;
 
-      const ageNumber = parseInt(selectedAge);
+      const ageNumber = parseInt(selectedAge,10);
+      const patientAge = parseInt(age,10);
       if (isNaN(ageNumber)) return true;
+      console.log(" checking age = ",patientAge," input ",selectedAge," : ",(patientAge === ageNumber));
 
       switch (criterion) {
         case "Greater than":
-          return age > ageNumber;
+          return patientAge > ageNumber;
         case "Less than":
-          return age < ageNumber;
+          return patientAge < ageNumber;
         case "Equal to":
-          return age === ageNumber;
+          return patientAge === ageNumber;
         default:
           return true;
       }
