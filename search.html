@@ -1008,10 +1008,9 @@
 
       // Retrieve the sampleTypeInput from localStorage
       const sampleTypeInput = localStorage.getItem("sampleTypeInput")?.trim().toLowerCase(); // Normalize input to lowercase for matching
+let allSequences = [];
 
-      let allSequences = [];
-
-      Object.keys(data).forEach((bioBankId) => {
+Object.keys(data).forEach((bioBankId) => {
   const patientSeq = data[bioBankId];
   const seqKeys = Object.keys(patientSeq);
 
@@ -1066,56 +1065,57 @@
   });
 });
 
-      // Paginate the filtered sequences
-      const paginatedSequences = allSequences.slice(start, end);
+// Paginate the filtered sequences
+const paginatedSequences = allSequences.slice(start, end);
 
-      // Populate the table with filtered sequences
-      paginatedSequences.forEach((sequence) => {
-        const {
-          serialNumber,
-          bioBankId,
-          seqKey,
-          timestampKey,
-          field,
-          boxName,
-          seatList,
-          sampleType,
-          patientData,
-        } = sequence;
+// Populate the table with filtered sequences
+paginatedSequences.forEach((sequence) => {
+  const {
+    serialNumber,
+    bioBankId,
+    seqKey,
+    timestampKey,
+    field,
+    boxName,
+    seat,
+    sampleType,
+    patientData,
+  } = sequence;
 
-        const row = document.createElement("tr");
-        row.classList.add("patientRow");
-        row.setAttribute("data-bioBankId", bioBankId);
-        row.setAttribute("data-seqKey", seqKey);
-        row.setAttribute("data-timestampKey", timestampKey);
-        row.setAttribute("data-grid", JSON.stringify(seatList));
-        row.setAttribute("data-box", boxName);
+  const row = document.createElement("tr");
+  row.classList.add("patientRow");
+  row.setAttribute("data-bioBankId", bioBankId);
+  row.setAttribute("data-seqKey", seqKey);
+  row.setAttribute("data-timestampKey", timestampKey);
+  row.setAttribute("data-grid", seat);
+  row.setAttribute("data-box", boxName);
 
-        row.innerHTML = `
-      <td><input type='checkbox' class="btn btn-primary btn-sm selection"></td>
-      <th scope="row" class="sno">${serialNumber}</th>
-      <td class="patientName">${bioBankId}</td>
-      <td class="age">${patientData.ie?.ag || "-"}</td>
-      <td class="gender">${patientData.ie?.sx || "-"}</td>
-      <td class="timestamp" data-seq-key="${seqKey}" data-timestamp-key="${timestampKey}">${formatTimestamp(timestampKey) || "-"
-          }</td>
-      <td class="box">${boxName}</td>
-      <td class="grid">${seatList.join(", ") || "-"}</td>
-      <td class="sampleType">${sampleType || "-"}</td>
-      <td class="cancerType">${patientData.ie.ct === "brst" ? "Breast Cancer" : "-"}</td>
-      <td class="stage">${patientData.ie?.stc || "-"}</td>
-      <td class="grade">${patientData.md?.gd || "-"}</td>
-      <td class="action">
-        <button class="btn btn-primary btn-sm" onclick="editPatient('${bioBankId}', '${seqKey}', '${timestampKey}')">Edit</button>
-        <button class="btn btn-info btn-sm" onclick="viewPatient('${bioBankId}', '${seqKey}', '${timestampKey}')">View</button>
-        <button class="btn btn-success btn-sm" onclick="handleHistory('${bioBankId}', '${seqKey}')">History</button>
-      </td>
-    `;
-        tbody.appendChild(row);
-      });
+  row.innerHTML = `
+    <td><input type='checkbox' class="btn btn-primary btn-sm selection"></td>
+    <th scope="row" class="sno">${serialNumber}</th>
+    <td class="patientName">${bioBankId}</td>
+    <td class="age">${patientData.ie?.ag || "-"}</td>
+    <td class="gender">${patientData.ie?.sx || "-"}</td>
+    <td class="timestamp" data-seq-key="${seqKey}" data-timestamp-key="${timestampKey}">${formatTimestamp(timestampKey) || "-"
+        }</td>
+    <td class="box">${boxName}</td>
+    <td class="grid">${seat || "-"}</td>
+    <td class="sampleType">${sampleType || "-"}</td>
+    <td class="cancerType">${patientData.ie.ct === "brst" ? "Breast Cancer" : "-"}</td>
+    <td class="stage">${patientData.ie?.stc || "-"}</td>
+    <td class="grade">${patientData.md?.gd || "-"}</td>
+    <td class="action">
+      <img src="assets/images/edit.png" style="height: 30px;    width: 15px; cursor:pointer; alt="Edit" class="edit-icon" onclick="editPatient('${bioBankId}', '${seqKey}', '${timestampKey}')" style="cursor:pointer;" />
+      <img src="assets/images/view.png" style="height: 30px;    width: 15px; cursor:pointer; alt="View" class="view-icon" onclick="viewPatient('${bioBankId}', '${seqKey}', '${timestampKey}')" style="cursor:pointer;" />
+      <img src="assets/images/history.png" style="height: 30px; width: 15px; cursor:pointer; alt="History" class="history-icon" onclick="handleHistory('${bioBankId}', '${seqKey}')" style="cursor:pointer;" />
+    </td>
+  `;
+  tbody.appendChild(row);
+});
 
-      // Update pagination controls
-      updateSamPagination(allSequences.length);
+// Update pagination controls
+updateSamPagination(allSequences.length);
+
     }
 
 
