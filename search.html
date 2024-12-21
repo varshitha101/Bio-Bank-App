@@ -338,7 +338,7 @@
               entries
             </p>
             <div>
-              <div class="row" style="justify-content: center">
+              <div class="row" id="naviButtons" style="justify-content: center; display: none; " >
                 <button type="button" id="download2" class="btn btn-success mr-2">
                   Download
                 </button>
@@ -617,6 +617,12 @@
     const app = firebase.initializeApp(firebaseConfig);
     const db = firebase.database(app);
 
+    document.getElementById('sampleSubmit').addEventListener('click',function(){
+      const naviButtons = document.getElementById('naviButtons');
+      naviButtons.style.display = 'block'
+
+    });
+    
     function historyModal() {
       $("#exampleModalCenter").modal("show");
     }
