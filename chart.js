@@ -220,7 +220,7 @@ else{
 }
 }
 
-function sampleTypeChart(countBS, countSS, countOS) {
+function sampleTypeChart(countBS, countSS, countOS,countCombined) {
   var chartDom = document.getElementById('chart4');
   var myChart = echarts.init(chartDom);
   myChart.clear();
@@ -278,7 +278,8 @@ else{
         data: [
           { value: countBS, name: 'Blood' },
           { value: countSS, name: 'Specimen' },
-          { value: countOS, name: 'Other' }
+          { value: countOS, name: 'Other' },
+          { value: countCombined, name: 'Combined'}
         ]
       }
     ]
@@ -288,4 +289,3 @@ else{
 
 }
 }
-
