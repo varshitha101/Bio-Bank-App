@@ -461,13 +461,7 @@
                       ">
                     Boxes
                   </th>
-                  <th style="
-                        border: 1px solid #ddd;
-                        text-align: center;
-                        background-color: #f2f2f2;
-                      ">
-                    Grid
-                  </th>
+                 
                   <th style="
                         border: 1px solid #ddd;
                         text-align: center;
@@ -941,8 +935,8 @@
       <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${boxName || "-"
           }</td> <!-- Display box name -->
       <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${seatListDisplay}</td> <!-- Display grid (seat) data -->
-      <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${patient.ct || "-"
-          }</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${patient.ct === 'brst' ? "Breast Cancer" : "-"
+                                                                          }</td>
       <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${patient.stc || "-"
           }</td>
       <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${patientData.md?.gd || "-"
