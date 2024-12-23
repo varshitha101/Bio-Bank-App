@@ -545,7 +545,7 @@
 
               let biopsy = 0;
               let resection = 0;
-              let bothProcedures = 0;
+            //  let bothProcedures = 0;
 
               // Initialize counts for sample types
               let countBS = 0; // Blood Samples
@@ -615,7 +615,7 @@
                           // Procedure types
                           if (procedure === 'b') biopsy++;
                           else if (procedure === 'r') resection++;
-                          else if (procedure === 'both') bothProcedures++;
+                         // else if (procedure === 'both') bothProcedures++;
 
                           // Sample types
                           /* if (bSample === 'Y' || bSample === "true" || bSample === true) countBS++;
@@ -654,7 +654,7 @@
                   countAbove60 === 0 &&
                   biopsy === 0 &&
                   resection === 0 &&
-                  bothProcedures === 0 &&
+                //  bothProcedures === 0 &&
                   countBS === 0 &&
                   countSS === 0 &&
                   countOS === 0 &&
@@ -683,14 +683,14 @@
                 console.log("Lung Cancer:", lungCancer);
                 console.log("Biopsy:", biopsy);
                 console.log("Resection:", resection);
-                console.log("Both Procedures:", bothProcedures);
+               // console.log("Both Procedures:", bothProcedures);
                 console.log("Blood Samples (BS):", countBS);
                 console.log("Stool Samples (SS):", countSS);
                 console.log("Other Samples (OS):", countOS);
 
                 ageChart(countUnder30, count30to40, count41to50, count51to60, countAbove60);
                 cancerChart(breastCancer, throatCancer, liverCancer, lungCancer);
-                procedureChart(biopsy, resection, bothProcedures);
+                procedureChart(biopsy, resection);
                 //sampleTypeChart(countBS, countSS, countOS);
                 sampleTypeChart(countBS, countSS, countOS, countCombined);
 
