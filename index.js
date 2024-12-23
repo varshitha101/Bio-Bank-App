@@ -3497,7 +3497,7 @@ function displayOutsourceData(data) {
   document.querySelector(`input[name="sharestatus"][value="${data.ossts}"]`).checked = true;
   document.getElementById('startInputOutsource').value = data.doe || '';
   document.getElementById('institute').value = data.dpt || '';
-  document.getElementById('projectName').value = data.pip || '';
+  document.getElementById('projectName').value = data.prj || '';
   document.getElementById('nopi').value = data.pip || '';  // Assuming 'pip' is project leader info
   document.getElementById('parSharedRemark').value = data.psr || '';
 
