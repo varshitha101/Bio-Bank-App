@@ -594,8 +594,7 @@
             </div>
 
             <div class="modal-footer">
-              <button type="submit" class="btn btn-primary" id="continuePage"
-                onclick="handleContinue()">Continue</button>
+              <button type="submit" class="btn btn-primary" id="continuePage" onclick="handleContinue()" disabled>Continue</button>
             </div>
           </div>
         </div>
@@ -809,12 +808,15 @@
 
     }
 
-    function handleSubmit() {
+        function handleSubmit() {
       event.preventDefault();
 
       const submitBtn = document.getElementById('submitBtn');
       const alertMessage = document.getElementById('alertMessage');
+      const continueBtn = document.getElementById('continuePage'); // Get the Continue button
+
       alertMessage.style.display = "none"; // Hide alert initially
+      continueBtn.disabled = true; // Disable Continue button initially
 
       submitBtn.innerHTML = `
         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
@@ -838,12 +840,14 @@
               alertMessage.classList.add("alert-success");
               localStorage.setItem("MRN", mrnNo);
               localStorage.setItem("BioVal", snapshot.val());
+              continueBtn.disabled = false; // Enable the Continue button
             } else {
               localStorage.setItem("MRN", "");
               localStorage.setItem("BioVal", "");
               alertMessage.innerHTML = "The MRN number doesn't exist."; // Show error message
               alertMessage.classList.remove("alert-success");
               alertMessage.classList.add("alert-danger");
+              continueBtn.disabled = false; // Keep the Continue button disabled
             }
             alertMessage.style.display = "block"; // Display the alert
           })
@@ -851,6 +855,7 @@
             alertMessage.innerHTML = "Error checking MRN number. Please try again.";
             alertMessage.classList.add("alert-danger");
             alertMessage.style.display = "block"; // Display error message
+            continueBtn.disabled = true; // Keep the Continue button disabled
             console.error("Error checking MRN in Firebase: ", error);
           });
       } else {
@@ -859,9 +864,9 @@
         alertMessage.innerHTML = "Please type a valid MRN number.";
         alertMessage.classList.add("alert-danger");
         alertMessage.style.display = "block"; // Display alert
+        continueBtn.disabled = true; // Keep the Continue button disabled
       }
     }
-
     // function loadBox() {
     //   event.preventDefault();
 
