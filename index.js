@@ -100,7 +100,9 @@ function populateBBLabels(data, boxVal, debug) {
       const index = row * cols + (col - 1);
 
       if (labelElement) {
-        labelElement.textContent = `${bioBankIds[index]} \n ${sample[index]}` || '';
+        labelElement.innerHTML = `${bioBankIds[index] || ''}<br>${sample[index] || ''}`;
+
+        // labelElement.textContent = `${bioBankIds[index]} \n ${sample[index]}` || '';
         labelElement.style.fontWeight = "bold";
 
         // Remove existing event listeners to prevent multiple fetches
@@ -742,7 +744,8 @@ function populateSBLabels(data) {
       // });
 
       if (labelElement) {
-        labelElement.textContent = `${bioBankIds[index]} \n ${sample[index]}` || '';
+        // labelElement.textContent = `${bioBankIds[index]} \n ${sample[index]}` || '';
+        labelElement.innerHTML = `${bioBankIds[index] || ''}<br>${sample[index] || ''}`;
         labelElement.style.fontWeight = "bold"
 
         const newLabelElement = labelElement.cloneNode(true);
