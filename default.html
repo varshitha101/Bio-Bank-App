@@ -348,7 +348,7 @@
                 <label for="gridNo" class="col-sm-2 mb-1 col-form-label">FT Tubes Grids <span
                     style="color: red; font-weight: bold;">*</span></label>
                 <div class="col-sm-10 mt-2">
-                  <input type="button" class="form-control" id="ftgrid" onclick="popFTmodal()"
+                  <input type="button" class="form-control" id="ftgrid" onclick="FTModal()"
                     placeholder="FT Grid No.">
                 </div>
               </div>
@@ -375,7 +375,7 @@
                 <label for="gridNo" class="col-sm-2 mb-1 col-form-label">FN Tubes Grids <span
                     style="color: red; font-weight: bold;">*</span></label>
                 <div class="col-sm-10 mt-2">
-                  <input type="button" class="form-control" id="fngrid" onclick="popFNmodal()"
+                  <input type="button" class="form-control" id="fngrid" onclick="FNModal()"
                     placeholder="FN Grid No.">
                 </div>
               </div>
@@ -416,7 +416,7 @@
                 <label for="bufferCoatgridNo" class="col-sm-2 mb-1 col-form-label">Buffy Coat Grid <span
                     style="color: red; font-weight: bold;">*</span></label>
                 <div class="col-sm-10 mt-2">
-                  <input type="button" class="form-control" id="bufferCoatgridNo" onclick="popBuffermodal()"
+                  <input type="button" class="form-control" id="bufferCoatgridNo" onclick="buffyModal()"
                     placeholder="Buffer Grid">
                 </div>
               </div>
@@ -441,7 +441,7 @@
                 <label for="OSgridNo" class="col-sm-2 mb-1 col-form-label">Other Sample Grid <span
                     style="color: red; font-weight: bold;">*</span></label>
                 <div class="col-sm-10 mt-2">
-                  <input type="button" class="form-control" id="OSgridNo" onclick="popOtherSamplemodal()"
+                  <input type="button" class="form-control" id="OSgridNo" onclick="OSModal()"
                     placeholder="Other Sample Grid">
                 </div>
               </div>
@@ -1920,7 +1920,6 @@
     let arrinx = [];
 
     let arrSinx = [];
-
     function plasmaModal() {
       let mode = localStorage.getItem('mode');
       if (mode === 'SearchView' || mode === 'PendingView' || mode === 'ViewFollowUp' || mode === 'SharedView') {
@@ -1939,6 +1938,25 @@
         popSerummodal()
       }
     }
+    function buffyModal() {
+      let mode = localStorage.getItem('mode');
+      if (mode === 'SearchView' || mode === 'PendingView' || mode === 'ViewFollowUp' || mode === 'SharedView') {
+        popVBufferModal()
+      }
+      else {
+        popBuffermodal()
+      }
+    }
+    function OSModal() {
+      let mode = localStorage.getItem('mode');
+      if (mode === 'SearchView' || mode === 'PendingView' || mode === 'ViewFollowUp' || mode === 'SharedView') {
+        popVOtherSampleModal()
+      }
+      else {
+        popOtherSamplemodal()
+      }
+    }
+    
 
     function popVPlasmaModal() {
       $('#bloodModalCenter').modal('show');
@@ -2068,6 +2086,7 @@
         const cols = 10;
 
         const activeBoxEntry = Object.entries(seatData).find(([boxName, data]) => data.bxsts === 'AC');
+        let BloodSelectedSeats = [];
 
         if (!activeBoxEntry) {
           console.error("No active box found with status 'AC'.");
@@ -2079,7 +2098,6 @@
           "status": "o"
         }
 
-        BloodSelectedSeats = []
         grid = localStorage.getItem("selectedGrid");
         console.log("selected Grid Data in Plasma:", grid);
 
@@ -2183,14 +2201,14 @@
         }
 
         function handleBSeatSelection(seatID, isChecked, status) {
-          const rev = localStorage.getItem("LocalPlasma")
+          const rev = localStorage.getItem("LocalPlasma");
 
           if (rev !== null) {
-            let arr = splitStringToArray(rev)
+            let arr = splitStringToArray(rev);
             BloodSelectedSeats = arr;
           }
 
-          console.log("rev : ", rev, " BloodSelectedSeats : ", BloodSelectedSeats)
+          console.log("rev : ", rev, " BloodSelectedSeats : ", BloodSelectedSeats);
 
           if (status === 'e') {
             if (isChecked) {
@@ -2199,62 +2217,61 @@
               let seatIndex = BloodSelectedSeats.indexOf(seatID);
               if (seatIndex !== -1) {
                 BloodSelectedSeats.splice(seatIndex, 1);
-                let arr = splitStringToArray(grid)
+                let arr = splitStringToArray(grid);
                 arr = removeItemFromArray(arr, seatID);
                 grid = arr.join(',');
               }
             }
-            // if (grid === null) {
-            //   localStorage.setItem("selectedGrid", BloodSelectedSeats);
-            // }
-            // else {
-            //   localStorage.setItem("selectedGrid", (grid + ',' + BloodSelectedSeats));
-            // }
-          }
-          else {
-            let arr = splitStringToArray(grid)
+          } else {
+            let arr = splitStringToArray(grid);
             if (status === 'o' && arr.includes(seatID)) {
               let seatIndex = BloodSelectedSeats.indexOf(seatID);
               if (seatIndex !== -1) {
                 BloodSelectedSeats.splice(seatIndex, 1);
-                let arr = splitStringToArray(grid)
                 arr = removeItemFromArray(arr, seatID);
                 grid = arr.join(',');
               }
-            }
-            else {
+            } else {
               alert("Error clicking the filled component.");
-
             }
           }
+
+          // Filter out any empty or null values from BloodSelectedSeats
+          BloodSelectedSeats = BloodSelectedSeats.filter(item => item);
+
           console.log("Selected seats:", BloodSelectedSeats);
-          localStorage.setItem("LocalPlasma", BloodSelectedSeats)
+          localStorage.setItem("LocalPlasma", BloodSelectedSeats.join(','));  // Store as a comma-separated string
           updatePlasmaGridInput();
         }
 
         function updatePlasmaGridInput() {
           let gridInput = document.querySelector("input[placeholder='Plasma Grid']");
+
+          // Remove null or empty values from BloodSelectedSeats
+          BloodSelectedSeats = BloodSelectedSeats.filter(item => item);
+
           if (grid === null) {
-            localStorage.setItem("selectedGrid", BloodSelectedSeats);
-            //localStorage.setItem("selectedGrid", JSON.stringify(BloodSelectedSeats));
-          }
-          else {
-            //grid.push(BloodSelectedSeats)
-            localStorage.setItem("selectedGrid", (grid + ',' + BloodSelectedSeats));
-            // let combinedArray = splitStringToArray(grid).concat(BloodSelectedSeats); // Concatenate both arrays
-            // localStorage.setItem("selectedGrid", JSON.stringify([...new Set(combinedArray)])); // Remove duplicates and store as array
+            localStorage.setItem("selectedGrid", BloodSelectedSeats.join(',')); // Store as comma-separated string
+          } else {
+            // Remove any empty values from grid before updating
+            grid = splitStringToArray(grid).filter(item => item);  // Filter out null or empty values
+            localStorage.setItem("selectedGrid", (grid.concat(BloodSelectedSeats)).join(','));
           }
 
-
-          console.log("Data check in handle", localStorage.getItem("selectedGrid"), "grid", grid)
+          console.log("Data check in handle", localStorage.getItem("selectedGrid"), "grid", grid);
           grid = localStorage.getItem("selectedGrid");
           splitStringToArray(grid);
 
           if (gridInput) {
             const box_name = activeBoxName;
-            const status = document.querySelector('input[name="MetastasisSample"]:checked') && document.querySelector('input[name="MetastasisSample"]:checked').value === "true" ? "MPlasma" : "Plasma";
-            const grid_id = BloodSelectedSeats.join(', ');
-            gridInput.value = `${box_name}/${grid_id}/${status}`;
+            const status = document.querySelector('input[name="MetastasisSample"]:checked') &&
+              document.querySelector('input[name="MetastasisSample"]:checked').value === "true" ? "MPlasma" : "Plasma";
+            const grid_id = BloodSelectedSeats.join(', ');  // Remove null and empty values
+            if (grid_id.length > 0) {  // Only update gridInput if grid_id is not empty
+              gridInput.value = `${box_name}/${grid_id}/${status}`;
+            } else {
+              gridInput.value = '';  // Clear the gridInput value if grid_id is empty
+            }
           }
         }
 
@@ -2390,10 +2407,10 @@
       function populateBSeats(containerClass, seatData) {
         let container = document.querySelector(`.${containerClass}`);
         container.innerHTML = '';
-        // let BloodSelectedSeats = [];
-        BloodSelectedSeats = [];
+
         const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
         const cols = 10;
+        let BloodSelectedSeats = [];
 
         const activeBoxEntry = Object.entries(seatData).find(([boxName, data]) => data.bxsts === 'AC');
 
@@ -2457,12 +2474,13 @@
           console.log("arrinx", arrinx)
           console.log("filteredSeats", filteredSeats)
         }
+
+
         const indexedSeats = filteredSeats;
         if (!indexedSeats) {
           console.log("No indexed seats available in the active box.");
           return;
         }
-
 
         for (let row = 0; row < rows.length; row++) {
           for (let col = 1; col <= cols; col++) {
@@ -2479,7 +2497,6 @@
                 `<input type="checkbox" name="seats" id="${seatID}" />` +
                 `<label for="${seatID}" class="seat" id="${labelName}">${labelName}</label>`
               );
-
               document.getElementById(seatID).addEventListener('change', function (event) {
                 handleBSeatSelection(seatID, event.target.checked, seat.status);
               });
@@ -2545,6 +2562,8 @@
             }
           }
           // BloodSelectedSeats = splitStringToArray(BloodSelectedSeats)
+          BloodSelectedSeats = BloodSelectedSeats.filter(item => item);
+
           console.log("Selected seats:", BloodSelectedSeats);
           localStorage.setItem("LocalSerum", BloodSelectedSeats)
           updateSerumGridInput();
@@ -2553,11 +2572,12 @@
         function updateSerumGridInput() {
           let gridInput = document.querySelector("input[placeholder='Serum Grid']");
           if (grid === null) {
-            localStorage.setItem("selectedGrid", BloodSelectedSeats);
+            localStorage.setItem("selectedGrid", BloodSelectedSeats.join(','));
             //localStorage.setItem("selectedGrid", JSON.stringify(BloodSelectedSeats));
           }
           else {
             //grid.push(BloodSelectedSeats)
+            grid = splitStringToArray(grid).filter(item => item);  // Filter out null or empty values
             localStorage.setItem("selectedGrid", (grid + ',' + BloodSelectedSeats));
             // let combinedArray = splitStringToArray(grid).concat(BloodSelectedSeats); // Concatenate both arrays
             // localStorage.setItem("selectedGrid", JSON.stringify([...new Set(combinedArray)])); // Remove duplicates and store as array
@@ -2571,7 +2591,11 @@
             const box_name = activeBoxName;
             const status = document.querySelector('input[name="MetastasisSample"]:checked') && document.querySelector('input[name="MetastasisSample"]:checked').value === "true" ? "MSerum" : "Serum";
             const grid_id = BloodSelectedSeats.join(', ');
-            gridInput.value = `${box_name}/${grid_id}/${status}`;
+            if (grid_id.length > 0) {  // Only update gridInput if grid_id is not empty
+              gridInput.value = `${box_name}/${grid_id}/${status}`;
+            } else {
+              gridInput.value = '';  // Clear the gridInput value if grid_id is empty
+            }
           }
         }
 
@@ -2600,6 +2624,103 @@
       return arr.filter(item => item !== itemToRemove);
     }
 
+    function popVBufferModal() {
+      $('#bloodModalCenter').modal('show');
+
+      fetchSeatDataFromDB('bb').then(seatData => {
+        populateBSeats('blood-box', seatData);
+      });
+
+      function fetchSeatDataFromDB(nodeName) {
+        return new Promise((resolve, reject) => {
+          let dbRef = firebase.database().ref(nodeName);
+          dbRef.once('value')
+            .then(snapshot => {
+              let seatData = snapshot.val();
+              resolve(seatData);
+            })
+            .catch(error => {
+              console.error("Error fetching seat data:", error);
+              reject(error);
+            });
+        });
+      }
+
+      function populateBSeats(containerClass, seatData) {
+        let container = document.querySelector(`.${containerClass}`);
+        container.innerHTML = '';
+
+        const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+        const cols = 10;
+
+        const buffyBoxName = document.getElementById("bufferCoatgridNo").value
+        const boxname = buffyBoxName.split('/')[0];
+        console.log("box name", boxname);
+        console.log("box name", seatData);
+
+        const activeBoxEntry = Object.entries(seatData).find(([boxName, data]) => boxName === boxname);
+
+
+
+        const [activeBoxName, filteredSeats] = activeBoxEntry;
+        console.log("activeBoxEntry", activeBoxEntry);
+
+
+        const indexedSeats = filteredSeats;
+        if (!indexedSeats) {
+          console.log("No indexed seats available in the active box.");
+          return;
+        }
+
+        for (let row = 0; row < rows.length; row++) {
+          for (let col = 1; col <= cols; col++) {
+            const labelName = `label_B${rows[row]}${col}`;
+            const seatID = `${rows[row]}${col}`;
+            const index = row * cols + (col - 1);
+
+            const seat = indexedSeats[index];
+
+            if (seat) {
+              container.insertAdjacentHTML(
+                "beforeend",
+                `<input type="checkbox" name="seats" id="${seatID}" />` +
+                `<label for="${seatID}" class="viewSeat" id="${labelName}">${labelName}</label>`
+              );
+
+              let labelElement = document.getElementById(labelName);
+              if (labelElement) {
+                labelElement.textContent = `${seat.bioBankId || ""} \n ${seat.sampleType}` || '';
+                labelElement.style.fontWeight = "bold";
+                labelElement.style.fontSize = "10px";
+                labelElement.style.textAlign = 'center';
+                labelElement.style.color = 'white';
+
+                // if (seatID.includes(grid)) {
+                //   console.log("seatID", seatID.includes(grid) + " seatID", seatID)
+                // }
+
+                if (seat.status === "o") {
+                  labelElement.style.background = "rgb(129, 129, 192)";
+                } else if (seat.status === "s") {
+                  labelElement.style.background = "rgb(180, 180, 180)";
+                } else if (seat.status === "ps") {
+                  labelElement.style.background = "rgb(193, 154, 107)";
+                } else if (seat.status === "e") {
+                  labelElement.style.background = "rgb(143, 218, 187)";
+                }
+              }
+            }
+          }
+          container.insertAdjacentHTML("beforeend", "<br/>");
+        }
+        window.handleDone = function () {
+          $('#bloodModalCenter').modal('hide');
+        };
+      }
+
+    }
+
+
     function popBuffermodal() {
       $('#bloodModalCenter').modal('show');
       fetchSeatDataFromDB('bb').then(seatData => {
@@ -2624,12 +2745,12 @@
       function populateBSeats(containerClass, seatData) {
         let container = document.querySelector(`.${containerClass}`);
         container.innerHTML = '';
-        let BloodSelectedSeats = [];
 
         const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
         const cols = 10;
 
         const activeBoxEntry = Object.entries(seatData).find(([boxName, data]) => data.bxsts === 'AC');
+        let BloodSelectedSeats = [];
 
         if (!activeBoxEntry) {
           console.error("No active box found with status 'AC'.");
@@ -2774,19 +2895,26 @@
               alert("Error clicking the filled component.");
             }
           }
+          BloodSelectedSeats = BloodSelectedSeats.filter(item => item);
+
           console.log("Selected seats:", BloodSelectedSeats);
           localStorage.setItem("LocalBuffy", BloodSelectedSeats)
           updateBuffyGridInput();
         }
         function updateBuffyGridInput() {
           let gridInput = document.querySelector("input[placeholder='Buffer Grid']");
+          BloodSelectedSeats = BloodSelectedSeats.filter(item => item);
+
           if (grid === null) {
-            localStorage.setItem("selectedGrid", BloodSelectedSeats);
+            localStorage.setItem("selectedGrid", BloodSelectedSeats).join(',');
             //localStorage.setItem("selectedGrid", JSON.stringify(BloodSelectedSeats));
           }
           else {
             //grid.push(BloodSelectedSeats)
+            grid = splitStringToArray(grid).filter(item => item);  // Filter out null or empty values
+
             localStorage.setItem("selectedGrid", (grid + ',' + BloodSelectedSeats));
+
             // let combinedArray = splitStringToArray(grid).concat(BloodSelectedSeats); // Concatenate both arrays
             // localStorage.setItem("selectedGrid", JSON.stringify([...new Set(combinedArray)])); // Remove duplicates and store as array
           }
@@ -2799,7 +2927,11 @@
             const box_name = activeBoxName;
             const status = document.querySelector('input[name="MetastasisSample"]:checked') && document.querySelector('input[name="MetastasisSample"]:checked').value === "true" ? "MBuffy Coat" : "Buffy Coat";
             const grid_id = BloodSelectedSeats.join(', ');
-            gridInput.value = `${box_name}/${grid_id}/${status}`;
+            if (grid_id.length > 0) {  // Only update gridInput if grid_id is not empty
+              gridInput.value = `${box_name}/${grid_id}/${status}`;
+            } else {
+              gridInput.value = '';  // Clear the gridInput value if grid_id is empty
+            }
           }
         }
 
@@ -2811,6 +2943,100 @@
         };
       }
     }
+
+
+
+    function popVOtherSampleModal() {
+      $('#bloodModalCenter').modal('show');
+
+      fetchSeatDataFromDB('bb').then(seatData => {
+        populateBSeats('blood-box', seatData);
+      });
+
+      function fetchSeatDataFromDB(nodeName) {
+        return new Promise((resolve, reject) => {
+          let dbRef = firebase.database().ref(nodeName);
+          dbRef.once('value')
+            .then(snapshot => {
+              let seatData = snapshot.val();
+              resolve(seatData);
+            })
+            .catch(error => {
+              console.error("Error fetching seat data:", error);
+              reject(error);
+            });
+        });
+      }
+
+      function populateBSeats(containerClass, seatData) {
+        let container = document.querySelector(`.${containerClass}`);
+        container.innerHTML = '';
+
+        const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+        const cols = 10;
+
+        const OSBoxName = document.getElementById("OSgridNo").value
+        const boxname = OSBoxName.split('/')[0];
+        console.log("box name", boxname);
+        console.log("box name", seatData);
+
+        const activeBoxEntry = Object.entries(seatData).find(([boxName, data]) => boxName === boxname);
+
+
+
+        const [activeBoxName, filteredSeats] = activeBoxEntry;
+        console.log("activeBoxEntry", activeBoxEntry);
+
+
+        const indexedSeats = filteredSeats;
+        if (!indexedSeats) {
+          console.log("No indexed seats available in the active box.");
+          return;
+        }
+
+        for (let row = 0; row < rows.length; row++) {
+          for (let col = 1; col <= cols; col++) {
+            const labelName = `label_B${rows[row]}${col}`;
+            const seatID = `${rows[row]}${col}`;
+            const index = row * cols + (col - 1);
+
+            const seat = indexedSeats[index];
+
+            if (seat) {
+              container.insertAdjacentHTML(
+                "beforeend",
+                `<input type="checkbox" name="seats" id="${seatID}" />` +
+                `<label for="${seatID}" class="viewSeat" id="${labelName}">${labelName}</label>`
+              );
+
+              let labelElement = document.getElementById(labelName);
+              if (labelElement) {
+                labelElement.textContent = `${seat.bioBankId || ""} \n ${seat.sampleType}` || '';
+                labelElement.style.fontWeight = "bold";
+                labelElement.style.fontSize = "10px";
+                labelElement.style.textAlign = 'center';
+                labelElement.style.color = 'white';
+
+                if (seat.status === "o") {
+                  labelElement.style.background = "rgb(129, 129, 192)";
+                } else if (seat.status === "s") {
+                  labelElement.style.background = "rgb(180, 180, 180)";
+                } else if (seat.status === "ps") {
+                  labelElement.style.background = "rgb(193, 154, 107)";
+                } else if (seat.status === "e") {
+                  labelElement.style.background = "rgb(143, 218, 187)";
+                }
+              }
+            }
+          }
+          container.insertAdjacentHTML("beforeend", "<br/>");
+        }
+        window.handleDone = function () {
+          $('#bloodModalCenter').modal('hide');
+        };
+      }
+    }
+
 
     function popOtherSamplemodal() {
       $('#bloodModalCenter').modal('show');
@@ -2998,6 +3224,8 @@
 
             }
           }
+          BloodSelectedSeats = BloodSelectedSeats.filter(item => item);
+
           console.log("Selected seats:", BloodSelectedSeats);
           localStorage.setItem("LocalOther", BloodSelectedSeats)
           updateOtherGridInput();
@@ -3005,12 +3233,16 @@
 
         function updateOtherGridInput() {
           let gridInput = document.querySelector("input[placeholder='Other Sample Grid']");
+          
+          BloodSelectedSeats = BloodSelectedSeats.filter(item => item);
+
           if (grid === null) {
             localStorage.setItem("selectedGrid", BloodSelectedSeats);
             //localStorage.setItem("selectedGrid", JSON.stringify(BloodSelectedSeats));
           }
           else {
             //grid.push(BloodSelectedSeats)
+            grid = splitStringToArray(grid).filter(item => item);  // Filter out null or empty values
             localStorage.setItem("selectedGrid", (grid + ',' + BloodSelectedSeats));
             // let combinedArray = splitStringToArray(grid).concat(BloodSelectedSeats); // Concatenate both arrays
             // localStorage.setItem("selectedGrid", JSON.stringify([...new Set(combinedArray)])); // Remove duplicates and store as array
@@ -3024,7 +3256,11 @@
             const box_name = activeBoxName;
             const status = document.querySelector('input[name="MetastasisSample"]:checked') && document.querySelector('input[name="MetastasisSample"]:checked').value === "true" ? "MOther" : "Other";
             const grid_id = BloodSelectedSeats.join(', ');
-            gridInput.value = `${box_name}/${grid_id}/${status}`;
+            if (grid_id.length > 0) {  // Only update gridInput if grid_id is not empty
+              gridInput.value = `${box_name}/${grid_id}/${status}`;
+            } else {
+              gridInput.value = '';  // Clear the gridInput value if grid_id is empty
+            }
           }
         }
 
@@ -3055,6 +3291,120 @@
       // localStorage.removeItem("LocalBuffy");
       // localStorage.removeItem("LocalOther");  
     };
+
+    
+    function FTModal() {
+      let mode = localStorage.getItem('mode');
+      if (mode === 'SearchView' || mode === 'PendingView' || mode === 'ViewFollowUp' || mode === 'SharedView') {
+        popVFTmodal()
+      }
+      else {
+        popFTmodal()
+      }
+    }
+
+    function FNModal() {
+      let mode = localStorage.getItem('mode');
+      if (mode === 'SearchView' || mode === 'PendingView' || mode === 'ViewFollowUp' || mode === 'SharedView') {
+        popVFNmodal()
+      }
+      else {
+        popFNmodal()
+      }
+    }
+
+    function popVFTmodal() {
+      $('#specimenModalCenter').modal('show');
+
+      fetchSeatDataFromDB('sb').then(seatData => {
+        populateSSeats('specimen-box', seatData, 'ft');
+      });
+
+      function fetchSeatDataFromDB(nodeName) {
+        return new Promise((resolve, reject) => {
+          let dbRef = firebase.database().ref(nodeName);
+          dbRef.once('value')
+            .then(snapshot => {
+              let seatData = snapshot.val();
+              resolve(seatData);
+            })
+            .catch(error => {
+              console.error("Error fetching seat data:", error);
+              reject(error);
+            });
+        });
+      }
+
+      function populateSSeats(containerClass, seatData, type) {
+        let container = document.querySelector(`.${containerClass}`);
+        container.innerHTML = '';
+        let SpecimenSelectedSeats = [];
+
+        const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+        const cols = 10;
+
+        const FTBoxName = document.getElementById("ftgrid").value
+        const boxname = FTBoxName.split('/')[0];
+        console.log("box name", boxname);
+        console.log("box name", seatData);
+        
+        const activeBoxEntry = Object.entries(seatData).find(([boxName, data]) => boxName === boxname);
+        if (!activeBoxEntry) {
+          console.error("No active box found with status 'AC'.");
+          return;
+        }
+
+        
+        const [activeBoxName, filteredSeats] = activeBoxEntry;
+        console.log("Active Box Name:", activeBoxName);
+        document.getElementById('currSpecimenBoxName').textContent = activeBoxName;
+        console.log("spgrid -- ", spgrid);
+
+
+        const indexedSeats = filteredSeats;
+
+        for (let row = 0; row < rows.length; row++) {
+          for (let col = 1; col <= cols; col++) {
+            const labelName = `label_S${rows[row]}${col}`;
+            const seatID = `${rows[row]}${col}`;
+            const index = row * cols + (col - 1);
+
+            const seatData = indexedSeats[index];
+
+            if (seatData) {
+              container.insertAdjacentHTML(
+                "beforeend",
+                `<input type="checkbox" name="seats" id="${seatID}" />` +
+                `<label for="${seatID}" class="viewSeat" id="${labelName}">${labelName}</label>`
+              );
+
+              let labelElement = document.getElementById(labelName);
+              if (labelElement) {
+                labelElement.textContent = `${seatData.bioBankId || ""} \n ${seatData.sampleType}` || '';
+                labelElement.style.fontWeight = "bold";
+                labelElement.style.fontSize = "10px";
+                labelElement.style.textAlign = 'center';
+                labelElement.style.color = 'white';
+
+                if (seatData.status === "o") {
+                  labelElement.style.background = "rgb(129, 129, 192)";
+                } else if (seatData.status === "s") {
+                  labelElement.style.background = "rgb(180, 180, 180)";
+                } else if (seatData.status === "ps") {
+                  labelElement.style.background = "rgb(193, 154, 107)";
+                } else if (seatData.status === "e") {
+                  labelElement.style.background = "rgb(143, 218, 187)";
+                }
+              }
+            }
+          }
+          container.insertAdjacentHTML("beforeend", "<br/>");
+        }
+        window.handleDone = function () {
+          $('#specimenModalCenter').modal('hide');
+        };
+      }
+    }
 
     function popFTmodal() {
       $('#specimenModalCenter').modal('show');
@@ -3280,6 +3630,99 @@
     }
 
     // Function to handle FN modal
+    function popVFNmodal() {
+      $('#specimenModalCenter').modal('show');
+
+      fetchSeatDataFromDB('sb').then(seatData => {
+        populateSSeats('specimen-box', seatData, 'ft');
+      });
+
+      function fetchSeatDataFromDB(nodeName) {
+        return new Promise((resolve, reject) => {
+          let dbRef = firebase.database().ref(nodeName);
+          dbRef.once('value')
+            .then(snapshot => {
+              let seatData = snapshot.val();
+              resolve(seatData);
+            })
+            .catch(error => {
+              console.error("Error fetching seat data:", error);
+              reject(error);
+            });
+        });
+      }
+
+      function populateSSeats(containerClass, seatData, type) {
+        let container = document.querySelector(`.${containerClass}`);
+        container.innerHTML = '';
+        let SpecimenSelectedSeats = [];
+
+        const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+        const cols = 10;
+
+        const FTBoxName = document.getElementById("fngrid").value
+        const boxname = FTBoxName.split('/')[0];
+        console.log("box name", boxname);
+        console.log("box name", seatData);
+        
+        const activeBoxEntry = Object.entries(seatData).find(([boxName, data]) => boxName === boxname);
+        if (!activeBoxEntry) {
+          console.error("No active box found with status 'AC'.");
+          return;
+        }
+
+        
+        const [activeBoxName, filteredSeats] = activeBoxEntry;
+        console.log("Active Box Name:", activeBoxName);
+        document.getElementById('currSpecimenBoxName').textContent = activeBoxName;
+        console.log("spgrid -- ", spgrid);
+
+
+        const indexedSeats = filteredSeats;
+
+        for (let row = 0; row < rows.length; row++) {
+          for (let col = 1; col <= cols; col++) {
+            const labelName = `label_S${rows[row]}${col}`;
+            const seatID = `${rows[row]}${col}`;
+            const index = row * cols + (col - 1);
+
+            const seatData = indexedSeats[index];
+
+            if (seatData) {
+              container.insertAdjacentHTML(
+                "beforeend",
+                `<input type="checkbox" name="seats" id="${seatID}" />` +
+                `<label for="${seatID}" class="viewSeat" id="${labelName}">${labelName}</label>`
+              );
+
+              let labelElement = document.getElementById(labelName);
+              if (labelElement) {
+                labelElement.textContent = `${seatData.bioBankId || ""} \n ${seatData.sampleType}` || '';
+                labelElement.style.fontWeight = "bold";
+                labelElement.style.fontSize = "10px";
+                labelElement.style.textAlign = 'center';
+                labelElement.style.color = 'white';
+
+                if (seatData.status === "o") {
+                  labelElement.style.background = "rgb(129, 129, 192)";
+                } else if (seatData.status === "s") {
+                  labelElement.style.background = "rgb(180, 180, 180)";
+                } else if (seatData.status === "ps") {
+                  labelElement.style.background = "rgb(193, 154, 107)";
+                } else if (seatData.status === "e") {
+                  labelElement.style.background = "rgb(143, 218, 187)";
+                }
+              }
+            }
+          }
+          container.insertAdjacentHTML("beforeend", "<br/>");
+        }
+        window.handleDone = function () {
+          $('#specimenModalCenter').modal('hide');
+        };
+      }
+    }
+
     function popFNmodal() {
       $('#specimenModalCenter').modal('show');
 
@@ -3496,6 +3939,7 @@
         };
       }
     }
+
 
 
 
