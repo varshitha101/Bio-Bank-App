@@ -150,13 +150,13 @@ else{  option = {
 }
 }
 
-function procedureChart(biopsy, resection, bothProcedures) {
+function procedureChart(biopsy, resection) {
   var chartDom = document.getElementById('chart3');
   var myChart = echarts.init(chartDom);
   myChart.clear();
   var option;
 
-  if (biopsy === 0 && resection === 0 && bothProcedures === 0) {
+  if (biopsy === 0 && resection === 0) {
     option = {
       title: {
         text: 'No Data Available',
@@ -209,8 +209,8 @@ else{
         },
         data: [
           { value: biopsy, name: 'Biopsy' },
-          { value: resection, name: 'Resection' },
-          { value: bothProcedures, name: 'Both' }
+          { value: resection, name: 'Resection' }
+        
         ]
       }
     ]
