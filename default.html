@@ -4636,8 +4636,11 @@
         // formElements.forEach(element => {
         //   element.disabled = true;
         // });
-        formElements.forEach(element => {
-  if (element.id !== 'PlasmagridNo' && element.id !== 'SerumgridNo') {
+             formElements.forEach(element => {
+  const idsToExclude = ['PlasmagridNo', 'SerumgridNo', 'bufferCoatgridNo', 'OSgridNo', 'ftgrid', 'fngrid'];
+
+  // Only disable elements that are not in idsToExclude and have a value
+  if (!idsToExclude.includes(element.id) ) {
     element.disabled = true;
   }
 });
