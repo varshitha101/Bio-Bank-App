@@ -841,7 +841,7 @@
         const bioBankId = row.getAttribute("data-bioBankId");
         const seqKey = row.getAttribute("data-seqKey");
         const timestampKey = row.getAttribute("data-timestampKey");
-        const gridData = JSON.parse(row.getAttribute("data-grid"));
+        const gridData = row.getAttribute("data-grid");
         const boxName = row.getAttribute("data-box");
 
         selectedPatients.push({
@@ -1173,7 +1173,7 @@ function searchSample(event) {
             const sampleParts = patient[sampleField].split("/");
             const sampleType = sampleParts[2]?.toUpperCase(); // Normalize to lowercase
             return (
-              sampleTypeInput === "all" || 
+              sampleTypeInput === "ALL" || 
               sampleType === sampleTypeInput || 
               `m${sampleType}` === sampleTypeInput
             );
@@ -1182,7 +1182,7 @@ function searchSample(event) {
         };
 
         const sampleTypeMatch =
-          sampleTypeInput === "all" ||
+          sampleTypeInput === "ALL" ||
           checkSampleType("bpg") ||
           checkSampleType("bsg") ||
           checkSampleType("bbcg") ||
