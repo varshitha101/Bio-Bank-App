@@ -2580,34 +2580,64 @@ function fillBrfForm(brfData) {
   // }
 
   // Populate data as usual if brfData.ms has a value
+ console.log("brfData",brfData);
+  // Populate data as usual if brfData.ms has a value
   document.getElementById('ageAtMenarche').value = brfData.am || '';
   document.getElementById('parity').value = brfData.pty || '';
   document.getElementById('numChild').value = brfData.noc || '';
   document.getElementById('ageAtFirstChild').value = brfData.afc || '';
-  if (brfData.bf !== undefined) {
-    document.querySelector(`input[name="breFd"][value="${brfData.bf}"]`).checked = true;
+  if (brfData.bf ) {
+    document.querySelector(`input[name="breFd"][value="${brfData.bf}"]`).checked = true || "";
+  }else{
+    // Optionally, handle the case where brfData.bf is empty
+    // For example, you might want to uncheck all radio buttons
+    const radioButtons = document.querySelectorAll('input[name="breFd"]');
+    radioButtons.forEach(radio => {
+        radio.checked = false; // Uncheck all if needed
+    });
   }
   document.getElementById('dbf').value = brfData.dbf || '';
   if (brfData.ms) {
     document.querySelector(`input[name="mStatus"][value="${brfData.ms}"]`).checked = true;
+  }else{
+    const radioButtons = document.querySelectorAll('input[name="mStatus"]');
+    radioButtons.forEach(radio => {
+        radio.checked = false; // Uncheck all if needed
+    });
   }
   document.getElementById('ad').value = brfData.ad || '';
-  if (brfData.er !== undefined) {
+  if (brfData.er ) {
     document.querySelector(`input[name="ERRadio"][value="${brfData.er}"]`).checked = true;
+  }else{
+    const radioButtons = document.querySelectorAll('input[name="ERRadio"]');
+    radioButtons.forEach(radio => {
+        radio.checked = false; // Uncheck all if needed
+    });
   }
   if (brfData.pr !== undefined) {
     document.querySelector(`input[name="PRRadio"][value="${brfData.pr}"]`).checked = true;
+  }else{
+    const radioButtons = document.querySelectorAll('input[name="PRRadio"]');
+    radioButtons.forEach(radio => {
+        radio.checked = false; // Uncheck all if needed
+    });
   }
   if (brfData.h2 !== undefined) {
     document.querySelector(`input[name="HER2Radio"][value="${brfData.h2}"]`).checked = true;
+  }else{
+    const radioButtons = document.querySelectorAll('input[name="HER2Radio"]');
+    radioButtons.forEach(radio => {
+        radio.checked = false; // Uncheck all if needed
+    });
   }
   document.getElementById('sbt').value = brfData.sbt || '';
   document.getElementById('k67').value = brfData.k67 || '';
   document.getElementById('ClinicalS').value = brfData.cs || '';
   document.getElementById('HistologicalS').value = brfData.ht || '';
   document.getElementById('sps').value = brfData.sps || '';
-  document.getElementById('brfdataEB').value = brfData.brfu || 'currentUser';
+  document.getElementById('brfdataEB').value = brfData.brfu || '';
 }
+
 
 function updateToFirebase(data) {
   const bioBankId = document.getElementById('bioBankId').value;
