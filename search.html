@@ -1173,7 +1173,7 @@ function searchSample(event) {
             const sampleParts = patient[sampleField].split("/");
             const sampleType = sampleParts[2]?.toUpperCase(); // Normalize to lowercase
             return (
-              sampleTypeInput === "ALL" || 
+              sampleTypeInput === "all" || 
               sampleType === sampleTypeInput || 
               `m${sampleType}` === sampleTypeInput
             );
