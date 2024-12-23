@@ -150,7 +150,7 @@
                   <th scope="col">Age</th>
                   <th scope="col">Gender</th>
                   <th scope="col">Type of Cancer</th>
-                  <th scope="col">Stage of Cancer</th>
+             
                   <th scope="col">Grade of Cancer</th>
                   <th scope="col">Action</th>
                 </tr>
@@ -367,7 +367,7 @@
                   <th scope="col">Grid</th>
                   <th scope="col">Type of Samples</th>
                   <th scope="col">Type of Cancer</th>
-                  <th scope="col">Stage of Cancer</th>
+                  
                   <th scope="col">Grade of Cancer</th>
                   <th scope="col">Action</th>
                 </tr>
@@ -384,7 +384,7 @@
                   <td class="grid"></td>
                   <td class="sampleTypes"></td>
                   <td class="cancerType"></td>
-                  <td class="stage"></td>
+                  
                   <td class="grade"></td>
                   <td class="action"></td>
                 </tr>
@@ -469,13 +469,7 @@
                       ">
                     Type of Cancer
                   </th>
-                  <th style="
-                        border: 1px solid #ddd;
-                        text-align: center;
-                        background-color: #f2f2f2;
-                      ">
-                    Stage
-                  </th>
+             
                   <th style="
                         border: 1px solid #ddd;
                         text-align: center;
@@ -823,7 +817,6 @@
         <td class="age">${patient.ie.ag || "-"}</td>
         <td class="gender">${patient.ie.sx || "-"}</td>
         <td class="cancerType">${patient.ie.ct === 'brst' ? "Breast Cancer" : "-"}</td>
-        <td class="procedure">${patient.ie.stc || "-"}</td>
         <td class="grade">${patient.md.gd || "-"}</td>
 
         <td class="action">
@@ -937,8 +930,7 @@
       
       <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${patient.ct === 'brst' ? "Breast Cancer" : "-"
                                                                           }</td>
-      <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${patient.stc || "-"
-          }</td>
+      
       <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${patientData.md?.gd || "-"
           }</td>
       <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">
@@ -1112,7 +1104,7 @@ paginatedSequences.forEach((sequence) => {
     <td class="grid">${seat || "-"}</td>
     <td class="sampleType">${sampleType || "-"}</td>
     <td class="cancerType">${patientData.ie.ct === "brst" ? "Breast Cancer" : "-"}</td>
-    <td class="stage">${patientData.ie?.stc || "-"}</td>
+   
     <td class="grade">${patientData.md?.gd || "-"}</td>
     <td class="action">
         <button class="btn btn-primary btn-sm" onclick="editPatient('${bioBankId}', '${seqKey}', '${timestampKey}')">Edit</button>
