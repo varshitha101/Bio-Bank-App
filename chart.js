@@ -226,7 +226,7 @@ function sampleTypeChart(countBS, countSS, countOS,countCombined) {
   myChart.clear();
   var option;
 
-  if (countBS === 0 && countSS === 0 && countOS === 0) {
+  if (countBS === 0 && countSS === 0 && countOS === 0 && countCombined === 0) {
     option = {
       title: {
         text: 'No Data Available',
