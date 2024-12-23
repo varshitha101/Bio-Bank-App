@@ -842,7 +842,7 @@
               localStorage.setItem("BioVal", snapshot.val());
               continueBtn.disabled = false; // Enable the Continue button
             } else {
-              localStorage.setItem("MRN", "");
+              localStorage.setItem("MRN", mrnNo);
               localStorage.setItem("BioVal", "");
               alertMessage.innerHTML = "The MRN number doesn't exist."; // Show error message
               alertMessage.classList.remove("alert-success");
