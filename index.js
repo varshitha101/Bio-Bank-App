@@ -1401,7 +1401,7 @@ console.log("User Name", user)
 
 //   if (!allFilled) {
 //     console.log('Please fill in the following required fields:', emptyFields.join(', '));
-//     alert('Please enter all the required fields. Check the console for details.');
+//     alert('Please enter all the required fields.');
 //     return;  // Stop the function if fields are missing
 //   }
 
@@ -1750,7 +1750,7 @@ function validateForm1() {
 
   if (!allFilled) {
     console.log('Please fill in the following required fields:', emptyFields.join(', '));
-    alert('Please enter all the required fields. Check the console for details.');
+    alert('Please enter all the required fields.');
     return;
   }
   const getDateAndTime = (dateId, timeId) => {
