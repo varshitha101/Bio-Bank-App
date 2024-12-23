@@ -1819,7 +1819,7 @@ function validateForm1() {
       ag: document.getElementById('patAge').value,
       sx: document.querySelector('input[name="customRadio"]:checked').value,
       ct: document.querySelector('input[name="radioCancerType"]:checked').value,
-      stc: document.querySelector('input[name="radioCancerStage"]:checked').value,
+      //stc: document.querySelector('input[name="radioCancerStage"]:checked').value,
       tpr: document.querySelector('input[name="customProcedure"]:checked').value,
       dpr: document.getElementById('procedureDetail').value,
       srn: document.getElementById('surgeonName').value,
@@ -2138,7 +2138,7 @@ function patients() {
       age: document.getElementById('patAge').value, // Assuming 'patAge' is the age input field
       gndr: document.querySelector('input[name="customRadio"]:checked').value, // Gender
       ct: document.querySelector('input[name="radioCancerType"]:checked').value, // Type of Cancer
-      stc: document.querySelector('input[name="radioCancerStage"]:checked').value, // Stage of Cancer
+      //stc: document.querySelector('input[name="radioCancerStage"]:checked').value, // Stage of Cancer
       grc: document.getElementById('sampleGrade')?.value || "", // Grade of Cancer
       smty: smty || "",
       typ: document.querySelector('input[name="customProcedure"]:checked').value, // Type of Procedure
@@ -2319,7 +2319,7 @@ function fillIeForm(ieData) {
   document.getElementById('patAge').value = ieData.ag || '';
   document.querySelector(`input[name="customRadio"][value="${ieData.sx}"]`).checked = true || '';
   document.querySelector(`input[name="radioCancerType"][value="${ieData.ct}"]`).checked = true || '';
-  document.querySelector(`input[name="radioCancerStage"][value="${ieData.stc}"] `).checked = true || '';
+  //document.querySelector(`input[name="radioCancerStage"][value="${ieData.stc}"] `).checked = true || '';
   document.querySelector(`input[name="customProcedure"][value="${ieData.tpr}"]`).checked = true;
   document.getElementById('procedureDetail').value = ieData.dpr || '';
   document.getElementById('surgeonName').value = ieData.srn;
