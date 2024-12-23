@@ -230,7 +230,7 @@
                   sendOTP(phone);
                   $('#exampleModalCenter').modal('show');
                 } else {
-                  window.location.href = 'home.html'; // Redirect to home after successful login
+                  window.location.href = 'statistics.html'; // Redirect to home after successful login
                 }
 
 
@@ -337,7 +337,7 @@
               // Include any other user data you want to store
             }).then(() => {
               console.log("User  data stored successfully.");
-              window.location.href = 'home.html'; // Redirect to home after successful login
+              window.location.href = 'statistics.html'; // Redirect to home after successful login
             }).catch((error) => {
               console.error("Error storing user data: ", error);
             });
