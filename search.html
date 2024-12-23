@@ -1107,9 +1107,17 @@ paginatedSequences.forEach((sequence) => {
    
     <td class="grade">${patientData.md?.gd || "-"}</td>
     <td class="action">
-        <button class="btn btn-primary btn-sm" onclick="editPatient('${bioBankId}', '${seqKey}', '${timestampKey}')">Edit</button>
-        <button class="btn btn-info btn-sm" onclick="viewPatient('${bioBankId}', '${seqKey}', '${timestampKey}')">View</button>
-        <button class="btn btn-success btn-sm" onclick="handleHistory('${bioBankId}', '${seqKey}')">History</button>
+       <div class="btn-group" role="group" aria-label="Patient Actions">
+    <button class="btn btn-primary btn-sm" onclick="editPatient('${bioBankId}', '${seqKey}', '${timestampKey}')">
+        <img src="assets/images/edit.svg" alt="Edit" width="16" height="16" style="vertical-align: middle; margin-right: 5px;">
+    </button>
+    <button class="btn btn-info btn-sm" onclick="viewPatient('${bioBankId}', '${seqKey}', '${timestampKey}')">
+        <img src="assets/images/visibility.svg" alt="View" width="16" height="16" style="vertical-align: middle; margin-right: 5px;">
+    </button>
+    <button class="btn btn-success btn-sm" onclick="handleHistory('${bioBankId}', '${seqKey}')">
+        <img src="assets/images/history.svg" alt="History" width="16" height="16" style="vertical-align: middle; margin-right: 5px;">
+    </button>
+</div>
     </td>
   `;
   tbody.appendChild(row);
