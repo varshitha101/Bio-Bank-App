@@ -227,7 +227,7 @@
                   <option value="Other">Other</option>
                 </select>
               </div>
-              <div class="form-group col-xs-2 mr-2">
+             <!-- <div class="form-group col-xs-2 mr-2">
                 <label for="stageInput">Stage</label>
                 <select id="stageInput" class="form-control">
                   <option selected>Select</option>
@@ -237,7 +237,7 @@
                   <option value="Stage2">Stage 2</option>
                   <option value="Stage3">Stage 3</option>
                 </select>
-              </div>
+              </div>-->
 
               <div class="form-group col-xs-2 mr-2">
                 <label for="gradeInput">Grade</label>
@@ -1136,7 +1136,7 @@ function searchSample(event) {
   const ageInput = document.getElementById("ageInput").value;
   const cancerTypeInput = document.getElementById("cancerTypeInput").value;
   const sampleTypeInput = document.getElementById("sampleType").value.toUpperCase(); // Ensure lowercase
-  const stageInput = document.getElementById("stageInput").value;
+  //const stageInput = document.getElementById("stageInput").value;
   const gradeInput = document.getElementById("gradeInput").value;
   const nactInput = document.getElementById("nactInput").value;
   const pathSubtypeInput = document.getElementById("pathSubtype").value;
@@ -1192,7 +1192,7 @@ function searchSample(event) {
 
         localStorage.setItem("sampleTypeInput", sampleTypeInput);
 
-        const stageMatch = stageInput === "All" || patient.stc === stageInput;
+        //const stageMatch = stageInput === "All" || patient.stc === stageInput;
         const gradeMatch = gradeInput === "All" || patientData.md.gd === gradeInput;
         const nactMatch =
           nactInput === "All" ||
@@ -1202,7 +1202,7 @@ function searchSample(event) {
         const pathSubtypeMatch =
           pathSubtypeInput === "All" || patientData.md.pst === pathSubtypeInput;
 
-        if (ageMatch && cancerTypeMatch && sampleTypeMatch && stageMatch && gradeMatch && nactMatch && pathSubtypeMatch) {
+        if (ageMatch && cancerTypeMatch && sampleTypeMatch  && gradeMatch && nactMatch && pathSubtypeMatch) {
           matchesAtLeastOneTimestamp = true;
         }
       });
