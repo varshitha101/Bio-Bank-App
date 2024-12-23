@@ -116,7 +116,7 @@
                     <!-- <th scope="col">Box</th>
                     <th scope="col">Grid</th> -->
                     <th scope="col">Type of Cancer</th>
-                    <th scope="col">Stage of Cancer</th>
+<!--                     <th scope="col">Stage of Cancer</th> -->
                     <th scope="col">Grade of Cancer</th>
                     <th scope="col">Actions</th>
                   </tr>
@@ -129,7 +129,7 @@
                     <td class="gender"></td>
                     <!-- <td class="box"></td>
                     <td class="grid"></td> -->
-                    <td class="cancerType"></td>
+<!--                     <td class="cancerType"></td> -->
                     <td class="stage"></td>
                     <td class="grade"></td>
                     <td class="action"></td>
@@ -288,7 +288,7 @@
                   // box: boxName || "-",
                   // grid: seatListDisplay || "-",
                   cancerType: dataEntry.ie.ct === "brst" ? "Breast Cancer" : "-",
-                  stage: dataEntry.ie.stc || "-",
+                  // stage: dataEntry.ie.stc || "-",
                   grade: dataEntry.md.gd || "-",
                   newtimestamp: newtimestamp, // Store the timestampKey to pass it in the view and edit actions
                 });
@@ -385,7 +385,7 @@
         const viewPendingFormBtn = document.createElement("button");
         viewPendingFormBtn.classList.add(
           "btn",
-          "btn-warning",
+          "btn-info",
           "btn-sm",
           "mr-2"
         );
@@ -602,7 +602,7 @@ document.addEventListener("DOMContentLoaded", function () {
           });
 
           const viewBtn = document.createElement("button");
-          viewBtn.classList.add("btn", "btn-secondary", "btn-sm");
+          viewBtn.classList.add("btn", "btn-info", "btn-sm");
           viewBtn.textContent = "View";
           viewBtn.addEventListener("click", () => {
             const entry = "ViewFollowUp";
