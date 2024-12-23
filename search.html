@@ -1007,7 +1007,7 @@
       const end = start + rowsPerPage;
 
       // Retrieve the sampleTypeInput from localStorage
-      const sampleTypeInput = localStorage.getItem("sampleTypeInput")?.trim().toLowerCase(); // Normalize input to lowercase for matching
+      const sampleTypeInput = localStorage.getItem("sampleTypeInput")?.trim().toUpperCase(); // Normalize input to lowercase for matching
 let allSequences = [];
 
 Object.keys(data).forEach((bioBankId) => {
@@ -1031,7 +1031,7 @@ Object.keys(data).forEach((bioBankId) => {
 
         // Split seatList and sampleType by commas, assuming they are aligned
         const seatList = parts[1] ? parts[1].split(",").map(seat => seat.trim()) : [];
-        let sampleTypeList = parts[2] ? parts[2].split(",").map(type => type.trim().toLowerCase()) : [];
+        let sampleTypeList = parts[2] ? parts[2].split(",").map(type => type.trim().toUpperCase()) : [];
 
         // Define an array of sample types that should apply the same sampleType to all seats
         const uniformSampleTypes = [
@@ -1048,7 +1048,7 @@ Object.keys(data).forEach((bioBankId) => {
           const sampleType = sampleTypeList[index] || "-"; // Get corresponding sampleType or '-' if undefined
 
           // Retrieve the sampleTypeInput from localStorage and match
-          const sampleTypeInput = localStorage.getItem("sampleTypeInput")?.trim().toLowerCase();
+          const sampleTypeInput = localStorage.getItem("sampleTypeInput")?.trim().toUpperCase();
 
           // Only push sequences where the sampleType matches the sampleTypeInput or all
           if (
@@ -1135,7 +1135,7 @@ function searchSample(event) {
   const ageCriterion = document.getElementById("ageCriterion").value;
   const ageInput = document.getElementById("ageInput").value;
   const cancerTypeInput = document.getElementById("cancerTypeInput").value;
-  const sampleTypeInput = document.getElementById("sampleType").value.toLowerCase(); // Ensure lowercase
+  const sampleTypeInput = document.getElementById("sampleType").value.toUpperCase(); // Ensure lowercase
   const stageInput = document.getElementById("stageInput").value;
   const gradeInput = document.getElementById("gradeInput").value;
   const nactInput = document.getElementById("nactInput").value;
@@ -1171,7 +1171,7 @@ function searchSample(event) {
         const checkSampleType = (sampleField) => {
           if (patient[sampleField]) {
             const sampleParts = patient[sampleField].split("/");
-            const sampleType = sampleParts[2]?.toLowerCase(); // Normalize to lowercase
+            const sampleType = sampleParts[2]?.toUpperCase(); // Normalize to lowercase
             return (
               sampleTypeInput === "all" || 
               sampleType === sampleTypeInput || 
