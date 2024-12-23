@@ -23,11 +23,12 @@
     }
     .bio_box {
     width: 620px;
+    /* height: 520px; */
     height: fit-content;
     border: 0.1mm solid rgba(0, 0, 0, 0.08);
     border-radius: 3mm;
     box-sizing: border-box;
-    padding: 8px;
+    /* padding: 8px; */
     max-height: 96vh;
     overflow: auto;
     background: white;
@@ -39,6 +40,7 @@
     align-items: center;
     justify-content: space-between;
     flex-direction: column;
+
     box-sizing: border-box;
     padding: 10px;
     }
@@ -118,12 +120,25 @@
       }
     
     .seat {
-      width: 53px;
-      height: 30px;
+      width: 54px;
+      height: 32px;
+      /* padding: 9px 0; */
       margin: 2px;
       background: rgb(143, 218, 187);
       border-radius: 0.5mm;
       outline: 0.3mm solid rgb(180, 180, 180);
+      cursor: pointer;
+      justify-content: center;  
+      align-items: center; 
+    }
+    .viewSeat {
+      width: 54px;
+      height: 32px;
+      /* padding: 9px 0; */
+      margin: 2px;
+      background: rgb(143, 218, 187);
+      border-radius: 1mm;
+      outline: 0.3mm;
       cursor: pointer;
       justify-content: center;
       align-items: center; 
@@ -147,7 +162,7 @@
     outline: none;
     }
     
-.seat.unselected {
+/* .seat.unselected {
   background: rgb(143, 218, 187);
   margin: 0px 2px 0px 2px;
   cursor: pointer;
@@ -157,7 +172,7 @@
   background: rgb(129, 129, 192);
   margin: 0px 2px 0px 2px;
   cursor: pointer;
-}
+} */
 
 .seat label {
   font-size: 10px;
