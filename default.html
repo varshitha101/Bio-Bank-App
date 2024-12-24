@@ -4752,164 +4752,106 @@
 
       // Prepare the database structure
       const database = {};  // This will be your database object
-
       selectedPatients.forEach(patient => {
         const { bioBankId, seqKey, boxName, gridData } = patient;
 
+        // Ensure gridData is an array
+        let seatList = Array.isArray(gridData) ? gridData : gridData.split(',').map(seat => seat.trim());
+
         // Fetch existing sections from Firebase for the specific bioBankId
-        db.ref(`Os/${bioBankId}`).once('value', snapshot => {
-          const sections = snapshot.val();
+        db.ref(`Os/${bioBankId}`).once('value')
+          .then(snapshot => {
+            const sections = snapshot.val();
 
-          // Create the structure for each patient
-          const patientEntry = {
-            doe: dateOfEntry,
-            dpt: institute,
-            prj: projectName,
-            pip: nopi || "N/A",
-            os_ub: userN,
-            lbi: {},
-            ossts: sharedStatus,
-            psr: parSharedRemark || "N/A"
-          };
+            // Create the structure for each patient
+            const patientEntry = {
+              doe: dateOfEntry,
+              dpt: institute,
+              prj: projectName,
+              pip: nopi || "N/A",
+              os_ub: userN,
+              lbi: {},
+              ossts: sharedStatus,
+              psr: parSharedRemark || "N/A"
+            };
 
-          // Check if this patient entry already exists in the database structure
-          if (!database[bioBankId]) {
-            database[bioBankId] = {};
-          }
+            // Check if the patient entry already exists in the database structure
+            if (!database[bioBankId]) database[bioBankId] = {};
+            if (!database[bioBankId][seqKey]) database[bioBankId][seqKey] = {};
+            if (!database[bioBankId][seqKey][timestamp]) {
+              database[bioBankId][seqKey][timestamp] = patientEntry;
+            }
 
-          // Check if the seqKey already exists in the database structure
-          if (!database[bioBankId][seqKey]) {
-            database[bioBankId][seqKey] = {};
-          }
+            // Initialize lbi[boxName] as an array if it doesn't exist
+            const existingEntry = database[bioBankId][seqKey][timestamp];
+            if (!existingEntry.lbi[boxName]) {
+              existingEntry.lbi[boxName] = [];
+            }
 
-          // Check if there's an existing entry for this timestamp, if not, initialize it
-          if (!database[bioBankId][seqKey][timestamp]) {
-            database[bioBankId][seqKey][timestamp] = patientEntry;
-          }
-
-          // Merge gridData based on boxName into the existing lbi structure
-          const existingEntry = database[bioBankId][seqKey][timestamp];
-          if (!existingEntry.lbi[boxName]) {
-            existingEntry.lbi[boxName] = gridData;
-          } else {
-            // If boxName already exists, concatenate the new gridData
-            existingEntry.lbi[boxName] = existingEntry.lbi[boxName].concat(gridData);
-          }
-
-          // Update Firebase with the consolidated data
-          db.ref(`Os/${bioBankId}/${seqKey}/${timestamp}`).set(existingEntry)
-            .then(() => {
-              alert('Form submitted successfully for BioBank ID: ' + bioBankId);
-
-              // Update the grid status in the appropriate boxes
-              gridData.forEach(seatID => {
-                seatID = seatID.trim();
-                const index = getSeatIndex(seatID);
-
-                db.ref(`bb/${boxName}`).once('value', snapshot => {
-                  if (snapshot.exists()) {
-                    console.log("bb exist ")
-                    db.ref(`bb/${boxName}/${index}`).update({ status: sharedStatus })
-                      .then(() => {
-                        console.log('Status updated for BioBank ID:', bioBankId, 'Sample Index:', index);
-
-
-            switch (mode) {
-                case 'SearchView':
-                  window.location.href = `search.html`;
-                  break;
-                case 'SearchEdit':
-                  window.location.href = `search.html`;
-                  break;
-                case 'share':
-                  window.location.href = `search.html`;
-                  break;
-                case 'PendingView':
-                  window.location.href = `todo.html`;
-                  break;
-                case 'PendingEdit':
-                  window.location.href = `todo.html`;
-                  break;
-                case 'EditFollowUps':
-                  window.location.href = `todo.html`;
-                  break;
-                case 'ViewFollowUp':
-                  window.location.href = `todo.html`;
-                  break;
-                case 'undefined':
-                  window.location.href = `home.html`;
-                  break;
-      
-                default:
-                  console.error('Unknown mode:', mode);
-              }
-                      })
-                      .catch(error => {
-                        console.error('Error updating status for BioBank ID:', bioBankId, 'Sample Index:', index, error);
-                      });
-                  }
-                  else {
-                    console.log("bb does not exist ")
-
-                  }
-                });
-                db.ref(`sb/${boxName}`).once('value', snapshot => {
-                  if (snapshot.exists()) {
-                    console.log("sb exist ")
-                    db.ref(`sb/${boxName}/${index}`).update({ status: sharedStatus })
-                      .then(() => {
-                        console.log('Status updated for BioBank ID:', bioBankId, 'Sample Index:', index);
-
-
-            switch (mode) {
-                case 'SearchView':
-                  window.location.href = `search.html`;
-                  break;
-                case 'SearchEdit':
-                  window.location.href = `search.html`;
-                  break;
-                case 'share':
-                  window.location.href = `search.html`;
-                  break;
-                case 'PendingView':
-                  window.location.href = `todo.html`;
-                  break;
-                case 'PendingEdit':
-                  window.location.href = `todo.html`;
-                  break;
-                case 'EditFollowUps':
-                  window.location.href = `todo.html`;
-                  break;
-                case 'ViewFollowUp':
-                  window.location.href = `todo.html`;
-                  break;
-                case 'undefined':
-                  window.location.href = `home.html`;
-                  break;
-      
-                default:
-                  console.error('Unknown mode:', mode);
-              }
-                      })
-                      .catch(error => {
-                        console.error('Error updating status for BioBank ID:', bioBankId, 'Sample Index:', index, error);
-                      });
-                  }
-                  else {
-                    console.log("sb does not exist ")
-                  }
-                });
-              });
-
-            })
-            .catch(error => {
-              console.error('Error writing to Firebase:', error);
-              alert('Error submitting form for BioBank ID: ' + bioBankId);
+            // Iterate over gridData to append each seatID to the array
+            seatList.forEach(seatID => {
+              existingEntry.lbi[boxName].push(seatID.trim());
             });
-                                    let mode = localStorage.getItem('mode');
 
-        });
+            // Update Firebase with the consolidated data
+            return db.ref(`Os/${bioBankId}/${seqKey}/${timestamp}`).set(existingEntry);
+          })
+          .then(() => {
+            alert('Form submitted successfully for BioBank ID: ' + bioBankId);
+
+            // Update the grid status in the appropriate boxes
+            const seatPromises = seatList.map(seatID => {
+              seatID = seatID.trim();
+              const index = getSeatIndex(seatID);
+
+              // Handle updating both bb and sb nodes in parallel
+              const bbPromise = db.ref(`bb/${boxName}`).once('value')
+                .then(snapshot => {
+                  if (snapshot.exists()) {
+                    return db.ref(`bb/${boxName}/${index}`).update({ status: sharedStatus });
+                  }
+                  console.log("bb does not exist");
+                });
+
+              const sbPromise = db.ref(`sb/${boxName}`).once('value')
+                .then(snapshot => {
+                  if (snapshot.exists()) {
+                    return db.ref(`sb/${boxName}/${index}`).update({ status: sharedStatus });
+                  }
+                  console.log("sb does not exist");
+                });
+
+              return Promise.all([bbPromise, sbPromise]);
+            });
+
+            return Promise.all(seatPromises);
+          })
+          .then(() => {
+            // Redirect based on the mode
+            let mode = localStorage.getItem('mode');
+            switch (mode) {
+              case 'SearchView':
+              case 'SearchEdit':
+              case 'share':
+                window.location.href = 'search.html';
+                break;
+              case 'PendingView':
+              case 'PendingEdit':
+              case 'EditFollowUps':
+              case 'ViewFollowUp':
+                window.location.href = 'todo.html';
+                break;
+              default:
+                window.location.href = 'home.html';
+                break;
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            alert('Error submitting form for BioBank ID: ' + bioBankId);
+          });
       });
+
 
       console.log("Database structure to be saved:", database);
     });
