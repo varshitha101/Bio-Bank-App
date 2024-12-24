@@ -829,7 +829,6 @@
 
       updateIndPagination(bioBankIds.length);
     }
-
     function sharedFunc() {
       const checkedBoxes = document.querySelectorAll(".selection:checked");
 
@@ -842,7 +841,10 @@
         const seqKey = row.getAttribute("data-seqKey");
         const timestampKey = row.getAttribute("data-timestampKey");
         const gridData = row.getAttribute("data-grid");
+        // const gridData = JSON.parse(row.getAttribute("data-grid"));
+
         const boxName = row.getAttribute("data-box");
+        // console.log("gridData",gridData)
 
         selectedPatients.push({
           bioBankId: bioBankId,
@@ -856,6 +858,7 @@
       shareDate(mode, selectedPatients);
       console.log("Selected patients for sharing:", selectedPatients);
     }
+
 
     function editPatient(bioBankId, seq, timestampKey) {
       let editS = "SearchEdit";
