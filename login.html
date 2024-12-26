@@ -134,7 +134,6 @@
     //   appId: "1:31278898937:web:01f96df7a640d9c1410c28",
     //   measurementId: "G-B98TGR5Q8Q"
     // };
-    
     const firebaseConfig = {
       apiKey: "AIzaSyCbpb_1jb6mDvF_7kuN8J0lwIoW7-mKd8g",
       authDomain: "bio-bank-deployment.firebaseapp.com",
@@ -203,7 +202,7 @@
 
               const phone = snapshot.val().phone;
 
-             
+
 
               if (snapshot.val().loginDetails != undefined) {
                 sessionStorage.setItem('isLoggedIn', true);
@@ -211,26 +210,40 @@
                 // const storedPCIdentifier = snapshot.val()?.loginDetails.pcIdentifier || ''; // Updated to access pcIdentifier from loginDetails
                 // const loginTime = new Date(snapshot.val().loginDetails.loginTime).getTime() || ''; // Updated to access loginTime from loginDetails
                 const storedPCIdentifier = snapshot.val().loginDetails.pcIdentifier; // Updated to access pcIdentifier from loginDetails
-              const currentPCIdentifier = hashString(window.navigator.userAgent);
+                const currentPCIdentifier = hashString(window.navigator.userAgent);
+                console.log("storedPCIdentifier", storedPCIdentifier);
+                console.log("currentPCIdentifier", currentPCIdentifier);
 
-              const loginTime = new Date(snapshot.val().loginDetails.loginTime).getTime(); // Updated to access loginTime from loginDetails
-              const currentTime = new Date().getTime();
-              // const thirtyDaysInMillis = 2 * 60 * 1000; // 2 minutes in milliseconds
-              const thirtyDaysInMillis = 30 * 24 * 60 * 60 * 1000; // 30 days in milliseconds
+                const loginTimeS = snapshot.val().loginDetails.loginTime; // Updated to access loginTime from loginDetails
+                const [datePart, timePart] = loginTimeS.split(', ');
+
+                // Reformat the date part from DD/MM/YYYY to MM/DD/YYYY (JavaScript's `Date` format)
+                const [day, month, year] = datePart.split('/');
+                const formattedDate = `${month}/${day}/${year}`;
+
+                // Create a new Date object
+                const dateTime = new Date(`${formattedDate} ${timePart}`);
+
+                // Get the timestamp in milliseconds
+                const loginTime = dateTime.getTime();
+
+                const currentTime = new Date().getTime();
+                // const thirtyDaysInMillis = 2 * 60 * 1000; // 2 minutes in milliseconds
+                const thirtyDaysInMillis = 30 * 24 * 60 * 60 * 1000; // 30 days in milliseconds
                 // const currentPCIdentifier = hashString(window.navigator.userAgent);
 
                 // const currentTime = new Date().getTime();
                 // // const thirtyDaysInMillis = 2 * 60 * 1000; // 2 minutes in milliseconds
                 // const thirtyDaysInMillis = 30 * 24 * 60 * 60 * 1000; // 30 days in milliseconds
-                console.log("currentTime",currentTime);
-                console.log("loginTime",loginTime);
-                
+                console.log("currentTime", currentTime);
+                console.log("loginTime", loginTime);
+
 
                 if (storedPCIdentifier !== currentPCIdentifier || (currentTime - loginTime) > thirtyDaysInMillis) {
                   sendOTP(phone);
                   $('#exampleModalCenter').modal('show');
                 } else {
-                  window.location.href = 'statistics.html'; // Redirect to home after successful login
+                  window.location.href = 'home.html'; // Redirect to home after successful login
                 }
 
 
@@ -275,7 +288,7 @@
         })
         .catch((error) => {
           console.error("Error sending OTP:", error.message);
-          alert("Failed to send OTP.");
+          alert("Failed to send OTP. Check console for details.");
         });
 
     }
@@ -337,7 +350,7 @@
               // Include any other user data you want to store
             }).then(() => {
               console.log("User  data stored successfully.");
-              window.location.href = 'statistics.html'; // Redirect to home after successful login
+              window.location.href = 'home.html'; // Redirect to home after successful login
             }).catch((error) => {
               console.error("Error storing user data: ", error);
             });
