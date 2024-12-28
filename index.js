@@ -12,6 +12,17 @@
 //   measurementId: "G-B98TGR5Q8Q"
 // };
 
+// Staging
+// const firebaseConfig = {
+//   apiKey: "AIzaSyD1xIWztyMkS7v3Cozp5J0Dtvaa9JlF0BM",
+//   authDomain: "bio-bank-staging.firebaseapp.com",
+//   databaseURL:"https://bio-bank-staging-default-rtdb.firebaseio.com/",
+//   projectId: "bio-bank-staging",
+//   storageBucket: "bio-bank-staging.firebasestorage.app",
+//   messagingSenderId: "1054710609145",
+//   appId: "1:1054710609145:web:2afcbf429677d7ca42de28",
+//   measurementId: "G-CKEH775B84"
+// };
 
 const firebaseConfig = {
   apiKey: "AIzaSyCbpb_1jb6mDvF_7kuN8J0lwIoW7-mKd8g",
@@ -106,7 +117,7 @@ function populateBBLabels(data, boxVal, debug) {
         }
         else if(bioBankIds[index]===''){
           labelElement.innerHTML = `${'-'}<br>${'-'}`;
-          labelElement.style.color = "rgb(143, 218, 187)";
+          // labelElement.style.color = "rgb(143, 218, 187)";
         }
         
 
@@ -550,6 +561,7 @@ function populateBBLabels(data, boxVal, debug) {
           newLabelElement.addEventListener('click', function () {
             console.log("sts[index]", sts[index]);
             console.log('label name of clicked seat:', labelName);
+            localStorage.removeItem("MRN");
             $('#exampleModalCenter').modal('show');
           });
         }
@@ -755,7 +767,7 @@ function populateSBLabels(data) {
         }
         else if(bioBankIds[index]===''){
           labelElement.innerHTML = `${'-'}<br>${'-'}`;
-          labelElement.style.color = "rgb(143, 218, 187)";
+          // labelElement.style.color = "rgb(143, 218, 187)";
         }
 
         const newLabelElement = labelElement.cloneNode(true);
@@ -1670,11 +1682,7 @@ function validateAndCollectData() {
     };
 
     const updateMode = new URLSearchParams(window.location.search).get('update');
-    if (updateMode === 'true') {
-      updateToFirebase(data);
-    } else {
-      saveToFirebase(data);
-    }
+    
 
     if (form1Data.ie.bpg) {
       updateBB(form1Data.ie.bpg, "Plasma");
@@ -1703,6 +1711,13 @@ function validateAndCollectData() {
     }
 
     patients();
+    
+    if (updateMode === 'true') {
+      updateToFirebase(data);
+    } else {
+      saveToFirebase(data);
+    }// Now add the switch case for the mode
+    
     return data;
   } else {
     return null;
@@ -1766,7 +1781,7 @@ function validateForm1() {
 
   if (!allFilled) {
     console.log('Please fill in the following required fields:', emptyFields.join(', '));
-    alert('Please enter all the required fields. Check the console for details.');
+    alert('Please enter all the required fields');
     return;
   }
   const getDateAndTime = (dateId, timeId) => {
@@ -1852,10 +1867,10 @@ function validateForm1() {
       osg: document.getElementById('OSgridNo').value,
       osdsc: document.getElementById('otSampleDesc').value,
       mts: document.querySelector('input[name="MetastasisSample"]:checked').value,
-      cnst: document.querySelector('input[name="customConsent"]:checked').value,
-      iss: document.querySelector('input[name="IschemicRadio"]:checked').value,
+      cnst: document.querySelector('input[name="customConsent"]:checked')?.value || '',
+      iss: document.querySelector('input[name="IschemicRadio"]:checked')?.value || '',
       prb: document.getElementById('processedBy').value,
-      scpt: document.querySelector('input[name="processedRadio"]:checked').value,
+      scpt: document.querySelector('input[name="processedRadio"]:checked')?.value || '',
       srt: aRtimestamp, // These will now either be valid timestamps or null
       spt: aPtimestamp,
       brt: bRtimestamp,
@@ -1867,12 +1882,6 @@ function validateForm1() {
       bspb: document.getElementById('BprocessedBy').value,
       sspb: document.getElementById('SprocessedBy').value,
       ospb: document.getElementById('OprocessedBy').value,
-  //     prb: document.getElementById('processedBy').value,
-      
-  // document.querySelector(`input[name="processedRadio"][value="${ieData.scpt}"]`).checked = true;
-  // document.getElementById('BprocessedBy').value = ieData.bspb || '';
-  // document.getElementById('SprocessedBy').value = ieData.sspb || '';
-  // document.getElementById('OprocessedBy').value = ieData.ospb || '';
       sef_ub: user
     }
   };
@@ -2050,7 +2059,6 @@ function validateForm3() {
 function saveToFirebase(data) {
   const bioBankId = document.getElementById('bioBankId').value;
   const timestamp = Math.floor(Date.now() / 1000);
-  let mode = localStorage.getItem('mode');
 
   db.ref(`sef/${bioBankId}`).once('value', snapshot => {
     const sections = snapshot.val();
@@ -2073,9 +2081,10 @@ function saveToFirebase(data) {
       md: data.md,
       brf: data.brf
     };
-    console.log("Happy Friday")
+    // console.log("Happy Friday")
     db.ref(`sef/${bioBankId}/${nextSection}/${timestamp}`).set(data)
       .then(() => {
+        // alert('Form submitted successfully to ' + nextSection);
         alert('Form submitted successfully ');
 
       })
@@ -2093,12 +2102,14 @@ function saveToFirebase(data) {
         console.log('Not stored in bbnmrn');
       });
 
-  });
+  
 
   const dueDate = new Date();
-  // dueDate.setMonth(dueDate.getMonth() + 6); 
-    dueDate.setMinutes(dueDate.setMinutes() + 3 * 24 * 60 ); 
-  // dueDate.setMinutes(dueDate.getMonth() + 1 * 60); 
+  // dueDate.setMonth(dueDate.getMonth() + 6);  // Add 6 months to the current date
+  // dueDate.setMinutes(dueDate.getMonth() + 1 * 60);  // Optionally, add extra minutes if needed
+  dueDate.setMinutes(dueDate.getMinutes() + 10 * 24 * 60);  // Add 10 days to the current date
+
+
   const bioBankPath = `pfw/${bioBankId}`;
   console.log("dueDate", dueDate);  // Logs the correct Date object
 
@@ -2111,6 +2122,33 @@ function saveToFirebase(data) {
         db.ref(bioBankPath).set(dueDate.getTime())  // Store as Unix timestamp (milliseconds since 1970)
           .then(() => {
             console.log('Stored in pfw');
+            let mode = localStorage.getItem('mode');
+    switch (mode) {
+      case 'SearchView':
+        window.location.href = `search.html`;
+        break;
+      case 'SearchEdit':
+        window.location.href = `search.html`;
+        break;
+      case 'PendingView':
+        window.location.href = `todo.html`;
+        break;
+      case 'PendingEdit':
+        window.location.href = `todo.html`;
+        break;
+      case 'EditFollowUps':
+        window.location.href = `todo.html`;
+        break;
+      case 'ViewFollowUp':
+        window.location.href = `todo.html`;
+        break;
+      case 'undefined':
+        window.location.href = `home.html`;
+        break;
+      default:
+        console.error('Unknown mode:', mode);
+    }
+            
           })
           .catch((error) => {
             console.log('Error storing in pfw:', error);
@@ -2120,8 +2158,96 @@ function saveToFirebase(data) {
     .catch((error) => {
       console.log('Error checking path existence:', error);
     });
+    
+  });
+    
 }
 
+function updateToFirebase(data) {
+  const bioBankId = document.getElementById('bioBankId').value;
+  const timestamp = Math.floor(Date.now() / 1000);
+
+  console.log("Hi Bhanu")
+
+  db.ref(`sef/${bioBankId}`).once('value', snapshot => {
+    const sections = snapshot.val();
+
+    if (sections) {
+      const sectionKeys = Object.keys(sections);
+      const lastSection = sectionKeys[sectionKeys.length - 1];
+      const formattedData = {
+        ie: data.ie,
+        md: data.md,
+        brf: data.brf
+      };
+
+      db.ref(`sef/${bioBankId}/${lastSection}/${timestamp}`).set(formattedData)
+        .then(() => {
+          alert('Form submitted successfully to ' + lastSection);
+        })
+        .catch((error) => {
+          console.error('Error writing to Firebase', error);
+        });
+
+    } else {
+      const firstSection = `s1`;
+
+      db.ref(`sef/${bioBankId}/${firstSection}/${timestamp}`).set(data)
+        .then(() => {
+          alert('Form submitted successfully to ' + firstSection);
+
+          db.ref(`bb/${boxName}/${seatIndex}`).update(seatUpdate)
+            .then(() => {
+              console.log(`Seat ${seatID} updated successfully in Firebase.`);
+            })
+            .catch(error => {
+              console.error(`Error updating seat ${seatID}:`, error);
+            });
+
+        })
+        .catch((error) => {
+          console.error('Error writing to Firebase', error);
+        });
+    }
+
+    const mrnData = document.getElementById('mrnNo').value;
+    db.ref(`bbnmrn/${mrnData}`).set(bioBankId)
+      .then(() => {
+        let mode = localStorage.getItem('mode');
+
+        console.log('Stored in bbnmrn');
+        switch (mode) {
+          case 'SearchView':
+            window.location.href = `search.html`;
+            break;
+          case 'SearchEdit':
+            window.location.href = `search.html`;
+            break;
+          case 'PendingView':
+            window.location.href = `todo.html`;
+            break;
+          case 'PendingEdit':
+            window.location.href = `todo.html`;
+            break;
+          case 'EditFollowUps':
+            window.location.href = `todo.html`;
+            break;
+          case 'ViewFollowUp':
+            window.location.href = `todo.html`;
+            break;
+          case 'undefined':
+            window.location.href = `home.html`;
+            break;
+
+          default:
+            console.error('Unknown mode:', mode);
+        }
+      })
+      .catch((error) => {
+        console.log('Not stored in bbnmrn');
+      });
+  });
+}
 
 
 
@@ -2162,9 +2288,8 @@ function patients() {
     // Get the data from the form inputs
     const patientInfo = {
       age: document.getElementById('patAge').value, // Assuming 'patAge' is the age input field
-      gndr: document.querySelector('input[name="customRadio"]:checked').value, // Gender
-      ct: document.querySelector('input[name="radioCancerType"]:checked').value, // Type of Cancer
-      stc: document.querySelector('input[name="radioCancerStage"]:checked').value, // Stage of Cancer
+      gndr: document.querySelector('input[name="customRadio"]:checked')?.value || '', // Gender
+      ct: document.querySelector('input[name="radioCancerType"]:checked')?.value || '', // Type of Cancer
       grc: document.getElementById('sampleGrade')?.value || "", // Grade of Cancer
       smty: smty || "",
       typ: document.querySelector('input[name="customProcedure"]:checked').value, // Type of Procedure
@@ -2175,6 +2300,7 @@ function patients() {
     db.ref(`Patients/${bioBankId}/${nextSection}`).set(patientInfo)
       .then(() => {
         alert('Patient info submitted successfully to ' + nextSection);
+
       })
       .catch((error) => {
         console.error('Error writing to Firebase', error);
@@ -2184,6 +2310,7 @@ function patients() {
 
   });
 }
+
 
 
 
@@ -2363,10 +2490,16 @@ function fillIeForm(ieData) {
   document.getElementById('OSgridNo').value = ieData.osg || '';
   document.getElementById('otSampleDesc').value = ieData.osdsc || '';
   document.querySelector(`input[name="MetastasisSample"][value="${ieData.mts}"]`).checked = true;
-  document.querySelector(`input[name="customConsent"][value="${ieData.cnst}"]`).checked = true;
-  document.querySelector(`input[name="IschemicRadio"][value="${ieData.iss}"]`).checked = true;
+  if(ieData.cnst!==''){
+    document.querySelector(`input[name="customConsent"][value="${ieData.cnst}"]`).checked = true;
+  }
+  if(ieData.iss!==''){
+    document.querySelector(`input[name="IschemicRadio"][value="${ieData.iss}"]`).checked = true;
+  }
   document.getElementById('processedBy').value = ieData.prb || '';
-  document.querySelector(`input[name="processedRadio"][value="${ieData.scpt}"]`).checked = true;
+  if(ieData.scpt!==''){
+    document.querySelector(`input[name="processedRadio"][value="${ieData.scpt}"]`).checked = true;
+  }
   document.getElementById('BprocessedBy').value = ieData.bspb || '';
   document.getElementById('SprocessedBy').value = ieData.sspb || '';
   document.getElementById('OprocessedBy').value = ieData.ospb || '';
@@ -2488,18 +2621,20 @@ function fillMdForm(mdData) {
   // formElements.forEach((element) => {
   //   element.disabled = false;
   // });
-
-  document.querySelector(`input[name="RadioFHabit"][value="${mdData.fhc}"]`).checked = true;
+  if(mdData.fhc!==''){
+    document.querySelector(`input[name="RadioFHabit"][value="${mdData.fhc}"]`).checked = true;
+  }
   document.getElementById('familyRelation').value = mdData.fhcr || '';
   document.getElementById('familyCancerType').value = mdData.fhct || '';
-  document.querySelector(`input[name="RadioFdHabit"][value="${mdData.fh}"]`).checked = true;
+
+  if (mdData.fh)document.querySelector(`input[name="RadioFdHabit"][value="${mdData.fh}"]`).checked = true;
   if (mdData.hac) document.querySelector(`input[name="RadioAlcoholHabit"][value="${mdData.hac}"]`).checked = true;
   if (mdData.hs) document.querySelector(`input[name="RadioSmokeHabit"][value="${mdData.hs}"]`).checked = true;
-  document.querySelector(`input[name="ECH"][value="${mdData.ec}"]`).checked = true;
+  if (mdData.ec) document.querySelector(`input[name="ECH"][value="${mdData.ec}"]`).checked = true;
   document.getElementById('comorbidityMedications').value = mdData.ecm || '';
   document.getElementById('ffQcComments').value = mdData.ffqc || '';
   document.getElementById('ffTissueRemarks').value = mdData.ftr || '';
-  document.querySelector(`input[name="tumorSite"][value="${mdData.tst}"]`).checked = true;
+  if (mdData.tst) document.querySelector(`input[name="tumorSite"][value="${mdData.tst}"]`).checked = true;
   document.getElementById('tumorPercentage').value = mdData.tp || '';
   document.getElementById('ageAtDiagnosis').value = mdData.ad || '';
   document.getElementById('clinicalStage').value = mdData.cs || '';
@@ -2611,7 +2746,7 @@ function fillBrfForm(brfData) {
   document.getElementById('parity').value = brfData.pty || '';
   document.getElementById('numChild').value = brfData.noc || '';
   document.getElementById('ageAtFirstChild').value = brfData.afc || '';
-  if (brfData.bf !== undefined) {
+  if (brfData.bf) {
     document.querySelector(`input[name="breFd"][value="${brfData.bf}"]`).checked = true;
   }
   document.getElementById('dbf').value = brfData.dbf || '';
@@ -2619,13 +2754,13 @@ function fillBrfForm(brfData) {
     document.querySelector(`input[name="mStatus"][value="${brfData.ms}"]`).checked = true;
   }
   document.getElementById('ad').value = brfData.ad || '';
-  if (brfData.er !== undefined) {
+  if (brfData.er ) {
     document.querySelector(`input[name="ERRadio"][value="${brfData.er}"]`).checked = true;
   }
-  if (brfData.pr !== undefined) {
+  if (brfData.pr ) {
     document.querySelector(`input[name="PRRadio"][value="${brfData.pr}"]`).checked = true;
   }
-  if (brfData.h2 !== undefined) {
+  if (brfData.h2 ) {
     document.querySelector(`input[name="HER2Radio"][value="${brfData.h2}"]`).checked = true;
   }
   document.getElementById('sbt').value = brfData.sbt || '';
@@ -2636,91 +2771,7 @@ function fillBrfForm(brfData) {
   document.getElementById('brfdataEB').value = brfData.brfu || 'currentUser';
 }
 
-function updateToFirebase(data) {
-  const bioBankId = document.getElementById('bioBankId').value;
-  const timestamp = Math.floor(Date.now() / 1000);
 
-  console.log("Hi Bhanu")
-
-  db.ref(`sef/${bioBankId}`).once('value', snapshot => {
-    const sections = snapshot.val();
-
-    if (sections) {
-      const sectionKeys = Object.keys(sections);
-      const lastSection = sectionKeys[sectionKeys.length - 1];
-      const formattedData = {
-        ie: data.ie,
-        md: data.md,
-        brf: data.brf
-      };
-
-      db.ref(`sef/${bioBankId}/${lastSection}/${timestamp}`).set(formattedData)
-        .then(() => {
-          alert('Form submitted successfully to ' + lastSection);
-        })
-        .catch((error) => {
-          console.error('Error writing to Firebase', error);
-        });
-
-    } else {
-      const firstSection = `s1`;
-
-      db.ref(`sef/${bioBankId}/${firstSection}/${timestamp}`).set(data)
-        .then(() => {
-          alert('Form submitted successfully to ' + firstSection);
-          let mode = localStorage.getItem('mode');
-
-          db.ref(`bb/${boxName}/${seatIndex}`).update(seatUpdate)
-            .then(() => {
-              switch (mode) {
-                case 'SearchView':
-                  window.location.href = `search.html`;
-                  break;
-                case 'SearchEdit':
-                  window.location.href = `search.html`;
-                  break;
-                case 'PendingView':
-                  window.location.href = `todo.html`;
-                  break;
-                case 'PendingEdit':
-                  window.location.href = `todo.html`;
-                  break;
-                case 'EditFollowUps':
-                  window.location.href = `todo.html`;
-                  break;
-                case 'ViewFollowUp':
-                  window.location.href = `todo.html`;
-                  break;
-                case 'undefined':
-                  window.location.href = `home.html`;
-                  break;
-
-                default:
-                  console.error('Unknown mode:', mode);
-              }
-
-              console.log(`Seat ${seatID} updated successfully in Firebase.`);
-            })
-            .catch(error => {
-              console.error(`Error updating seat ${seatID}:`, error);
-            });
-
-        })
-        .catch((error) => {
-          console.error('Error writing to Firebase', error);
-        });
-    }
-
-    const mrnData = document.getElementById('mrnNo').value;
-    db.ref(`bbnmrn/${mrnData}`).set(bioBankId)
-      .then(() => {
-        console.log('Stored in bbnmrn');
-      })
-      .catch((error) => {
-        console.log('Not stored in bbnmrn');
-      });
-  });
-}
 
 // Define the submitFollowup function
 function submitFollowup() {
@@ -2795,7 +2846,7 @@ function submitFollowup() {
 
   const timePFW = new Date()
   console.log("time", timePFW)
-  timePFW.setMinutes(timePFW.getMinutes() + 3);
+  timePFW.setMinutes(timePFW.getMinutes() + 10 * 24 * 60);
   const selectedStatus = document.querySelector('input[name="livestatus"]:checked').value;
   const  lastfollow= document.querySelector('input[name="flexRadioDefault"]:checked').value;
 
@@ -3309,7 +3360,7 @@ function displayFollowupData(data) {
   document.querySelector(`input[name="livestatus"][value="${data.vs}"]`).checked = true;
   document.getElementById('deathDate').value = data.dd || '';
   document.getElementById('remark').value = data.rmks || '';
-
+toggleFollowup();
 }
 
 
@@ -3476,10 +3527,10 @@ function popSharedmodal(bioboxName,samples) {
 
 
 function popSharedBloodmodal(bioboxName,samples) {
-  $('#bloodModalCenter').modal('show');
+  $('#sharedBloodModal').modal('show');
 
   fetchSeatDataFromDB('bb').then(seatData => {
-    populateBSeats('blood-box', seatData);
+    populateBSeats('shared-box', seatData);
   });
 
   function fetchSeatDataFromDB(nodeName) {
@@ -3519,7 +3570,7 @@ function popSharedBloodmodal(bioboxName,samples) {
     const [activeBoxName, filteredSeats] = activeBoxEntry;
     console.log("Active Box Name:", activeBoxName);
   
-    document.getElementById('currBloodBoxName').textContent = activeBoxName;
+    document.getElementById('cursharedBloodBox').textContent = activeBoxName;
   
     const indexedSeats = filteredSeats;
     if (!indexedSeats) {
@@ -3611,10 +3662,10 @@ function popSharedBloodmodal(bioboxName,samples) {
 }
 
 function popSharedSpecimenmodal(bioboxName,samples) {
-  $('#specimenModalCenter').modal('show');
+  $('#sharedSpecimenModal').modal('show');
 
   fetchSeatDataFromDB('sb').then(seatData => {
-    populateSSeats('specimen-box', seatData);
+    populateSSeats('shared-s-box', seatData);
   });
 
   function fetchSeatDataFromDB(nodeName) {
@@ -3655,7 +3706,7 @@ function popSharedSpecimenmodal(bioboxName,samples) {
     const [activeBoxName, filteredSeats] = activeBoxEntry;
     console.log("Active Box Name:", activeBoxName);
   
-    document.getElementById('currSpecimenBoxName').textContent = activeBoxName;
+    document.getElementById('cursharedSpecimenBox').textContent = activeBoxName;
   
     const indexedSeats = filteredSeats;
     if (!indexedSeats) {
