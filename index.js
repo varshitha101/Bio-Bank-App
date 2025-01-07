@@ -4406,7 +4406,7 @@ function goToTimestampCard() {
 }
 
 let bnLocalS = [];
-
+fetchBnData();
 function fetchBnData() {
   db.ref('bn/').once('value')
     .then((snapshot) => {
