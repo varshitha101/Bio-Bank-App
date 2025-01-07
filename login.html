@@ -253,7 +253,7 @@
                 console.log("currentTime", currentTime);
                 console.log("loginTime", loginTime);
 
-                fetchBnData()
+               // fetchBnData()
                 if (storedPCIdentifier !== currentPCIdentifier || (currentTime - loginTime) > thirtyDaysInMillis) {
                   sendOTP(phone);
                   $('#exampleModalCenter').modal('show');
@@ -404,7 +404,7 @@ let bnLocalS = [];
           .then(data => {
             const userIpAddress = data.ip;
             const pcIdentifier = hashString(window.navigator.userAgent); // Simple PC identifier
-            fetchBnData()
+          //  fetchBnData()
             // Store login time, IP address, and PC identifier in the database
             set(ref(db, 'users/' + UUID + '/loginDetails'), {
               loginTime: loginTime,
