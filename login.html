@@ -269,9 +269,12 @@
           alert(`Error: ${errorMessage}`);
         });
     }
+let bnLocalS = [];
 
-function fetchBnData() {
-  db.ref('bn/').once('value')
+    function fetchBnData() {
+      const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.database(app);
+    db.ref('bn/').once('value')
     .then((snapshot) => {
       if (snapshot.exists()) {
         const boxIDs = snapshot.val();
