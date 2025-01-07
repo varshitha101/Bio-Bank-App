@@ -277,9 +277,9 @@
 let bnLocalS = [];
 
     function fetchBnData() {
-      const app = firebase.initializeApp(firebaseConfig);
-    const db = firebase.database(app);
-    db.ref('bn/').once('value')
+    //  const app = firebase.initializeApp(firebaseConfig);
+    //const db = firebase.database(app);
+    auth.ref('bn/').once('value')
     .then((snapshot) => {
       if (snapshot.exists()) {
         const boxIDs = snapshot.val();
