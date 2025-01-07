@@ -692,9 +692,10 @@ function populateBBDataForCurrentBox() {
 }
 
 // // Initial call to populate the first box when the page loads
-// window.onload = function () {
-//   populateBBData(); // Populate the first box on page load
-// };
+window.onload = function () {
+ // populateBBData(); // Populate the first box on page load
+  fetchBnData();
+};
 
 
 
@@ -4405,8 +4406,8 @@ function goToTimestampCard() {
   document.getElementById('sharedCard').style.display = 'block';
 }
 
-let bnLocalS = [];
-fetchBnData();
+//let bnLocalS = [];
+//fetchBnData();
 function fetchBnData() {
   db.ref('bn/').once('value')
     .then((snapshot) => {
@@ -4414,7 +4415,7 @@ function fetchBnData() {
         const boxIDs = snapshot.val();
         console.log("Bio Box Names in the BN node", boxIDs);
 
-        bnLocalS = [];
+        let bnLocalS = [];
 
         for (const [key, value] of Object.entries(boxIDs)) {
           bnLocalS.push({ id: key, name: value });
