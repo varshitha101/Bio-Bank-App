@@ -4727,7 +4727,7 @@
         otherSubtypeDiv.style.display = 'none';
       }
     });
-    
+
     document.getElementById('ft_tubes').addEventListener('change', function () {
       var selectedValue = this.value;
 
@@ -4743,7 +4743,6 @@
         $('#fngrid').val('');
       } 
     });
-
     $(document).ready(function () {
       // Show/Hide death date input based on selected radio button
       function toggleDeathDate() {
@@ -4764,6 +4763,7 @@
       });
 
     });
+
     $(document).ready(function () {
       function toggleFollowup() {
         if ($('#radioOther').is(':checked')) {
@@ -5346,6 +5346,7 @@
 
 
       }
+
       // else if (mode === 'SearchEdit') {
       //   // document.getElementById('mrnNo').setAttribute('disabled', true);
       //   document.getElementById('bioBankId').setAttribute('disabled', true);
@@ -5353,7 +5354,8 @@
       else if (mode === 'SearchEdit' || mode === 'PendingEdit') {
         document.getElementById('mrnNo').setAttribute('disabled', true);
         document.getElementById('bioBankId').setAttribute('disabled', true);
-
+        document.getElementById('tab2-tab').classList.add('disabled');
+        document.getElementById('tab3-tab').classList.add('disabled');
         document.getElementById('patAge').setAttribute('disabled', true);
         const gdrInputs = document.querySelectorAll('input[name="customRadio"]');
         gdrInputs.forEach(input => {
@@ -5442,6 +5444,8 @@
               console.log(`Input with ID ${input.id} enabled`);
             });
           }
+          document.getElementById('tab2').setAttribute('disabled', true);
+        document.getElementById('tab3').classList.add('disabled');
         }
 
       } else {
