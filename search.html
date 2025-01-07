@@ -929,7 +929,7 @@
         const patient = patientData.ie || {};
         const fields = ["bpg", "bsg", "bbcg", "ftg", "fng"];
 
-        let boxName = "";
+        let boxid = "";
         let seatList = [];
 
         // Iterate through the fields to find the first available box and seat info
@@ -937,11 +937,21 @@
           const fieldData = patient[field];
           if (fieldData) {
             const parts = fieldData.split("/"); // Assuming the box name and seat list are separated by "/"
-            boxName = parts[0].trim();
+
+            boxid = parts[0].trim();
+
             seatList = parts[1] ? parts[1].split(",") : []; // Split the seats into an array
           }
           console.log("seatList", fieldData);
         });
+        const storedBnData = JSON.parse(localStorage.getItem('bnData'));
+        console.log('Retrieved bnData from local storage:', storedBnData);
+
+        const boxEntry = storedBnData.find(entry => entry.id === boxid);
+
+        if (boxEntry) {
+          boxName = boxEntry.name;
+        }
 
         const seatListDisplay = seatList.length ? seatList.join(", ") : "-";
 
