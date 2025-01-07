@@ -693,33 +693,36 @@ function populateBBDataForCurrentBox() {
 
 // // Initial call to populate the first box when the page loads
 window.onload = function () {
- // populateBBData(); // Populate the first box on page load
- // fetchBnData();
-
-    let bnLocalS = [];
-
-  db.ref('bn/').once('value')
-    .then((snapshot) => {
-      if (snapshot.exists()) {
-        const boxIDs = snapshot.val();
-        console.log("Bio Box Names in the BN node", boxIDs);
-
-        let bnLocalS = [];
-
-        for (const [key, value] of Object.entries(boxIDs)) {
-          bnLocalS.push({ id: key, name: value });
+  // window.onload = function () {
+   // populateBBData(); // Populate the first box on page load
+  //   populateBBData(); // Populate the first box on page load
+   // fetchBnData();
+  // };
+  
+      let bnLocalS = [];
+  
+    db.ref('bn/').once('value')
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          const boxIDs = snapshot.val();
+          console.log("Bio Box Names in the BN node", boxIDs);
+  
+          let bnLocalS = [];
+  
+          for (const [key, value] of Object.entries(boxIDs)) {
+            bnLocalS.push({ id: key, name: value });
+          }
+          // bnLocalS = boxIDs;
+          localStorage.setItem('bnData', JSON.stringify(bnLocalS));
+  
+          console.log("Data stored in bnLocalS:", bnLocalS);
+          console.log("Data stored in local storage.");
         }
-        // bnLocalS = boxIDs;
-        localStorage.setItem('bnData', JSON.stringify(bnLocalS));
-
-        console.log("Data stored in bnLocalS:", bnLocalS);
-        console.log("Data stored in local storage.");
-      }
-    })
-    .catch((error) => {
-      console.error('Error fetching data:', error);
-    });
-};
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  };
 
 
 
@@ -4429,10 +4432,11 @@ function goToTimestampCard() {
 
   document.getElementById('sharedCard').style.display = 'block';
 }
+let bnLocalS = [];
 
-//let bnLocalS = [];
-//fetchBnData();
 function fetchBnData() {
+  let bnLocalS = [];
+
   db.ref('bn/').once('value')
     .then((snapshot) => {
       if (snapshot.exists()) {
@@ -4457,4 +4461,34 @@ function fetchBnData() {
 }
 
 
+// Function to show the loading modal
+function showLoadingModal() {
+  document.getElementById('loading').style.display = 'flex'; 
+  setTimeout(hideLoadingModal, 1000); // 3000 ms = 3 seconds
+}
 
+// Function to hide the loading modal
+function hideLoadingModal() {
+  document.getElementById('loading').style.display = 'none'; 
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const navLinks = document.querySelectorAll('.nav-link');
+  
+  navLinks.forEach(link => {
+      link.addEventListener('click', function(event) {
+          event.preventDefault(); // Prevent default navigation
+          
+          const href = this.getAttribute('href'); // Store the link
+          showLoadingModal(); // Show spinner modal and hide after 3 seconds
+
+          setTimeout(() => {
+              window.location.href = href; // Redirect after 3 seconds
+          }, 1000);
+      });
+  });
+});
+
+function searchLoadingModal() {
+  document.getElementById('loading').style.display = 'flex'; 
+}
