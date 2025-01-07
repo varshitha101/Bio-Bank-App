@@ -4727,6 +4727,22 @@
         otherSubtypeDiv.style.display = 'none';
       }
     });
+    
+    document.getElementById('ft_tubes').addEventListener('change', function () {
+      var selectedValue = this.value;
+
+      if (selectedValue === '') {
+        $('#ftgrid').val('');
+      } 
+    });
+
+    document.getElementById('fn_tubes').addEventListener('change', function () {
+      var selectedValue = this.value;
+
+      if (selectedValue === '') {
+        $('#fngrid').val('');
+      } 
+    });
 
     $(document).ready(function () {
       // Show/Hide death date input based on selected radio button
