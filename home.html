@@ -40,6 +40,18 @@
 </head>
 
 <body>
+  <!-- <div id="loading" class="modal" style="display: block;">
+    <div class="modal-content">
+        <div class="row">
+            <div class="col-4">
+                <div class="spinner"></div>
+            </div>
+            <div class="col-8">
+                <h3 style="align-content: center;padding-top: 20px;"> Loading...</h3>
+            </div>
+        </div>
+    </div>
+</div> -->
   <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #1991c994 ; ">
     <div class="container-fluid">
       <div class="mx-auto">
@@ -58,6 +70,19 @@
           </li>
 
         </ul>
+      </div>
+      <div id="loading" class="spinmodal" style="display: none;">
+        <!-- Initially hidden -->
+        <div class="spinmodal-content">
+          <div class="row">
+            <div class="col-4">
+              <div class="spinner"></div> <!-- Spinner circle -->
+            </div>
+            <div class="col-8">
+              <h3 style="align-content: center; padding-top: 20px;">Loading...</h3>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="d-flex ms-auto">
         <button onclick="logout()" id="logout" type="submit" class="btn btn-outline-light">Logout</button>
@@ -329,7 +354,8 @@
                 <div class="title" style="margin-left:30px;">
                   <span id="sbox_id"></span>
                   &emsp;
-                  <img src="assets/images/edit-Box.svg" alt="" id="editSpecimenB" style="height: 16px; width: 16px; cursor:pointer;">
+                  <img src="assets/images/edit-Box.svg" alt="" id="editSpecimenB"
+                    style="height: 16px; width: 16px; cursor:pointer;">
                 </div>
               </div>
               <div class="col-lg-1">
@@ -763,7 +789,7 @@
       window.location.href = "login.html";
     }
 
-    
+
 
     document.getElementById("editBloodB").addEventListener('click', function () {
       localStorage.setItem("MRN", "");
@@ -859,8 +885,8 @@
                   $('#editBloodBox').modal('hide');
                   localStorage.removeItem("boxname_val");
                   fetchBnData();
-//     const storedBnData = JSON.parse(localStorage.getItem('bnData'));
-// console.log('Retrieved bnData from local storage:', storedBnData);
+                  //     const storedBnData = JSON.parse(localStorage.getItem('bnData'));
+                  // console.log('Retrieved bnData from local storage:', storedBnData);
                 })
                 .catch((error) => {
                   console.error("Error updating box name:", error);
@@ -888,7 +914,7 @@
             const bio_id = Object.entries(boxIDs).find(([bio_id, boxData]) => boxData === boxname_val);
 
             if (bio_id) {
-              const [id, boxData] = bio_id; 
+              const [id, boxData] = bio_id;
               console.log("Bio ID for Box Name:", id);
               const newBoxName = document.getElementById('sBoxName').value.trim();
 
@@ -1205,6 +1231,7 @@
 
     test1();
     test2();
+    // fetchBnData();
     // let user = sessionStorage.getItem('userName');
     // console.log("user",user)
 
