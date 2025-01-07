@@ -900,7 +900,7 @@
                     <option value="option16">Adenoid cystic carcinoma</option>
                     <option value="option17">Neuroendocrine tumor</option>
                     <option value="option18">Neuroendocrine carcinoma</option>
-                    <option value="option19">Invasive carcinoma, type cannot be determined:</option>
+                    <option value="option19">Invasive carcinoma, type cannot be determined</option>
                     <option value="other">Other histologic type not listed (specify)</option>
                   </select>
                 </div>
@@ -1453,7 +1453,8 @@
 
               <div class="row " style="text-align: center;">
                 <div class="col-sm-12">
-                  <button type="button" class="btn btn-success" onclick="submitFollowup()">Submit</button>
+                  <button type="button" class="btn btn-success" id="subFollowUp"
+                    onclick="submitFollowup()">Submit</button>
                   <!-- Function call here -->
                 </div>
               </div>
@@ -1619,6 +1620,70 @@
         </div>
       </div>
     </div>
+    <div class="modal fade  bd-example-modal-lg" id="sharedBloodModal" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle"><span id="cursharedBloodBox"></span></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+
+          </div>
+
+
+          <div class="modal-body">
+            <form id="seat-info">
+
+              <div id="blood-box-container" class="seats" style="padding:0px 70px 0px 70px;">
+                <div class="shared-box" id="box-1">
+                  <div class="status" style="margin-bottom: 10px;">
+                    <div class="item">Empty</div>
+                    <div class="item">Occupied</div>
+                    <div class="item">Outsource</div>
+                  </div>
+                  <input type="checkbox" name="bio_box" id="S1" />
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade  bd-example-modal-lg" id="sharedSpecimenModal" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle"><span id="cursharedSpecimenBox"></span></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+
+          </div>
+
+
+          <div class="modal-body">
+            <form id="seat-info">
+
+              <div id="blood-box-container" class="seats" style="padding:0px 70px 0px 70px;">
+                <div class="shared-s-box" id="box-1">
+                  <div class="status" style="margin-bottom: 10px;">
+                    <div class="item">Empty</div>
+                    <div class="item">Occupied</div>
+                    <div class="item">Outsource</div>
+                  </div>
+                  <input type="checkbox" name="bio_box" id="S1" />
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </div>
 
@@ -1637,7 +1702,7 @@
 
       </div>
       <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255);">
-        Version 1.4.0
+        Version 1.5.0
       </div>
     </div>
   </footer>
@@ -1923,41 +1988,99 @@
 
     function plasmaModal() {
       let mode = localStorage.getItem('mode');
-      if (mode === 'SearchView' || mode === 'SearchEdit' || mode === 'PendingView' || mode === 'ViewFollowUp' || mode === 'SharedView') {
-        popVPlasmaModal()
+      let sts = localStorage.getItem("bloodVStatus")
+      console.log("sts bloodVStatus", sts)
+      if (mode === 'SearchView' || ((mode === 'SearchEdit') && (sts === "true")) || mode === 'PendingView' || mode === 'ViewFollowUp' || mode === 'SharedView') {
+        if (document.getElementById("PlasmagridNo").value !== '') {
+          popVPlasmaModal()
+        }
       }
       else {
         popPlasmamodal()
       }
     }
+
     function serumModal() {
       let mode = localStorage.getItem('mode');
-      if (mode === 'SearchView' || mode === 'SearchEdit' || mode === 'PendingView' || mode === 'ViewFollowUp' || mode === 'SharedView') {
-        popVSerumModal()
+      let sts = localStorage.getItem("bloodVStatus")
+      if (mode === 'SearchView' || (mode === 'SearchEdit' && (sts === "true")) || mode === 'PendingView' || mode === 'ViewFollowUp' || mode === 'SharedView') {
+        if (document.getElementById("SerumgridNo").value !== '') {
+          popVSerumModal()
+        }
       }
       else {
         popSerummodal()
       }
     }
+
     function buffyModal() {
       let mode = localStorage.getItem('mode');
-      if (mode === 'SearchView' || mode === 'SearchEdit' || mode === 'PendingView' || mode === 'ViewFollowUp' || mode === 'SharedView') {
-        popVBufferModal()
+      let sts = localStorage.getItem("bloodVStatus")
+
+      if (mode === 'SearchView' || (mode === 'SearchEdit' && (sts === "true")) || mode === 'PendingView' || mode === 'ViewFollowUp' || mode === 'SharedView') {
+        if (document.getElementById("bufferCoatgridNo").value !== '') {
+          popVBufferModal()
+        }
       }
       else {
         popBuffermodal()
       }
     }
+
     function OSModal() {
       let mode = localStorage.getItem('mode');
-      if (mode === 'SearchView' || mode === 'SearchEdit' || mode === 'PendingView' || mode === 'ViewFollowUp' || mode === 'SharedView') {
-        popVOtherSampleModal()
+      let sts = localStorage.getItem("otherVStatus")
+
+      if (mode === 'SearchView' || (mode === 'SearchEdit' && (sts === "true")) || mode === 'PendingView' || mode === 'ViewFollowUp' || mode === 'SharedView') {
+        if (document.getElementById("OSgridNo").value !== '') {
+          popVOtherSampleModal()
+        }
       }
       else {
         popOtherSamplemodal()
       }
     }
 
+    function FTModal() {
+      let mode = localStorage.getItem('mode');
+      let sts = localStorage.getItem("specimenVStatus")
+
+      if (mode === 'SearchView' || (mode === 'SearchEdit' && (sts === "true")) || mode === 'PendingView' || mode === 'ViewFollowUp' || mode === 'SharedView') {
+        if (document.getElementById("ftgrid").value !== '') {
+          popVFTmodal()
+        }
+      }
+      else {
+        popFTmodal()
+      }
+    }
+
+    function FNModal() {
+      let mode = localStorage.getItem('mode');
+      let sts = localStorage.getItem("specimenVStatus")
+
+      if (mode === 'SearchView' || (mode === 'SearchEdit' && (sts === "true")) || mode === 'PendingView' || mode === 'ViewFollowUp' || mode === 'SharedView') {
+        if (document.getElementById("fngrid").value !== '') {
+          popVFNmodal()
+        }
+      }
+      else {
+        popFNmodal()
+      }
+    }
+
+
+
+    function splitStringToArray(grid) {
+      const data = [...new Set(grid.split(',').map(item => item.trim()))];
+      console.log("data", data);
+      return data;
+    }
+
+    function removeItemFromArray(arr, itemToRemove) {
+      // Filter out the item to remove from the array
+      return arr.filter(item => item !== itemToRemove);
+    }
 
     function popVPlasmaModal() {
       $('#bloodModalCenter').modal('show');
@@ -1991,79 +2114,117 @@
         const plasmaBoxName = document.getElementById("PlasmagridNo").value;
         const boxname = plasmaBoxName.split('/')[0];
         const gridSample = plasmaBoxName.split('/')[1];
-        const gridSamples = gridSample.split(',').map(sample => sample.trim());;
-        console.log("gridSamples",gridSamples);
+        const gridSamples = gridSample.split(',').map(sample => sample.trim());
+        let activeBoxEntry = [];
+        let box_id = [];
+        db.ref('bn/').once('value')
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              const boxIDs = snapshot.val();
+
+              bioInfo = Object.entries(boxIDs).find(([bio_id, boxData]) => boxData === boxname);
+              const [id, boxData] = bioInfo;
+              box_id = id;
+              console.log("bioinfo", bioInfo)
+              console.log("box_id", box_id)
 
 
-        console.log("box name", boxname);
-        console.log("seatData", seatData);
-
-        const activeBoxEntry = Object.entries(seatData).find(([boxName, data]) => boxName === boxname);
-
-        if (!activeBoxEntry) {
-          console.log("No active box found.");
-          return;
-        }
-
-        const [activeBoxName, filteredSeats] = activeBoxEntry;
-        const indexedSeats = filteredSeats;
-
-        document.getElementById('currBloodBoxName').textContent = activeBoxName;
+              console.log("box name", boxname);
+              console.log("seatData", seatData);
+              console.log("box box_id", box_id);
 
 
-        if (!indexedSeats) {
-          console.log("No indexed seats available in the active box.");
-          return;
-        }
+              activeBoxEntry = Object.entries(seatData).find(([boxid, data]) => boxid === box_id);
 
 
-        for (let row = 0; row < rows.length; row++) {
-          for (let col = 1; col <= cols; col++) {
-            const labelName = `label_B${rows[row]}${col}`;
-            const seatID = `${rows[row]}${col}`;
-            const index = row * cols + (col - 1);
-
-            const seat = indexedSeats[index];
-
-            if (seat) {
-              container.insertAdjacentHTML(
-                "beforeend",
-                `<input type="checkbox" name="seats" id="${seatID}" />` +
-                `<label for="${seatID}" class="viewSeat" id="${labelName}">${labelName}</label>`
-              );
-
-              let labelElement = document.getElementById(labelName);
-              if (labelElement) {
-                if (seat.bioBankId !== '') {
-                  labelElement.innerHTML = `${seat.bioBankId || ''}<br>${seat.sampleType || ''}`;
-                  labelElement.style.fontWeight = "bolder";
-                  labelElement.style.fontSize = "9px";
-                  labelElement.style.textAlign = "center";
-                  labelElement.style.color = 'white';
-                } else if (seat.bioBankId === '') {
-                  labelElement.innerHTML = `${'-'}<br>`;
-                  labelElement.style.color = "rgb(143, 218, 187)";
-                  labelElement.style.textAlign = "center";
-                }
-
-                if (seat.status === "o") {
-                  labelElement.style.background = "rgb(129, 129, 192)";
-                } else if (seat.status === "s") {
-                  labelElement.style.background = "rgb(180, 180, 180)";
-                } else if (seat.status === "ps") {
-                  labelElement.style.background = "rgb(193, 154, 107)";
-                } else if (seat.status === "e") {
-                  labelElement.style.background = "rgb(143, 218, 187)";
-                }
-
-                if (gridSamples.includes(seatID)) {
-                  labelElement.style.background = "#4d6335";
-                }
+              if (!activeBoxEntry) {
+                console.log("No active box found.");
+                return;
               }
+              const [boxid, filteredSeats] = activeBoxEntry;
+              let boxName = [];
+              console.log("Active Box Name:", boxid);
+              const indexedSeats = filteredSeats;
+
+              db.ref('bn/' + boxid).once('value')
+                .then((snapshot) => {
+                  if (snapshot.exists()) {
+                    boxName = snapshot.val();
+
+                    console.log("Box Name for ID " + boxid + ": " + boxName);
+                    document.getElementById('currBloodBoxName').textContent = boxName;
+
+                  } else {
+                    console.log("No box found with ID " + boxid);
+                  }
+                  if (!indexedSeats) {
+                    console.log("No indexed seats available in the active box.");
+                    return;
+                  }
+                  for (let row = 0; row < rows.length; row++) {
+                    for (let col = 1; col <= cols; col++) {
+                      const labelName = `label_B${rows[row]}${col}`;
+                      const seatID = `${rows[row]}${col}`;
+                      const index = row * cols + (col - 1);
+
+                      const seat = indexedSeats[index];
+
+                      if (seat) {
+                        container.insertAdjacentHTML(
+                          "beforeend",
+                          `<input type="checkbox" name="seats" id="${seatID}" />` +
+                          `<label for="${seatID}" class="viewSeat" id="${labelName}">${labelName}</label>`
+                        );
+
+                        let labelElement = document.getElementById(labelName);
+                        if (labelElement) {
+                          if (seat.bioBankId !== '') {
+                            labelElement.innerHTML = `${seat.bioBankId || ''}<br>${seat.sampleType || ''}`;
+                            labelElement.style.fontWeight = "bolder";
+                            labelElement.style.fontSize = "9px";
+                            labelElement.style.textAlign = "center";
+                            labelElement.style.color = 'white';
+                          } else if (seat.bioBankId === '') {
+                            labelElement.innerHTML = `${'-'}<br>`;
+                            labelElement.style.color = "rgb(143, 218, 187)";
+                            labelElement.style.textAlign = "center";
+                          }
+
+                          if (seat.status === "o") {
+                            labelElement.style.background = "rgb(129, 129, 192)";
+                          } else if (seat.status === "s") {
+                            labelElement.style.background = "rgb(180, 180, 180)";
+                          } else if (seat.status === "ps") {
+                            labelElement.style.background = "rgb(193, 154, 107)";
+                          } else if (seat.status === "e") {
+                            labelElement.style.background = "rgb(143, 218, 187)";
+                          }
+
+                          if (gridSamples.includes(seatID)) {
+                            labelElement.style.background = "#4d6335";
+                          }
+                        }
+                      }
+                    }
+                    container.insertAdjacentHTML("beforeend", "<br/>");
+                  }
+
+                })
+
+
+                .catch((error) => {
+                  console.error("Error fetching box name for ID " + boxid + ": ", error);
+                });
+
+              // document.getElementById('currBloodBoxName').textContent = activeBoxName;
+
+            } else {
+              console.log("No boxes found in the database.");
             }
-          }
-          container.insertAdjacentHTML("beforeend", "<br/>");
-        }
+          })
+          .catch((error) => {
+            console.error("Error fetching box names:", error);
+          });
 
         window.handleDone = function () {
           $('#bloodModalCenter').modal('hide');
@@ -2071,7 +2232,6 @@
       }
 
     }
-
 
 
     function popPlasmamodal() {
@@ -2103,7 +2263,7 @@
         const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
         const cols = 10;
 
-        const activeBoxEntry = Object.entries(seatData).find(([boxName, data]) => data.bxsts === 'AC');
+        const activeBoxEntry = Object.entries(seatData).find(([box_id, data]) => data.bxsts === 'AC');
         let BloodSelectedSeats = [];
 
         if (!activeBoxEntry) {
@@ -2115,11 +2275,12 @@
           "sampleType": "",
           "status": "o"
         }
-
+        let plisteners = true;
         grid = localStorage.getItem("selectedGrid");
         console.log("selected Grid Data in Plasma:", grid);
 
-        const [activeBoxName, filteredSeats] = activeBoxEntry;
+        const [box_id, filteredSeats] = activeBoxEntry;
+        let boxName = [];
         console.log("activeBoxEntry", activeBoxEntry)
         // console.log("filteredSeats", filteredSeats)
         let psData = document.getElementById("PlasmagridNo").value;
@@ -2146,8 +2307,24 @@
         }
 
 
-        console.log("Active Box Name:", activeBoxName);
-        document.getElementById('currBloodBoxName').textContent = activeBoxName;
+        console.log("Active Box Name:", box_id);
+
+        db.ref('bn/' + box_id).once('value')
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              boxName = snapshot.val();
+
+              console.log("Box Name for ID " + box_id + ": " + boxName);
+              document.getElementById('currBloodBoxName').textContent = boxName;
+
+            } else {
+              console.log("No box found with ID " + box_id);
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching box name for ID " + box_id + ": ", error);
+          });
+        // document.getElementById('currBloodBoxName').textContent = activeBoxName;
         if (grid !== null) {
           console.log("grid", grid)
           arr = splitStringToArray(grid);
@@ -2188,7 +2365,9 @@
                 `<label for="${seatID}" class="seat" id="${labelName}">${labelName}</label>`
               );
               document.getElementById(seatID).addEventListener('change', function (event) {
-                handleBSeatSelection(seatID, event.target.checked, seat.status);
+                if (plisteners) {
+                  handleBSeatSelection(seatID, event.target.checked, seat.status);
+                }
               });
 
               let labelElement = document.getElementById(labelName);
@@ -2242,6 +2421,17 @@
               // Change the color of the seat to reflect its selection (e.g., #4d6335)
               if (labelElement) labelElement.style.backgroundColor = '#4d6335';
             }
+            else {
+              let seatIndex = BloodSelectedSeats.indexOf(seatID);
+              if (seatIndex !== -1) {
+                BloodSelectedSeats.splice(seatIndex, 1);
+                let arr = splitStringToArray(grid)
+                arr = removeItemFromArray(arr, seatID);
+                grid = arr.join(',');
+              }
+              if (labelElement) labelElement.style.backgroundColor = 'rgb(143, 218, 187)';
+
+            }
           } else {
             let arr = splitStringToArray(grid);
             if (status === 'o' && arr.includes(seatID)) {
@@ -2254,8 +2444,14 @@
               // Change the color to reflect its current state (e.g., for 'o' status)
               if (labelElement) labelElement.style.backgroundColor = 'rgb(143, 218, 187)';
             } else {
-              alert("Error clicking the filled component.");
-            }
+              let seatIndex = BloodSelectedSeats.indexOf(seatID);
+              if (seatIndex !== -1) {
+                BloodSelectedSeats.splice(seatIndex, 1);
+                let arr = splitStringToArray(grid)
+                arr = removeItemFromArray(arr, seatID);
+                grid = arr.join(',');
+              }
+              if (labelElement) labelElement.style.backgroundColor = 'rgb(143, 218, 187)';            }
           }
 
           // Filter out any empty or null values from BloodSelectedSeats
@@ -2285,7 +2481,7 @@
           splitStringToArray(grid);
 
           if (gridInput) {
-            const box_name = activeBoxName;
+            const box_name = boxName;
             const status = document.querySelector('input[name="MetastasisSample"]:checked') &&
               document.querySelector('input[name="MetastasisSample"]:checked').value === "true" ? "MPlasma" : "Plasma";
             const grid_id = BloodSelectedSeats.join(', ');
@@ -2301,11 +2497,14 @@
           if (BloodSelectedSeats.length > 0) {
             updatePlasmaGridInput();
           }
+          plisteners = false
           $('#bloodModalCenter').modal('hide');
         };
       }
 
     }
+
+
 
 
     function popVSerumModal() {
@@ -2343,81 +2542,116 @@
         const gridSample = plasmaBoxName.split('/')[1];
         const gridSamples = gridSample.split(',').map(sample => sample.trim());;
 
-        console.log("box name", seatData);
+        let activeBoxEntry = [];
+        let box_id = [];
+        db.ref('bn/').once('value')
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              const boxIDs = snapshot.val();
 
-        const activeBoxEntry = Object.entries(seatData).find(([boxName, data]) => boxName === boxname);
+              bioInfo = Object.entries(boxIDs).find(([bio_id, boxData]) => boxData === boxname);
+              const [id, boxData] = bioInfo;
+              box_id = id;
+              console.log("bioinfo", bioInfo)
+              console.log("box_id", box_id)
 
 
+              console.log("box name", boxname);
+              console.log("seatData", seatData);
+              console.log("box box_id", box_id);
 
-        const [activeBoxName, filteredSeats] = activeBoxEntry;
-        console.log("activeBoxEntry", activeBoxEntry);
-        document.getElementById('currBloodBoxName').textContent = activeBoxName;
+
+              activeBoxEntry = Object.entries(seatData).find(([boxid, data]) => boxid === box_id);
 
 
-        const indexedSeats = filteredSeats;
-        if (!indexedSeats) {
-          console.log("No indexed seats available in the active box.");
-          return;
-        }
-
-        for (let row = 0; row < rows.length; row++) {
-          for (let col = 1; col <= cols; col++) {
-            const labelName = `label_B${rows[row]}${col}`;
-            const seatID = `${rows[row]}${col}`;
-            const index = row * cols + (col - 1);
-
-            const seat = indexedSeats[index];
-
-            if (seat) {
-              container.insertAdjacentHTML(
-                "beforeend",
-                `<input type="checkbox" name="seats" id="${seatID}" />` +
-                `<label for="${seatID}" class="viewSeat" id="${labelName}">${labelName}</label>`
-              );
-
-              let labelElement = document.getElementById(labelName);
-              if (labelElement) {
-                // labelElement.textContent = `${seat.bioBankId || ""} \n ${seat.sampleType}` || '';
-                // labelElement.style.fontWeight = "bold";
-                // labelElement.style.fontSize = "10px";
-                // labelElement.style.textAlign = 'center';
-                // labelElement.style.color = 'white';
-                if (seat.bioBankId !== '') {
-                  labelElement.innerHTML = `${seat.bioBankId || ''}<br>${seat.sampleType || ''}`;
-                  labelElement.style.fontWeight = "bolder";
-                  labelElement.style.fontSize = "9px";
-                  labelElement.style.textAlign = "center";
-                  labelElement.style.color = 'white';
-                }
-                else if (seat.bioBankId === '') {
-                  labelElement.innerHTML = `${'-'}<br>`;
-                  labelElement.style.color = "rgb(143, 218, 187)";
-                  labelElement.style.textAlign = "center";
-
-                }
-
-                // if (seatID.includes(grid)) {
-                //   console.log("seatID", seatID.includes(grid) + " seatID", seatID)
-                // }
-
-                if (seat.status === "o") {
-                  labelElement.style.background = "rgb(129, 129, 192)";
-                } else if (seat.status === "s") {
-                  labelElement.style.background = "rgb(180, 180, 180)";
-                } else if (seat.status === "ps") {
-                  labelElement.style.background = "rgb(193, 154, 107)";
-                } else if (seat.status === "e") {
-                  labelElement.style.background = "rgb(143, 218, 187)";
-                }
-
-                if (gridSamples.includes(seatID)) {
-                  labelElement.style.background = "#4d6335";
-                }
+              if (!activeBoxEntry) {
+                console.log("No active box found.");
+                return;
               }
+              const [boxid, filteredSeats] = activeBoxEntry;
+              let boxName = [];
+              console.log("Active Box Name:", boxid);
+              const indexedSeats = filteredSeats;
+
+              db.ref('bn/' + boxid).once('value')
+                .then((snapshot) => {
+                  if (snapshot.exists()) {
+                    boxName = snapshot.val();
+
+                    console.log("Box Name for ID " + boxid + ": " + boxName);
+                    document.getElementById('currBloodBoxName').textContent = boxName;
+
+                  } else {
+                    console.log("No box found with ID " + boxid);
+                  }
+                  if (!indexedSeats) {
+                    console.log("No indexed seats available in the active box.");
+                    return;
+                  }
+                  for (let row = 0; row < rows.length; row++) {
+                    for (let col = 1; col <= cols; col++) {
+                      const labelName = `label_B${rows[row]}${col}`;
+                      const seatID = `${rows[row]}${col}`;
+                      const index = row * cols + (col - 1);
+
+                      const seat = indexedSeats[index];
+
+                      if (seat) {
+                        container.insertAdjacentHTML(
+                          "beforeend",
+                          `<input type="checkbox" name="seats" id="${seatID}" />` +
+                          `<label for="${seatID}" class="viewSeat" id="${labelName}">${labelName}</label>`
+                        );
+
+                        let labelElement = document.getElementById(labelName);
+                        if (labelElement) {
+                          if (seat.bioBankId !== '') {
+                            labelElement.innerHTML = `${seat.bioBankId || ''}<br>${seat.sampleType || ''}`;
+                            labelElement.style.fontWeight = "bolder";
+                            labelElement.style.fontSize = "9px";
+                            labelElement.style.textAlign = "center";
+                            labelElement.style.color = 'white';
+                          } else if (seat.bioBankId === '') {
+                            labelElement.innerHTML = `${'-'}<br>`;
+                            labelElement.style.color = "rgb(143, 218, 187)";
+                            labelElement.style.textAlign = "center";
+                          }
+
+                          if (seat.status === "o") {
+                            labelElement.style.background = "rgb(129, 129, 192)";
+                          } else if (seat.status === "s") {
+                            labelElement.style.background = "rgb(180, 180, 180)";
+                          } else if (seat.status === "ps") {
+                            labelElement.style.background = "rgb(193, 154, 107)";
+                          } else if (seat.status === "e") {
+                            labelElement.style.background = "rgb(143, 218, 187)";
+                          }
+
+                          if (gridSamples.includes(seatID)) {
+                            labelElement.style.background = "#4d6335";
+                          }
+                        }
+                      }
+                    }
+                    container.insertAdjacentHTML("beforeend", "<br/>");
+                  }
+
+                })
+
+
+                .catch((error) => {
+                  console.error("Error fetching box name for ID " + boxid + ": ", error);
+                });
+
+              // document.getElementById('currBloodBoxName').textContent = activeBoxName;
+
+            } else {
+              console.log("No boxes found in the database.");
             }
-          }
-          container.insertAdjacentHTML("beforeend", "<br/>");
-        }
+          })
+          .catch((error) => {
+            console.error("Error fetching box names:", error);
+          });
         window.handleDone = function () {
           $('#bloodModalCenter').modal('hide');
         };
@@ -2456,7 +2690,7 @@
         const cols = 10;
         let BloodSelectedSeats = [];
 
-        const activeBoxEntry = Object.entries(seatData).find(([boxName, data]) => data.bxsts === 'AC');
+        const activeBoxEntry = Object.entries(seatData).find(([box_id, data]) => data.bxsts === 'AC');
 
         if (!activeBoxEntry) {
           console.error("No active box found with status 'AC'.");
@@ -2472,8 +2706,9 @@
         grid = localStorage.getItem("selectedGrid");
         console.log("selected Grid Data:", grid);
 
-        const [activeBoxName, filteredSeats] = activeBoxEntry;
-        console.log("Active Box Name:", activeBoxName);
+        const [box_id, filteredSeats] = activeBoxEntry;
+        let boxName = [];
+
 
         let ssData = document.getElementById("SerumgridNo").value;
 
@@ -2498,7 +2733,25 @@
           }
         }
 
-        document.getElementById('currBloodBoxName').textContent = activeBoxName;
+        console.log("Active Box Name:", box_id);
+
+        db.ref('bn/' + box_id).once('value')
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              boxName = snapshot.val();
+
+              console.log("Box Name for ID " + box_id + ": " + boxName);
+              document.getElementById('currBloodBoxName').textContent = boxName;
+
+            } else {
+              console.log("No box found with ID " + box_id);
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching box name for ID " + box_id + ": ", error);
+          });
+
+        // document.getElementById('currBloodBoxName').textContent = activeBoxName;
 
 
         if (grid !== null) {
@@ -2567,7 +2820,7 @@
 
                 }
 
-                if (seat.status === "o" || (seatID.includes(grid))) {
+                if (seat.status === "o") {
                   labelElement.style.background = "rgb(129, 129, 192)";
                 } else if (seat.status === "s") {
                   labelElement.style.background = "rgb(180, 180, 180)";
@@ -2650,7 +2903,7 @@
           grid = localStorage.getItem("selectedGrid");
           splitStringToArray(grid);
           if (gridInput) {
-            const box_name = activeBoxName;
+            const box_name = boxName;
             const status = document.querySelector('input[name="MetastasisSample"]:checked') && document.querySelector('input[name="MetastasisSample"]:checked').value === "true" ? "MSerum" : "Serum";
             const grid_id = BloodSelectedSeats.join(', ');
             if (grid_id.length > 0) {  // Only update gridInput if grid_id is not empty
@@ -2676,16 +2929,7 @@
     //   return data;
     // }
 
-    function splitStringToArray(grid) {
-      const data = [...new Set(grid.split(',').map(item => item.trim()))];
-      console.log("data", data);
-      return data;
-    }
 
-    function removeItemFromArray(arr, itemToRemove) {
-      // Filter out the item to remove from the array
-      return arr.filter(item => item !== itemToRemove);
-    }
 
     function popVBufferModal() {
       $('#bloodModalCenter').modal('show');
@@ -2721,82 +2965,116 @@
         console.log("box name", boxname);
         const gridSample = buffyBoxName.split('/')[1];
         const gridSamples = gridSample.split(',').map(sample => sample.trim());;
-        console.log("box name", seatData);
+        let activeBoxEntry = [];
+        let box_id = [];
+        db.ref('bn/').once('value')
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              const boxIDs = snapshot.val();
 
-        const activeBoxEntry = Object.entries(seatData).find(([boxName, data]) => boxName === boxname);
-
-
-
-        const [activeBoxName, filteredSeats] = activeBoxEntry;
-        console.log("activeBoxEntry", activeBoxEntry);
-        document.getElementById('currBloodBoxName').textContent = activeBoxName;
-
-
-        const indexedSeats = filteredSeats;
-        if (!indexedSeats) {
-          console.log("No indexed seats available in the active box.");
-          return;
-        }
-
-        for (let row = 0; row < rows.length; row++) {
-          for (let col = 1; col <= cols; col++) {
-            const labelName = `label_B${rows[row]}${col}`;
-            const seatID = `${rows[row]}${col}`;
-            const index = row * cols + (col - 1);
-
-            const seat = indexedSeats[index];
-
-            if (seat) {
-              container.insertAdjacentHTML(
-                "beforeend",
-                `<input type="checkbox" name="seats" id="${seatID}" />` +
-                `<label for="${seatID}" class="viewSeat" id="${labelName}">${labelName}</label>`
-              );
-
-              let labelElement = document.getElementById(labelName);
-              if (labelElement) {
-                // labelElement.textContent = `${seat.bioBankId || ""} \n ${seat.sampleType}` || '';
-                // labelElement.style.fontWeight = "bold";
-                // labelElement.style.fontSize = "10px";
-                // labelElement.style.textAlign = 'center';
-                // labelElement.style.color = 'white';
-                if (seat.bioBankId !== '') {
-                  labelElement.innerHTML = `${seat.bioBankId || ''}<br>${seat.sampleType || ''}`;
-                  labelElement.style.fontWeight = "bolder";
-                  labelElement.style.fontSize = "9px";
-                  labelElement.style.textAlign = "center";
-                  labelElement.style.color = 'white';
-                }
-                else if (seat.bioBankId === '') {
-                  labelElement.innerHTML = `${'-'}<br>`;
-                  labelElement.style.color = "rgb(143, 218, 187)";
-                  labelElement.style.textAlign = "center";
-
-                }
-
-                // if (seatID.includes(grid)) {
-                //   console.log("seatID", seatID.includes(grid) + " seatID", seatID)
-                // }
-
-                if (seat.status === "o") {
-                  labelElement.style.background = "rgb(129, 129, 192)";
-                } else if (seat.status === "s") {
-                  labelElement.style.background = "rgb(180, 180, 180)";
-                } else if (seat.status === "ps") {
-                  labelElement.style.background = "rgb(193, 154, 107)";
-                } else if (seat.status === "e") {
-                  labelElement.style.background = "rgb(143, 218, 187)";
-                }
+              bioInfo = Object.entries(boxIDs).find(([bio_id, boxData]) => boxData === boxname);
+              const [id, boxData] = bioInfo;
+              box_id = id;
+              console.log("bioinfo", bioInfo)
+              console.log("box_id", box_id)
 
 
-                if (gridSamples.includes(seatID)) {
-                  labelElement.style.background = "#4d6335";
-                }
+              console.log("box name", boxname);
+              console.log("seatData", seatData);
+              console.log("box box_id", box_id);
+
+
+              activeBoxEntry = Object.entries(seatData).find(([boxid, data]) => boxid === box_id);
+
+
+              if (!activeBoxEntry) {
+                console.log("No active box found.");
+                return;
               }
+              const [boxid, filteredSeats] = activeBoxEntry;
+              let boxName = [];
+              console.log("Active Box Name:", boxid);
+              const indexedSeats = filteredSeats;
+
+              db.ref('bn/' + boxid).once('value')
+                .then((snapshot) => {
+                  if (snapshot.exists()) {
+                    boxName = snapshot.val();
+
+                    console.log("Box Name for ID " + boxid + ": " + boxName);
+                    document.getElementById('currBloodBoxName').textContent = boxName;
+
+                  } else {
+                    console.log("No box found with ID " + boxid);
+                  }
+                  if (!indexedSeats) {
+                    console.log("No indexed seats available in the active box.");
+                    return;
+                  }
+                  for (let row = 0; row < rows.length; row++) {
+                    for (let col = 1; col <= cols; col++) {
+                      const labelName = `label_B${rows[row]}${col}`;
+                      const seatID = `${rows[row]}${col}`;
+                      const index = row * cols + (col - 1);
+
+                      const seat = indexedSeats[index];
+
+                      if (seat) {
+                        container.insertAdjacentHTML(
+                          "beforeend",
+                          `<input type="checkbox" name="seats" id="${seatID}" />` +
+                          `<label for="${seatID}" class="viewSeat" id="${labelName}">${labelName}</label>`
+                        );
+
+                        let labelElement = document.getElementById(labelName);
+                        if (labelElement) {
+                          if (seat.bioBankId !== '') {
+                            labelElement.innerHTML = `${seat.bioBankId || ''}<br>${seat.sampleType || ''}`;
+                            labelElement.style.fontWeight = "bolder";
+                            labelElement.style.fontSize = "9px";
+                            labelElement.style.textAlign = "center";
+                            labelElement.style.color = 'white';
+                          } else if (seat.bioBankId === '') {
+                            labelElement.innerHTML = `${'-'}<br>`;
+                            labelElement.style.color = "rgb(143, 218, 187)";
+                            labelElement.style.textAlign = "center";
+                          }
+
+                          if (seat.status === "o") {
+                            labelElement.style.background = "rgb(129, 129, 192)";
+                          } else if (seat.status === "s") {
+                            labelElement.style.background = "rgb(180, 180, 180)";
+                          } else if (seat.status === "ps") {
+                            labelElement.style.background = "rgb(193, 154, 107)";
+                          } else if (seat.status === "e") {
+                            labelElement.style.background = "rgb(143, 218, 187)";
+                          }
+
+                          if (gridSamples.includes(seatID)) {
+                            labelElement.style.background = "#4d6335";
+                          }
+                        }
+                      }
+                    }
+                    container.insertAdjacentHTML("beforeend", "<br/>");
+                  }
+
+                })
+
+
+                .catch((error) => {
+                  console.error("Error fetching box name for ID " + boxid + ": ", error);
+                });
+
+              // document.getElementById('currBloodBoxName').textContent = activeBoxName;
+
+            } else {
+              console.log("No boxes found in the database.");
             }
-          }
-          container.insertAdjacentHTML("beforeend", "<br/>");
-        }
+          })
+          .catch((error) => {
+            console.error("Error fetching box names:", error);
+          });
         window.handleDone = function () {
           $('#bloodModalCenter').modal('hide');
         };
@@ -2833,7 +3111,7 @@
         const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
         const cols = 10;
 
-        const activeBoxEntry = Object.entries(seatData).find(([boxName, data]) => data.bxsts === 'AC');
+        const activeBoxEntry = Object.entries(seatData).find(([box_id, data]) => data.bxsts === 'AC');
         let BloodSelectedSeats = [];
 
         if (!activeBoxEntry) {
@@ -2849,8 +3127,8 @@
         grid = localStorage.getItem("selectedGrid");
         console.log("selected Grid Data:", grid);
 
-        const [activeBoxName, filteredSeats] = activeBoxEntry;
-        console.log("Active Box Name:", activeBoxName);
+        const [box_id, filteredSeats] = activeBoxEntry;
+        let boxName = [];
 
         let bcsData = document.getElementById("bufferCoatgridNo").value;
 
@@ -2875,7 +3153,25 @@
           }
         }
 
-        document.getElementById('currBloodBoxName').textContent = activeBoxName;
+        console.log("Active Box Name:", box_id);
+
+        db.ref('bn/' + box_id).once('value')
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              boxName = snapshot.val();
+
+              console.log("Box Name for ID " + box_id + ": " + boxName);
+              document.getElementById('currBloodBoxName').textContent = boxName;
+
+            } else {
+              console.log("No box found with ID " + box_id);
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching box name for ID " + box_id + ": ", error);
+          });
+
+        // document.getElementById('currBloodBoxName').textContent = activeBoxName;
         if (grid !== null) {
           console.log("grid", grid)
           arr = splitStringToArray(grid);
@@ -2940,7 +3236,7 @@
                   labelElement.style.textAlign = "center";
                 }
 
-                if (seat.status === "o" || (seatID.includes(grid))) {
+                if (seat.status === "o") {
                   labelElement.style.background = "rgb(129, 129, 192)";
                 } else if (seat.status === "s") {
                   labelElement.style.background = "rgb(180, 180, 180)";
@@ -3010,17 +3306,11 @@
           BloodSelectedSeats = BloodSelectedSeats.filter(item => item);
 
           if (grid === null) {
-            localStorage.setItem("selectedGrid", BloodSelectedSeats).join(',');
-            //localStorage.setItem("selectedGrid", JSON.stringify(BloodSelectedSeats));
-          }
-          else {
-            //grid.push(BloodSelectedSeats)
+            localStorage.setItem("selectedGrid", BloodSelectedSeats.join(',')); // Store as comma-separated string
+          } else {
+            // Remove any empty values from grid before updating
             grid = splitStringToArray(grid).filter(item => item);  // Filter out null or empty values
-
-            localStorage.setItem("selectedGrid", (grid + ',' + BloodSelectedSeats));
-
-            // let combinedArray = splitStringToArray(grid).concat(BloodSelectedSeats); // Concatenate both arrays
-            // localStorage.setItem("selectedGrid", JSON.stringify([...new Set(combinedArray)])); // Remove duplicates and store as array
+            localStorage.setItem("selectedGrid", (grid.concat(BloodSelectedSeats)).join(','));
           }
 
 
@@ -3028,7 +3318,7 @@
           grid = localStorage.getItem("selectedGrid");
           splitStringToArray(grid);
           if (gridInput) {
-            const box_name = activeBoxName;
+            const box_name = boxName;
             const status = document.querySelector('input[name="MetastasisSample"]:checked') && document.querySelector('input[name="MetastasisSample"]:checked').value === "true" ? "MBuffy Coat" : "Buffy Coat";
             const grid_id = BloodSelectedSeats.join(', ');
             if (grid_id.length > 0) {  // Only update gridInput if grid_id is not empty
@@ -3083,79 +3373,116 @@
         const boxname = OSBoxName.split('/')[0];
         const gridSample = OSBoxName.split('/')[1];
         const gridSamples = gridSample.split(',').map(sample => sample.trim());;
-        console.log("box name", boxname);
-        console.log("box name", seatData);
+        let activeBoxEntry = [];
+        let box_id = [];
+        db.ref('bn/').once('value')
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              const boxIDs = snapshot.val();
 
-        const activeBoxEntry = Object.entries(seatData).find(([boxName, data]) => boxName === boxname);
+              bioInfo = Object.entries(boxIDs).find(([bio_id, boxData]) => boxData === boxname);
+              const [id, boxData] = bioInfo;
+              box_id = id;
+              console.log("bioinfo", bioInfo)
+              console.log("box_id", box_id)
 
 
+              console.log("box name", boxname);
+              console.log("seatData", seatData);
+              console.log("box box_id", box_id);
 
-        const [activeBoxName, filteredSeats] = activeBoxEntry;
-        console.log("activeBoxEntry", activeBoxEntry);
-        document.getElementById('currBloodBoxName').textContent = activeBoxName;
+
+              activeBoxEntry = Object.entries(seatData).find(([boxid, data]) => boxid === box_id);
 
 
-        const indexedSeats = filteredSeats;
-        if (!indexedSeats) {
-          console.log("No indexed seats available in the active box.");
-          return;
-        }
-
-        for (let row = 0; row < rows.length; row++) {
-          for (let col = 1; col <= cols; col++) {
-            const labelName = `label_B${rows[row]}${col}`;
-            const seatID = `${rows[row]}${col}`;
-            const index = row * cols + (col - 1);
-
-            const seat = indexedSeats[index];
-
-            if (seat) {
-              container.insertAdjacentHTML(
-                "beforeend",
-                `<input type="checkbox" name="seats" id="${seatID}" />` +
-                `<label for="${seatID}" class="viewSeat" id="${labelName}">${labelName}</label>`
-              );
-
-              let labelElement = document.getElementById(labelName);
-              if (labelElement) {
-                // labelElement.textContent = `${seat.bioBankId || ""} \n ${seat.sampleType}` || '';
-                // labelElement.style.fontWeight = "bold";
-                // labelElement.style.fontSize = "10px";
-                // labelElement.style.textAlign = 'center';
-                // labelElement.style.color = 'white';
-
-                if (seat.bioBankId !== '') {
-                  labelElement.innerHTML = `${seat.bioBankId || ''}<br>${seat.sampleType || ''}`;
-                  labelElement.style.fontWeight = "bolder";
-                  labelElement.style.fontSize = "9px";
-                  labelElement.style.textAlign = "center";
-                  labelElement.style.color = 'white';
-                }
-                else if (seat.bioBankId === '') {
-                  labelElement.innerHTML = `${'-'}<br>`;
-                  labelElement.style.color = "rgb(143, 218, 187)";
-                  labelElement.style.textAlign = "center";
-
-                }
-
-                if (seat.status === "o") {
-                  labelElement.style.background = "rgb(129, 129, 192)";
-                } else if (seat.status === "s") {
-                  labelElement.style.background = "rgb(180, 180, 180)";
-                } else if (seat.status === "ps") {
-                  labelElement.style.background = "rgb(193, 154, 107)";
-                } else if (seat.status === "e") {
-                  labelElement.style.background = "rgb(143, 218, 187)";
-                }
-
-                if (gridSamples.includes(seatID)) {
-                  labelElement.style.background = "#4d6335";
-                }
+              if (!activeBoxEntry) {
+                console.log("No active box found.");
+                return;
               }
+              const [boxid, filteredSeats] = activeBoxEntry;
+              let boxName = [];
+              console.log("Active Box Name:", boxid);
+              const indexedSeats = filteredSeats;
+
+              db.ref('bn/' + boxid).once('value')
+                .then((snapshot) => {
+                  if (snapshot.exists()) {
+                    boxName = snapshot.val();
+
+                    console.log("Box Name for ID " + boxid + ": " + boxName);
+                    document.getElementById('currBloodBoxName').textContent = boxName;
+
+                  } else {
+                    console.log("No box found with ID " + boxid);
+                  }
+                  if (!indexedSeats) {
+                    console.log("No indexed seats available in the active box.");
+                    return;
+                  }
+                  for (let row = 0; row < rows.length; row++) {
+                    for (let col = 1; col <= cols; col++) {
+                      const labelName = `label_B${rows[row]}${col}`;
+                      const seatID = `${rows[row]}${col}`;
+                      const index = row * cols + (col - 1);
+
+                      const seat = indexedSeats[index];
+
+                      if (seat) {
+                        container.insertAdjacentHTML(
+                          "beforeend",
+                          `<input type="checkbox" name="seats" id="${seatID}" />` +
+                          `<label for="${seatID}" class="viewSeat" id="${labelName}">${labelName}</label>`
+                        );
+
+                        let labelElement = document.getElementById(labelName);
+                        if (labelElement) {
+                          if (seat.bioBankId !== '') {
+                            labelElement.innerHTML = `${seat.bioBankId || ''}<br>${seat.sampleType || ''}`;
+                            labelElement.style.fontWeight = "bolder";
+                            labelElement.style.fontSize = "9px";
+                            labelElement.style.textAlign = "center";
+                            labelElement.style.color = 'white';
+                          } else if (seat.bioBankId === '') {
+                            labelElement.innerHTML = `${'-'}<br>`;
+                            labelElement.style.color = "rgb(143, 218, 187)";
+                            labelElement.style.textAlign = "center";
+                          }
+
+                          if (seat.status === "o") {
+                            labelElement.style.background = "rgb(129, 129, 192)";
+                          } else if (seat.status === "s") {
+                            labelElement.style.background = "rgb(180, 180, 180)";
+                          } else if (seat.status === "ps") {
+                            labelElement.style.background = "rgb(193, 154, 107)";
+                          } else if (seat.status === "e") {
+                            labelElement.style.background = "rgb(143, 218, 187)";
+                          }
+
+                          if (gridSamples.includes(seatID)) {
+                            labelElement.style.background = "#4d6335";
+                          }
+                        }
+                      }
+                    }
+                    container.insertAdjacentHTML("beforeend", "<br/>");
+                  }
+
+                })
+
+
+                .catch((error) => {
+                  console.error("Error fetching box name for ID " + boxid + ": ", error);
+                });
+
+              // document.getElementById('currBloodBoxName').textContent = activeBoxName;
+
+            } else {
+              console.log("No boxes found in the database.");
             }
-          }
-          container.insertAdjacentHTML("beforeend", "<br/>");
-        }
+          })
+          .catch((error) => {
+            console.error("Error fetching box names:", error);
+          });
         window.handleDone = function () {
           $('#bloodModalCenter').modal('hide');
         };
@@ -3163,21 +3490,20 @@
     }
 
 
+
     function popOtherSamplemodal() {
       $('#bloodModalCenter').modal('show');
 
-      // Fetch data from the database
       fetchSeatDataFromDB('bb').then(seatData => {
         populateBSeats('blood-box', seatData);
       });
 
-      // Function to fetch seat data from the database
       function fetchSeatDataFromDB(nodeName) {
         return new Promise((resolve, reject) => {
           let dbRef = firebase.database().ref(nodeName);
           dbRef.once('value')
             .then(snapshot => {
-              let seatData = snapshot.val();  // Assumes seat data is stored in the 'bb' node
+              let seatData = snapshot.val();
               resolve(seatData);
             })
             .catch(error => {
@@ -3190,12 +3516,12 @@
       function populateBSeats(containerClass, seatData) {
         let container = document.querySelector(`.${containerClass}`);
         container.innerHTML = '';
-        let BloodSelectedSeats = [];
 
         const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
         const cols = 10;
 
-        const activeBoxEntry = Object.entries(seatData).find(([boxName, data]) => data.bxsts === 'AC');
+        const activeBoxEntry = Object.entries(seatData).find(([box_id, data]) => data.bxsts === 'AC');
+        let BloodSelectedSeats = [];
 
         if (!activeBoxEntry) {
           console.error("No active box found with status 'AC'.");
@@ -3209,8 +3535,9 @@
         grid = localStorage.getItem("selectedGrid");
         console.log("selected Grid Data:", grid);
 
-        const [activeBoxName, filteredSeats] = activeBoxEntry;
-        console.log("Active Box Name:", activeBoxName);
+        const [box_id, filteredSeats] = activeBoxEntry;
+        console.log("Active Box Name:", box_id);
+        let boxName = [];
 
         let osData = document.getElementById("OSgridNo").value;
 
@@ -3235,7 +3562,25 @@
           }
         }
 
-        document.getElementById('currBloodBoxName').textContent = activeBoxName;
+        console.log("Active Box Name:", box_id);
+
+        db.ref('bn/' + box_id).once('value')
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              boxName = snapshot.val();
+
+              console.log("Box Name for ID " + box_id + ": " + boxName);
+              document.getElementById('currBloodBoxName').textContent = boxName;
+
+            } else {
+              console.log("No box found with ID " + box_id);
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching box name for ID " + box_id + ": ", error);
+          });
+
+        // document.getElementById('currBloodBoxName').textContent = activeBoxName;
 
         if (grid !== null) {
           let arr = splitStringToArray(grid);
@@ -3300,7 +3645,7 @@
 
                 }
 
-                if (seat.status === "o" || (seatID.includes(grid))) {
+                if (seat.status === "o") {
                   labelElement.style.background = "rgb(129, 129, 192)";
                 } else if (seat.status === "s") {
                   labelElement.style.background = "rgb(180, 180, 180)";
@@ -3372,15 +3717,11 @@
           BloodSelectedSeats = BloodSelectedSeats.filter(item => item);
 
           if (grid === null) {
-            localStorage.setItem("selectedGrid", BloodSelectedSeats);
-            //localStorage.setItem("selectedGrid", JSON.stringify(BloodSelectedSeats));
-          }
-          else {
-            //grid.push(BloodSelectedSeats)
+            localStorage.setItem("selectedGrid", BloodSelectedSeats.join(',')); // Store as comma-separated string
+          } else {
+            // Remove any empty values from grid before updating
             grid = splitStringToArray(grid).filter(item => item);  // Filter out null or empty values
-            localStorage.setItem("selectedGrid", (grid + ',' + BloodSelectedSeats));
-            // let combinedArray = splitStringToArray(grid).concat(BloodSelectedSeats); // Concatenate both arrays
-            // localStorage.setItem("selectedGrid", JSON.stringify([...new Set(combinedArray)])); // Remove duplicates and store as array
+            localStorage.setItem("selectedGrid", (grid.concat(BloodSelectedSeats)).join(','));
           }
 
 
@@ -3388,7 +3729,7 @@
           grid = localStorage.getItem("selectedGrid");
           splitStringToArray(grid)
           if (gridInput) {
-            const box_name = activeBoxName;
+            const box_name = boxName;
             const status = document.querySelector('input[name="MetastasisSample"]:checked') && document.querySelector('input[name="MetastasisSample"]:checked').value === "true" ? "MOther" : "Other";
             const grid_id = BloodSelectedSeats.join(', ');
             if (grid_id.length > 0) {  // Only update gridInput if grid_id is not empty
@@ -3428,26 +3769,6 @@
     };
 
 
-    function FTModal() {
-      let mode = localStorage.getItem('mode');
-      if (mode === 'SearchView' || mode === 'SearchEdit' || mode === 'PendingView' || mode === 'ViewFollowUp' || mode === 'SharedView') {
-        popVFTmodal()
-      }
-      else {
-        popFTmodal()
-      }
-    }
-
-    function FNModal() {
-      let mode = localStorage.getItem('mode');
-      if (mode === 'SearchView' || mode === 'SearchEdit' || mode === 'PendingView' || mode === 'ViewFollowUp' || mode === 'SharedView') {
-        popVFNmodal()
-      }
-      else {
-        popFNmodal()
-      }
-    }
-
     function popVFTmodal() {
       $('#specimenModalCenter').modal('show');
 
@@ -3481,81 +3802,118 @@
         const FTBoxName = document.getElementById("ftgrid").value
         const boxname = FTBoxName.split('/')[0];
         const gridSample = FTBoxName.split('/')[1];
-        const gridSamples = gridSample.split(',').map(sample => sample.trim());
-        console.log("gridSamples",gridSamples)
-        console.log("box name", boxname);
-        console.log("box name", seatData);
+        const gridSamples = gridSample.split(',').map(sample => sample.trim());;
+        let activeBoxEntry = [];
+        let box_id = [];
 
-        const activeBoxEntry = Object.entries(seatData).find(([boxName, data]) => boxName === boxname);
-        if (!activeBoxEntry) {
-          console.error("No active box found with status 'AC'.");
-          return;
-        }
+        db.ref('bn/').once('value')
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              const boxIDs = snapshot.val();
 
-
-        const [activeBoxName, filteredSeats] = activeBoxEntry;
-        console.log("Active Box Name:", activeBoxName);
-        document.getElementById('currSpecimenBoxName').textContent = activeBoxName;
-        console.log("spgrid -- ", spgrid);
+              bioInfo = Object.entries(boxIDs).find(([bio_id, boxData]) => boxData === boxname);
+              const [id, boxData] = bioInfo;
+              box_id = id;
+              console.log("bioinfo", bioInfo)
+              console.log("box_id", box_id)
 
 
-        const indexedSeats = filteredSeats;
+              console.log("box name", boxname);
+              console.log("seatData", seatData);
+              console.log("box box_id", box_id);
 
-        for (let row = 0; row < rows.length; row++) {
-          for (let col = 1; col <= cols; col++) {
-            const labelName = `label_S${rows[row]}${col}`;
-            const seatID = `${rows[row]}${col}`;
-            const index = row * cols + (col - 1);
 
-            const seatData = indexedSeats[index];
+              activeBoxEntry = Object.entries(seatData).find(([boxid, data]) => boxid === box_id);
 
-            if (seatData) {
-              container.insertAdjacentHTML(
-                "beforeend",
-                `<input type="checkbox" name="seats" id="${seatID}" />` +
-                `<label for="${seatID}" class="viewSeat" id="${labelName}">${labelName}</label>`
-              );
 
-              let labelElement = document.getElementById(labelName);
-              if (labelElement) {
-                // labelElement.textContent = `${seatData.bioBankId || ""} \n ${seatData.sampleType}` || '';
-                // labelElement.style.fontWeight = "bold";
-                // labelElement.style.fontSize = "10px";
-                // labelElement.style.textAlign = 'center';
-                // labelElement.style.color = 'white';
-                if (seatData.bioBankId !== '') {
-                  labelElement.innerHTML = `${seatData.bioBankId || ''}<br>${seatData.sampleType || ''}`;
-                  labelElement.style.fontWeight = "bolder";
-                  labelElement.style.fontSize = "9px";
-                  labelElement.style.textAlign = "center";
-                  labelElement.style.color = 'white';
-                }
-                else if (seatData.bioBankId === '') {
-                  labelElement.innerHTML = `${'-'}<br>`;
-                  labelElement.style.color = "rgb(143, 218, 187)";
-                  labelElement.style.textAlign = "center";
-
-                }
-
-                if (seatData.status === "o") {
-                  labelElement.style.background = "rgb(129, 129, 192)";
-                } else if (seatData.status === "s") {
-                  labelElement.style.background = "rgb(180, 180, 180)";
-                } else if (seatData.status === "ps") {
-                  labelElement.style.background = "rgb(193, 154, 107)";
-                } else if (seatData.status === "e") {
-                  labelElement.style.background = "rgb(143, 218, 187)";
-                }
-
-                if (gridSamples.includes(seatID)) {
-                  console.log("seatID",seatID)
-                  labelElement.style.background = "#4d6335";
-                }
+              if (!activeBoxEntry) {
+                console.log("No active box found.");
+                return;
               }
+              const [boxid, filteredSeats] = activeBoxEntry;
+              let boxName = [];
+              console.log("Active Box Name:", boxid);
+              const indexedSeats = filteredSeats;
+
+              db.ref('bn/' + boxid).once('value')
+                .then((snapshot) => {
+                  if (snapshot.exists()) {
+                    boxName = snapshot.val();
+
+                    console.log("Box Name for ID " + boxid + ": " + boxName);
+                    document.getElementById('currSpecimenBoxName').textContent = boxName;
+
+                  } else {
+                    console.log("No box found with ID " + boxid);
+                  }
+                  if (!indexedSeats) {
+                    console.log("No indexed seats available in the active box.");
+                    return;
+                  }
+                  for (let row = 0; row < rows.length; row++) {
+                    for (let col = 1; col <= cols; col++) {
+                      const labelName = `label_S${rows[row]}${col}`;
+                      const seatID = `${rows[row]}${col}`;
+                      const index = row * cols + (col - 1);
+
+                      const seat = indexedSeats[index];
+
+                      if (seat) {
+                        container.insertAdjacentHTML(
+                          "beforeend",
+                          `<input type="checkbox" name="seats" id="${seatID}" />` +
+                          `<label for="${seatID}" class="viewSeat" id="${labelName}">${labelName}</label>`
+                        );
+
+                        let labelElement = document.getElementById(labelName);
+                        if (labelElement) {
+                          if (seat.bioBankId !== '') {
+                            labelElement.innerHTML = `${seat.bioBankId || ''}<br>${seat.sampleType || ''}`;
+                            labelElement.style.fontWeight = "bolder";
+                            labelElement.style.fontSize = "9px";
+                            labelElement.style.textAlign = "center";
+                            labelElement.style.color = 'white';
+                          } else if (seat.bioBankId === '') {
+                            labelElement.innerHTML = `${'-'}<br>`;
+                            labelElement.style.color = "rgb(143, 218, 187)";
+                            labelElement.style.textAlign = "center";
+                          }
+
+                          if (seat.status === "o") {
+                            labelElement.style.background = "rgb(129, 129, 192)";
+                          } else if (seat.status === "s") {
+                            labelElement.style.background = "rgb(180, 180, 180)";
+                          } else if (seat.status === "ps") {
+                            labelElement.style.background = "rgb(193, 154, 107)";
+                          } else if (seat.status === "e") {
+                            labelElement.style.background = "rgb(143, 218, 187)";
+                          }
+
+                          if (gridSamples.includes(seatID)) {
+                            labelElement.style.background = "#4d6335";
+                          }
+                        }
+                      }
+                    }
+                    container.insertAdjacentHTML("beforeend", "<br/>");
+                  }
+
+                })
+
+
+                .catch((error) => {
+                  console.error("Error fetching box name for ID " + boxid + ": ", error);
+                });
+
+              // document.getElementById('currBloodBoxName').textContent = activeBoxName;
+
+            } else {
+              console.log("No boxes found in the database.");
             }
-          }
-          container.insertAdjacentHTML("beforeend", "<br/>");
-        }
+          })
+          .catch((error) => {
+            console.error("Error fetching box names:", error);
+          });
         window.handleDone = function () {
           $('#specimenModalCenter').modal('hide');
         };
@@ -3591,8 +3949,8 @@
 
         const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
         const cols = 10;
-
-        const activeBoxEntry = Object.entries(seatData).find(([boxName, data]) => data.bxsts === 'AC');
+        let ftListener = true;
+        const activeBoxEntry = Object.entries(seatData).find(([box_id, data]) => data.bxsts === 'AC');
         if (!activeBoxEntry) {
           console.error("No active box found with status 'AC'.");
           return;
@@ -3627,9 +3985,27 @@
         let spgrid = localStorage.getItem("selectedSGrid");
         const maxSelectionsFT = parseInt(document.getElementById('ft_tubes').value, 10);
 
-        const [activeBoxName, filteredSeats] = activeBoxEntry;
-        console.log("Active Box Name:", activeBoxName);
-        document.getElementById('currSpecimenBoxName').textContent = activeBoxName;
+        const [box_id, filteredSeats] = activeBoxEntry;
+        let boxName = [];
+
+        console.log("Active Box Name:", box_id);
+
+        db.ref('bn/' + box_id).once('value')
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              boxName = snapshot.val();
+
+              console.log("Box Name for ID " + box_id + ": " + boxName);
+              document.getElementById('currSpecimenBoxName').textContent = boxName;
+
+            } else {
+              console.log("No box found with ID " + box_id);
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching box name for ID " + box_id + ": ", error);
+          });
+        // document.getElementById('currSpecimenBoxName').textContent = activeBoxName;
         console.log("spgrid -- ", spgrid);
 
         if (spgrid !== null) {
@@ -3661,8 +4037,12 @@
                 `<label for="${seatID}" class="seat" id="${labelName}">${labelName}</label>`
               );
 
-              document.getElementById(seatID).addEventListener('click', function (event) {
-                handleSSeatSelection(seatID, event.target.checked, seatData.status, maxSelectionsFT, 'FT Grid');
+              document.getElementById(seatID).addEventListener('change', function (event) {
+                // console.log("ftListener",ftListener)
+                if (ftListener) {
+
+                  handleSSeatSelection(seatID, event.target.checked, seatData.status, maxSelectionsFT, 'FT Grid');
+                }
               });
 
               let labelElement = document.getElementById(labelName);
@@ -3705,7 +4085,10 @@
           }
 
           console.log("rev : ", rev, " SpecimenSelectedSeats : ", SpecimenSelectedSeats);
-          const labelElement = document.querySelector(`label[for="${seatID}"]`);
+          // const labelElement = document.querySelector(`label[for="${seatID}"]`);
+          const labelElement = document.querySelector(`label[id="label_S${seatID}"]`);
+
+          console.log("label Element in the FT Grid Selection", labelElement)
 
           if (status === 'e') {
             if (isChecked) {
@@ -3763,7 +4146,7 @@
           splitSpecimenStringToArray(spgrid);
 
           if (gridInput) {
-            const box_name = activeBoxName;
+            const box_name = boxName;
             let ftStatuses = [];
 
             for (let i = 1; i <= SpecimenSelectedSeats.length; i++) {
@@ -3786,10 +4169,16 @@
         }
 
         window.handleDone = function () {
-          if (SpecimenSelectedSeats.length > 0) {
+
+          if (SpecimenSelectedSeats.length === maxSelectionsFT) {
             updateFTGridInput();
-          }
+            ftListener = false;
           $('#specimenModalCenter').modal('hide');
+
+          }
+          else{
+            alert(`Please select ${maxSelectionsFT} grids`)
+          }
         };
       }
     }
@@ -3830,80 +4219,119 @@
         const boxname = FNBoxName.split('/')[0];
         const gridSample = FNBoxName.split('/')[1];
         const gridSamples = gridSample.split(',').map(sample => sample.trim());;
-        console.log("box name", boxname);
-        console.log("box name", seatData);
+        let activeBoxEntry = [];
+        let box_id = [];
 
-        const activeBoxEntry = Object.entries(seatData).find(([boxName, data]) => boxName === boxname);
-        if (!activeBoxEntry) {
-          console.error("No active box found with status 'AC'.");
-          return;
-        }
+        db.ref('bn/').once('value')
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              const boxIDs = snapshot.val();
+
+              bioInfo = Object.entries(boxIDs).find(([bio_id, boxData]) => boxData === boxname);
+              const [id, boxData] = bioInfo;
+              box_id = id;
+              console.log("bioinfo", bioInfo)
+              console.log("box_id", box_id)
 
 
-        const [activeBoxName, filteredSeats] = activeBoxEntry;
-        console.log("Active Box Name:", activeBoxName);
-        document.getElementById('currSpecimenBoxName').textContent = activeBoxName;
-        console.log("spgrid -- ", spgrid);
+              console.log("box name", boxname);
+              console.log("seatData", seatData);
+              console.log("box box_id", box_id);
 
 
-        const indexedSeats = filteredSeats;
+              activeBoxEntry = Object.entries(seatData).find(([boxid, data]) => boxid === box_id);
 
-        for (let row = 0; row < rows.length; row++) {
-          for (let col = 1; col <= cols; col++) {
-            const labelName = `label_S${rows[row]}${col}`;
-            const seatID = `${rows[row]}${col}`;
-            const index = row * cols + (col - 1);
 
-            const seatData = indexedSeats[index];
-
-            if (seatData) {
-              container.insertAdjacentHTML(
-                "beforeend",
-                `<input type="checkbox" name="seats" id="${seatID}" />` +
-                `<label for="${seatID}" class="viewSeat" id="${labelName}">${labelName}</label>`
-              );
-
-              let labelElement = document.getElementById(labelName);
-              if (labelElement) {
-                // labelElement.textContent = `${seatData.bioBankId || ""} \n ${seatData.sampleType}` || '';
-                // labelElement.style.fontWeight = "bold";
-                // labelElement.style.fontSize = "10px";
-                // labelElement.style.textAlign = 'center';
-                // labelElement.style.color = 'white';
-                if (seatData.bioBankId !== '') {
-                  labelElement.innerHTML = `${seatData.bioBankId || ''}<br>${seatData.sampleType || ''}`;
-                  labelElement.style.fontWeight = "bolder";
-                  labelElement.style.fontSize = "9px";
-                  labelElement.style.textAlign = "center";
-                  labelElement.style.color = 'white';
-                }
-                else if (seatData.bioBankId === '') {
-                  labelElement.innerHTML = `${'-'}<br>`;
-                  labelElement.style.color = "rgb(143, 218, 187)";
-                  labelElement.style.textAlign = "center";
-
-                }
-
-                if (seatData.status === "o") {
-                  labelElement.style.background = "rgb(129, 129, 192)";
-                } else if (seatData.status === "s") {
-                  labelElement.style.background = "rgb(180, 180, 180)";
-                } else if (seatData.status === "ps") {
-                  labelElement.style.background = "rgb(193, 154, 107)";
-                } else if (seatData.status === "e") {
-                  labelElement.style.background = "rgb(143, 218, 187)";
-                }
-                if (gridSamples.includes(seatID)) {
-                  labelElement.style.background = "#4d6335";
-                }
+              if (!activeBoxEntry) {
+                console.log("No active box found.");
+                return;
               }
+              const [boxid, filteredSeats] = activeBoxEntry;
+              let boxName = [];
+              console.log("Active Box Name:", boxid);
+              const indexedSeats = filteredSeats;
+
+              db.ref('bn/' + boxid).once('value')
+                .then((snapshot) => {
+                  if (snapshot.exists()) {
+                    boxName = snapshot.val();
+
+                    console.log("Box Name for ID " + boxid + ": " + boxName);
+                    document.getElementById('currSpecimenBoxName').textContent = boxName;
+
+                  } else {
+                    console.log("No box found with ID " + boxid);
+                  }
+                  if (!indexedSeats) {
+                    console.log("No indexed seats available in the active box.");
+                    return;
+                  }
+                  for (let row = 0; row < rows.length; row++) {
+                    for (let col = 1; col <= cols; col++) {
+                      const labelName = `label_S${rows[row]}${col}`;
+                      const seatID = `${rows[row]}${col}`;
+                      const index = row * cols + (col - 1);
+
+                      const seat = indexedSeats[index];
+
+                      if (seat) {
+                        container.insertAdjacentHTML(
+                          "beforeend",
+                          `<input type="checkbox" name="seats" id="${seatID}" />` +
+                          `<label for="${seatID}" class="viewSeat" id="${labelName}">${labelName}</label>`
+                        );
+
+                        let labelElement = document.getElementById(labelName);
+                        if (labelElement) {
+                          if (seat.bioBankId !== '') {
+                            labelElement.innerHTML = `${seat.bioBankId || ''}<br>${seat.sampleType || ''}`;
+                            labelElement.style.fontWeight = "bolder";
+                            labelElement.style.fontSize = "9px";
+                            labelElement.style.textAlign = "center";
+                            labelElement.style.color = 'white';
+                          } else if (seat.bioBankId === '') {
+                            labelElement.innerHTML = `${'-'}<br>`;
+                            labelElement.style.color = "rgb(143, 218, 187)";
+                            labelElement.style.textAlign = "center";
+                          }
+
+                          if (seat.status === "o") {
+                            labelElement.style.background = "rgb(129, 129, 192)";
+                          } else if (seat.status === "s") {
+                            labelElement.style.background = "rgb(180, 180, 180)";
+                          } else if (seat.status === "ps") {
+                            labelElement.style.background = "rgb(193, 154, 107)";
+                          } else if (seat.status === "e") {
+                            labelElement.style.background = "rgb(143, 218, 187)";
+                          }
+
+                          if (gridSamples.includes(seatID)) {
+                            labelElement.style.background = "#4d6335";
+                          }
+                        }
+                      }
+                    }
+                    container.insertAdjacentHTML("beforeend", "<br/>");
+                  }
+
+                })
+
+
+                .catch((error) => {
+                  console.error("Error fetching box name for ID " + boxid + ": ", error);
+                });
+
+              // document.getElementById('currBloodBoxName').textContent = activeBoxName;
+
+            } else {
+              console.log("No boxes found in the database.");
             }
-          }
-          container.insertAdjacentHTML("beforeend", "<br/>");
-        }
-        window.handleDone = function () {
-          $('#specimenModalCenter').modal('hide');
-        };
+          })
+          .catch((error) => {
+            console.error("Error fetching box names:", error);
+          }); window.handleDone = function () {
+            $('#specimenModalCenter').modal('hide');
+          };
       }
     }
 
@@ -3938,7 +4366,7 @@
         const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
         const cols = 10;
 
-        const activeBoxEntry = Object.entries(seatData).find(([boxName, data]) => data.bxsts === 'AC');
+        const activeBoxEntry = Object.entries(seatData).find(([box_id, data]) => data.bxsts === 'AC');
         if (!activeBoxEntry) {
           console.error("No active box found with status 'AC'.");
           return;
@@ -3972,9 +4400,26 @@
         spgrid = localStorage.getItem("selectedSGrid");
         const maxSelections = parseInt(document.getElementById('fn_tubes').value, 10);
 
-        const [activeBoxName, filteredSeats] = activeBoxEntry;
-        console.log("Active Box Name:", activeBoxName);
-        document.getElementById('currSpecimenBoxName').textContent = activeBoxName;
+        const [box_id, filteredSeats] = activeBoxEntry;
+        let boxName = [];
+        console.log("Active Box Name:", box_id);
+
+        db.ref('bn/' + box_id).once('value')
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              boxName = snapshot.val();
+
+              console.log("Box Name for ID " + box_id + ": " + boxName);
+              document.getElementById('currBloodBoxName').textContent = boxName;
+
+            } else {
+              console.log("No box found with ID " + box_id);
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching box name for ID " + box_id + ": ", error);
+          });
+        // document.getElementById('currSpecimenBoxName').textContent = activeBoxName;
 
         if (spgrid !== null) {
           let arrS = splitSpecimenStringToArray(spgrid);
@@ -4107,7 +4552,7 @@
           splitSpecimenStringToArray(spgrid);
 
           if (gridInput) {
-            const box_name = activeBoxName;
+            const box_name = boxName;
             let fnStatuses = [];
 
             for (let i = 1; i <= SpecimenSelectedSeats.length; i++) {
@@ -4130,10 +4575,13 @@
         }
 
         window.handleDone = function () {
-          if (SpecimenSelectedSeats.length > 0) {
+          if (SpecimenSelectedSeats.length === maxSelections) {
             updateFNGridInput();
-          }
           $('#specimenModalCenter').modal('hide');
+          }
+          else{
+            alert(`Please select ${maxSelections} grids`)
+          }
         };
       }
     }
@@ -4228,7 +4676,7 @@
 
       if (!allFilled) {
         console.log('Please fill in the following required fields:', emptyFields.join(', '));
-        alert('Please enter all the required fields. Check the console for details.');
+        alert('Please enter all the required fields.');
         return;
       }
       // Hide form1 and show form2
@@ -4818,6 +5266,16 @@
         localStorage.removeItem("LocalSerum");
         localStorage.removeItem("LocalBuffy");
       });
+
+      var subtypeElement = document.getElementById('subtype');
+      var otherSubtypeDiv = document.getElementById('pSubtypeOther');
+
+      // Check the initial value of the subtype dropdown
+      if (subtypeElement.value === 'other' || subtypeElement.value === 'option6') {
+        otherSubtypeDiv.style.display = 'block';
+      } else {
+        otherSubtypeDiv.style.display = 'none';
+      }
     });
 
 
@@ -4832,6 +5290,8 @@
         const doneBtn = document.getElementById("sampleEntry1");
         const submitBtn = document.getElementById("submitButton");
         const finishBtn = document.getElementById('finishButton');
+        const followUpBtn = document.getElementById('subFollowUp');
+
 
         // formElements.forEach(element => {
         //   element.disabled = true;
@@ -4848,6 +5308,7 @@
 
         finishBtn.style.display = 'block'
         doneBtn.style.display = 'none'
+        followUpBtn.style.display = 'none'
         submitBtn.style.display = 'none'
         document.getElementById('sefCurrentUser').style.display = "block"
         document.getElementById('mdCurrentUser').style.display = "block"
@@ -4863,29 +5324,27 @@
       else if (mode === 'SearchEdit' || mode === 'PendingEdit') {
         document.getElementById('mrnNo').setAttribute('disabled', true);
         document.getElementById('bioBankId').setAttribute('disabled', true);
+
+        document.getElementById('patAge').setAttribute('disabled', true);
+        const gdrInputs = document.querySelectorAll('input[name="customRadio"]');
+        gdrInputs.forEach(input => {
+          input.setAttribute('disabled', true);
+          console.log(`Input with ID ${input.id} disabled`);
+        });
+        const ctInputs = document.querySelectorAll('input[name="radioCancerType"]');
+        ctInputs.forEach(input => {
+          input.setAttribute('disabled', true);
+          console.log(`Input with ID ${input.id} disabled`);
+        });
+        const pocedureInputs = document.querySelectorAll('input[name="customProcedure"]');
+        pocedureInputs.forEach(input => {
+          input.setAttribute('disabled', true);
+          console.log(`Input with ID ${input.id} disabled`);
+        });
+
         const finishBtn = document.getElementById('finishButton');
 
         finishBtn.style.display = 'none';
-
-        // const bloodSampleElementY = document.querySelector('#bloodSampleY').isChecked;
-        // console.log("BloodSampleY element:", bloodSampleElementY);
-        // const bloodSampleInputs = document.querySelectorAll('input[name="bloodSample"]');
-        // const bloodSampleElementN = document.querySelector('#bloodSampleN').isChecked;
-
-        // if (bloodSampleElementY) {
-        //   const queryInput = document.querySelector('input[name="bloodSample"]'); // Adjust selector as needed
-        //   console.log('queryInput', queryInput)
-
-        //   bloodSampleInputs.forEach(input => {
-        //     input.setAttribute('disabled', true);
-        //     console.log(`Input with ID ${input.id} disabled`);
-        //   });
-        // } else if(bloodSampleElementN) {
-        //   bloodSampleInputs.forEach(input => {
-        //     input.setAttribute('disabled', false);
-        //     console.log(`Input with ID ${input.id} is not disabled`);
-        //   });
-        // }
       }
 
       else if (mode === "undefined") {
@@ -4897,24 +5356,78 @@
 
 
 
-      if (formData) {
+      if (formData && mode !== "undefined")  {
+
         const data = JSON.parse(formData);
         console.log("Data retrieved from sessionStorage:", data);
+        localStorage.removeItem("bloodVStatus");
+        localStorage.removeItem("specimenVStatus");
+        localStorage.removeItem("otherVStatus");
 
         if (data.ie) fillIeForm(data.ie);
         if (data.md) fillMdForm(data.md);
         if (data.brf) fillBrfForm(data.brf);
+        console.log("data.ie.bs", data.ie.bs)
+        const bloodSampleInputs = document.querySelectorAll('input[name="bloodSample"]');
+        const specimenSampleInputs = document.querySelectorAll('input[name="specimenSample"]');
+        const otherSampleInputs = document.querySelectorAll('input[name="otherSample"]');
+        localStorage.setItem("bloodVStatus", data.ie.bs);
+        localStorage.setItem("specimenVStatus", data.ie.ss);
+        localStorage.setItem("otherVStatus", data.ie.osmp);
+
+        if (mode === 'SearchEdit' || mode === 'PendingEdit') {
+          if (data.ie.bs === 'true') {
+
+            bloodSampleInputs.forEach(input => {
+              input.setAttribute('disabled', true);  // Disable the inputs
+              console.log(`Input with ID ${input.id} disabled`);
+            });
+          } else {
+            bloodSampleInputs.forEach(input => {
+              input.removeAttribute('disabled');  // Re-enable the inputs if not checked
+              console.log(`Input with ID ${input.id} enabled`);
+            });
+          }
+          if (data.ie.ss === 'true') {
+            document.getElementById('ft_tubes').setAttribute('disabled', true);
+            document.getElementById('fn_tubes').setAttribute('disabled', true);
+            specimenSampleInputs.forEach(input => {
+              input.setAttribute('disabled', true);  // Disable the inputs
+              console.log(`Input with ID ${input.id} disabled`);
+            });
+          } else {
+            specimenSampleInputs.forEach(input => {
+              input.removeAttribute('disabled');  // Re-enable the inputs if not checked
+              console.log(`Input with ID ${input.id} enabled`);
+            });
+          }
+          if (data.ie.osmp === 'true') {
+
+            otherSampleInputs.forEach(input => {
+              input.setAttribute('disabled', true);  // Disable the inputs
+              console.log(`Input with ID ${input.id} disabled`);
+            });
+          } else {
+            otherSampleInputs.forEach(input => {
+              input.removeAttribute('disabled');  // Re-enable the inputs if not checked
+              console.log(`Input with ID ${input.id} enabled`);
+            });
+          }
+        }
+
       } else {
         console.error('No data found in sessionStorage');
       }
+      if (mode === 'ViewFollowUp') {
+        retrieveFollowup(biobankID);
 
-      retrieveFollowup(biobankID);
+      }
 
     });
 
     document.addEventListener('DOMContentLoaded', function () {
       let mode = localStorage.getItem('mode');
-      console.log("mode", mode);
+      console.log("mode checking ", mode);
 
       if (mode === "" || mode === "undefined") {
         // Clear all input fields
@@ -4943,19 +5456,18 @@
     console.log("User Name", userN)
 
 
-    function shareData(selectedPatients) {
-      console.log("Shared patients :", selectedPatients);
-    }
+    // function shareData(selectedPatients) {
+    //   console.log("Shared patients :", selectedPatients);
+    // }
     document.addEventListener('DOMContentLoaded', function () {
       const selectedPatients = JSON.parse(localStorage.getItem('selectedPatients'));
 
       console.log('Retrieved selectedPatients:', selectedPatients);
     });
     document.getElementById('shareForm').addEventListener('submit', function (e) {
-      e.preventDefault(); // Prevent the default form submission
+      e.preventDefault();
       const timestamp = Math.floor(Date.now() / 1000);
 
-      // Collect form data
       const dateOfEntry = document.getElementById('startInputOutsource').value;
       const institute = document.getElementById('institute').value;
       const projectName = document.getElementById('projectName').value;
@@ -5003,71 +5515,144 @@
             if (!database[bioBankId][seqKey][timestamp]) {
               database[bioBankId][seqKey][timestamp] = patientEntry;
             }
+            let existingEntry = {};
+            // db.ref('bn/').once('value')
+            //   .then((snapshot) => {
+            //     if (snapshot.exists()) {
+            //       const boxIDs = snapshot.val();
 
-            // Initialize lbi[boxName] as an array if it doesn't exist
-            const existingEntry = database[bioBankId][seqKey][timestamp];
-            if (!existingEntry.lbi[boxName]) {
-              existingEntry.lbi[boxName] = [];
+            //       bioInfo = Object.entries(boxIDs).find(([bio_id, boxData]) => boxData === boxName);
+            //       const [id, boxData] = bioInfo;
+            //       box_id = id;
+            //       const existingEntry = database[bioBankId][seqKey][timestamp];
+            //       console.log("existingEntry",existingEntry)
+            //       if (!existingEntry.lbi[box_id]) {
+            //         existingEntry.lbi[box_id] = [];
+            //       }
+
+            //       // Iterate over gridData to append each seatID to the array
+            //       seatList.forEach(seatID => {
+            //         existingEntry.lbi[box_id].push(seatID.trim());
+            //       });
+            //       return db.ref(`Os/${bioBankId}/${seqKey}/${timestamp}`).set(existingEntry);
+
+            //     }
+            //   })
+
+            existingEntry = database[bioBankId][seqKey][timestamp];
+            const storedBnData = JSON.parse(localStorage.getItem('bnData'));
+            console.log('Retrieved bnData from local storage:', storedBnData);
+
+            const boxEntry = storedBnData.find(entry => entry.name === boxName);
+            const box_id = boxEntry.id;
+
+            if (!existingEntry.lbi[box_id]) {
+              existingEntry.lbi[box_id] = [];
             }
 
             // Iterate over gridData to append each seatID to the array
             seatList.forEach(seatID => {
-              existingEntry.lbi[boxName].push(seatID.trim());
+              existingEntry.lbi[box_id].push(seatID.trim());
             });
+            return db.ref(`Os/${bioBankId}/${seqKey}/${timestamp}`).set(existingEntry);
+
+            // Initialize lbi[boxName] as an array if it doesn't exist
+
 
             // Update Firebase with the consolidated data
-            return db.ref(`Os/${bioBankId}/${seqKey}/${timestamp}`).set(existingEntry);
           })
           .then(() => {
             alert('Form submitted successfully for BioBank ID: ' + bioBankId);
 
-            // Update the grid status in the appropriate boxes
             const seatPromises = seatList.map(seatID => {
               seatID = seatID.trim();
               const index = getSeatIndex(seatID);
 
-              // Handle updating both bb and sb nodes in parallel
-              const bbPromise = db.ref(`bb/${boxName}`).once('value')
-                .then(snapshot => {
-                  if (snapshot.exists()) {
-                    return db.ref(`bb/${boxName}/${index}`).update({ status: sharedStatus });
-                  }
-                  console.log("bb does not exist");
-                });
+              // Retrieve the bn data from localStorage
+              const storedBnData = JSON.parse(localStorage.getItem('bnData'));
 
-              const sbPromise = db.ref(`sb/${boxName}`).once('value')
-                .then(snapshot => {
-                  if (snapshot.exists()) {
-                    return db.ref(`sb/${boxName}/${index}`).update({ status: sharedStatus });
-                  }
-                  console.log("sb does not exist");
-                });
+              // Find the box entry based on the box name
+              const boxEntry = storedBnData.find(entry => entry.name === boxName);
 
-              return Promise.all([bbPromise, sbPromise]);
+              if (boxEntry) {
+                // const [id, boxData] = boxEntry;
+                const box_id = boxEntry.id;
+
+                // Handle updating both bb and sb nodes in parallel
+                const bbPromise = db.ref(`bb/${box_id}`).once('value')
+                  .then(snapshot => {
+                    if (snapshot.exists()) {
+                      return db.ref(`bb/${box_id}/${index}`).update({ status: sharedStatus });
+                    } else {
+                      console.log("bb does not exist");
+                    }
+                  });
+
+                const sbPromise = db.ref(`sb/${box_id}`).once('value')
+                  .then(snapshot => {
+                    if (snapshot.exists()) {
+                      return db.ref(`sb/${box_id}/${index}`).update({ status: sharedStatus });
+                    } else {
+                      console.log("sb does not exist");
+                    }
+                  });
+
+                // Return a promise that resolves when both bb and sb updates are complete
+                return Promise.all([bbPromise, sbPromise]);
+              } else {
+                console.error(`Box name "${box_id}" not found in localStorage.`);
+              }
             });
 
-            return Promise.all(seatPromises);
+            Promise.all(seatPromises)
+              .then(() => {
+                console.log("All seat updates completed.");
+
+                // Redirect based on the mode
+                let mode = localStorage.getItem('mode');
+                switch (mode) {
+                  case 'SearchView':
+                  case 'SearchEdit':
+                  case 'share':
+                    window.location.href = 'search.html';
+                    break;
+                  case 'PendingView':
+                  case 'PendingEdit':
+                  case 'EditFollowUps':
+                  case 'ViewFollowUp':
+                    window.location.href = 'todo.html';
+                    break;
+                  default:
+                    window.location.href = 'home.html';
+                    break;
+                }
+              })
+              .catch(error => {
+                console.error('Error in seatPromises:', error);
+              });
+
           })
-          .then(() => {
-            // Redirect based on the mode
-            let mode = localStorage.getItem('mode');
-            switch (mode) {
-              case 'SearchView':
-              case 'SearchEdit':
-              case 'share':
-                window.location.href = 'search.html';
-                break;
-              case 'PendingView':
-              case 'PendingEdit':
-              case 'EditFollowUps':
-              case 'ViewFollowUp':
-                window.location.href = 'todo.html';
-                break;
-              default:
-                window.location.href = 'home.html';
-                break;
-            }
-          })
+          // .then(() => {
+          //   // Redirect based on the mode
+          //   let mode = localStorage.getItem('mode');
+          //   switch (mode) {
+          //     case 'SearchView':
+          //     case 'SearchEdit':
+          //     case 'share':
+          //       window.location.href = 'search.html';
+          //       break;
+          //     case 'PendingView':
+          //     case 'PendingEdit':
+          //     case 'EditFollowUps':
+          //     case 'ViewFollowUp':
+          //       window.location.href = 'todo.html';
+          //       break;
+          //     default:
+          //       window.location.href = 'home.html';
+          //       break;
+          //   }
+          // })
+
           .catch(error => {
             console.error('Error:', error);
             alert('Error submitting form for BioBank ID: ' + bioBankId);
