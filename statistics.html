@@ -183,7 +183,7 @@
 
       </div>
       <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255);">
-        Version 1.4.0
+        Version 1.5.0
       </div>
     </div>
   </footer>
@@ -328,8 +328,8 @@
 
           startInput.attr('disabled', true);
           endInput.attr('disabled', true);
-          localStorage.setItem('startInput', formattedSunday);
-          localStorage.setItem('endInput', formattedDate);
+          localStorage.setItem('startInput', formattedStartDate);
+          localStorage.setItem('endInput', formattedEndDate);
         }
 
         // else if (selectedOption === 'custom') {
@@ -477,11 +477,12 @@
   <script>
     const app = firebase.initializeApp(firebaseConfig);
     const db = firebase.database(app);
+    let clickEvent = false;
     window.onload = function () {
       document.getElementById("optionInput").value = "select"
       localStorage.setItem('startInput', '');
       localStorage.setItem('endInput', '');
-
+      clickEvent = true;
       // Set the filter to month
       document.getElementById("optionInput").value = "month";
       $('#optionInput').trigger('change'); // Trigger the change event to load the data
@@ -531,14 +532,19 @@
     document.addEventListener('DOMContentLoaded', function () {
       document.getElementById('searchBtn').addEventListener('click', function (event) {
         event.preventDefault();
-
+        if(!clickEvent ){
+          searchLoadingModal();
+        }
+        clickEvent=false;
         // Retrieve start and end dates from local storage
         let startDate = localStorage.getItem('startInput');
         let endDate = localStorage.getItem('endInput');
 
         // Check if startDate or endDate is empty or null
         if (!startDate || !endDate) {
+          hideLoadingModal();
           alert("Please select From and To Date");
+          
           return; // Exit the function if dates are not valid
         }
 
@@ -711,7 +717,7 @@
                 procedureChart(biopsy, resection);
                 //sampleTypeChart(countBS, countSS, countOS);
                 sampleTypeChart(countBS, countSS, countOS, countCombined);
-
+                hideLoadingModal();
               } else {
                 alert("Please select From and To Date");
               }
