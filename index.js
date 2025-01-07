@@ -694,7 +694,31 @@ function populateBBDataForCurrentBox() {
 // // Initial call to populate the first box when the page loads
 window.onload = function () {
  // populateBBData(); // Populate the first box on page load
-  fetchBnData();
+ // fetchBnData();
+
+    let bnLocalS = [];
+
+  db.ref('bn/').once('value')
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        const boxIDs = snapshot.val();
+        console.log("Bio Box Names in the BN node", boxIDs);
+
+        let bnLocalS = [];
+
+        for (const [key, value] of Object.entries(boxIDs)) {
+          bnLocalS.push({ id: key, name: value });
+        }
+        // bnLocalS = boxIDs;
+        localStorage.setItem('bnData', JSON.stringify(bnLocalS));
+
+        console.log("Data stored in bnLocalS:", bnLocalS);
+        console.log("Data stored in local storage.");
+      }
+    })
+    .catch((error) => {
+      console.error('Error fetching data:', error);
+    });
 };
 
 
