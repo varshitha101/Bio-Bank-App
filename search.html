@@ -192,7 +192,7 @@
               <div class="form-group col-xs-1 mr-2">
                 <label for="ageCriterion">Age Criterion</label>
                 <select id="ageCriterion" class="form-control">
-              
+
                   <option selected>Greater than</option>
                   <option>Less than</option>
                   <option>Equal to</option>
@@ -207,7 +207,7 @@
               <div class="form-group col-xs-2 mr-2">
                 <label for="cancerTypeInput">Cancer Type</label>
                 <select id="cancerTypeInput" class="form-control">
-                  
+
                   <option selected>All</option>
                   <option value="brst">Breast Cancer</option>
                 </select>
@@ -215,7 +215,7 @@
               <div class="form-group col-xs-2 mr-2">
                 <label for="sampleType">Sample</label>
                 <select id="sampleType" class="form-control">
-                 
+
                   <option selected>All</option>
                   <!-- <option value="Blood">Blood</option> -->
                   <option value="Plasma">Plasma</option>
@@ -236,8 +236,8 @@
               <div class="form-group col-xs-2 mr-2">
                 <label for="sampleavailable">Status</label>
                 <select id="sampleavailable" class="form-control">
-                  
-                  <option selected >All</option>
+
+                  <option selected>All</option>
                   <option value="Shared">Shared</option>
                   <option value="Available">Available</option>
                 </select>
@@ -246,7 +246,7 @@
               <div class="form-group col-xs-2 mr-2">
                 <label for="gradeInput">Grade</label>
                 <select id="gradeInput" class="form-control">
-                  
+
                   <option selected>All</option>
                   <option value="grade1">Grade 1</option>
                   <option value="grade2">Grade 2</option>
@@ -256,7 +256,7 @@
               <div class="form-group col-xs-2 mr-2">
                 <label for="nactInput">NACT</label>
                 <select id="nactInput" class="form-control">
-                  
+
                   <option selected>All</option>
                   <option value="Yes">Yes</option>
                   <option value="No">No</option>
@@ -265,7 +265,7 @@
               <div class="form-group col-xs-2 mr-2">
                 <label for="pathSubtype">Pathologic Subtype</label>
                 <select id="pathSubtype" class="form-control">
-                  
+
                   <option selected>All</option>
                   <option value="option1">
                     No residual invasive carcinoma
@@ -572,7 +572,7 @@
       </div>
       <div class="credits"></div>
       <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">
-        Version 1.4.0
+        Version 1.5.0
       </div>
     </div>
   </footer>
@@ -883,7 +883,7 @@
         });
       });
       const mode = "share";
-      shareDate(mode, selectedPatients);
+      shareData(mode, selectedPatients);
       console.log("Selected patients for sharing:", selectedPatients);
     }
 
@@ -1030,7 +1030,215 @@
 
 
 
-    function displaySamPatients(data) {
+    //     function displaySamPatients(data) {
+    //       console.log("displaysamPatients - ", data);
+    //       filteredPatientData = data;
+    //       const tbody = document.querySelector(".patientTableBody1");
+    //       tbody.innerHTML = "";
+
+    //       const start = (currentPage - 1) * rowsPerPage;
+    //       const end = start + rowsPerPage;
+
+    //       console.log("Patient Table visibility:", tbody.style.display);
+
+
+    //       // Retrieve and normalize the sampleTypeInput from localStorage
+    //       const sampleTypeInput = localStorage.getItem("sampleTypeInput")?.trim().toUpperCase();
+    //       let allSequences = [];
+
+    //       console.log("Starting to populate allSequences...");
+    //       Object.entries(data).forEach(([bioBankId, sequenceData]) => {
+    //         Object.entries(sequenceData).forEach(([seqKey, timestampEntries]) => {
+    //           // Get the latest timestamp key
+    //           const lastTimestampKey = Object.keys(timestampEntries).sort().pop();
+    //           let patient = timestampEntries[lastTimestampKey];
+
+    //           console.log("allSequences", patient);
+
+    //           if (!patient) return;
+
+    //           let hasSubChildren = false;
+
+    //           if (patient) {
+    //             // Check if patient has any sub-children
+    //             hasSubChildren = Object.keys(patient).some(key => typeof patient[key] === 'object' && patient[key] !== null);
+    //             console.log("Does patient have sub-children?", hasSubChildren);
+    //           } else {
+    //             console.log("Patient object is undefined or null.");
+    //           }
+
+    //           if (hasSubChildren) {
+
+    //             let patientmd = patient.md
+    //             patient = patient.ie;
+
+
+    //             const patientdd = { ...patient }; // Create a copy of patientData
+
+    //             // Append patientmd.gd to the patient object
+    //             if (patientmd && patientmd.gd) {
+    //               patient.gd = patientmd.gd.toUpperCase(); // Add the gd value to the patient object
+    //             }
+
+    //             patient = patientdd;
+
+    //           }
+
+
+    //           // Process fields to filter and build sequence data
+    //           const fields = ["bpg", "bsg", "bbcg", "ftg", "fng", "osg"];
+    //           fields.forEach((field) => {
+    //             const fieldData = patient[field];
+    //             if (!fieldData) return;
+
+    //             console.log(" patient field - ", fieldData);
+
+    //             // Split the field data into its components
+    //             const [boxName = "-", seatData = "", sampleData = ""] = fieldData.split("/");
+    //             const seatList = seatData.split(",").map((seat) => seat.trim());
+    //             let sampleTypeList = sampleData.split(",").map((type) => type.trim().toUpperCase());
+
+    //             const uniformSampleTypes = [
+    //               "PLASMA", "MPLASMA", "SERUM", "MSERUM", "BUFFY COAT", "MBUFFY COAT", "OTHER", "MOTHER", "FN", "FT", "MFN", "MFT"
+    //             ];
+
+
+    //             //  console.log("sampleTypeList --- ",sampleTypeList);
+
+    //             // Ensure sampleTypeList is correctly filled based on uniform logic
+    //             if (sampleTypeList.length === 1) {
+    //               const uniformSampleType = sampleTypeList[0].toLowerCase();
+    //               if (uniformSampleTypes.includes(uniformSampleType)) {
+    //                 sampleTypeList = Array(seatList.length).fill(sampleTypeList[0]); // Assign the same sample type for all seats
+    //               }
+    //             } else if (sampleTypeList.length > 1) {
+    //               // Check if all elements in sampleTypeList are uniform and valid
+    //               const areAllUniform = sampleTypeList.every(
+    //                 (type) => uniformSampleTypes.includes(type.toLowerCase())
+    //               );
+
+    //               if (areAllUniform) {
+    //                 console.log("All are uniform -- ", sampleTypeList[0]);
+    //                 const uniformSampleType = sampleTypeList[0]; // Use the first element as the uniform type
+    //                 sampleTypeList = Array(seatList.length).fill(uniformSampleType); // Assign the same sample type for all seats
+    //               }
+    //             }
+
+    //             // console.log(" seat list - ",seatList);
+
+    //             seatList.forEach((seat, index) => {
+
+    //               if (!Array.isArray(seatList[index])) {
+    //                 const sampleType = sampleTypeList[index];
+
+    //                 //  console.log(" Testing --- ",sampleType);
+
+    //                 console.log(" sample type in loop  -", sampleType, " - ", bioBankId, " - ", lastTimestampKey, " - ", sampleTypeInput);
+    //                 if (
+
+    //                   (sampleTypeInput === "ALL") ||
+    //                   (sampleTypeInput === "PLASMA" && (sampleType.startsWith("MPLASMA") || sampleType === "PLASMA")) ||
+    //                   (sampleTypeInput === "SERUM" && (sampleType.startsWith("MSERUM") || sampleType === "SERUM")) ||
+    //                   (sampleTypeInput === "BUFFY COAT" && (sampleType.startsWith("MBUFFY COAT") || sampleType === "BUFFY COAT")) ||
+    //                   (sampleTypeInput === "OTHER" && (sampleType.startsWith("MOTHER") || sampleType === "OTHER")) ||
+    //                   ((sampleType.startsWith("FN") || sampleType.startsWith("MFN")) && sampleTypeInput.startsWith("FN")) ||
+    //                   ((sampleType.startsWith("FT") || sampleType.startsWith("MFT")) && sampleTypeInput.startsWith("FT"))
+
+    //                 ) {
+
+    //                   // console.log(" sample type in loop if condition -",sampleType," - ",bioBankId," - ",lastTimestampKey, " --",patient);
+
+    //                   allSequences.push({
+    //                     serialNumber: allSequences.length + 1,
+    //                     bioBankId,
+    //                     seqKey,
+    //                     timestampKey: lastTimestampKey,
+    //                     field,
+    //                     boxName: boxName.trim(),
+    //                     seat: seat.trim(),
+    //                     sampleType,
+    //                     patientData: patient,
+    //                   });
+    //                 }
+    //               }
+
+    //             });
+    //           });
+    //         });
+    //       });
+
+
+
+
+
+    //       // Paginate the filtered sequences
+    //       const paginatedSequences = allSequences.slice(start, end);
+
+    //       // Populate the table with filtered sequences
+    //       paginatedSequences.forEach((sequence) => {
+    //         const {
+    //           serialNumber,
+    //           bioBankId,
+    //           seqKey,
+    //           timestampKey,
+    //           field,
+    //           boxName,
+    //           seat,
+    //           sampleType,
+    //           patientData,
+    //         } = sequence;
+
+    //         const row = document.createElement("tr");
+    //         row.classList.add("patientRow");
+    //         row.setAttribute("data-bioBankId", bioBankId);
+    //         row.setAttribute("data-seqKey", seqKey);
+    //         row.setAttribute("data-timestampKey", timestampKey);
+    //         row.setAttribute("data-grid", seat);
+    //         row.setAttribute("data-box", boxName);
+
+    //         row.innerHTML = `
+    //     <td><input type='checkbox' class="btn btn-primary btn-sm selection" name="checkbox"></td>
+    //     <th scope="row" class="sno">${serialNumber}</th>
+    //     <td class="patientName">${bioBankId || "-"}</td>
+    //     <td class="age">${patientData.ag || "-"}</td>
+    //     <td class="gender">${patientData.sx || "-"}</td>
+    //     <td class="timestamp" data-seq-key="${seqKey}" data-timestamp-key="${timestampKey}">${formatTimestamp(timestampKey) || "-"}</td>
+    //     <td class="box">${boxName || "-"}</td>
+    //     <td class="grid">${seat || '-'}</td>
+    //     <td class="sampleType">${sampleType || "-"}</td>
+    //     <td class="cancerType">${patientData.ct === "brst" ? "Breast Cancer" : "-"}</td>
+    //     <td class="grade">${patientData.gd || "-"}</td>
+    //     <td class="action">
+    //         <div class="btn-group" role="group" aria-label="Patient Actions">
+    //     <button class="btn btn-primary btn-sm" onclick="editPatient('${bioBankId}', '${seqKey}', '${timestampKey}')">
+    //         <img src="assets/images/edit.svg" alt="Edit" width="16" height="16" style="vertical-align: middle; margin-right: 5px;">
+    //     </button>
+    //     <button class="btn btn-info btn-sm" onclick="viewPatient('${bioBankId}', '${seqKey}', '${timestampKey}')">
+    //         <img src="assets/images/visibility.svg" alt="View" width="16" height="16" style="vertical-align: middle; margin-right: 5px;">
+    //     </button>
+    //     <button class="btn btn-success btn-sm" onclick="handleHistory('${bioBankId}', '${seqKey}')">
+    //         <img src="assets/images/history.svg" alt="History" width="16" height="16" style="vertical-align: middle; margin-right: 5px;">
+    //     </button>
+    // </div>
+    //     </td>
+    // `;
+    //         tbody.appendChild(row);
+    //       });
+
+    //       // Update pagination controls
+    //       updateSamPagination(allSequences.length);
+    //       // updatePagination(allSequences.length);
+    //     }
+
+
+
+
+
+
+
+
+
+    async function displaySamPatients(data) {
       console.log("displaysamPatients - ", data);
       filteredPatientData = data;
       const tbody = document.querySelector(".patientTableBody1");
@@ -1038,224 +1246,13 @@
 
       const start = (currentPage - 1) * rowsPerPage;
       const end = start + rowsPerPage;
-
-      console.log("Patient Table visibility:", tbody.style.display);
-
-
-      // Retrieve and normalize the sampleTypeInput from localStorage
-      const sampleTypeInput = localStorage.getItem("sampleTypeInput")?.trim().toUpperCase();
-      let allSequences = [];
-
-      console.log("Starting to populate allSequences...");
-      Object.entries(data).forEach(([bioBankId, sequenceData]) => {
-        Object.entries(sequenceData).forEach(([seqKey, timestampEntries]) => {
-          // Get the latest timestamp key
-          const lastTimestampKey = Object.keys(timestampEntries).sort().pop();
-          let patient = timestampEntries[lastTimestampKey];
-
-          console.log("allSequences", patient);
-
-          if (!patient) return;
-
-          let hasSubChildren = false;
-
-          if (patient) {
-            // Check if patient has any sub-children
-            hasSubChildren = Object.keys(patient).some(key => typeof patient[key] === 'object' && patient[key] !== null);
-            console.log("Does patient have sub-children?", hasSubChildren);
-          } else {
-            console.log("Patient object is undefined or null.");
-          }
-
-          if (hasSubChildren) {
-
-            let patientmd = patient.md
-            patient = patient.ie;
-
-
-            const patientdd = { ...patient }; // Create a copy of patientData
-
-            // Append patientmd.gd to the patient object
-            if (patientmd && patientmd.gd) {
-              patient.gd = patientmd.gd.toUpperCase(); // Add the gd value to the patient object
-            }
-
-            patient = patientdd;
-
-          }
-
-
-          // Process fields to filter and build sequence data
-          const fields = ["bpg", "bsg", "bbcg", "ftg", "fng", "osg"];
-          fields.forEach((field) => {
-            const fieldData = patient[field];
-            if (!fieldData) return;
-
-            console.log(" patient field - ", fieldData);
-
-            // Split the field data into its components
-            const [boxName = "-", seatData = "", sampleData = ""] = fieldData.split("/");
-            const seatList = seatData.split(",").map((seat) => seat.trim());
-            let sampleTypeList = sampleData.split(",").map((type) => type.trim().toUpperCase());
-
-            const uniformSampleTypes = [
-              "PLASMA", "MPLASMA", "SERUM", "MSERUM", "BUFFY COAT", "MBUFFY COAT", "OTHER", "MOTHER", "FN", "FT", "MFN", "MFT"
-            ];
-
-
-            //  console.log("sampleTypeList --- ",sampleTypeList);
-
-            // Ensure sampleTypeList is correctly filled based on uniform logic
-            if (sampleTypeList.length === 1) {
-              const uniformSampleType = sampleTypeList[0].toLowerCase();
-              if (uniformSampleTypes.includes(uniformSampleType)) {
-                sampleTypeList = Array(seatList.length).fill(sampleTypeList[0]); // Assign the same sample type for all seats
-              }
-            } else if (sampleTypeList.length > 1) {
-              // Check if all elements in sampleTypeList are uniform and valid
-              const areAllUniform = sampleTypeList.every(
-                (type) => uniformSampleTypes.includes(type.toLowerCase())
-              );
-
-              if (areAllUniform) {
-                console.log("All are uniform -- ", sampleTypeList[0]);
-                const uniformSampleType = sampleTypeList[0]; // Use the first element as the uniform type
-                sampleTypeList = Array(seatList.length).fill(uniformSampleType); // Assign the same sample type for all seats
-              }
-            }
-
-            // console.log(" seat list - ",seatList);
-
-            seatList.forEach((seat, index) => {
-
-              if (!Array.isArray(seatList[index])) {
-                const sampleType = sampleTypeList[index];
-
-                //  console.log(" Testing --- ",sampleType);
-
-                console.log(" sample type in loop  -", sampleType, " - ", bioBankId, " - ", lastTimestampKey, " - ", sampleTypeInput);
-                if (
-
-                  (sampleTypeInput === "ALL") ||
-                  (sampleTypeInput === "PLASMA" && (sampleType.startsWith("MPLASMA") || sampleType === "PLASMA")) ||
-                  (sampleTypeInput === "SERUM" && (sampleType.startsWith("MSERUM") || sampleType === "SERUM")) ||
-                  (sampleTypeInput === "BUFFY COAT" && (sampleType.startsWith("MBUFFY COAT") || sampleType === "BUFFY COAT")) ||
-                  (sampleTypeInput === "OTHER" && (sampleType.startsWith("MOTHER") || sampleType === "OTHER")) ||
-                  ((sampleType.startsWith("FN") || sampleType.startsWith("MFN")) && sampleTypeInput.startsWith("FN")) ||
-                  ((sampleType.startsWith("FT") || sampleType.startsWith("MFT")) && sampleTypeInput.startsWith("FT"))
-
-                ) {
-
-                  // console.log(" sample type in loop if condition -",sampleType," - ",bioBankId," - ",lastTimestampKey, " --",patient);
-
-                  allSequences.push({
-                    serialNumber: allSequences.length + 1,
-                    bioBankId,
-                    seqKey,
-                    timestampKey: lastTimestampKey,
-                    field,
-                    boxName: boxName.trim(),
-                    seat: seat.trim(),
-                    sampleType,
-                    patientData: patient,
-                  });
-                }
-              }
-
-            });
-          });
-        });
-      });
-
-
-
-
-
-      // Paginate the filtered sequences
-      const paginatedSequences = allSequences.slice(start, end);
-
-      // Populate the table with filtered sequences
-      paginatedSequences.forEach((sequence) => {
-        const {
-          serialNumber,
-          bioBankId,
-          seqKey,
-          timestampKey,
-          field,
-          boxName,
-          seat,
-          sampleType,
-          patientData,
-        } = sequence;
-
-        const row = document.createElement("tr");
-        row.classList.add("patientRow");
-        row.setAttribute("data-bioBankId", bioBankId);
-        row.setAttribute("data-seqKey", seqKey);
-        row.setAttribute("data-timestampKey", timestampKey);
-        row.setAttribute("data-grid", seat);
-        row.setAttribute("data-box", boxName);
-
-        row.innerHTML = `
-    <td><input type='checkbox' class="btn btn-primary btn-sm selection" name="checkbox"></td>
-    <th scope="row" class="sno">${serialNumber}</th>
-    <td class="patientName">${bioBankId || "-"}</td>
-    <td class="age">${patientData.ag || "-"}</td>
-    <td class="gender">${patientData.sx || "-"}</td>
-    <td class="timestamp" data-seq-key="${seqKey}" data-timestamp-key="${timestampKey}">${formatTimestamp(timestampKey) || "-"}</td>
-    <td class="box">${boxName || "-"}</td>
-    <td class="grid">${seat || '-'}</td>
-    <td class="sampleType">${sampleType || "-"}</td>
-    <td class="cancerType">${patientData.ct === "brst" ? "Breast Cancer" : "-"}</td>
-    <td class="grade">${patientData.gd || "-"}</td>
-    <td class="action">
-        <div class="btn-group" role="group" aria-label="Patient Actions">
-    <button class="btn btn-primary btn-sm" onclick="editPatient('${bioBankId}', '${seqKey}', '${timestampKey}')">
-        <img src="assets/images/edit.svg" alt="Edit" width="16" height="16" style="vertical-align: middle; margin-right: 5px;">
-    </button>
-    <button class="btn btn-info btn-sm" onclick="viewPatient('${bioBankId}', '${seqKey}', '${timestampKey}')">
-        <img src="assets/images/visibility.svg" alt="View" width="16" height="16" style="vertical-align: middle; margin-right: 5px;">
-    </button>
-    <button class="btn btn-success btn-sm" onclick="handleHistory('${bioBankId}', '${seqKey}')">
-        <img src="assets/images/history.svg" alt="History" width="16" height="16" style="vertical-align: middle; margin-right: 5px;">
-    </button>
-</div>
-    </td>
-`;
-        tbody.appendChild(row);
-      });
-
-      // Update pagination controls
-      updateSamPagination(allSequences.length);
-      // updatePagination(allSequences.length);
-    }
-
-
-
-
-   
-
-   
-
-
-  async function displaySamPatients(data) {
-      console.log("displaysamPatients - ", data);
-      filteredPatientData = data;
-      const tbody = document.querySelector(".patientTableBody1");
-      tbody.innerHTML = "";
-
-      const start = (currentPage - 1) * rowsPerPage;
-      const end = start + rowsPerPage;
-
-    //  console.log("Patient Table visibility:", tbody.style.display);
-
 
       // Retrieve and normalize the sampleTypeInput from localStorage
       const sampleTypeInput = localStorage.getItem("sampleTypeInput")?.trim().toUpperCase();
       const sampleAvailable = localStorage.getItem("sampleAvailable");
       let allSequences = [];
-      const promises = [];
-
+      let promises = [];
+      let boxName = '';
       console.log("Starting to populate allSequences...");
       Object.entries(data).forEach(([bioBankId, sequenceData]) => {
         Object.entries(sequenceData).forEach(([seqKey, timestampEntries]) => {
@@ -1263,37 +1260,25 @@
           const lastTimestampKey = Object.keys(timestampEntries).sort().pop();
           let patient = timestampEntries[lastTimestampKey];
 
-          //console.log("allSequences", patient);
-
           if (!patient) return;
 
           let hasSubChildren = false;
 
           if (patient) {
-            // Check if patient has any sub-children
             hasSubChildren = Object.keys(patient).some(key => typeof patient[key] === 'object' && patient[key] !== null);
-          //  console.log("Does patient have sub-children?", hasSubChildren);
-          } else {
-            //console.log("Patient object is undefined or null.");
           }
 
           if (hasSubChildren) {
-
-            let patientmd = patient.md
+            let patientmd = patient.md;
             patient = patient.ie;
 
-
             const patientdd = { ...patient }; // Create a copy of patientData
-
-            // Append patientmd.gd to the patient object
             if (patientmd && patientmd.gd) {
-              patient.gd = patientmd.gd.toUpperCase(); // Add the gd value to the patient object
+              patient.gd = patientmd.gd.toUpperCase();
             }
 
             patient = patientdd;
-
           }
-
 
           // Process fields to filter and build sequence data
           const fields = ["bpg", "bsg", "bbcg", "ftg", "fng", "osg"];
@@ -1301,10 +1286,24 @@
             const fieldData = patient[field];
             if (!fieldData) return;
 
-           // console.log(" patient field - ", fieldData);
+            const [boxid = "-", seatData = "", sampleData = ""] = fieldData.split("/");
+            // db.ref('bn/').once('value')
+            //   .then((snapshot) => {
+            //     if (snapshot.exists()) {
+            //       const boxIDs = snapshot.val();
 
-            // Split the field data into its components
-            const [boxName = "-", seatData = "", sampleData = ""] = fieldData.split("/");
+            //       bioInfo = Object.entries(boxIDs).find(([bio_id, boxData]) => bio_id === boxid);
+            //       const [id, boxData] = bioInfo;
+            //       boxName =  boxData;
+
+            //     }
+            //   })
+            // console.log("bnData boxid",sampleData)
+
+            // console.log("bnData boxid",boxName)
+
+
+
             const seatList = seatData.split(",").map((seat) => seat.trim());
             let sampleTypeList = sampleData.split(",").map((type) => type.trim().toUpperCase());
 
@@ -1312,40 +1311,26 @@
               "PLASMA", "MPLASMA", "SERUM", "MSERUM", "BUFFY COAT", "MBUFFY COAT", "OTHER", "MOTHER", "FN", "FT", "MFN", "MFT"
             ];
 
-
-            //  console.log("sampleTypeList --- ",sampleTypeList);
-
-            // Ensure sampleTypeList is correctly filled based on uniform logic
             if (sampleTypeList.length === 1) {
               const uniformSampleType = sampleTypeList[0].toLowerCase();
               if (uniformSampleTypes.includes(uniformSampleType)) {
-                sampleTypeList = Array(seatList.length).fill(sampleTypeList[0]); // Assign the same sample type for all seats
+                sampleTypeList = Array(seatList.length).fill(sampleTypeList[0]);
               }
             } else if (sampleTypeList.length > 1) {
-              // Check if all elements in sampleTypeList are uniform and valid
               const areAllUniform = sampleTypeList.every(
                 (type) => uniformSampleTypes.includes(type.toLowerCase())
               );
-
               if (areAllUniform) {
-                console.log("All are uniform -- ", sampleTypeList[0]);
-                const uniformSampleType = sampleTypeList[0]; // Use the first element as the uniform type
-                sampleTypeList = Array(seatList.length).fill(uniformSampleType); // Assign the same sample type for all seats
+                const uniformSampleType = sampleTypeList[0];
+                sampleTypeList = Array(seatList.length).fill(uniformSampleType);
               }
             }
 
-            // console.log(" seat list - ",seatList);
-
             seatList.forEach((seat, index) => {
-
               if (!Array.isArray(seatList[index])) {
                 const sampleType = sampleTypeList[index];
 
-                //  console.log(" Testing --- ",sampleType);
-
-                console.log(" sample type in loop  -", sampleType, " - ", bioBankId, " - ", lastTimestampKey, " - ", sampleTypeInput);
                 if (
-
                   (sampleTypeInput === "ALL") ||
                   (sampleTypeInput === "PLASMA" && (sampleType.startsWith("MPLASMA") || sampleType === "PLASMA")) ||
                   (sampleTypeInput === "SERUM" && (sampleType.startsWith("MSERUM") || sampleType === "SERUM")) ||
@@ -1353,65 +1338,99 @@
                   (sampleTypeInput === "OTHER" && (sampleType.startsWith("MOTHER") || sampleType === "OTHER")) ||
                   ((sampleType.startsWith("FN") || sampleType.startsWith("MFN")) && sampleTypeInput.startsWith("FN")) ||
                   ((sampleType.startsWith("FT") || sampleType.startsWith("MFT")) && sampleTypeInput.startsWith("FT"))
-
                 ) {
-
-                  // console.log(" sample type in loop if condition -",sampleType," - ",bioBankId," - ",lastTimestampKey, " --",patient);
-
                   const seatIndex = getSeatIndex(seat.trim());
+                  let bio_id = [];
 
-                  let sts = '';
-                  let status = false;
+                  // Collect promises for bb/ and sb/ paths
+                  const promise1 =
+                    // db.ref('bn/').once('value')
+                    //   .then((snapshot) => {
+                    //     if (snapshot.exists()) {
+                    //       const boxIDs = snapshot.val();
+                    //       const bioInfo = Object.entries(boxIDs).find(([id, name]) => name === boxName);
 
-                  const promise1 = db.ref(`bb/${boxName}/${seatIndex}/`).once('value')
-                    .then(snapshot => {
-                      const box = snapshot.val();
-                      if (box) {
-                        sts = box.status
-                        //console.log("boxname", boxName, "seat", seatIndex, Status in bb , sts);
-                        // console.log("sts in bb ", sts)
+                    // if (bioInfo === undefined) {
+                    //   console.log("Blood Box info check");
+                    //   return db.ref(`bb/${boxName}/${seatIndex}/`).once('value')
+                    //     .then(snapshot => {
+                    //       const box = snapshot.val();
+                    //       if (box) {
+                    //         const sts = box.status;
+                    //         const status = sampleAvailable === "All" ||
+                    //           (sampleAvailable === "Shared" && (sts === "s" || sts === "ps")) ||
+                    //           (sampleAvailable === "Available" && (sts === null || sts === "o"));
 
-                        status =
-                          sampleAvailable === "All" ||
-                          (sampleAvailable === "Shared" && (sts === "s" || sts === "ps")) ||
-                          (sampleAvailable === "Available" && (sts === null || sts === "o"))
+                    //         if (status) {
+                    //           allSequences.push({
+                    //             serialNumber: allSequences.length + 1,
+                    //             bioBankId,
+                    //             seqKey,
+                    //             timestampKey: lastTimestampKey,
+                    //             field,
+                    //             boxName: boxName.trim(),
+                    //             seat: seat.trim(),
+                    //             sampleType,
+                    //             patientData: patient,
+                    //           });
+                    //         }
+                    //       }
+                    //     });
+                    // } else {
+                    // const [bio_id] = bioInfo;
 
-                        if (status) {
-                          
-                          // console.log("sts in bb ", sts, " - ",status,bioBankId)
-                          allSequences.push({
-                            serialNumber: allSequences.length + 1,
-                            bioBankId,
-                            seqKey,
-                            timestampKey: lastTimestampKey,
-                            field,
-                            boxName: boxName.trim(),
-                            seat: seat.trim(),
-                            sampleType,
-                            patientData: patient,
-                          });
-                          
-                         // console.log("sts in bb ", sts, " - ", status, allSequences);
+                    db.ref(`bb/${boxid}/${seatIndex}/`).once('value')
+                      .then(snapshot => {
+                        const box = snapshot.val();
+                        if (box) {
+                          const sts = box.status;
+                          const status = sampleAvailable === "All" ||
+                            (sampleAvailable === "Shared" && (sts === "s" || sts === "ps")) ||
+                            (sampleAvailable === "Available" && (sts === null || sts === "o"));
+                          // console.log("bnData boxid",seat , " boxid" ,boxName )
+                          const storedBnData = JSON.parse(localStorage.getItem('bnData'));
+            console.log('Retrieved bnData from local storage:', storedBnData);
+
+                          const boxEntry = storedBnData.find(entry => entry.id === boxid);
+
+                          if (boxEntry) {
+                            boxName = boxEntry.name;
+                          }
+                          console.log("bnData boxid", seat, " boxid", boxid, " boxName ", boxName)
+
+                          if (status) {
+                            allSequences.push({
+                              serialNumber: allSequences.length + 1,
+                              bioBankId,
+                              seqKey,
+                              timestampKey: lastTimestampKey,
+                              field,
+                              boxName: boxName.trim(),
+                              seat: seat.trim(),
+                              sampleType,
+                              patientData: patient,
+                            });
+                          }
                         }
-                      }
-                    });
-                  const promise2 = db.ref(`sb/${boxName}/${seatIndex}/`).once('value')
+                      });
+                  db.ref(`sb/${boxid}/${seatIndex}/`).once('value')
                     .then(snapshot => {
                       const box1 = snapshot.val();
                       if (box1) {
-                        //
-                        sts = box1.status
-
-                        status =
-                          sampleAvailable === "All" ||
+                        const sts = box1.status;
+                        const status = sampleAvailable === "All" ||
                           (sampleAvailable === "Shared" && (sts === "s" || sts === "ps")) ||
-                          (sampleAvailable === "Available" && (sts === null || sts === "o"))
+                          (sampleAvailable === "Available" && (sts === null || sts === "o"));
+                        const storedBnData = JSON.parse(localStorage.getItem('bnData'));
 
+                        const boxEntry = storedBnData.find(entry => entry.id === boxid);
 
+                        if (boxEntry) {
+                          boxName = boxEntry.name;
+                        }
+                        console.log("bnData boxid", seat, " boxid", boxid, " boxName ", boxName)
 
                         if (status) {
-                          
-                          //console.log("sts in sb ", sts, " - ",status,allSequences);
                           allSequences.push({
                             serialNumber: allSequences.length + 1,
                             bioBankId,
@@ -1423,31 +1442,91 @@
                             sampleType,
                             patientData: patient,
                           });
-
-                         // console.log("sts in sb ", sts, " - ", status, allSequences);
                         }
                       }
                     });
+                  // }
+                  //   }
+                  // });
+                  // console.log("bnData boxid",seat , " boxid" ,boxName )
 
-                    promises.push(promise1,promise2);
+                  // const promise2 = 
+                  // db.ref('bn/').once('value')
+                  // .then((snapshot) => {
+                  //   if (snapshot.exists()) {
+                  //     const boxIDs = snapshot.val();
+                  //     const bioInfo = Object.entries(boxIDs).find(([id, name]) => name === boxName);
 
-                    
-                    
+                  // if (bioInfo === "undefined") {
+                  //   console.log("Specimen Box info check", boxName, " Saet Index ", seatIndex, bio_id);
+                  //   return db.ref(`sb/${boxName}/${seatIndex}/`).once('value')
+                  //     .then(snapshot => {
+                  //       const box1 = snapshot.val();
+                  //       if (box1) {
+                  //         const sts = box1.status;
+                  //         const status = sampleAvailable === "All" ||
+                  //           (sampleAvailable === "Shared" && (sts === "s" || sts === "ps")) ||
+                  //           (sampleAvailable === "Available" && (sts === null || sts === "o"));
 
+                  //         if (status) {
+                  //           allSequences.push({
+                  //             serialNumber: allSequences.length + 1,
+                  //             bioBankId,
+                  //             seqKey,
+                  //             timestampKey: lastTimestampKey,
+                  //             field,
+                  //             boxName: boxName.trim(),
+                  //             seat: seat.trim(),
+                  //             sampleType,
+                  //             patientData: patient,
+                  //           });
+                  //         }
+                  //       }
+                  //     });
+                  // } else {
 
+                  //  db.ref(`sb/${boxid}/${seatIndex}/`).once('value')
+                  //   .then(snapshot => {
+                  //     const box1 = snapshot.val();
+                  //     if (box1) {
+                  //       const sts = box1.status;
+                  //       const status = sampleAvailable === "All" ||
+                  //         (sampleAvailable === "Shared" && (sts === "s" || sts === "ps")) ||
+                  //         (sampleAvailable === "Available" && (sts === null || sts === "o"));
+
+                  //       if (status) {
+                  //         allSequences.push({
+                  //           serialNumber: allSequences.length + 1,
+                  //           bioBankId,
+                  //           seqKey,
+                  //           timestampKey: lastTimestampKey,
+                  //           field,
+                  //           boxName: boxName.trim(),
+                  //           seat: seat.trim(),
+                  //           sampleType,
+                  //           patientData: patient,
+                  //         });
+                  //       }
+                  //     }
+                  //   });
+                  // }
+                  //   }
+                  // });
+
+                  // Add both promises to the promise array
+                  promises.push(promise1);
 
                 }
               }
-
             });
           });
         });
       });
+      // console.log("promise2",promises)
 
-      Promise.all(promises).then(results => {
-
-        console.log(" promise in all - ",allSequences);
-
+      // Wait for all promises to resolve
+      Promise.all(promises).then(() => {
+        console.log("All promises resolved. Processing allSequences:", allSequences);
 
         // Paginate the filtered sequences
         const paginatedSequences = allSequences.slice(start, end);
@@ -1475,49 +1554,39 @@
           row.setAttribute("data-box", boxName);
 
           row.innerHTML = `
-<td><input type='checkbox' class="btn btn-primary btn-sm selection" name="checkbox"></td>
-<th scope="row" class="sno">${serialNumber}</th>
-<td class="patientName">${bioBankId || "-"}</td>
-<td class="age">${patientData.ag || "-"}</td>
-<td class="gender">${patientData.sx || "-"}</td>
-<td class="timestamp" data-seq-key="${seqKey}" data-timestamp-key="${timestampKey}">${formatTimestamp(timestampKey) || "-"}</td>
-<td class="box">${boxName || "-"}</td>
-<td class="grid">${seat || '-'}</td>
-<td class="sampleType">${sampleType || "-"}</td>
-<td class="cancerType">${patientData.ct === "brst" ? "Breast Cancer" : "-"}</td>
-<td class="grade">${patientData.gd || "-"}</td>
-<td class="action">
-  <div class="btn-group" role="group" aria-label="Patient Actions">
-<button class="btn btn-primary btn-sm" onclick="editPatient('${bioBankId}', '${seqKey}', '${timestampKey}')">
-  <img src="assets/images/edit.svg" alt="Edit" width="16" height="16" style="vertical-align: middle; margin-right: 5px;">
-</button>
-<button class="btn btn-info btn-sm" onclick="viewPatient('${bioBankId}', '${seqKey}', '${timestampKey}')">
-  <img src="assets/images/visibility.svg" alt="View" width="16" height="16" style="vertical-align: middle; margin-right: 5px;">
-</button>
-<button class="btn btn-success btn-sm" onclick="handleHistory('${bioBankId}', '${seqKey}')">
-  <img src="assets/images/history.svg" alt="History" width="16" height="16" style="vertical-align: middle; margin-right: 5px;">
-</button>
-</div>
-</td>`
-            ;
+            <td><input type='checkbox' class="btn btn-primary btn-sm selection" name="checkbox"></td>
+            <th scope="row" class="sno">${serialNumber}</th>
+            <td class="patientName">${bioBankId || "-"}</td>
+            <td class="age">${patientData.ag || "-"}</td>
+            <td class="gender">${patientData.sx || "-"}</td>
+            <td class="timestamp" data-seq-key="${seqKey}" data-timestamp-key="${timestampKey}">${formatTimestamp(timestampKey) || "-"}</td>
+            <td class="box">${boxName || "-"}</td>
+            <td class="grid">${seat || '-'}</td>
+            <td class="sampleType">${sampleType || "-"}</td>
+            <td class="cancerType">${patientData.ct === "brst" ? "Breast Cancer" : "-"}</td>
+            <td class="grade">${patientData.gd || "-"}</td>
+            <td class="action">
+              <div class="btn-group" role="group" aria-label="Patient Actions">
+            <button class="btn btn-primary btn-sm" onclick="editPatient('${bioBankId}', '${seqKey}', '${timestampKey}')">
+              <img src="assets/images/edit.svg" alt="Edit" width="16" height="16" style="vertical-align: middle; margin-right: 5px;">
+            </button>
+            <button class="btn btn-info btn-sm" onclick="viewPatient('${bioBankId}', '${seqKey}', '${timestampKey}')">
+              <img src="assets/images/visibility.svg" alt="View" width="16" height="16" style="vertical-align: middle; margin-right: 5px;">
+            </button>
+            <button class="btn btn-success btn-sm" onclick="handleHistory('${bioBankId}', '${seqKey}')">
+              <img src="assets/images/history.svg" alt="History" width="16" height="16" style="vertical-align: middle; margin-right: 5px;">
+            </button>
+            </div>
+            </td>
+          `;
+
           tbody.appendChild(row);
         });
 
-        // Update pagination controls
+        // Call the function to update pagination and show the page
         updateSamPagination(allSequences.length);
-
-
-      })
-
-
-      console.log(" out of loopp -------------------------@@@@@@@@@@@@@@@@@@@@@@@@@");
-
-
-
-
-
+      });
     }
-
 
 
     async function searchSample(event) {
@@ -1848,7 +1917,7 @@
         }
       });
 
-      document
+    document
       .getElementById("download2")
       .addEventListener("click", function () {
         console.log("Download Begin");
@@ -1884,7 +1953,7 @@
           const promise2 = db.ref(`Fw/${bioBankId}/`).limitToLast(1).once('value')
             .then(snapshot => {
               const fwdata = snapshot.val();
-              console.log("fwdata - ",fwdata);
+              console.log("fwdata - ", fwdata);
               let timestamp;
               let fwlastTimestamp;
               if (fwdata) {
@@ -1894,39 +1963,39 @@
 
                 return { fwlastTimestamp, timestamp };
               }
-              return {fwlastTimestamp, timestamp};
+              return { fwlastTimestamp, timestamp };
             });
 
-            const promise3 = db.ref(`Os/${bioBankId}/${seqKey}`).limitToLast(1).once('value')
-              .then(snapshot => {
-                const osdata = snapshot.val();
-                console.log("osdata -- ", osdata);
-                let lastKey;
+          const promise3 = db.ref(`Os/${bioBankId}/${seqKey}`).limitToLast(1).once('value')
+            .then(snapshot => {
+              const osdata = snapshot.val();
+              console.log("osdata -- ", osdata);
+              let lastKey;
 
-                if (osdata) {
-                  // Get the last key (timestamp) from the osdata
-                  lastKey = Object.keys(osdata)[0]; // Since we are limiting to last 1, there should be only one key
-                  const oslastTimestamp = osdata[lastKey]; // Get the lastTimestamp object using the key
+              if (osdata) {
+                // Get the last key (timestamp) from the osdata
+                lastKey = Object.keys(osdata)[0]; // Since we are limiting to last 1, there should be only one key
+                const oslastTimestamp = osdata[lastKey]; // Get the lastTimestamp object using the key
 
-                  console.log('Last Timestamp in os :', oslastTimestamp,lastKey);
+                console.log('Last Timestamp in os :', oslastTimestamp, lastKey);
 
-                  // Check if lbi exists and loop through it
-                  if (oslastTimestamp && oslastTimestamp.lbi) {
-                    for (const box in oslastTimestamp.lbi) {
-                      if (oslastTimestamp.lbi.hasOwnProperty(box)) {
-                        const grids = oslastTimestamp.lbi[box];
-                        if (grids.includes(gridData)) {
-                          console.log(`Grid Data "${gridData}" found in "${box}":`, grids);
-                          return { oslastTimestamp: oslastTimestamp,lastKey: lastKey  }; // Return structured object
-                        }
+                // Check if lbi exists and loop through it
+                if (oslastTimestamp && oslastTimestamp.lbi) {
+                  for (const box in oslastTimestamp.lbi) {
+                    if (oslastTimestamp.lbi.hasOwnProperty(box)) {
+                      const grids = oslastTimestamp.lbi[box];
+                      if (grids.includes(gridData)) {
+                        console.log(`Grid Data "${gridData}" found in "${box}":`, grids);
+                        return { oslastTimestamp: oslastTimestamp, lastKey: lastKey }; // Return structured object
                       }
                     }
                   }
-                  return { oslastTimestamp: oslastTimestamp,lastKey: lastKey  || {} }; // Return lastTimestamp or empty object if no match found
-                } else {
-                  return {}; // Return empty object if osdata does not exist
                 }
-              });
+                return { oslastTimestamp: oslastTimestamp, lastKey: lastKey || {} }; // Return lastTimestamp or empty object if no match found
+              } else {
+                return {}; // Return empty object if osdata does not exist
+              }
+            });
 
           // Combine all three promises for the current row
           const rowPromise = Promise.all([promise1, promise2, promise3])
@@ -1950,7 +2019,7 @@
             // Prepare data for Excel
             const excelData = rowsData.map(row => ({
 
-               Sample_Timestamp: formatTimestamp(row.timestampKey),
+              Sample_Timestamp: formatTimestamp(row.timestampKey),
               bioBankId: row.bioBankId,
               Age: row.sefData.ie.ag || "-",
               Gender: decodeProcedureType(row.sefData.ie.sx) || "-",
@@ -1970,7 +2039,7 @@
               OtherSampleGrid: row.sefData.ie.osg || "-",
               IschemicSample: decodeProcedureType(row.sefData.ie.iss) || "-",
               ProcessedBy: row.sefData.ie.prb || "-",
-             // SampleEntryUpdatedBy: row.sefData.ie.fng || "-",
+              // SampleEntryUpdatedBy: row.sefData.ie.fng || "-",
               MetastasisSample: decodeProcedureType(row.sefData.ie.mts) || "-",
               Consent: decodeProcedureType(row.sefData.ie.cnst) || "-",//Math.floor()/ 1000
               SampleReceivedTime: formatTimestamp1(row.sefData.ie.srt) || "-",
@@ -2050,7 +2119,7 @@
               HistologicalType: row.sefData.brf.ht || "-",
               sTILsPercentScores: row.sefData.brf.sps || "-",
               BR_form_updated_By: row.sefData.brf.brfu || "-",
-              
+
               followUpTime: getValue(formatTimestamp(Math.floor(row.fwData?.timestamp) / 1000)) || "-",
               LastFollowUpDate: getValue(row.fwData?.fwlastTimestamp?.dd) || "-",
               LastFollowUpStatus: getValue(row.fwData?.fwlastTimestamp?.lfs) || "-",
@@ -2089,7 +2158,7 @@
             console.error("Error fetching data:", error);
           });
 
-     
+
       });
 
 
@@ -2100,10 +2169,10 @@
     }
 
 
-    
+
     function getValue(value) {
-  return value !== undefined && value !== null ? value : "-";
-}
+      return value !== undefined && value !== null ? value : "-";
+    }
 
     // function generateExcelData() {
     //   const dataToExport = [];
@@ -2211,30 +2280,30 @@
     }
 
 
-     function formatTimestamp1(timestamp) {
-  // Check if the timestamp is a valid number
-  if (!timestamp || isNaN(timestamp)) {
-    return "-";
-  }
+    function formatTimestamp1(timestamp) {
+      // Check if the timestamp is a valid number
+      if (!timestamp || isNaN(timestamp)) {
+        return "-";
+      }
 
-  // Convert timestamp to Date object
-  const date = new Date(timestamp);
+      // Convert timestamp to Date object
+      const date = new Date(timestamp);
 
-  // Check if the Date object is valid
-  if (isNaN(date.getTime())) {
-    return "-";
-  }
+      // Check if the Date object is valid
+      if (isNaN(date.getTime())) {
+        return "-";
+      }
 
-  // Format date and time components
-  const day = String(date.getDate()).padStart(2, "0");
-  const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
-  const year = date.getFullYear();
-  const hours = String(date.getHours()).padStart(2, "0");
-  const minutes = String(date.getMinutes()).padStart(2, "0");
+      // Format date and time components
+      const day = String(date.getDate()).padStart(2, "0");
+      const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
+      const year = date.getFullYear();
+      const hours = String(date.getHours()).padStart(2, "0");
+      const minutes = String(date.getMinutes()).padStart(2, "0");
 
-  // Combine into the desired format
-  return `${day}-${month}-${year} ${hours}:${minutes}`;
-}
+      // Combine into the desired format
+      return `${day}-${month}-${year} ${hours}:${minutes}`;
+    }
 
     function generateExcelData() {
       const dataToExport = [];
