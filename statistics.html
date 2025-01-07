@@ -96,6 +96,19 @@
 
         </ul>
       </div>
+      <div id="loading" class="spinmodal" style="display: none;">
+        <!-- Initially hidden -->
+        <div class="spinmodal-content">
+          <div class="row">
+            <div class="col-4">
+              <div class="spinner"></div> <!-- Spinner circle -->
+            </div>
+            <div class="col-8">
+              <h3 style="align-content: center; padding-top: 20px;">Loading...</h3>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="d-flex ms-auto">
         <button onclick="logout()" id="logout" type="submit" class="btn btn-outline-light">Logout</button>
       </div>
@@ -290,24 +303,28 @@
 
           let currentDate = new Date();
 
-          let dayOfWeek = currentDate.getDay();
-          let diffToSunday = currentDate.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1);
-          let sunday = new Date(currentDate.setDate(diffToSunday));
-          let current = new Date();
+          let startDate = new Date(currentDate);
+          startDate.setDate(currentDate.getDate() - 7); // 30 days ago
 
-          let formattedSunday = sunday.toLocaleDateString('en-In', {
+          // Set the end date as today
+          let endDate = currentDate;
+
+          // Format the dates
+          let formattedStartDate = startDate.toLocaleDateString('en-IN', {
             year: 'numeric',
             month: '2-digit',
             day: '2-digit'
           });
-          let formattedDate = current.toLocaleDateString('en-IN', {
+          let formattedEndDate = endDate.toLocaleDateString('en-IN', {
             year: 'numeric',
             month: '2-digit',
             day: '2-digit'
           });
 
-          startInput.attr('placeholder', formattedSunday);
-          endInput.attr('placeholder', formattedDate);
+
+
+          startInput.attr('placeholder', formattedStartDate);
+          endInput.attr('placeholder', formattedEndDate);
 
           startInput.attr('disabled', true);
           endInput.attr('disabled', true);
