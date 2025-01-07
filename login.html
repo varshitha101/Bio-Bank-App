@@ -58,8 +58,11 @@
           <form class="form-signin" id="otplogin">
             <div>
               <h2>OTP Verification</h2>
+              <div id="alertMessage" class="alert alert-success" role="alert" style="display:none;">
+                Sending OTP
+              </div>
               <div>
-                <p style="font-size: small;">We have sent otp to +91XXXXXXXXXX</p>
+                <p style="font-size: small;">We have sent otp to +91XXXXXX<span id="phoneNum"></span></p>
               </div>
             </div>
             <div class="row justify-content-center">
@@ -102,6 +105,9 @@
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 
   <script type="module">
     // Toggle password visibility
@@ -202,6 +208,10 @@
 
               const phone = snapshot.val().phone;
 
+              const phoneString = String(phone);
+              const lastFourDigits = phoneString.slice(-4);
+              console.log("lastFourDigits", lastFourDigits);
+              document.getElementById('phoneNum').textContent = lastFourDigits;
 
 
               if (snapshot.val().loginDetails != undefined) {
@@ -261,6 +271,15 @@
     }
 
     function sendOTP(phoneNumber) {
+
+      const alertMessage = document.getElementById('alertMessage');
+      setTimeout(() => {
+
+        alertMessage.innerHTML = "Sending OTP..."; // Show success message
+        alertMessage.classList.remove("alert-danger");
+        alertMessage.classList.add("alert-success");
+        alertMessage.style.display = "block"; // Display the alert
+      }, 1000);
       phoneNumber = "+91" + phoneNumber;
       const phoneRegex = /^\+91\d{10}$/;
       if (!phoneRegex.test(phoneNumber)) {
@@ -273,7 +292,13 @@
       signInWithPhoneNumber(auth, phoneNumber, window.recaptchaVerifier)
         .then((confirmationResult) => {
           window.confirmationResult = confirmationResult;
-          alert("OTP sent successfully!");
+          setTimeout(() => {
+            alertMessage.innerHTML = "OTP sent successfully!"; // Show success message
+            alertMessage.classList.remove("alert-danger");
+            alertMessage.classList.add("alert-success");
+            alertMessage.style.display = "block"; // Display the alert
+          }, 1000);
+          // alert("OTP sent successfully!");
           $('#otpModal').modal('show'); // Show OTP modal after sending OTP
           // const currentTime = new Date().getTime(); // Get current time in milliseconds
           // const userRef = ref(db, 'users/' + UUID);
@@ -288,7 +313,13 @@
         })
         .catch((error) => {
           console.error("Error sending OTP:", error.message);
-          alert("Failed to send OTP. Check console for details.");
+          setTimeout(() => {
+            alertMessage.innerHTML = "OTP Sending Failed. Try again...";
+            alertMessage.classList.remove("alert-success");
+            alertMessage.classList.add("alert-danger");
+            alertMessage.style.display = 'block';
+          }, 1000);
+
         });
 
     }
