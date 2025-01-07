@@ -161,7 +161,7 @@
       </div>
       <div class="credits"></div>
       <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">
-        Version 1.4.0
+        Version 1.5.0
       </div>
     </div>
   </footer>
@@ -597,7 +597,9 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log(`Entrying patient: ${patient.biobankID}`);
             const entry = "EditFollowUps";
             pages_display(entry, patient.biobankID, patient.patientArrayKey, patient.latestTimestamp);
-            window.location.href = `default.html?mode=edit`;
+            // pages_display(entry);
+
+            // window.location.href = `default.html?mode=edit`;
           });
 
           const viewBtn = document.createElement("button");
@@ -606,7 +608,7 @@ document.addEventListener("DOMContentLoaded", function () {
           viewBtn.addEventListener("click", () => {
             const entry = "ViewFollowUp";
             pages_display(entry, patient.biobankID, patient.patientArrayKey, patient.latestTimestamp);
-            window.location.href = `default.html?mode=view`;
+            // window.location.href = `default.html?mode=view`;
           });
 
           modCell.appendChild(entryBtn);
