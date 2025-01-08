@@ -167,99 +167,105 @@ function populateBBLabels(data, boxVal, debug) {
             Object.keys(dbData).forEach(seqNum => {
               const seqData = dbData[seqNum];
               console.log("seqData", seqData);
-
-              Object.keys(seqData).forEach(timestamp => {
-                const timestampData = seqData[timestamp];
-                console.log("timestampData", timestampData);
-
-                if ((sampleType === "Plasma" || sampleType === "MPlasma") && timestampData.ie.bpg) {
-                  const bpg = timestampData.ie.bpg;
-                  const boxName = bpg.split('/')[0];
-                  const bpgIndex1 = bpg.split('/')[1];
-
-                  if (bpgIndex1 && bpgIndex1.includes(getSeatLabel(index))) {
-                    matchedData.push({
-                      mode: "SearchView",
-                      bioBankId,
-                      seq: seqNum,
-                      timestamp
-                    });
-                    console.log("Matched:", {
-                      mode: "SearchView",
-                      bioBankId,
-                      seqNum,
-                      timestamp
-                    });
-                  }
+            
+              // Get the latest timestamp
+              const latestTimestamp = Math.max(...Object.keys(seqData));
+            
+              const timestampData = seqData[latestTimestamp];
+              console.log("Latest timestampData", timestampData);
+            
+              // Process based on sampleType
+              if ((sampleType === "Plasma" || sampleType === "MPlasma") && timestampData.ie.bpg) {
+                const bpg = timestampData.ie.bpg;
+                const boxName = bpg.split('/')[0];
+                const bpgIndex1 = bpg.split('/')[1];
+            
+                if (bpgIndex1 && bpgIndex1.includes(getSeatLabel(index))) {
+                  matchedData.push({
+                    mode: "SearchView",
+                    bioBankId,
+                    seq: seqNum,
+                    timestamp: latestTimestamp
+                  });
+                  console.log("Matched:", {
+                    mode: "SearchView",
+                    bioBankId,
+                    seqNum,
+                    timestamp: latestTimestamp
+                  });
                 }
-                if ((sampleType === "Serum" || sampleType === "MSerum") && timestampData.ie.bsg) {
-                  const bsg = timestampData.ie.bsg;
-                  console.log("bsg", bsg);
-                  console.log("bsgIndex1", getSeatLabel(index));
-                  const bsgIndex1 = bsg.split('/')[1]; // get index1
-                  console.log("bsgIndex1", bsgIndex1);
-
-                  if (bsgIndex1 && bsgIndex1.split(',').includes(getSeatLabel(index))) {
-                    matchedData.push({
-                      mode: "SearchView",
-                      bioBankId,
-                      seq: seqNum,
-                      timestamp
-                    });
-                    console.log("Matched:", {
-                      mode: "SearchView",
-                      bioBankId,
-                      seqNum,
-                      timestamp
-                    });
-                  }
+              }
+            
+              if ((sampleType === "Serum" || sampleType === "MSerum") && timestampData.ie.bsg) {
+                const bsg = timestampData.ie.bsg;
+                console.log("bsg", bsg);
+                console.log("bsgIndex1", getSeatLabel(index));
+                const bsgIndex1 = bsg.split('/')[1]; // get index1
+                console.log("bsgIndex1", bsgIndex1);
+            
+                if (bsgIndex1 && bsgIndex1.split(',').includes(getSeatLabel(index))) {
+                  matchedData.push({
+                    mode: "SearchView",
+                    bioBankId,
+                    seq: seqNum,
+                    timestamp: latestTimestamp
+                  });
+                  console.log("Matched:", {
+                    mode: "SearchView",
+                    bioBankId,
+                    seqNum,
+                    timestamp: latestTimestamp
+                  });
                 }
-                if ((sampleType === "Buffy Coat" || sampleType === "MBuffy Coat") && timestampData.ie.bbcg) {
-                  const bbcg = timestampData.ie.bbcg;
-                  console.log("bbcg", bbcg);
-                  console.log("bbcgIndex1", getSeatLabel(index));
-                  const bbcgIndex1 = bbcg.split('/')[1];
-                  console.log("bbcgIndex1", bbcgIndex1);
-
-                  if (bbcgIndex1 && bbcgIndex1.split(',').includes(getSeatLabel(index))) {
-                    matchedData.push({
-                      mode: "SearchView",
-                      bioBankId,
-                      seq: seqNum,
-                      timestamp
-                    });
-                    console.log("Matched:", {
-                      mode: "SearchView",
-                      bioBankId,
-                      seqNum,
-                      timestamp
-                    });
-                  }
+              }
+            
+              if ((sampleType === "Buffy Coat" || sampleType === "MBuffy Coat") && timestampData.ie.bbcg) {
+                const bbcg = timestampData.ie.bbcg;
+                console.log("bbcg", bbcg);
+                console.log("bbcgIndex1", getSeatLabel(index));
+                const bbcgIndex1 = bbcg.split('/')[1];
+                console.log("bbcgIndex1", bbcgIndex1);
+            
+                if (bbcgIndex1 && bbcgIndex1.split(',').includes(getSeatLabel(index))) {
+                  matchedData.push({
+                    mode: "SearchView",
+                    bioBankId,
+                    seq: seqNum,
+                    timestamp: latestTimestamp
+                  });
+                  console.log("Matched:", {
+                    mode: "SearchView",
+                    bioBankId,
+                    seqNum,
+                    timestamp: latestTimestamp
+                  });
                 }
-                if ((sampleType === "Other" || sampleType === "MOther") && timestampData.ie.osg) {
-                  const osg = timestampData.ie.osg;
-                  console.log("osg", osg);
-                  console.log("osgIndex1", getSeatLabel(index));
-                  const osgIndex1 = osg.split('/')[1];
-                  console.log("osgIndex1", osgIndex1);
-
-                  if (osgIndex1 && osgIndex1.includes(getSeatLabel(index))) {
-                    matchedData.push({
-                      mode: "SearchView",
-                      bioBankId,
-                      seq: seqNum,
-                      timestamp
-                    });
-                    console.log("Matched:", {
-                      mode: "SearchView",
-                      bioBankId,
-                      seqNum,
-                      timestamp
-                    });
-                  }
+              }
+            
+              if ((sampleType === "Other" || sampleType === "MOther") && timestampData.ie.osg) {
+                const osg = timestampData.ie.osg;
+                console.log("osg", osg);
+                console.log("osgIndex1", getSeatLabel(index));
+                const osgIndex1 = osg.split('/')[1];
+                console.log("osgIndex1", osgIndex1);
+            
+                if (osgIndex1 && osgIndex1.includes(getSeatLabel(index))) {
+                  matchedData.push({
+                    mode: "SearchView",
+                    bioBankId,
+                    seq: seqNum,
+                    timestamp: latestTimestamp
+                  });
+                  console.log("Matched:", {
+                    mode: "SearchView",
+                    bioBankId,
+                    seqNum,
+                    timestamp: latestTimestamp
+                  });
                 }
-              });
+              }
             });
+            
 
             if (matchedData.length > 0) {
               console.log('Matched Data:', matchedData);
@@ -694,35 +700,35 @@ function populateBBDataForCurrentBox() {
 // // Initial call to populate the first box when the page loads
 window.onload = function () {
   // window.onload = function () {
-   // populateBBData(); // Populate the first box on page load
+  // populateBBData(); // Populate the first box on page load
   //   populateBBData(); // Populate the first box on page load
-   // fetchBnData();
+  // fetchBnData();
   // };
-  
-      let bnLocalS = [];
-  
-    db.ref('bn/').once('value')
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          const boxIDs = snapshot.val();
-          console.log("Bio Box Names in the BN node", boxIDs);
-  
-          let bnLocalS = [];
-  
-          for (const [key, value] of Object.entries(boxIDs)) {
-            bnLocalS.push({ id: key, name: value });
-          }
-          // bnLocalS = boxIDs;
-          localStorage.setItem('bnData', JSON.stringify(bnLocalS));
-  
-          console.log("Data stored in bnLocalS:", bnLocalS);
-          console.log("Data stored in local storage.");
+
+  let bnLocalS = [];
+
+  db.ref('bn/').once('value')
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        const boxIDs = snapshot.val();
+        console.log("Bio Box Names in the BN node", boxIDs);
+
+        let bnLocalS = [];
+
+        for (const [key, value] of Object.entries(boxIDs)) {
+          bnLocalS.push({ id: key, name: value });
         }
-      })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
-      });
-  };
+        // bnLocalS = boxIDs;
+        localStorage.setItem('bnData', JSON.stringify(bnLocalS));
+
+        console.log("Data stored in bnLocalS:", bnLocalS);
+        console.log("Data stored in local storage.");
+      }
+    })
+    .catch((error) => {
+      console.error('Error fetching data:', error);
+    });
+};
 
 
 
@@ -824,16 +830,12 @@ function populateSBLabels(data) {
     console.warn('Not enough bioBankIds available for the matrix.');
   }
 
+
   for (let row = 0; row < rows.length; row++) {
     for (let col = 1; col <= cols; col++) {
       const labelName = `label_S${rows[row]}${col}`;
       const labelElement = document.getElementById(labelName);
       const index = row * cols + (col - 1);
-
-      // document.getElementById(labelName).addEventListener('click', function () {
-      //   console.log('label name of click seat', labelName);
-      //   $('#exampleModalCenter').modal('show');
-      // });
 
       if (labelElement) {
         if (bioBankIds[index] !== '') {
@@ -874,11 +876,12 @@ function populateSBLabels(data) {
               const seqData = dbData[seqNum];
               console.log("seqData", seqData);
 
-              Object.keys(seqData).forEach(timestamp => {
-                const timestampData = seqData[timestamp];
-                console.log("timestampData", timestampData);
+              const latestTimestamp = Math.max(...Object.keys(seqData));
+            
+              const timestampData = seqData[latestTimestamp];
+              console.log("Latest timestampData", timestampData);
 
-                if ((sampleType.includes('FT') || sampleType.includes('MFT')) && timestampData.ie) {
+                if ((sampleType.includes('FT') || sampleType.includes('MFT')) && timestampData.ie.ftg) {
                   const ftg = timestampData.ie.ftg;
                   const boxName = ftg.split('/')[0];
                   const ftgIndex1 = ftg.split('/')[1];
@@ -888,18 +891,18 @@ function populateSBLabels(data) {
                       mode: "SearchView",
                       bioBankId,
                       seq: seqNum,
-                      timestamp
+                      timestamp: latestTimestamp
                     });
                     console.log("Matched:", {
                       mode: "SearchView",
                       bioBankId,
                       seqNum,
-                      timestamp
+                      timestamp:latestTimestamp
                     });
                   }
                 }
 
-                if ((sampleType.includes('FN') || sampleType.includes('MFN')) && timestampData.ie) {
+                if ((sampleType.includes('FN') || sampleType.includes('MFN')) && timestampData.ie.fng) {
                   const fng = timestampData.ie.fng;
                   const boxName = fng.split('/')[0];
                   const fngIndex1 = fng.split('/')[1];
@@ -909,18 +912,18 @@ function populateSBLabels(data) {
                       mode: "SearchView",
                       bioBankId,
                       seq: seqNum,
-                      timestamp
+                      timestamp:latestTimestamp
                     });
                     console.log("Matched:", {
                       mode: "SearchView",
                       bioBankId,
                       seqNum,
-                      timestamp
+                      timestamp:latestTimestamp
                     });
                   }
                 }
 
-              });
+             
             });
 
             if (matchedData.length > 0) {
@@ -1466,6 +1469,7 @@ function AppendBloodBox(boxName, newBoxId) {
   db.ref('bn/' + newBoxId).set(boxName)
     .then(() => {
       console.log("Box name added successfully to the 'bn' node.");
+      fetchBnData();
     }).catch((error) => {
       console.error("Error saving box name to 'bn' node: ", error);
     });
@@ -1532,6 +1536,7 @@ function AppendSpecimenBox(boxName, newBoxId) {
   db.ref('bn/' + newBoxId).set(boxName)
     .then(() => {
       console.log("Box name added successfully to the 'bn' node.");
+      fetchBnData();
     }).catch((error) => {
       console.error("Error saving box name to 'bn' node: ", error);
     });
@@ -1856,8 +1861,8 @@ function validateAndCollectData() {
         };
 
         const updateMode = new URLSearchParams(window.location.search).get('update');
-        console.log("form1Data.ie.fng",form1Data.ie.fng)
-        console.log("form1Data.ie.ftg",form1Data.ie.ftg)
+        console.log("form1Data.ie.fng", form1Data.ie.fng)
+        console.log("form1Data.ie.ftg", form1Data.ie.ftg)
 
         console.log("Plasma data", form1Data.ie.bpg)
         if (form1Data.ie.bpg) {
@@ -1879,7 +1884,7 @@ function validateAndCollectData() {
         // updateBB(form1Data.ie.osg, "Other");
 
 
-        if (form1Data.ie.ftg !== "" && form1Data.ie.ftg !== null ) {
+        if (form1Data.ie.ftg !== "" && form1Data.ie.ftg !== null) {
           updateSB(form1Data.ie.ftg, "FT-1");
         }
         if (form1Data.ie.fng !== "" && form1Data.ie.fng !== null) {
@@ -2024,12 +2029,19 @@ function validateForm1() {
       emptyFields.push(item.name);
     }
   });
-
-  if (!allFilled) {
+  let mode = localStorage.getItem('mode');
+  console.log("mode",mode)
+  if(mode === "SearchView" || mode === "pendingView"){
+    if (!allFilled) {
     console.log('Please fill in the following required fields:', emptyFields.join(', '));
+  }
+}
+  else if (!allFilled) {
     alert('Please enter all the required fields');
     return;
+
   }
+
   const getDateAndTime = (dateId, timeId) => {
     const dateValue = document.getElementById(dateId).value;
     const timeValue = document.getElementById(timeId).value;
@@ -2783,6 +2795,8 @@ async function fillIeForm(ieData) {
   document.getElementById('surgeonName').value = ieData.srn;
   console.log("surgeonName", ieData.srn)
   document.querySelector(`input[name="specimenSample"][value="${ieData.ss}"]`).checked = true;
+  specimenSample();
+
   document.getElementById('ft_tubes').value = ieData.nft || '';
 
   const ftGridNo = await gridData(ieData.ftg);
@@ -2792,8 +2806,8 @@ async function fillIeForm(ieData) {
   document.getElementById('fngrid').value = fnGridNo || '';
   document.getElementById('fn_tubes').value = ieData.nfn || '';
   document.querySelector(`input[name="bloodSample"][value="${ieData.bs}"]`).checked = true;
+  bloodSample();
 
-  // Wait for gridData promise to resolve
   const plasmaGridNo = await gridData(ieData.bpg);
   document.getElementById('PlasmagridNo').value = plasmaGridNo || '';  // Set the resolved value
 
@@ -2802,7 +2816,9 @@ async function fillIeForm(ieData) {
 
   const BuffyGridNo = await gridData(ieData.bbcg);
   document.getElementById('bufferCoatgridNo').value = BuffyGridNo || '';
+
   document.querySelector(`input[name="otherSample"][value="${ieData.osmp}"]`).checked = true;
+  otherSample();
 
   const otherGridNo = await gridData(ieData.osg);
   document.getElementById('OSgridNo').value = otherGridNo || '';
@@ -2818,6 +2834,7 @@ async function fillIeForm(ieData) {
   if (ieData.scpt !== '') {
     document.querySelector(`input[name="processedRadio"][value="${ieData.scpt}"]`).checked = true;
   }
+  sampleReceive()
   document.getElementById('BprocessedBy').value = ieData.bspb || '';
   document.getElementById('SprocessedBy').value = ieData.sspb || '';
   document.getElementById('OprocessedBy').value = ieData.ospb || '';
@@ -2943,6 +2960,7 @@ function fillMdForm(mdData) {
   if (mdData.fhc !== '') {
     document.querySelector(`input[name="RadioFHabit"][value="${mdData.fhc}"]`).checked = true;
   }
+  familyHabitToggle();
   document.getElementById('familyRelation').value = mdData.fhcr || '';
   document.getElementById('familyCancerType').value = mdData.fhct || '';
 
@@ -2950,6 +2968,7 @@ function fillMdForm(mdData) {
   if (mdData.hac) document.querySelector(`input[name="RadioAlcoholHabit"][value="${mdData.hac}"]`).checked = true;
   if (mdData.hs) document.querySelector(`input[name="RadioSmokeHabit"][value="${mdData.hs}"]`).checked = true;
   if (mdData.ec) document.querySelector(`input[name="ECH"][value="${mdData.ec}"]`).checked = true;
+  ExistComorbidity();
   document.getElementById('comorbidityMedications').value = mdData.ecm || '';
   document.getElementById('ffQcComments').value = mdData.ffqc || '';
   document.getElementById('ffTissueRemarks').value = mdData.ftr || '';
@@ -2958,8 +2977,11 @@ function fillMdForm(mdData) {
   document.getElementById('ageAtDiagnosis').value = mdData.ad || '';
   document.getElementById('clinicalStage').value = mdData.cs || '';
   if (mdData.ihcm) document.querySelector(`input[name="IHC"][value="${mdData.ihcm}"]`).checked = true;
+  IHCMarker();
+
   document.getElementById('IHC_Description').value = mdData.ihcd || '';
   if (mdData.gt) document.querySelector(`input[name="GeneticT"][value="${mdData.gt}"]`).checked = true;
+  GeneticT();
   document.getElementById('GT_Description').value = mdData.gtd || '';
   document.getElementById('subtype').value = mdData.pst || '';
   document.getElementById('pstOt').value = mdData.pstOt || '';
@@ -2983,15 +3005,18 @@ function fillMdForm(mdData) {
   document.getElementById('btHPEInput').value = mdData.btn || '';
   document.getElementById('biopsyDate').value = mdData.bd || '';
   if (mdData.nact) document.querySelector(`input[name="NACT"][value="${mdData.nact}"]`).checked = true;
+  NactYes();
   document.getElementById('NACT_cycle').value = mdData.nactdc || '';
   document.getElementById('NACT_cycle_D').value = mdData.nactdlc || '';
   document.getElementById('StHPEInput').value = mdData.stn || '';
   document.getElementById('surgeryDate').value = mdData.sd || '';
   document.getElementById('rcbScores').value = mdData.rcbs || '';
   if (mdData.act) document.querySelector(`input[name="ACT"][value="${mdData.act}"]`).checked = true;
+  actYes();
   document.getElementById('actDrugCycles').value = mdData.actdc || '';
   document.getElementById('actDateLastCycle').value = mdData.actdls || '';
   if (mdData.rd) document.querySelector(`input[name="RadioT"][value="${mdData.rd}"]`).checked = true;
+  RadioTYes();
   document.getElementById('radiotherapyDetails').value = mdData.rdd || '';
   document.getElementById('radiotherapyLastCycleDate').value = mdData.rtdls || '';
   if (mdData.ipba) document.querySelector(`input[name="pbT"][value="${mdData.ipba}"]`).checked = true;
@@ -3063,6 +3088,7 @@ function fillBrfForm(brfData) {
   // Populate data as usual if brfData.ms has a value
   document.getElementById('ageAtMenarche').value = brfData.am || '';
   document.getElementById('parity').value = brfData.pty || '';
+  parity();
   document.getElementById('numChild').value = brfData.noc || '';
   document.getElementById('ageAtFirstChild').value = brfData.afc || '';
   if (brfData.bf) {
@@ -4391,7 +4417,7 @@ function displayOutsourceData(data) {
         const childContent = `${childNode}: ${formattedSamples}`;
         const storedBnData = JSON.parse(localStorage.getItem('bnData'));
 
-              // Find the box entry based on the box name
+        // Find the box entry based on the box name
         const boxEntry = storedBnData.find(entry => entry.id === childNode);
         const Boxname = boxEntry.name;
 
@@ -4463,32 +4489,250 @@ function fetchBnData() {
 
 // Function to show the loading modal
 function showLoadingModal() {
-  document.getElementById('loading').style.display = 'flex'; 
+  document.getElementById('loading').style.display = 'flex';
   setTimeout(hideLoadingModal, 1000); // 3000 ms = 3 seconds
 }
 
 // Function to hide the loading modal
 function hideLoadingModal() {
-  document.getElementById('loading').style.display = 'none'; 
+  document.getElementById('loading').style.display = 'none';
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   const navLinks = document.querySelectorAll('.nav-link');
-  
-  navLinks.forEach(link => {
-      link.addEventListener('click', function(event) {
-          event.preventDefault(); // Prevent default navigation
-          
-          const href = this.getAttribute('href'); // Store the link
-          showLoadingModal(); // Show spinner modal and hide after 3 seconds
 
-          setTimeout(() => {
-              window.location.href = href; // Redirect after 3 seconds
-          }, 1000);
-      });
+  navLinks.forEach(link => {
+    link.addEventListener('click', function (event) {
+      event.preventDefault(); // Prevent default navigation
+
+      const href = this.getAttribute('href'); // Store the link
+      showLoadingModal(); // Show spinner modal and hide after 3 seconds
+
+      setTimeout(() => {
+        window.location.href = href; // Redirect after 3 seconds
+      }, 1000);
+    });
   });
 });
 
 function searchLoadingModal() {
-  document.getElementById('loading').style.display = 'flex'; 
+  document.getElementById('loading').style.display = 'flex';
+}
+
+
+
+function bloodSample() {
+  console.log("bloodSample", ($('#bloodSampleY').is(':checked')))
+  if ($('#bloodSampleY').is(':checked')) {
+    $('#plasmatubes').show();
+    $('#serumtubes').show();
+    $('#bufferCoatTubes').show();
+  }
+  else if ($('#bloodSampleN').is(':checked')) {
+    $('#plasmatubes').hide();
+    $('#serumtubes').hide();
+    $('#bufferCoatTubes').hide();
+    $('#PlasmagridNo').val('');
+    $('#SerumgridNo').val('')
+    $('#bufferCoatgridNo').val('')
+    // localStorage.removeItem("LocalPlasma");
+    // localStorage.removeItem("LocalSerum");
+    // localStorage.removeItem("LocalBuffy");
+    // localStorage.removeItem("LocalOther");  
+  }
+}
+function specimenSample() {
+  if ($('#specimenSampleY').is(':checked')) {
+    $('#countFttubes').show();
+    $('#fttubes').show();
+    $('#countFntubes').show();
+    $('#fntubes').show();
+  }
+  else if ($('#specimenSampleN').is(':checked')) {
+    $('#countFttubes').hide();
+    $('#fttubes').hide();
+    $('#countFntubes').hide();
+    $('#fntubes').hide();
+    $('#ftgrid').val('');
+    $('#fngrid').val('');
+    $('#ft_tubes').val('');
+    $('#fn_tubes').val('');
+  }
+}
+function otherSample() {
+  if ($('#otherSampleY').is(':checked')) {
+    $('#oSampleTubes').show();
+    $('#oSampleDesc').show();
+  }
+  else if ($('#otherSampleN').is(':checked')) {
+    $('#oSampleTubes').hide();
+    $('#oSampleDesc').hide();
+    $('#OSgridNo').val('');
+    $('#otSampleDesc').val('');
+    // localStorage.removeItem("LocalOther");
+  }
+}
+function sampleReceive() {
+  if ($('#radioprocessed1').is(':checked')) {
+    $('#receiveAllSample').show();
+    $('#processAllSample').show();
+    $('#AllSamplesProcess').show();
+    $('#BprocessedBy').val('');
+    $('#bloodSampleReceivedDate').val('');
+    $('#bloodSampleReceivedTime').val('');
+    $('#bloodSampleProcessedDate').val('');
+    $('#bloodSampleProcessedTime').val('');
+    $('#SprocessedBy').val('');
+    $('#SpecimenSampleReceivedDate').val('');
+    $('#SpecimenSampleReceivedTime').val('');
+    $('#SpecimenSampleProcessedDate').val('');
+    $('#SpecimenSampleProcessedTime').val('');
+    $('#OprocessedBy').val('');
+    $('#OtherSampleReceivedDate').val('');
+    $('#OtherSampleReceivedTime').val('');
+    $('#OtherSampleProcessedDate').val('');
+    $('#OtherSampleProcessedTime').val('');
+  }
+  else if ($('#radioprocessed2').is(':checked')) {
+    $('#receiveAllSample').hide();
+    $('#processAllSample').hide();
+    $('#AllSamplesProcess').hide();
+    $('#processedBy').val('');
+    $('#sampleReceivedDate').val('');
+    $('#sampleReceivedTime').val('');
+    $('#sampleProcessedDate').val('');
+    $('#sampleProcessedTime').val('');
+  }
+  if (($('#radioprocessed2').is(':checked')) && ($('#bloodSampleY').is(':checked'))) {
+    $('#receiveBloodSample').show();
+    $('#processBloodSample').show();
+    $('#BloodSamplesProcess').show();
+  }
+  else {
+    $('#receiveBloodSample').hide();
+    $('#processBloodSample').hide();
+    $('#BloodSamplesProcess').hide();
+    
+  }
+  if (($('#radioprocessed2').is(':checked')) && ($('#specimenSampleY').is(':checked'))) {
+    $('#receiveSpecimenSample').show();
+    $('#processSpecimenSample').show();
+    $('#SpecimenSamplesProcess').show();
+  }
+  else {
+    $('#receiveSpecimenSample').hide();
+    $('#processSpecimenSample').hide();
+    $('#SpecimenSamplesProcess').hide();
+    
+  }
+  if (($('#radioprocessed2').is(':checked')) && ($('#otherSampleY').is(':checked'))) {
+    $('#receiveOtherSample').show();
+    $('#processOtherSample').show();
+    $('#OtherSamplesProcess').show();
+  }
+  else {
+    $('#receiveOtherSample').hide();
+    $('#processOtherSample').hide();
+    $('#OtherSamplesProcess').hide();
+   
+  }
+}
+
+
+function familyHabitToggle() {
+  if ($('#familyHistoryCancer1').is(':checked')) {
+    $('#relation_Cancer').show();
+  }
+  else {
+    $('#relation_Cancer').hide();
+    $('#familyRelation').val('');
+    $('#familyCancerType').val('');
+  }
+}
+
+function ExistComorbidity() {
+  if ($('#ECH1').is(':checked')) {
+    $('#medications').show();
+  }
+  else {
+    $('#medications').hide();
+    $('#comorbidityMedications').val('');
+  }
+}
+
+function IHCMarker() {
+  if ($('#IHC_yes').is(':checked')) {
+    $('#ihcDescr').show();
+  }
+  else {
+    $('#ihcDescr').hide();
+    $('#IHC_Description').val('');
+  }
+}
+
+function GeneticT() {
+  if ($('#gt_yes').is(':checked')) {
+    $('#dt_Desc').show();
+  }
+  else {
+    $('#dt_Desc').hide();
+    $('#GT_Description').val('');
+  }
+}
+
+function NactYes() {
+  if ($('#NACTYes').is(':checked')) {
+    $('#nactDC').show();
+    $('#nactDLC').show();
+  }
+  else {
+    $('#nactDC').hide();
+    $('#nactDLC').hide();
+    $('#NACT_cycle').val('');
+    $('#NACT_cycle_D').val('');
+  }
+}
+
+function actYes() {
+  if ($('#ACTYes').is(':checked')) {
+    $('#actDC').show();
+    $('#actDLC').show();
+  }
+  else {
+    $('#actDC').hide();
+    $('#actDLC').hide();
+    $('#actDrugCycles').val('');
+    $('#actDateLastCycle').val('');
+  }
+}
+
+function RadioTYes() {
+  if ($('#RTYes').is(':checked')) {
+    $('#rtDC').show();
+    $('#rtDLC').show();
+  }
+  else {
+    $('#rtDC').hide();
+    $('#rtDLC').hide();
+    $('#radiotherapyDetails').val('');
+    $('#radiotherapyLastCycleDate').val('');
+  }
+}
+
+function parity() {
+  let parityValue = parseInt($('#parity').val(), 10);
+
+  if (parityValue > 15) {
+    parityValue = 0;
+    $('#parity').val(parityValue);
+  } else if (parityValue < 0) {
+    parityValue = 0;
+    $('#parity').val(parityValue);
+  }
+
+  if (parityValue > 0) {
+    $('#noChild').show();
+  } else {
+    $('#noChild').hide();
+  }
 }
