@@ -723,6 +723,12 @@
               }
             } else {
               console.log("No seat data available.");
+               ageChart(0, 0, 0, 0, 0);
+                cancerChart(0, 0, 0, 0);
+                procedureChart(0, 0);
+                //sampleTypeChart(countBS, countSS, countOS);
+                sampleTypeChart(0, 0, 0, 0);
+                hideLoadingModal();
             }
           })
           .catch(error => {
