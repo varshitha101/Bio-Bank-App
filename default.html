@@ -321,6 +321,7 @@
                 </div>
               </div>
 
+
               <div class="row ml-1 mb-3">
                 <label for="specimensample" class="col-sm-2 mb-1 col-form-label">Specimen Sample <span
                     style="color: red; font-weight: bold;">*</span></label>
@@ -2464,7 +2465,8 @@
                 arr = removeItemFromArray(arr, seatID);
                 grid = arr.join(',');
               }
-              if (labelElement) labelElement.style.backgroundColor = 'rgb(143, 218, 187)';            }
+              if (labelElement) labelElement.style.backgroundColor = 'rgb(143, 218, 187)';
+            }
           }
 
           // Filter out any empty or null values from BloodSelectedSeats
@@ -2510,7 +2512,7 @@
           if (BloodSelectedSeats.length > 0) {
             updatePlasmaGridInput();
           }
-          plisteners = false
+          plisteners = false;
           $('#bloodModalCenter').modal('hide');
         };
       }
@@ -2716,6 +2718,7 @@
           "status": "o"
         }
 
+        let slisteners = true;
         grid = localStorage.getItem("selectedGrid");
         console.log("selected Grid Data:", grid);
 
@@ -2808,7 +2811,9 @@
                 `<label for="${seatID}" class="seat" id="${labelName}">${labelName}</label>`
               );
               document.getElementById(seatID).addEventListener('change', function (event) {
-                handleBSeatSelection(seatID, event.target.checked, seat.status);
+                if (slisteners) {
+                  handleBSeatSelection(seatID, event.target.checked, seat.status);
+                }
               });
 
               let labelElement = document.getElementById(labelName);
@@ -2931,6 +2936,8 @@
           if (BloodSelectedSeats.length > 0) {
             updateSerumGridInput();
           }
+          slisteners = false
+
           $('#bloodModalCenter').modal('hide');
         };
       }
@@ -3136,7 +3143,7 @@
           "sampleType": "",
           "status": "o"
         }
-
+        let bcListeners = true
         grid = localStorage.getItem("selectedGrid");
         console.log("selected Grid Data:", grid);
 
@@ -3225,7 +3232,9 @@
               );
 
               document.getElementById(seatID).addEventListener('click', function (event) {
-                handleBSeatSelection(seatID, event.target.checked, seat.status, 'buffy Coat')
+                if (bcListeners) {
+                  handleBSeatSelection(seatID, event.target.checked, seat.status, 'buffy Coat')
+                }
               });
 
               let labelElement = document.getElementById(labelName);
@@ -3346,6 +3355,7 @@
           if (BloodSelectedSeats.length > 0) {
             updateBuffyGridInput();
           }
+          bcListeners = false;
           $('#bloodModalCenter').modal('hide');
         };
       }
@@ -3545,6 +3555,8 @@
           "sampleType": "",
           "status": "o"
         }
+
+        let osListeners = true;
         grid = localStorage.getItem("selectedGrid");
         console.log("selected Grid Data:", grid);
 
@@ -3633,7 +3645,9 @@
                 `<label for="${seatID}" class="seat" id="${labelName}">${labelName}</label>`
               );
               document.getElementById(seatID).addEventListener('change', function (event) {
-                handleBSeatSelection(seatID, event.target.checked, seat.status);
+                if (osListeners) {
+                  handleBSeatSelection(seatID, event.target.checked, seat.status);
+                }
               });
 
               let labelElement = document.getElementById(labelName);
@@ -3757,6 +3771,7 @@
           if (BloodSelectedSeats.length > 0) {
             updateOtherGridInput();
           }
+          osListeners = false;
           $('#bloodModalCenter').modal('hide');
         };
       }
@@ -4000,7 +4015,6 @@
 
         const [box_id, filteredSeats] = activeBoxEntry;
         let boxName = [];
-
         console.log("Active Box Name:", box_id);
 
         db.ref('bn/' + box_id).once('value')
@@ -4020,7 +4034,6 @@
           });
         // document.getElementById('currSpecimenBoxName').textContent = activeBoxName;
         console.log("spgrid -- ", spgrid);
-
         if (spgrid !== null) {
           let arrS = splitSpecimenStringToArray(spgrid);
           let arrSinx = [];
@@ -4053,7 +4066,6 @@
               document.getElementById(seatID).addEventListener('change', function (event) {
                 // console.log("ftListener",ftListener)
                 if (ftListener) {
-
                   handleSSeatSelection(seatID, event.target.checked, seatData.status, maxSelectionsFT, 'FT Grid');
                 }
               });
@@ -4186,10 +4198,10 @@
           if (SpecimenSelectedSeats.length === maxSelectionsFT) {
             updateFTGridInput();
             ftListener = false;
-          $('#specimenModalCenter').modal('hide');
+            $('#specimenModalCenter').modal('hide');
 
           }
-          else{
+          else {
             alert(`Please select ${maxSelectionsFT} grids`)
           }
         };
@@ -4348,6 +4360,7 @@
       }
     }
 
+
     function popFNmodal() {
       $('#specimenModalCenter').modal('show');
 
@@ -4379,6 +4392,7 @@
         const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
         const cols = 10;
 
+        let fnListener = true;
         const activeBoxEntry = Object.entries(seatData).find(([box_id, data]) => data.bxsts === 'AC');
         if (!activeBoxEntry) {
           console.error("No active box found with status 'AC'.");
@@ -4410,7 +4424,7 @@
           }
         }
 
-        spgrid = localStorage.getItem("selectedSGrid");
+        let spgrid = localStorage.getItem("selectedSGrid");
         const maxSelections = parseInt(document.getElementById('fn_tubes').value, 10);
 
         const [box_id, filteredSeats] = activeBoxEntry;
@@ -4432,17 +4446,19 @@
           .catch((error) => {
             console.error("Error fetching box name for ID " + box_id + ": ", error);
           });
-        // document.getElementById('currSpecimenBoxName').textContent = activeBoxName;
-
+        //document.getElementById('currSpecimenBoxName').textContent = activeBoxName;
+        console.log("spgrid -- ", spgrid);
         if (spgrid !== null) {
           let arrS = splitSpecimenStringToArray(spgrid);
           let arrSinx = [];
+          console.log(" arrS = ", arrS);
           arrS.forEach(item => arrSinx.push(getSeatIndex(item)));
 
           arrSinx.forEach(item => {
             filteredSeats[item] = stsInx;
           });
         }
+        console.log("filteredSeats --- ", filteredSeats);
 
         const indexedSeats = filteredSeats;
 
@@ -4461,8 +4477,11 @@
                 `<label for="${seatID}" class="seat" id="${labelName}">${labelName}</label>`
               );
 
-              document.getElementById(seatID).addEventListener('click', function (event) {
-                handleSSeatSelection(seatID, event.target.checked, seatData.status, maxSelections, 'FN Grid');
+              document.getElementById(seatID).addEventListener('change', function (event) {
+                if (fnListener) {
+
+                  handleSSeatSelection(seatID, event.target.checked, seatData.status, maxSelections, 'FN Grid');
+                }
               });
 
               let labelElement = document.getElementById(labelName);
@@ -4506,12 +4525,16 @@
 
           //console.log("rev : ",rev," SpecimenSelectedSeats : ",SpecimenSelectedSeats)
           console.log(" maxSelections : ", maxSelections)
-          const labelElement = document.querySelector(`label[for="${seatID}"]`);
+          const labelElement = document.querySelector(`label[id="label_S${seatID}"]`);
+          console.log("label Element in the FN Grid Selection", labelElement)
+
+
 
           if (status === 'e') {
             if (isChecked) {
               if (SpecimenSelectedSeats.length < maxSelections) {
                 SpecimenSelectedSeats.push(seatID);
+                console.log("labelElement", labelElement)
                 if (labelElement) labelElement.style.backgroundColor = '#4d6335';
               } else {
                 document.getElementById(seatID).checked = false;
@@ -4545,7 +4568,7 @@
           }
 
           console.log("Selected seats:", SpecimenSelectedSeats);
-          localStorage.setItem("LocalFN", SpecimenSelectedSeats);
+          localStorage.setItem("LocalFN", SpecimenSelectedSeats.filter(item => item).join(','));
           updateFNGridInput();
         }
 
@@ -4588,11 +4611,14 @@
         }
 
         window.handleDone = function () {
+
           if (SpecimenSelectedSeats.length === maxSelections) {
             updateFNGridInput();
-          $('#specimenModalCenter').modal('hide');
+            fnListener = false;
+            $('#specimenModalCenter').modal('hide');
+
           }
-          else{
+          else {
             alert(`Please select ${maxSelections} grids`)
           }
         };
@@ -4686,20 +4712,25 @@
           emptyFields.push(item.name);
         }
       });
+      let mode = localStorage.getItem('mode');
 
-      if (!allFilled) {
-        console.log('Please fill in the following required fields:', emptyFields.join(', '));
-        alert('Please enter all the required fields.');
-        return;
+      if (mode === "SearchView" || mode === "pendingView") {
+        if (!allFilled) {
+          console.log('Please fill in the following required fields:', emptyFields.join(', '));
+        }
       }
-      // Hide form1 and show form2
+      else if (!allFilled) {
+        alert('Please enter all the required fields');
+        return;
+
+      }
+
       document.getElementById("form1").style.display = "none";
       document.getElementById("form2").style.display = "block";
 
     });
 
     document.getElementById("nextButton2").addEventListener("click", function () {
-      // Hide form2 and show form3
       document.getElementById("form2").style.display = "none";
       document.getElementById("form3").style.display = "block";
     });
@@ -4709,7 +4740,6 @@
       document.getElementById("form1").style.display = "block";
     });
 
-    // Back button from form3 to form2
     document.getElementById("backButton2").addEventListener("click", function () {
       document.getElementById("form3").style.display = "none";
       document.getElementById("form2").style.display = "block";
@@ -4731,20 +4761,43 @@
     document.getElementById('ft_tubes').addEventListener('change', function () {
       var selectedValue = this.value;
 
-      if (selectedValue === '') {
+      if (selectedValue) {
         $('#ftgrid').val('');
-      } 
+        let spGrids = localStorage.getItem("selectedSGrid");
+        let ftGrids = localStorage.getItem("LocalFT");
+
+        if (spGrids && ftGrids) {
+          let spGridsArray = spGrids.split(',');
+          let ftGridsArray = ftGrids.split(',');
+
+          spGridsArray = spGridsArray.filter(grid => !ftGridsArray.includes(grid));
+          localStorage.setItem("selectedSGrid", spGridsArray.join(','));
+          localStorage.removeItem("LocalFT");
+        }
+      }
     });
 
     document.getElementById('fn_tubes').addEventListener('change', function () {
       var selectedValue = this.value;
 
-      if (selectedValue === '') {
+      if (selectedValue) {
         $('#fngrid').val('');
-      } 
+        let spGrids = localStorage.getItem("selectedSGrid");
+        let fnGrids = localStorage.getItem("LocalFN");
+
+        if (spGrids && fnGrids) {
+          let spGridsArray = spGrids.split(',');
+          let fnGridsArray = fnGrids.split(',');
+
+          spGridsArray = spGridsArray.filter(grid => !fnGridsArray.includes(grid));
+          localStorage.setItem("selectedSGrid", spGridsArray.join(','));
+          localStorage.removeItem("LocalFN");
+        }
+      }
     });
+
+
     $(document).ready(function () {
-      // Show/Hide death date input based on selected radio button
       function toggleDeathDate() {
         if ($('#radioDead').is(':checked')) {
           $('#deathDateContainer').show();
@@ -4754,10 +4807,8 @@
         }
       }
 
-      // Call the function on page load
       toggleDeathDate();
 
-      // Add change event listeners for the radio buttons
       $('input[name="livestatus"]').change(function () {
         toggleDeathDate();
       });
@@ -4799,15 +4850,14 @@
         toggleFollowup();
       });
 
-
-
-
       function familyHabitToggle() {
         if ($('#familyHistoryCancer1').is(':checked')) {
           $('#relation_Cancer').show();
         }
         else {
           $('#relation_Cancer').hide();
+          $('#familyRelation').val('');
+          $('#familyCancerType').val('');
         }
       }
 
@@ -4822,6 +4872,7 @@
         }
         else {
           $('#medications').hide();
+          $('#comorbidityMedications').val('');
         }
       }
 
@@ -4836,6 +4887,7 @@
         }
         else {
           $('#ihcDescr').hide();
+          $('#IHC_Description').val('');
         }
       }
 
@@ -4850,6 +4902,7 @@
         }
         else {
           $('#dt_Desc').hide();
+          $('#GT_Description').val('');
         }
       }
 
@@ -4866,6 +4919,8 @@
         else {
           $('#nactDC').hide();
           $('#nactDLC').hide();
+          $('#NACT_cycle').val('');
+          $('#NACT_cycle_D').val('');
         }
       }
 
@@ -4882,6 +4937,8 @@
         else {
           $('#actDC').hide();
           $('#actDLC').hide();
+          $('#actDrugCycles').val('');
+          $('#actDateLastCycle').val('');
         }
       }
 
@@ -4891,6 +4948,7 @@
       });
 
       function bloodSample() {
+        console.log("bloodSample", ($('#bloodSampleY').is(':checked')))
         if ($('#bloodSampleY').is(':checked')) {
           $('#plasmatubes').show();
           $('#serumtubes').show();
@@ -4903,10 +4961,30 @@
           $('#PlasmagridNo').val('');
           $('#SerumgridNo').val('')
           $('#bufferCoatgridNo').val('')
-          // localStorage.removeItem("LocalPlasma");
-          // localStorage.removeItem("LocalSerum");
-          // localStorage.removeItem("LocalBuffy");
-          // localStorage.removeItem("LocalOther");  
+          // let mainGrids = localStorage.getItem("selectedGrid");
+          // let pGrids = localStorage.getItem("LocalPlasma");
+          // let sGrids = localStorage.getItem("LocalSerum");
+          // let bcGrids = localStorage.getItem("LocalBuffy");
+
+          // if (mainGrids && pGrids && sGrids && bcGrids) {
+          //   let mainGridsArray = mainGrids.split(',');
+          //   let pGridsArray = pGrids.split(',');
+          //   let sGridsArray = sGrids.split(',');
+          //   let bcGridsArray = bcGrids.split(',');
+
+          //   mainGridsArray = mainGridsArray.filter(grid =>
+          //     !pGridsArray.includes(grid) &&
+          //     !sGridsArray.includes(grid) &&
+          //     !bcGridsArray.includes(grid)
+          //   );
+
+          //   localStorage.setItem("selectedGrid", mainGridsArray.join(','));
+          //   localStorage.removeItem("LocalPlasma");
+          //   localStorage.removeItem("LocalSerum");
+          //   localStorage.removeItem("LocalBuffy");
+          // }
+
+
         }
       }
 
@@ -4925,7 +5003,6 @@
           $('#oSampleDesc').hide();
           $('#OSgridNo').val('');
           $('#otSampleDesc').val('');
-          // localStorage.removeItem("LocalOther");
         }
       }
 
@@ -4945,6 +5022,10 @@
           $('#countFttubes').hide();
           $('#fttubes').hide();
           $('#countFntubes').hide();
+          const spgrid = [];
+          localStorage.removeItem("selectedSGrid");
+          localStorage.removeItem("LocalFN");
+          localStorage.removeItem("LocalFT");
           $('#fntubes').hide();
           $('#ftgrid').val('');
           $('#fngrid').val('');
@@ -4964,11 +5045,31 @@
           $('#receiveAllSample').show();
           $('#processAllSample').show();
           $('#AllSamplesProcess').show();
+          $('#BprocessedBy').val('');
+          $('#bloodSampleReceivedDate').val('');
+          $('#bloodSampleReceivedTime').val('');
+          $('#bloodSampleProcessedDate').val('');
+          $('#bloodSampleProcessedTime').val('');
+          $('#SprocessedBy').val('');
+          $('#SpecimenSampleReceivedDate').val('');
+          $('#SpecimenSampleReceivedTime').val('');
+          $('#SpecimenSampleProcessedDate').val('');
+          $('#SpecimenSampleProcessedTime').val('');
+          $('#OprocessedBy').val('');
+          $('#OtherSampleReceivedDate').val('');
+          $('#OtherSampleReceivedTime').val('');
+          $('#OtherSampleProcessedDate').val('');
+          $('#OtherSampleProcessedTime').val('');
         }
-        else {
+        else if ($('#radioprocessed2').is(':checked')) {
           $('#receiveAllSample').hide();
           $('#processAllSample').hide();
           $('#AllSamplesProcess').hide();
+          $('#processedBy').val('');
+          $('#sampleReceivedDate').val('');
+          $('#sampleReceivedTime').val('');
+          $('#sampleProcessedDate').val('');
+          $('#sampleProcessedTime').val('');
         }
         if (($('#radioprocessed2').is(':checked')) && ($('#bloodSampleY').is(':checked'))) {
           $('#receiveBloodSample').show();
@@ -4979,6 +5080,7 @@
           $('#receiveBloodSample').hide();
           $('#processBloodSample').hide();
           $('#BloodSamplesProcess').hide();
+
         }
         if (($('#radioprocessed2').is(':checked')) && ($('#specimenSampleY').is(':checked'))) {
           $('#receiveSpecimenSample').show();
@@ -4989,6 +5091,7 @@
           $('#receiveSpecimenSample').hide();
           $('#processSpecimenSample').hide();
           $('#SpecimenSamplesProcess').hide();
+
         }
         if (($('#radioprocessed2').is(':checked')) && ($('#otherSampleY').is(':checked'))) {
           $('#receiveOtherSample').show();
@@ -4999,9 +5102,9 @@
           $('#receiveOtherSample').hide();
           $('#processOtherSample').hide();
           $('#OtherSamplesProcess').hide();
+
         }
       }
-
       sampleReceive();
       $('input[name="processedRadio"]').change(function () {
         sampleReceive();
@@ -5062,6 +5165,8 @@
         else {
           $('#rtDC').hide();
           $('#rtDLC').hide();
+          $('#radiotherapyDetails').val('');
+          $('#radiotherapyLastCycleDate').val('');
         }
       }
 
@@ -5121,13 +5226,18 @@
           $('#patAge').val(patAgeValue);
         }
       });
+      $('#positiveNodes').on('input', function () {
+        let positiveNodesValue = parseInt($('#positiveNodes').val(), 10);
+        let nodesTested = document.getElementById('nodesTested').value;
 
-      //       document.addEventListener('DOMContentLoaded', function() {
-      //   const now = new Date();
-      //   const formattedDateTime = now.toISOString().slice(0, 16);  
-
-      //   document.getElementById('sampleProcessedTime').setAttribute('max', formattedDateTime);
-      // });
+        if (positiveNodesValue > nodesTested) {
+          positiveNodesValue = 0;
+          $('#positiveNodes').val(positiveNodesValue);
+        } else if (positiveNodesValue < 0) {
+          positiveNodesValue = 0;
+          $('#positiveNodes').val(positiveNodesValue);
+        }
+      });
 
 
       function numChild() {
@@ -5150,7 +5260,7 @@
         }
       }
       numChild();
-      $('#numChild').on('change', function () {
+      $('#numChild').on('input', function () {
         numChild();
       });
 
@@ -5171,6 +5281,8 @@
     });
 
   </script>
+
+
   <script>
     function formatbtHPEInput(input) {
       let value = input.value.replace(/[^a-zA-Z0-9]/g, '');
@@ -5314,12 +5426,17 @@
       let mode = localStorage.getItem('mode');
       let biobankID = localStorage.getItem('bioid')
       console.log("mode", mode)
-      if (mode === 'SearchView' || mode === 'PendingView' || mode === 'ViewFollowUp') {
+      if (mode === 'SearchView' || mode === 'PendingView') {
         const formElements = document.querySelectorAll('input, select, textarea');
         const doneBtn = document.getElementById("sampleEntry1");
         const submitBtn = document.getElementById("submitButton");
         const finishBtn = document.getElementById('finishButton');
         const followUpBtn = document.getElementById('subFollowUp');
+        // document.getElementById('tab2-tab').classList.add('disabled');
+        // document.getElementById('tab3-tab').classList.add('disabled');
+        document.getElementById("backToCardBtn").style.display = 'none';
+        document.getElementById("sharedSampleBox").style.display = 'none';
+        document.getElementById("shareSubmit").style.display = 'none';
 
 
         // formElements.forEach(element => {
@@ -5333,8 +5450,6 @@
             element.disabled = true;
           }
         });
-
-
         finishBtn.style.display = 'block'
         doneBtn.style.display = 'none'
         followUpBtn.style.display = 'none'
@@ -5342,9 +5457,34 @@
         document.getElementById('sefCurrentUser').style.display = "block"
         document.getElementById('mdCurrentUser').style.display = "block"
         document.getElementById('brfCurrentUser').style.display = "block"
+      }
+      else if (mode === 'ViewFollowUp') {
+        const formElements = document.querySelectorAll('input, select, textarea');
+        const doneBtn = document.getElementById("sampleEntry1");
+        const submitBtn = document.getElementById("submitButton");
+        const finishBtn = document.getElementById('finishButton');
+        const followUpBtn = document.getElementById('subFollowUp');
+        document.getElementById('tab1-tab').classList.add('disabled');
+        document.getElementById('tab3-tab').classList.add('disabled');
 
+        // formElements.forEach(element => {
+        //   element.disabled = true;
+        // });
+        formElements.forEach(element => {
+          const idsToExclude = ['PlasmagridNo', 'SerumgridNo', 'bufferCoatgridNo', 'OSgridNo', 'ftgrid', 'fngrid'];
 
-
+          // Only disable elements that are not in idsToExclude and have a value
+          if (!idsToExclude.includes(element.id)) {
+            element.disabled = true;
+          }
+        });
+        finishBtn.style.display = 'block'
+        doneBtn.style.display = 'none'
+        followUpBtn.style.display = 'none'
+        submitBtn.style.display = 'none'
+        document.getElementById('sefCurrentUser').style.display = "block"
+        document.getElementById('mdCurrentUser').style.display = "block"
+        document.getElementById('brfCurrentUser').style.display = "block"
       }
 
       // else if (mode === 'SearchEdit') {
@@ -5357,6 +5497,7 @@
         document.getElementById('tab2-tab').classList.add('disabled');
         document.getElementById('tab3-tab').classList.add('disabled');
         document.getElementById('patAge').setAttribute('disabled', true);
+
         const gdrInputs = document.querySelectorAll('input[name="customRadio"]');
         gdrInputs.forEach(input => {
           input.setAttribute('disabled', true);
@@ -5373,9 +5514,19 @@
           console.log(`Input with ID ${input.id} disabled`);
         });
 
+        const MSInputs = document.querySelectorAll('input[name="MetastasisSample"]');
+        MSInputs.forEach(input => {
+          input.setAttribute('disabled', true);
+          console.log(`Input with ID ${input.id} disabled`);
+        });
+
         const finishBtn = document.getElementById('finishButton');
 
         finishBtn.style.display = 'none';
+      }
+      else if (mode === "EditFollowUps") {
+        document.getElementById('tab1-tab').classList.add('disabled');
+        document.getElementById('tab3-tab').classList.add('disabled');
       }
 
       else if (mode === "undefined") {
@@ -5383,11 +5534,13 @@
         const finishBtn = document.getElementById('finishButton');
 
         finishBtn.style.display = 'none'
+        document.getElementById('tab2-tab').classList.add('disabled');
+        document.getElementById('tab3-tab').classList.add('disabled');
       }
 
 
 
-      if (formData && mode !== "undefined")  {
+      if (formData && mode !== "undefined") {
 
         const data = JSON.parse(formData);
         console.log("Data retrieved from sessionStorage:", data);
@@ -5425,6 +5578,7 @@
             specimenSampleInputs.forEach(input => {
               input.setAttribute('disabled', true);  // Disable the inputs
               console.log(`Input with ID ${input.id} disabled`);
+              localStorage.removeItem("LocalFT");
             });
           } else {
             specimenSampleInputs.forEach(input => {
@@ -5445,7 +5599,7 @@
             });
           }
           document.getElementById('tab2').setAttribute('disabled', true);
-        document.getElementById('tab3').classList.add('disabled');
+          document.getElementById('tab3').classList.add('disabled');
         }
 
       } else {
@@ -5731,6 +5885,8 @@
       console.log("mode in shared :", mode)
       if (mode === 'share') {
         console.log("Adv. Happy New Year");
+        document.getElementById('tab2-tab').classList.add('disabled');
+        document.getElementById('tab1-tab').classList.add('disabled');
         document.getElementById("backToCardBtn").style.display = 'none';
         document.getElementById("sharedSampleBox").style.display = 'none';
 
@@ -5744,7 +5900,8 @@
         const formElements = document.querySelectorAll('input, select, textarea');
         const doneBtn = document.getElementById("sampleEntry1");
         const submitBtn = document.getElementById("shareSubmit");
-
+        document.getElementById('tab2-tab').classList.add('disabled');
+        document.getElementById('tab1-tab').classList.add('disabled');
         // Disable all form elements
         formElements.forEach(element => {
           // Exclude the input with id 'sharedSampleBox' from being disabled
