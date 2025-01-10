@@ -1716,7 +1716,7 @@
 
       </div>
       <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255);">
-        Version 1.5.0
+        Version 1.5.1
       </div>
     </div>
   </footer>
@@ -3318,7 +3318,7 @@
               });
 
               let labelElement = document.getElementById(labelName);
-              
+
               if (labelElement) {
                 if (indexedSeats[index].bioBankId !== '') {
                   labelElement.innerHTML = `${indexedSeats[index].bioBankId || ''}<br>${seat.sampleType || ''}`;
@@ -3356,7 +3356,7 @@
             BloodSelectedSeats = arr;
           }
           console.log("rev : ", rev, " BloodSelectedSeats : ", BloodSelectedSeats)
-          
+
           const labelElement = document.querySelector(`label[for="${seatID}"]`);
 
           if (status === 'e') {
@@ -4061,7 +4061,7 @@
 
     function popFTmodal() {
       console.log("inside model display testing ... ");
-      
+
       $('#specimenModalCenter').modal('show');
       fetchSeatDataFromDB('sb').then(seatData => {
         populateSSeats('specimen-box', seatData, 'ft');
@@ -4175,31 +4175,31 @@
                 `<label for="${seatID}" class="seat" id="${labelName}">${labelName}</label>`
               );
 
-              
+
 
               document.getElementById(seatID).addEventListener('click', function (event) {
-                console.log("FT grid Check----",maxSelectionsFT,seatID)
+                console.log("FT grid Check----", maxSelectionsFT, seatID)
                 if (ftListener) {
-                  if(maxSelectionsFT>0){
-                  const rev = localStorage.getItem("LocalFT")
-                  if (rev !== null) {
-                    if ((indexedSeats[index].status === "o") && rev.includes(seatID)) {
-                      event.target.checked = false;
-                    } else if ((indexedSeats[index].status === "e") && !rev.includes(seatID)) {
-                      event.target.checked = true;
+                  if (maxSelectionsFT > 0) {
+                    const rev = localStorage.getItem("LocalFT")
+                    if (rev !== null) {
+                      if ((indexedSeats[index].status === "o") && rev.includes(seatID)) {
+                        event.target.checked = false;
+                      } else if ((indexedSeats[index].status === "e") && !rev.includes(seatID)) {
+                        event.target.checked = true;
+                      }
+                    } else {
+                      if (indexedSeats[index].status === "o") {
+                        event.target.checked = false;
+                      } else if (indexedSeats[index].status === "e") {
+                        event.target.checked = true;
+                      }
                     }
+
+                    handleSSeatSelection(seatID, event.target.checked, indexedSeats[index].status, maxSelectionsFT, 'FT Grid');
                   } else {
-                    if (indexedSeats[index].status === "o") {
-                      event.target.checked = false;
-                    } else if (indexedSeats[index].status === "e") {
-                      event.target.checked = true;
-                    }
+                    alert("Please select no of FT Tubes");
                   }
-                  
-                  handleSSeatSelection(seatID, event.target.checked, indexedSeats[index].status, maxSelectionsFT, 'FT Grid');
-                }else{
-                  alert("Please select no of FT Tubes");
-                }
                 }
               });
 
@@ -4267,7 +4267,7 @@
               }
               if (labelElement) labelElement.style.backgroundColor = 'rgb(143, 218, 187)';
             }
-          } 
+          }
           else {
             let arr = splitSpecimenStringToArray(spgrid);
             if (status === 'o' && arr.includes(seatID) && rev.includes(seatID)) {
@@ -4709,7 +4709,7 @@
             }
           } else {
             let arr = splitSpecimenStringToArray(spgrid)
-            if (status === 'o' && arr.includes(seatID)  && rev.includes(seatID)) {
+            if (status === 'o' && arr.includes(seatID) && rev.includes(seatID)) {
               let seatIndex = SpecimenSelectedSeats.indexOf(seatID);
               if (seatIndex !== -1) {
                 SpecimenSelectedSeats.splice(seatIndex, 1);
@@ -5115,7 +5115,7 @@
         actYes();
       });
 
-      
+
       function bloodSample() {
         console.log("bloodSample", ($('#bloodSampleY').is(':checked')))
         if ($('#bloodSampleY').is(':checked')) {
@@ -5139,7 +5139,7 @@
 
             let mainGridsArray = mainGrids.split(',');
             let pGridsArray = pGrids.split(',');
-            
+
             mainGridsArray = mainGridsArray.filter(grid => !pGridsArray.includes(grid));
 
             localStorage.setItem("selectedGrid", mainGridsArray.join(','));
@@ -5185,14 +5185,14 @@
           $('#oSampleDesc').hide();
           $('#OSgridNo').val('');
           $('#otSampleDesc').val('');
-          
+
           let osGrids = localStorage.getItem("LocalOther");
 
           if (osGrids !== null) {
             let mainGrids = localStorage.getItem("selectedGrid");
             let mainGridsArray = mainGrids.split(',');
             let osGridsArray = osGrids.split(',');
-            
+
             mainGridsArray = mainGridsArray.filter(grid => !osGridsArray.includes(grid));
 
             localStorage.setItem("selectedGrid", mainGridsArray.join(','));
