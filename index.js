@@ -462,7 +462,7 @@ function populateBBLabels(data, boxVal, debug) {
                 const timestampData = seqData[timestamp];
                 console.log("timestampData", timestampData);
 
-                if (timestampData.ie) {
+                if ((sampleType === "Plasma" || sampleType === "MPlasma") && timestampData.ie) {
                   const bpg = timestampData.ie.bpg;
                   const boxName = bpg.split('/')[0];
                   const bpgIndex1 = bpg.split('/')[1];
@@ -2397,8 +2397,8 @@ function saveToFirebase(data) {
 
     const dueDate = new Date();
     // dueDate.setMonth(dueDate.getMonth() + 6);  // Add 6 months to the current date
-    // dueDate.setMinutes(dueDate.getMinutes() + 3);  // Add 10 days to the current date
-    dueDate.setMinutes(dueDate.getMinutes() + 10 * 24 * 60);  // Add 10 days to the current date
+    dueDate.setMinutes(dueDate.getMinutes() + 3);  // Add 10 days to the current date
+    // dueDate.setMinutes(dueDate.getMinutes() + 10 * 24 * 60);  // Add 10 days to the current date
 
 
     const bioBankPath = `pfw/${bioBankId}`;
@@ -3978,8 +3978,8 @@ function popSharedBloodmodal(bioboxName, samples) {
     const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
     const cols = 10;
 
-    const gridSamples = samples;
-
+    let gridSamples = [];
+    gridSamples = samples.split(',');
     let activeBoxEntry = [];
     let box_id = [];
     db.ref('bn/').once('value')
@@ -4068,6 +4068,9 @@ function popSharedBloodmodal(bioboxName, samples) {
 
                       if (gridSamples.includes(seatID)) {
                         labelElement.style.background = "#4d6335";
+                        console.log("seatID in sahred Box",gridSamples)
+
+                        console.log("seatID in sahred Box",seatID)
                       }
                     }
                   }
