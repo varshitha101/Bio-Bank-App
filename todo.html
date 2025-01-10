@@ -174,7 +174,7 @@
       </div>
       <div class="credits"></div>
       <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">
-        Version 1.5.0
+        Version 1.5.1
       </div>
     </div>
   </footer>
@@ -605,7 +605,7 @@ document.addEventListener("DOMContentLoaded", function () {
           const modCell = document.createElement("td");
           const entryBtn = document.createElement("button");
           entryBtn.classList.add("btn", "btn-primary", "btn-sm", "mr-2");
-          entryBtn.textContent = "Entry";
+          entryBtn.textContent = "Follow-Up";
           entryBtn.addEventListener("click", () => {
             console.log(`Entrying patient: ${patient.biobankID}`);
             const entry = "EditFollowUps";
