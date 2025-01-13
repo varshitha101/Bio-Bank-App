@@ -2397,8 +2397,8 @@ function saveToFirebase(data) {
 
     const dueDate = new Date();
     // dueDate.setMonth(dueDate.getMonth() + 6);  // Add 6 months to the current date
-    dueDate.setMinutes(dueDate.getMinutes() + 3);  // Add 10 days to the current date
-    // dueDate.setMinutes(dueDate.getMinutes() + 10 * 24 * 60);  // Add 10 days to the current date
+    // dueDate.setMinutes(dueDate.getMinutes() + 3);  // Add 10 days to the current date
+    dueDate.setMinutes(dueDate.getMinutes() + 10 * 24 * 60);  // Add 10 days to the current date
 
 
     const bioBankPath = `pfw/${bioBankId}`;
