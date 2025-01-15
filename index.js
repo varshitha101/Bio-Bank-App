@@ -4574,8 +4574,7 @@ function otherSample() {
     $('#otSampleDesc').val('');
     // localStorage.removeItem("LocalOther");
   }
-}
-function sampleReceive() {
+}function sampleReceive() {
   if ($('#radioprocessed1').is(':checked')) {
     $('#receiveAllSample').show();
     $('#processAllSample').show();
@@ -4605,6 +4604,40 @@ function sampleReceive() {
     $('#sampleReceivedTime').val('');
     $('#sampleProcessedDate').val('');
     $('#sampleProcessedTime').val('');
+  }
+  else if (!($('#radioprocessed1').is(':checked')) && !($('#radioprocessed2').is(':checked'))){
+    $('#receiveAllSample').hide();
+    $('#processAllSample').hide();
+    $('#AllSamplesProcess').hide();
+    $('#receiveBloodSample').hide();
+    $('#processBloodSample').hide();
+    $('#BloodSamplesProcess').hide();
+    $('#receiveSpecimenSample').hide();
+    $('#processSpecimenSample').hide();
+    $('#SpecimenSamplesProcess').hide();
+    $('#receiveOtherSample').hide();
+    $('#processOtherSample').hide();
+    $('#OtherSamplesProcess').hide();
+    $('#processedBy').val('');
+    $('#sampleReceivedDate').val('');
+    $('#sampleReceivedTime').val('');
+    $('#sampleProcessedDate').val('');
+    $('#sampleProcessedTime').val('');
+    $('#BprocessedBy').val('');
+    $('#bloodSampleReceivedDate').val('');
+    $('#bloodSampleReceivedTime').val('');
+    $('#bloodSampleProcessedDate').val('');
+    $('#bloodSampleProcessedTime').val('');
+    $('#SprocessedBy').val('');
+    $('#SpecimenSampleReceivedDate').val('');
+    $('#SpecimenSampleReceivedTime').val('');
+    $('#SpecimenSampleProcessedDate').val('');
+    $('#SpecimenSampleProcessedTime').val('');
+    $('#OprocessedBy').val('');
+    $('#OtherSampleReceivedDate').val('');
+    $('#OtherSampleReceivedTime').val('');
+    $('#OtherSampleProcessedDate').val('');
+    $('#OtherSampleProcessedTime').val('');
   }
   if (($('#radioprocessed2').is(':checked')) && ($('#bloodSampleY').is(':checked'))) {
     $('#receiveBloodSample').show();
@@ -4640,7 +4673,6 @@ function sampleReceive() {
    
   }
 }
-
 
 function familyHabitToggle() {
   if ($('#familyHistoryCancer1').is(':checked')) {
