@@ -319,11 +319,12 @@
                     <label class="custom-control-label" for="MetastasisSampleN">No</label>
                   </div>
                 </div>
+                <span></span>
               </div>
 
 
               <div class="row ml-1 mb-3">
-                <label for="specimensample" class="col-sm-2 mb-1 col-form-label">Specimen Sample <span
+                <label for="specimensample" class="col-sm-2 mb-1 col-form-label">Tissue Sample <span
                     style="color: red; font-weight: bold;">*</span></label>
                 <div class="col-sm-10 mt-2">
                   <div class="custom-control custom-radio custom-control-inline">
@@ -466,7 +467,7 @@
 
               <div class="row ml-1 mb-3">
                 <label for="consent" class="col-sm-2 mb-1 col-form-label">Consent</label>
-                <div class="col-sm-10 mt-2">
+                <div class="col-sm-9 mt-2">
                   <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="radioConsent1" name="customConsent" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="radioConsent1">Yes</label>
@@ -477,11 +478,14 @@
                     <label class="custom-control-label" for="radioConsent2">No</label>
                   </div>
                 </div>
+                <div class="col-sm-1 mt-2 erase-icon-container-consent">
+                  <!-- The icon will be dynamically inserted here -->
+                </div>
               </div>
               <div class="row ml-1 mb-3">
                 <label for="ischemic" class="col-sm-2 mb-1 col-form-label">Ischemic Sample <span
                     style="color: red; font-weight: bold;">*</span></label>
-                <div class="col-sm-10 mt-2">
+                <div class="col-sm-9 mt-2">
                   <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="radioIschemic1" name="IschemicRadio" class="custom-control-input"
                       value=true>
@@ -493,12 +497,16 @@
                     <label class="custom-control-label" for="radioIschemic2">No</label>
                   </div>
                 </div>
+                <div class="col-sm-1 mt-2 erase-icon-container">
+                  <!-- The icon will be dynamically inserted here -->
+                </div>
+
               </div>
 
               <div class="row ml-1 mb-3">
                 <label for="ischemic" class="col-sm-2 mb-1 col-form-label">All samples Received Together? <span
                     style="color: red; font-weight: bold;">*</span></label>
-                <div class="col-sm-10 mt-2">
+                <div class="col-sm-9 mt-2">
                   <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="radioprocessed1" name="processedRadio" class="custom-control-input"
                       value=true>
@@ -509,6 +517,9 @@
                       value=false>
                     <label class="custom-control-label" for="radioprocessed2">No</label>
                   </div>
+                </div>
+                <div class="col-sm-1 mt-2 erase-icon-container-samRev">
+                  <!-- The icon will be dynamically inserted here -->
                 </div>
               </div>
 
@@ -598,14 +609,14 @@
                 </div>
               </div>
               <div class="row ml-1 mb-3" id="SpecimenSamplesProcess" style="display: none;">
-                <label for="boxNo" class="col-sm-2 mb-1 col-form-label">Specimen Sample Processed By <span
+                <label for="boxNo" class="col-sm-2 mb-1 col-form-label">Tissue Sample Processed By <span
                     style="color: red; font-weight: bold;">*</span></label>
                 <div class="col-sm-10 mt-2">
                   <input type="text" class="form-control" id="SprocessedBy" placeholder="">
                 </div>
               </div>
               <div class="row ml-1 mb-3" id="receiveSpecimenSample" style="display: none;">
-                <label for="date" class="col-sm-2 mb-1 col-form-label">Specimen sample Received Time <span
+                <label for="date" class="col-sm-2 mb-1 col-form-label">Tissue sample Received Time <span
                     style="color: red; font-weight: bold;">*</span></label>
                 <div class="col-sm-10 mt-2">
                   <div class="row">
@@ -623,7 +634,7 @@
               </div>
 
               <div class="row ml-1 mb-3" id="processSpecimenSample" style="display: none;">
-                <label for="date" class="col-sm-2 mb-1 col-form-label">Specimen sample Processed Time<span
+                <label for="date" class="col-sm-2 mb-1 col-form-label">Tissue sample Processed Time<span
                     style="color: red; font-weight: bold;">*</span></label>
                 <div class="col-sm-10 mt-2">
                   <div class="row">
@@ -714,7 +725,7 @@
               </div>
               <div class="row ml-1 mb-3">
                 <label for="RadioFHabit" class="col-sm-3 mb-1 col-form-label">Family History of Cancer</label>
-                <div class="col-sm-9">
+                <div class="col-sm-8">
                   <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="familyHistoryCancer1" name="RadioFHabit" class="custom-control-input"
                       value=true>
@@ -725,6 +736,9 @@
                       value=false>
                     <label class="custom-control-label" for="familyHistoryCancer2">No</label>
                   </div>
+                </div>
+                <div class="col-sm-1 mt-2 erase-icon-container-RadioFHabit">
+                  <!-- The icon will be dynamically inserted here -->
                 </div>
               </div>
 
@@ -743,7 +757,7 @@
               </div>
               <div class="row ml-1 mb-3">
                 <label for="foodHabit" class="col-sm-3 mb-1 col-form-label">Food Habits</label>
-                <div class="col-sm-9">
+                <div class="col-sm-8">
                   <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="foodH1" name="RadioFdHabit" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="foodH1">Veg</label>
@@ -753,11 +767,13 @@
                     <label class="custom-control-label" for="foodH2">Non Veg</label>
                   </div>
                 </div>
+                <div class="col-sm-1 mt-2 erase-icon-container-RadioFdHabit">
+                </div>
               </div>
 
               <div class="row ml-1 mb-3">
                 <label for="alcoholHabit" class="col-sm-3 mb-1 col-form-label">History of Alcohol Consumption</label>
-                <div class="col-sm-9">
+                <div class="col-sm-8">
                   <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="AlcoholH1" name="RadioAlcoholHabit" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="AlcoholH1">Yes</label>
@@ -768,11 +784,13 @@
                     <label class="custom-control-label" for="AlcoholH2">No</label>
                   </div>
                 </div>
+                <div class="col-sm-1 mt-2 erase-icon-container-RadioAlcoholHabit">
+                </div>
               </div>
 
               <div class="row ml-1 mb-3">
                 <label for="smokingHabit" class="col-sm-3 mb-1 col-form-label">History of Smoking</label>
-                <div class="col-sm-9">
+                <div class="col-sm-8">
                   <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="smokeH1" name="RadioSmokeHabit" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="smokeH1">Yes</label>
@@ -782,11 +800,13 @@
                     <label class="custom-control-label" for="smokeH2">No</label>
                   </div>
                 </div>
+                <div class="col-sm-1 mt-2 erase-icon-container-RadioSmokeHabit">
+                </div>
               </div>
 
               <div class="row ml-1 mb-3">
                 <label for="EComorb" class="col-sm-3 mb-1 col-form-label">Existing Comorbidities</label>
-                <div class="col-sm-9">
+                <div class="col-sm-8">
                   <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="ECH1" name="ECH" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="ECH1">Yes</label>
@@ -795,6 +815,8 @@
                     <input type="radio" id="ECH2" name="ECH" class="custom-control-input" value=false>
                     <label class="custom-control-label" for="ECH2">No</label>
                   </div>
+                </div>
+                <div class="col-sm-1 mt-2 erase-icon-container-ECH">
                 </div>
               </div>
 
@@ -819,7 +841,7 @@
               </div>
               <div class="row ml-1 mb-3">
                 <label for="tumor" class="col-sm-3 mb-1 col-form-label">Tumor Site (Right/Left/Bilateral)</label>
-                <div class="col-sm-9">
+                <div class="col-sm-8">
                   <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="tumorR" name="tumorSite" class="custom-control-input" value="R">
                     <label class="custom-control-label" for="tumorR">Right</label>
@@ -832,6 +854,8 @@
                     <input type="radio" id="tumorB" name="tumorSite" class="custom-control-input" value="BL">
                     <label class="custom-control-label" for="tumorB">Bilateral</label>
                   </div>
+                </div>
+                <div class="col-sm-1 mt-2 erase-icon-container-tumorSite">
                 </div>
               </div>
               <div class="row ml-1 mb-3">
@@ -854,7 +878,7 @@
               </div>
               <div class="row ml-1 mb-3">
                 <label for="IHC_Status" class="col-sm-3 mb-1 col-form-label">IHC Marker status</label>
-                <div class="col-sm-9">
+                <div class="col-sm-8">
                   <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="IHC_yes" name="IHC" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="IHC_yes">Yes</label>
@@ -863,6 +887,8 @@
                     <input type="radio" id="IHC_no" name="IHC" class="custom-control-input" value=false>
                     <label class="custom-control-label" for="IHC_no">No</label>
                   </div>
+                </div>
+                <div class="col-sm-1 mt-2 erase-icon-container-IHC">
                 </div>
               </div>
               <div class="row ml-1 mb-3" id="ihcDescr" style="display: none;">
@@ -873,7 +899,7 @@
               </div>
               <div class="row ml-1 mb-3">
                 <label for="gTest" class="col-sm-3 mb-1 col-form-label">Genetic Testing</label>
-                <div class="col-sm-9">
+                <div class="col-sm-8">
                   <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="gt_yes" name="GeneticT" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="gt_yes">Yes</label>
@@ -882,6 +908,8 @@
                     <input type="radio" id="gt_no" name="GeneticT" class="custom-control-input" value=false>
                     <label class="custom-control-label" for="gt_no">No</label>
                   </div>
+                </div>
+                <div class="col-sm-1 mt-2 erase-icon-container-GeneticT">
                 </div>
               </div>
               <div class="row ml-1 mb-3" id="dt_Desc" style="display: none;">
@@ -942,7 +970,7 @@
               </div>
               <div class="row ml-1 mb-3">
                 <label for="focality" class="col-sm-3 mb-1 col-form-label">Focality</label>
-                <div class="col-sm-9">
+                <div class="col-sm-8">
                   <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="unifocal" name="focal" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="unifocal">Unifocal</label>
@@ -952,10 +980,12 @@
                     <label class="custom-control-label" for="multifocal">Multifocal</label>
                   </div>
                 </div>
+                <div class="col-sm-1 mt-2 erase-icon-container-focal">
+                </div>
               </div>
               <div class="row ml-1 mb-3">
                 <label for="LVI" class="col-sm-3 mb-1 col-form-label">LVI</label>
-                <div class="col-sm-9">
+                <div class="col-sm-8">
                   <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="lviYes" name="LVI" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="lviYes">Yes</label>
@@ -965,10 +995,12 @@
                     <label class="custom-control-label" for="lviNo">No</label>
                   </div>
                 </div>
+                <div class="col-sm-1 mt-2 erase-icon-container-LVI">
+                </div>
               </div>
               <div class="row ml-1 mb-3">
                 <label for="PNI" class="col-sm-3 mb-1 col-form-label">PNI</label>
-                <div class="col-sm-9">
+                <div class="col-sm-8">
                   <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="PNIYes" name="PNI" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="PNIYes">Yes</label>
@@ -977,6 +1009,8 @@
                     <input type="radio" id="PNINo" name="PNI" class="custom-control-input" value=false>
                     <label class="custom-control-label" for="PNINo">No</label>
                   </div>
+                </div>
+                <div class="col-sm-1 mt-2 erase-icon-container-PNI">
                 </div>
               </div>
               <div class="row ml-1 mb-3">
@@ -1022,7 +1056,7 @@
               </div>
               <div class="row ml-1 mb-3">
                 <label for="denovo" class="col-sm-3 mb-1 col-form-label">Denovo metastasis</label>
-                <div class="col-sm-9">
+                <div class="col-sm-8">
                   <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="denovoYes" name="denovo" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="denovoYes">Yes</label>
@@ -1032,10 +1066,12 @@
                     <label class="custom-control-label" for="denovoNo">No</label>
                   </div>
                 </div>
+                <div class="col-sm-1 mt-2 erase-icon-container-denovo">
+                </div>
               </div>
               <div class="row ml-1 mb-3">
                 <label for="MetastasisPT" class="col-sm-3 mb-1 col-form-label">Metastasis Post Treatment</label>
-                <div class="col-sm-9">
+                <div class="col-sm-8">
                   <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="MPTYes" name="MPT" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="MPTYes">Yes</label>
@@ -1044,6 +1080,8 @@
                     <input type="radio" id="MPTNo" name="MPT" class="custom-control-input" value=false>
                     <label class="custom-control-label" for="MPTNo">No</label>
                   </div>
+                </div>
+                <div class="col-sm-1 mt-2 erase-icon-container-MPT">
                 </div>
               </div>
               <div class="row ml-1 mb-3">
@@ -1061,7 +1099,7 @@
               </div>
               <div class="row ml-1 mb-3">
                 <label for="NACT" class="col-sm-3 mb-1 col-form-label">NACT</label>
-                <div class="col-sm-9">
+                <div class="col-sm-8">
                   <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="NACTYes" name="NACT" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="NACTYes">Yes</label>
@@ -1070,6 +1108,8 @@
                     <input type="radio" id="NACTNo" name="NACT" class="custom-control-input" value=false>
                     <label class="custom-control-label" for="NACTNo">No</label>
                   </div>
+                </div>
+                <div class="col-sm-1 mt-2 erase-icon-container-NACT">
                 </div>
               </div>
 
@@ -1106,7 +1146,7 @@
               </div>
               <div class="row ml-1 mb-3">
                 <label for="ACT" class="col-sm-3 mb-1 col-form-label">ACT</label>
-                <div class="col-sm-9">
+                <div class="col-sm-8">
                   <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="ACTYes" name="ACT" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="ACTYes">Yes</label>
@@ -1115,6 +1155,8 @@
                     <input type="radio" id="ACTNo" name="ACT" class="custom-control-input" value=false>
                     <label class="custom-control-label" for="ACTNo">No</label>
                   </div>
+                </div>
+                <div class="col-sm-1 mt-2 erase-icon-container-ACT">
                 </div>
               </div>
               <div class="row ml-1 mb-3" id="actDC" style="display: none;">
@@ -1131,7 +1173,7 @@
               </div>
               <div class="row ml-1 mb-3">
                 <label for="radioThy" class="col-sm-3 mb-1 col-form-label">Radio Therapy</label>
-                <div class="col-sm-9">
+                <div class="col-sm-8">
                   <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="RTYes" name="RadioT" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="RTYes">Yes</label>
@@ -1140,6 +1182,8 @@
                     <input type="radio" id="RTNo" name="RadioT" class="custom-control-input" value=false>
                     <label class="custom-control-label" for="RTNo">No</label>
                   </div>
+                </div>
+                <div class="col-sm-1 mt-2 erase-icon-container-RadioT">
                 </div>
               </div>
               <div class="row ml-1 mb-3" id="rtDC" style="display: none;">
@@ -1156,7 +1200,7 @@
               </div>
               <div class="row ml-1 mb-3">
                 <label for="paraThy" class="col-sm-3 mb-1 col-form-label">Is paraffin Block Available</label>
-                <div class="col-sm-9">
+                <div class="col-sm-8">
                   <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="pbYes" name="pbT" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="pbYes">Yes</label>
@@ -1165,6 +1209,8 @@
                     <input type="radio" id="pbNo" name="pbT" class="custom-control-input" value=false>
                     <label class="custom-control-label" for="pbNo">No</label>
                   </div>
+                </div>
+                <div class="col-sm-1 mt-2 erase-icon-container-pbT">
                 </div>
               </div>
 
@@ -1238,7 +1284,7 @@
               </div>
               <div class="row ml-1 mb-3">
                 <label for="mStatus" class="col-sm-2 mb-1 col-form-label">Menopausal Status</label>
-                <div class="col-sm-10 mt-2">
+                <div class="col-sm-9 mt-2">
                   <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="mStatusPre" name="mStatus" class="custom-control-input"
                       value="Pre Menopausal">
@@ -1255,16 +1301,18 @@
                     <label class="custom-control-label" for="mStatusHyster">Hysterectomy</label>
                   </div>
                 </div>
+                <div class="col-sm-1 mt-2 erase-icon-container-mStatus">
+                </div>
               </div>
-<!--               <div class="row ml-1 mb-3">
+              <div class="row ml-1 mb-3">
                 <label for="age@Diagon" class="col-sm-2 mb-1 col-form-label">Age at Diagnosis</label>
                 <div class="col-sm-10 mt-2">
                   <input type="number" min="0" max="100" id="ad" class="form-control" placeholder="">
                 </div>
-              </div> -->
+              </div>
               <div class="row ml-1 mb-3">
                 <label for="ER" class="col-sm-2 mb-1 col-form-label">ER</label>
-                <div class="col-sm-10 mt-2">
+                <div class="col-sm-9 mt-2">
                   <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="ERPos" name="ERRadio" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="ERPos">Positive</label>
@@ -1274,10 +1322,12 @@
                     <label class="custom-control-label" for="ERNev">Negative</label>
                   </div>
                 </div>
+                <div class="col-sm-1 mt-2 erase-icon-container-ERRadio">
+                </div>
               </div>
               <div class="row ml-1 mb-3">
                 <label for="PR" class="col-sm-2 mb-1 col-form-label">PR</label>
-                <div class="col-sm-10 mt-2">
+                <div class="col-sm-9 mt-2">
                   <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="PRPos" name="PRRadio" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="PRPos">Positive</label>
@@ -1287,10 +1337,12 @@
                     <label class="custom-control-label" for="PRNev">Negative</label>
                   </div>
                 </div>
+                <div class="col-sm-1 mt-2 erase-icon-container-PRRadio">
+                </div>
               </div>
               <div class="row ml-1 mb-3">
                 <label for="HER2" class="col-sm-2 mb-1 col-form-label">HER2</label>
-                <div class="col-sm-10 mt-2">
+                <div class="col-sm-9 mt-2">
                   <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="HER2Pos" name="HER2Radio" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="HER2Pos">Positive</label>
@@ -1299,6 +1351,8 @@
                     <input type="radio" id="HER2Nev" name="HER2Radio" class="custom-control-input" value=false>
                     <label class="custom-control-label" for="HER2Nev">Negative</label>
                   </div>
+                </div>
+                <div class="col-sm-1 mt-2 erase-icon-container-HER2Radio">
                 </div>
               </div>
               <div class="row ml-1 mb-3">
@@ -5236,6 +5290,7 @@
 
 
       function sampleReceive() {
+         console.log("Function checking",$('#radioprocessed1').is(':checked') , $('#radioprocessed2').is(':checked'))
         if ($('#radioprocessed1').is(':checked')) {
           $('#receiveAllSample').show();
           $('#processAllSample').show();
@@ -5265,6 +5320,31 @@
           $('#sampleReceivedTime').val('');
           $('#sampleProcessedDate').val('');
           $('#sampleProcessedTime').val('');
+        }
+        else if (!($('#radioprocessed1').is(':checked')) && !($('#radioprocessed2').is(':checked'))){
+          $('#receiveAllSample').hide();
+          $('#processAllSample').hide();
+          $('#AllSamplesProcess').hide();
+          $('#processedBy').val('');
+          $('#sampleReceivedDate').val('');
+          $('#sampleReceivedTime').val('');
+          $('#sampleProcessedDate').val('');
+          $('#sampleProcessedTime').val('');
+          $('#BprocessedBy').val('');
+          $('#bloodSampleReceivedDate').val('');
+          $('#bloodSampleReceivedTime').val('');
+          $('#bloodSampleProcessedDate').val('');
+          $('#bloodSampleProcessedTime').val('');
+          $('#SprocessedBy').val('');
+          $('#SpecimenSampleReceivedDate').val('');
+          $('#SpecimenSampleReceivedTime').val('');
+          $('#SpecimenSampleProcessedDate').val('');
+          $('#SpecimenSampleProcessedTime').val('');
+          $('#OprocessedBy').val('');
+          $('#OtherSampleReceivedDate').val('');
+          $('#OtherSampleReceivedTime').val('');
+          $('#OtherSampleProcessedDate').val('');
+          $('#OtherSampleProcessedTime').val('');
         }
         if (($('#radioprocessed2').is(':checked')) && ($('#bloodSampleY').is(':checked'))) {
           $('#receiveBloodSample').show();
@@ -6122,6 +6202,220 @@
 
 
 
+  </script>
+  <script>
+  //    function toggleRadio(radio) {
+  //   if (radio.checked) {
+  //     radio.wasChecked = true;
+  //   }
+  //   radio.onclick = function () {
+  //     if (radio.wasChecked) {
+  //       radio.checked = false;
+  //       radio.wasChecked = false;
+  //     } else {
+  //       // Get all radios with the same name and uncheck the others
+  //       const radiosInGroup = document.getElementsByName(radio.name);
+  //       radiosInGroup.forEach(r => r.wasChecked = false);
+  //       radio.wasChecked = true;
+  //     }
+  //   };
+  // }
+
+  // // Get all radio buttons on the page
+  // const allRadioButtons = document.querySelectorAll('input[type="radio"]');
+
+  // // Apply the toggle function to each radio button
+  // allRadioButtons.forEach(toggleRadio);
+
+  function createEraseIcon(groupName) {
+      const img = document.createElement('img');
+      img.src = 'assets/images/erase.svg';
+      img.alt = 'erase';
+      img.width = 30;
+      img.height = 30;
+      img.style.verticalAlign = 'middle';
+      img.style.cursor = 'pointer';
+      img.style.marginRight = '5px';
+      
+      // Add click event listener to clear radio button selection
+      img.onclick = function() {
+        clearRadioSelection(groupName);
+      };
+      
+      return img;
+  }
+
+  // Function to clear the selected radio buttons
+  function clearRadioSelection(groupName) {
+    const radios = document.getElementsByName(groupName);
+    radios.forEach(radio => radio.checked = false);
+    if (groupName === 'RadioFHabit') {
+      familyHabitToggle();
+    }
+    if (groupName === 'ECH') {
+      ExistComorbidity();
+    }
+    if (groupName === 'IHC') {
+      IHCMarker();
+    }
+    if (groupName === 'GeneticT') {
+      GeneticT();
+    }
+    if (groupName === 'NACT') {
+      NactYes();
+    }
+    if (groupName === 'ACT') {
+      actYes();
+    }
+    if (groupName === 'RadioT') {
+      RadioTYes();
+    }
+    if (groupName === 'processedRadio') {
+      console.log("Function call")
+      sampleReceive();
+    }
+    
+
+  }
+
+  // Function to append erase icons to specified radio groups
+  function addEraseIconToGroups() {
+    const radioGroups = [
+    { groupName: 'customConsent', containerClass: 'erase-icon-container-consent' },
+
+      { groupName: 'IschemicRadio', containerClass: 'erase-icon-container' },
+      // Add more groups if needed, e.g.:
+      
+      { groupName: 'processedRadio', containerClass: 'erase-icon-container-samRev' },
+      { groupName: 'RadioFHabit', containerClass: 'erase-icon-container-RadioFHabit' },
+      { groupName: 'RadioFdHabit', containerClass: 'erase-icon-container-RadioFdHabit' },
+      { groupName: 'RadioAlcoholHabit', containerClass: 'erase-icon-container-RadioAlcoholHabit' },
+      { groupName: 'RadioSmokeHabit', containerClass: 'erase-icon-container-RadioSmokeHabit' },
+      { groupName: 'ECH', containerClass: 'erase-icon-container-ECH' },
+      { groupName: 'tumorSite', containerClass: 'erase-icon-container-tumorSite' },
+      { groupName: 'IHC', containerClass: 'erase-icon-container-IHC' },
+      { groupName: 'GeneticT', containerClass: 'erase-icon-container-GeneticT' },
+      { groupName: 'focal', containerClass: 'erase-icon-container-focal' },
+      { groupName: 'LVI', containerClass: 'erase-icon-container-LVI' },
+      { groupName: 'PNI', containerClass: 'erase-icon-container-PNI' },
+      { groupName: 'denovo', containerClass: 'erase-icon-container-denovo' },
+      { groupName: 'MPT', containerClass: 'erase-icon-container-MPT' },
+      { groupName: 'NACT', containerClass: 'erase-icon-container-NACT' },
+      { groupName: 'ACT', containerClass: 'erase-icon-container-ACT' },
+      { groupName: 'RadioT', containerClass: 'erase-icon-container-RadioT' },
+      { groupName: 'pbT', containerClass: 'erase-icon-container-pbT' },
+      { groupName: 'mStatus', containerClass: 'erase-icon-container-mStatus' },
+      { groupName: 'ERRadio', containerClass: 'erase-icon-container-ERRadio' },
+      { groupName: 'PRRadio', containerClass: 'erase-icon-container-PRRadio' },
+      { groupName: 'HER2Radio', containerClass: 'erase-icon-container-HER2Radio' },
+    ];
+
+    radioGroups.forEach(group => {
+      const container = document.querySelector(`.${group.containerClass}`);
+      if (container) {
+        let mode = localStorage.getItem('mode');
+        if(mode!=='SearchView' && mode!=='PendingView'){
+          console.log("mode: ",mode)
+          const eraseIcon = createEraseIcon(group.groupName);
+          container.appendChild(eraseIcon);
+        }
+      }
+    });
+  }
+  function sampleReceive() {
+         console.log("Function checking",$('#radioprocessed1').is(':checked') , $('#radioprocessed2').is(':checked'))
+        if ($('#radioprocessed1').is(':checked')) {
+          $('#receiveAllSample').show();
+          $('#processAllSample').show();
+          $('#AllSamplesProcess').show();
+          $('#BprocessedBy').val('');
+          $('#bloodSampleReceivedDate').val('');
+          $('#bloodSampleReceivedTime').val('');
+          $('#bloodSampleProcessedDate').val('');
+          $('#bloodSampleProcessedTime').val('');
+          $('#SprocessedBy').val('');
+          $('#SpecimenSampleReceivedDate').val('');
+          $('#SpecimenSampleReceivedTime').val('');
+          $('#SpecimenSampleProcessedDate').val('');
+          $('#SpecimenSampleProcessedTime').val('');
+          $('#OprocessedBy').val('');
+          $('#OtherSampleReceivedDate').val('');
+          $('#OtherSampleReceivedTime').val('');
+          $('#OtherSampleProcessedDate').val('');
+          $('#OtherSampleProcessedTime').val('');
+        }
+        else if ($('#radioprocessed2').is(':checked')) {
+          $('#receiveAllSample').hide();
+          $('#processAllSample').hide();
+          $('#AllSamplesProcess').hide();
+          $('#processedBy').val('');
+          $('#sampleReceivedDate').val('');
+          $('#sampleReceivedTime').val('');
+          $('#sampleProcessedDate').val('');
+          $('#sampleProcessedTime').val('');
+        }
+        else if (!($('#radioprocessed1').is(':checked')) && !($('#radioprocessed2').is(':checked'))){
+          $('#receiveAllSample').hide();
+          $('#processAllSample').hide();
+          $('#AllSamplesProcess').hide();
+          $('#processedBy').val('');
+          $('#sampleReceivedDate').val('');
+          $('#sampleReceivedTime').val('');
+          $('#sampleProcessedDate').val('');
+          $('#sampleProcessedTime').val('');
+          $('#BprocessedBy').val('');
+          $('#bloodSampleReceivedDate').val('');
+          $('#bloodSampleReceivedTime').val('');
+          $('#bloodSampleProcessedDate').val('');
+          $('#bloodSampleProcessedTime').val('');
+          $('#SprocessedBy').val('');
+          $('#SpecimenSampleReceivedDate').val('');
+          $('#SpecimenSampleReceivedTime').val('');
+          $('#SpecimenSampleProcessedDate').val('');
+          $('#SpecimenSampleProcessedTime').val('');
+          $('#OprocessedBy').val('');
+          $('#OtherSampleReceivedDate').val('');
+          $('#OtherSampleReceivedTime').val('');
+          $('#OtherSampleProcessedDate').val('');
+          $('#OtherSampleProcessedTime').val('');
+        }
+        if (($('#radioprocessed2').is(':checked')) && ($('#bloodSampleY').is(':checked'))) {
+          $('#receiveBloodSample').show();
+          $('#processBloodSample').show();
+          $('#BloodSamplesProcess').show();
+        }
+        else {
+          $('#receiveBloodSample').hide();
+          $('#processBloodSample').hide();
+          $('#BloodSamplesProcess').hide();
+
+        }
+        if (($('#radioprocessed2').is(':checked')) && ($('#specimenSampleY').is(':checked'))) {
+          $('#receiveSpecimenSample').show();
+          $('#processSpecimenSample').show();
+          $('#SpecimenSamplesProcess').show();
+        }
+        else {
+          $('#receiveSpecimenSample').hide();
+          $('#processSpecimenSample').hide();
+          $('#SpecimenSamplesProcess').hide();
+
+        }
+        if (($('#radioprocessed2').is(':checked')) && ($('#otherSampleY').is(':checked'))) {
+          $('#receiveOtherSample').show();
+          $('#processOtherSample').show();
+          $('#OtherSamplesProcess').show();
+        }
+        else {
+          $('#receiveOtherSample').hide();
+          $('#processOtherSample').hide();
+          $('#OtherSamplesProcess').hide();
+
+        }
+      }
+      
+  // Call the function to append icons on page load
+  window.onload = addEraseIconToGroups;
   </script>
 </body>
 
