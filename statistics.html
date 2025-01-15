@@ -653,7 +653,7 @@
                           let hasOther = (oSample === 'Y' || oSample === "true" || oSample === true);
 
                           // Check for combined samples
-                          if (hasBlood && hasSpecimen) {
+                          if ((hasBlood && hasSpecimen)||(hasOther && hasSpecimen) || (hasOther && hasBlood)) {
                             countCombined++; // Increment combined count
                           } else if (hasBlood && !hasSpecimen && !hasOther) {
                             countBS++; // Increment blood count
