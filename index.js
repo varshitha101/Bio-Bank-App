@@ -2322,7 +2322,7 @@ function validateForm3() {
       bf: document.querySelector('input[name="breFd"]:checked')?.value || "",
       dbf: document.getElementById('dbf').value || "",
       ms: document.querySelector('input[name="mStatus"]:checked')?.value || "",
-      ad: document.getElementById('ad').value || "",
+      // ad: document.getElementById('ad').value || "",
       er: document.querySelector('input[name="ERRadio"]:checked')?.value || "",
       pr: document.querySelector('input[name="PRRadio"]:checked')?.value || "",
       h2: document.querySelector('input[name="HER2Radio"]:checked')?.value || "",
@@ -3098,7 +3098,7 @@ function fillBrfForm(brfData) {
   if (brfData.ms) {
     document.querySelector(`input[name="mStatus"][value="${brfData.ms}"]`).checked = true;
   }
-  document.getElementById('ad').value = brfData.ad || '';
+  // document.getElementById('ad').value = brfData.ad || '';
   if (brfData.er) {
     document.querySelector(`input[name="ERRadio"][value="${brfData.er}"]`).checked = true;
   }
