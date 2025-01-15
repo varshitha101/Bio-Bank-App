@@ -1195,7 +1195,7 @@
           console.error('Error fetching data:', error);
         });
       const start = (currentPage - 1) * rowsPerPage;
-      const end = start + rowsPerPage;
+      const end = (currentPage ) * rowsPerPage;
 
       // Retrieve and normalize the sampleTypeInput from localStorage
       const sampleTypeInput = localStorage.getItem("sampleTypeInput")?.trim().toUpperCase();
@@ -1271,7 +1271,8 @@
                 const seatIndex = getSeatIndex(seat.trim());
 
                 // Collect promises for bb/ and sb/ paths
-                const promise1 = db.ref(`bb/${boxid}/${seatIndex}/`).once('value')
+                const promise1 = 
+                db.ref(`bb/${boxid}/${seatIndex}/`).once('value')
                   .then(snapshot => {
                     const box = snapshot.val();
                     if (box) {
@@ -1298,11 +1299,13 @@
                           sampleType,
                           patientData: patient,
                         });
+                        console.log("sampleType bb -----",allSequences.length)
                       }
                     }
                   });
 
-                db.ref(`sb/${boxid}/${seatIndex}/`).once('value')
+                  const promise2 = 
+                  db.ref(`sb/${boxid}/${seatIndex}/`).once('value')
                   .then(snapshot => {
                     const box1 = snapshot.val();
                     if (box1) {
@@ -1329,26 +1332,43 @@
                           sampleType,
                           patientData: patient,
                         });
+                        console.log("sampleType sb -----",allSequences.length)
                       }
                     }
                   });
 
                 promises.push(promise1);
+                promises.push(promise2);
+               
+
               }
+              // else{
+              //   console.log("sampleType -----",sampleType)
+              //   console.log("sampleTypeList -----",sampleTypeList[index])
+              // }
             });
+
+            
           });
 
         });
+
       });
       // console.log("promise2",promises)
+
 
       // Wait for all promises to resolve
       Promise.all(promises).then(() => {
         hideLoadingModal();
         console.log("All promises resolved. Processing allSequences:", allSequences);
+        console.log("All promises resolved",allSequences.length)
 
         // Paginate the filtered sequences
         const paginatedSequences = allSequences.slice(start, end);
+
+        console.log("paginatedSequences --- ",paginatedSequences)
+
+
 
         // Populate the table with filtered sequences
         paginatedSequences.forEach((sequence) => {
@@ -1371,6 +1391,12 @@
           row.setAttribute("data-timestampKey", timestampKey);
           row.setAttribute("data-grid", seat);
           row.setAttribute("data-box", boxName);
+
+
+          console.log("boxName --- ",boxName)
+          console.log("seqKey --- ",bioBankId ," ",seqKey)
+          console.log("sampleType ----",sampleType)
+
 
           row.innerHTML = `
             <td><input type='checkbox' class="btn btn-primary btn-sm selection" name="checkbox"></td>
@@ -1579,7 +1605,7 @@
       //Update_samplestatus(filteredPatientData, criteria);
 
 
-      currentPage = 1; 
+      currentPage = 1;
       console.log("Filtered Patient Data:", filteredPatientData);
       displaySamPatients(filteredPatientData);
     }
@@ -1737,249 +1763,270 @@
         }
       });
 
-    document
-      .getElementById("download2")
-      .addEventListener("click", function () {
-        console.log("Download Begin");
+    document.getElementById("download2").addEventListener("click", function () {
+      console.log("Download Begin");
 
-        const checkedBoxes = document.querySelectorAll(".selection:checked");
+      const checkedBoxes = document.querySelectorAll(".selection:checked");
 
-        console.log("checked boxes print -- ", checkedBoxes);
+      console.log("checked boxes print -- ", checkedBoxes);
 
-        if (checkedBoxes.length === 0) {
-          console.log(" No sample is selected ---- ");
-          alert("Please select a sample to download");
-          return
-        }
+      if (checkedBoxes.length === 0) {
+        console.log(" No sample is selected ---- ");
+        alert("Please select a sample to download");
+        return
+      }
 
-        const selectedPatients = [];
-        const promises = [];
+      const selectedPatients = [];
+      const promises = [];
 
-        // Create an array to hold all the row promises
-        const rowPromises = [];
+      // Create an array to hold all the row promises
+      const rowPromises = [];
 
-        checkedBoxes.forEach((checkbox) => {
-          const row = checkbox.closest("tr");
+      checkedBoxes.forEach((checkbox) => {
+        const row = checkbox.closest("tr");
 
-          const bioBankId = row.getAttribute("data-bioBankId");
-          const seqKey = row.getAttribute("data-seqKey");
-          const timestampKey = row.getAttribute("data-timestampKey");
-          const gridData = row.getAttribute("data-grid");
+        const bioBankId = row.getAttribute("data-bioBankId");
+        const seqKey = row.getAttribute("data-seqKey");
+        const timestampKey = row.getAttribute("data-timestampKey");
+        const gridData = row.getAttribute("data-grid");
 
-          // Fetch promises for each row
-          const promise1 = db.ref(`sef/${bioBankId}/${seqKey}/${timestampKey}/`).once('value')
-            .then(snapshot => snapshot.val() || {});
+        // Fetch promises for each row
+        const promise1 = db.ref(`sef/${bioBankId}/${seqKey}/${timestampKey}/`).once('value')
+          .then(snapshot => snapshot.val() || {});
 
-          const promise2 = db.ref(`Fw/${bioBankId}/`).limitToLast(1).once('value')
-            .then(snapshot => {
-              const fwdata = snapshot.val();
-              console.log("fwdata - ", fwdata);
-              let timestamp;
-              let fwlastTimestamp;
-              if (fwdata) {
+        const promise2 = db.ref(`Fw/${bioBankId}/`).limitToLast(1).once('value')
+          .then(snapshot => {
+            const fwdata = snapshot.val();
+            console.log("fwdata - ", fwdata);
+            let timestamp;
+            let fwlastTimestamp;
+            if (fwdata) {
 
-                timestamp = Object.keys(fwdata)[0]; // Since we are limiting to last 1, there should be only one key
-                const fwlastTimestamp = fwdata[timestamp]; // Get the lastTimestamp object using the key
+              timestamp = Object.keys(fwdata)[0]; // Since we are limiting to last 1, there should be only one key
+              const fwlastTimestamp = fwdata[timestamp]; // Get the lastTimestamp object using the key
 
-                return { fwlastTimestamp, timestamp };
-              }
               return { fwlastTimestamp, timestamp };
-            });
+            }
+            return { fwlastTimestamp, timestamp };
+          });
 
-          const promise3 = db.ref(`Os/${bioBankId}/${seqKey}`).limitToLast(1).once('value')
-            .then(snapshot => {
-              const osdata = snapshot.val();
-              console.log("osdata -- ", osdata);
-              let lastKey;
+        const promise3 = db.ref(`Os/${bioBankId}/${seqKey}`).limitToLast(1).once('value')
+          .then(snapshot => {
+            const osdata = snapshot.val();
+            console.log("osdata -- ", osdata);
+            let lastKey;
 
-              if (osdata) {
-                // Get the last key (timestamp) from the osdata
-                lastKey = Object.keys(osdata)[0]; // Since we are limiting to last 1, there should be only one key
-                const oslastTimestamp = osdata[lastKey]; // Get the lastTimestamp object using the key
+            if (osdata) {
+              // Get the last key (timestamp) from the osdata
+              lastKey = Object.keys(osdata)[0]; // Since we are limiting to last 1, there should be only one key
+              const oslastTimestamp = osdata[lastKey]; // Get the lastTimestamp object using the key
 
-                console.log('Last Timestamp in os :', oslastTimestamp, lastKey);
+              console.log('Last Timestamp in os :', oslastTimestamp, lastKey);
 
-                // Check if lbi exists and loop through it
-                if (oslastTimestamp && oslastTimestamp.lbi) {
-                  for (const box in oslastTimestamp.lbi) {
-                    if (oslastTimestamp.lbi.hasOwnProperty(box)) {
-                      const grids = oslastTimestamp.lbi[box];
-                      if (grids.includes(gridData)) {
-                        console.log(`Grid Data "${gridData}" found in "${box}":`, grids);
-                        return { oslastTimestamp: oslastTimestamp, lastKey: lastKey }; // Return structured object
-                      }
+              // Check if lbi exists and loop through it
+              if (oslastTimestamp && oslastTimestamp.lbi) {
+                for (const box in oslastTimestamp.lbi) {
+                  if (oslastTimestamp.lbi.hasOwnProperty(box)) {
+                    const grids = oslastTimestamp.lbi[box];
+                    if (grids.includes(gridData)) {
+                      console.log(`Grid Data "${gridData}" found in "${box}":`, grids);
+                      return { oslastTimestamp: oslastTimestamp, lastKey: lastKey }; // Return structured object
                     }
                   }
                 }
-                return { oslastTimestamp: oslastTimestamp, lastKey: lastKey || {} }; // Return lastTimestamp or empty object if no match found
-              } else {
-                return {}; // Return empty object if osdata does not exist
               }
-            });
+              return { oslastTimestamp: oslastTimestamp, lastKey: lastKey || {} }; // Return lastTimestamp or empty object if no match found
+            } else {
+              return {}; // Return empty object if osdata does not exist
+            }
+          });
 
-          // Combine all three promises for the current row
-          const rowPromise = Promise.all([promise1, promise2, promise3])
-            .then(([sefData, fwData, osData]) => ({
+        // Combine all three promises for the current row
+        // Combine all three promises for the current row
+        // Combine all three promises for the current row
+        const rowPromise = Promise.all([promise1, promise2, promise3])
+          .then(async ([sefData, fwData, osData]) => {
+            // Wait for decodeGridValue to fully resolve
+            const plasmaGrid = await decodeGridValue(sefData.ie.bpg);
+            const serumGrid = await decodeGridValue(sefData.ie.bsg);
+            const buffyCoatGrid = await decodeGridValue(sefData.ie.bbcg);
+            const otherGrid = await decodeGridValue(sefData.ie.osg);
+            const ftgGrid = await decodeGridValue(sefData.ie.ftg);
+            const fngGrid = await decodeGridValue(sefData.ie.fng);
+
+            console.log("PlasmaGrid", plasmaGrid);
+
+            // Return the full row data with resolved plasmaGrid
+            return {
               bioBankId,
               seqKey,
               timestampKey,
               sefData,
               fwData,
               osData,
-            }));
-
-          rowPromises.push(rowPromise);
-        });
-
-        // Process all rows once promises resolve
-        Promise.all(rowPromises)
-          .then((rowsData) => {
-            console.log("All data fetched:", rowsData);
-
-            // Prepare data for Excel
-            const excelData = rowsData.map(row => ({
-
-              Sample_Timestamp: formatTimestamp(row.timestampKey),
-              bioBankId: row.bioBankId,
-              Age: row.sefData.ie.ag || "-",
-              Gender: decodeProcedureType(row.sefData.ie.sx) || "-",
-              CancerType: decodeProcedureType(row.sefData.ie.ct) || "-",
-              ProcedureType: decodeProcedureType(row.sefData.ie.tpr),
-              DetailProcedure: row.sefData.ie.dpr || "-",
-              SurgeonName: row.sefData.ie.srn || "-",
-              BloodSample: decodeProcedureType(row.sefData.ie.bs) || "-",
-              SpecimenSample: decodeProcedureType(row.sefData.ie.ss) || "-",
-              OtherSample: decodeProcedureType(row.sefData.ie.osmp) || "-",
-              PlasmaGrid: row.sefData.ie.bpg || "-",
-              SerumGrid: row.sefData.ie.bsg || "-",
-              BuffyCoatGrid: row.sefData.ie.bbcg || "-",
-              FTTubeGrids: row.sefData.ie.ftg || "-",
-              FNTubeGrids: row.sefData.ie.fng || "-",
-              OtherSample_description: row.sefData.ie.osdsc || "-",
-              OtherSampleGrid: row.sefData.ie.osg || "-",
-              IschemicSample: decodeProcedureType(row.sefData.ie.iss) || "-",
-              ProcessedBy: row.sefData.ie.prb || "-",
-              // SampleEntryUpdatedBy: row.sefData.ie.fng || "-",
-              MetastasisSample: decodeProcedureType(row.sefData.ie.mts) || "-",
-              Consent: decodeProcedureType(row.sefData.ie.cnst) || "-",//Math.floor()/ 1000
-              SampleReceivedTime: formatTimestamp1(row.sefData.ie.srt) || "-",
-              SampleProcessedTime: formatTimestamp1(row.sefData.ie.spt) || "-",
-              BloodReceivedTime: formatTimestamp1(row.sefData.ie.brt) || "-",
-              BloodProcessedTime: formatTimestamp1(row.sefData.ie.bpt) || "-",
-              BloodSampleProcessedBy: row.sefData.ie.bsby || "-",
-              SpecimenReceivedTime: formatTimestamp1(row.sefData.ie.sprt) || "-",
-              SpecimenProcessedTime: formatTimestamp1(row.sefData.ie.sppt) || "-",
-              SpecimenSampleProcessedby: row.sefData.ie.ssby || "-",
-              OtherSampleReceivedTime: formatTimestamp1(row.sefData.ie.ospt) || "-",
-              OtherSampleProcessedTime: formatTimestamp1(row.sefData.ie.osrt) || "-",
-              OtherSampleProcessedby: row.sefData.ie.osby || "-",
-              Initial_form_updatedby: row.sefData.ie.sef_ub || "-",
-
-              FamilyHistoryCancer: decodeProcedureType(row.sefData.md.fhc),
-              FamilyRelation: row.sefData.md.fhcr || "-",
-              FamilyCancerType: row.sefData.md.fhct || "-",
-              FoodHabbits: decodeProcedureType(row.sefData.md.fh) || "-",
-              HistoryOfAlcoholConsumption: decodeProcedureType(row.sefData.md.hac) || "-",
-              HistoryOfSmoking: decodeProcedureType(row.sefData.md.hs) || "-",
-              ExistingComorbidities: decodeProcedureType(row.sefData.md.ec) || "-",
-              ComorbidityandCorrespondingMedicationsforComorbidity: row.sefData.md.ecm || "-",
-              FF_QC_comments: row.sefData.md.ffqc || "-",
-              FF_Tissue_Remarks: row.sefData.md.ftr || "-",
-              Tumor_Site: decodeProcedureType(row.sefData.md.tst) || "-",
-              TumorPercentage: row.sefData.md.tp || "-",
-              AgeAtDiagnosis: row.sefData.md.ad || "-",
-              ClinicalStage: row.sefData.md.cs || "-",
-              IHC_Marker_status: decodeProcedureType(row.sefData.md.ihcm) || "-",
-              IHC_marker_description: row.sefData.md.ihcd || "-",
-              Genetic_Testing: decodeProcedureType(row.sefData.md.gt) || "-",
-              Genetic_Testing_Description: row.sefData.md.gtd || "-",
-              Pathologic_Subtype: decodeProcedureType(row.sefData.md.pst) || "-",
-              Grade: row.sefData.md.gd || "-",
-              Focality: row.sefData.md.fc === "true" ? "Unifocal" : row.sefData.md.fc === "false" ? "Multifocal" : "-",
-              LVI: decodeProcedureType(row.sefData.md.lvi) || "-",
-              PNI: decodeProcedureType(row.sefData.md.pni) || "-",
-              pTNM: row.sefData.md.ptnm || "-",
-              AJCCStaging: row.sefData.md.as || "-",
-              NumberOfNodesTested: row.sefData.md.nnt || "-",
-              NumberOfPositiveNodes: row.sefData.md.npn || "-",
-              TumorSize: row.sefData.md.tsz || "-",
-              Denovo_metastasis: decodeProcedureType(row.sefData.md.dm) || "-",
-              Metastasis_Post_Treatment: decodeProcedureType(row.sefData.md.mpt) || "-",
-              BiopsyTissueNumber: row.sefData.md.btn || "-",
-              BiopsyDate: row.sefData.md.bd || "-",
-              nact: decodeProcedureType(row.sefData.md.nact) || "-",
-              NACT_Drug_Cycles: row.sefData.md.nactdc || "-",
-              NACT_date_of_last_cycle: row.sefData.md.nactdlc || "-",
-              Surgery_Tissue_Number_HPE: row.sefData.md.stn || "-",
-              SurgeryDate: row.sefData.md.sd || "-",
-              RCBScore: row.sefData.md.rcbs || "-",
-              ACT: decodeProcedureType(row.sefData.md.act) || "-",
-              ACT_Drug_Cycles: row.sefData.md.actdc || "-",
-              ACT_Date_of_last_Cycle: row.sefData.md.actdls || "-",
-              Radiotherapy: decodeProcedureType(row.sefData.md.rd) || "-",
-              Radiotherapy_details: row.sefData.md.rdd || "-",
-              RT_date_of_last_cycle: row.sefData.md.rtdls || "-",
-              ParaffinBlockAvailable: decodeProcedureType(row.sefData.md.ipba) || "-",
-              Metadata_updated_by: row.sefData.md.mdu || "-",
-
-              AgeOfMenarche: row.sefData.brf.am || "-",
-              Parity: row.sefData.brf.pty || "-",
-              NoOfChildren: row.sefData.brf.noc || "-",
-              AgeAtFirstChild: row.sefData.brf.afc || "-",
-              Breastfed: decodeProcedureType(row.sefData.brf.bf) || "-",
-              DurationBreastfeeding: row.sefData.brf.dbf || "-",
-              MenopausalStatus: row.sefData.brf.ms || "-",
-              //ER: decodeProcedureType(row.sefData.brf.er) || "-",
-              ER: decodeProcedureType(row.sefData.brf.er)?.toLowerCase() === "yes" ? "Positive" : "Negative" || "-",
-              PR: decodeProcedureType(row.sefData.brf.pr)?.toLowerCase() === "yes" ? "Positive" : "Negative" || "-",
-              HER2: decodeProcedureType(row.sefData.brf.h2)?.toLowerCase() === "yes" ? "Positive" : "Negative" || "-",
-              Subtype: row.sefData.brf.sbt || "-",
-              Ki67: row.sefData.brf.k67 || "-",
-              ClinicalStage_Brf: row.sefData.brf.cs || "-",
-              HistologicalType: row.sefData.brf.ht || "-",
-              sTILsPercentScores: row.sefData.brf.sps || "-",
-              BR_form_updated_By: row.sefData.brf.brfu || "-",
-
-              followUpTime: getValue(formatTimestamp(Math.floor(row.fwData?.timestamp) / 1000)) || "-",
-              LastFollowUpDate: getValue(row.fwData?.fwlastTimestamp?.dd) || "-",
-              LastFollowUpStatus: getValue(row.fwData?.fwlastTimestamp?.lfs) || "-",
-              VitalStatus: getValue(row.fwData?.fwlastTimestamp?.vs) || "-",
-              RecurrenceDate: getValue(row.fwData?.fwlastTimestamp?.rd) || "-",
-              Reported_Date_for_Progressive_Disease: getValue(row.fwData?.fwlastTimestamp?.rdpd) || "-",
-              Progression_metastasis_remark: getValue(row.fwData?.fwlastTimestamp?.pet) || "-",
-              Reason_For_lost_to_follow_up: getValue(row.fwData?.fwlastTimestamp?.rlfw) || "-",
-              Other_reason: getValue(row.fwData?.fwlastTimestamp?.othrs) || "-",
-              Death_date: getValue(row.fwData?.fwlastTimestamp?.dd) || "-",
-              Remarks: getValue(row.fwData?.fwlastTimestamp?.rmks) || "-",
-              followUp_updated_by: getValue(row.fwData?.fwlastTimestamp?.fw_ub) || "-",
-
-
-              SharedTime: getValue(formatTimestamp(row.osData?.lastKey)) || "-",
-              Shared_date: getValue(row.osData?.oslastTimestamp?.doe) || "-",
-              institute_or_Department: getValue(row.osData?.oslastTimestamp?.dpt) || "-",
-              project: getValue(row.osData?.oslastTimestamp?.prj) || "-",
-              PI_of_the_project: getValue(row.osData?.oslastTimestamp?.pip) || "-",
-              Shared_status: getValue(row.osData?.oslastTimestamp?.ossts) || "-",
-              Partial_shared_remark: getValue(row.osData?.oslastTimestamp?.psr) || "-",
-              Shared_form_updated_by: getValue(row.osDatav?.oslastTimestamp?.os_ub) || "-"
-
-
-            }));
-
-            // Export to Excel
-            const worksheet = XLSX.utils.json_to_sheet(excelData);
-            const workbook = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(workbook, worksheet, "BioBank Data");
-
-            // Download the Excel file
-            XLSX.writeFile(workbook, "BioBank_Data.xlsx");
-          })
-          .catch(error => {
-            console.error("Error fetching data:", error);
+              plasmaGrid,
+              serumGrid,
+              buffyCoatGrid,
+              otherGrid,
+              ftgGrid,
+              fngGrid
+            };
           });
+
+        rowPromises.push(rowPromise);
+
 
 
       });
+
+      // Process all rows once promises resolve
+      Promise.all(rowPromises)
+        .then((rowsData) => {
+          console.log("All data fetched:", rowsData);
+
+          const excelData = rowsData.map(row => ({
+
+            Sample_Timestamp: formatTimestamp(row.timestampKey),
+            bioBankId: row.bioBankId,
+            Age: row.sefData.ie.ag || "-",
+            Gender: decodeProcedureType(row.sefData.ie.sx) || "-",
+            CancerType: decodeProcedureType(row.sefData.ie.ct) || "-",
+            ProcedureType: decodeProcedureType(row.sefData.ie.tpr),
+            DetailProcedure: row.sefData.ie.dpr || "-",
+            SurgeonName: row.sefData.ie.srn || "-",
+            BloodSample: decodeProcedureType(row.sefData.ie.bs) || "-",
+            SpecimenSample: decodeProcedureType(row.sefData.ie.ss) || "-",
+            OtherSample: decodeProcedureType(row.sefData.ie.osmp) || "-",
+            PlasmaGrid: row.plasmaGrid || "-",
+            SerumGrid: row.serumGrid || "-",
+            BuffyCoatGrid: row.buffyCoatGrid || "-",
+            FTTubeGrids: row.ftgGrid || "-",
+            FNTubeGrids: row.fngGrid || "-",
+            OtherSample_description: row.sefData.ie.osdsc || "-",
+            OtherSampleGrid: row.otherGrid || "-",
+            IschemicSample: decodeProcedureType(row.sefData.ie.iss) || "-",
+            ProcessedBy: row.sefData.ie.prb || "-",
+            // SampleEntryUpdatedBy: row.sefData.ie.fng || "-",
+            MetastasisSample: decodeProcedureType(row.sefData.ie.mts) || "-",
+            Consent: decodeProcedureType(row.sefData.ie.cnst) || "-",//Math.floor()/ 1000
+            SampleReceivedTime: formatTimestamp1(row.sefData.ie.srt) || "-",
+            SampleProcessedTime: formatTimestamp1(row.sefData.ie.spt) || "-",
+            BloodReceivedTime: formatTimestamp1(row.sefData.ie.brt) || "-",
+            BloodProcessedTime: formatTimestamp1(row.sefData.ie.bpt) || "-",
+            BloodSampleProcessedBy: row.sefData.ie.bsby || "-",
+            SpecimenReceivedTime: formatTimestamp1(row.sefData.ie.sprt) || "-",
+            SpecimenProcessedTime: formatTimestamp1(row.sefData.ie.sppt) || "-",
+            SpecimenSampleProcessedby: row.sefData.ie.ssby || "-",
+            OtherSampleReceivedTime: formatTimestamp1(row.sefData.ie.ospt) || "-",
+            OtherSampleProcessedTime: formatTimestamp1(row.sefData.ie.osrt) || "-",
+            OtherSampleProcessedby: row.sefData.ie.osby || "-",
+            Initial_form_updatedby: row.sefData.ie.sef_ub || "-",
+
+            FamilyHistoryCancer: decodeProcedureType(row.sefData.md.fhc),
+            FamilyRelation: row.sefData.md.fhcr || "-",
+            FamilyCancerType: row.sefData.md.fhct || "-",
+            FoodHabbits: decodeProcedureType(row.sefData.md.fh) || "-",
+            HistoryOfAlcoholConsumption: decodeProcedureType(row.sefData.md.hac) || "-",
+            HistoryOfSmoking: decodeProcedureType(row.sefData.md.hs) || "-",
+            ExistingComorbidities: decodeProcedureType(row.sefData.md.ec) || "-",
+            ComorbidityandCorrespondingMedicationsforComorbidity: row.sefData.md.ecm || "-",
+            FF_QC_comments: row.sefData.md.ffqc || "-",
+            FF_Tissue_Remarks: row.sefData.md.ftr || "-",
+            Tumor_Site: decodeProcedureType(row.sefData.md.tst) || "-",
+            TumorPercentage: row.sefData.md.tp || "-",
+            AgeAtDiagnosis: row.sefData.md.ad || "-",
+            ClinicalStage: row.sefData.md.cs || "-",
+            IHC_Marker_status: decodeProcedureType(row.sefData.md.ihcm) || "-",
+            IHC_marker_description: row.sefData.md.ihcd || "-",
+            Genetic_Testing: decodeProcedureType(row.sefData.md.gt) || "-",
+            Genetic_Testing_Description: row.sefData.md.gtd || "-",
+            Pathologic_Subtype: decodeProcedureType(row.sefData.md.pst) || "-",
+            Grade: row.sefData.md.gd || "-",
+            Focality: row.sefData.md.fc === "true" ? "Unifocal" : row.sefData.md.fc === "false" ? "Multifocal" : "-",
+            LVI: decodeProcedureType(row.sefData.md.lvi) || "-",
+            PNI: decodeProcedureType(row.sefData.md.pni) || "-",
+            pTNM: row.sefData.md.ptnm || "-",
+            AJCCStaging: row.sefData.md.as || "-",
+            NumberOfNodesTested: row.sefData.md.nnt || "-",
+            NumberOfPositiveNodes: row.sefData.md.npn || "-",
+            TumorSize: row.sefData.md.tsz || "-",
+            Denovo_metastasis: decodeProcedureType(row.sefData.md.dm) || "-",
+            Metastasis_Post_Treatment: decodeProcedureType(row.sefData.md.mpt) || "-",
+            BiopsyTissueNumber: row.sefData.md.btn || "-",
+            BiopsyDate: row.sefData.md.bd || "-",
+            nact: decodeProcedureType(row.sefData.md.nact) || "-",
+            NACT_Drug_Cycles: row.sefData.md.nactdc || "-",
+            NACT_date_of_last_cycle: row.sefData.md.nactdlc || "-",
+            Surgery_Tissue_Number_HPE: row.sefData.md.stn || "-",
+            SurgeryDate: row.sefData.md.sd || "-",
+            RCBScore: row.sefData.md.rcbs || "-",
+            ACT: decodeProcedureType(row.sefData.md.act) || "-",
+            ACT_Drug_Cycles: row.sefData.md.actdc || "-",
+            ACT_Date_of_last_Cycle: row.sefData.md.actdls || "-",
+            Radiotherapy: decodeProcedureType(row.sefData.md.rd) || "-",
+            Radiotherapy_details: row.sefData.md.rdd || "-",
+            RT_date_of_last_cycle: row.sefData.md.rtdls || "-",
+            ParaffinBlockAvailable: decodeProcedureType(row.sefData.md.ipba) || "-",
+            Metadata_updated_by: row.sefData.md.mdu || "-",
+
+            AgeOfMenarche: row.sefData.brf.am || "-",
+            Parity: row.sefData.brf.pty || "-",
+            NoOfChildren: row.sefData.brf.noc || "-",
+            AgeAtFirstChild: row.sefData.brf.afc || "-",
+            Breastfed: decodeProcedureType(row.sefData.brf.bf) || "-",
+            DurationBreastfeeding: row.sefData.brf.dbf || "-",
+            MenopausalStatus: row.sefData.brf.ms || "-",
+            //ER: decodeProcedureType(row.sefData.brf.er) || "-",
+            ER: decodeProcedureType(row.sefData.brf.er)?.toLowerCase() === "yes" ? "Positive" : "Negative" || "-",
+            PR: decodeProcedureType(row.sefData.brf.pr)?.toLowerCase() === "yes" ? "Positive" : "Negative" || "-",
+            HER2: decodeProcedureType(row.sefData.brf.h2)?.toLowerCase() === "yes" ? "Positive" : "Negative" || "-",
+            Subtype: row.sefData.brf.sbt || "-",
+            Ki67: row.sefData.brf.k67 || "-",
+            ClinicalStage_Brf: row.sefData.brf.cs || "-",
+            HistologicalType: row.sefData.brf.ht || "-",
+            sTILsPercentScores: row.sefData.brf.sps || "-",
+            BR_form_updated_By: row.sefData.brf.brfu || "-",
+
+            followUpTime: getValue(formatTimestamp(Math.floor(row.fwData?.timestamp) / 1000)) || "-",
+            LastFollowUpDate: getValue(row.fwData?.fwlastTimestamp?.dd) || "-",
+            LastFollowUpStatus: getValue(row.fwData?.fwlastTimestamp?.lfs) || "-",
+            VitalStatus: getValue(row.fwData?.fwlastTimestamp?.vs) || "-",
+            RecurrenceDate: getValue(row.fwData?.fwlastTimestamp?.rd) || "-",
+            Reported_Date_for_Progressive_Disease: getValue(row.fwData?.fwlastTimestamp?.rdpd) || "-",
+            Progression_metastasis_remark: getValue(row.fwData?.fwlastTimestamp?.pet) || "-",
+            Reason_For_lost_to_follow_up: getValue(row.fwData?.fwlastTimestamp?.rlfw) || "-",
+            Other_reason: getValue(row.fwData?.fwlastTimestamp?.othrs) || "-",
+            Death_date: getValue(row.fwData?.fwlastTimestamp?.dd) || "-",
+            Remarks: getValue(row.fwData?.fwlastTimestamp?.rmks) || "-",
+            followUp_updated_by: getValue(row.fwData?.fwlastTimestamp?.fw_ub) || "-",
+
+
+            SharedTime: getValue(formatTimestamp(row.osData?.lastKey)) || "-",
+            Shared_date: getValue(row.osData?.oslastTimestamp?.doe) || "-",
+            institute_or_Department: getValue(row.osData?.oslastTimestamp?.dpt) || "-",
+            project: getValue(row.osData?.oslastTimestamp?.prj) || "-",
+            PI_of_the_project: getValue(row.osData?.oslastTimestamp?.pip) || "-",
+            Shared_status: getValue(row.osData?.oslastTimestamp?.ossts) || "-",
+            Partial_shared_remark: getValue(row.osData?.oslastTimestamp?.psr) || "-",
+            Shared_form_updated_by: getValue(row.osData?.oslastTimestamp?.os_ub) || "-"
+
+
+          }));
+
+          // Export to Excel
+          const worksheet = XLSX.utils.json_to_sheet(excelData);
+          const workbook = XLSX.utils.book_new();
+          XLSX.utils.book_append_sheet(workbook, worksheet, "BioBank Data");
+
+          // Download the Excel file
+          XLSX.writeFile(workbook, "BioBank_Data.xlsx");
+        })
+        .catch(error => {
+          console.error("Error fetching data:", error);
+        });
+
+
+    });
 
 
     window.onload = function () {
@@ -1994,47 +2041,6 @@
       return value !== undefined && value !== null ? value : "-";
     }
 
-    // function generateExcelData() {
-    //   const dataToExport = [];
-
-    //   const patients = filteredPatientData && Object.keys(filteredPatientData).length ? filteredPatientData : window.patientData;
-
-    //   Object.keys(patients).forEach(bioBankId => {
-    //     const patientSeq = patients[bioBankId];
-
-    //     Object.keys(patientSeq).forEach(seqKey => {
-    //       const patientTimestamps = patientSeq[seqKey];
-
-    //       Object.keys(patientTimestamps).forEach(timestampKey => {
-    //         const patient = patientTimestamps[timestampKey];
-
-    //         const rowData = {
-    //           BioBankID: bioBankId,
-    //           Age: patient.ie?.ag || '-',
-    //           Gender: patient.ie?.sx || '-',
-    //           BoxNo: patient.ie?.box_no || '-',
-    //           GridNo: patient.ie?.grid_no || '-',
-    //           CancerType: patient.ie?.ct || '-',
-    //           Stage: patient.ie?.stc || '-',
-    //           Sample: patient.ie?.bs || patient.ie?.ss || patient.ie?.os || '-',
-    //           Grade: patient.md?.gd || '-',
-    //           NACT: patient.md?.nact || '-',
-    //           Subtype: patient.md?.pst || '-',
-    //           Timestamp: timestampKey
-    //         };
-
-    //         dataToExport.push(rowData);
-    //       });
-    //     });
-    //   });
-
-    //   // Generate Excel file
-    //   const worksheet = XLSX.utils.json_to_sheet(dataToExport);
-    //   const workbook = XLSX.utils.book_new();
-    //   XLSX.utils.book_append_sheet(workbook, worksheet, "Patients");
-
-    //   XLSX.writeFile(workbook, "FilteredPatientData.xlsx");
-    // }
 
     const TypeMapping = {
       b: "Biopsy",
@@ -2064,10 +2070,10 @@
       option13: "Encapsulated papillary carcinoma with invasion",
       option14: "Solid papillary carcinoma with invasion",
       option15: "Intraductal papillary adenocarcinoma with invasion",
-      option11: "Adenoid cystic carcinoma",
-      option12: "Neuroendocrine tumor",
-      option13: "Neuroendocrine carcinoma",
-      option12: "Invasive carcinoma, type cannot be determined:",
+      option16: "Adenoid cystic carcinoma",
+      option17: "Neuroendocrine tumor",
+      option18: "Neuroendocrine carcinoma",
+      option19: "Invasive carcinoma, type cannot be determined:",
       other: "Other histologic type not listed(specify)",
       s: "Shared",
       ps: "Partially Shared",
@@ -2077,6 +2083,34 @@
     function decodeProcedureType(encodedValue) {
       return TypeMapping[encodedValue] || "-"; // Fallback to 'Unknown' if the value is not in the mapping
     }
+
+    function decodeGridValue(gridValue) {
+      return new Promise((resolve, reject) => {
+        if (gridValue) {
+          let parts = gridValue.split('/');
+          let boxName = parts[0];
+
+          const storedBnData = JSON.parse(localStorage.getItem('bnData'));
+          console.log("storedBnData", storedBnData);
+          console.log("boxName", boxName);
+
+          // Use find to search for the boxName in the array of objects
+          const boxEntry = storedBnData.find((entry) => entry.id === boxName);
+
+          if (boxEntry) {
+            parts[0] = boxEntry.name;  // Replace the ID with the corresponding name
+            const updatedGridNo = parts.join('/');
+            console.log("updatedGridNo", updatedGridNo);
+            resolve(updatedGridNo);
+          } else {
+            resolve(gridValue); // If no match found, resolve with the original value
+          }
+        } else {
+          resolve(null); // If gridValue is null or undefined, resolve with null
+        }
+      });
+    }
+
 
     function formatTimestamp(unixTimestamp) {
       if (!unixTimestamp || isNaN(unixTimestamp)) {
@@ -2125,536 +2159,236 @@
       return `${day}-${month}-${year} ${hours}:${minutes}`;
     }
 
-    function generateExcelData() {
-      const dataToExport = [];
-      let count = 0;
-
-      const patients =
-        filteredPatientData && Object.keys(filteredPatientData).length ? filteredPatientData : window.patientData;
-      const currentTimestamp = Math.floor(Date.now() / 1000);
-
-      Object.keys(patients).forEach((bioBankId) => {
-        const patientSeq = patients[bioBankId];
-
-        let latestSample = null;
-        let latestFollowUp = null;
-        let osSharedData = null;
-        console.log("patientSeq", patientSeq);
-
-        // Iterate through the sample entry form (Sef) data
-        if (patientSeq) {
-          Object.keys(patientSeq).forEach((seqKey) => {
-            const sampleData = patientSeq[seqKey];
-            Object.keys(sampleData).forEach((timestampKey) => {
-              const sample = sampleData[timestampKey];
-              if (!latestSample || timestampKey > latestSample.timestamp) {
-                latestSample = {
-                  SefTimestamp: formatTimestamp(timestampKey),
-                  BioBankID: bioBankId,
-                  Age: sample.ie.ag || "-",
-                  Gender: decodeProcedureType(sample.ie.sx) || "-",
-                  CancerType: decodeProcedureType(sample.ie.ct) || "-",
-                  ProcedureType: decodeProcedureType(sample.ie.tpr),
-                  DetailProcedure: sample.ie.dpr || "-",
-                  SurgeonName: sample.ie.srn || "-",
-                  BloodSample: decodeProcedureType(sample.ie.bs) || "-",
-                  SpecimenSample: decodeProcedureType(sample.ie.ss) || "-",
-                  OtherSample: decodeProcedureType(sample.ie.osmp) || "-",
-                  PlasmaGrid: sample.ie.bpg || "-",
-                  SerumGrid: sample.ie.bsg || "-",
-                  BuffyCoatGrid: sample.ie.bbcg || "-",
-                  FTTubeGrids: sample.ie.ftg || "-",
-                  FNTubeGrids: sample.ie.fng || "-",
-                  OtherSample_description: sample.ie.osdsc || "-",
-                  OtherSampleGrid: sample.ie.osg || "-",
-                  IschemicSample: decodeProcedureType(sample.ie.iss) || "-",
-                  ProcessedBy: sample.ie.prb || "-",
-                  SampleEntryUpdatedBy: sample.ie.fng || "-",
-                  MetastasisSample: decodeProcedureType(sample.ie.mts) || "-",
-                  Consent: decodeProcedureType(sample.ie.cnst) || "-",
-                  SampleReceivedTime: formatTimestamp(sample.ie.srt) || "-",
-                  SampleProcessedTime: formatTimestamp(sample.ie.spt) || "-",
-                  BloodReceivedTime: formatTimestamp(sample.ie.brt) || "-",
-                  BloodProcessedTime: formatTimestamp(sample.ie.bpt) || "-",
-                  BloodSampleProcessedBy: sample.ie.bsby || "-",
-                  SpecimenReceivedTime: formatTimestamp(sample.ie.sprt) || "-",
-                  SpecimenProcessedTime: formatTimestamp(sample.ie.sppt) || "-",
-                  SpecimenSampleProcessedby: sample.ie.ssby || "-",
-                  OtherSampleReceivedTime: formatTimestamp(sample.ie.ospt) || "-",
-                  OtherSampleProcessedTime: formatTimestamp(sample.ie.osrt) || "-",
-                  OtherSampleProcessedby: sample.ie.osby || "-",
-
-                  FamilyHistoryCancer: decodeProcedureType(sample.md.fhc),
-                  FamilyRelation: sample.md.fhcr || "-",
-                  FamilyCancerType: sample.md.fhct || "-",
-                  FoodHabbits: decodeProcedureType(sample.md.fh) || "-",
-                  HistoryOfAlcoholConsumption: decodeProcedureType(sample.md.hac) || "-",
-                  HistoryOfSmoking: decodeProcedureType(sample.md.hs) || "-",
-                  ExistingComorbidities: decodeProcedureType(sample.md.ec) || "-",
-                  ComorbidityandCorrespondingMedicationsforComorbidity: sample.md.ecm || "-",
-                  FF_QC_comments: sample.md.ffqc || "-",
-                  FF_Tissue_Remarks: sample.md.ftr || "-",
-                  Tumor_Site: sample.md.tst || "-",
-                  TumorPercentage: sample.md.tp || "-",
-                  AgeAtDiagnosis: sample.md.ad || "-",
-                  ClinicalStage: sample.md.cs || "-",
-                  IHC_Marker_status: decodeProcedureType(sample.md.ihcm) || "-",
-                  IHC_marker_description: sample.md.ihcd || "-",
-                  Genetic_Testing: decodeProcedureType(sample.md.gt) || "-",
-                  Genetic_Testing_Description: sample.md.gtd || "-",
-                  Pathologic_Subtype: decodeProcedureType(sample.md.pst) || "-",
-                  Grade: sample.md.gd || "-",
-                  Focality: sample.md.fc === "Y" ? "Unifocal" : sample.md.fc === "N" ? "Multifocal" : "-",
-                  LVI: decodeProcedureType(sample.md.lvi) || "-",
-                  PNI: decodeProcedureType(sample.md.pni) || "-",
-                  pTNM: sample.md.ptnm || "-",
-                  AJCCStaging: sample.md.as || "-",
-                  NumberOfNodesTested: sample.md.nnt || "-",
-                  NumberOfPositiveNodes: sample.md.npn || "-",
-                  TumorSize: sample.md.tsz || "-",
-                  Denovo_metastasis: decodeProcedureType(sample.md.dm) || "-",
-                  Metastasis_Post_Treatment: decodeProcedureType(sample.md.mpt) || "-",
-                  BiopsyTissueNumber: sample.md.btn || "-",
-                  BiopsyDate: sample.md.bd || "-",
-                  nact: decodeProcedureType(sample.md.nact) || "-",
-                  NACT_Drug_Cycles: sample.md.nactdc || "-",
-                  NACT_date_of_last_cycle: sample.md.nactdlc || "-",
-                  Surgery_Tissue_Number_HPE: sample.md.stn || "-",
-                  SurgeryDate: sample.md.sd || "-",
-                  RCBScore: sample.md.rcbs || "-",
-                  ACT: decodeProcedureType(sample.md.act) || "-",
-                  ACT_Drug_Cycles: sample.md.actdc || "-",
-                  ACT_Date_of_last_Cycle: sample.md.actdls || "-",
-                  Radiotherapy: decodeProcedureType(sample.md.rd) || "-",
-                  Radiotherapy_details: sample.md.rdd || "-",
-                  RT_date_of_last_cycle: sample.md.rtdls || "-",
-                  ParaffinBlockAvailable: decodeProcedureType(sample.md.ipba) || "-",
-                  Metadata_updated_by: sample.md.mdu || "-",
-
-                  AgeOfMenarche: sample.brf.am || "-",
-                  Parity: sample.brf.pty || "-",
-                  NoOfChildren: sample.brf.noc || "-",
-                  AgeAtFirstChild: sample.brf.afc || "-",
-                  Breastfed: decodeProcedureType(sample.brf.bf) || "-",
-                  DurationBreastfeeding: sample.brf.dbf || "-",
-                  MenopausalStatus: sample.brf.ms || "-",
-                  ER: decodeProcedureType(sample.brf.er) || "-",
-                  PR: decodeProcedureType(sample.brf.pr) || "-",
-                  HER2: decodeProcedureType(sample.brf.h2) || "-",
-                  Subtype: sample.brf.sbt || "-",
-                  Ki67: sample.brf.k67 || "-",
-                  ClinicalStage_Brf: sample.brf.cs || "-",
-                  HistologicalType: sample.brf.ht || "-",
-                  sTILsPercentScores: sample.brf.sps || "-",
-                  BR_form_updated_By: sample.brf.brfu || "-",
-                };
-              }
-              console.log("latestSample.FamilyHistoryCancer", decodeProcedureType(sample.md.fhc), " bioBankId", bioBankId);
-
-            });
-          });
-          console.log("latestSample of ie", latestSample.FamilyHistoryCancer)
-
-        }
-
-
-        // Fetch follow-up data from the Firebase reference `Fw/{bioBankId}`
-        db.ref(`Fw/${bioBankId}`)
-          .once("value")
-          .then((snapshot) => {
-            const followUpData = snapshot.val();
-            console.log("followUpData", followUpData);
-
-            if (followUpData) {
-              Object.keys(followUpData).forEach((timestampKey) => {
-                const followUp = followUpData[timestampKey];
-                if (
-                  !latestFollowUp ||
-                  timestampKey > latestFollowUp.timestamp
-                ) {
-                  latestFollowUp = {
-                    BioBankID: bioBankId,
-                    LastFollowUpStatus: followUp.lfs || "-",
-                    LastFollowUpDate: followUp.lfd || "-",
-                    VitalStatus: followUp.vs || "-",
-                    RecurrenceDate: followUp.rd || "-",
-                    Remarks: followUp.rmks || "-",
-                    Timestamp: formatTimestamp(timestampKey / 1000),
-                  };
-                }
-              });
-            } else {
-              latestFollowUp = {
-                BioBankID: bioBankId,
-                LastFollowUpStatus: "-",
-                LastFollowUpDate: "-",
-                VitalStatus: "-",
-                RecurrenceDate: "-",
-                Remarks: "-",
-                Timestamp: "-",
-              };
-            }
-
-            // Fetch `Os (Shared)` data from the Firebase reference `Os (Shared)/{bioBankId}`
-            return db.ref(`Os/${bioBankId}`).once("value");
-          })
-          .then((osSharedSnapshot) => {
-            const osShared = osSharedSnapshot.val();
-            if (osShared) {
-              // Fetch the latest sequence, such as 's1', 's2', etc.
-              const latestSeq = osShared[Object.keys(osShared).sort().pop()];
-
-              // Get the latest timestamp from the sequence
-              const latestTimestamp =
-                latestSeq && latestSeq[Object.keys(latestSeq).sort().pop()];
-              if (latestTimestamp) {
-                osSharedData = {
-                  Department: latestTimestamp.dpt || "-",
-                  Project: latestTimestamp.prj || "-",
-                  PI: latestTimestamp.pip || "-",
-                  SharedFormUpdatedBy: latestTimestamp.os_ub || "-",
-                  SampleIdentifiers: latestTimestamp.lbi || "-",
-                  OutsourceStatus: decodeProcedureType(latestTimestamp.ossts) || "-",
-                  OsTimestamp: latestTimestamp.doe || "-",
-                };
-              }
-              console.log("osSharedData", osSharedData);
-            }
-            console.log("osSharedData", osSharedData);
-            const nonDashCounts = [
-              latestSample?.PlasmaGrid,
-              latestSample?.SerumGrid,
-              latestSample?.BuffyCoatGrid,
-              latestSample?.FTTubeGrids,
-              latestSample?.FNTubeGrids,
-              latestSample?.OtherSample_description,
-            ].filter((field) => field !== "-").length;
-            console.log("nonDashCounts", nonDashCounts)
-
-            for (let i = 0; i < nonDashCounts; i++) {
-              const rowData = {
-                Timestamp: latestSample?.SefTimestamp,
-                BioBankID: bioBankId,
-                Age: latestSample?.Age || "-",
-                Gender: latestSample?.Gender || "-",
-                CancerType: latestSample?.CancerType || "-",
-                ProcedureType: latestSample?.ProcedureType || "-",
-                DetailProcedure: latestSample?.DetailProcedure || "-",
-                SurgeonName: latestSample?.SurgeonName || "-",
-                BloodSample: latestSample?.BloodSample || "-",
-                SpecimenSample: latestSample?.SpecimenSample || "-",
-                OtherSample: latestSample?.OtherSample || "-",
-                PlasmaGrid: latestSample?.PlasmaGrid || "-",
-                SerumGrid: latestSample?.SerumGrid || "-",
-                BuffyCoatGrid: latestSample?.BuffyCoatGrid || "-",
-                OtherSampleGrid: latestSample?.OtherSampleGrid || "-",
-                NumberOfFTTubes: latestSample?.NumberOfFTTubes || "-", // FT Tubes
-                FTTubeGrids: latestSample?.FTTubeGrids || "-", // FT tube grids
-                NumberOfFNTubes: latestSample?.NumberOfFNTubes || "-", // FN Tubes
-                FNTubeGrids: latestSample?.FNTubeGrids || "-", // FN tube grids
-                OtherSample_description: latestSample?.OtherSample_description || "-",
-                IschemicSample: latestSample?.IschemicSample || "-", // Ischemic sample
-                ProcessedBy: latestSample?.ProcessedBy || "-", // Processed By
-                SampleEntryUpdatedBy: latestSample?.SampleEntryUpdatedBy || "-", // Updated By
-                MetastasisSample: latestSample?.MetastasisSample || "-", // Metastasis sample
-                Consent: latestSample?.Consent || "-", // Consent
-                SampleReceivedTime: latestSample?.SampleReceivedTime || "-",
-                SampleProcessedTime: latestSample?.SampleProcessedTime || "-",
-                SpecimenSampleProcessedby: latestSample?.SpecimenSampleProcessedby || "-",
-                BloodReceivedTime: latestSample?.BloodReceivedTime || "-",
-                BloodProcessedTime: latestSample?.BloodProcessedTime || "-",
-                BloodSampleProcessedBy: latestSample?.BloodSampleProcessedBy || "-",
-                SpecimenReceivedTime: latestSample?.SpecimenReceivedTime || "-",
-                SpecimenProcessedTime: latestSample?.SpecimenProcessedTime || "-",
-                OtherSampleProcessedby: latestSample?.OtherSampleProcessedby || "-",
-                OtherSampleReceivedTime: latestSample?.OtherSampleReceivedTime || "-",
-                OtherSampleProcessedTime: latestSample?.OtherSampleProcessedTime || "-",
-
-                FamilyHistoryCancer: latestSample.FamilyHistoryCancer || "-",
-                FamilyRelation: latestSample?.FamilyRelation || "-",
-                FamilyCancerType: latestSample?.FamilyCancerType || "-",
-                FoodHabbits: latestSample?.FoodHabbits || "-",
-                HistoryOfAlcoholConsumption: latestSample?.HistoryOfAlcoholConsumption || "-",
-                HistoryOfSmoking: latestSample?.HistoryOfSmoking || "-",
-                ExistingComorbidities: latestSample?.ExistingComorbidities || "-",
-                ComorbidityDetails: latestSample?.ComorbidityDetails || "-",
-                FF_QC_comments: latestSample?.FF_QC_comments || "-",
-                FF_Tissue_Remarks: latestSample?.FF_Tissue_Remarks || "-",
-                Tumor_Site: latestSample?.Tumor_Site || "-",
-                TumorPercentage: latestSample?.TumorPercentage || "-",
-                AgeAtDiagnosis: latestSample?.AgeAtDiagnosis || "-",
-                ClinicalStage: latestSample?.ClinicalStage || "-",
-                IHC_Marker_status: latestSample?.IHC_Marker_status || "-",
-                IHC_marker_description: latestSample?.IHC_marker_description || "-",
-                Genetic_Testing: latestSample?.Genetic_Testing || "-",
-                Genetic_Testing_Description: latestSample?.Genetic_Testing_Description || "-",
-                Pathologic_Subtype: latestSample?.Pathologic_Subtype || "-",
-                Grade: latestSample?.Grade || "-",
-                Focality: latestSample?.Focality || "-",
-                LVI: latestSample?.LVI || "-",
-                PNI: latestSample?.PNI || "-",
-                pTNM: latestSample?.pTNM || "-",
-                AJCCStaging: latestSample?.AJCCStaging || "-",
-                NumberOfNodesTested: latestSample?.NumberOfNodesTested || "-",
-                NumberOfPositiveNodes: latestSample?.NumberOfPositiveNodes || "-",
-                TumorSize: latestSample?.TumorSize || "-",
-                Denovo_metastasis: latestSample?.Denovo_metastasis || "-",
-                Metastasis_Post_Treatment: latestSample?.Metastasis_Post_Treatment || "-",
-                BiopsyTissueNumber: latestSample?.BiopsyTissueNumber || "-",
-                BiopsyDate: latestSample?.BiopsyDate || "-",
-                NACT: latestSample?.nact || "-",
-                NACT_Drug_Cycles: latestSample?.NACT_Drug_Cycles || "-",
-                NACT_date_of_last_cycle: latestSample?.NACT_date_of_last_cycle || "-",
-                Surgery_Tissue_Number_HPE: latestSample?.Surgery_Tissue_Number_HPE || "-",
-                SurgeryDate: latestSample?.SurgeryDate || "-",
-                RCBScore: latestSample?.RCBScore || "-",
-                ACT: latestSample?.ACT || "-",
-                ACT_Drug_Cycles: latestSample?.ACT_Drug_Cycles || "-",
-                ACT_Date_of_last_Cycle: latestSample?.ACT_Date_of_last_Cycle || "-",
-                Radiotherapy: latestSample?.Radiotherapy || "-",
-                Radiotherapy_details: latestSample?.Radiotherapy_details || "-",
-                RT_date_of_last_cycle: latestSample?.RT_date_of_last_cycle || "-",
-                ParaffinBlockAvailable: latestSample?.ParaffinBlockAvailable || "-",
-                Metadata_updated_by: latestSample?.Metadata_updated_by || "-",
-
-                AgeOfMenarche: latestSample?.AgeOfMenarche || "-",
-                Parity: latestSample?.Parity || "-",
-                NoOfChildren: latestSample?.NoOfChildren || "-",
-                AgeAtFirstChild: latestSample?.AgeAtFirstChild || "-",
-                Breastfed: latestSample?.Breastfed || "-",
-                DurationBreastfeeding: latestSample?.DurationBreastfeeding || "-",
-                MenopausalStatus: latestSample?.MenopausalStatus || "-",
-                ER: latestSample?.ER || "-",
-                PR: latestSample?.PR || "-",
-                HER2: latestSample?.HER2 || "-",
-                Subtype: latestSample?.Subtype || "-",
-                Ki67: latestSample?.Ki67 || "-",
-                ClinicalStage_Brf: latestSample?.ClinicalStage || "-", // To avoid duplicate field name
-                HistologicalType: latestSample?.HistologicalType || "-",
-                sTILsPercentScores: latestSample?.sTILsPercentScores || "-",
-                BR_form_updated_By: latestSample?.BR_form_updated_By || "-",
-
-                LastFollowUpStatus: latestFollowUp?.LastFollowUpStatus || "-",
-                LastFollowUpDate: latestFollowUp?.LastFollowUpDate || "-",
-                VitalStatus: latestFollowUp?.VitalStatus || "-",
-                RecurrenceDate: latestFollowUp?.RecurrenceDate || "-",
-                Remarks: latestFollowUp?.Remarks || "-",
-                LatestFollowUpTimestamp: latestFollowUp?.Timestamp || "-",
-
-                OsTimestamp: osSharedData?.OsTimestamp || "-",
-                Department: osSharedData?.Department || "-",
-                Project: osSharedData?.Project || "-",
-                PI: osSharedData?.PI || "-",
-                SharedFormUpdatedBy: osSharedData?.SharedFormUpdatedBy || "-",
-                SampleIdentifiers: osSharedData?.SampleIdentifiers || "-",
-                OutsourceStatus: osSharedData?.OutsourceStatus || "-",
-              };
-
-              dataToExport.push(rowData);
-            }
-            count++;
-
-
-            console.log("count", count)
-            console.log("patients length", Object.keys(patients).length)
-            if (count === Object.keys(patients).length) {
-              const worksheet = XLSX.utils.json_to_sheet(dataToExport);
-              console.log("worksheet", worksheet)
-              const workbook = XLSX.utils.book_new();
-              XLSX.utils.book_append_sheet(workbook, worksheet, "Biobank_Samples");
-              const excelFileName = `Biobank_Samples_${currentTimestamp}.xlsx`;
-              XLSX.writeFile(workbook, excelFileName);
-            }
-          })
-      });
-    }
-
-
     // function generateExcelData() {
     //   const dataToExport = [];
-    //   const patients = filteredPatientData && Object.keys(filteredPatientData).length ? filteredPatientData : window.patientData;
-    //   const currentTimestamp = Math.floor(Date.now() / 1000); // Current timestamp for the file name
+    //   let count = 0;
 
-    //   Object.keys(patients).forEach(bioBankId => {
+    //   const patients =
+    //     filteredPatientData && Object.keys(filteredPatientData).length ? filteredPatientData : window.patientData;
+    //   const currentTimestamp = Math.floor(Date.now() / 1000);
+
+    //   Object.keys(patients).forEach((bioBankId) => {
     //     const patientSeq = patients[bioBankId];
 
     //     let latestSample = null;
     //     let latestFollowUp = null;
     //     let osSharedData = null;
-
     //     console.log("patientSeq", patientSeq);
 
     //     // Iterate through the sample entry form (Sef) data
     //     if (patientSeq) {
-    //       Object.keys(patientSeq).forEach(seqKey => {
+    //       Object.keys(patientSeq).forEach((seqKey) => {
     //         const sampleData = patientSeq[seqKey];
-    //         Object.keys(sampleData).forEach(timestampKey => {
+    //         Object.keys(sampleData).forEach((timestampKey) => {
     //           const sample = sampleData[timestampKey];
     //           if (!latestSample || timestampKey > latestSample.timestamp) {
+
+    //             const gridData = (gridValue) => {
+    //               return new Promise((resolve) => {
+    //                 const gridVal = gridValue;
+    //                 if (gridVal) {
+    //                   let parts = gridVal.split('/');
+    //                   let boxName = parts[0];
+    //                   db.ref(`bn/`).once('value').then(snapshot => {
+    //                     let boxIDs = snapshot.val();
+    //                     const boxEntry = Object.entries(boxIDs).find(([id, name]) => name === boxName);
+    //                     if (boxEntry) {
+    //                       const [id] = boxEntry;
+    //                       parts[0] = id;
+    //                       const updatedgridNo = parts.join('/');
+    //                       console.log("updatedgridNo", updatedgridNo);
+    //                       resolve(updatedgridNo);
+    //                     }
+    //                     else {
+    //                       resolve(gridVal); // If no match found, resolve with original value
+    //                     }
+    //                   });
+    //                 }
+    //                 else {
+    //                   resolve(null); // If invalid or empty, resolve with null
+    //                 }
+    //               });
+    //             };
+
+    //             const plasmagrid = gridData(sample.ie.bpg);
+    //             // const Serumgrid = gridData('SerumgridNo');
+    //             // const buffyCoatgrid = gridData('bufferCoatgridNo');
+    //             // const ftSgrid = gridData('ftgrid');
+    //             // const fnSgrid = gridData('fngrid');
+
     //             latestSample = {
     //               SefTimestamp: formatTimestamp(timestampKey),
     //               BioBankID: bioBankId,
-    //               Age: sample.ie.ag || '-',
-    //               Gender: decodeProcedureType(sample.ie.sx) || '-',
-    //               CancerType: decodeProcedureType(sample.ie.ct) || '-',
+    //               Age: sample.ie.ag || "-",
+    //               Gender: decodeProcedureType(sample.ie.sx) || "-",
+    //               CancerType: decodeProcedureType(sample.ie.ct) || "-",
     //               ProcedureType: decodeProcedureType(sample.ie.tpr),
-    //               DetailProcedure: sample.ie.dpr || '-',
-    //               SurgeonName: sample.ie.srn || '-',
-    //               BloodSample: decodeProcedureType(sample.ie.bs),
-    //               SpecimenSample: decodeProcedureType(sample.ie.ss) || '-',
-    //               OtherSample: decodeProcedureType(sample.ie.osmp) || '-',
-    //               PlasmaGrid: sample.ie.bpg || '-',
-    //               SerumGrid: sample.ie.bsg || '-',
-    //               BuffyCoatGrid: sample.ie.bbcg || '-',
-    //               FTTubeGrids: sample.ie.ftg || '-',
-    //               FNTubeGrids: sample.ie.fng || '-',
-    //               OtherSample_description: sample.ie.osdsc || '-',
-    //               OtherSampleGrid: sample.ie.osg || '-',
-    //               IschemicSample: decodeProcedureType(sample.ie.iss) || '-',
-    //               ProcessedBy: sample.ie.prb || '-',
-    //               SampleEntryUpdatedBy: sample.ie.fng || '-',
-    //               MetastasisSample: decodeProcedureType(sample.ie.mts) || '-',
-    //               Consent: decodeProcedureType(sample.ie.cnst) || '-',
-    //               SampleReceivedTime: formatTimestamp(sample.ie.srt) || '-',
-    //               SampleProcessedTime: formatTimestamp(sample.ie.spt) || '-',
-    //               BloodReceivedTime: formatTimestamp(sample.ie.brt) || '-',
-    //               BloodProcessedTime: formatTimestamp(sample.ie.bpt) || '-',
-    //               BloodSampleProcessedBy: sample.ie.bsby || '-',
-    //               SpecimenReceivedTime: formatTimestamp(sample.ie.sprt) || '-',
-    //               SpecimenProcessedTime: formatTimestamp(sample.ie.sppt) || '-',
-    //               SpecimenSampleProcessedby: sample.ie.ssby || '-',
-    //               OtherSampleReceivedTime: formatTimestamp(sample.ie.ospt) || '-',
-    //               OtherSampleProcessedTime: formatTimestamp(sample.ie.osrt) || '-',
-    //               OtherSampleProcessedby: sample.ie.osby || '-',
+    //               DetailProcedure: sample.ie.dpr || "-",
+    //               SurgeonName: sample.ie.srn || "-",
+    //               BloodSample: decodeProcedureType(sample.ie.bs) || "-",
+    //               SpecimenSample: decodeProcedureType(sample.ie.ss) || "-",
+    //               OtherSample: decodeProcedureType(sample.ie.osmp) || "-",
+    //               PlasmaGrid: plasmagrid || "-",
+    //               SerumGrid: sample.ie.bsg || "-",
+    //               BuffyCoatGrid: sample.ie.bbcg || "-",
+    //               FTTubeGrids: sample.ie.ftg || "-",
+    //               FNTubeGrids: sample.ie.fng || "-",
+    //               OtherSample_description: sample.ie.osdsc || "-",
+    //               OtherSampleGrid: sample.ie.osg || "-",
+    //               IschemicSample: decodeProcedureType(sample.ie.iss) || "-",
+    //               ProcessedBy: sample.ie.prb || "-",
+    //               SampleEntryUpdatedBy: sample.ie.fng || "-",
+    //               MetastasisSample: decodeProcedureType(sample.ie.mts) || "-",
+    //               Consent: decodeProcedureType(sample.ie.cnst) || "-",
+    //               SampleReceivedTime: formatTimestamp(sample.ie.srt) || "-",
+    //               SampleProcessedTime: formatTimestamp(sample.ie.spt) || "-",
+    //               BloodReceivedTime: formatTimestamp(sample.ie.brt) || "-",
+    //               BloodProcessedTime: formatTimestamp(sample.ie.bpt) || "-",
+    //               BloodSampleProcessedBy: sample.ie.bsby || "-",
+    //               SpecimenReceivedTime: formatTimestamp(sample.ie.sprt) || "-",
+    //               SpecimenProcessedTime: formatTimestamp(sample.ie.sppt) || "-",
+    //               SpecimenSampleProcessedby: sample.ie.ssby || "-",
+    //               OtherSampleReceivedTime: formatTimestamp(sample.ie.ospt) || "-",
+    //               OtherSampleProcessedTime: formatTimestamp(sample.ie.osrt) || "-",
+    //               OtherSampleProcessedby: sample.ie.osby || "-",
 
-    //               FamilyHistoryCancer: decodeProcedureType(sample.md.fhc) || '-',
-    //               FamilyRelation: sample.md.fhcr || '-',
-    //               FamilyCancerType: sample.md.fhct || '-',
-    //               FoodHabbits: decodeProcedureType(sample.md.fh) || '-',
-    //               HistoryOfAlcoholConsumption: decodeProcedureType(sample.md.hac) || '-',
-    //               HistoryOfSmoking: decodeProcedureType(sample.md.hs) || '-',
-    //               ExistingComorbidities: decodeProcedureType(sample.md.ec) || '-',
-    //               ComorbidityandCorrespondingMedicationsforComorbidity: sample.md.ecm || '-',
-    //               FF_QC_comments: sample.md.ffqc || '-',
-    //               FF_Tissue_Remarks: sample.md.ftr || '-',
-    //               Tumor_Site: sample.md.tst || '-',
-    //               TumorPercentage: sample.md.tp || '-',
-    //               AgeAtDiagnosis: sample.md.ad || '-',
-    //               ClinicalStage: sample.md.cs || '-',
-    //               IHC_Marker_status: decodeProcedureType(sample.md.ihcm) || '-',
-    //               IHC_marker_description: sample.md.ihcd || '-',
-    //               Genetic_Testing: decodeProcedureType(sample.md.gt) || '-',
-    //               Genetic_Testing_Description: sample.md.gtd || '-',
-    //               Pathologic_Subtype: decodeProcedureType(sample.md.pst) || '-',
-    //               Grade: sample.md.gd || '-',
-    //               Focality: (sample.md.fc === "Y" ? "Unifocal" : sample.md.fc === "N" ? "Multifocal" : '-'),
-    //               LVI: decodeProcedureType(sample.md.lvi) || '-',
-    //               PNI: decodeProcedureType(sample.md.pni) || '-',
-    //               pTNM: sample.md.ptnm || '-',
-    //               AJCCStaging: sample.md.as || '-',
-    //               NumberOfNodesTested: sample.md.nnt || '-',
-    //               NumberOfPositiveNodes: sample.md.npn || '-',
-    //               TumorSize: sample.md.tsz || '-',
-    //               Denovo_metastasis: decodeProcedureType(sample.md.dm) || '-',
-    //               Metastasis_Post_Treatment: decodeProcedureType(sample.md.mpt) || '-',
-    //               BiopsyTissueNumber: sample.md.btn || '-',
-    //               BiopsyDate: sample.md.bd || '-',
-    //               nact: decodeProcedureType(sample.md.nact) || '-',
-    //               NACT_Drug_Cycles: sample.md.nactdc || '-',
-    //               NACT_date_of_last_cycle: sample.md.nactdlc || '-',
-    //               Surgery_Tissue_Number_HPE: sample.md.stn || '-',
-    //               SurgeryDate: sample.md.sd || '-',
-    //               RCBScore: sample.md.rcbs || '-',
-    //               ACT: decodeProcedureType(sample.md.act) || '-',
-    //               ACT_Drug_Cycles: sample.md.actdc || '-',
-    //               ACT_Date_of_last_Cycle: sample.md.actdls || '-',
-    //               Radiotherapy: decodeProcedureType(sample.md.rd) || '-',
-    //               Radiotherapy_details: sample.md.rdd || '-',
-    //               RT_date_of_last_cycle: sample.md.rtdls || '-',
-    //               ParaffinBlockAvailable: decodeProcedureType(sample.md.ipba) || '-',
-    //               Metadata_updated_by: sample.md.mdu || '-',
+    //               FamilyHistoryCancer: decodeProcedureType(sample.md.fhc),
+    //               FamilyRelation: sample.md.fhcr || "-",
+    //               FamilyCancerType: sample.md.fhct || "-",
+    //               FoodHabbits: decodeProcedureType(sample.md.fh) || "-",
+    //               HistoryOfAlcoholConsumption: decodeProcedureType(sample.md.hac) || "-",
+    //               HistoryOfSmoking: decodeProcedureType(sample.md.hs) || "-",
+    //               ExistingComorbidities: decodeProcedureType(sample.md.ec) || "-",
+    //               ComorbidityandCorrespondingMedicationsforComorbidity: sample.md.ecm || "-",
+    //               FF_QC_comments: sample.md.ffqc || "-",
+    //               FF_Tissue_Remarks: sample.md.ftr || "-",
+    //               Tumor_Site: sample.md.tst || "-",
+    //               TumorPercentage: sample.md.tp || "-",
+    //               AgeAtDiagnosis: sample.md.ad || "-",
+    //               ClinicalStage: sample.md.cs || "-",
+    //               IHC_Marker_status: decodeProcedureType(sample.md.ihcm) || "-",
+    //               IHC_marker_description: sample.md.ihcd || "-",
+    //               Genetic_Testing: decodeProcedureType(sample.md.gt) || "-",
+    //               Genetic_Testing_Description: sample.md.gtd || "-",
+    //               Pathologic_Subtype: decodeProcedureType(sample.md.pst) || "-",
+    //               Grade: sample.md.gd || "-",
+    //               Focality: sample.md.fc === "Y" ? "Unifocal" : sample.md.fc === "N" ? "Multifocal" : "-",
+    //               LVI: decodeProcedureType(sample.md.lvi) || "-",
+    //               PNI: decodeProcedureType(sample.md.pni) || "-",
+    //               pTNM: sample.md.ptnm || "-",
+    //               AJCCStaging: sample.md.as || "-",
+    //               NumberOfNodesTested: sample.md.nnt || "-",
+    //               NumberOfPositiveNodes: sample.md.npn || "-",
+    //               TumorSize: sample.md.tsz || "-",
+    //               Denovo_metastasis: decodeProcedureType(sample.md.dm) || "-",
+    //               Metastasis_Post_Treatment: decodeProcedureType(sample.md.mpt) || "-",
+    //               BiopsyTissueNumber: sample.md.btn || "-",
+    //               BiopsyDate: sample.md.bd || "-",
+    //               nact: decodeProcedureType(sample.md.nact) || "-",
+    //               NACT_Drug_Cycles: sample.md.nactdc || "-",
+    //               NACT_date_of_last_cycle: sample.md.nactdlc || "-",
+    //               Surgery_Tissue_Number_HPE: sample.md.stn || "-",
+    //               SurgeryDate: sample.md.sd || "-",
+    //               RCBScore: sample.md.rcbs || "-",
+    //               ACT: decodeProcedureType(sample.md.act) || "-",
+    //               ACT_Drug_Cycles: sample.md.actdc || "-",
+    //               ACT_Date_of_last_Cycle: sample.md.actdls || "-",
+    //               Radiotherapy: decodeProcedureType(sample.md.rd) || "-",
+    //               Radiotherapy_details: sample.md.rdd || "-",
+    //               RT_date_of_last_cycle: sample.md.rtdls || "-",
+    //               ParaffinBlockAvailable: decodeProcedureType(sample.md.ipba) || "-",
+    //               Metadata_updated_by: sample.md.mdu || "-",
 
-    //               AgeOfMenarche: sample.brf.am || '-',
-    //               Parity: sample.brf.pty || '-',
-    //               NoOfChildren: sample.brf.noc || '-',
-    //               AgeAtFirstChild: sample.brf.afc || '-',
-    //               Breastfed: decodeProcedureType(sample.brf.bf) || '-',
-    //               DurationBreastfeeding: sample.brf.dbf || '-',
-    //               MenopausalStatus: sample.brf.ms || '-',
-    //               ER: decodeProcedureType(sample.brf.er) || '-',
-    //               PR: decodeProcedureType(sample.brf.pr) || '-',
-    //               HER2: decodeProcedureType(sample.brf.h2) || '-',
-    //               Subtype: sample.brf.sbt || '-',
-    //               Ki67: sample.brf.k67 || '-',
-    //               ClinicalStage_Brf: sample.brf.cs || '-',
-    //               HistologicalType: sample.brf.ht || '-',
-    //               sTILsPercentScores: sample.brf.sps || '-',
-    //               BR_form_updated_By: sample.brf.brfu || '-'
+    //               AgeOfMenarche: sample.brf.am || "-",
+    //               Parity: sample.brf.pty || "-",
+    //               NoOfChildren: sample.brf.noc || "-",
+    //               AgeAtFirstChild: sample.brf.afc || "-",
+    //               Breastfed: decodeProcedureType(sample.brf.bf) || "-",
+    //               DurationBreastfeeding: sample.brf.dbf || "-",
+    //               MenopausalStatus: sample.brf.ms || "-",
+    //               ER: decodeProcedureType(sample.brf.er) || "-",
+    //               PR: decodeProcedureType(sample.brf.pr) || "-",
+    //               HER2: decodeProcedureType(sample.brf.h2) || "-",
+    //               Subtype: sample.brf.sbt || "-",
+    //               Ki67: sample.brf.k67 || "-",
+    //               ClinicalStage_Brf: sample.brf.cs || "-",
+    //               HistologicalType: sample.brf.ht || "-",
+    //               sTILsPercentScores: sample.brf.sps || "-",
+    //               BR_form_updated_By: sample.brf.brfu || "-",
     //             };
     //           }
+    //           console.log("latestSample.FamilyHistoryCancer", decodeProcedureType(sample.md.fhc), " bioBankId", bioBankId);
+
     //         });
     //       });
+    //       console.log("latestSample of ie", latestSample.FamilyHistoryCancer)
+
     //     }
 
+
     //     // Fetch follow-up data from the Firebase reference `Fw/{bioBankId}`
-    //     db.ref(`Fw/${bioBankId}`).once('value')
-    //       .then(snapshot => {
+    //     db.ref(`Fw/${bioBankId}`)
+    //       .once("value")
+    //       .then((snapshot) => {
     //         const followUpData = snapshot.val();
-    //         console.log('followUpData', followUpData);
+    //         console.log("followUpData", followUpData);
 
     //         if (followUpData) {
-    //           Object.keys(followUpData).forEach(timestampKey => {
+    //           Object.keys(followUpData).forEach((timestampKey) => {
     //             const followUp = followUpData[timestampKey];
-    //             if (!latestFollowUp || timestampKey > latestFollowUp.timestamp) {
+    //             if (
+    //               !latestFollowUp ||
+    //               timestampKey > latestFollowUp.timestamp
+    //             ) {
     //               latestFollowUp = {
     //                 BioBankID: bioBankId,
-    //                 LastFollowUpStatus: followUp.lfs || '-',
-    //                 LastFollowUpDate: followUp.lfd || '-',
-    //                 VitalStatus: followUp.vs || '-',
-    //                 RecurrenceDate: followUp.rd || '-',
-    //                 Remarks: followUp.rmks || '-',
-    //                 Timestamp: formatTimestamp(timestampKey / 1000)
+    //                 LastFollowUpStatus: followUp.lfs || "-",
+    //                 LastFollowUpDate: followUp.lfd || "-",
+    //                 VitalStatus: followUp.vs || "-",
+    //                 RecurrenceDate: followUp.rd || "-",
+    //                 Remarks: followUp.rmks || "-",
+    //                 Timestamp: formatTimestamp(timestampKey / 1000),
     //               };
     //             }
     //           });
     //         } else {
     //           latestFollowUp = {
     //             BioBankID: bioBankId,
-    //             LastFollowUpStatus: '-',
-    //             LastFollowUpDate: '-',
-    //             VitalStatus: '-',
-    //             RecurrenceDate: '-',
-    //             Remarks: '-',
-    //             Timestamp: '-'
+    //             LastFollowUpStatus: "-",
+    //             LastFollowUpDate: "-",
+    //             VitalStatus: "-",
+    //             RecurrenceDate: "-",
+    //             Remarks: "-",
+    //             Timestamp: "-",
     //           };
     //         }
 
     //         // Fetch `Os (Shared)` data from the Firebase reference `Os (Shared)/{bioBankId}`
-    //         return db.ref(`Os/${bioBankId}`).once('value');
+    //         return db.ref(`Os/${bioBankId}`).once("value");
     //       })
-    //       .then(osSharedSnapshot => {
+    //       .then((osSharedSnapshot) => {
     //         const osShared = osSharedSnapshot.val();
     //         if (osShared) {
     //           // Fetch the latest sequence, such as 's1', 's2', etc.
     //           const latestSeq = osShared[Object.keys(osShared).sort().pop()];
 
     //           // Get the latest timestamp from the sequence
-    //           const latestTimestamp = latestSeq && latestSeq[Object.keys(latestSeq).sort().pop()];
+    //           const latestTimestamp =
+    //             latestSeq && latestSeq[Object.keys(latestSeq).sort().pop()];
     //           if (latestTimestamp) {
     //             osSharedData = {
-    //               Department: latestTimestamp.dpt || '-',
-    //               Project: latestTimestamp.prj || '-',
-    //               PI: latestTimestamp.pip || '-',
-    //               SharedFormUpdatedBy: latestTimestamp.os_ub || '-',
-    //               SampleIdentifiers: latestTimestamp.lbi || '-',
-    //               OutsourceStatus: decodeProcedureType(latestTimestamp.ossts) || '-',
-    //               OsTimestamp: latestTimestamp.doe || '-'
+    //               Department: latestTimestamp.dpt || "-",
+    //               Project: latestTimestamp.prj || "-",
+    //               PI: latestTimestamp.pip || "-",
+    //               SharedFormUpdatedBy: latestTimestamp.os_ub || "-",
+    //               SampleIdentifiers: latestTimestamp.lbi || "-",
+    //               OutsourceStatus: decodeProcedureType(latestTimestamp.ossts) || "-",
+    //               OsTimestamp: latestTimestamp.doe || "-",
     //             };
     //           }
-    //           console.log("osSharedData", osShared)
-
+    //           console.log("osSharedData", osSharedData);
     //         }
-    //         console.log("osSharedData", osSharedData)
+    //         console.log("osSharedData", osSharedData);
     //         const nonDashCounts = [
     //           latestSample?.PlasmaGrid,
     //           latestSample?.SerumGrid,
@@ -2663,1182 +2397,143 @@
     //           latestSample?.FNTubeGrids,
     //           latestSample?.OtherSample_description,
     //         ].filter((field) => field !== "-").length;
-    //         console.log("nonDashCounts", nonDashCounts);
+    //         console.log("nonDashCounts", nonDashCounts)
 
-
-    //         const rowData = {
-    //           // Sample and Follow-up data...
-    //           Timestamp: latestSample?.SefTimestamp,
-    //           BioBankID: bioBankId,
-    //           Age: latestSample?.Age || '-',
-    //           Gender: latestSample?.Gender || '-',
-    //           CancerType: latestSample?.CancerType || '-',
-    //           ProcedureType: latestSample?.ProcedureType || '-',
-    //           DetailProcedure: latestSample?.DetailProcedure || '-',
-    //           SurgeonName: latestSample?.SurgeonName || '-',
-    //           BloodSample: latestSample?.BloodSample || '-',
-    //           SpecimenSample: latestSample?.SpecimenSample || '-',
-    //           OtherSample: latestSample?.OtherSample || '-',
-    //           PlasmaGrid: latestSample?.PlasmaGrid || '-',
-    //           SerumGrid: latestSample?.SerumGrid || '-',
-    //           BuffyCoatGrid: latestSample?.BuffyCoatGrid || '-',
-    //           OtherSampleGrid: latestSample?.OtherSampleGrid || '-',
-    //           NumberOfFTTubes: latestSample?.NumberOfFTTubes || '-', // FT Tubes
-    //           FTTubeGrids: latestSample?.FTTubeGrids || '-',         // FT tube grids
-    //           NumberOfFNTubes: latestSample?.NumberOfFNTubes || '-', // FN Tubes
-    //           FNTubeGrids: latestSample?.FNTubeGrids || '-',         // FN tube grids
-    //           OtherSample_description: latestSample?.OtherSample_description || '-',
-    //           IschemicSample: latestSample?.IschemicSample || '-',   // Ischemic sample
-    //           ProcessedBy: latestSample?.ProcessedBy || '-',         // Processed By
-    //           SampleEntryUpdatedBy: latestSample?.SampleEntryUpdatedBy || '-',  // Updated By
-    //           MetastasisSample: latestSample?.MetastasisSample || '-',    // Metastasis sample
-    //           Consent: latestSample?.Consent || '-',            // Consent
-    //           SampleReceivedTime: latestSample?.SampleReceivedTime || '-',
-    //           SampleProcessedTime: latestSample?.SampleProcessedTime || '-',
-    //           SpecimenSampleProcessedby: latestSample?.SpecimenSampleProcessedby || '-',
-    //           BloodReceivedTime: latestSample?.BloodReceivedTime || '-',
-    //           BloodProcessedTime: latestSample?.BloodProcessedTime || '-',
-    //           BloodSampleProcessedBy: latestSample?.BloodSampleProcessedBy || '-',
-    //           SpecimenReceivedTime: latestSample?.SpecimenReceivedTime || '-',
-    //           SpecimenProcessedTime: latestSample?.SpecimenProcessedTime || '-',
-    //           OtherSampleProcessedby: latestSample?.OtherSampleProcessedby || '-',
-    //           OtherSampleReceivedTime: latestSample?.OtherSampleReceivedTime || '-',
-    //           OtherSampleProcessedTime: latestSample?.OtherSampleProcessedTime || '-',
-
-
-
-    //           FamilyHistoryCancer: latestSample?.FamilyHistoryCancer || '-',
-    //           FamilyRelation: latestSample?.FamilyRelation || '-',
-    //           FamilyCancerType: latestSample?.FamilyCancerType || '-',
-    //           FoodHabbits: latestSample?.FoodHabbits || '-',
-    //           HistoryOfAlcoholConsumption: latestSample?.HistoryOfAlcoholConsumption || '-',
-    //           HistoryOfSmoking: latestSample?.HistoryOfSmoking || '-',
-    //           ExistingComorbidities: latestSample?.ExistingComorbidities || '-',
-    //           ComorbidityDetails: latestSample?.ComorbidityDetails || '-',
-    //           FF_QC_comments: latestSample?.FF_QC_comments || '-',
-    //           FF_Tissue_Remarks: latestSample?.FF_Tissue_Remarks || '-',
-    //           Tumor_Site: latestSample?.Tumor_Site || '-',
-    //           TumorPercentage: latestSample?.TumorPercentage || '-',
-    //           AgeAtDiagnosis: latestSample?.AgeAtDiagnosis || '-',
-    //           ClinicalStage: latestSample?.ClinicalStage || '-',
-    //           IHC_Marker_status: latestSample?.IHC_Marker_status || '-',
-    //           IHC_marker_description: latestSample?.IHC_marker_description || '-',
-    //           Genetic_Testing: latestSample?.Genetic_Testing || '-',
-    //           Genetic_Testing_Description: latestSample?.Genetic_Testing_Description || '-',
-    //           Pathologic_Subtype: latestSample?.Pathologic_Subtype || '-',
-    //           Grade: latestSample?.Grade || '-',
-    //           Focality: latestSample?.Focality || '-',
-    //           LVI: latestSample?.LVI || '-',
-    //           PNI: latestSample?.PNI || '-',
-    //           pTNM: latestSample?.pTNM || '-',
-    //           AJCCStaging: latestSample?.AJCCStaging || '-',
-    //           NumberOfNodesTested: latestSample?.NumberOfNodesTested || '-',
-    //           NumberOfPositiveNodes: latestSample?.NumberOfPositiveNodes || '-',
-    //           TumorSize: latestSample?.TumorSize || '-',
-    //           Denovo_metastasis: latestSample?.Denovo_metastasis || '-',
-    //           Metastasis_Post_Treatment: latestSample?.Metastasis_Post_Treatment || '-',
-    //           BiopsyTissueNumber: latestSample?.BiopsyTissueNumber || '-',
-    //           BiopsyDate: latestSample?.BiopsyDate || '-',
-    //           NACT: latestSample?.nact || '-',
-    //           NACT_Drug_Cycles: latestSample?.NACT_Drug_Cycles || '-',
-    //           NACT_date_of_last_cycle: latestSample?.NACT_date_of_last_cycle || '-',
-    //           Surgery_Tissue_Number_HPE: latestSample?.Surgery_Tissue_Number_HPE || '-',
-    //           SurgeryDate: latestSample?.SurgeryDate || '-',
-    //           RCBScore: latestSample?.RCBScore || '-',
-    //           ACT: latestSample?.ACT || '-',
-    //           ACT_Drug_Cycles: latestSample?.ACT_Drug_Cycles || '-',
-    //           ACT_Date_of_last_Cycle: latestSample?.ACT_Date_of_last_Cycle || '-',
-    //           Radiotherapy: latestSample?.Radiotherapy || '-',
-    //           Radiotherapy_details: latestSample?.Radiotherapy_details || '-',
-    //           RT_date_of_last_cycle: latestSample?.RT_date_of_last_cycle || '-',
-    //           ParaffinBlockAvailable: latestSample?.ParaffinBlockAvailable || '-',
-    //           Metadata_updated_by: latestSample?.Metadata_updated_by || '-',
-
-
-    //           AgeOfMenarche: latestSample?.AgeOfMenarche || '-',
-    //           Parity: latestSample?.Parity || '-',
-    //           NoOfChildren: latestSample?.NoOfChildren || '-',
-    //           AgeAtFirstChild: latestSample?.AgeAtFirstChild || '-',
-    //           Breastfed: latestSample?.Breastfed || '-',
-    //           DurationBreastfeeding: latestSample?.DurationBreastfeeding || '-',
-    //           MenopausalStatus: latestSample?.MenopausalStatus || '-',
-    //           ER: latestSample?.ER || '-',
-    //           PR: latestSample?.PR || '-',
-    //           HER2: latestSample?.HER2 || '-',
-    //           Subtype: latestSample?.Subtype || '-',
-    //           Ki67: latestSample?.Ki67 || '-',
-    //           ClinicalStage_Brf: latestSample?.ClinicalStage || '-',  // To avoid duplicate field name
-    //           HistologicalType: latestSample?.HistologicalType || '-',
-    //           sTILsPercentScores: latestSample?.sTILsPercentScores || '-',
-    //           BR_form_updated_By: latestSample?.BR_form_updated_By || '-',
-
-    //           // Other sample fields...
-    //           LastFollowUpStatus: latestFollowUp?.LastFollowUpStatus || '-',
-    //           LastFollowUpDate: latestFollowUp?.LastFollowUpDate || '-',
-    //           VitalStatus: latestFollowUp?.VitalStatus || '-',
-    //           RecurrenceDate: latestFollowUp?.RecurrenceDate || '-',
-    //           Remarks: latestFollowUp?.Remarks || '-',
-    //           // LatestSampleTimestamp: latestSample?.Timestamp || '-',
-    //           LatestFollowUpTimestamp: latestFollowUp?.Timestamp || '-',
-
-    //           // Os (Shared) data
-    //           OsTimestamp: osSharedData?.OsTimestamp || '-',
-    //           Department: osSharedData?.Department || '-',
-    //           Project: osSharedData?.Project || '-',
-    //           PI: osSharedData?.PI || '-',
-    //           SharedFormUpdatedBy: osSharedData?.SharedFormUpdatedBy || '-',
-    //           SampleIdentifiers: osSharedData?.SampleIdentifiers || '-',
-    //           OutsourceStatus: osSharedData?.OutsourceStatus || '-'
-    //         };
-
-    //         dataToExport.push(rowData);
-
-    //         if (dataToExport.length === Object.keys(patients).length) {
-    //           const worksheet = XLSX.utils.json_to_sheet(dataToExport);
-    //           const workbook = XLSX.utils.book_new();
-    //           XLSX.utils.book_append_sheet(workbook, worksheet, "Biobank_Samples");
-
-    //           const excelFileName = `Biobank_Samples_${currentTimestamp}.xlsx`;
-    //           XLSX.writeFile(workbook, excelFileName);
-    //         }
-    //       })
-    //       .catch(error => {
-    //         console.error("Error fetching data for BioBankID:", bioBankId, error);
-    //       });
-    //   });
-    // }
-
-    //     function generateExcelData() {
-    //   const dataToExport = [];
-    //   const patients = filteredPatientData && Object.keys(filteredPatientData).length ? filteredPatientData : window.patientData;
-    //   const currentTimestamp = Math.floor(Date.now() / 1000);
-
-    //   Object.keys(patients).forEach(bioBankId => {
-    //     const patientSeq = patients[bioBankId];
-
-    //     let latestSample = null;
-    //     let latestFollowUp = null;
-    //     let osSharedData = null;
-
-    //     console.log("patientSeq", patientSeq);
-
-    //     // Iterate through the sample entry form (Sef) data
-    //     if (patientSeq) {
-    //       Object.keys(patientSeq).forEach(seqKey => {
-    //         const sampleData = patientSeq[seqKey];
-    //         Object.keys(sampleData).forEach(timestampKey => {
-    //           const sample = sampleData[timestampKey];
-    //           if (!latestSample || timestampKey > latestSample.timestamp) {
-    //             latestSample = {
-    //               SefTimestamp: formatTimestamp(timestampKey),
-    //               BioBankID: bioBankId,
-    //               Age: sample.ie.ag || '-',
-    //               Gender: decodeProcedureType(sample.ie.sx) || '-',
-    //               CancerType: decodeProcedureType(sample.ie.ct) || '-',
-    //               ProcedureType: decodeProcedureType(sample.ie.tpr),
-    //               DetailProcedure: sample.ie.dpr || '-',
-    //               SurgeonName: sample.ie.srn || '-',
-    //               BloodSample: decodeProcedureType(sample.ie.bs),
-    //               SpecimenSample: decodeProcedureType(sample.ie.ss) || '-',
-    //               OtherSample: decodeProcedureType(sample.ie.osmp) || '-',
-    //               PlasmaGrid: sample.ie.bpg || '-',
-    //               SerumGrid: sample.ie.bsg || '-',
-    //               BuffyCoatGrid: sample.ie.bbcg || '-',
-    //               FTTubeGrids: sample.ie.ftg || '-',
-    //               FNTubeGrids: sample.ie.fng || '-',
-    //               OtherSample_description: sample.ie.osdsc || '-',
-    //               OtherSampleGrid: sample.ie.osg || '-',
-    //               IschemicSample: decodeProcedureType(sample.ie.iss) || '-',
-    //               ProcessedBy: sample.ie.prb || '-',
-    //               SampleEntryUpdatedBy: sample.ie.fng || '-',
-    //               MetastasisSample: decodeProcedureType(sample.ie.mts) || '-',
-    //               Consent: decodeProcedureType(sample.ie.cnst) || '-',
-    //               SampleReceivedTime: formatTimestamp(sample.ie.srt) || '-',
-    //               SampleProcessedTime: formatTimestamp(sample.ie.spt) || '-',
-    //               BloodReceivedTime: formatTimestamp(sample.ie.brt) || '-',
-    //               BloodProcessedTime: formatTimestamp(sample.ie.bpt) || '-',
-    //               BloodSampleProcessedBy: sample.ie.bsby || '-',
-    //               SpecimenReceivedTime: formatTimestamp(sample.ie.sprt) || '-',
-    //               SpecimenProcessedTime: formatTimestamp(sample.ie.sppt) || '-',
-    //               SpecimenSampleProcessedby: sample.ie.ssby || '-',
-    //               OtherSampleReceivedTime: formatTimestamp(sample.ie.ospt) || '-',
-    //               OtherSampleProcessedTime: formatTimestamp(sample.ie.osrt) || '-',
-    //               OtherSampleProcessedby: sample.ie.osby || '-',
-
-    //               FamilyHistoryCancer: decodeProcedureType(sample.md.fhc) || '-',
-    //               FamilyRelation: sample.md.fhcr || '-',
-    //               FamilyCancerType: sample.md.fhct || '-',
-    //               FoodHabbits: decodeProcedureType(sample.md.fh) || '-',
-    //               HistoryOfAlcoholConsumption: decodeProcedureType(sample.md.hac) || '-',
-    //               HistoryOfSmoking: decodeProcedureType(sample.md.hs) || '-',
-    //               ExistingComorbidities: decodeProcedureType(sample.md.ec) || '-',
-    //               ComorbidityandCorrespondingMedicationsforComorbidity: sample.md.ecm || '-',
-    //               FF_QC_comments: sample.md.ffqc || '-',
-    //               FF_Tissue_Remarks: sample.md.ftr || '-',
-    //               Tumor_Site: sample.md.tst || '-',
-    //               TumorPercentage: sample.md.tp || '-',
-    //               AgeAtDiagnosis: sample.md.ad || '-',
-    //               ClinicalStage: sample.md.cs || '-',
-    //               IHC_Marker_status: decodeProcedureType(sample.md.ihcm) || '-',
-    //               IHC_marker_description: sample.md.ihcd || '-',
-    //               Genetic_Testing: decodeProcedureType(sample.md.gt) || '-',
-    //               Genetic_Testing_Description: sample.md.gtd || '-',
-    //               Pathologic_Subtype: decodeProcedureType(sample.md.pst) || '-',
-    //               Grade: sample.md.gd || '-',
-    //               Focality: (sample.md.fc === "Y" ? "Unifocal" : sample.md.fc === "N" ? "Multifocal" : '-'),
-    //               LVI: decodeProcedureType(sample.md.lvi) || '-',
-    //               PNI: decodeProcedureType(sample.md.pni) || '-',
-    //               pTNM: sample.md.ptnm || '-',
-    //               AJCCStaging: sample.md.as || '-',
-    //               NumberOfNodesTested: sample.md.nnt || '-',
-    //               NumberOfPositiveNodes: sample.md.npn || '-',
-    //               TumorSize: sample.md.tsz || '-',
-    //               Denovo_metastasis: decodeProcedureType(sample.md.dm) || '-',
-    //               Metastasis_Post_Treatment: decodeProcedureType(sample.md.mpt) || '-',
-    //               BiopsyTissueNumber: sample.md.btn || '-',
-    //               BiopsyDate: sample.md.bd || '-',
-    //               nact: decodeProcedureType(sample.md.nact) || '-',
-    //               NACT_Drug_Cycles: sample.md.nactdc || '-',
-    //               NACT_date_of_last_cycle: sample.md.nactdlc || '-',
-    //               Surgery_Tissue_Number_HPE: sample.md.stn || '-',
-    //               SurgeryDate: sample.md.sd || '-',
-    //               RCBScore: sample.md.rcbs || '-',
-    //               ACT: decodeProcedureType(sample.md.act) || '-',
-    //               ACT_Drug_Cycles: sample.md.actdc || '-',
-    //               ACT_Date_of_last_Cycle: sample.md.actdls || '-',
-    //               Radiotherapy: decodeProcedureType(sample.md.rd) || '-',
-    //               Radiotherapy_details: sample.md.rdd || '-',
-    //               RT_date_of_last_cycle: sample.md.rtdls || '-',
-    //               ParaffinBlockAvailable: decodeProcedureType(sample.md.ipba) || '-',
-    //               Metadata_updated_by: sample.md.mdu || '-',
-
-    //               AgeOfMenarche: sample.brf.am || '-',
-    //               Parity: sample.brf.pty || '-',
-    //               NoOfChildren: sample.brf.noc || '-',
-    //               AgeAtFirstChild: sample.brf.afc || '-',
-    //               Breastfed: decodeProcedureType(sample.brf.bf) || '-',
-    //               DurationBreastfeeding: sample.brf.dbf || '-',
-    //               MenopausalStatus: sample.brf.ms || '-',
-    //               ER: decodeProcedureType(sample.brf.er) || '-',
-    //               PR: decodeProcedureType(sample.brf.pr) || '-',
-    //               HER2: decodeProcedureType(sample.brf.h2) || '-',
-    //               Subtype: sample.brf.sbt || '-',
-    //               Ki67: sample.brf.k67 || '-',
-    //               ClinicalStage_Brf: sample.brf.cs || '-',
-    //               HistologicalType: sample.brf.ht || '-',
-    //               sTILsPercentScores: sample.brf.sps || '-',
-    //               BR_form_updated_By: sample.brf.brfu || '-'
-    //             };
-    //           }
-    //         });
-    //       });
-    //     }
-
-    //     // Fetch follow-up data from the Firebase reference `Fw/{bioBankId}`
-    //     db.ref(`Fw/${bioBankId}`).once('value')
-    //       .then(snapshot => {
-    //         const followUpData = snapshot.val();
-    //         console.log('followUpData', followUpData);
-
-    //         if (followUpData) {
-    //           Object.keys(followUpData).forEach(timestampKey => {
-    //             const followUp = followUpData[timestampKey];
-    //             if (!latestFollowUp || timestampKey > latestFollowUp.timestamp) {
-    //               latestFollowUp = {
-    //                 BioBankID: bioBankId,
-    //                 LastFollowUpStatus: followUp.lfs || '-',
-    //                 LastFollowUpDate: followUp.lfd || '-',
-    //                 VitalStatus: followUp.vs || '-',
-    //                 RecurrenceDate: followUp.rd || '-',
-    //                 Remarks: followUp.rmks || '-',
-    //                 Timestamp: formatTimestamp(timestampKey / 1000)
-    //               };
-    //             }
-    //           });
-    //         } else {
-    //           latestFollowUp = {
-    //             BioBankID: bioBankId,
-    //             LastFollowUpStatus: '-',
-    //             LastFollowUpDate: '-',
-    //             VitalStatus: '-',
-    //             RecurrenceDate: '-',
-    //             Remarks: '-',
-    //             Timestamp: '-'
-    //           };
-    //         }
-
-    //         // Fetch `Os (Shared)` data from the Firebase reference `Os (Shared)/{bioBankId}`
-    //         return db.ref(`Os/${bioBankId}`).once('value');
-    //       })
-    //       .then(osSharedSnapshot => {
-    //         const osShared = osSharedSnapshot.val();
-    //         if (osShared) {
-    //           const latestSeq = osShared[Object.keys(osShared).sort().pop()];
-    //           const latestTimestamp = latestSeq && latestSeq[Object.keys(latestSeq).sort().pop()];
-    //           if (latestTimestamp) {
-    //             osSharedData = {
-    //               Department: latestTimestamp.dpt || '-',
-    //               Project: latestTimestamp.prj || '-',
-    //               PI: latestTimestamp.pip || '-',
-    //               SharedFormUpdatedBy: latestTimestamp.os_ub || '-',
-    //               SampleIdentifiers: latestTimestamp.lbi || '-',
-    //               OutsourceStatus: decodeProcedureType(latestTimestamp.ossts) || '-',
-    //               OsTimestamp: latestTimestamp.doe || '-'
-    //             };
-    //           }
-    //         }
-
-    //         // Count the non-dash fields in the required fields
-    //         // const nonDashCounts = [
-    //         //   latestSample?.PlasmaGrid,
-    //         //   latestSample?.SerumGrid,
-    //         //   latestSample?.BuffyCoatGrid,
-    //         //   latestSample?.FTTubeGrids,
-    //         //   latestSample?.FNTubeGrids,
-    //         //   latestSample?.OtherSample_description
-    //         // ].filter(field => field !== "-").length;
-
-    //         // Duplicate the row based on non-dash values count
-    //         // for (let i = 0; i < nonDashCounts; i++) {
+    //         for (let i = 0; i < nonDashCounts; i++) {
     //           const rowData = {
     //             Timestamp: latestSample?.SefTimestamp,
     //             BioBankID: bioBankId,
-    //             Age: latestSample?.Age || '-',
-    //             Gender: latestSample?.Gender || '-',
-    //             CancerType: latestSample?.CancerType || '-',
-    //             ProcedureType: latestSample?.ProcedureType || '-',
-    //             DetailProcedure: latestSample?.DetailProcedure || '-',
-    //             SurgeonName: latestSample?.SurgeonName || '-',
-    //             BloodSample: latestSample?.BloodSample || '-',
-    //             SpecimenSample: latestSample?.SpecimenSample || '-',
-    //             OtherSample: latestSample?.OtherSample || '-',
-    //             PlasmaGrid: latestSample?.PlasmaGrid || '-',
-    //             SerumGrid: latestSample?.SerumGrid || '-',
-    //             BuffyCoatGrid: latestSample?.BuffyCoatGrid || '-',
-    //             FTTubeGrids: latestSample?.FTTubeGrids || '-',
-    //             FNTubeGrids: latestSample?.FNTubeGrids || '-',
-    //             OtherSample_description: latestSample?.OtherSample_description || '-',
-    //             // Follow-up data
-    //             LastFollowUpStatus: latestFollowUp?.LastFollowUpStatus || '-',
-    //             LastFollowUpDate: latestFollowUp?.LastFollowUpDate || '-',
-    //             VitalStatus: latestFollowUp?.VitalStatus || '-',
-    //             RecurrenceDate: latestFollowUp?.RecurrenceDate || '-',
-    //             Remarks: latestFollowUp?.Remarks || '-',
-    //             LatestFollowUpTimestamp: latestFollowUp?.Timestamp || '-',
-    //             // Os (Shared) data
-    //             OsTimestamp: osSharedData?.OsTimestamp || '-',
-    //             Department: osSharedData?.Department || '-',
-    //             Project: osSharedData?.Project || '-',
-    //             PI: osSharedData?.PI || '-',
-    //             SharedFormUpdatedBy: osSharedData?.SharedFormUpdatedBy || '-',
-    //             SampleIdentifiers: osSharedData?.SampleIdentifiers || '-',
-    //             OutsourceStatus: osSharedData?.OutsourceStatus || '-'
+    //             Age: latestSample?.Age || "-",
+    //             Gender: latestSample?.Gender || "-",
+    //             CancerType: latestSample?.CancerType || "-",
+    //             ProcedureType: latestSample?.ProcedureType || "-",
+    //             DetailProcedure: latestSample?.DetailProcedure || "-",
+    //             SurgeonName: latestSample?.SurgeonName || "-",
+    //             BloodSample: latestSample?.BloodSample || "-",
+    //             SpecimenSample: latestSample?.SpecimenSample || "-",
+    //             OtherSample: latestSample?.OtherSample || "-",
+    //             PlasmaGrid: latestSample?.PlasmaGrid || "-",
+    //             SerumGrid: latestSample?.SerumGrid || "-",
+    //             BuffyCoatGrid: latestSample?.BuffyCoatGrid || "-",
+    //             OtherSampleGrid: latestSample?.OtherSampleGrid || "-",
+    //             NumberOfFTTubes: latestSample?.NumberOfFTTubes || "-", // FT Tubes
+    //             FTTubeGrids: latestSample?.FTTubeGrids || "-", // FT tube grids
+    //             NumberOfFNTubes: latestSample?.NumberOfFNTubes || "-", // FN Tubes
+    //             FNTubeGrids: latestSample?.FNTubeGrids || "-", // FN tube grids
+    //             OtherSample_description: latestSample?.OtherSample_description || "-",
+    //             IschemicSample: latestSample?.IschemicSample || "-", // Ischemic sample
+    //             ProcessedBy: latestSample?.ProcessedBy || "-", // Processed By
+    //             SampleEntryUpdatedBy: latestSample?.SampleEntryUpdatedBy || "-", // Updated By
+    //             MetastasisSample: latestSample?.MetastasisSample || "-", // Metastasis sample
+    //             Consent: latestSample?.Consent || "-", // Consent
+    //             SampleReceivedTime: latestSample?.SampleReceivedTime || "-",
+    //             SampleProcessedTime: latestSample?.SampleProcessedTime || "-",
+    //             SpecimenSampleProcessedby: latestSample?.SpecimenSampleProcessedby || "-",
+    //             BloodReceivedTime: latestSample?.BloodReceivedTime || "-",
+    //             BloodProcessedTime: latestSample?.BloodProcessedTime || "-",
+    //             BloodSampleProcessedBy: latestSample?.BloodSampleProcessedBy || "-",
+    //             SpecimenReceivedTime: latestSample?.SpecimenReceivedTime || "-",
+    //             SpecimenProcessedTime: latestSample?.SpecimenProcessedTime || "-",
+    //             OtherSampleProcessedby: latestSample?.OtherSampleProcessedby || "-",
+    //             OtherSampleReceivedTime: latestSample?.OtherSampleReceivedTime || "-",
+    //             OtherSampleProcessedTime: latestSample?.OtherSampleProcessedTime || "-",
+
+    //             FamilyHistoryCancer: latestSample.FamilyHistoryCancer || "-",
+    //             FamilyRelation: latestSample?.FamilyRelation || "-",
+    //             FamilyCancerType: latestSample?.FamilyCancerType || "-",
+    //             FoodHabbits: latestSample?.FoodHabbits || "-",
+    //             HistoryOfAlcoholConsumption: latestSample?.HistoryOfAlcoholConsumption || "-",
+    //             HistoryOfSmoking: latestSample?.HistoryOfSmoking || "-",
+    //             ExistingComorbidities: latestSample?.ExistingComorbidities || "-",
+    //             ComorbidityDetails: latestSample?.ComorbidityDetails || "-",
+    //             FF_QC_comments: latestSample?.FF_QC_comments || "-",
+    //             FF_Tissue_Remarks: latestSample?.FF_Tissue_Remarks || "-",
+    //             Tumor_Site: latestSample?.Tumor_Site || "-",
+    //             TumorPercentage: latestSample?.TumorPercentage || "-",
+    //             AgeAtDiagnosis: latestSample?.AgeAtDiagnosis || "-",
+    //             ClinicalStage: latestSample?.ClinicalStage || "-",
+    //             IHC_Marker_status: latestSample?.IHC_Marker_status || "-",
+    //             IHC_marker_description: latestSample?.IHC_marker_description || "-",
+    //             Genetic_Testing: latestSample?.Genetic_Testing || "-",
+    //             Genetic_Testing_Description: latestSample?.Genetic_Testing_Description || "-",
+    //             Pathologic_Subtype: latestSample?.Pathologic_Subtype || "-",
+    //             Grade: latestSample?.Grade || "-",
+    //             Focality: latestSample?.Focality || "-",
+    //             LVI: latestSample?.LVI || "-",
+    //             PNI: latestSample?.PNI || "-",
+    //             pTNM: latestSample?.pTNM || "-",
+    //             AJCCStaging: latestSample?.AJCCStaging || "-",
+    //             NumberOfNodesTested: latestSample?.NumberOfNodesTested || "-",
+    //             NumberOfPositiveNodes: latestSample?.NumberOfPositiveNodes || "-",
+    //             TumorSize: latestSample?.TumorSize || "-",
+    //             Denovo_metastasis: latestSample?.Denovo_metastasis || "-",
+    //             Metastasis_Post_Treatment: latestSample?.Metastasis_Post_Treatment || "-",
+    //             BiopsyTissueNumber: latestSample?.BiopsyTissueNumber || "-",
+    //             BiopsyDate: latestSample?.BiopsyDate || "-",
+    //             NACT: latestSample?.nact || "-",
+    //             NACT_Drug_Cycles: latestSample?.NACT_Drug_Cycles || "-",
+    //             NACT_date_of_last_cycle: latestSample?.NACT_date_of_last_cycle || "-",
+    //             Surgery_Tissue_Number_HPE: latestSample?.Surgery_Tissue_Number_HPE || "-",
+    //             SurgeryDate: latestSample?.SurgeryDate || "-",
+    //             RCBScore: latestSample?.RCBScore || "-",
+    //             ACT: latestSample?.ACT || "-",
+    //             ACT_Drug_Cycles: latestSample?.ACT_Drug_Cycles || "-",
+    //             ACT_Date_of_last_Cycle: latestSample?.ACT_Date_of_last_Cycle || "-",
+    //             Radiotherapy: latestSample?.Radiotherapy || "-",
+    //             Radiotherapy_details: latestSample?.Radiotherapy_details || "-",
+    //             RT_date_of_last_cycle: latestSample?.RT_date_of_last_cycle || "-",
+    //             ParaffinBlockAvailable: latestSample?.ParaffinBlockAvailable || "-",
+    //             Metadata_updated_by: latestSample?.Metadata_updated_by || "-",
+
+    //             AgeOfMenarche: latestSample?.AgeOfMenarche || "-",
+    //             Parity: latestSample?.Parity || "-",
+    //             NoOfChildren: latestSample?.NoOfChildren || "-",
+    //             AgeAtFirstChild: latestSample?.AgeAtFirstChild || "-",
+    //             Breastfed: latestSample?.Breastfed || "-",
+    //             DurationBreastfeeding: latestSample?.DurationBreastfeeding || "-",
+    //             MenopausalStatus: latestSample?.MenopausalStatus || "-",
+    //             ER: latestSample?.ER || "-",
+    //             PR: latestSample?.PR || "-",
+    //             HER2: latestSample?.HER2 || "-",
+    //             Subtype: latestSample?.Subtype || "-",
+    //             Ki67: latestSample?.Ki67 || "-",
+    //             ClinicalStage_Brf: latestSample?.ClinicalStage || "-", // To avoid duplicate field name
+    //             HistologicalType: latestSample?.HistologicalType || "-",
+    //             sTILsPercentScores: latestSample?.sTILsPercentScores || "-",
+    //             BR_form_updated_By: latestSample?.BR_form_updated_By || "-",
+
+    //             LastFollowUpStatus: latestFollowUp?.LastFollowUpStatus || "-",
+    //             LastFollowUpDate: latestFollowUp?.LastFollowUpDate || "-",
+    //             VitalStatus: latestFollowUp?.VitalStatus || "-",
+    //             RecurrenceDate: latestFollowUp?.RecurrenceDate || "-",
+    //             Remarks: latestFollowUp?.Remarks || "-",
+    //             LatestFollowUpTimestamp: latestFollowUp?.Timestamp || "-",
+
+    //             OsTimestamp: osSharedData?.OsTimestamp || "-",
+    //             Department: osSharedData?.Department || "-",
+    //             Project: osSharedData?.Project || "-",
+    //             PI: osSharedData?.PI || "-",
+    //             SharedFormUpdatedBy: osSharedData?.SharedFormUpdatedBy || "-",
+    //             SampleIdentifiers: osSharedData?.SampleIdentifiers || "-",
+    //             OutsourceStatus: osSharedData?.OutsourceStatus || "-",
     //           };
 
     //           dataToExport.push(rowData);
-    //         // }
+    //         }
+    //         count++;
 
-    //         // Generate Excel file after all data has been processed
-    //         if (dataToExport.length === Object.keys(patients).length) {
+
+    //         console.log("count", count)
+    //         console.log("patients length", Object.keys(patients).length)
+    //         if (count === Object.keys(patients).length) {
     //           const worksheet = XLSX.utils.json_to_sheet(dataToExport);
+    //           console.log("worksheet", worksheet)
     //           const workbook = XLSX.utils.book_new();
     //           XLSX.utils.book_append_sheet(workbook, worksheet, "Biobank_Samples");
-
     //           const excelFileName = `Biobank_Samples_${currentTimestamp}.xlsx`;
     //           XLSX.writeFile(workbook, excelFileName);
     //         }
     //       })
-    //       .catch(error => {
-    //         console.error("Error fetching data for BioBankID:", bioBankId, error);
-    //       });
-    //   });
-    // }
-
-    //     function generateExcelData() {
-    //   const dataToExport = [];
-    //   const patients = filteredPatientData && Object.keys(filteredPatientData).length ? filteredPatientData : window.patientData;
-    //   const currentTimestamp = Math.floor(Date.now() / 1000);
-
-    //   const fields = ['bpg', 'bsg', 'bbcg', 'ftg', 'fng', 'osg'];
-
-    //   Object.keys(patients).forEach(bioBankId => {
-    //     const patientSeq = patients[bioBankId];
-
-    //     let latestSample = null;
-    //     let latestFollowUp = null;
-    //     let osSharedData = null;
-
-    //     console.log("patientSeq", patientSeq);
-
-    //     // Iterate through the sample entry form (Sef) data
-    //     if (patientSeq) {
-    //       Object.keys(patientSeq).forEach(seqKey => {
-    //         const sampleData = patientSeq[seqKey];
-    //         Object.keys(sampleData).forEach(timestampKey => {
-    //           const sample = sampleData[timestampKey];
-    //           if (!latestSample || timestampKey > latestSample.timestamp) {
-    //             latestSample = {
-    //               SefTimestamp: formatTimestamp(timestampKey),
-    //               BioBankID: bioBankId,
-    //               Age: sample.ie.ag || '-',
-    //               Gender: decodeProcedureType(sample.ie.sx) || '-',
-    //               CancerType: decodeProcedureType(sample.ie.ct) || '-',
-    //               ProcedureType: decodeProcedureType(sample.ie.tpr),
-    //               DetailProcedure: sample.ie.dpr || '-',
-    //               SurgeonName: sample.ie.srn || '-',
-    //               BloodSample: decodeProcedureType(sample.ie.bs),
-    //               SpecimenSample: decodeProcedureType(sample.ie.ss) || '-',
-    //               OtherSample: decodeProcedureType(sample.ie.osmp) || '-',
-    //               IschemicSample: decodeProcedureType(sample.ie.iss) || '-',
-    //               ProcessedBy: sample.ie.prb || '-',
-    //               SampleEntryUpdatedBy: sample.ie.fng || '-',
-    //               MetastasisSample: decodeProcedureType(sample.ie.mts) || '-',
-    //               Consent: decodeProcedureType(sample.ie.cnst) || '-',
-    //               SampleReceivedTime: formatTimestamp(sample.ie.srt) || '-',
-    //               SampleProcessedTime: formatTimestamp(sample.ie.spt) || '-',
-    //               BloodReceivedTime: formatTimestamp(sample.ie.brt) || '-',
-    //               BloodProcessedTime: formatTimestamp(sample.ie.bpt) || '-',
-    //               BloodSampleProcessedBy: sample.ie.bsby || '-',
-    //               SpecimenReceivedTime: formatTimestamp(sample.ie.sprt) || '-',
-    //               SpecimenProcessedTime: formatTimestamp(sample.ie.sppt) || '-',
-    //               OtherSampleReceivedTime: formatTimestamp(sample.ie.ospt) || '-',
-    //               OtherSampleProcessedTime: formatTimestamp(sample.ie.osrt) || '-',
-    //               OtherSampleProcessedby: sample.ie.osby || '-',
-
-    //               FamilyHistoryCancer: decodeProcedureType(sample.md.fhc) || '-',
-    //               FamilyRelation: sample.md.fhcr || '-',
-    //               FamilyCancerType: sample.md.fhct || '-',
-    //               FoodHabbits: decodeProcedureType(sample.md.fh) || '-',
-    //               HistoryOfAlcoholConsumption: decodeProcedureType(sample.md.hac) || '-',
-    //               HistoryOfSmoking: decodeProcedureType(sample.md.hs) || '-',
-    //               ExistingComorbidities: decodeProcedureType(sample.md.ec) || '-',
-    //               ComorbidityandCorrespondingMedicationsforComorbidity: sample.md.ecm || '-',
-    //               FF_QC_comments: sample.md.ffqc || '-',
-    //               FF_Tissue_Remarks: sample.md.ftr || '-',
-    //               Tumor_Site: sample.md.tst || '-',
-    //               TumorPercentage: sample.md.tp || '-',
-    //               AgeAtDiagnosis: sample.md.ad || '-',
-    //               ClinicalStage: sample.md.cs || '-',
-    //               IHC_Marker_status: decodeProcedureType(sample.md.ihcm) || '-',
-    //               IHC_marker_description: sample.md.ihcd || '-',
-    //               Genetic_Testing: decodeProcedureType(sample.md.gt) || '-',
-    //               Genetic_Testing_Description: sample.md.gtd || '-',
-    //               Pathologic_Subtype: decodeProcedureType(sample.md.pst) || '-',
-    //               Grade: sample.md.gd || '-',
-    //               Focality: (sample.md.fc === "Y" ? "Unifocal" : sample.md.fc === "N" ? "Multifocal" : '-'),
-    //               LVI: decodeProcedureType(sample.md.lvi) || '-',
-    //               PNI: decodeProcedureType(sample.md.pni) || '-',
-    //               pTNM: sample.md.ptnm || '-',
-    //               AJCCStaging: sample.md.as || '-',
-    //               NumberOfNodesTested: sample.md.nnt || '-',
-    //               NumberOfPositiveNodes: sample.md.npn || '-',
-    //               TumorSize: sample.md.tsz || '-',
-    //               Denovo_metastasis: decodeProcedureType(sample.md.dm) || '-',
-    //               Metastasis_Post_Treatment: decodeProcedureType(sample.md.mpt) || '-',
-    //               BiopsyTissueNumber: sample.md.btn || '-',
-    //               BiopsyDate: sample.md.bd || '-',
-    //               nact: decodeProcedureType(sample.md.nact) || '-',
-    //               NACT_Drug_Cycles: sample.md.nactdc || '-',
-    //               NACT_date_of_last_cycle: sample.md.nactdlc || '-',
-    //               Surgery_Tissue_Number_HPE: sample.md.stn || '-',
-    //               SurgeryDate: sample.md.sd || '-',
-    //               RCBScore: sample.md.rcbs || '-',
-    //               ACT: decodeProcedureType(sample.md.act) || '-',
-    //               ACT_Drug_Cycles: sample.md.actdc || '-',
-    //               ACT_Date_of_last_Cycle: sample.md.actdls || '-',
-    //               Radiotherapy: decodeProcedureType(sample.md.rd) || '-',
-    //               Radiotherapy_details: sample.md.rdd || '-',
-    //               RT_date_of_last_cycle: sample.md.rtdls || '-',
-    //               ParaffinBlockAvailable: decodeProcedureType(sample.md.ipba) || '-',
-    //               Metadata_updated_by: sample.md.mdu || '-',
-
-    //               AgeOfMenarche: sample.brf.am || '-',
-    //               Parity: sample.brf.pty || '-',
-    //               NoOfChildren: sample.brf.noc || '-',
-    //               AgeAtFirstChild: sample.brf.afc || '-',
-    //               Breastfed: decodeProcedureType(sample.brf.bf) || '-',
-    //               DurationBreastfeeding: sample.brf.dbf || '-',
-    //               MenopausalStatus: sample.brf.ms || '-',
-    //               ER: decodeProcedureType(sample.brf.er) || '-',
-    //               PR: decodeProcedureType(sample.brf.pr) || '-',
-    //               HER2: decodeProcedureType(sample.brf.h2) || '-',
-    //               Subtype: sample.brf.sbt || '-',
-    //               Ki67: sample.brf.k67 || '-',
-    //               ClinicalStage_Brf: sample.brf.cs || '-',
-    //               HistologicalType: sample.brf.ht || '-',
-    //               sTILsPercentScores: sample.brf.sps || '-',
-    //               BR_form_updated_By: sample.brf.brfu || '-'
-    //             };
-
-    //             fields.forEach((field) => {
-    //               const fieldData = sample.ie?.[field];
-    //               if (fieldData) {
-    //                 const parts = fieldData.split('/');
-    //                 let boxName = parts[0].trim();
-    //                 const seatList = parts[1] ? parts[1].split(',') : [];
-    //                 const sampleType = parts[2]?.trim();
-
-    //                 // Store or process the boxName, seatList, and sampleType as needed
-    //                 latestSample[`${field}BoxName`] = boxName;
-    //                 latestSample[`${field}SeatList`] = seatList.join(', ');
-    //                 latestSample[`${field}SampleType`] = sampleType;
-    //               }
-    //             });
-    //           }
-    //         });
-    //       });
-    //     }
-
-    //     // Fetch follow-up data from the Firebase reference `Fw/{bioBankId}`
-    //     db.ref(`Fw/${bioBankId}`).once('value')
-    //       .then(snapshot => {
-    //         const followUpData = snapshot.val();
-    //         console.log('followUpData', followUpData);
-
-    //         if (followUpData) {
-    //           Object.keys(followUpData).forEach(timestampKey => {
-    //             const followUp = followUpData[timestampKey];
-    //             if (!latestFollowUp || timestampKey > latestFollowUp.timestamp) {
-    //               latestFollowUp = {
-    //                 BioBankID: bioBankId,
-    //                 LastFollowUpStatus: followUp.lfs || '-',
-    //                 LastFollowUpDate: followUp.lfd || '-',
-    //                 VitalStatus: followUp.vs || '-',
-    //                 RecurrenceDate: followUp.rd || '-',
-    //                 Remarks: followUp.rmks || '-',
-    //                 Timestamp: formatTimestamp(timestampKey / 1000)
-    //               };
-    //             }
-    //           });
-    //         } else {
-    //           latestFollowUp = {
-    //             BioBankID: bioBankId,
-    //             LastFollowUpStatus: '-',
-    //             LastFollowUpDate: '-',
-    //             VitalStatus: '-',
-    //             RecurrenceDate: '-',
-    //             Remarks: '-',
-    //             Timestamp: '-'
-    //           };
-    //         }
-
-    //         // Fetch `Os (Shared)` data from the Firebase reference `Os (Shared)/{bioBankId}`
-    //         return db.ref(`Os/${bioBankId}`).once('value');
-    //       })
-    //       .then(osSharedSnapshot => {
-    //         const osShared = osSharedSnapshot.val();
-    //         if (osShared) {
-    //           // Fetch the latest sequence, such as 's1', 's2', etc.
-    //           const latestSeq = osShared[Object.keys(osShared).sort().pop()];
-
-    //           // Get the latest timestamp from the sequence
-    //           const latestTimestamp = latestSeq && latestSeq[Object.keys(latestSeq).sort().pop()];
-    //           if (latestTimestamp) {
-    //             osSharedData = {
-    //               Department: latestTimestamp.dpt || '-',
-    //               Project: latestTimestamp.prj || '-',
-    //               PI: latestTimestamp.pip || '-',
-    //               SharedFormUpdatedBy: latestTimestamp.os_ub || '-',
-    //               SampleIdentifiers: latestTimestamp.lbi || '-',
-    //               OutsourceStatus: decodeProcedureType(latestTimestamp.ossts) || '-',
-    //               OsTimestamp: latestTimestamp.doe || '-'
-    //             };
-    //           }
-    //           console.log("osSharedData", osShared);
-    //         }
-    //         console.log("osSharedData", osSharedData);
-
-    //         const rowData = {
-    //           // Sample and Follow-up data...
-    //           Timestamp: latestSample?.SefTimestamp,
-    //           BioBankID: bioBankId,
-    //           Age: latestSample?.Age || '-',
-    //           Gender: latestSample?.Gender || '-',
-    //           CancerType: latestSample?.CancerType || '-',
-    //           ProcedureType: latestSample?.ProcedureType || '-',
-    //           DetailProcedure: latestSample?.DetailProcedure || '-',
-    //           SurgeonName: latestSample?.SurgeonName || '-',
-    //           BloodSample: latestSample?.BloodSample || '-',
-    //           SpecimenSample: latestSample?.SpecimenSample || '-',
-    //           OtherSample: latestSample?.OtherSample || '-',
-    //           IschemicSample: latestSample?.IschemicSample || '-',
-    //           ProcessedBy: latestSample?.ProcessedBy || '-',
-    //           SampleEntryUpdatedBy: latestSample?.SampleEntryUpdatedBy || '-',
-    //           MetastasisSample: latestSample?.MetastasisSample || '-',
-    //           Consent: latestSample?.Consent || '-',
-    //           SampleReceivedTime: latestSample?.SampleReceivedTime || '-',
-    //           SampleProcessedTime: latestSample?.SampleProcessedTime || '-',
-    //           BloodReceivedTime: latestSample?.BloodReceivedTime || '-',
-    //           BloodProcessedTime: latestSample?.BloodProcessedTime || '-',
-    //           BloodSampleProcessedBy: latestSample?.BloodSampleProcessedBy || '-',
-    //           SpecimenReceivedTime: latestSample?.SpecimenReceivedTime || '-',
-    //           SpecimenProcessedTime: latestSample?.SpecimenProcessedTime || '-',
-    //           OtherSampleReceivedTime: latestSample?.OtherSampleReceivedTime || '-',
-    //           OtherSampleProcessedTime: latestSample?.OtherSampleProcessedTime || '-',
-
-    //           FamilyHistoryCancer: latestSample?.FamilyHistoryCancer || '-',
-    //           FamilyRelation: latestSample?.FamilyRelation || '-',
-    //           FamilyCancerType: latestSample?.FamilyCancerType || '-',
-    //           FoodHabbits: latestSample?.FoodHabbits || '-',
-    //           HistoryOfAlcoholConsumption: latestSample?.HistoryOfAlcoholConsumption || '-',
-    //           HistoryOfSmoking: latestSample?.HistoryOfSmoking || '-',
-    //           ExistingComorbidities: latestSample?.ExistingComorbidities || '-',
-    //           ComorbidityDetails: latestSample?.ComorbidityDetails || '-',
-    //           FF_QC_comments: latestSample?.FF_QC_comments || '-',
-    //           FF_Tissue_Remarks: latestSample?.FF_Tissue_Remarks || '-',
-    //           Tumor_Site: latestSample?.Tumor_Site || '-',
-    //           TumorPercentage: latestSample?.TumorPercentage || '-',
-    //           AgeAtDiagnosis: latestSample?.AgeAtDiagnosis || '-',
-    //           ClinicalStage: latestSample?.ClinicalStage || '-',
-    //           IHC_Marker_status: latestSample?.IHC_Marker_status || '-',
-    //           IHC_marker_description: latestSample?.IHC_marker_description || '-',
-    //           Genetic_Testing: latestSample?.Genetic_Testing || '-',
-    //           Genetic_Testing_Description: latestSample?.Genetic_Testing_Description || '-',
-    //           Pathologic_Subtype: latestSample?.Pathologic_Subtype || '-',
-    //           Grade: latestSample?.Grade || '-',
-    //           Focality: latestSample?.Focality || '-',
-    //           LVI: latestSample?.LVI || '-',
-    //           PNI: latestSample?.PNI || '-',
-    //           pTNM: latestSample?.pTNM || '-',
-    //           AJCCStaging: latestSample?.AJCCStaging || '-',
-    //           NumberOfNodesTested: latestSample?.NumberOfNodesTested || '-',
-    //           NumberOfPositiveNodes: latestSample?.NumberOfPositiveNodes || '-',
-    //           TumorSize: latestSample?.TumorSize || '-',
-    //           Denovo_metastasis: latestSample?.Denovo_metastasis || '-',
-    //           Metastasis_Post_Treatment: latestSample?.Metastasis_Post_Treatment || '-',
-    //           BiopsyTissueNumber: latestSample?.BiopsyTissueNumber || '-',
-    //           BiopsyDate: latestSample?.BiopsyDate || '-',
-    //           NACT: latestSample?.nact || '-',
-    //           NACT_Drug_Cycles: latestSample?.NACT_Drug_Cycles || '-',
-    //           NACT_date_of_last_cycle: latestSample?.NACT_date_of_last_cycle || '-',
-    //           Surgery_Tissue_Number_HPE: latestSample?.Surgery_Tissue_Number_HPE || '-',
-    //           SurgeryDate: latestSample?.SurgeryDate || '-',
-    //           RCBScore: latestSample?.RCBScore || '-',
-    //           ACT: latestSample?.ACT || '-',
-    //           ACT_Drug_Cycles: latestSample?.ACT_Drug_Cycles || '-',
-    //           ACT_Date_of_last_Cycle: latestSample?.ACT_Date_of_last_Cycle || '-',
-    //           Radiotherapy: latestSample?.Radiotherapy || '-',
-    //           Radiotherapy_details: latestSample?.Radiotherapy_details || '-',
-    //           RT_date_of_last_cycle: latestSample?.RT_date_of_last_cycle || '-',
-    //           ParaffinBlockAvailable: latestSample?.ParaffinBlockAvailable || '-',
-    //           Metadata_updated_by: latestSample?.Metadata_updated_by || '-',
-
-    //           AgeOfMenarche: latestSample?.AgeOfMenarche || '-',
-    //           Parity: latestSample?.Parity || '-',
-    //           NoOfChildren: latestSample?.NoOfChildren || '-',
-    //           AgeAtFirstChild: latestSample?.AgeAtFirstChild || '-',
-    //           Breastfed: latestSample?.Breastfed || '-',
-    //           DurationBreastfeeding: latestSample?.DurationBreastfeeding || '-',
-    //           MenopausalStatus: latestSample?.MenopausalStatus || '-',
-    //           ER: latestSample?.ER || '-',
-    //           PR: latestSample?.PR || '-',
-    //           HER2: latestSample?.HER2 || '-',
-    //           Subtype: latestSample?.Subtype || '-',
-    //           Ki67: latestSample?.Ki67 || '-',
-    //           ClinicalStage_Brf: latestSample?.ClinicalStage || '-',  // To avoid duplicate field name
-    //           HistologicalType: latestSample?.HistologicalType || '-',
-    //           sTILsPercentScores: latestSample?.sTILsPercentScores || '-',
-    //           BR_form_updated_By: latestSample?.BR_form_updated_By || '-',
-
-    //           // Follow-up data
-    //           LastFollowUpStatus: latestFollowUp?.LastFollowUpStatus || '-',
-    //           LastFollowUpDate: latestFollowUp?.LastFollowUpDate || '-',
-    //           VitalStatus: latestFollowUp?.VitalStatus || '-',
-    //           RecurrenceDate: latestFollowUp?.RecurrenceDate || '-',
-    //           Remarks: latestFollowUp?.Remarks || '-',
-    //           LatestFollowUpTimestamp: latestFollowUp?.Timestamp || '-',
-
-    //           // Os (Shared) data
-    //           OsTimestamp: osSharedData?.OsTimestamp || '-',
-    //           Department: osSharedData?.Department || '-',
-    //           Project: osSharedData?.Project || '-',
-    //           PI: osSharedData?.PI || '-',
-    //           SharedFormUpdatedBy: osSharedData?.SharedFormUpdatedBy || '-',
-    //           SampleIdentifiers: osSharedData?.SampleIdentifiers || '-',
-    //           OutsourceStatus: osSharedData?.OutsourceStatus || '-'
-    //         };
-
-    //         dataToExport.push(rowData);
-
-    //         // Generate Excel file after all data has been processed
-    //         if (dataToExport.length === Object.keys(patients).length) {
-    //           const worksheet = XLSX.utils.json_to_sheet(dataToExport);
-    //           const workbook = XLSX.utils.book_new();
-    //           XLSX.utils.book_append_sheet(workbook, worksheet, "Biobank_Samples");
-
-    //           const excelFileName = `Biobank_Samples_${currentTimestamp}.xlsx`;
-    //           XLSX.writeFile(workbook, excelFileName);
-    //         }
-    //       })
-    //       .catch(error => {
-    //         console.error("Error fetching data for BioBankID:", bioBankId, error);
-    //       });
-    //     });
-    // }
-
-    // function generateExcelData() {
-    //   const dataToExport = [];
-    //   const patients = filteredPatientData && Object.keys(filteredPatientData).length ? filteredPatientData : window.patientData;
-    //   const currentTimestamp = Math.floor(Date.now() / 1000); // Current timestamp for the file name
-
-    //   Object.keys(patients).forEach(bioBankId => {
-    //     const patientSeq = patients[bioBankId];
-
-    //     let latestSample = null;
-    //     let latestFollowUp = null;
-
-    //     console.log("patientSeq", patientSeq);
-
-    //     // Iterate through the sample entry form (Sef) data
-    //     if (patientSeq) {
-    //       Object.keys(patientSeq).forEach(seqKey => {
-    //         const sampleData = patientSeq[seqKey];
-    //         Object.keys(sampleData).forEach(timestampKey => {
-    //           const sample = sampleData[timestampKey];
-    //           if (!latestSample || timestampKey > latestSample.timestamp) {
-    //             latestSample = {
-    //               BioBankID: bioBankId,
-    //               Age: sample.ie.ag || '-',
-    //               Gender: sample.ie.sx || '-',
-    //               CancerType: sample.ie.ct || '-',
-    //               ProcedureType: sample.ie.tpr || '-',
-    //               DetailProcedure: sample.ie.dpr || '-',
-    //               SurgeonName: sample.ie.srn || '-',
-    //               BloodSample: sample.ie.bs,
-    //               SpecimenSample: sample.ie.ss || '-',
-    //               OtherSample: sample.ie.osmp || '-',
-    //               PlasmaGrid: sample.ie.bpg || '-',
-    //               SerumGrid: sample.ie.bsg || '-',
-    //               BuffyCoatGrid: sample.ie.bbcg || '-',
-    //               FTTubeGrids: sample.ie.ftg || '-',
-    //               FNTubeGrids: sample.ie.fng || '-',
-    //               OtherSampleGrid: sample.ie.osg || '-',
-    //               Timestamp: timestampKey,
-    //               IschemicSample: sample.ie.iss || '-',
-    //               ProcessedBy: sample.ie.prb || '-',
-    //               SampleEntryUpdatedBy: sample.ie.fng || '-',
-    //               MetastasisSample: sample.ie.mts || '-',
-    //               Consent: sample.ie.cnst || '-',
-    //               SampleReceivedTime: sample.ie.srt || '-',
-    //               SampleProcessedTime: sample.ie.spt || '-',
-    //               BloodReceivedTime: sample.ie.brt || '-',
-    //               BloodProcessedTime: sample.ie.bpt || '-',
-    //               SpecimenReceivedTime: sample.ie.sprt || '-',
-    //               SpecimenProcessedTime: sample.ie.sppt || '-',
-    //               OtherSampleReceivedTime: sample.ie.ospt || '-',
-    //               OtherSampleProcessedTime: sample.ie.osrt || '-',
-
-    //               FamilyHistoryCancer: sample.md.fhc || '-',
-    //               FamilyRelation: sample.md.fhcr || '-',
-    //               FamilyCancerType: sample.md.fhct || '-',
-    //               ExistingComorbidities: sample.md.ec || '-',
-    //               ComorbidityDetails: sample.md.ecm || '-',
-    //               AgeAtDiagnosis: sample.md.ad || '-',
-    //               ClinicalStage: sample.md.cs || '-',
-    //               TumorPercentage: sample.md.tp || '-',
-    //               AJCCStaging: sample.md.as || '-',
-    //               NumberOfNodesTested: sample.md.nnt || '-',
-    //               NumberOfPositiveNodes: sample.md.npn || '-',
-    //               TumorSize: sample.md.tsz || '-',
-    //               BiopsyTissueNumber: sample.md.btn || '-',
-    //               BiopsyDate: sample.md.bd || '-',
-    //               SurgeryDate: sample.md.sd || '-',
-    //               RCBScore: sample.md.rcbs || '-',
-    //               NACT: sample.md.nact || '-',
-    //               ACT: sample.md.act || '-',
-    //               Radiotherapy: sample.md.rd || '-',
-    //               ParaffinBlockAvailable: sample.md.ipba || '-',
-
-    //               AgeOfMenarche: sample.brf.am || '-',
-    //               Parity: sample.brf.pty || '-',
-    //               NoOfChildren: sample.brf.noc || '-',
-    //               AgeAtFirstChild: sample.brf.afc || '-',
-    //               Breastfed: sample.brf.bf || '-',
-    //               DurationBreastfeeding: sample.brf.dbf || '-',
-    //               MenopausalStatus: sample.brf.ms || '-',
-    //               ER: sample.brf.er || '-',
-    //               PR: sample.brf.pr || '-',
-    //               HER2: sample.brf.h2 || '-',
-    //               Subtype: sample.brf.sbt || '-',
-    //               Ki67: sample.brf.k67 || '-',
-    //               ClinicalStage: sample.brf.cs || '-',
-    //               HistologicalType: sample.brf.ht || '-',
-    //               sTILsPercentScores: sample.brf.sps || '-'
-    //             };
-    //           }
-    //         });
-    //       });
-    //     }
-
-    //     // Fetch follow-up data from the Firebase reference `Fw/{bioBankId}`
-    //     db.ref(`Fw/${bioBankId}`).once('value')
-    //       .then(snapshot => {
-    //         const followUpData = snapshot.val();
-    //         console.log('followUpData', followUpData);
-
-    //         if (followUpData) {
-    //           // Iterate through follow-up data if it exists
-    //           Object.keys(followUpData).forEach(timestampKey => {
-    //             const followUp = followUpData[timestampKey];
-    //             if (!latestFollowUp || timestampKey > latestFollowUp.timestamp) {
-    //               latestFollowUp = {
-    //                 BioBankID: bioBankId,
-    //                 LastFollowUpStatus: followUp.lfs || '-',
-    //                 LastFollowUpDate: followUp.lfd || '-',
-    //                 VitalStatus: followUp.vs || '-',
-    //                 RecurrenceDate: followUp.rd || '-',
-    //                 Remarks: followUp.rmks || '-',
-    //                 Timestamp: timestampKey
-    //               };
-    //             }
-    //           });
-    //         } else {
-    //           // If no follow-up data is found, assign default blank values
-    //           latestFollowUp = {
-    //             BioBankID: bioBankId,
-    //             LastFollowUpStatus: '-',
-    //             LastFollowUpDate: '-',
-    //             VitalStatus: '-',
-    //             RecurrenceDate: '-',
-    //             Remarks: '-',
-    //             Timestamp: '-'
-    //           };
-    //         }
-
-    //         // Prepare the rowData for export including the latest sample and follow-up
-    //         const rowData = {
-    //           // Basic Sample Information
-    //           BioBankID: bioBankId,
-    //           Age: latestSample?.Age || '-',
-    //           Gender: latestSample?.Gender || '-',
-    //           CancerType: latestSample?.CancerType || '-',
-    //           ProcedureType: latestSample?.ProcedureType || '-',
-    //           DetailProcedure: latestSample?.DetailProcedure || '-',
-    //           SurgeonName: latestSample?.SurgeonName || '-',
-    //           BloodSample: latestSample?.BloodSample || '-',
-    //           SpecimenSample: latestSample?.SpecimenSample || '-',
-    //           OtherSample: latestSample?.OtherSample || '-',
-    //           PlasmaGrid: latestSample?.PlasmaGrid || '-',
-    //           SerumGrid: latestSample?.SerumGrid || '-',
-    //           BuffyCoatGrid: latestSample?.BuffyCoatGrid || '-',
-    //           OtherSampleGrid: latestSample?.OtherSampleGrid || '-',
-    //           NumberOfFTTubes: latestSample?.NumberOfFTTubes || '-', // FT Tubes
-    //           FTTubeGrids: latestSample?.FTTubeGrids || '-',         // FT tube grids
-    //           NumberOfFNTubes: latestSample?.NumberOfFNTubes || '-', // FN Tubes
-    //           FNTubeGrids: latestSample?.FNTubeGrids || '-',         // FN tube grids
-    //           IschemicSample: latestSample?.IschemicSample || '-',   // Ischemic sample
-    //           ProcessedBy: latestSample?.ProcessedBy || '-',         // Processed By
-    //           SampleEntryUpdatedBy: latestSample?.SampleEntryUpdatedBy || '-',  // Updated By
-    //           MetastasisSample: latestSample?.MetastasisSample || '-',    // Metastasis sample
-    //           Consent: latestSample?.Consent || '-',            // Consent
-    //           SampleReceivedTime: latestSample?.SampleReceivedTime || '-',
-    //           SampleProcessedTime: latestSample?.SampleProcessedTime || '-',
-    //           BloodReceivedTime: latestSample?.BloodReceivedTime || '-',
-    //           BloodProcessedTime: latestSample?.BloodProcessedTime || '-',
-    //           SpecimenReceivedTime: latestSample?.SpecimenReceivedTime || '-',
-    //           SpecimenProcessedTime: latestSample?.SpecimenProcessedTime || '-',
-    //           OtherSampleReceivedTime: latestSample?.OtherSampleReceivedTime || '-',
-    //           OtherSampleProcessedTime: latestSample?.OtherSampleProcessedTime || '-',
-
-    //           FamilyHistoryCancer: latestSample?.FamilyHistoryCancer || '-',
-    //           FamilyRelation: latestSample?.FamilyRelation || '-',
-    //           FamilyCancerType: latestSample?.FamilyCancerType || '-',
-    //           ExistingComorbidities: latestSample?.ExistingComorbidities || '-',
-    //           ComorbidityDetails: latestSample?.ComorbidityDetails || '-',
-    //           AgeAtDiagnosis: latestSample?.AgeAtDiagnosis || '-',
-    //           ClinicalStage: latestSample?.ClinicalStage || '-',
-    //           TumorPercentage: latestSample?.TumorPercentage || '-',
-    //           AJCCStaging: latestSample?.AJCCStaging || '-',
-    //           NumberOfNodesTested: latestSample?.NumberOfNodesTested || '-',
-    //           NumberOfPositiveNodes: latestSample?.NumberOfPositiveNodes || '-',
-    //           TumorSize: latestSample?.TumorSize || '-',
-    //           BiopsyTissueNumber: latestSample?.BiopsyTissueNumber || '-',
-    //           BiopsyDate: latestSample?.BiopsyDate || '-',
-    //           SurgeryDate: latestSample?.SurgeryDate || '-',
-    //           RCBScore: latestSample?.RCBScore || '-',
-    //           NACT: latestSample?.NACT || '-',
-    //           ACT: latestSample?.ACT || '-',
-    //           Radiotherapy: latestSample?.Radiotherapy || '-',
-    //           ParaffinBlockAvailable: latestSample?.ParaffinBlockAvailable || '-',
-
-    //           AgeOfMenarche: latestSample?.AgeOfMenarche || '-',
-    //           Parity: latestSample?.Parity || '-',
-    //           NoOfChildren: latestSample?.NoOfChildren || '-',
-    //           AgeAtFirstChild: latestSample?.AgeAtFirstChild || '-',
-    //           Breastfed: latestSample?.Breastfed || '-',
-    //           DurationBreastfeeding: latestSample?.DurationBreastfeeding || '-',
-    //           MenopausalStatus: latestSample?.MenopausalStatus || '-',
-    //           ER: latestSample?.ER || '-',
-    //           PR: latestSample?.PR || '-',
-    //           HER2: latestSample?.HER2 || '-',
-    //           Subtype: latestSample?.Subtype || '-',
-    //           Ki67: latestSample?.Ki67 || '-',
-    //           ClinicalStage_Brf: latestSample?.ClinicalStage || '-',  // To avoid duplicate field name
-    //           HistologicalType: latestSample?.HistologicalType || '-',
-    //           sTILsPercentScores: latestSample?.sTILsPercentScores || '-',
-
-    //           LastFollowUpStatus: latestFollowUp?.LastFollowUpStatus || '-',
-    //           LastFollowUpDate: latestFollowUp?.LastFollowUpDate || '-',
-    //           VitalStatus: latestFollowUp?.VitalStatus || '-',
-    //           RecurrenceDate: latestFollowUp?.RecurrenceDate || '-',
-    //           Remarks: latestFollowUp?.Remarks || '-',
-    //           LatestSampleTimestamp: latestSample?.Timestamp || '-',
-    //           LatestFollowUpTimestamp: latestFollowUp?.Timestamp || '-'
-    //         };
-    //         dataToExport.push(rowData);
-
-    //         // Generate Excel file after all data has been processed
-    //         if (dataToExport.length === Object.keys(patients).length) {
-    //           const worksheet = XLSX.utils.json_to_sheet(dataToExport);
-    //           const workbook = XLSX.utils.book_new();
-    //           XLSX.utils.book_append_sheet(workbook, worksheet, "Biobank_Samples");
-
-    //           const excelFileName = `Biobank_Samples_${currentTimestamp}.xlsx`;
-    //           XLSX.writeFile(workbook, excelFileName);
-    //         }
-    //       })
-    //       .catch(error => {
-    //         console.error("Error fetching follow-up data for BioBankID:", bioBankId, error);
-    //       });
-    //   });
-    // }
-
-    // function generateExcelData() {
-    //   const dataToExport = [];
-    //   const patients = filteredPatientData && Object.keys(filteredPatientData).length ? filteredPatientData : window.patientData;
-    //   const currentTimestamp = Math.floor(Date.now() / 1000); // Current timestamp for the file name
-
-    //   const patientPromises = Object.keys(patients).map(bioBankId => {
-    //     const patientSeq = patients[bioBankId];
-
-    //     let latestSample = null;
-    //     let latestFollowUp = null;
-    //     let latestSharedData = null;
-
-    //     // Iterate through the sample entry form (Sef) data
-    //     if (patientSeq) {
-    //       Object.keys(patientSeq).forEach(seqKey => {
-    //         const sampleData = patientSeq[seqKey];
-    //         Object.keys(sampleData).forEach(timestampKey => {
-    //           const sample = sampleData[timestampKey];
-    //           if (!latestSample || timestampKey > latestSample.Timestamp) {
-    //             latestSample = {
-    //               BioBankID: bioBankId,
-    //               Age: sample.ie.ag || '-',
-    //               Gender: sample.ie.sx || '-',
-    //               CancerType: sample.ie.ct || '-',
-    //               ProcedureType: sample.ie.tpr || '-',
-    //               DetailProcedure: sample.ie.dpr || '-',
-    //               SurgeonName: sample.ie.srn || '-',
-    //               BloodSample: sample.ie.bs,
-    //               SpecimenSample: sample.ie.ss || '-',
-    //               OtherSample: sample.ie.osmp || '-',
-    //               PlasmaGrid: sample.ie.bpg || '-',
-    //               SerumGrid: sample.ie.bsg || '-',
-    //               BuffyCoatGrid: sample.ie.bbcg || '-',
-    //               FTTubeGrids: sample.ie.ftg || '-',
-    //               FNTubeGrids: sample.ie.fng || '-',
-    //               OtherSampleGrid: sample.ie.osg || '-',
-    //               Timestamp: timestampKey,
-    //               IschemicSample: sample.ie.iss || '-',
-    //               ProcessedBy: sample.ie.prb || '-',
-    //               SampleEntryUpdatedBy: sample.ie.fng || '-',
-    //               MetastasisSample: sample.ie.mts || '-',
-    //               Consent: sample.ie.cnst || '-',
-    //               SampleReceivedTime: sample.ie.srt || '-',
-    //               SampleProcessedTime: sample.ie.spt || '-',
-    //               BloodReceivedTime: sample.ie.brt || '-',
-    //               BloodProcessedTime: sample.ie.bpt || '-',
-    //               SpecimenReceivedTime: sample.ie.sprt || '-',
-    //               SpecimenProcessedTime: sample.ie.sppt || '-',
-    //               OtherSampleReceivedTime: sample.ie.ospt || '-',
-    //               OtherSampleProcessedTime: sample.ie.osrt || '-',
-    //               // Family History and Medical Data
-    //               FamilyHistoryCancer: sample.md.fhc || '-',
-    //               FamilyRelation: sample.md.fhcr || '-',
-    //               FamilyCancerType: sample.md.fhct || '-',
-    //               ExistingComorbidities: sample.md.ec || '-',
-    //               ComorbidityDetails: sample.md.ecm || '-',
-    //               AgeAtDiagnosis: sample.md.ad || '-',
-    //               ClinicalStage: sample.md.cs || '-',
-    //               TumorPercentage: sample.md.tp || '-',
-    //               AJCCStaging: sample.md.as || '-',
-    //               NumberOfNodesTested: sample.md.nnt || '-',
-    //               NumberOfPositiveNodes: sample.md.npn || '-',
-    //               TumorSize: sample.md.tsz || '-',
-    //               BiopsyTissueNumber: sample.md.btn || '-',
-    //               BiopsyDate: sample.md.bd || '-',
-    //               SurgeryDate: sample.md.sd || '-',
-    //               RCBScore: sample.md.rcbs || '-',
-    //               NACT: sample.md.nact || '-',
-    //               ACT: sample.md.act || '-',
-    //               Radiotherapy: sample.md.rd || '-',
-    //               ParaffinBlockAvailable: sample.md.ipba || '-',
-    //               // Breast Cancer Form (Brf) Data
-    //               AgeOfMenarche: sample.brf.am || '-',
-    //               Parity: sample.brf.pty || '-',
-    //               NoOfChildren: sample.brf.noc || '-',
-    //               AgeAtFirstChild: sample.brf.afc || '-',
-    //               Breastfed: sample.brf.bf || '-',
-    //               DurationBreastfeeding: sample.brf.dbf || '-',
-    //               MenopausalStatus: sample.brf.ms || '-',
-    //               ER: sample.brf.er || '-',
-    //               PR: sample.brf.pr || '-',
-    //               HER2: sample.brf.h2 || '-',
-    //               Subtype: sample.brf.sbt || '-',
-    //               Ki67: sample.brf.k67 || '-',
-    //               ClinicalStage: sample.brf.cs || '-',
-    //               HistologicalType: sample.brf.ht || '-',
-    //               sTILsPercentScores: sample.brf.sps || '-'
-    //             };
-    //           }
-    //         });
-    //       });
-    //     }
-
-    //     // Fetch follow-up and shared data for the current bioBankId
-    //     const followUpPromise = db.ref(`Fw/${bioBankId}`).once('value')
-    //       .then(snapshot => {
-    //         const followUpData = snapshot.val();
-    //         if (followUpData) {
-    //           Object.keys(followUpData).forEach(timestampKey => {
-    //             const followUp = followUpData[timestampKey];
-    //             if (!latestFollowUp || timestampKey > latestFollowUp.Timestamp) {
-    //               latestFollowUp = {
-    //                 BioBankID: bioBankId,
-    //                 LastFollowUpStatus: followUp.lfs || '-',
-    //                 LastFollowUpDate: followUp.lfd || '-',
-    //                 VitalStatus: followUp.vs || '-',
-    //                 RecurrenceDate: followUp.rd || '-',
-    //                 Remarks: followUp.rmks || '-',
-    //                 Timestamp: timestampKey
-    //               };
-    //             }
-    //           });
-    //         }
-    //       })
-    //       .catch(error => {
-    //         console.error("Error fetching follow-up data for BioBankID:", bioBankId, error);
-    //       });
-
-    //     const sharedPromise = db.ref(`Os/${bioBankId}`).once('value')
-    //       .then(snapshot => {
-    //         const sharedData = snapshot.val();
-    //         if (sharedData) {
-    //           Object.keys(sharedData).forEach(timestampKey => {
-    //             const sharedEntry = sharedData[timestampKey];
-    //             if (!latestSharedData || timestampKey > latestSharedData.Timestamp) {
-    //               latestSharedData = {
-    //                 Department: sharedEntry.dpt || '-',
-    //                 Project: sharedEntry.prj || '-',
-    //                 ProjectPI: sharedEntry.pip || '-',
-    //                 SharedUpdatedBy: sharedEntry.os_ub || '-',
-    //                 SampleIdentifiers: sharedEntry.lbi || '-',
-    //                 OutsourceStatus: sharedEntry.ossts || '-',
-    //                 Timestamp: timestampKey
-    //               };
-    //             }
-    //           });
-    //         }
-    //       })
-    //       .catch(error => {
-    //         console.error("Error fetching shared data for BioBankID:", bioBankId, error);
-    //       });
-
-    //     return Promise.all([followUpPromise, sharedPromise]).then(() => {
-    //       const rowData = {
-    //         BioBankID: bioBankId,
-    //         Age: latestSample?.Age || '-',
-    //         Gender: latestSample?.Gender || '-',
-    //         CancerType: latestSample?.CancerType || '-',
-    //         ProcedureType: latestSample?.ProcedureType || '-',
-    //         DetailProcedure: latestSample?.DetailProcedure || '-',
-    //         SurgeonName: latestSample?.SurgeonName || '-',
-    //         BloodSample: latestSample?.BloodSample || '-',
-    //         SpecimenSample: latestSample?.SpecimenSample || '-',
-    //         OtherSample: latestSample?.OtherSample || '-',
-    //         PlasmaGrid: latestSample?.PlasmaGrid || '-',
-    //         SerumGrid: latestSample?.SerumGrid || '-',
-    //         BuffyCoatGrid: latestSample?.BuffyCoatGrid || '-',
-    //         OtherSampleGrid: latestSample?.OtherSampleGrid || '-',
-    //         NumberOfFTTubes: latestSample?.NumberOfFTTubes || '-', // FT Tubes
-    //         FTTubeGrids: latestSample?.FTTubeGrids || '-',         // FT tube grids
-    //         NumberOfFNTubes: latestSample?.NumberOfFNTubes || '-', // FN Tubes
-    //         FNTubeGrids: latestSample?.FNTubeGrids || '-',         // FN tube grids
-    //         IschemicSample: latestSample?.IschemicSample || '-',   // Ischemic sample
-    //         ProcessedBy: latestSample?.ProcessedBy || '-',         // Processed By
-    //         SampleEntryUpdatedBy: latestSample?.SampleEntryUpdatedBy || '-',  // Updated By
-    //         MetastasisSample: latestSample?.MetastasisSample || '-',    // Metastasis sample
-    //         Consent: latestSample?.Consent || '-',            // Consent
-    //         SampleReceivedTime: latestSample?.SampleReceivedTime || '-',
-    //         SampleProcessedTime: latestSample?.SampleProcessedTime || '-',
-    //         BloodReceivedTime: latestSample?.BloodReceivedTime || '-',
-    //         BloodProcessedTime: latestSample?.BloodProcessedTime || '-',
-    //         SpecimenReceivedTime: latestSample?.SpecimenReceivedTime || '-',
-    //         SpecimenProcessedTime: latestSample?.SpecimenProcessedTime || '-',
-    //         OtherSampleReceivedTime: latestSample?.OtherSampleReceivedTime || '-',
-    //         OtherSampleProcessedTime: latestSample?.OtherSampleProcessedTime || '-',
-
-    //         FamilyHistoryCancer: latestSample?.FamilyHistoryCancer || '-',
-    //         FamilyRelation: latestSample?.FamilyRelation || '-',
-    //         FamilyCancerType: latestSample?.FamilyCancerType || '-',
-    //         ExistingComorbidities: latestSample?.ExistingComorbidities || '-',
-    //         ComorbidityDetails: latestSample?.ComorbidityDetails || '-',
-    //         AgeAtDiagnosis: latestSample?.AgeAtDiagnosis || '-',
-    //         ClinicalStage: latestSample?.ClinicalStage || '-',
-    //         TumorPercentage: latestSample?.TumorPercentage || '-',
-    //         AJCCStaging: latestSample?.AJCCStaging || '-',
-    //         NumberOfNodesTested: latestSample?.NumberOfNodesTested || '-',
-    //         NumberOfPositiveNodes: latestSample?.NumberOfPositiveNodes || '-',
-    //         TumorSize: latestSample?.TumorSize || '-',
-    //         BiopsyTissueNumber: latestSample?.BiopsyTissueNumber || '-',
-    //         BiopsyDate: latestSample?.BiopsyDate || '-',
-    //         SurgeryDate: latestSample?.SurgeryDate || '-',
-    //         RCBScore: latestSample?.RCBScore || '-',
-    //         NACT: latestSample?.NACT || '-',
-    //         ACT: latestSample?.ACT || '-',
-    //         Radiotherapy: latestSample?.Radiotherapy || '-',
-    //         ParaffinBlockAvailable: latestSample?.ParaffinBlockAvailable || '-',
-
-    //         AgeOfMenarche: latestSample?.AgeOfMenarche || '-',
-    //         Parity: latestSample?.Parity || '-',
-    //         NoOfChildren: latestSample?.NoOfChildren || '-',
-    //         AgeAtFirstChild: latestSample?.AgeAtFirstChild || '-',
-    //         Breastfed: latestSample?.Breastfed || '-',
-    //         DurationBreastfeeding: latestSample?.DurationBreastfeeding || '-',
-    //         MenopausalStatus: latestSample?.MenopausalStatus || '-',
-    //         ER: latestSample?.ER || '-',
-    //         PR: latestSample?.PR || '-',
-    //         HER2: latestSample?.HER2 || '-',
-    //         Subtype: latestSample?.Subtype || '-',
-    //         Ki67: latestSample?.Ki67 || '-',
-    //         ClinicalStage_Brf: latestSample?.ClinicalStage || '-',  // To avoid duplicate field name
-    //         HistologicalType: latestSample?.HistologicalType || '-',
-    //         sTILsPercentScores: latestSample?.sTILsPercentScores || '-',
-
-    //         LastFollowUpStatus: latestFollowUp?.LastFollowUpStatus || '-',
-    //         LastFollowUpDate: latestFollowUp?.LastFollowUpDate || '-',
-    //         VitalStatus: latestFollowUp?.VitalStatus || '-',
-    //         RecurrenceDate: latestFollowUp?.RecurrenceDate || '-',
-    //         Remarks: latestFollowUp?.Remarks || '-',
-    //         LatestSampleTimestamp: latestSample?.Timestamp || '-',
-    //         LatestFollowUpTimestamp: latestFollowUp?.Timestamp || '-',
-
-    //         Department: latestSharedData?.Department || '-',
-    //         Project: latestSharedData?.Project || '-',
-    //         ProjectPI: latestSharedData?.ProjectPI || '-',
-    //         SharedUpdatedBy: latestSharedData?.SharedUpdatedBy || '-'
-    //       };
-
-    //       dataToExport.push(rowData);
-    //     });
-    //   });
-
-    //   Promise.all(patientPromises).then(() => {
-    //     console.log("All patient data fetched, exporting Excel...");
-    //     exportToExcel(dataToExport, `PatientData_${currentTimestamp}.xlsx`);
-    //   }).catch(error => {
-    //     console.error("Error fetching patient data:", error);
     //   });
     // }
 
