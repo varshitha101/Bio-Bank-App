@@ -203,7 +203,7 @@ function populateBBLabels(data, boxVal, debug) {
                 const bsgIndex1 = bsg.split('/')[1]; // get index1
                 console.log("bsgIndex1", bsgIndex1);
             
-                if (bsgIndex1 && bsgIndex1.split(',').includes(getSeatLabel(index))) {
+                if (bsgIndex1 && bsgIndex1.includes(getSeatLabel(index))) {
                   matchedData.push({
                     mode: "SearchView",
                     bioBankId,
@@ -226,7 +226,7 @@ function populateBBLabels(data, boxVal, debug) {
                 const bbcgIndex1 = bbcg.split('/')[1];
                 console.log("bbcgIndex1", bbcgIndex1);
             
-                if (bbcgIndex1 && bbcgIndex1.split(',').includes(getSeatLabel(index))) {
+                if (bbcgIndex1 && bbcgIndex1.includes(getSeatLabel(index))) {
                   matchedData.push({
                     mode: "SearchView",
                     bioBankId,
