@@ -457,8 +457,9 @@ input {
 }
 
 
-
 /* loading  */
+
+
 .spinner {
   display: inline-block;
   width: 70px;
@@ -495,4 +496,11 @@ input {
   align-items: center;
 }
 
+.small-text {
+  font-size: 12px;
+}
 
+
+.head-text{
+  font-size: 15px;
+}
