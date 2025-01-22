@@ -167,19 +167,20 @@ function populateBBLabels(data, boxVal, debug) {
             Object.keys(dbData).forEach(seqNum => {
               const seqData = dbData[seqNum];
               console.log("seqData", seqData);
-            
+
               // Get the latest timestamp
               const latestTimestamp = Math.max(...Object.keys(seqData));
-            
+
               const timestampData = seqData[latestTimestamp];
               console.log("Latest timestampData", timestampData);
-            
+
               // Process based on sampleType
               if ((sampleType === "Plasma" || sampleType === "MPlasma") && timestampData.ie.bpg) {
                 const bpg = timestampData.ie.bpg;
                 const boxName = bpg.split('/')[0];
                 const bpgIndex1 = bpg.split('/')[1];
-            
+                console.log("bsgIndex1", bpgIndex1);
+
                 if (bpgIndex1 && bpgIndex1.includes(getSeatLabel(index))) {
                   matchedData.push({
                     mode: "SearchView",
@@ -195,14 +196,14 @@ function populateBBLabels(data, boxVal, debug) {
                   });
                 }
               }
-            
+
               if ((sampleType === "Serum" || sampleType === "MSerum") && timestampData.ie.bsg) {
                 const bsg = timestampData.ie.bsg;
                 console.log("bsg", bsg);
                 console.log("bsgIndex1", getSeatLabel(index));
                 const bsgIndex1 = bsg.split('/')[1]; // get index1
                 console.log("bsgIndex1", bsgIndex1);
-            
+
                 if (bsgIndex1 && bsgIndex1.includes(getSeatLabel(index))) {
                   matchedData.push({
                     mode: "SearchView",
@@ -218,14 +219,14 @@ function populateBBLabels(data, boxVal, debug) {
                   });
                 }
               }
-            
+
               if ((sampleType === "Buffy Coat" || sampleType === "MBuffy Coat") && timestampData.ie.bbcg) {
                 const bbcg = timestampData.ie.bbcg;
                 console.log("bbcg", bbcg);
                 console.log("bbcgIndex1", getSeatLabel(index));
                 const bbcgIndex1 = bbcg.split('/')[1];
                 console.log("bbcgIndex1", bbcgIndex1);
-            
+
                 if (bbcgIndex1 && bbcgIndex1.includes(getSeatLabel(index))) {
                   matchedData.push({
                     mode: "SearchView",
@@ -241,14 +242,14 @@ function populateBBLabels(data, boxVal, debug) {
                   });
                 }
               }
-            
+
               if ((sampleType === "Other" || sampleType === "MOther") && timestampData.ie.osg) {
                 const osg = timestampData.ie.osg;
                 console.log("osg", osg);
                 console.log("osgIndex1", getSeatLabel(index));
                 const osgIndex1 = osg.split('/')[1];
                 console.log("osgIndex1", osgIndex1);
-            
+
                 if (osgIndex1 && osgIndex1.includes(getSeatLabel(index))) {
                   matchedData.push({
                     mode: "SearchView",
@@ -265,7 +266,7 @@ function populateBBLabels(data, boxVal, debug) {
                 }
               }
             });
-            
+
 
             if (matchedData.length > 0) {
               console.log('Matched Data:', matchedData);
@@ -278,6 +279,8 @@ function populateBBLabels(data, boxVal, debug) {
                 pages_display(item.mode, item.bioBankId, item.seq, item.timestamp);
               });
             } else {
+              console.log('No match found for:', matchedData.length);
+
               console.log('No match found for:', labelName);
             }
           });
@@ -345,7 +348,7 @@ function populateBBLabels(data, boxVal, debug) {
                   const bsgIndex1 = bsg.split('/')[1]; // get index1
                   console.log("bsgIndex1", bsgIndex1);
 
-                  if (bsgIndex1 && bsgIndex1.split(',').includes(getSeatLabel(index))) {
+                  if (bsgIndex1 && bsgIndex1.includes(getSeatLabel(index))) {
                     matchedData.push({
                       mode: "sharedView",
                       boxName,
@@ -370,7 +373,7 @@ function populateBBLabels(data, boxVal, debug) {
                   const bbcgIndex1 = bbcg.split('/')[1];
                   console.log("bbcgIndex1", bbcgIndex1);
 
-                  if (bbcgIndex1 && bbcgIndex1.split(',').includes(getSeatLabel(index))) {
+                  if (bbcgIndex1 && bbcgIndex1.includes(getSeatLabel(index))) {
                     matchedData.push({
                       mode: "sharedView",
                       boxName,
@@ -492,7 +495,7 @@ function populateBBLabels(data, boxVal, debug) {
                   const bsgIndex1 = bsg.split('/')[1]; // get index1
                   console.log("bsgIndex1", bsgIndex1);
 
-                  if (bsgIndex1 && bsgIndex1.split(',').includes(getSeatLabel(index))) {
+                  if (bsgIndex1 && bsgIndex1.includes(getSeatLabel(index))) {
                     matchedData.push({
                       mode: "sharedView",
                       boxName,
@@ -517,7 +520,7 @@ function populateBBLabels(data, boxVal, debug) {
                   const bbcgIndex1 = bbcg.split('/')[1];
                   console.log("bbcgIndex1", bbcgIndex1);
 
-                  if (bbcgIndex1 && bbcgIndex1.split(',').includes(getSeatLabel(index))) {
+                  if (bbcgIndex1 && bbcgIndex1.includes(getSeatLabel(index))) {
                     matchedData.push({
                       mode: "sharedView",
                       boxName,
@@ -877,53 +880,53 @@ function populateSBLabels(data) {
               console.log("seqData", seqData);
 
               const latestTimestamp = Math.max(...Object.keys(seqData));
-            
+
               const timestampData = seqData[latestTimestamp];
               console.log("Latest timestampData", timestampData);
 
-                if ((sampleType.includes('FT') || sampleType.includes('MFT')) && timestampData.ie.ftg) {
-                  const ftg = timestampData.ie.ftg;
-                  const boxName = ftg.split('/')[0];
-                  const ftgIndex1 = ftg.split('/')[1];
+              if ((sampleType.includes('FT') || sampleType.includes('MFT')) && timestampData.ie.ftg) {
+                const ftg = timestampData.ie.ftg;
+                const boxName = ftg.split('/')[0];
+                const ftgIndex1 = ftg.split('/')[1];
 
-                  if (ftgIndex1 && ftgIndex1.includes(getSeatLabel(index))) {
-                    matchedData.push({
-                      mode: "SearchView",
-                      bioBankId,
-                      seq: seqNum,
-                      timestamp: latestTimestamp
-                    });
-                    console.log("Matched:", {
-                      mode: "SearchView",
-                      bioBankId,
-                      seqNum,
-                      timestamp:latestTimestamp
-                    });
-                  }
+                if (ftgIndex1 && ftgIndex1.includes(getSeatLabel(index))) {
+                  matchedData.push({
+                    mode: "SearchView",
+                    bioBankId,
+                    seq: seqNum,
+                    timestamp: latestTimestamp
+                  });
+                  console.log("Matched:", {
+                    mode: "SearchView",
+                    bioBankId,
+                    seqNum,
+                    timestamp: latestTimestamp
+                  });
                 }
+              }
 
-                if ((sampleType.includes('FN') || sampleType.includes('MFN')) && timestampData.ie.fng) {
-                  const fng = timestampData.ie.fng;
-                  const boxName = fng.split('/')[0];
-                  const fngIndex1 = fng.split('/')[1];
+              if ((sampleType.includes('FN') || sampleType.includes('MFN')) && timestampData.ie.fng) {
+                const fng = timestampData.ie.fng;
+                const boxName = fng.split('/')[0];
+                const fngIndex1 = fng.split('/')[1];
 
-                  if (fngIndex1 && fngIndex1.includes(getSeatLabel(index))) {
-                    matchedData.push({
-                      mode: "SearchView",
-                      bioBankId,
-                      seq: seqNum,
-                      timestamp:latestTimestamp
-                    });
-                    console.log("Matched:", {
-                      mode: "SearchView",
-                      bioBankId,
-                      seqNum,
-                      timestamp:latestTimestamp
-                    });
-                  }
+                if (fngIndex1 && fngIndex1.includes(getSeatLabel(index))) {
+                  matchedData.push({
+                    mode: "SearchView",
+                    bioBankId,
+                    seq: seqNum,
+                    timestamp: latestTimestamp
+                  });
+                  console.log("Matched:", {
+                    mode: "SearchView",
+                    bioBankId,
+                    seqNum,
+                    timestamp: latestTimestamp
+                  });
                 }
+              }
 
-             
+
             });
 
             if (matchedData.length > 0) {
@@ -973,7 +976,7 @@ function populateSBLabels(data) {
                 const timestampData = seqData[timestamp];
                 console.log("timestampData", timestampData);
 
-                if ((sampleType.includes('FT') || sampleType.includes('MFT')) && timestampData.ie) {
+                if ((sampleType.includes('FT') || sampleType.includes('MFT')) && timestampData.ie.ftg) {
                   const ftg = timestampData.ie.ftg;
                   const boxName = ftg.split('/')[0];
                   const ftgIndex1 = ftg.split('/')[1];
@@ -995,7 +998,7 @@ function populateSBLabels(data) {
                     });
                   }
                 }
-                if ((sampleType.includes('FN') || sampleType.includes('MFN')) && timestampData.ie) {
+                if ((sampleType.includes('FN') || sampleType.includes('MFN')) && timestampData.ie.fng) {
                   const fng = timestampData.ie.fng;
                   console.log("fng", fng);
                   console.log("fngIndex1", getSeatLabel(index));
@@ -2021,6 +2024,7 @@ function validateForm1() {
   ];
 
   let allFilled = true;
+  let biochar = true;
   const emptyFields = [];
 
   requiredFields.forEach(item => {
@@ -2029,17 +2033,30 @@ function validateForm1() {
       emptyFields.push(item.name);
     }
   });
-  let mode = localStorage.getItem('mode');
-  console.log("mode",mode)
-  if(mode === "SearchView" || mode === "pendingView"){
-    if (!allFilled) {
-    console.log('Please fill in the following required fields:', emptyFields.join(', '));
+
+  const bioBankIdField = document.getElementById('bioBankId');
+  const invalidCharacter = '/';
+
+  if (bioBankIdField.value.includes(invalidCharacter)) {
+    biochar = false;
+    emptyFields.push('Bio Bank ID should not contain special character "/"');
   }
-}
+
+  let mode = localStorage.getItem('mode');
+
+  console.log("mode", mode)
+  if (mode === "SearchView" || mode === "pendingView") {
+    if (!allFilled) {
+      console.log('Please fill in the following required fields:', emptyFields.join(', '));
+    }
+  }
   else if (!allFilled) {
     alert('Please enter all the required fields');
     return;
-
+  }
+  else if (!biochar){
+    alert(`The Biobank Id should not contain "/"`);
+    return;
   }
 
   const getDateAndTime = (dateId, timeId) => {
@@ -2272,6 +2289,7 @@ function validateForm2() {
       stn: document.getElementById('StHPEInput').value || "",
       sd: document.getElementById('surgeryDate').value || "",
       rcbs: document.getElementById('rcbScores').value || "",
+      rcbc : document.getElementById('rcbClass').value || "",
       act: document.querySelector('input[name="ACT"]:checked')?.value || "",
       actdc: document.getElementById('actDrugCycles').value || "",
       actdls: document.getElementById('actDateLastCycle').value || "",
@@ -2280,7 +2298,8 @@ function validateForm2() {
       rtdls: document.getElementById('radiotherapyLastCycleDate').value || "",
       mdu: user,
       //ipba: document.querySelector('input[name="pbT"]:checked')?.value === 'true' ? true : false || false
-      ipba: document.querySelector('input[name="pbT"]:checked')?.value || ""
+      ipba: document.querySelector('input[name="pbT"]:checked')?.value || "",
+      ipbainfo: document.getElementById('PBInput')?.value || ""
     }
   };
 
@@ -2328,7 +2347,7 @@ function validateForm3() {
       h2: document.querySelector('input[name="HER2Radio"]:checked')?.value || "",
       sbt: document.getElementById('sbt').value || "",
       k67: document.getElementById('k67').value || "",
-      cs: document.getElementById('ClinicalS').value || "",
+      // cs: document.getElementById('ClinicalS').value || "",
       ht: document.getElementById('HistologicalS').value || "",
       sps: document.getElementById('sps').value || "",
       brfu: user
@@ -2397,8 +2416,8 @@ function saveToFirebase(data) {
 
     const dueDate = new Date();
     // dueDate.setMonth(dueDate.getMonth() + 6);  // Add 6 months to the current date
-    // dueDate.setMinutes(dueDate.getMinutes() + 3);  // Add 10 days to the current date
-    dueDate.setMinutes(dueDate.getMinutes() + 10 * 24 * 60);  // Add 10 days to the current date
+    dueDate.setMinutes(dueDate.getMinutes() + 3);  // Add 10 days to the current date
+    // dueDate.setMinutes(dueDate.getMinutes() + 10 * 24 * 60);  // Add 10 days to the current date
 
 
     const bioBankPath = `pfw/${bioBankId}`;
@@ -2475,6 +2494,26 @@ function updateToFirebase(data) {
       db.ref(`sef/${bioBankId}/${lastSection}/${timestamp}`).set(formattedData)
         .then(() => {
           alert('Form submitted successfully to ' + lastSection);
+          let user = sessionStorage.getItem('userName');
+          let mode = localStorage.getItem("mode")
+
+          let act = {
+            "mode": "",
+            "user": user
+          };
+          if(mode === "SearchEdit" || mode === "PendingEdit"){
+            db.ref(`act/${bioBankId}/${lastSection}`).set(act)
+              .then(() => {
+                console.log("New act set, proceeding with pages_display.");
+                validateAndCollectData();
+              })
+              .catch((error) => {
+                console.error("Error setting new act: ", error);
+              });
+            }
+            else{
+              validateAndCollectData();
+            }
         })
         .catch((error) => {
           console.error('Error writing to Firebase', error);
@@ -3011,6 +3050,8 @@ function fillMdForm(mdData) {
   document.getElementById('StHPEInput').value = mdData.stn || '';
   document.getElementById('surgeryDate').value = mdData.sd || '';
   document.getElementById('rcbScores').value = mdData.rcbs || '';
+  document.getElementById('rcbClass').value = mdData.rcbc || '';
+  
   if (mdData.act) document.querySelector(`input[name="ACT"][value="${mdData.act}"]`).checked = true;
   actYes();
   document.getElementById('actDrugCycles').value = mdData.actdc || '';
@@ -3020,8 +3061,11 @@ function fillMdForm(mdData) {
   document.getElementById('radiotherapyDetails').value = mdData.rdd || '';
   document.getElementById('radiotherapyLastCycleDate').value = mdData.rtdls || '';
   if (mdData.ipba) document.querySelector(`input[name="pbT"][value="${mdData.ipba}"]`).checked = true;
+  document.getElementById('PBInput').value = mdData.ipbainfo || '';
+
   document.getElementById('mddataEB').value = mdData.mdu || 'currentUser';
 }
+
 
 // function fillBrfForm(brfData) {
 //   document.getElementById('brfdataEB').value = brfData.brfu || 'currentUser';
@@ -3110,7 +3154,7 @@ function fillBrfForm(brfData) {
   }
   document.getElementById('sbt').value = brfData.sbt || '';
   document.getElementById('k67').value = brfData.k67 || '';
-  document.getElementById('ClinicalS').value = brfData.cs || '';
+  // document.getElementById('ClinicalS').value = brfData.cs || '';
   document.getElementById('HistologicalS').value = brfData.ht || '';
   document.getElementById('sps').value = brfData.sps || '';
   document.getElementById('brfdataEB').value = brfData.brfu || 'currentUser';
@@ -3192,8 +3236,8 @@ function submitFollowup() {
 
   const timePFW = new Date()
   console.log("time", timePFW)
-  timePFW.setMinutes(timePFW.getMinutes() + 10 * 24 * 60);
-  // timePFW.setMinutes(timePFW.getMinutes() + 3);
+  // timePFW.setMinutes(timePFW.getMinutes() + 10 * 24 * 60);
+  timePFW.setMinutes(timePFW.getMinutes() + 3);
 
   const selectedStatus = document.querySelector('input[name="livestatus"]:checked').value;
   const lastfollow = document.querySelector('input[name="flexRadioDefault"]:checked').value;
@@ -4068,9 +4112,9 @@ function popSharedBloodmodal(bioboxName, samples) {
 
                       if (gridSamples.includes(seatID)) {
                         labelElement.style.background = "#4d6335";
-                        console.log("seatID in sahred Box",gridSamples)
+                        console.log("seatID in sahred Box", gridSamples)
 
-                        console.log("seatID in sahred Box",seatID)
+                        console.log("seatID in sahred Box", seatID)
                       }
                     }
                   }
@@ -4574,7 +4618,8 @@ function otherSample() {
     $('#otSampleDesc').val('');
     // localStorage.removeItem("LocalOther");
   }
-}function sampleReceive() {
+}
+function sampleReceive() {
   if ($('#radioprocessed1').is(':checked')) {
     $('#receiveAllSample').show();
     $('#processAllSample').show();
@@ -4605,7 +4650,7 @@ function otherSample() {
     $('#sampleProcessedDate').val('');
     $('#sampleProcessedTime').val('');
   }
-  else if (!($('#radioprocessed1').is(':checked')) && !($('#radioprocessed2').is(':checked'))){
+  else if (!($('#radioprocessed1').is(':checked')) && !($('#radioprocessed2').is(':checked'))) {
     $('#receiveAllSample').hide();
     $('#processAllSample').hide();
     $('#AllSamplesProcess').hide();
@@ -4648,7 +4693,7 @@ function otherSample() {
     $('#receiveBloodSample').hide();
     $('#processBloodSample').hide();
     $('#BloodSamplesProcess').hide();
-    
+
   }
   if (($('#radioprocessed2').is(':checked')) && ($('#specimenSampleY').is(':checked'))) {
     $('#receiveSpecimenSample').show();
@@ -4659,7 +4704,7 @@ function otherSample() {
     $('#receiveSpecimenSample').hide();
     $('#processSpecimenSample').hide();
     $('#SpecimenSamplesProcess').hide();
-    
+
   }
   if (($('#radioprocessed2').is(':checked')) && ($('#otherSampleY').is(':checked'))) {
     $('#receiveOtherSample').show();
@@ -4670,9 +4715,10 @@ function otherSample() {
     $('#receiveOtherSample').hide();
     $('#processOtherSample').hide();
     $('#OtherSamplesProcess').hide();
-   
+
   }
 }
+
 
 function familyHabitToggle() {
   if ($('#familyHistoryCancer1').is(':checked')) {
@@ -4769,5 +4815,15 @@ function parity() {
     $('#noChild').show();
   } else {
     $('#noChild').hide();
+  }
+}
+
+function pbYes() {
+  if ($('#pbYes').is(':checked')) {
+    $('#PBN').show();
+  }
+  else {
+    $('#PBN').hide();
+    $('#PBInput').val('');
   }
 }
