@@ -109,18 +109,17 @@
       <div class="mx-auto">
         <ul class="nav nav-pills nav-fill">
           <li class="nav-item">
-            <a class="nav-link" href="statistics.html">Home</a>
+            <a class="nav-link navLinks" href="#" data-href="statistics.html" id="homeLink">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="home.html">Sample</a>
+            <a class="nav-link navLinks" href="#" data-href="home.html" id="sampleLink">Sample</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="search.html">Search</a>
+            <a class="nav-link navLinks" href="#" data-href="search.html" id="searchLink">Search</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="todo.html">To-Do list</a>
+            <a class="nav-link navLinks" href="#" data-href="todo.html" id="todoLink">To-Do list</a>
           </li>
-
         </ul>
       </div>
       <div id="loading" class="spinmodal" style="display: none;">
@@ -186,12 +185,24 @@
                   <input type="text" class="form-control" id="mrnNo" placeholder="Enter MRN Number" required>
                 </div>
               </div>
+              <div class="row ml-1 mb-3">
+                <label for="cancer_type" class="col-sm-2 mb-1 col-form-label">Cancer Type <span
+                    style="color: red; font-weight: bold;">*</span></label>
+                <div class="col-sm-10 mt-2">
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadio1" name="radioCancerType" class="custom-control-input" required
+                      value="brst">
+                    <label class="custom-control-label" for="customRadio1">Breast Cancer</label>
+                  </div>
+                </div>
+              </div>
 
               <div class="row ml-1 mb-3">
                 <label for="bioBankId" class="col-sm-2 mb-1 col-form-label">Bio Bank ID <span
                     style="color: red; font-weight: bold;">*</span></label>
                 <div class="col-sm-10 mt-2">
-                  <input type="text" class="form-control" id="bioBankId" placeholder="Enter Bio Bank ID" required>
+                  <input type="text" class="form-control" id="bioBankId" placeholder="Enter Bio Bank ID"
+                    oninput="formatBioInput(this)" required>
                 </div>
               </div>
 
@@ -218,29 +229,7 @@
                 </div>
               </div>
 
-              <div class="row ml-1 mb-3">
-                <label for="cancer_type" class="col-sm-2 mb-1 col-form-label">Cancer Type <span
-                    style="color: red; font-weight: bold;">*</span></label>
-                <div class="col-sm-10 mt-2">
-                  <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="customRadio1" name="radioCancerType" class="custom-control-input" required
-                      value="brst">
-                    <label class="custom-control-label" for="customRadio1">Breast Cancer</label>
-                  </div>
-                  <!-- <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="customRadio2" name="radioCancerType" class="custom-control-input">
-                    <label class="custom-control-label" for="customRadio2">Liver Cancer</label>
-                  </div>
-                  <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="customRadio3" name="radioCancerType" class="custom-control-input">
-                    <label class="custom-control-label" for="customRadio3">Throat Cancer</label>
-                  </div>
-                  <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="customRadio4" name="radioCancerType" class="custom-control-input">
-                    <label class="custom-control-label" for="customRadio4">Lung Cancer</label>
-                  </div> -->
-                </div>
-              </div>
+
               <!-- <div class="row ml-1 mb-3">
                 <label for="cancer_stage" class="col-sm-2 mb-1 col-form-label">Cancer Stage <span
                     style="color: red; font-weight: bold;">*</span></label>
@@ -409,20 +398,20 @@
                   </div>
                 </div>
               </div>
-              <div class="row ml-1 mb-3" id="plasmatubes" style="display: none;">
-                <label for="PlasmagridNo" class="col-sm-2 mb-1 col-form-label">Plasma Grid <span
-                    style="color: red; font-weight: bold;">*</span></label>
-                <div class="col-sm-10 mt-2">
-                  <input type="button" class="form-control" id="PlasmagridNo" onclick="plasmaModal()"
-                    placeholder="Plasma Grid">
-                </div>
-              </div>
               <div class="row ml-1 mb-3" id="serumtubes" style="display: none;">
                 <label for="SerumgridNo" class="col-sm-2 mb-1 col-form-label">Serum Grid <span
                     style="color: red; font-weight: bold;">*</span></label>
                 <div class="col-sm-10 mt-2">
                   <input type="button" class="form-control" id="SerumgridNo" onclick="serumModal()"
                     placeholder="Serum Grid">
+                </div>
+              </div>
+              <div class="row ml-1 mb-3" id="plasmatubes" style="display: none;">
+                <label for="PlasmagridNo" class="col-sm-2 mb-1 col-form-label">Plasma Grid <span
+                    style="color: red; font-weight: bold;">*</span></label>
+                <div class="col-sm-10 mt-2">
+                  <input type="button" class="form-control" id="PlasmagridNo" onclick="plasmaModal()"
+                    placeholder="Plasma Grid">
                 </div>
               </div>
               <div class="row ml-1 mb-3" id="bufferCoatTubes" style="display: none;">
@@ -466,6 +455,56 @@
               </div>
 
               <div class="row ml-1 mb-3">
+                <label for="rltSample" class="col-sm-2 mb-1 col-form-label">RLT Sample <span
+                    style="color: red; font-weight: bold;">*</span></label>
+                <div class="col-sm-10 mt-2">
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="rltSampleY" name="rltSample" class="custom-control-input" value=true
+                      required>
+                    <label class="custom-control-label" for="rltSampleY">Yes</label>
+                  </div>
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="rltSampleN" name="rltSample" class="custom-control-input" value=false
+                      required>
+                    <label class="custom-control-label" for="rltSampleN">No</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row ml-1 mb-3" id="rltSampleTubes" style="display: none;">
+                <label for="rltSgridNo" class="col-sm-2 mb-1 col-form-label">RLT Sample Grid <span
+                    style="color: red; font-weight: bold;">*</span></label>
+                <div class="col-sm-10 mt-2">
+                  <input type="button" class="form-control" id="rltSgridNo" onclick="rltSModal()"
+                    placeholder="RLT Sample Grid">
+                </div>
+              </div>
+
+              <div class="row ml-1 mb-3">
+                <label for="pcbSample" class="col-sm-2 mb-1 col-form-label">Primary Culture Sample <span
+                    style="color: red; font-weight: bold;">*</span></label>
+                <div class="col-sm-10 mt-2">
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="pcbSampleY" name="pcbSample" class="custom-control-input" value=true
+                      required>
+                    <label class="custom-control-label" for="pcbSampleY">Yes</label>
+                  </div>
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="pcbSampleN" name="pcbSample" class="custom-control-input" value=false
+                      required>
+                    <label class="custom-control-label" for="pcbSampleN">No</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row ml-1 mb-3" id="pcbSampleTubes" style="display: none;">
+                <label for="pcbSgridNo" class="col-sm-2 mb-1 col-form-label">PC Sample Grid <span
+                    style="color: red; font-weight: bold;">*</span></label>
+                <div class="col-sm-10 mt-2">
+                  <input type="button" class="form-control" id="pcSgridNo" onclick="pcSModal()"
+                    placeholder="PC Sample Grid">
+                </div>
+              </div>
+
+              <div class="row ml-1 mb-3">
                 <label for="consent" class="col-sm-2 mb-1 col-form-label">Consent</label>
                 <div class="col-sm-9 mt-2">
                   <div class="custom-control custom-radio custom-control-inline">
@@ -500,7 +539,35 @@
                 <div class="col-sm-1 mt-2 erase-icon-container">
                   <!-- The icon will be dynamically inserted here -->
                 </div>
+              </div>
 
+              <div class="row ml-1 mb-3">
+                <label for="NACT" class="col-sm-2 mb-1 col-form-label">NACT</label>
+                <div class="col-sm-9">
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="NACTYes" name="NACT" class="custom-control-input" value=true>
+                    <label class="custom-control-label" for="NACTYes">Yes</label>
+                  </div>
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="NACTNo" name="NACT" class="custom-control-input" value=false>
+                    <label class="custom-control-label" for="NACTNo">No</label>
+                  </div>
+                </div>
+                <div class="col-sm-1 mt-2 erase-icon-container-NACT">
+                </div>
+              </div>
+
+              <div class="row ml-1 mb-3" id="nactDC" style="display: none;">
+                <label for="NACT_cycle" class="col-sm-2 mb-1 col-form-label">NACT Drug Cycle</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="NACT_cycle" placeholder="">
+                </div>
+              </div>
+              <div class="row ml-1 mb-3" id="nactDLC" style="display: none;">
+                <label for="NACT_cycle_D" class="col-sm-2 mb-1 col-form-label">NACT Date of last Cycle</label>
+                <div class="col-sm-10">
+                  <input type="date" class="form-control" id="NACT_cycle_D" placeholder="Select Date">
+                </div>
               </div>
 
               <div class="row ml-1 mb-3">
@@ -692,6 +759,99 @@
                   </div>
                 </div>
               </div>
+
+              <div class="row ml-1 mb-3" id="RLTSamplesProcess" style="display: none;">
+                <label for="boxNo" class="col-sm-2 mb-1 col-form-label">RLT Sample Processed By <span
+                    style="color: red; font-weight: bold;">*</span></label>
+                <div class="col-sm-10 mt-2">
+                  <input type="text" class="form-control" id="RLTprocessedBy" placeholder="">
+                </div>
+              </div>
+              <div class="row ml-1 mb-3" id="receiveRLTSample" style="display: none;">
+                <label for="date" class="col-sm-2 mb-1 col-form-label">RLT sample Received Time <span
+                    style="color: red; font-weight: bold;">*</span></label>
+                <div class="col-sm-10 mt-2">
+                  <div class="row">
+
+                    <div class="col-sm-6">
+                      <input type="date" class="form-control" id="RLTSampleReceivedDate" placeholder="Select Date"
+                        required>
+                    </div>
+                    <div class="col-sm-6">
+                      <input type="time" class="form-control" id="RLTSampleReceivedTime" placeholder="Select Date"
+                        required>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row ml-1 mb-3" id="processRLTSample" style="display: none;">
+                <label for="date" class="col-sm-2 mb-1 col-form-label">RLT sample Processed Time<span
+                    style="color: red; font-weight: bold;">*</span></label>
+                <div class="col-sm-10 mt-2">
+                  <div class="row">
+
+                    <div class="col-sm-6">
+                      <input type="date" class="form-control" id="RLTSampleProcessedDate" placeholder="Select Date"
+                        required>
+                    </div>
+                    <div class="col-sm-6">
+                      <input type="time" class="form-control" id="RLTSampleProcessedTime" placeholder="Select Date"
+                        required>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row ml-1 mb-3" id="PCSamplesProcess" style="display: none;">
+                <label for="boxNo" class="col-sm-2 mb-1 col-form-label">Primary Culture Sample Processed By <span
+                    style="color: red; font-weight: bold;">*</span></label>
+                <div class="col-sm-10 mt-2">
+                  <input type="text" class="form-control" id="PCprocessedBy" placeholder="">
+                </div>
+              </div>
+              <div class="row ml-1 mb-3" id="receivePCSample" style="display: none;">
+                <label for="date" class="col-sm-2 mb-1 col-form-label">Primary Culture  sample Received Time <span
+                    style="color: red; font-weight: bold;">*</span></label>
+                <div class="col-sm-10 mt-2">
+                  <div class="row">
+
+                    <div class="col-sm-6">
+                      <input type="date" class="form-control" id="PCSampleReceivedDate" placeholder="Select Date"
+                        required>
+                    </div>
+                    <div class="col-sm-6">
+                      <input type="time" class="form-control" id="PCSampleReceivedTime" placeholder="Select Date"
+                        required>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row ml-1 mb-3" id="processPCSample" style="display: none;">
+                <label for="date" class="col-sm-2 mb-1 col-form-label">Primary Culture  sample Processed Time<span
+                    style="color: red; font-weight: bold;">*</span></label>
+                <div class="col-sm-10 mt-2">
+                  <div class="row">
+
+                    <div class="col-sm-6">
+                      <input type="date" class="form-control" id="PCSampleProcessedDate" placeholder="Select Date"
+                        required>
+                    </div>
+                    <div class="col-sm-6">
+                      <input type="time" class="form-control" id="PCSampleProcessedTime" placeholder="Select Date"
+                        required>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+
+
+
+
               <div id="sefCurrentUser" style="display: none;">
                 <div class="row ml-1 mb-3">
                   <label for="boxNo" class="col-sm-2 mb-1 col-form-label">Data Entry By </label>
@@ -965,6 +1125,7 @@
                     <option value="grade1">Grade 1</option>
                     <option value="grade2">Grade 2</option>
                     <option value="grade3">Grade 3</option>
+                    <option value="Only microinvasion present">Only microinvasion present</option>
                   </select>
                 </div>
               </div>
@@ -983,6 +1144,36 @@
                 <div class="col-sm-1 mt-2 erase-icon-container-focal">
                 </div>
               </div>
+
+              <div class="row ml-1 mb-3">
+                <label for="dcisF" class="col-sm-3 mb-1 col-form-label">DCIS</label>
+                <div class="col-sm-8">
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="dcisY" name="dcis" class="custom-control-input" value=true>
+                    <label class="custom-control-label" for="dcisY">Yes</label>
+                  </div>
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="dcisN" name="dcis" class="custom-control-input" value=false>
+                    <label class="custom-control-label" for="dcisN">No</label>
+                  </div>
+                </div>
+                <div class="col-sm-1 mt-2 erase-icon-container-dcis">
+                </div>
+              </div>
+              <div id="dcisGradeSec" style="display: none;">
+                <div class="row ml-1 mb-3">
+                  <label for="dcisGrade" class="col-sm-3 mb-1 col-form-label">DCIS Grade</label>
+                  <div class="col-sm-9">
+                    <select id="dcisGrade" class="form-control">
+                      <option value="">Select</option>
+                      <option value="Grade1">I</option>
+                      <option value="Grade2">II</option>
+                      <option value="Grade3">III</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
               <div class="row ml-1 mb-3">
                 <label for="LVI" class="col-sm-3 mb-1 col-form-label">LVI</label>
                 <div class="col-sm-8">
@@ -1022,9 +1213,19 @@
               <div class="row ml-1 mb-3">
                 <label for="AJCC" class="col-sm-3 mb-1 col-form-label">AJCC Staging</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" id="AJCC" placeholder="">
+                  <select id="AJCC" class="form-control">
+                    <option value="">Select</option>
+                    <option value="IA">IA</option>
+                    <option value="IB.IIA">IB.IIA</option>
+                    <option value="IIB.IIIA">IIB.IIIA</option>
+                    <option value="IIIB">IIIB</option>
+                    <option value="IIIC">IIIC</option>
+                    <option value="IV">IV</option>
+                  </select>
                 </div>
               </div>
+
+              
               <div class="row ml-1 mb-3">
                 <label for="nodes" class="col-sm-3 mb-1 col-form-label">Number of Nodes tested</label>
                 <div class="col-sm-9">
@@ -1087,7 +1288,7 @@
               <div class="row ml-1 mb-3">
                 <label for="HPE" class="col-sm-3 mb-1 col-form-label">Biopsy Tissue number HPE</label>
                 <div class="col-sm-9">
-                  <input type="text" id="btHPEInput" class="form-control" placeholder="24-S-xxxxxx" maxlength="11"
+                  <input type="text" id="btHPEInput" class="form-control" placeholder="YY-S-XXXXXX" maxlength="11"
                     oninput="formatbtHPEInput(this)" />
                 </div>
               </div>
@@ -1098,37 +1299,9 @@
                 </div>
               </div>
               <div class="row ml-1 mb-3">
-                <label for="NACT" class="col-sm-3 mb-1 col-form-label">NACT</label>
-                <div class="col-sm-8">
-                  <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="NACTYes" name="NACT" class="custom-control-input" value=true>
-                    <label class="custom-control-label" for="NACTYes">Yes</label>
-                  </div>
-                  <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="NACTNo" name="NACT" class="custom-control-input" value=false>
-                    <label class="custom-control-label" for="NACTNo">No</label>
-                  </div>
-                </div>
-                <div class="col-sm-1 mt-2 erase-icon-container-NACT">
-                </div>
-              </div>
-
-              <div class="row ml-1 mb-3" id="nactDC" style="display: none;">
-                <label for="NACT_cycle" class="col-sm-3 mb-1 col-form-label">NACT Drug Cycle</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" id="NACT_cycle" placeholder="">
-                </div>
-              </div>
-              <div class="row ml-1 mb-3" id="nactDLC" style="display: none;">
-                <label for="NACT_cycle_D" class="col-sm-3 mb-1 col-form-label">NACT Date of last Cycle</label>
-                <div class="col-sm-9">
-                  <input type="date" class="form-control" id="NACT_cycle_D" placeholder="Select Date">
-                </div>
-              </div>
-              <div class="row ml-1 mb-3">
                 <label for="surTissueNum" class="col-sm-3 mb-1 col-form-label">Surgery Tissue Number HPE</label>
                 <div class="col-sm-9">
-                  <input type="text" id="StHPEInput" class="form-control" placeholder="24-S-xxxxxx" maxlength="11"
+                  <input type="text" id="StHPEInput" class="form-control" placeholder="YY-S-XXXXXX" maxlength="11"
                     oninput="formatStHPEInput(this)" />
                 </div>
               </div>
@@ -1138,7 +1311,7 @@
                   <input type="date" class="form-control" id="surgeryDate" placeholder="Select Date">
                 </div>
               </div>
-              
+
               <div class="row ml-1 mb-3">
                 <label for="rcbScore" class="col-sm-3 mb-1 col-form-label">RCB Scores</label>
                 <div class="col-sm-9">
@@ -1230,7 +1403,7 @@
               <div class="row ml-1 mb-3" id="PBN">
                 <label for="PBNum" class="col-sm-3 mb-1 col-form-label">Paraffin Block Number</label>
                 <div class="col-sm-9">
-                  <input type="text" id="PBInput" class="form-control" placeholder="24-S-xxxx" maxlength="9"
+                  <input type="text" id="PBInput" class="form-control" placeholder="YY-S-XXXX" maxlength="9"
                     oninput="formatPBInput(this)" />
                 </div>
               </div>
@@ -1378,9 +1551,16 @@
               <div class="row ml-1 mb-3">
                 <label for="subType" class="col-sm-2 mb-1 col-form-label">Subtype</label>
                 <div class="col-sm-10 mt-2">
-                  <input type="text" class="form-control" id="sbt" placeholder="">
+                  <select id="sbt" class="form-control">
+                    <option value="">Select</option>
+                    <option value="HR Positive">HR Positive</option>
+                    <option value="Her2 enriched">Her2 enriched</option>
+                    <option value="Triple positive">Triple positive</option>
+                    <option value="TNBC">TNBC</option>
+                  </select>
                 </div>
-              </div>
+                </div>
+              
               <div class="row ml-1 mb-3">
                 <label for="ki" class="col-sm-2 mb-1 col-form-label">Ki67</label>
                 <div class="col-sm-10 mt-2">
@@ -1413,7 +1593,7 @@
                     <option value="4C">4C</option>
                     <option value="5">5</option>
                     <option value="6">6</option>
-                   
+
                   </select>
                 </div>
               </div>
@@ -1626,8 +1806,7 @@
             </div>
             <div id="partialSamples" style="display: none;">
               <div class="row ml-1 mb-3">
-                <label for="startInput" class="col-sm-2 mb-1 col-form-label col-form-label Bold">Partial shared
-                  remark</label>
+                <label for="startInput" class="col-sm-2 mb-1 col-form-label col-form-label Bold">Partial shared remark</label>
                 <div class="col-sm-10 mt-2">
                   <input type="text" class="form-control " placeholder="" id="parSharedRemark">
                 </div>
@@ -1691,12 +1870,13 @@
         </div>
       </div>
     </div>
-    <div class="modal fade bd-example-modal-lg" id="specimenModalCenter" tabindex="-1" role="dialog"
+
+    <div class="modal fade  bd-example-modal-lg" id="rltModalCenter" tabindex="-1" role="dialog"
       aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle"><span id="currSpecimenBoxName"></span> </h5>
+            <h5 class="modal-title" id="exampleModalLongTitle"><span id="currRLTBoxName"></span></h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -1707,6 +1887,74 @@
           <div class="modal-body">
             <form id="seat-info">
 
+              <div id="blood-box-container" class="seats" style="padding:0px 70px 0px 70px;">
+                <div class="RLT-box" id="box-1">
+                  <div class="status" style="margin-bottom: 10px;">
+                    <div class="item">Empty</div>
+                    <div class="item">Occupied</div>
+                    <div class="item">Outsource</div>
+                  </div>
+                  <input type="checkbox" name="bio_box" id="R1" />
+                </div>
+              </div>
+
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" id="continuePage" onclick="handleDone()">Done</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade  bd-example-modal-lg" id="pcModalCenter" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle"><span id="currPcBoxName"></span></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+
+          </div>
+
+
+          <div class="modal-body">
+            <form id="seat-info">
+
+              <div id="blood-box-container" class="seats" style="padding:0px 70px 0px 70px;">
+                <div class="PC-box" id="box-1">
+                  <div class="status" style="margin-bottom: 10px;">
+                    <div class="item">Empty</div>
+                    <div class="item">Occupied</div>
+                    <div class="item">Outsource</div>
+                  </div>
+                  <input type="checkbox" name="bio_box" id="R1" />
+                </div>
+              </div>
+
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" id="continuePage" onclick="handleDone()">Done</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade bd-example-modal-lg" id="specimenModalCenter" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle"><span id="currSpecimenBoxName"></span> </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="seat-info">
               <div id="blood-box-container" class="seats" style="padding:0px 70px 0px 70px;">
                 <div class="specimen-box" id="box-1">
                   <div class="status" style="margin-bottom: 10px;">
@@ -1726,6 +1974,8 @@
         </div>
       </div>
     </div>
+
+    
     <div class="modal fade  bd-example-modal-lg" id="sharedBloodModal" tabindex="-1" role="dialog"
       aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -1791,6 +2041,70 @@
       </div>
     </div>
 
+    <div class="modal fade  bd-example-modal-lg" id="sharedRLTModal" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle"><span id="cursharedRLTBox"></span></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+
+          </div>
+
+
+          <div class="modal-body">
+            <form id="seat-info">
+
+              <div id="blood-box-container" class="seats" style="padding:0px 70px 0px 70px;">
+                <div class="shared-r-box" id="box-1">
+                  <div class="status" style="margin-bottom: 10px;">
+                    <div class="item">Empty</div>
+                    <div class="item">Occupied</div>
+                    <div class="item">Outsource</div>
+                  </div>
+                  <input type="checkbox" name="bio_box" id="S1" />
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade  bd-example-modal-lg" id="sharedPCModal" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle"><span id="cursharedPCBox"></span></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+
+          </div>
+
+
+          <div class="modal-body">
+            <form id="seat-info">
+
+              <div id="blood-box-container" class="seats" style="padding:0px 70px 0px 70px;">
+                <div class="shared-p-box" id="box-1">
+                  <div class="status" style="margin-bottom: 10px;">
+                    <div class="item">Empty</div>
+                    <div class="item">Occupied</div>
+                    <div class="item">Outsource</div>
+                  </div>
+                  <input type="checkbox" name="bio_box" id="S1" />
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
 
@@ -1808,7 +2122,7 @@
 
       </div>
       <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255);">
-        Version 1.5.2
+        Version 1.5.3
       </div>
     </div>
   </footer>
@@ -1834,8 +2148,6 @@
     const db = firebase.database(app);
 
     localStorage.removeItem('selectedGrid');
-
-    localStorage.removeItem("selectedGrid");
     localStorage.removeItem("selectedSGrid");
     localStorage.removeItem("LocalPlasma")
     localStorage.removeItem("LocalSerum")
@@ -1843,6 +2155,11 @@
     localStorage.removeItem("LocalOther")
     localStorage.removeItem("LocalFT");
     localStorage.removeItem("LocalFN");
+    localStorage.removeItem("LocalRltGrid");
+    localStorage.removeItem("rltSelectedGrid");
+    localStorage.removeItem("LocalPC");
+    localStorage.removeItem("pcSelectedGrid");
+
     
     const referrer = document.referrer;
     const bread2 = document.getElementById('bread2');
@@ -1876,7 +2193,6 @@
         sampleInputTab.click();
       }
 
-      // Clear all input fields
       const inputs = document.querySelectorAll('input');
       inputs.forEach(input => {
         if (input.type === 'text' || input.type === 'textarea') {
@@ -1892,16 +2208,6 @@
       });
     }
 
-    // if (referrer.includes('todo.html')) {
-    //   if(mode==='PendingEdit' || mode==='PendingView'){
-    //     bread2.innerHTML = '<a href="todo.html">To-Do</a>';
-    //     sampleInputTab.click();
-    //   }
-    //   else if (mode==="") {
-    //     bread2.innerHTML = '<a href="todo.html">To-Do</a>';
-    //     followUpTab.click();
-    //   }
-    // }
     if (referrer.includes('todo.html')) {
       if (mode === 'view' || mode === 'edit') {
         bread2.innerHTML = '<a href="todo.html">To-Do</a>';
@@ -1914,16 +2220,12 @@
     }
 
 
-
-
     if (hideMnrId === 'true') {
       const mnrIdElement = document.getElementById('mnrId');
       if (mnrIdElement) {
         mnrIdElement.style.display = 'none';
       }
     }
-
-
 
 
     let storedMrn = localStorage.getItem('MRN');
@@ -1939,91 +2241,16 @@
       document.getElementById("sampleEntry1").addEventListener("click", function () {
         validateAndCollectData();
         console.log("Saved to Firebase!")
-
-        // window.location.href = 'home.html';
       });
     });
 
     document.getElementById('submitButton').addEventListener('click', function () {
-      // let mode = localStorage.getItem("mode")
-      // let act = {
-      //   "mode": "",
-      //   "user": user
-      // };
-      // // Validate and collect data from all forms
-      
-      // if(mode === "SearchEdit"){
-      //   db.ref(refPath).set(act)
-      //     .then(() => {
-      //       console.log("New act set, proceeding with pages_display.");
-      //       validateAndCollectData();
-      //     })
-      //     .catch((error) => {
-      //       console.error("Error setting new act: ", error);
-      //     });
-      // }
-      // else {
-        validateAndCollectData();
-      // }
-      // window.location.href = 'home.html';
-
+      validateAndCollectData();
     });
+
     document.getElementById('finishButton').addEventListener('click', function () {
-
       window.location.href = 'home.html';
-
     });
-    // document.addEventListener("DOMContentLoaded", function () {
-    //   // Array to store the sample data
-    //   let sampleDataArray = [];
-
-    //   // document.getElementById("addSample").addEventListener("click", function () {
-    //   //   document.getElementById("inputSampleTable").style.display = 'block';
-    //   // });
-    //   // document.getElementById("sampleEntry1").addEventListener("click", function () {
-    //   //   window.location.href = 'home.html';
-    //   // });
-    //   document.getElementById("sampleEntry").addEventListener("click", function () {
-    //     const bioBankID = document.querySelector('input[placeholder="Enter Bio Bank ID"]').value;
-    //     const age = document.querySelector('input[placeholder="yrs"]').value;
-    //     const gender = document.querySelector('#gender').value;
-    //     const sample = document.querySelector('#sample').value;
-    //     const sampleType = document.querySelector('#sampleType').value;
-    //     const boxNo = document.querySelector('input[placeholder="Box No."]').value;
-    //     const PgridNo = document.querySelector('input[placeholder="Plasma Grid"]').value;
-
-    //     const gridNo = document.querySelector('input[placeholder="Grid No."]').value;
-
-    //     const sampleData = {
-    //       bioBankID,
-    //       age,
-    //       gender,
-    //       sample,
-    //       sampleType,
-    //       boxNo,
-    //       gridNo
-    //     };
-
-    //     sampleDataArray.push(sampleData);
-
-    //     console.log(sampleDataArray);
-
-    //     document.getElementById("inputSampleTable").style.display = 'none';
-
-    //     document.querySelector('input[placeholder="Enter Bio Bank ID"]').value = '';
-    //     document.querySelector('input[placeholder="yrs"]').value = '';
-    //     document.querySelector('#gender').value = '';
-    //     document.querySelector('#sample').value = '';
-    //     document.querySelector('#sampleType').value = '';
-    //     document.querySelector('input[placeholder="Box No."]').value = '';
-    //     document.querySelector('input[placeholder="Grid No."]').value = '';
-    //     window.location.href = referrer
-    //   });
-
-    //   document.getElementById('logout').addEventListener('click', function () {
-    //     window.location.href = 'login.html';
-    //   });
-    // });
 
     function logout() {
       sessionStorage.removeItem('isLoggedIn');
@@ -2036,106 +2263,38 @@
     let BloodSelectedSeats = [];
     let SpecimenSelectedSeats = [];
 
-    // function popmodal() {
-    //   let sampleType = document.querySelector('#sample').value;
 
-    //   if (sampleType === "Blood") {
-    //     $('#bloodModalCenter').modal('show');
-    //     generateSeats('blood-box', 'BR');
-    //   } else if (sampleType === "Specimen") {
-    //     $('#specimenModalCenter').modal('show');
-    //     generateSeats('specimen-box', 'SR');
-    //   }
-    // }
-
-    // function generateSeats(containerClass, seatPrefix) {
-    //   let container = document.querySelector(`.${containerClass}`);
-    //   container.innerHTML = '';
-    //   selectedSeats = [];
-
-    //   for (let i = 0; i < 54; i++) {
-    //     let seatID = seatPrefix + '_' + (i + 1);
-    //     let booked = "";
-    //     if (i >= 0 && i <= 41) {
-    //       booked = "booked";
-    //       container.insertAdjacentHTML(
-    //         "beforeend",
-    //         `<input type="checkbox" name="seats" id="${seatID}" />` +
-    //         `<label for="${seatID}" class="seat ${booked}">${seatID}</label>`
-    //       );
-
-    //       document.getElementById(seatID).addEventListener('change', function () {
-    //         handleSeatSelection(seatID);
-    //       });
-    //     }
-    //     else {
-    //       container.insertAdjacentHTML(
-    //         "beforeend",
-    //         `<input type="checkbox" name="seats" id="${seatID}" />` +
-    //         `<label for="${seatID}" class="seat ${booked}"></label>`
-    //       );
-
-    //       document.getElementById(seatID).addEventListener('change', function () {
-    //         handleSeatSelection(seatID);
-    //       });
-    //     }
-
-    //   }
-    // }
-
-    // function handleSeatSelection(seatID) {
-
-    //   let seatIndex = selectedSeats.indexOf(seatID);
-    //   if (seatIndex === -1) {
-    //     if (seatID === "BR_43") {
-    //       selectedSeats.push("A8");
-    //     }
-    //     else if (seatID === "BR_44") {
-    //       selectedSeats.push("B8");
-    //     }
-    //     else {
-    //       selectedSeats.push(seatID);
-
-    //     }
-    //   }
-    //   else {
-    //     selectedSeats.splice(seatIndex, 1);
-    //   }
-    //   console.log("Seat index", seatID)
-
-    // }
-
-    // function handleDone() {
-    //   if (selectedSeats.length > 0) {
-    //     // Select the input for Grid No. within the form layout
-    //     let gridInput = document.querySelector("input[placeholder='Grid No.']");
-    //     if (gridInput) {
-    //       gridInput.value = selectedSeats.join(', ');
-    //     }
-    //   }
-    //   // Close the modals
-    //   $('#bloodModalCenter').modal('hide');
-    //   $('#specimenModalCenter').modal('hide');
-    // }
 
 
     let grid = '';
 
     let spgrid = '';
 
-    let arr = [];
+    let rltgrid = '';
 
-    let arrS = [];
+    let pcgrid = '';
+
+    let arr = [];
 
     let arrinx = [];
 
+    let arrS = [];
+
     let arrSinx = [];
+
+    let arrR = [];
+
+    let arrRinx = [];
+
+    let arrP = [];
+
+    let arrPinx = [];
 
     function plasmaModal() {
       let mode = localStorage.getItem('mode');
       let sts = localStorage.getItem("bloodVStatus")
       console.log("sts bloodVStatus", sts)
-      if (mode === 'SearchView'  || (mode === 'PendingEdit' && (sts === "true")) || ((mode === 'SearchEdit') && (sts === "true")) || mode === 'PendingView' || mode === 'ViewFollowUp' || mode === 'SharedView') {
+      if (mode === 'SearchView' || (mode === 'PendingEdit' && (sts === "true")) || ((mode === 'SearchEdit') && (sts === "true")) || mode === 'PendingView' || mode === 'ViewFollowUp' || mode === 'SharedView') {
         if (document.getElementById("PlasmagridNo").value !== '') {
           popVPlasmaModal()
         }
@@ -2162,7 +2321,7 @@
       let mode = localStorage.getItem('mode');
       let sts = localStorage.getItem("bloodVStatus")
 
-      if (mode === 'SearchView'  || (mode === 'PendingEdit' && (sts === "true")) || (mode === 'SearchEdit' && (sts === "true")) || mode === 'PendingView' || mode === 'ViewFollowUp' || mode === 'SharedView') {
+      if (mode === 'SearchView' || (mode === 'PendingEdit' && (sts === "true")) || (mode === 'SearchEdit' && (sts === "true")) || mode === 'PendingView' || mode === 'ViewFollowUp' || mode === 'SharedView') {
         if (document.getElementById("bufferCoatgridNo").value !== '') {
           popVBufferModal()
         }
@@ -2176,7 +2335,7 @@
       let mode = localStorage.getItem('mode');
       let sts = localStorage.getItem("otherVStatus")
 
-      if (mode === 'SearchView'  || (mode === 'PendingEdit' && (sts === "true")) || (mode === 'SearchEdit' && (sts === "true")) || mode === 'PendingView' || mode === 'ViewFollowUp' || mode === 'SharedView') {
+      if (mode === 'SearchView' || (mode === 'PendingEdit' && (sts === "true")) || (mode === 'SearchEdit' && (sts === "true")) || mode === 'PendingView' || mode === 'ViewFollowUp' || mode === 'SharedView') {
         if (document.getElementById("OSgridNo").value !== '') {
           popVOtherSampleModal()
         }
@@ -2186,11 +2345,40 @@
       }
     }
 
+    function rltSModal() {
+      let mode = localStorage.getItem('mode');
+      let sts = localStorage.getItem("rltVStatus")
+
+      if (mode === 'SearchView' || (mode === 'PendingEdit' && (sts === "true")) || (mode === 'SearchEdit' && (sts === "true")) || mode === 'PendingView' || mode === 'ViewFollowUp' || mode === 'SharedView') {
+        if (document.getElementById("rltSgridNo").value !== '') {
+          popVrltSModal()
+        }
+      }
+      else {
+        poprltSModal()
+      }
+    }
+
+    
+    function pcSModal() {
+      let mode = localStorage.getItem('mode');
+      let sts = localStorage.getItem("pcVStatus")
+
+      if (mode === 'SearchView' || (mode === 'PendingEdit' && (sts === "true")) || (mode === 'SearchEdit' && (sts === "true")) || mode === 'PendingView' || mode === 'ViewFollowUp' || mode === 'SharedView') {
+        if (document.getElementById("pcSgridNo").value !== '') {
+          popVpcSModal()
+        }
+      }
+      else {
+        poppcSModal()
+      }
+    }
+
     function FTModal() {
       let mode = localStorage.getItem('mode');
       let sts = localStorage.getItem("specimenVStatus")
 
-      if (mode === 'SearchView'  || (mode === 'PendingEdit' && (sts === "true")) || (mode === 'SearchEdit' && (sts === "true")) || mode === 'PendingView' || mode === 'ViewFollowUp' || mode === 'SharedView') {
+      if (mode === 'SearchView' || (mode === 'PendingEdit' && (sts === "true")) || (mode === 'SearchEdit' && (sts === "true")) || mode === 'PendingView' || mode === 'ViewFollowUp' || mode === 'SharedView') {
         if (document.getElementById("ftgrid").value !== '') {
           popVFTmodal()
         }
@@ -2204,7 +2392,7 @@
       let mode = localStorage.getItem('mode');
       let sts = localStorage.getItem("specimenVStatus")
 
-      if (mode === 'SearchView'  || (mode === 'PendingEdit' && (sts === "true")) || (mode === 'SearchEdit' && (sts === "true")) || mode === 'PendingView' || mode === 'ViewFollowUp' || mode === 'SharedView') {
+      if (mode === 'SearchView' || (mode === 'PendingEdit' && (sts === "true")) || (mode === 'SearchEdit' && (sts === "true")) || mode === 'PendingView' || mode === 'ViewFollowUp' || mode === 'SharedView') {
         if (document.getElementById("fngrid").value !== '') {
           popVFNmodal()
         }
@@ -2225,6 +2413,28 @@
     function removeItemFromArray(arr, itemToRemove) {
       // Filter out the item to remove from the array
       return arr.filter(item => item !== itemToRemove);
+    }
+
+    function splitRLTStringToArray(grid) {
+      const rltGdata = [...new Set(grid.split(',').map(item => item.trim()))];
+      console.log("rltGdata", rltGdata);
+      return rltGdata;
+    }
+
+    function removeRLTItemFromArray(arrR, itemToRemove) {
+      // Filter out the item to remove from the array
+      return arrR.filter(item => item !== itemToRemove);
+    }
+
+    function splitPCStringToArray(pcgrid) {
+      const PCGdata = [...new Set(pcgrid.split(',').map(item => item.trim()))];
+      console.log("PCGdata", PCGdata);
+      return PCGdata;
+    }
+
+    function removePCItemFromArray(arrP, itemToRemove) {
+      // Filter out the item to remove from the array
+      return arrP.filter(item => item !== itemToRemove);
     }
 
     function popVPlasmaModal() {
@@ -2674,7 +2884,9 @@
 
           if (gridInput) {
             const box_name = boxName;
-            const status = document.querySelector('input[name="MetastasisSample"]:checked') && document.querySelector('input[name="MetastasisSample"]:checked').value === "true" ? "MPlasma" : "Plasma";
+            // const status = document.querySelector('input[name="MetastasisSample"]:checked') && document.querySelector('input[name="MetastasisSample"]:checked').value === "true" ? "MPlasma" : "Plasma";
+            const status = "Plasma";
+
             const grid_id = BloodSelectedSeats.join(', ');
             if (grid_id.length > 0) {
               gridInput.value = `${box_name}/${grid_id}/${status}`;
@@ -2693,8 +2905,6 @@
         };
       }
     }
-
-
 
 
     function popVSerumModal() {
@@ -2848,8 +3058,6 @@
       }
 
     }
-
-
 
     function popSerummodal() {
 
@@ -3117,7 +3325,9 @@
 
           if (gridInput) {
             const box_name = boxName;
-            const status = document.querySelector('input[name="MetastasisSample"]:checked') && document.querySelector('input[name="MetastasisSample"]:checked').value === "true" ? "MSerum" : "Serum";
+            // const status = document.querySelector('input[name="MetastasisSample"]:checked') && document.querySelector('input[name="MetastasisSample"]:checked').value === "true" ? "MSerum" : "Serum";
+            const status = "Serum";
+
             const grid_id = BloodSelectedSeats.join(', ');
             if (grid_id.length > 0) {  // Only update gridInput if grid_id is not empty
               gridInput.value = `${box_name}/${grid_id}/${status}`;
@@ -3295,7 +3505,6 @@
       }
 
     }
-
 
     function popBuffermodal() {
 
@@ -3560,7 +3769,9 @@
 
           if (gridInput) {
             const box_name = boxName;
-            const status = document.querySelector('input[name="MetastasisSample"]:checked') && document.querySelector('input[name="MetastasisSample"]:checked').value === "true" ? "MBuffy Coat" : "Buffy Coat";
+            // const status = document.querySelector('input[name="MetastasisSample"]:checked') && document.querySelector('input[name="MetastasisSample"]:checked').value === "true" ? "MBuffy Coat" : "Buffy Coat";
+            const status = "Buffy Coat";
+
             const grid_id = BloodSelectedSeats.join(', ');
             if (grid_id.length > 0) {  // Only update gridInput if grid_id is not empty
               gridInput.value = `${box_name}/${grid_id}/${status}`;
@@ -3579,8 +3790,6 @@
         };
       }
     }
-
-
 
     function popVOtherSampleModal() {
       $('#bloodModalCenter').modal('show');
@@ -3731,9 +3940,6 @@
       }
     }
 
-
-
-
     function popOtherSamplemodal() {
 
       $('#bloodModalCenter').modal('show');
@@ -3845,6 +4051,7 @@
         }
         // Make sure indexedSeats is defined
         const indexedSeats = filteredSeats;
+        console.log("indexedSeats",indexedSeats)
         if (!indexedSeats) {
           console.log("No indexed seats available in the active box.");
           return;  // Stop further execution if no indexed seats are available
@@ -3865,6 +4072,7 @@
                 `<input type="checkbox" name="seats" id="${seatID}" />` +
                 `<label for="${seatID}" class="seat" id="${labelName}">${labelName}</label>`
               );
+
               document.getElementById(seatID).addEventListener('change', function (event) {
                 if (osListeners) {
                   const rev = localStorage.getItem("LocalOther")
@@ -3999,7 +4207,9 @@
           splitStringToArray(grid)
           if (gridInput) {
             const box_name = boxName;
-            const status = document.querySelector('input[name="MetastasisSample"]:checked') && document.querySelector('input[name="MetastasisSample"]:checked').value === "true" ? "MOther" : "Other";
+            // const status = document.querySelector('input[name="MetastasisSample"]:checked') && document.querySelector('input[name="MetastasisSample"]:checked').value === "true" ? "MOther" : "Other";
+            const status = "Other";
+
             const grid_id = BloodSelectedSeats.join(', ');
             if (grid_id.length > 0) {  // Only update gridInput if grid_id is not empty
               gridInput.value = `${box_name}/${grid_id}/${status}`;
@@ -4019,6 +4229,9 @@
       }
     }
 
+
+
+
     function splitSpecimenStringToArray(spgrid) {
       const Sdata = [...new Set(spgrid.split(',').map(item => item.trim()))];
       console.log("Sdata", Sdata);
@@ -4035,7 +4248,8 @@
       localStorage.removeItem("LocalPlasma");
       localStorage.removeItem("LocalSerum");
       localStorage.removeItem("LocalBuffy");
-      localStorage.removeItem("LocalOther");  
+      localStorage.removeItem("LocalOther");
+      
     };
 
 
@@ -4369,8 +4583,8 @@
           const rev = localStorage.getItem("LocalFT");
 
           if (rev !== null) {
-            let arr = splitSpecimenStringToArray(rev);
-            SpecimenSelectedSeats = arr.filter(item => item);  // Filter out falsy values
+            let arrS = splitSpecimenStringToArray(rev);
+            SpecimenSelectedSeats = arrS.filter(item => item);  // Filter out falsy values
           }
 
           console.log("rev : ", rev, " SpecimenSelectedSeats : ", SpecimenSelectedSeats);
@@ -4451,11 +4665,11 @@
             let ftStatuses = [];
 
             for (let i = 1; i <= SpecimenSelectedSeats.length; i++) {
-              if (document.querySelector('input[name="MetastasisSample"]:checked').value === "true") {
-                ftStatuses.push(`MFT-${i}`);
-              } else {
-                ftStatuses.push(`FT-${i}`);
-              }
+              // if (document.querySelector('input[name="MetastasisSample"]:checked').value === "true") {
+              //   ftStatuses.push(`MFT-${i}`);
+              // } else {
+              ftStatuses.push(`FT-${i}`);
+              // }
             }
 
             const grid_id = SpecimenSelectedSeats.join(', ');
@@ -4483,8 +4697,6 @@
         };
       }
     }
-
-
 
     function popVFNmodal() {
       $('#specimenModalCenter').modal('show');
@@ -4635,9 +4847,6 @@
           };
       }
     }
-
-
-
 
     function popFNmodal() {
 
@@ -4891,11 +5100,11 @@
             let fnStatuses = [];
 
             for (let i = 1; i <= SpecimenSelectedSeats.length; i++) {
-              if (document.querySelector('input[name="MetastasisSample"]:checked').value === "true") {
-                fnStatuses.push(`MFN-${i}`);
-              } else {
-                fnStatuses.push(`FN-${i}`);
-              }
+              // if (document.querySelector('input[name="MetastasisSample"]:checked').value === "true") {
+              //   fnStatuses.push(`MFN-${i}`);
+              // } else {
+              fnStatuses.push(`FN-${i}`);
+              // }
             }
 
             const grid_id = SpecimenSelectedSeats.join(', ');
@@ -4923,6 +5132,940 @@
         };
       }
     }
+
+    function popVrltSModal() {
+      $('#rltModalCenter').modal('show');
+
+      fetchSeatDataFromDB('rlt').then(seatData => {
+        populateRSeats('RLT-box', seatData);
+      });
+
+      function fetchSeatDataFromDB(nodeName) {
+        return new Promise((resolve, reject) => {
+          let dbRef = firebase.database().ref(nodeName);
+          dbRef.once('value')
+            .then(snapshot => {
+              let seatData = snapshot.val();
+              resolve(seatData);
+            })
+            .catch(error => {
+              console.error("Error fetching seat data:", error);
+              reject(error);
+            });
+        });
+      }
+
+      function populateRSeats(containerClass, seatData) {
+        let container = document.querySelector(`.${containerClass}`);
+        container.innerHTML = '';
+
+        const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+        const cols = 10;
+
+        let rsData = document.getElementById("rltSgridNo").value;
+        const boxname = rsData.split('/')[0];
+        const gridSample = rsData.split('/')[1];
+        const gridSamples = gridSample.split(',').map(sample => sample.trim());;
+        let activeBoxEntry = [];
+        let box_id = [];
+
+        
+
+        db.ref('bn/').once('value')
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              const boxIDs = snapshot.val();
+
+              bioInfo = Object.entries(boxIDs).find(([bio_id, boxData]) => boxData === boxname);
+              const [id, boxData] = bioInfo;
+              box_id = id;
+              console.log("bioinfo", bioInfo)
+              console.log("box_id", box_id)
+
+
+              console.log("box name", boxname);
+              console.log("seatData", seatData);
+              console.log("box box_id", box_id);
+
+
+              activeBoxEntry = Object.entries(seatData).find(([boxid, data]) => boxid === box_id);
+
+
+              if (!activeBoxEntry) {
+                console.log("No active box found.");
+                return;
+              }
+              const [boxid, filteredSeats] = activeBoxEntry;
+              let boxName = [];
+              console.log("Active Box Name:", boxid);
+              const indexedSeats = filteredSeats;
+
+              db.ref('bn/' + boxid).once('value')
+                .then((snapshot) => {
+                  if (snapshot.exists()) {
+                    boxName = snapshot.val();
+
+                    console.log("Box Name for ID " + boxid + ": " + boxName);
+                    document.getElementById('currRLTBoxName').textContent = boxName;
+
+                  } else {
+                    console.log("No box found with ID " + boxid);
+                  }
+                  if (!indexedSeats) {
+                    console.log("No indexed seats available in the active box.");
+                    return;
+                  }
+                  for (let row = 0; row < rows.length; row++) {
+                    for (let col = 1; col <= cols; col++) {
+                      const labelName = `label_R${rows[row]}${col}`;
+                      const seatID = `${rows[row]}${col}`;
+                      const index = row * cols + (col - 1);
+
+                      const seat = indexedSeats[index];
+
+                      if (seat) {
+                        container.insertAdjacentHTML(
+                          "beforeend",
+                          `<input type="checkbox" name="seats" id="${seatID}" />` +
+                          `<label for="${seatID}" class="viewSeat" id="${labelName}">${labelName}</label>`
+                        );
+
+                        let labelElement = document.getElementById(labelName);
+                        if (labelElement) {
+                          if (seat.bioBankId !== '') {
+                            labelElement.innerHTML = `${seat.bioBankId || ''}<br>${seat.sampleType || ''}`;
+                            labelElement.style.fontWeight = "bolder";
+                            labelElement.style.fontSize = "9px";
+                            labelElement.style.textAlign = "center";
+                            labelElement.style.color = 'white';
+                          } else if (seat.bioBankId === '') {
+                            labelElement.innerHTML = `${'-'}<br>`;
+                            labelElement.style.color = "rgb(143, 218, 187)";
+                            labelElement.style.textAlign = "center";
+                          }
+
+                          if (seat.status === "o") {
+                            labelElement.style.background = "rgb(129, 129, 192)";
+                          } else if (seat.status === "s") {
+                            labelElement.style.background = "rgb(180, 180, 180)";
+                          } else if (seat.status === "ps") {
+                            labelElement.style.background = "rgb(193, 154, 107)";
+                          } else if (seat.status === "e") {
+                            labelElement.style.background = "rgb(143, 218, 187)";
+                          }
+
+                          if (gridSamples.includes(seatID)) {
+                            labelElement.style.background = "#4d6335";
+                          }
+                        }
+                      }
+                    }
+                    container.insertAdjacentHTML("beforeend", "<br/>");
+                  }
+
+                })
+
+
+                .catch((error) => {
+                  console.error("Error fetching box name for ID " + boxid + ": ", error);
+                });
+
+              // document.getElementById('currBloodBoxName').textContent = activeBoxName;
+
+            } else {
+              console.log("No boxes found in the database.");
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching box names:", error);
+          });
+
+        window.handleDone = function () {
+          $('#rltModalCenter').modal('hide');
+        };
+      }
+    }
+
+
+
+    function poprltSModal() {
+      $('#rltModalCenter').modal('show');
+
+      fetchSeatDataFromDB('rlt').then(seatData => {
+        populateRSeats('RLT-box', seatData);
+      });
+
+      function fetchSeatDataFromDB(nodeName) {
+        return new Promise((resolve, reject) => {
+          let dbRef = firebase.database().ref(nodeName);
+          dbRef.once('value')
+            .then(snapshot => {
+              let seatData = snapshot.val();
+              resolve(seatData);
+            })
+            .catch(error => {
+              console.error("Error fetching seat data:", error);
+              reject(error);
+            });
+        });
+      }
+
+      function populateRSeats(containerClass, seatData) {
+        let container = document.querySelector(`.${containerClass}`);
+        container.innerHTML = '';
+
+        const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+        const cols = 10;
+
+        const activeBoxEntry = Object.entries(seatData).find(([box_id, data]) => data.bxsts === 'AC');
+        let rltSelectedSeats = [];
+
+        if (!activeBoxEntry) {
+          console.error("No active box found with status 'AC'.");
+          return;
+        }
+        const stsInx = {
+          "bioBankId": "",
+          "sampleType": "",
+          "status": "o"
+        }
+        let rslisteners = true;
+        grid = localStorage.getItem("rltSelectedGrid");
+        console.log("selected Grid Data in Plasma:", grid);
+
+        const [box_id, filteredSeats] = activeBoxEntry;
+        let boxName = [];
+        console.log("activeBoxEntry", activeBoxEntry)
+        let rsData = document.getElementById("rltSgridNo").value;
+
+        console.log("rsData", rsData);
+        if (rsData.length !== 0) {
+          if (localStorage.getItem('LocalRltGrid') !== null) {
+            rsGridData = rsData.split('/')[1];
+            let ld = rsGridData + "," + localStorage.getItem('LocalRltGrid')
+            localStorage.setItem('LocalRltGrid', ld);
+          } else {
+            rsGridData = rsData.split('/')[1];
+            console.log("rsGridData", rsGridData)
+            localStorage.setItem('LocalRltGrid', rsGridData);
+          }
+        }
+
+
+        console.log("Active Box Name:", box_id);
+
+        db.ref('bn/' + box_id).once('value')
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              boxName = snapshot.val();
+
+              console.log("Box Name for ID " + box_id + ": " + boxName);
+              document.getElementById('currRLTBoxName').textContent = boxName;
+
+            } else {
+              console.log("No box found with ID " + box_id);
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching box name for ID " + box_id + ": ", error);
+          });
+        // document.getElementById('currBloodBoxName').textContent = activeBoxName;
+        if (grid !== null) {
+          console.log("grid", grid)
+          arr = splitRLTStringToArray(grid);
+          arrinx = [];
+          arr.forEach(item => {
+
+            arrinx.push(getSeatIndex(item))
+
+          })
+
+          arrinx.forEach(item => {
+            // arrinx[item]= stsInx;
+            filteredSeats[item] = stsInx;
+          })
+          console.log("arrinx", arrinx)
+          console.log("filteredSeats", filteredSeats)
+        }
+
+        const indexedSeats = filteredSeats;
+        if (!indexedSeats) {
+          console.log("No indexed seats available in the active box.");
+          return;
+        }
+        let removedgrid = false;
+
+
+
+        for (let row = 0; row < rows.length; row++) {
+          for (let col = 1; col <= cols; col++) {
+            const labelName = `label_R${rows[row]}${col}`;
+            const seatID = `${rows[row]}${col}`;
+            const index = row * cols + (col - 1);
+
+            const seat = indexedSeats[index];
+
+            if (seat) {
+              container.insertAdjacentHTML(
+                "beforeend",
+                `<input type="checkbox" name="seats" id="${seatID}" />` +
+                `<label for="${seatID}" class="seat" id="${labelName}">${labelName}</label>`
+              );
+              document.getElementById(seatID).addEventListener('change', function (event) {
+                if (rslisteners) {
+                  console.log(" ..... 1 .....", filteredSeats[12]);
+                  console.log(" ..... 2 .....", indexedSeats[12]);
+
+                  const rev = localStorage.getItem("LocalRltGrid");
+                  console.log(" ..... 4 .....", rev, `${removedgrid}`);
+                  // if(removedgrid && !rev.includes(seatID)){
+                  //   removedgrid=false;
+                  //   event.target.checked = true;
+                  //  // handleBSeatSelection(seatID, event.target.checked, indexedSeats[index].status);
+                  // } 
+                  if (rev !== null) {
+                    if ((indexedSeats[index].status === "o") && rev.includes(seatID)) {
+                      event.target.checked = false;
+                    } else if ((indexedSeats[index].status === "e") && !rev.includes(seatID)) {
+                      event.target.checked = true;
+                    }
+                  } else {
+                    if (indexedSeats[index].status === "o") {
+                      event.target.checked = false;
+                    } else if (indexedSeats[index].status === "e") {
+                      event.target.checked = true;
+                    }
+                  }
+
+                  console.log(" ..... 3 .....", event.target.checked);
+                  // let labelsts = document.querySelector(`label[for="${seatID}"]`).check = true;
+
+                  handleBSeatSelection(seatID, event.target.checked, indexedSeats[index].status);
+
+                }
+              });
+
+              let labelElement = document.getElementById(labelName);
+
+              if (labelElement) {
+                if (indexedSeats[index].bioBankId !== '') {
+                  labelElement.innerHTML = `${indexedSeats[index].bioBankId || ''}<br>${indexedSeats[index].sampleType || ''}`;
+                  labelElement.style.fontWeight = "bolder";
+                  labelElement.style.fontSize = "9px";
+                  labelElement.style.textAlign = "center";
+                  labelElement.style.color = 'white';
+                }
+                else if (indexedSeats[index].bioBankId === '') {
+                  labelElement.innerHTML = `${'-'}<br>`;
+                  labelElement.style.color = "rgb(143, 218, 187)";
+                  labelElement.style.textAlign = "center";
+
+                }
+
+                // if (seatID.includes(grid)) {
+                //   console.log("seatID", seatID.includes(grid) + " seatID", seatID)
+                // }
+
+                if (indexedSeats[index].status === "o") {
+                  labelElement.style.background = "rgb(129, 129, 192)";
+
+                } else if (indexedSeats[index].status === "s") {
+                  labelElement.style.background = "rgb(180, 180, 180)";
+
+                } else if (indexedSeats[index].status === "ps") {
+                  labelElement.style.background = "rgb(193, 154, 107)";
+
+                } else if (indexedSeats[index].status === "e") {
+                  labelElement.style.background = "rgb(143, 218, 187)";
+
+                }
+              }
+            }
+          }
+          container.insertAdjacentHTML("beforeend", "<br/>");
+        }
+
+        function handleBSeatSelection(seatID, isChecked, status) {
+          const rev = localStorage.getItem("LocalRltGrid");
+
+          if (rev !== null) {
+            let arr = splitRLTStringToArray(rev);
+            rltSelectedSeats = arr;
+          }
+          console.log("inside handle seat in plasma .. ", seatID, status);
+
+          const labelElement = document.querySelector(`label[ id="label_R${seatID}"]`);
+
+          if (status === 'e') {
+            if (isChecked) {
+              rltSelectedSeats.push(seatID);
+              console.log("Selection of empty Grid...")
+              if (labelElement) labelElement.style.backgroundColor = '#4d6335';
+            }
+            else {
+              let seatIndex = rltSelectedSeats.indexOf(seatID);
+              if (seatIndex !== -1) {
+                rltSelectedSeats.splice(seatIndex, 1);
+                let arr = splitRLTStringToArray(grid)
+                arr = removeRLTItemFromArray(arr, seatID);
+                grid = arr.join(',');
+
+              }
+              if (labelElement) labelElement.style.backgroundColor = 'rgb(143, 218, 187)';
+
+            }
+          }
+          else {
+            let arr = splitRLTStringToArray(grid);
+            if (status === 'o' && arr.includes(seatID) && rev.includes(seatID)) {
+              let seatIndex = rltSelectedSeats.indexOf(seatID);
+              if (seatIndex !== -1) {
+                rltSelectedSeats.splice(seatIndex, 1);
+                arr = removeRLTItemFromArray(arr, seatID);
+                grid = arr.join(',');
+                let alocc = getSeatIndex(seatID);
+                const stsInxempty = {
+                  "bioBankId": "",
+                  "sampleType": "",
+                  "status": "e"
+                }
+                console.log(" index seating before .... ", alocc, indexedSeats[alocc]);
+
+                indexedSeats[alocc] = stsInxempty;
+                filteredSeats[alocc] = stsInxempty;
+                console.log(" index seating after .... ", alocc, indexedSeats[alocc]);
+                removedgrid = true;
+                console.log("labelElement", labelElement)
+
+              }
+              if (labelElement) labelElement.style.backgroundColor = 'rgb(143, 218, 187)';
+            } else {
+              console.log("inside handle seat in plasma  else.. ", seatID, status);
+              alert("Please select the empty boxes.")
+            }
+          }
+
+          rltSelectedSeats = [...new Set(rltSelectedSeats.filter(item => item))];
+
+          console.log("Selected seats:", rltSelectedSeats);
+          localStorage.setItem("LocalRltGrid", rltSelectedSeats.join(','));  // Store as a comma-separated string
+          updateRLTGridInput();
+        }
+
+        function updateRLTGridInput() {
+          let gridInput = document.querySelector("input[placeholder='RLT Sample Grid']");
+
+          rltSelectedSeats = rltSelectedSeats.filter(item => item);
+
+          if (grid === null) {
+            localStorage.setItem("rltSelectedGrid", rltSelectedSeats.join(',')); // Store as comma-separated string
+          } else {
+            // Remove any empty values from grid before updating
+            grid = splitRLTStringToArray(grid).filter(item => item);  // Filter out null or empty values
+            localStorage.setItem("rltSelectedGrid", (grid.concat(rltSelectedSeats)).join(','));
+          }
+
+          console.log("Data check in handle", localStorage.getItem("rltSelectedGrid"), "grid", grid);
+          grid = localStorage.getItem("rltSelectedGrid");
+          splitRLTStringToArray(grid);
+
+          if (gridInput) {
+            const box_name = boxName;
+            // const status = document.querySelector('input[name="MetastasisSample"]:checked') && document.querySelector('input[name="MetastasisSample"]:checked').value === "true" ? "MPlasma" : "Plasma";
+            const status = "RLT";
+
+            const grid_id = rltSelectedSeats.join(', ');
+            if (grid_id.length > 0) {
+              gridInput.value = `${box_name}/${grid_id}/${status}`;
+            } else {
+              gridInput.value = '';
+            }
+          }
+        }
+
+        window.handleDone = function () {
+          if (rltSelectedSeats.length > 0) {
+            updateRLTGridInput();
+          }
+          rslisteners = false;
+          $('#rltModalCenter').modal('hide');
+        };
+      }
+    }
+
+
+    function popVpcSModal() {
+      $('#pcModalCenter').modal('show');
+
+      fetchSeatDataFromDB('pcb').then(seatData => {
+        populateRSeats('PC-box', seatData);
+      });
+
+      function fetchSeatDataFromDB(nodeName) {
+        return new Promise((resolve, reject) => {
+          let dbRef = firebase.database().ref(nodeName);
+          dbRef.once('value')
+            .then(snapshot => {
+              let seatData = snapshot.val();
+              resolve(seatData);
+            })
+            .catch(error => {
+              console.error("Error fetching seat data:", error);
+              reject(error);
+            });
+        });
+      }
+
+      function populateRSeats(containerClass, seatData) {
+        let container = document.querySelector(`.${containerClass}`);
+        container.innerHTML = '';
+
+        const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+        const cols = 10;
+
+        let pcsData = document.getElementById("pcSgridNo").value;
+        const boxname = pcsData.split('/')[0];
+        const gridSample = pcsData.split('/')[1];
+        const gridSamples = gridSample.split(',').map(sample => sample.trim());;
+        let activeBoxEntry = [];
+        let box_id = [];
+
+        
+
+        db.ref('bn/').once('value')
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              const boxIDs = snapshot.val();
+
+              bioInfo = Object.entries(boxIDs).find(([bio_id, boxData]) => boxData === boxname);
+              const [id, boxData] = bioInfo;
+              box_id = id;
+              console.log("bioinfo", bioInfo)
+              console.log("box_id", box_id)
+
+
+              console.log("box name", boxname);
+              console.log("seatData", seatData);
+              console.log("box box_id", box_id);
+
+
+              activeBoxEntry = Object.entries(seatData).find(([boxid, data]) => boxid === box_id);
+
+
+              if (!activeBoxEntry) {
+                console.log("No active box found.");
+                return;
+              }
+              const [boxid, filteredSeats] = activeBoxEntry;
+              let boxName = [];
+              console.log("Active Box Name:", boxid);
+              const indexedSeats = filteredSeats;
+
+              db.ref('bn/' + boxid).once('value')
+                .then((snapshot) => {
+                  if (snapshot.exists()) {
+                    boxName = snapshot.val();
+
+                    console.log("Box Name for ID " + boxid + ": " + boxName);
+                    document.getElementById('currPcBoxName').textContent = boxName;
+
+                  } else {
+                    console.log("No box found with ID " + boxid);
+                  }
+                  if (!indexedSeats) {
+                    console.log("No indexed seats available in the active box.");
+                    return;
+                  }
+                  for (let row = 0; row < rows.length; row++) {
+                    for (let col = 1; col <= cols; col++) {
+                      const labelName = `label_P${rows[row]}${col}`;
+                      const seatID = `${rows[row]}${col}`;
+                      const index = row * cols + (col - 1);
+
+                      const seat = indexedSeats[index];
+
+                      if (seat) {
+                        container.insertAdjacentHTML(
+                          "beforeend",
+                          `<input type="checkbox" name="seats" id="${seatID}" />` +
+                          `<label for="${seatID}" class="viewSeat" id="${labelName}">${labelName}</label>`
+                        );
+
+                        let labelElement = document.getElementById(labelName);
+                        if (labelElement) {
+                          if (seat.bioBankId !== '') {
+                            labelElement.innerHTML = `${seat.bioBankId || ''}<br>${seat.sampleType || ''}`;
+                            labelElement.style.fontWeight = "bolder";
+                            labelElement.style.fontSize = "9px";
+                            labelElement.style.textAlign = "center";
+                            labelElement.style.color = 'white';
+                          } else if (seat.bioBankId === '') {
+                            labelElement.innerHTML = `${'-'}<br>`;
+                            labelElement.style.color = "rgb(143, 218, 187)";
+                            labelElement.style.textAlign = "center";
+                          }
+
+                          if (seat.status === "o") {
+                            labelElement.style.background = "rgb(129, 129, 192)";
+                          } else if (seat.status === "s") {
+                            labelElement.style.background = "rgb(180, 180, 180)";
+                          } else if (seat.status === "ps") {
+                            labelElement.style.background = "rgb(193, 154, 107)";
+                          } else if (seat.status === "e") {
+                            labelElement.style.background = "rgb(143, 218, 187)";
+                          }
+
+                          if (gridSamples.includes(seatID)) {
+                            labelElement.style.background = "#4d6335";
+                          }
+                        }
+                      }
+                    }
+                    container.insertAdjacentHTML("beforeend", "<br/>");
+                  }
+
+                })
+
+
+                .catch((error) => {
+                  console.error("Error fetching box name for ID " + boxid + ": ", error);
+                });
+
+              // document.getElementById('currBloodBoxName').textContent = activeBoxName;
+
+            } else {
+              console.log("No boxes found in the database.");
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching box names:", error);
+          });
+
+        window.handleDone = function () {
+          $('#pcModalCenter').modal('hide');
+        };
+      }
+    }
+
+
+
+    function poppcSModal() {
+      $('#pcModalCenter').modal('show');
+
+      fetchSeatDataFromDB('pcb').then(seatData => {
+        populatePSeats('PC-box', seatData);
+      });
+
+      function fetchSeatDataFromDB(nodeName) {
+        return new Promise((resolve, reject) => {
+          let dbRef = firebase.database().ref(nodeName);
+          dbRef.once('value')
+            .then(snapshot => {
+              let seatData = snapshot.val();
+              resolve(seatData);
+            })
+            .catch(error => {
+              console.error("Error fetching seat data:", error);
+              reject(error);
+            });
+        });
+      }
+
+      function populatePSeats(containerClass, seatData) {
+        let container = document.querySelector(`.${containerClass}`);
+        container.innerHTML = '';
+
+        const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+        const cols = 10;
+
+        const activeBoxEntry = Object.entries(seatData).find(([box_id, data]) => data.bxsts === 'AC');
+        let pcSelectedSeats = [];
+
+        if (!activeBoxEntry) {
+          console.error("No active box found with status 'AC'.");
+          return;
+        }
+        const stsInx = {
+          "bioBankId": "",
+          "sampleType": "",
+          "status": "o"
+        }
+        let pclisteners = true;
+        grid = localStorage.getItem("pcSelectedGrid");
+        console.log("selected Grid Data in Plasma:", grid);
+
+        const [box_id, filteredSeats] = activeBoxEntry;
+        let boxName = [];
+        console.log("activeBoxEntry", activeBoxEntry)
+        let psData = document.getElementById("pcSgridNo").value;
+
+        console.log("psData", psData);
+        if (psData.length !== 0) {
+          if (localStorage.getItem('LocalPC') !== null) {
+            psGridData = psData.split('/')[1];
+            console.log("psGridData", psGridData)
+
+            let ld = psGridData + "," + localStorage.getItem('LocalPC')
+
+            localStorage.setItem('LocalPC', ld);
+            console.log("FN Data from if", localStorage.getItem('LocalPC'))
+          } else {
+            psGridData = psData.split('/')[1];
+            console.log("psGridData", psGridData)
+
+            //let ld = psGridData+","+localStorage.getItem('LocalFN')
+
+            localStorage.setItem('LocalPC', psGridData);
+            console.log("Plasma Data from else", localStorage.getItem('LocalPC'))
+          }
+        }
+
+
+        console.log("Active Box Name:", box_id);
+
+        db.ref('bn/' + box_id).once('value')
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              boxName = snapshot.val();
+
+              console.log("Box Name for ID " + box_id + ": " + boxName);
+              document.getElementById('currPcBoxName').textContent = boxName;
+
+            } else {
+              console.log("No box found with ID " + box_id);
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching box name for ID " + box_id + ": ", error);
+          });
+        // document.getElementById('currBloodBoxName').textContent = activeBoxName;
+        if (grid !== null) {
+          console.log("grid", grid)
+          arr= splitPCStringToArray(grid);
+          arrinx = [];
+          arr.forEach(item => {
+
+            arrinx.push(getSeatIndex(item))
+
+          })
+
+          arrinx.forEach(item => {
+            // arrPinx[item]= stsInx;
+            filteredSeats[item] = stsInx;
+          })
+          console.log("arrPinx", arrinx)
+          console.log("filteredSeats", filteredSeats)
+        }
+
+        const indexedSeats = filteredSeats;
+        if (!indexedSeats) {
+          console.log("No indexed seats available in the active box.");
+          return;
+        }
+        let removedgrid = false;
+
+
+
+        for (let row = 0; row < rows.length; row++) {
+          for (let col = 1; col <= cols; col++) {
+            const labelName = `label_P${rows[row]}${col}`;
+            const seatID = `${rows[row]}${col}`;
+            const index = row * cols + (col - 1);
+
+            const seat = indexedSeats[index];
+
+            if (seat) {
+              container.insertAdjacentHTML(
+                "beforeend",
+                `<input type="checkbox" name="seats" id="${seatID}" />` +
+                `<label for="${seatID}" class="seat" id="${labelName}">${labelName}</label>`
+              );
+              document.getElementById(seatID).addEventListener('change', function (event) {
+                if (pclisteners) {
+                  console.log(" ..... 1 .....", filteredSeats[12]);
+                  console.log(" ..... 2 .....", indexedSeats[12]);
+
+                  const rev = localStorage.getItem("LocalPC");
+                  console.log(" ..... 4 .....", rev, `${removedgrid}`);
+                  // if(removedgrid && !rev.includes(seatID)){
+                  //   removedgrid=false;
+                  //   event.target.checked = true;
+                  //  // handleBSeatSelection(seatID, event.target.checked, indexedSeats[index].status);
+                  // } 
+                  if (rev !== null) {
+                    if ((indexedSeats[index].status === "o") && rev.includes(seatID)) {
+                      event.target.checked = false;
+                    } else if ((indexedSeats[index].status === "e") && !rev.includes(seatID)) {
+                      event.target.checked = true;
+                    }
+                  } else {
+                    if (indexedSeats[index].status === "o") {
+                      event.target.checked = false;
+                    } else if (indexedSeats[index].status === "e") {
+                      event.target.checked = true;
+                    }
+                  }
+
+                  console.log(" ..... 3 .....", event.target.checked);
+                  // let labelsts = document.querySelector(`label[for="${seatID}"]`).check = true;
+
+                  handleBSeatSelection(seatID, event.target.checked, indexedSeats[index].status);
+
+                }
+              });
+
+              let labelElement = document.getElementById(labelName);
+
+              if (labelElement) {
+                if (indexedSeats[index].bioBankId !== '') {
+                  labelElement.innerHTML = `${indexedSeats[index].bioBankId || ''}<br>${indexedSeats[index].sampleType || ''}`;
+                  labelElement.style.fontWeight = "bolder";
+                  labelElement.style.fontSize = "9px";
+                  labelElement.style.textAlign = "center";
+                  labelElement.style.color = 'white';
+                }
+                else if (indexedSeats[index].bioBankId === '') {
+                  labelElement.innerHTML = `${'-'}<br>`;
+                  labelElement.style.color = "rgb(143, 218, 187)";
+                  labelElement.style.textAlign = "center";
+
+                }
+
+                // if (seatID.includes(grid)) {
+                //   console.log("seatID", seatID.includes(grid) + " seatID", seatID)
+                // }
+
+                if (indexedSeats[index].status === "o") {
+                  labelElement.style.background = "rgb(129, 129, 192)";
+
+                } else if (indexedSeats[index].status === "s") {
+                  labelElement.style.background = "rgb(180, 180, 180)";
+
+                } else if (indexedSeats[index].status === "ps") {
+                  labelElement.style.background = "rgb(193, 154, 107)";
+
+                } else if (indexedSeats[index].status === "e") {
+                  labelElement.style.background = "rgb(143, 218, 187)";
+
+                }
+              }
+            }
+          }
+          container.insertAdjacentHTML("beforeend", "<br/>");
+        }
+
+        function handleBSeatSelection(seatID, isChecked, status) {
+          const rev = localStorage.getItem("LocalPC");
+
+          if (rev !== null) {
+            let arr= splitPCStringToArray(rev);
+            pcSelectedSeats = arr;
+          }
+          console.log("inside handle seat in plasma .. ", seatID, status);
+
+          const labelElement = document.querySelector(`label[ id="label_P${seatID}"]`);
+
+          if (status === 'e') {
+            if (isChecked) {
+              pcSelectedSeats.push(seatID);
+              console.log("Selection of empty Grid...")
+              // Change the color of the seat to reflect its selection (e.g., #4d6335)
+              if (labelElement) labelElement.style.backgroundColor = '#4d6335';
+            }
+            else {
+              let seatIndex = pcSelectedSeats.indexOf(seatID);
+              if (seatIndex !== -1) {
+                pcSelectedSeats.splice(seatIndex, 1);
+                let arr= splitPCStringToArray(grid)
+                arr= removePCItemFromArray(arr, seatID);
+                grid = arr.join(',');
+
+              }
+              if (labelElement) labelElement.style.backgroundColor = 'rgb(143, 218, 187)';
+
+            }
+          }
+          else {
+            let arr= splitPCStringToArray(grid);
+            if (status === 'o' && arr.includes(seatID) && rev.includes(seatID)) {
+              let seatIndex = pcSelectedSeats.indexOf(seatID);
+              if (seatIndex !== -1) {
+                pcSelectedSeats.splice(seatIndex, 1);
+                arr= removePCItemFromArray(arr, seatID);
+                grid = arr.join(',');
+                let alocc = getSeatIndex(seatID);
+                const stsInxempty = {
+                  "bioBankId": "",
+                  "sampleType": "",
+                  "status": "e"
+                }
+                console.log(" index seating before .... ", alocc, indexedSeats[alocc]);
+
+                indexedSeats[alocc] = stsInxempty;
+                filteredSeats[alocc] = stsInxempty;
+                console.log(" index seating after .... ", alocc, indexedSeats[alocc]);
+                removedgrid = true;
+                console.log("labelElement", labelElement)
+
+              }
+              if (labelElement) labelElement.style.backgroundColor = 'rgb(143, 218, 187)';
+            } else {
+              console.log("inside handle seat in plasma  else.. ", seatID, status);
+              alert("Please select the empty boxes.")
+            }
+          }
+
+          // Filter out any empty or null values from pcSelectedSeats
+          pcSelectedSeats = [...new Set(pcSelectedSeats.filter(item => item))];
+
+          console.log("Selected seats:", pcSelectedSeats);
+          localStorage.setItem("LocalPC", pcSelectedSeats.join(','));  // Store as a comma-separated string
+          updatePCGridInput();
+        }
+
+        function updatePCGridInput() {
+          let gridInput = document.querySelector("input[placeholder='PC Sample Grid']");
+
+          // Remove null or empty values from pcSelectedSeats
+          pcSelectedSeats = pcSelectedSeats.filter(item => item);
+
+          if (grid === null) {
+            localStorage.setItem("pcSelectedGrid", pcSelectedSeats.join(',')); // Store as comma-separated string
+          } else {
+            // Remove any empty values from grid before updating
+            grid = splitPCStringToArray(grid).filter(item => item);  // Filter out null or empty values
+            localStorage.setItem("pcSelectedGrid", (grid.concat(pcSelectedSeats)).join(','));
+          }
+
+          console.log("Data check in handle", localStorage.getItem("pcSelectedGrid"), "grid", grid);
+          grid = localStorage.getItem("pcSelectedGrid");
+          splitPCStringToArray(grid);
+
+          if (gridInput) {
+            const box_name = boxName;
+            // const status = document.querySelector('input[name="MetastasisSample"]:checked') && document.querySelector('input[name="MetastasisSample"]:checked').value === "true" ? "MPlasma" : "Plasma";
+            const status = "PC";
+
+            const grid_id = pcSelectedSeats.join(', ');
+            if (grid_id.length > 0) {
+              gridInput.value = `${box_name}/${grid_id}/${status}`;
+            } else {
+              gridInput.value = '';
+            }
+          }
+        }
+
+        window.handleDone = function () {
+          if (pcSelectedSeats.length > 0) {
+            updatePCGridInput();
+          }
+          pclisteners = false;
+          $('#pcModalCenter').modal('hide');
+        };
+      }
+    }
+
+
 
 
 
@@ -5246,6 +6389,22 @@
         actYes();
       });
 
+      function dcisY() {
+        if ($('#dcisY').is(':checked')) {
+          $('#dcisGradeSec').show();
+        }
+        else {
+          $('#dcisGradeSec').hide();
+          $('#dcisGrade').val('');
+
+        }
+      }
+
+      dcisY();
+      $('input[name="dcis"]').change(function () {
+        dcisY();
+      });
+
 
       function bloodSample() {
         console.log("bloodSample", ($('#bloodSampleY').is(':checked')))
@@ -5366,8 +6525,74 @@
       });
 
 
+
+
+      function rltSample() {
+        if ($('#rltSampleY').is(':checked')) {
+          $('#rltSampleTubes').show();
+        }
+        else if ($('#rltSampleN').is(':checked')) {
+          localStorage.removeItem("LocalRltGrid");
+          localStorage.removeItem("rltSelectedGrid");
+          $('#rltSampleTubes').hide();
+          $('#rltSgridNo').val('');
+          
+
+    // let rltGrids = localStorage.getItem("LocalRltGrid");
+
+    // if (rltGrids !== null) {
+    //   let mainGrids = localStorage.getItem("selectedRltGrid");
+    //   let rltMainGridsArray = mainGrids.split(',');
+    //   let rltGridsArray = rltGrids.split(',');
+
+    //   rltMainGridsArray = rltMainGridsArray.filter(grid => !rltGridsArray.includes(grid));
+
+    //   localStorage.setItem("selectedRltGrid", rltMainGridsArray.join(','));
+    //   localStorage.removeItem("LocalRltGrid");
+
+    // }
+        }
+      }
+
+      rltSample();
+      $('input[name="rltSample"]').change(function () {
+        rltSample();
+      });
+
+      function pcbSample() {
+        if ($('#pcbSampleY').is(':checked')) {
+          $('#pcbSampleTubes').show();
+        }
+        else if ($('#pcbSampleN').is(':checked')) {
+          $('#pcbSampleTubes').hide();
+          $('#pcSgridNo').val('');
+          localStorage.removeItem("LocalPC");
+          localStorage.removeItem("pcSelectedGrid");
+
+
+    // let pcbGrids = localStorage.getItem("LocalPcbGrid");
+
+    // if (pcbGrids !== null) {
+    //   let mainGrids = localStorage.getItem("selectedPcbGrid");
+    //   let pcbMainGridsArray = mainGrids.split(',');
+    //   let pcbGridsArray = pcbGrids.split(',');
+
+    //   pcbMainGridsArray = pcbMainGridsArray.filter(grid => !pcbGridsArray.includes(grid));
+
+    //   localStorage.setItem("selectedPcbGrid", pcbMainGridsArray.join(','));
+    //   localStorage.removeItem("LocalPcbGrid");
+    // }
+        }
+      }
+
+      pcbSample();
+      $('input[name="pcbSample"]').change(function () {
+        pcbSample();
+      });
+
+
       function sampleReceive() {
-         console.log("Function checking",$('#radioprocessed1').is(':checked') , $('#radioprocessed2').is(':checked'))
+        console.log("Function checking", $('#radioprocessed1').is(':checked'), $('#radioprocessed2').is(':checked'))
         if ($('#radioprocessed1').is(':checked')) {
           $('#receiveAllSample').show();
           $('#processAllSample').show();
@@ -5387,6 +6612,17 @@
           $('#OtherSampleReceivedTime').val('');
           $('#OtherSampleProcessedDate').val('');
           $('#OtherSampleProcessedTime').val('');
+          $('#RLTprocessedBy').val('');
+          $('#RLTSampleReceivedDate').val('');
+          $('#RLTSampleReceivedTime').val('');
+          $('#RLTSampleProcessedDate').val('');
+          $('#RLTSampleProcessedTime').val('');
+          $('#PCprocessedBy').val('');
+          $('#PCSampleReceivedDate').val('');
+          $('#PCSampleReceivedTime').val('');
+          $('#PCSampleProcessedDate').val('');
+          $('#PCSampleProcessedTime').val('');
+          
         }
         else if ($('#radioprocessed2').is(':checked')) {
           $('#receiveAllSample').hide();
@@ -5398,7 +6634,7 @@
           $('#sampleProcessedDate').val('');
           $('#sampleProcessedTime').val('');
         }
-        else if (!($('#radioprocessed1').is(':checked')) && !($('#radioprocessed2').is(':checked'))){
+        else if (!($('#radioprocessed1').is(':checked')) && !($('#radioprocessed2').is(':checked'))) {
           $('#receiveAllSample').hide();
           $('#processAllSample').hide();
           $('#AllSamplesProcess').hide();
@@ -5454,9 +6690,29 @@
           $('#receiveOtherSample').hide();
           $('#processOtherSample').hide();
           $('#OtherSamplesProcess').hide();
-
+        }
+        if (($('#radioprocessed2').is(':checked')) && ($('#rltSampleY').is(':checked'))) {
+          $('#receiveRLTSample').show();
+          $('#processRLTSample').show();
+          $('#RLTSamplesProcess').show();
+        }
+        else {
+          $('#receiveRLTSample').hide();
+          $('#processRLTSample').hide();
+          $('#RLTSamplesProcess').hide();
+        }
+        if (($('#radioprocessed2').is(':checked')) && ($('#pcbSampleY').is(':checked'))) {
+          $('#receivePCSample').show();
+          $('#processPCSample').show();
+          $('#PCSamplesProcess').show();
+        }
+        else {
+          $('#receivePCSample').hide();
+          $('#processPCSample').hide();
+          $('#PCSamplesProcess').hide();
         }
       }
+      
       sampleReceive();
       $('input[name="processedRadio"]').change(function () {
         sampleReceive();
@@ -5650,60 +6906,147 @@
 
 
   <script>
+    // function formatbtHPEInput(input) {
+    //   let value = input.value.replace(/[^a-zA-Z0-9]/g, '');
+    //   let formattedValue = '';
+
+    //   if (value.length > 2) {
+    //     formattedValue += value.substring(0, 2) + '-';
+    //     if (value.length > 3) {
+    //       formattedValue += value.substring(2, 3) + '-';
+    //       formattedValue += value.substring(3, 9);
+    //     } else {
+    //       formattedValue += value.substring(2, 3);
+    //     }
+    //   } else {
+    //     formattedValue = value;
+    //   }
+
+    //   input.value = formattedValue;
+    // }
     function formatbtHPEInput(input) {
       let value = input.value.replace(/[^a-zA-Z0-9]/g, '');
       let formattedValue = '';
 
-      if (value.length > 2) {
-        formattedValue += value.substring(0, 2) + '-';
-        if (value.length > 3) {
-          formattedValue += value.substring(2, 3) + '-';
-          formattedValue += value.substring(3, 9);
-        } else {
-          formattedValue += value.substring(2, 3);
+      let firstTwoNumbers = value.substring(0, 2).replace(/[^0-9]/g, '');
+
+      let thirdAlphabet = value.substring(2, 3).replace(/[^a-zA-Z]/g, '');
+
+      let remaining = value.substring(3, 9);
+
+      if (firstTwoNumbers.length === 2) {
+        formattedValue += firstTwoNumbers + '-';
+
+        if (thirdAlphabet.length === 1) {
+          formattedValue += thirdAlphabet + '-';
+          formattedValue += remaining;
         }
       } else {
-        formattedValue = value;
+        formattedValue = firstTwoNumbers;
       }
 
       input.value = formattedValue;
     }
+
+
+    // function formatStHPEInput(input) {
+    //   let value = input.value.replace(/[^a-zA-Z0-9]/g, '');
+    //   let formattedValue = '';
+
+    //   if (value.length > 2) {
+    //     formattedValue += value.substring(0, 2) + '-';
+    //     if (value.length > 3) {
+    //       formattedValue += value.substring(2, 3) + '-';
+    //       formattedValue += value.substring(3, 9);
+    //     } else {
+    //       formattedValue += value.substring(2, 3);
+    //     }
+    //   } else {
+    //     formattedValue = value;
+    //   }
+
+    //   input.value = formattedValue;
+    // }
+
     function formatStHPEInput(input) {
       let value = input.value.replace(/[^a-zA-Z0-9]/g, '');
       let formattedValue = '';
 
-      if (value.length > 2) {
-        formattedValue += value.substring(0, 2) + '-';
-        if (value.length > 3) {
-          formattedValue += value.substring(2, 3) + '-';
-          formattedValue += value.substring(3, 9);
-        } else {
-          formattedValue += value.substring(2, 3);
+      let firstTwoNumbers = value.substring(0, 2).replace(/[^0-9]/g, '');
+
+      let thirdAlphabet = value.substring(2, 3).replace(/[^a-zA-Z]/g, '');
+
+      let remaining = value.substring(3, 9);
+
+      if (firstTwoNumbers.length === 2) {
+        formattedValue += firstTwoNumbers + '-';
+
+        if (thirdAlphabet.length === 1) {
+          formattedValue += thirdAlphabet + '-';
+          formattedValue += remaining;
         }
       } else {
-        formattedValue = value;
+        formattedValue = firstTwoNumbers;
       }
 
       input.value = formattedValue;
     }
+    // function formatPBInput(input) {
+    //   let value = input.value.replace(/[^a-zA-Z0-9]/g, '');
+    //   let formattedValue = '';
+
+    //   if (value.length > 2) {
+    //     formattedValue += value.substring(0, 2) + '-';
+    //     if (value.length > 3) {
+    //       formattedValue += value.substring(2, 3) + '-';
+    //       formattedValue += value.substring(3, 7);
+    //     } else {
+    //       formattedValue += value.substring(2, 3);
+    //     }
+    //   } else {
+    //     formattedValue = value;
+    //   }
+
+    //   input.value = formattedValue;
+    // }
+
     function formatPBInput(input) {
       let value = input.value.replace(/[^a-zA-Z0-9]/g, '');
       let formattedValue = '';
 
-      if (value.length > 2) {
-        formattedValue += value.substring(0, 2) + '-';
-        if (value.length > 3) {
-          formattedValue += value.substring(2, 3) + '-';
-          formattedValue += value.substring(3, 7);
-        } else {
-          formattedValue += value.substring(2, 3);
+      let firstTwoNumbers = value.substring(0, 2).replace(/[^0-9]/g, '');
+
+      let thirdAlphabet = value.substring(2, 3).replace(/[^a-zA-Z]/g, '');
+
+      let remaining = value.substring(3, 7);
+
+      if (firstTwoNumbers.length === 2) {
+        formattedValue += firstTwoNumbers + '-';
+
+        if (thirdAlphabet.length === 1) {
+          formattedValue += thirdAlphabet + '-';
+          formattedValue += remaining;
         }
       } else {
-        formattedValue = value;
+        formattedValue = firstTwoNumbers;
       }
 
       input.value = formattedValue;
     }
+
+    function formatBioInput(input) {
+      let value = input.value.replace(/[^a-zA-Z0-9]/g, '');
+
+      let ct = document.querySelector('input[name="radioCancerType"]:checked').value;
+
+      if (ct === "brst" && !value.startsWith("BR")) {
+        input.value = `BR${value}`;
+      }
+    }
+
+
+
+
   </script>
 
   <script>
@@ -5830,7 +7173,7 @@
         //   element.disabled = true;
         // });
         formElements.forEach(element => {
-          const idsToExclude = ['PlasmagridNo', 'SerumgridNo', 'bufferCoatgridNo', 'OSgridNo', 'ftgrid', 'fngrid'];
+          const idsToExclude = ['PlasmagridNo', 'SerumgridNo', 'bufferCoatgridNo', 'OSgridNo', 'ftgrid', 'fngrid', 'rltSgridNo', 'pcSgridNo'];
 
           // Only disable elements that are not in idsToExclude and have a value
           if (!idsToExclude.includes(element.id)) {
@@ -5858,7 +7201,7 @@
         //   element.disabled = true;
         // });
         formElements.forEach(element => {
-          const idsToExclude = ['PlasmagridNo', 'SerumgridNo', 'bufferCoatgridNo', 'OSgridNo', 'ftgrid', 'fngrid'];
+          const idsToExclude = ['PlasmagridNo', 'SerumgridNo', 'bufferCoatgridNo', 'OSgridNo', 'ftgrid', 'fngrid', 'rltSgridNo', 'pcSgridNo'];
 
           // Only disable elements that are not in idsToExclude and have a value
           if (!idsToExclude.includes(element.id)) {
@@ -5881,10 +7224,9 @@
       else if (mode === 'SearchEdit' || mode === 'PendingEdit') {
         document.getElementById('mrnNo').setAttribute('disabled', true);
         document.getElementById('bioBankId').setAttribute('disabled', true);
-        // if(mode === 'PendingEdit'){
-        //   document.getElementById('tab2-tab').classList.add('disabled');
-        // }
-        document.getElementById('tab2-tab').classList.add('disabled');
+        if (mode === 'PendingEdit') {
+          document.getElementById('tab2-tab').classList.add('disabled');
+        }
 
         document.getElementById('tab3-tab').classList.add('disabled');
         document.getElementById('patAge').setAttribute('disabled', true);
@@ -5946,13 +7288,16 @@
         const bloodSampleInputs = document.querySelectorAll('input[name="bloodSample"]');
         const specimenSampleInputs = document.querySelectorAll('input[name="specimenSample"]');
         const otherSampleInputs = document.querySelectorAll('input[name="otherSample"]');
+        const rltSampleInputs = document.querySelectorAll('input[name="rltSample"]');
+        const pcSampleInputs = document.querySelectorAll('input[name="pcbSample"]');
         localStorage.setItem("bloodVStatus", data.ie.bs);
         localStorage.setItem("specimenVStatus", data.ie.ss);
         localStorage.setItem("otherVStatus", data.ie.osmp);
+        localStorage.setItem("rltVStatus", data.ie.rltS);
+        localStorage.setItem("pcVStatus", data.ie.pcS);
 
         if (mode === 'SearchEdit' || mode === 'PendingEdit') {
           if (data.ie.bs === 'true') {
-
             bloodSampleInputs.forEach(input => {
               input.setAttribute('disabled', true);
               console.log(`Input with ID ${input.id} disabled`);
@@ -5978,13 +7323,34 @@
             });
           }
           if (data.ie.osmp === 'true') {
-
             otherSampleInputs.forEach(input => {
               input.setAttribute('disabled', true);
               console.log(`Input with ID ${input.id} disabled`);
             });
           } else {
             otherSampleInputs.forEach(input => {
+              input.removeAttribute('disabled');
+              console.log(`Input with ID ${input.id} enabled`);
+            });
+          }
+          if (data.ie.rltS === 'true') {
+            rltSampleInputs.forEach(input => {
+              input.setAttribute('disabled', true);
+              console.log(`Input with ID ${input.id} disabled`);
+            });
+          } else {
+            rltSampleInputs.forEach(input => {
+              input.removeAttribute('disabled');
+              console.log(`Input with ID ${input.id} enabled`);
+            });
+          }
+          if (data.ie.pcS === 'true') {
+            pcSampleInputs.forEach(input => {
+              input.setAttribute('disabled', true);
+              console.log(`Input with ID ${input.id} disabled`);
+            });
+          } else {
+            pcSampleInputs.forEach(input => {
               input.removeAttribute('disabled');
               console.log(`Input with ID ${input.id} enabled`);
             });
@@ -6013,9 +7379,9 @@
         inputs.forEach(input => {
           if (input.type === 'radio' || input.type === 'checkbox') {
             input.checked = false; // Uncheck radio buttons and checkboxes
-          } 
+          }
         });
-        
+
 
         // // Clear all select elements
         // const selects = document.querySelectorAll('select');
@@ -6093,28 +7459,6 @@
               database[bioBankId][seqKey][timestamp] = patientEntry;
             }
             let existingEntry = {};
-            // db.ref('bn/').once('value')
-            //   .then((snapshot) => {
-            //     if (snapshot.exists()) {
-            //       const boxIDs = snapshot.val();
-
-            //       bioInfo = Object.entries(boxIDs).find(([bio_id, boxData]) => boxData === boxName);
-            //       const [id, boxData] = bioInfo;
-            //       box_id = id;
-            //       const existingEntry = database[bioBankId][seqKey][timestamp];
-            //       console.log("existingEntry",existingEntry)
-            //       if (!existingEntry.lbi[box_id]) {
-            //         existingEntry.lbi[box_id] = [];
-            //       }
-
-            //       // Iterate over gridData to append each seatID to the array
-            //       seatList.forEach(seatID => {
-            //         existingEntry.lbi[box_id].push(seatID.trim());
-            //       });
-            //       return db.ref(`Os/${bioBankId}/${seqKey}/${timestamp}`).set(existingEntry);
-
-            //     }
-            //   })
 
             existingEntry = database[bioBankId][seqKey][timestamp];
             const storedBnData = JSON.parse(localStorage.getItem('bnData'));
@@ -6139,7 +7483,7 @@
             // Update Firebase with the consolidated data
           })
           .then(() => {
-            alert('Form submitted successfully for BioBank ID: ' + bioBankId);
+            // alert('Form submitted successfully for BioBank ID: ' + bioBankId);
 
             const seatPromises = seatList.map(seatID => {
               seatID = seatID.trim();
@@ -6173,9 +7517,23 @@
                       console.log("sb does not exist");
                     }
                   });
-
+                  const rltPromise = db.ref(`rlt/${box_id}`).once('value')
+                  .then(snapshot => {
+                    if (snapshot.exists()) {
+                      return db.ref(`rlt/${box_id}/${index}`).update({ status: sharedStatus });
+                    } else {
+                      console.log("RLT does not exist");
+                    }
+                  });const pcbPromise = db.ref(`pcb/${box_id}`).once('value')
+                  .then(snapshot => {
+                    if (snapshot.exists()) {
+                      return db.ref(`pcb/${box_id}/${index}`).update({ status: sharedStatus });
+                    } else {
+                      console.log("Primary Culture does not exist");
+                    }
+                  });
                 // Return a promise that resolves when both bb and sb updates are complete
-                return Promise.all([bbPromise, sbPromise]);
+                return Promise.all([bbPromise, sbPromise, rltPromise, pcbPromise]);
               } else {
                 console.error(`Box name "${box_id}" not found in localStorage.`);
               }
@@ -6318,30 +7676,30 @@
 
   </script>
   <script>
-  //    function toggleRadio(radio) {
-  //   if (radio.checked) {
-  //     radio.wasChecked = true;
-  //   }
-  //   radio.onclick = function () {
-  //     if (radio.wasChecked) {
-  //       radio.checked = false;
-  //       radio.wasChecked = false;
-  //     } else {
-  //       // Get all radios with the same name and uncheck the others
-  //       const radiosInGroup = document.getElementsByName(radio.name);
-  //       radiosInGroup.forEach(r => r.wasChecked = false);
-  //       radio.wasChecked = true;
-  //     }
-  //   };
-  // }
+    //    function toggleRadio(radio) {
+    //   if (radio.checked) {
+    //     radio.wasChecked = true;
+    //   }
+    //   radio.onclick = function () {
+    //     if (radio.wasChecked) {
+    //       radio.checked = false;
+    //       radio.wasChecked = false;
+    //     } else {
+    //       // Get all radios with the same name and uncheck the others
+    //       const radiosInGroup = document.getElementsByName(radio.name);
+    //       radiosInGroup.forEach(r => r.wasChecked = false);
+    //       radio.wasChecked = true;
+    //     }
+    //   };
+    // }
 
-  // // Get all radio buttons on the page
-  // const allRadioButtons = document.querySelectorAll('input[type="radio"]');
+    // // Get all radio buttons on the page
+    // const allRadioButtons = document.querySelectorAll('input[type="radio"]');
 
-  // // Apply the toggle function to each radio button
-  // allRadioButtons.forEach(toggleRadio);
+    // // Apply the toggle function to each radio button
+    // allRadioButtons.forEach(toggleRadio);
 
-  function createEraseIcon(groupName) {
+    function createEraseIcon(groupName) {
       const img = document.createElement('img');
       img.src = 'assets/images/erase.svg';
       img.alt = 'erase';
@@ -6350,185 +7708,286 @@
       img.style.verticalAlign = 'middle';
       img.style.cursor = 'pointer';
       img.style.marginRight = '5px';
-      
+
       // Add click event listener to clear radio button selection
-      img.onclick = function() {
+      img.onclick = function () {
         clearRadioSelection(groupName);
       };
-      
+
       return img;
-  }
-
-  // Function to clear the selected radio buttons
-  function clearRadioSelection(groupName) {
-    const radios = document.getElementsByName(groupName);
-    radios.forEach(radio => radio.checked = false);
-    if (groupName === 'RadioFHabit') {
-      familyHabitToggle();
-    }
-    if (groupName === 'ECH') {
-      ExistComorbidity();
-    }
-    if (groupName === 'IHC') {
-      IHCMarker();
-    }
-    if (groupName === 'GeneticT') {
-      GeneticT();
-    }
-    if (groupName === 'NACT') {
-      NactYes();
-    }
-    if (groupName === 'ACT') {
-      actYes();
-    }
-    if (groupName === 'RadioT') {
-      RadioTYes();
-    }
-    if (groupName === 'processedRadio') {
-      console.log("Function call")
-      sampleReceive();
-    }
-    if (groupName = 'pbT'){
-      pbYes();
     }
 
-  }
-
-  // Function to append erase icons to specified radio groups
-  function addEraseIconToGroups() {
-    const radioGroups = [
-      { groupName: 'customConsent', containerClass: 'erase-icon-container-consent' },
-      { groupName: 'IschemicRadio', containerClass: 'erase-icon-container' },
-      { groupName: 'processedRadio', containerClass: 'erase-icon-container-samRev' },
-      { groupName: 'RadioFHabit', containerClass: 'erase-icon-container-RadioFHabit' },
-      { groupName: 'RadioFdHabit', containerClass: 'erase-icon-container-RadioFdHabit' },
-      { groupName: 'RadioAlcoholHabit', containerClass: 'erase-icon-container-RadioAlcoholHabit' },
-      { groupName: 'RadioSmokeHabit', containerClass: 'erase-icon-container-RadioSmokeHabit' },
-      { groupName: 'ECH', containerClass: 'erase-icon-container-ECH' },
-      { groupName: 'tumorSite', containerClass: 'erase-icon-container-tumorSite' },
-      { groupName: 'IHC', containerClass: 'erase-icon-container-IHC' },
-      { groupName: 'GeneticT', containerClass: 'erase-icon-container-GeneticT' },
-      { groupName: 'focal', containerClass: 'erase-icon-container-focal' },
-      { groupName: 'LVI', containerClass: 'erase-icon-container-LVI' },
-      { groupName: 'PNI', containerClass: 'erase-icon-container-PNI' },
-      { groupName: 'denovo', containerClass: 'erase-icon-container-denovo' },
-      { groupName: 'MPT', containerClass: 'erase-icon-container-MPT' },
-      { groupName: 'NACT', containerClass: 'erase-icon-container-NACT' },
-      { groupName: 'ACT', containerClass: 'erase-icon-container-ACT' },
-      { groupName: 'RadioT', containerClass: 'erase-icon-container-RadioT' },
-      { groupName: 'pbT', containerClass: 'erase-icon-container-pbT' },
-      { groupName: 'mStatus', containerClass: 'erase-icon-container-mStatus' },
-      { groupName: 'ERRadio', containerClass: 'erase-icon-container-ERRadio' },
-      { groupName: 'PRRadio', containerClass: 'erase-icon-container-PRRadio' },
-      { groupName: 'HER2Radio', containerClass: 'erase-icon-container-HER2Radio' },
-    ];
-
-    radioGroups.forEach(group => {
-      const container = document.querySelector(`.${group.containerClass}`);
-      if (container) {
-        let mode = localStorage.getItem('mode');
-        if(mode!=='SearchView' && mode!=='PendingView'){
-          console.log("mode: ",mode)
-          const eraseIcon = createEraseIcon(group.groupName);
-          container.appendChild(eraseIcon);
-        }
+    // Function to clear the selected radio buttons
+    function clearRadioSelection(groupName) {
+      const radios = document.getElementsByName(groupName);
+      radios.forEach(radio => radio.checked = false);
+      if (groupName === 'RadioFHabit') {
+        familyHabitToggle();
       }
+      if (groupName === 'ECH') {
+        ExistComorbidity();
+      }
+      if (groupName === 'IHC') {
+        IHCMarker();
+      }
+      if (groupName === 'GeneticT') {
+        GeneticT();
+      }
+      if (groupName === 'NACT') {
+        NactYes();
+      }
+      if (groupName === 'ACT') {
+        actYes();
+      }
+      if (groupName === 'RadioT') {
+        RadioTYes();
+      }
+      if (groupName === 'processedRadio') {
+        console.log("Function call")
+        sampleReceive();
+      }
+      if (groupName = 'pbT') {
+        pbYes();
+      }
+      if (groupName = 'dcis') {
+        dcisY();
+      }
+    }
+
+    // Function to append erase icons to specified radio groups
+    function addEraseIconToGroups() {
+      const radioGroups = [
+        { groupName: 'customConsent', containerClass: 'erase-icon-container-consent' },
+        { groupName: 'IschemicRadio', containerClass: 'erase-icon-container' },
+        { groupName: 'processedRadio', containerClass: 'erase-icon-container-samRev' },
+        { groupName: 'RadioFHabit', containerClass: 'erase-icon-container-RadioFHabit' },
+        { groupName: 'RadioFdHabit', containerClass: 'erase-icon-container-RadioFdHabit' },
+        { groupName: 'RadioAlcoholHabit', containerClass: 'erase-icon-container-RadioAlcoholHabit' },
+        { groupName: 'RadioSmokeHabit', containerClass: 'erase-icon-container-RadioSmokeHabit' },
+        { groupName: 'ECH', containerClass: 'erase-icon-container-ECH' },
+        { groupName: 'tumorSite', containerClass: 'erase-icon-container-tumorSite' },
+        { groupName: 'IHC', containerClass: 'erase-icon-container-IHC' },
+        { groupName: 'GeneticT', containerClass: 'erase-icon-container-GeneticT' },
+        { groupName: 'focal', containerClass: 'erase-icon-container-focal' },
+        { groupName: 'LVI', containerClass: 'erase-icon-container-LVI' },
+        { groupName: 'PNI', containerClass: 'erase-icon-container-PNI' },
+        { groupName: 'denovo', containerClass: 'erase-icon-container-denovo' },
+        { groupName: 'MPT', containerClass: 'erase-icon-container-MPT' },
+        { groupName: 'NACT', containerClass: 'erase-icon-container-NACT' },
+        { groupName: 'ACT', containerClass: 'erase-icon-container-ACT' },
+        { groupName: 'RadioT', containerClass: 'erase-icon-container-RadioT' },
+        { groupName: 'pbT', containerClass: 'erase-icon-container-pbT' },
+        { groupName: 'mStatus', containerClass: 'erase-icon-container-mStatus' },
+        { groupName: 'ERRadio', containerClass: 'erase-icon-container-ERRadio' },
+        { groupName: 'PRRadio', containerClass: 'erase-icon-container-PRRadio' },
+        { groupName: 'HER2Radio', containerClass: 'erase-icon-container-HER2Radio' },
+        { groupName: 'dcis', containerClass: 'erase-icon-container-dcis' }
+      ];
+
+      radioGroups.forEach(group => {
+        const container = document.querySelector(`.${group.containerClass}`);
+        if (container) {
+          let mode = localStorage.getItem('mode');
+          if (mode !== 'SearchView' && mode !== 'PendingView') {
+            console.log("mode: ", mode)
+            const eraseIcon = createEraseIcon(group.groupName);
+            container.appendChild(eraseIcon);
+          }
+        }
+      });
+    }
+    function sampleReceive() {
+      console.log("Function checking", $('#radioprocessed1').is(':checked'), $('#radioprocessed2').is(':checked'))
+      if ($('#radioprocessed1').is(':checked')) {
+        $('#receiveAllSample').show();
+        $('#processAllSample').show();
+        $('#AllSamplesProcess').show();
+        $('#BprocessedBy').val('');
+        $('#bloodSampleReceivedDate').val('');
+        $('#bloodSampleReceivedTime').val('');
+        $('#bloodSampleProcessedDate').val('');
+        $('#bloodSampleProcessedTime').val('');
+        $('#SprocessedBy').val('');
+        $('#SpecimenSampleReceivedDate').val('');
+        $('#SpecimenSampleReceivedTime').val('');
+        $('#SpecimenSampleProcessedDate').val('');
+        $('#SpecimenSampleProcessedTime').val('');
+        $('#OprocessedBy').val('');
+        $('#OtherSampleReceivedDate').val('');
+        $('#OtherSampleReceivedTime').val('');
+        $('#OtherSampleProcessedDate').val('');
+        $('#OtherSampleProcessedTime').val('');
+      }
+      else if ($('#radioprocessed2').is(':checked')) {
+        $('#receiveAllSample').hide();
+        $('#processAllSample').hide();
+        $('#AllSamplesProcess').hide();
+        $('#processedBy').val('');
+        $('#sampleReceivedDate').val('');
+        $('#sampleReceivedTime').val('');
+        $('#sampleProcessedDate').val('');
+        $('#sampleProcessedTime').val('');
+      }
+      else if (!($('#radioprocessed1').is(':checked')) && !($('#radioprocessed2').is(':checked'))) {
+        $('#receiveAllSample').hide();
+        $('#processAllSample').hide();
+        $('#AllSamplesProcess').hide();
+        $('#processedBy').val('');
+        $('#sampleReceivedDate').val('');
+        $('#sampleReceivedTime').val('');
+        $('#sampleProcessedDate').val('');
+        $('#sampleProcessedTime').val('');
+        $('#BprocessedBy').val('');
+        $('#bloodSampleReceivedDate').val('');
+        $('#bloodSampleReceivedTime').val('');
+        $('#bloodSampleProcessedDate').val('');
+        $('#bloodSampleProcessedTime').val('');
+        $('#SprocessedBy').val('');
+        $('#SpecimenSampleReceivedDate').val('');
+        $('#SpecimenSampleReceivedTime').val('');
+        $('#SpecimenSampleProcessedDate').val('');
+        $('#SpecimenSampleProcessedTime').val('');
+        $('#OprocessedBy').val('');
+        $('#OtherSampleReceivedDate').val('');
+        $('#OtherSampleReceivedTime').val('');
+        $('#OtherSampleProcessedDate').val('');
+        $('#OtherSampleProcessedTime').val('');
+      }
+      if (($('#radioprocessed2').is(':checked')) && ($('#bloodSampleY').is(':checked'))) {
+        $('#receiveBloodSample').show();
+        $('#processBloodSample').show();
+        $('#BloodSamplesProcess').show();
+      }
+      else {
+        $('#receiveBloodSample').hide();
+        $('#processBloodSample').hide();
+        $('#BloodSamplesProcess').hide();
+
+      }
+      if (($('#radioprocessed2').is(':checked')) && ($('#specimenSampleY').is(':checked'))) {
+        $('#receiveSpecimenSample').show();
+        $('#processSpecimenSample').show();
+        $('#SpecimenSamplesProcess').show();
+      }
+      else {
+        $('#receiveSpecimenSample').hide();
+        $('#processSpecimenSample').hide();
+        $('#SpecimenSamplesProcess').hide();
+
+      }
+      if (($('#radioprocessed2').is(':checked')) && ($('#otherSampleY').is(':checked'))) {
+        $('#receiveOtherSample').show();
+        $('#processOtherSample').show();
+        $('#OtherSamplesProcess').show();
+      }
+      else {
+        $('#receiveOtherSample').hide();
+        $('#processOtherSample').hide();
+        $('#OtherSamplesProcess').hide();
+
+      }
+    }
+
+    // Call the function to append icons on page load
+    window.onload = addEraseIconToGroups;
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      updateNavigation();
     });
-  }
-  function sampleReceive() {
-         console.log("Function checking",$('#radioprocessed1').is(':checked') , $('#radioprocessed2').is(':checked'))
-        if ($('#radioprocessed1').is(':checked')) {
-          $('#receiveAllSample').show();
-          $('#processAllSample').show();
-          $('#AllSamplesProcess').show();
-          $('#BprocessedBy').val('');
-          $('#bloodSampleReceivedDate').val('');
-          $('#bloodSampleReceivedTime').val('');
-          $('#bloodSampleProcessedDate').val('');
-          $('#bloodSampleProcessedTime').val('');
-          $('#SprocessedBy').val('');
-          $('#SpecimenSampleReceivedDate').val('');
-          $('#SpecimenSampleReceivedTime').val('');
-          $('#SpecimenSampleProcessedDate').val('');
-          $('#SpecimenSampleProcessedTime').val('');
-          $('#OprocessedBy').val('');
-          $('#OtherSampleReceivedDate').val('');
-          $('#OtherSampleReceivedTime').val('');
-          $('#OtherSampleProcessedDate').val('');
-          $('#OtherSampleProcessedTime').val('');
-        }
-        else if ($('#radioprocessed2').is(':checked')) {
-          $('#receiveAllSample').hide();
-          $('#processAllSample').hide();
-          $('#AllSamplesProcess').hide();
-          $('#processedBy').val('');
-          $('#sampleReceivedDate').val('');
-          $('#sampleReceivedTime').val('');
-          $('#sampleProcessedDate').val('');
-          $('#sampleProcessedTime').val('');
-        }
-        else if (!($('#radioprocessed1').is(':checked')) && !($('#radioprocessed2').is(':checked'))){
-          $('#receiveAllSample').hide();
-          $('#processAllSample').hide();
-          $('#AllSamplesProcess').hide();
-          $('#processedBy').val('');
-          $('#sampleReceivedDate').val('');
-          $('#sampleReceivedTime').val('');
-          $('#sampleProcessedDate').val('');
-          $('#sampleProcessedTime').val('');
-          $('#BprocessedBy').val('');
-          $('#bloodSampleReceivedDate').val('');
-          $('#bloodSampleReceivedTime').val('');
-          $('#bloodSampleProcessedDate').val('');
-          $('#bloodSampleProcessedTime').val('');
-          $('#SprocessedBy').val('');
-          $('#SpecimenSampleReceivedDate').val('');
-          $('#SpecimenSampleReceivedTime').val('');
-          $('#SpecimenSampleProcessedDate').val('');
-          $('#SpecimenSampleProcessedTime').val('');
-          $('#OprocessedBy').val('');
-          $('#OtherSampleReceivedDate').val('');
-          $('#OtherSampleReceivedTime').val('');
-          $('#OtherSampleProcessedDate').val('');
-          $('#OtherSampleProcessedTime').val('');
-        }
-        if (($('#radioprocessed2').is(':checked')) && ($('#bloodSampleY').is(':checked'))) {
-          $('#receiveBloodSample').show();
-          $('#processBloodSample').show();
-          $('#BloodSamplesProcess').show();
-        }
-        else {
-          $('#receiveBloodSample').hide();
-          $('#processBloodSample').hide();
-          $('#BloodSamplesProcess').hide();
 
-        }
-        if (($('#radioprocessed2').is(':checked')) && ($('#specimenSampleY').is(':checked'))) {
-          $('#receiveSpecimenSample').show();
-          $('#processSpecimenSample').show();
-          $('#SpecimenSamplesProcess').show();
-        }
-        else {
-          $('#receiveSpecimenSample').hide();
-          $('#processSpecimenSample').hide();
-          $('#SpecimenSamplesProcess').hide();
+    function updateNavigation() {
+      var links = document.querySelectorAll(".navLinks");
+      let mode = localStorage.getItem("mode");
+      let bioBankId = localStorage.getItem("bioBankId");
+      let lastSection = localStorage.getItem("lastSection");
+      let user = sessionStorage.getItem('userName');
+      let act = {
+        "mode": "",
+        "user": user
+      };
 
-        }
-        if (($('#radioprocessed2').is(':checked')) && ($('#otherSampleY').is(':checked'))) {
-          $('#receiveOtherSample').show();
-          $('#processOtherSample').show();
-          $('#OtherSamplesProcess').show();
-        }
-        else {
-          $('#receiveOtherSample').hide();
-          $('#processOtherSample').hide();
-          $('#OtherSamplesProcess').hide();
+      let confirmationActive = false;
+      let confirmationCancel = false;
 
+      if (mode === "SearchEdit") {
+        history.pushState(null, null, window.location.href);
+
+        function handleNavigation(event, isBackAction = false, link = null) {
+          // Prevent any further confirmation dialogs while one is active
+          if (confirmationActive) {
+            return;
+          }
+
+          event.preventDefault();  // Prevent default action (navigation or back)
+
+          // Ask for confirmation from the user
+          let text = isBackAction
+            ? "Are you ok with not saving the data? (Back button)"
+            : "Are you ok with not saving the data?";
+          let userConfirmed = confirm(text);
+
+          if (userConfirmed) {
+            confirmationCancel = false;
+            confirmationActive = true;  // Set the flag to prevent multiple confirmations
+
+            db.ref(`act/${bioBankId}/${lastSection}`).set(act)
+              .then(() => {
+                console.log("New act set, proceeding with navigation.");
+
+                if (isBackAction || !link.getAttribute('data-href')) {
+                  history.back();
+                } else {
+                  window.location.href = link.getAttribute('data-href');
+                }
+              })
+              .catch((error) => {
+                console.error("Error setting new act: ", error);
+              });
+          } else {
+            console.log("User chose not to proceed.");
+            confirmationActive = false;
+            confirmationCancel = true;
+
+            if (isBackAction) {
+              history.pushState(null, null, window.location.href);
+            }
+          }
         }
+
+        links.forEach(function (link) {
+          link.addEventListener('click', function (e) {
+            confirmationActive = false;
+            handleNavigation(e, false, link);
+          });
+        });
+
+        window.addEventListener('popstate', function (event) {
+          //  confirmationCancel = false;
+          // handleNavigation(event, true);  // Handle back navigation
+          if (!confirmationCancel) {
+            handleNavigation(event, true);  // Handle back navigation
+          }
+          else if (!confirmationActive) {
+            confirmationActive = true
+            handleNavigation(event, true);  // Handle back navigation
+
+          }
+        });
+
+      } else {
+        // If not in SearchEdit mode, remove event listeners
+        links.forEach(function (link) {
+          link.addEventListener('click', function (e) {
+            window.location.href = link.getAttribute('data-href');;
+          });
+        });
+        window.onpopstate = null;
       }
-      
-  // Call the function to append icons on page load
-  window.onload = addEraseIconToGroups;
+    }
+
+
   </script>
 </body>
 
