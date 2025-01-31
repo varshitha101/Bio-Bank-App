@@ -138,7 +138,6 @@ function populateBBLabels(data, boxVal, debug) {
         }
 
 
-        // Remove existing event listeners to prevent multiple fetches
         const newLabelElement = labelElement.cloneNode(true);
         labelElement.parentNode.replaceChild(newLabelElement, labelElement);
 
@@ -434,6 +433,7 @@ function populateBBLabels(data, boxVal, debug) {
             }
           });
         }
+
         if (sts[index] === "ps") {
           newLabelElement.style.background = "rgb(193, 154, 107)";
           const matchedData = [];
@@ -581,6 +581,7 @@ function populateBBLabels(data, boxVal, debug) {
             }
           });
         }
+
         if (sts[index] === "e") {
           newLabelElement.style.background = "rgb(143, 218, 187)";
 
@@ -591,6 +592,7 @@ function populateBBLabels(data, boxVal, debug) {
             $('#exampleModalCenter').modal('show');
           });
         }
+
       }
     }
   }
@@ -1238,109 +1240,819 @@ function test2() {
 }
 
 
+let currentRLTBoxIndex = 0;
+let RLTboxKeys = [];
 
-// let specimenDataArray = {};
-// let specimenBoxCount = 1;
-// let currentSpecimenBoxIndex = 1;
-
-// function test2() {
-//   populateSpecimenBox("specimen-box-1", 100);
-//   saveSBToFirebase();
-// }
-
-// let totalSpecimenBoxes = 1;
-// let specimenSeatCounter = 0;
-
-
-// function populateSpecimenBox(boxName, n) {
-//   let seats1 = document.querySelector(`#${boxName}`);
-//   document.getElementById("sbox_id").innerHTML = `SB ${boxName}`;
-//   let k = 0;
-//   const components = ["FN-1", "FN-2", "FN-3", "FT-1", "FT-2", "FT-3"];
-
-//   specimenDataArray[boxName] = [];
-
-//   for (let i = 0; i < n; i++) {
-//     let booked = "";
-//     let componentId = "";
-//     let seat1ID = 'P' + (++specimenSeatCounter);
-//     let grid1Id = specimenSeatCounter;
-
-//     if (k === 3) {
-//       k = 0;
-//     }
-
-//     if (i >= 0 && i <= 49) {
-//       booked = "booked";
-//       componentId = components[k];
-//       k++;
-//     } else {
-//       booked = "unselected";
-//       componentId = "";
-//     }
-
-//     specimenDataArray[boxName].push({
-//       seatID: seat1ID,
-//       gridID: grid1Id,
-//       booked: booked,
-//       component: componentId || ""
-//     });
-//   }
-
-//   specimenDataArray[boxName].forEach((seat) => {
-//     let labelID = 'label_' + seat.seatID;
-//     let labelContent = seat.booked === "booked" ? 'BR_' + seat.gridID + " <br>" + seat.component : '';
-
-//     seats1.insertAdjacentHTML(
-//       "beforeend",
-//       '<input type="checkbox" name="tickets" id="' + seat.seatID + '" />' +
-//       '<label id="' + labelID + '" for="' + seat.seatID + '" class="seat ' + seat.booked + '">' +
-//       labelContent + '</label>'
-//     );
-
-//     document.getElementById(labelID).style.fontSize = '10px';
-//     document.getElementById(labelID).style.color = 'rgb(255, 255, 255)';
-//     document.getElementById(labelID).style.textAlign = 'center';
-
-//     let seatCheckbox = document.getElementById(seat.seatID);
-//     seatCheckbox.addEventListener('click', function () {
-//       openModal();
-//     });
-//   });
-
-//   console.log(specimenDataArray);
-// }
-
-// function addSpecimenBox() {
-//   totalSpecimenBoxes++;
-//   let newBoxName = "specimen-box-" + totalSpecimenBoxes;
-
-//   const newBox = `
-//     <div class="specimen-box" id="${newBoxName}" style="display: none;">
-//       <div class="status">
-//       <div class="item">Empty</div>
-//       <div class="item">Occupied</div>
-//       <div class="item">Partial Shared</div>
-//       <div class="item">Shared</div>
-//       </div>
-//     </div>
-//   `;
-
-//   document.getElementById("specimen-box-container").insertAdjacentHTML('beforeend', newBox);
+function populateRLTData(debug) {
+  const path = 'rlt/';
+  console.log("")
+  var boxVal = '';
+  db.ref(path).once('value')
+    .then(snapshot => {
+      const boxes = snapshot.val();
+      if (boxes) {
+        RLTboxKeys = Object.keys(boxes); // Populate boxKeys here
 
 
+        const activeBoxIndex = RLTboxKeys.findIndex(boxKey => boxes[boxKey].bxsts === 'AC');
 
-//   let seatLimit = 100;
-//   populateSpecimenBox(newBoxName, seatLimit);
+        if (activeBoxIndex !== -1) {
+          currentRLTBoxIndex = activeBoxIndex;
+        } else {
+          console.warn('No active box found with bxsts = "AC".');
+        }
 
-//   alert(`Specimen Box ${totalSpecimenBoxes} added`);
-// }
+        boxVal = RLTboxKeys[currentRLTBoxIndex]; // Use the determined or default index
+        console.log("Active boxVal:", boxVal);
+        db.ref('bn/' + boxVal).once('value')
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              const boxName = snapshot.val();
+
+              console.log("Box Name for ID " + boxVal + ": " + boxName);
+              document.getElementById('rltBox_id').textContent = boxName;
+
+            } else {
+              console.log("No box found with ID " + boxVal);
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching box name for ID " + boxVal + ": ", error);
+          });
+
+        return db.ref(`rlt/${boxVal}/`).once('value');
+      } else {
+        const container = document.getElementById('RLT-box-container');
+        container.innerHTML = `
+       Add Box in to the container.
+      `;
+      }
+    })
+    .then(snapshot => {
+      const data = snapshot.val();
+      if (data) {
+        populateRLTLabels(data, boxVal, "call from populateBBData");
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching data from Firebase:', error);
+    });
+}
+
+function populateRLTLabels(data, boxVal, debug) {
+  console.log("inside populate BB labels - ", debug, " -- ", boxVal);
+  const rows = 'ABCDEFGHIJ';
+  const cols = 10;
+
+  const bioBankIds = Object.keys(data).map(key => data[key].bioBankId);
+  const sts = Object.keys(data).map(key => data[key].status);
+  const sample = Object.keys(data).map(key => data[key].sampleType);
+
+  console.log("sts", sts);
+  console.log("sample", sample);
+
+  if (bioBankIds.length < 100) {
+    console.warn('Not enough bioBankIds available for the matrix.');
+  }
+
+  for (let row = 0; row < rows.length; row++) {
+    for (let col = 1; col <= cols; col++) {
+      const labelName = `label_R${rows[row]}${col}`;
+      const labelElement = document.getElementById(labelName);
+      const index = row * cols + (col - 1);
+
+      if (labelElement) {
+        if (bioBankIds[index] !== '') {
+          labelElement.innerHTML = `${bioBankIds[index] || ''}<br>${sample[index] || ''}`;
+          labelElement.style.fontWeight = "bold";
+        }
+        else if (bioBankIds[index] === '') {
+          labelElement.innerHTML = `${'-'}<br>${'-'}`;
+          // labelElement.style.color = "rgb(143, 218, 187)";
+        }
 
 
+        const newLabelElement = labelElement.cloneNode(true);
+        labelElement.parentNode.replaceChild(newLabelElement, labelElement);
+
+        if (sts[index] === "o") {
+          newLabelElement.style.background = "rgb(129, 129, 192)";
+          const matchedData = [];
+          newLabelElement.addEventListener('click', async function () {
+            console.log('Fetching data for:', labelName);
+
+            const bioBankId = bioBankIds[index];
+            const sampleType = sample[index];
+
+            const dbRef = db.ref(`sef/${bioBankId}`);
+            const snapshot = await dbRef.get();
+
+            if (!snapshot.exists()) {
+              console.log("No data found for bioBankId:", bioBankId);
+              return;
+            }
+
+            const dbData = snapshot.val();
+            console.log("dbData", dbData);
+
+            Object.keys(dbData).forEach(seqNum => {
+              const seqData = dbData[seqNum];
+              console.log("seqData", seqData);
+
+              // Get the latest timestamp
+              const latestTimestamp = Math.max(...Object.keys(seqData));
+
+              const timestampData = seqData[latestTimestamp];
+              console.log("Latest timestampData", timestampData);
+
+              // Process based on sampleType
+              if ((sampleType === "RLT" || sampleType === "RLT") && timestampData.ie.rlt) {
+                const rlt = timestampData.ie.rlt;
+                const boxName = rlt.split('/')[0];
+                const rltIndex1 = rlt.split('/')[1];
+                console.log("rltIndex1", rltIndex1);
+
+                if (rltIndex1 && rltIndex1.includes(getSeatLabel(index))) {
+                  matchedData.push({
+                    mode: "SearchView",
+                    bioBankId,
+                    seq: seqNum,
+                    timestamp: latestTimestamp
+                  });
+                  console.log("Matched:", {
+                    mode: "SearchView",
+                    bioBankId,
+                    seqNum,
+                    timestamp: latestTimestamp
+                  });
+                }
+              }
+            });
 
 
+            if (matchedData.length > 0) {
+              console.log('Matched Data:', matchedData);
+              matchedData.forEach(item => {
+                console.log(`Mode: ${item.mode}`);
+                console.log(`BioBank ID: ${item.bioBankId}`);
+                console.log(`Sequence: ${item.seq}`);
+                console.log(`Timestamp: ${item.timestamp}`);
+                // Call your display function here
+                pages_display(item.mode, item.bioBankId, item.seq, item.timestamp);
+              });
+            } else {
+              console.log('No match found for:', matchedData.length);
+
+              console.log('No match found for:', labelName);
+            }
+          });
+
+        }
+
+        if (sts[index] === "s") {
+          newLabelElement.style.background = "rgb(180, 180, 180)";
+          const matchedData = [];
+
+          newLabelElement.addEventListener('click', async function () {
+            console.log('Fetching data for:', labelName);
+
+            const bioBankId = bioBankIds[index];
+            const sampleType = sample[index];
+
+            localStorage.setItem('sharedbioid', bioBankId);
+
+            const dbRef = db.ref(`sef/${bioBankId}`);
+            const snapshot = await dbRef.get();
+
+            if (!snapshot.exists()) {
+              console.log("No data found for bioBankId:", bioBankId);
+              return;
+            }
+
+            const dbData = snapshot.val();
+            console.log("dbData", dbData);
+
+            Object.keys(dbData).forEach(seqNum => {
+              const seqData = dbData[seqNum];
+              console.log("seqData", seqData);
+
+              Object.keys(seqData).forEach(timestamp => {
+                const timestampData = seqData[timestamp];
+                console.log("timestampData", timestampData);
+
+                if ((sampleType === "RLT" || sampleType === "RLT") && timestampData.ie.rlt) {
+                  const rlt = timestampData.ie.rlt;
+                  const boxName = rlt.split('/')[0];
+                  const rltIndex1 = rlt.split('/')[1];
+
+                  if (rltIndex1 && rltIndex1.includes(getSeatLabel(index))) {
+                    matchedData.push({
+                      mode: "sharedView",
+                      boxName,
+                      bioBankId,
+                      seq: seqNum,
+                      timestamp
+                    });
+                    console.log("Matched:", {
+                      mode: "sharedView",
+                      boxName,
+                      bioBankId,
+                      seqNum,
+                      timestamp
+                    });
+                  }
+                }
+
+              });
+            });
+
+            if (matchedData.length > 0) {
+              console.log('Matched Data:', matchedData);
+              matchedData.forEach(item => {
+                console.log(`Mode: ${item.mode}`);
+                console.log(`Box Name: ${item.boxName}`);
+                console.log(`BioBank ID: ${item.bioBankId}`);
+                console.log(`Sequence: ${item.seq}`);
+                console.log(`Timestamp: ${item.timestamp}`);
+                shared_pages_display(item.mode, item.bioBankId, item.seq, item.boxName, item.timestamp);
+              });
+            } else {
+              console.log('No match found for:', labelName);
+            }
+          });
+
+        }
+
+        if (sts[index] === "ps") {
+          newLabelElement.style.background = "rgb(193, 154, 107)";
+          const matchedData = [];
+          newLabelElement.addEventListener('click', async function () {
+            console.log('Fetching data for:', labelName);
+
+            const bioBankId = bioBankIds[index];
+            const sampleType = sample[index];
+
+            localStorage.setItem('sharedbioid', bioBankId);
+
+            const dbRef = db.ref(`sef/${bioBankId}`);
+            const snapshot = await dbRef.get();
+
+            if (!snapshot.exists()) {
+              console.log("No data found for bioBankId:", bioBankId);
+              return;
+            }
+
+            const dbData = snapshot.val();
+            console.log("dbData", dbData);
+
+            Object.keys(dbData).forEach(seqNum => {
+              const seqData = dbData[seqNum];
+              console.log("seqData", seqData);
+
+              Object.keys(seqData).forEach(timestamp => {
+                const timestampData = seqData[timestamp];
+                console.log("timestampData", timestampData);
+
+                if ((sampleType === "RLT" || sampleType === "RLT") && timestampData.ie.rlt) {
+                  const rlt = timestampData.ie.rlt;
+                  const boxName = rlt.split('/')[0];
+                  const rltIndex1 = rlt.split('/')[1];
+
+                  if (rltIndex1 && rltIndex1.includes(getSeatLabel(index))) {
+                    matchedData.push({
+                      mode: "sharedView",
+                      boxName,
+                      bioBankId,
+                      seq: seqNum,
+                      timestamp
+                    });
+                    console.log("Matched:", {
+                      mode: "sharedView",
+                      boxName,
+                      bioBankId,
+                      seqNum,
+                      timestamp
+                    });
+                  }
+                }
+
+              });
+            });
+
+            if (matchedData.length > 0) {
+              console.log('Matched Data:', matchedData);
+              matchedData.forEach(item => {
+                console.log(`Mode: ${item.mode}`);
+                console.log(`Box Name: ${item.boxName}`);
+                console.log(`BioBank ID: ${item.bioBankId}`);
+                console.log(`Sequence: ${item.seq}`);
+                console.log(`Timestamp: ${item.timestamp}`);
+                shared_pages_display(item.mode, item.bioBankId, item.seq, item.boxName, item.timestamp);
+              });
+            } else {
+              console.log('No match found for:', labelName);
+            }
+          });
+
+        }
+
+        if (sts[index] === "e") {
+          newLabelElement.style.background = "rgb(143, 218, 187)";
+
+          newLabelElement.addEventListener('click', function () {
+            console.log("sts[index]", sts[index]);
+            console.log('label name of clicked seat:', labelName);
+            localStorage.removeItem("MRN");
+            $('#exampleModalCenter').modal('show');
+          });
+        }
+
+      }
+    }
+  }
+}
+
+function prev3Box() {
+  if (currentRLTBoxIndex > 0) {
+    loadRLTBox();  // Call loadBox to show the loading spinner
+    currentRLTBoxIndex--;
+    populateRLTDataForCurrentBox();
+  }
+}
+
+function next3Box() {
+  if (currentRLTBoxIndex < RLTboxKeys.length - 1) {
+    loadRLTBox();  // Call loadBox to show the loading spinner
+    currentRLTBoxIndex++;
+    populateRLTDataForCurrentBox();
+  }
+}
+
+function loadRLTBox() {
+  event.preventDefault();
+  console.log("hello")
+  const container = document.getElementById('RLT-box-container');
+  var loadprogress = document.getElementById('Rloadprogress');
+  loadprogress.innerHTML = `
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Loading...
+      `;
+  loadprogress.style.display = "block"
+
+  container.style.display = "none"
+
+  console.log("Hello Bhanu");
+  setTimeout(() => {
+    loadprogress.innerHTML = '';
+    loadprogress.style.display = "none"
+
+    container.style.display = "block"
+    populateRLTDataForCurrentBox();
+  }, 1000);
+}
 
 
+function populateRLTDataForCurrentBox() {
+  const boxVal = RLTboxKeys[currentRLTBoxIndex]; // Use the current index
+  console.log("boxVal", boxVal);
+
+  // document.getElementById('box_id').textContent = boxVal;
+  db.ref('bn/' + boxVal).once('value')
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        const boxName = snapshot.val();
+
+        console.log("Box Name for ID " + boxVal + ": " + boxName);
+        document.getElementById('rltBox_id').textContent = boxName;
+
+      } else {
+        console.log("No box found with ID " + boxVal);
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching box name for ID " + boxVal + ": ", error);
+    });
+  db.ref(`rlt/${boxVal}/`).once('value')
+    .then(snapshot => {
+      const data = snapshot.val();
+      if (data) {
+        populateRLTLabels(data, boxVal, "call from populateBBDataForCurrentBox");
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching data from Firebase:', error);
+    });
+}
+
+function test3() {
+  populateRLTData();
+}
+
+let currentPCBoxIndex = 0;
+let PCboxKeys = [];
+
+function populatePCBData(debug) {
+  const path = 'pcb/';
+  console.log("")
+  var boxVal = '';
+  db.ref(path).once('value')
+    .then(snapshot => {
+      const boxes = snapshot.val();
+      if (boxes) {
+        PCboxKeys = Object.keys(boxes); // Populate boxKeys here
+
+
+        const activeBoxIndex = PCboxKeys.findIndex(boxKey => boxes[boxKey].bxsts === 'AC');
+
+        if (activeBoxIndex !== -1) {
+          currentPCBoxIndex = activeBoxIndex;
+        } else {
+          console.warn('No active box found with bxsts = "AC".');
+        }
+
+        boxVal = PCboxKeys[currentPCBoxIndex]; // Use the determined or default index
+        console.log("Active boxVal:", boxVal);
+        db.ref('bn/' + boxVal).once('value')
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              const boxName = snapshot.val();
+
+              console.log("Box Name for ID " + boxVal + ": " + boxName);
+              document.getElementById('pcBox_id').textContent = boxName;
+
+            } else {
+              console.log("No box found with ID " + boxVal);
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching box name for ID " + boxVal + ": ", error);
+          });
+
+        return db.ref(`pcb/${boxVal}/`).once('value');
+      } else {
+        const container = document.getElementById('Primary-box-container');
+        container.innerHTML = `
+       Add Box in to the container.
+      `;
+      }
+    })
+    .then(snapshot => {
+      const data = snapshot.val();
+      if (data) {
+        populatePCBLabels(data, boxVal, "call from populateBBData");
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching data from Firebase:', error);
+    });
+}
+
+function populatePCBLabels(data, boxVal, debug) {
+  console.log("inside populate BB labels - ", debug, " -- ", boxVal);
+  const rows = 'ABCDEFGHIJ';
+  const cols = 10;
+
+  const bioBankIds = Object.keys(data).map(key => data[key].bioBankId);
+  const sts = Object.keys(data).map(key => data[key].status);
+  const sample = Object.keys(data).map(key => data[key].sampleType);
+
+  console.log("sts", sts);
+  console.log("sample", sample);
+
+  if (bioBankIds.length < 100) {
+    console.warn('Not enough bioBankIds available for the matrix.');
+  }
+
+  for (let row = 0; row < rows.length; row++) {
+    for (let col = 1; col <= cols; col++) {
+      const labelName = `label_P${rows[row]}${col}`;
+      const labelElement = document.getElementById(labelName);
+      const index = row * cols + (col - 1);
+
+      if (labelElement) {
+        if (bioBankIds[index] !== '') {
+          labelElement.innerHTML = `${bioBankIds[index] || ''}<br>${sample[index] || ''}`;
+          labelElement.style.fontWeight = "bold";
+        }
+        else if (bioBankIds[index] === '') {
+          labelElement.innerHTML = `${'-'}<br>${'-'}`;
+          // labelElement.style.color = "rgb(143, 218, 187)";
+        }
+
+
+        const newLabelElement = labelElement.cloneNode(true);
+        labelElement.parentNode.replaceChild(newLabelElement, labelElement);
+
+        if (sts[index] === "o") {
+          newLabelElement.style.background = "rgb(129, 129, 192)";
+          const matchedData = [];
+          newLabelElement.addEventListener('click', async function () {
+            console.log('Fetching data for:', labelName);
+
+            const bioBankId = bioBankIds[index];
+            const sampleType = sample[index];
+
+            const dbRef = db.ref(`sef/${bioBankId}`);
+            const snapshot = await dbRef.get();
+
+            if (!snapshot.exists()) {
+              console.log("No data found for bioBankId:", bioBankId);
+              return;
+            }
+
+            const dbData = snapshot.val();
+            console.log("dbData", dbData);
+
+            Object.keys(dbData).forEach(seqNum => {
+              const seqData = dbData[seqNum];
+              console.log("seqData", seqData);
+
+              // Get the latest timestamp
+              const latestTimestamp = Math.max(...Object.keys(seqData));
+
+              const timestampData = seqData[latestTimestamp];
+              console.log("Latest timestampData", timestampData);
+
+              // Process based on sampleType
+              if ((sampleType === "PC" || sampleType === "PC") && timestampData.ie.pc) {
+                const pc = timestampData.ie.pc;
+                const boxName = pc.split('/')[0];
+                const pcIndex1 = pc.split('/')[1];
+                console.log("pcIndex1", pcIndex1);
+
+                if (pcIndex1 && pcIndex1.includes(getSeatLabel(index))) {
+                  matchedData.push({
+                    mode: "SearchView",
+                    bioBankId,
+                    seq: seqNum,
+                    timestamp: latestTimestamp
+                  });
+                  console.log("Matched:", {
+                    mode: "SearchView",
+                    bioBankId,
+                    seqNum,
+                    timestamp: latestTimestamp
+                  });
+                }
+              }
+            });
+
+
+            if (matchedData.length > 0) {
+              console.log('Matched Data:', matchedData);
+              matchedData.forEach(item => {
+                console.log(`Mode: ${item.mode}`);
+                console.log(`BioBank ID: ${item.bioBankId}`);
+                console.log(`Sequence: ${item.seq}`);
+                console.log(`Timestamp: ${item.timestamp}`);
+                // Call your display function here
+                pages_display(item.mode, item.bioBankId, item.seq, item.timestamp);
+              });
+            } else {
+              console.log('No match found for:', matchedData.length);
+
+              console.log('No match found for:', labelName);
+            }
+          });
+
+        }
+
+        if (sts[index] === "s") {
+          newLabelElement.style.background = "rgb(180, 180, 180)";
+          const matchedData = [];
+          newLabelElement.addEventListener('click', async function () {
+            console.log('Fetching data for:', labelName);
+
+            const bioBankId = bioBankIds[index];
+            const sampleType = sample[index];
+
+            localStorage.setItem('sharedbioid', bioBankId);
+
+            const dbRef = db.ref(`sef/${bioBankId}`);
+            const snapshot = await dbRef.get();
+
+            if (!snapshot.exists()) {
+              console.log("No data found for bioBankId:", bioBankId);
+              return;
+            }
+
+            const dbData = snapshot.val();
+            console.log("dbData", dbData);
+
+            Object.keys(dbData).forEach(seqNum => {
+              const seqData = dbData[seqNum];
+              console.log("seqData", seqData);
+
+              Object.keys(seqData).forEach(timestamp => {
+                const timestampData = seqData[timestamp];
+                console.log("timestampData", timestampData);
+
+                if ((sampleType === "PC" || sampleType === "PC") && timestampData.ie.pc) {
+                  const pc = timestampData.ie.pc;
+                  const boxName = pc.split('/')[0];
+                  const pcIndex1 = pc.split('/')[1];
+
+                  if (pcIndex1 && pcIndex1.includes(getSeatLabel(index))) {
+                    matchedData.push({
+                      mode: "sharedView",
+                      boxName,
+                      bioBankId,
+                      seq: seqNum,
+                      timestamp
+                    });
+                    console.log("Matched:", {
+                      mode: "sharedView",
+                      boxName,
+                      bioBankId,
+                      seqNum,
+                      timestamp
+                    });
+                  }
+                }
+
+              });
+            });
+
+            if (matchedData.length > 0) {
+              console.log('Matched Data:', matchedData);
+              matchedData.forEach(item => {
+                console.log(`Mode: ${item.mode}`);
+                console.log(`Box Name: ${item.boxName}`);
+                console.log(`BioBank ID: ${item.bioBankId}`);
+                console.log(`Sequence: ${item.seq}`);
+                console.log(`Timestamp: ${item.timestamp}`);
+                shared_pages_display(item.mode, item.bioBankId, item.seq, item.boxName, item.timestamp);
+              });
+            } else {
+              console.log('No match found for:', labelName);
+            }
+          });
+
+        }
+
+        if (sts[index] === "ps") {
+          newLabelElement.style.background = "rgb(193, 154, 107)";
+          const matchedData = [];
+          newLabelElement.addEventListener('click', async function () {
+            console.log('Fetching data for:', labelName);
+
+            const bioBankId = bioBankIds[index];
+            const sampleType = sample[index];
+
+            localStorage.setItem('sharedbioid', bioBankId);
+
+            const dbRef = db.ref(`sef/${bioBankId}`);
+            const snapshot = await dbRef.get();
+
+            if (!snapshot.exists()) {
+              console.log("No data found for bioBankId:", bioBankId);
+              return;
+            }
+
+            const dbData = snapshot.val();
+            console.log("dbData", dbData);
+
+            Object.keys(dbData).forEach(seqNum => {
+              const seqData = dbData[seqNum];
+              console.log("seqData", seqData);
+
+              Object.keys(seqData).forEach(timestamp => {
+                const timestampData = seqData[timestamp];
+                console.log("timestampData", timestampData);
+
+                if ((sampleType === "PC" || sampleType === "PC") && timestampData.ie.pc) {
+                  const pc = timestampData.ie.pc;
+                  const boxName = pc.split('/')[0];
+                  const pcIndex1 = pc.split('/')[1];
+
+                  if (pcIndex1 && pcIndex1.includes(getSeatLabel(index))) {
+                    matchedData.push({
+                      mode: "sharedView",
+                      boxName,
+                      bioBankId,
+                      seq: seqNum,
+                      timestamp
+                    });
+                    console.log("Matched:", {
+                      mode: "sharedView",
+                      boxName,
+                      bioBankId,
+                      seqNum,
+                      timestamp
+                    });
+                  }
+                }
+
+              });
+            });
+
+            if (matchedData.length > 0) {
+              console.log('Matched Data:', matchedData);
+              matchedData.forEach(item => {
+                console.log(`Mode: ${item.mode}`);
+                console.log(`Box Name: ${item.boxName}`);
+                console.log(`BioBank ID: ${item.bioBankId}`);
+                console.log(`Sequence: ${item.seq}`);
+                console.log(`Timestamp: ${item.timestamp}`);
+                shared_pages_display(item.mode, item.bioBankId, item.seq, item.boxName, item.timestamp);
+              });
+            } else {
+              console.log('No match found for:', labelName);
+            }
+          });
+        }
+
+        if (sts[index] === "e") {
+          newLabelElement.style.background = "rgb(143, 218, 187)";
+
+          newLabelElement.addEventListener('click', function () {
+            console.log("sts[index]", sts[index]);
+            console.log('label name of clicked seat:', labelName);
+            localStorage.removeItem("MRN");
+            $('#exampleModalCenter').modal('show');
+          });
+        }
+
+      }
+    }
+  }
+}
+
+function prev4Box() {
+  if (currentPCBoxIndex > 0) {
+    loadPCBox();  // Call loadBox to show the loading spinner
+    currentPCBoxIndex--;
+    populatePCDataForCurrentBox();
+  }
+}
+
+function next4Box() {
+  if (currentPCBoxIndex < PCboxKeys.length - 1) {
+    loadPCBox();  // Call loadBox to show the loading spinner
+    currentPCBoxIndex++;
+    populatePCDataForCurrentBox();
+  }
+}
+
+function loadPCBox() {
+  event.preventDefault();
+  console.log("hello")
+  const container = document.getElementById('Primary-box-container');
+  var loadprogress = document.getElementById('Ploadprogress');
+  loadprogress.innerHTML = `
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Loading...
+      `;
+  loadprogress.style.display = "block"
+
+  container.style.display = "none"
+
+  console.log("Hello Bhanu");
+  setTimeout(() => {
+    loadprogress.innerHTML = '';
+    loadprogress.style.display = "none"
+
+    container.style.display = "block"
+    populatePCDataForCurrentBox();
+  }, 1000);
+}
+
+function populatePCDataForCurrentBox() {
+  const boxVal = PCboxKeys[currentPCBoxIndex]; // Use the current index
+  console.log("boxVal", boxVal);
+
+  // document.getElementById('box_id').textContent = boxVal;
+  db.ref('bn/' + boxVal).once('value')
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        const boxName = snapshot.val();
+
+        console.log("Box Name for ID " + boxVal + ": " + boxName);
+        document.getElementById('pcBox_id').textContent = boxName;
+
+      } else {
+        console.log("No box found with ID " + boxVal);
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching box name for ID " + boxVal + ": ", error);
+    });
+  db.ref(`pcb/${boxVal}/`).once('value')
+    .then(snapshot => {
+      const data = snapshot.val();
+      if (data) {
+        populatePCBLabels(data, boxVal, "call from populateBBDataForCurrentBox");
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching data from Firebase:', error);
+    });
+}
+
+
+function test4() {
+  populatePCBData();
+}
 
 
 
@@ -1411,6 +2123,143 @@ function openModal(seatInfo) {
 //       console.error("Error fetching existing boxes: ", error);
 //     });
 // }
+
+
+function AppendRLTBox(boxName, newBoxId) {
+  const newBoxData = {};
+
+  // Prepare the new box data
+  for (let i = 0; i < 101; i++) {
+    if (i < 100) {
+      newBoxData[i] = {
+        bioBankId: "",
+        sampleType: "",
+        status: "e"
+      };
+    } else {
+      newBoxData['bxsts'] = "AC";  // New box status is Active (AC)
+    }
+  }
+
+  db.ref('rlt/').once('value')
+    .then(snapshot => {
+      const existingBoxes = snapshot.val();
+      if (existingBoxes) {
+        for (const existingBox in existingBoxes) {
+          if (existingBox !== newBoxId) {
+            // Update old boxes' status to 'IAC' (Inactive)
+            const oldBoxData = existingBoxes[existingBox];
+            const updatedOldBoxData = {};
+
+            for (let i = 0; i < 100; i++) {
+              updatedOldBoxData[i] = oldBoxData[i] || {
+                bioBankId: "",
+                sampleType: "",
+                status: "IAC"  // Mark old boxes as Inactive (IAC)
+              };
+            }
+
+            updatedOldBoxData['bxsts'] = "IAC";  // Mark the old box itself as Inactive (IAC)
+            db.ref('rlt/' + existingBox + '/').set(updatedOldBoxData)
+              .catch((error) => {
+                console.error("Error updating old box status: ", error);
+              });
+          }
+        }
+      }
+
+      // Now, add the new box with the active status under the generated ID
+      db.ref('rlt/' + newBoxId + '/').set(newBoxData)
+        .then(() => {
+          console.log("New box added successfully with ID: " + newBoxId);
+          window.location.reload();
+        })
+        .catch((error) => {
+          console.error("Error saving new box to Firebase: ", error);
+        });
+    })
+    .catch((error) => {
+      console.error("Error fetching existing boxes: ", error);
+    });
+
+  // Store the box name under the 'bn' node with the new box ID
+  db.ref('bn/' + newBoxId).set(boxName)
+    .then(() => {
+      console.log("Box name added successfully to the 'bn' node.");
+      fetchBnData();
+    }).catch((error) => {
+      console.error("Error saving box name to 'bn' node: ", error);
+    });
+}
+
+function AppendPCBox(boxName, newBoxId) {
+  const newBoxData = {};
+
+  // Prepare the new box data
+  for (let i = 0; i < 101; i++) {
+    if (i < 100) {
+      newBoxData[i] = {
+        bioBankId: "",
+        sampleType: "",
+        status: "e"
+      };
+    } else {
+      newBoxData['bxsts'] = "AC";  // New box status is Active (AC)
+    }
+  }
+
+  db.ref('pcb/').once('value')
+    .then(snapshot => {
+      const existingBoxes = snapshot.val();
+      if (existingBoxes) {
+        for (const existingBox in existingBoxes) {
+          if (existingBox !== newBoxId) {
+            // Update old boxes' status to 'IAC' (Inactive)
+            const oldBoxData = existingBoxes[existingBox];
+            const updatedOldBoxData = {};
+
+            for (let i = 0; i < 100; i++) {
+              updatedOldBoxData[i] = oldBoxData[i] || {
+                bioBankId: "",
+                sampleType: "",
+                status: "IAC"  // Mark old boxes as Inactive (IAC)
+              };
+            }
+
+            updatedOldBoxData['bxsts'] = "IAC";  // Mark the old box itself as Inactive (IAC)
+            db.ref('pcb/' + existingBox + '/').set(updatedOldBoxData)
+              .catch((error) => {
+                console.error("Error updating old box status: ", error);
+              });
+          }
+        }
+      }
+
+      // Now, add the new box with the active status under the generated ID
+      db.ref('pcb/' + newBoxId + '/').set(newBoxData)
+        .then(() => {
+          console.log("New box added successfully with ID: " + newBoxId);
+          window.location.reload();
+        })
+        .catch((error) => {
+          console.error("Error saving new box to Firebase: ", error);
+        });
+    })
+    .catch((error) => {
+      console.error("Error fetching existing boxes: ", error);
+    });
+
+  // Store the box name under the 'bn' node with the new box ID
+  db.ref('bn/' + newBoxId).set(boxName)
+    .then(() => {
+      console.log("Box name added successfully to the 'bn' node.");
+      fetchBnData();
+    }).catch((error) => {
+      console.error("Error saving box name to 'bn' node: ", error);
+    });
+}
+
+
 function AppendBloodBox(boxName, newBoxId) {
   const newBoxData = {};
 
@@ -1880,6 +2729,12 @@ function validateAndCollectData() {
         if (form1Data.ie.osg) {
           updateBB(form1Data.ie.osg, "Other");
         }
+        if (form1Data.ie.rlt) {
+          updateRLT(form1Data.ie.rlt, "RLT");
+        }
+        if (form1Data.ie.pc) {
+          updatePC(form1Data.ie.pc, "RLT");
+        }
 
         // updateBB(form1Data.ie.bpg, "Plasma");
         // updateBB(form1Data.ie.bsg, "Serum");
@@ -2054,7 +2909,7 @@ function validateForm1() {
     alert('Please enter all the required fields');
     return;
   }
-  else if (!biochar){
+  else if (!biochar) {
     alert(`The Biobank Id should not contain "/"`);
     return;
   }
@@ -2123,6 +2978,22 @@ function validateForm1() {
     });
   };
 
+  let proType = ""
+  procType = document.querySelector('input[name="customProcedure"]:checked').value;
+  metaType = document.querySelector('input[name="MetastasisSample"]:checked').value;
+  if (procType === "b" && metaType === "false") {
+    proType = "Bx"
+  }
+  else if (procType === "b" && metaType === "true") {
+    proType = "MBx"
+  }
+  else if (procType === "r" && metaType === "false") {
+    proType = "Sx"
+  }
+  else if (procType === "r" && metaType === "true") {
+    proType = "MSx"
+  }
+
 
   const aRtimestamp = getDateAndTime('sampleReceivedDate', 'sampleReceivedTime');
   const aPtimestamp = getDateAndTime('sampleProcessedDate', 'sampleProcessedTime');
@@ -2132,12 +3003,19 @@ function validateForm1() {
   const sPtimestamp = getDateAndTime('SpecimenSampleProcessedDate', 'SpecimenSampleProcessedTime');
   const oRtimestamp = getDateAndTime('OtherSampleReceivedDate', 'OtherSampleReceivedTime');
   const oPtimestamp = getDateAndTime('OtherSampleProcessedDate', 'OtherSampleProcessedTime');
+  const rRtimestamp = getDateAndTime('RLTSampleReceivedDate', 'RLTSampleReceivedTime');
+  const rPtimestamp = getDateAndTime('RLTSampleProcessedDate', 'RLTSampleProcessedTime');
+  const pRtimestamp = getDateAndTime('PCSampleReceivedDate', 'PCSampleReceivedTime');
+  const pPtimestamp = getDateAndTime('PCSampleProcessedDate', 'PCSampleProcessedTime');
 
   const plasmagrid = gridData('PlasmagridNo');
   const Serumgrid = gridData('SerumgridNo');
   const buffyCoatgrid = gridData('bufferCoatgridNo');
   const ftSgrid = gridData('ftgrid');
   const fnSgrid = gridData('fngrid');
+  const rltSgrid = gridData('rltSgridNo');
+  const pcSgrid = gridData('pcSgridNo');
+
 
   return Promise.all([
     gridData('PlasmagridNo'),
@@ -2145,15 +3023,15 @@ function validateForm1() {
     gridData('bufferCoatgridNo'),
     gridData('OSgridNo'),
     gridData('ftgrid'),
-    gridData('fngrid')
+    gridData('fngrid'),
+    gridData('rltSgridNo'),
+    gridData('pcSgridNo')
   ])
-    .then(([plasmagrid, Serumgrid, buffyCoatgrid, otherSgrid, ftSgrid, fnSgrid]) => {
+    .then(([plasmagrid, Serumgrid, buffyCoatgrid, otherSgrid, ftSgrid, fnSgrid, rltSgrid, pcSgrid]) => {
 
       const form1Data = {
 
         ie: {
-
-
           ag: document.getElementById('patAge').value,
           sx: document.querySelector('input[name="customRadio"]:checked').value,
           ct: document.querySelector('input[name="radioCancerType"]:checked').value,
@@ -2173,9 +3051,17 @@ function validateForm1() {
           osmp: document.querySelector('input[name="otherSample"]:checked').value,
           osg: otherSgrid,
           osdsc: document.getElementById('otSampleDesc').value,
+          rltS: document.querySelector('input[name="rltSample"]:checked').value,
+          rlt: rltSgrid,
+          pcS: document.querySelector('input[name="pcbSample"]:checked').value,
+          pc: pcSgrid,
           mts: document.querySelector('input[name="MetastasisSample"]:checked').value,
+          mspt: proType,
           cnst: document.querySelector('input[name="customConsent"]:checked')?.value || '',
           iss: document.querySelector('input[name="IschemicRadio"]:checked')?.value || '',
+          nact: document.querySelector('input[name="NACT"]:checked')?.value || "",
+          nactdc: document.getElementById('NACT_cycle').value || "",
+          nactdlc: document.getElementById('NACT_cycle_D').value || "",
           prb: document.getElementById('processedBy').value,
           scpt: document.querySelector('input[name="processedRadio"]:checked')?.value || '',
           srt: aRtimestamp, // These will now either be valid timestamps or null
@@ -2186,9 +3072,15 @@ function validateForm1() {
           sppt: sPtimestamp,
           osrt: oRtimestamp,
           ospt: oPtimestamp,
+          rsrt: rRtimestamp,
+          rspt: rPtimestamp,
+          psrt: pRtimestamp,
+          pspt: pPtimestamp,
           bspb: document.getElementById('BprocessedBy').value,
           sspb: document.getElementById('SprocessedBy').value,
           ospb: document.getElementById('OprocessedBy').value,
+          rltpb: document.getElementById('RLTprocessedBy').value,
+          psspb: document.getElementById('PCprocessedBy').value,
           sef_ub: user
         }
       };
@@ -2272,6 +3164,8 @@ function validateForm2() {
       pstOt: document.getElementById('pstOt').value || "",
       gd: document.getElementById('sampleGrade')?.value || "",
       fc: document.querySelector('input[name="focal"]:checked')?.value || "",
+      dcis: document.querySelector('input[name="dcis"]:checked')?.value || "",
+      dcisgd: document.getElementById('dcisGrade')?.value || "",
       lvi: document.querySelector('input[name="LVI"]:checked')?.value || "",
       pni: document.querySelector('input[name="PNI"]:checked')?.value || "",
       ptnm: document.getElementById('pTNM')?.value || "",
@@ -2283,13 +3177,10 @@ function validateForm2() {
       mpt: document.querySelector('input[name="MPT"]:checked')?.value || "",
       btn: document.getElementById('btHPEInput').value || "",
       bd: document.getElementById('biopsyDate').value || "",
-      nact: document.querySelector('input[name="NACT"]:checked')?.value || "",
-      nactdc: document.getElementById('NACT_cycle').value || "",
-      nactdlc: document.getElementById('NACT_cycle_D').value || "",
       stn: document.getElementById('StHPEInput').value || "",
       sd: document.getElementById('surgeryDate').value || "",
       rcbs: document.getElementById('rcbScores').value || "",
-      rcbc : document.getElementById('rcbClass').value || "",
+      rcbc: document.getElementById('rcbClass').value || "",
       act: document.querySelector('input[name="ACT"]:checked')?.value || "",
       actdc: document.getElementById('actDrugCycles').value || "",
       actdls: document.getElementById('actDateLastCycle').value || "",
@@ -2416,8 +3307,8 @@ function saveToFirebase(data) {
 
     const dueDate = new Date();
     // dueDate.setMonth(dueDate.getMonth() + 6);  // Add 6 months to the current date
-    // dueDate.setMinutes(dueDate.getMinutes() + 3);  // Add 10 days to the current date
-    dueDate.setMinutes(dueDate.getMinutes() + 10 * 24 * 60);  // Add 10 days to the current date
+    dueDate.setMinutes(dueDate.getMinutes() + 3);  // Add 10 days to the current date
+    // dueDate.setMinutes(dueDate.getMinutes() + 10 * 24 * 60);  // Add 10 days to the current date
 
 
     const bioBankPath = `pfw/${bioBankId}`;
@@ -2501,7 +3392,7 @@ function updateToFirebase(data) {
             "mode": "",
             "user": user
           };
-          if(mode === "SearchEdit" || mode === "PendingEdit"){
+          if (mode === "SearchEdit" || mode === "PendingEdit") {
             db.ref(`act/${bioBankId}/${lastSection}`).set(act)
               .then(() => {
                 console.log("New act set, proceeding with pages_display.");
@@ -2510,10 +3401,10 @@ function updateToFirebase(data) {
               .catch((error) => {
                 console.error("Error setting new act: ", error);
               });
-            }
-            else{
-              validateAndCollectData();
-            }
+          }
+          else {
+            validateAndCollectData();
+          }
         })
         .catch((error) => {
           console.error('Error writing to Firebase', error);
@@ -2644,61 +3535,6 @@ function patients() {
 
 
 
-// document.addEventListener('DOMContentLoaded', function () {
-//   // Get the patient data from localStorage
-//   const patientDataStr = localStorage.getItem('patientData');
-
-//   // Check if the data exists and is not null or empty
-//   if (patientDataStr) {
-//     try {
-//       // Parse the data and handle it
-//       const patientData = JSON.parse(patientDataStr);
-
-//       if (patientData) {
-//         // Fill in the input fields with patient data
-//         document.getElementById('patAge').value = patientData.ag || '';
-//         document.querySelector(`input[name="customRadio"][value="${patientData.sx}"]`).checked = true;
-//         document.querySelector(`input[name="radioCancerType"][value="${patientData.ct}"]`).checked = true;
-//         document.querySelector(`input[name="radioCancerStage"][value="${patientData.stc}"]`).checked = true;
-//         document.querySelector(`input[name="customProcedure"][value="${patientData.tpr}"]`).checked = true;
-//         document.getElementById('procedureDetail').value = patientData.dpr || '';
-//         document.getElementById('surgeonName').value = patientData.srn || '';
-//         document.querySelector(`input[name="specimenSample"][value="${patientData.ss}"]`).checked = true;
-//         document.getElementById('ft_tubes').value = patientData.nft || '';
-//         document.getElementById('fn_tubes').value = patientData.nfn || '';
-//         document.querySelector(`input[name="bloodSample"][value="${patientData.bs}"]`).checked = true;
-//         document.getElementById('PlasmagridNo').value = patientData.bpg || '';
-//         document.getElementById('SerumgridNo').value = patientData.bsg || '';
-//         document.getElementById('bufferCoatgridNo').value = patientData.bbcg || '';
-//         document.querySelector(`input[name="otherSample"][value="${patientData.osmp}"]`).checked = true;
-//         document.getElementById('OSgridNo').value = patientData.osg || '';
-//         document.getElementById('otSampleDesc').value = patientData.osdsc || '';
-//         document.querySelector(`input[name="MetastasisSample"][value="${patientData.mts}"]`).checked = true;
-//         document.querySelector(`input[name="customConsent"][value="${patientData.cnst}"]`).checked = true;
-//         document.querySelector(`input[name="IschemicRadio"][value="${patientData.iss}"]`).checked = true;
-//         document.getElementById('processedBy').value = patientData.prb || '';
-//         document.querySelector(`input[name="processedRadio"][value="${patientData.scpt}"]`).checked = true;
-//         document.getElementById('sampleReceivedTime').value = patientData.srt || '';
-//         document.getElementById('sampleProcessedTime').value = patientData.spt || '';
-//         document.getElementById('bloodSampleReceivedTime').value = patientData.brt || '';
-//         document.getElementById('bloodSampleProcessedTime').value = patientData.bpt || '';
-//         document.getElementById('SpecimenSampleReceivedTime').value = patientData.sprt || '';
-//         document.getElementById('SpecimenSampleProcessedTime').value = patientData.sppt || '';
-//         document.getElementById('OtherSampleReceivedTime').value = patientData.osrt || '';
-//         document.getElementById('OtherSampleProcessedTime').value = patientData.ospt || '';
-//         const inputs = document.querySelectorAll('input, select, textarea');
-//         inputs.forEach(input => {
-//           input.disabled = true;
-//         });
-//       }
-//     } catch (e) {
-//       console.error("Error parsing patient data from localStorage:", e);
-//     }
-//   }
-//   // Disable all input fields
-
-
-// });
 
 const upUrlParams = new URLSearchParams(window.location.search);
 const update = upUrlParams.get('upadte');
@@ -2710,6 +3546,8 @@ function pages_display(mode, bioBankId, seq, timestampKey) {
   console.log("bioBankId", bioBankId);
   console.log("seq", seq);
   console.log("timestampKey", timestampKey);
+  localStorage.setItem("bioBankId", bioBankId);
+  localStorage.setItem("lastSection", seq);
 
   if (seq != '') {
     var dataPath = `sef/${bioBankId}/${seq}/${timestampKey}`;
@@ -2862,6 +3700,16 @@ async function fillIeForm(ieData) {
   const otherGridNo = await gridData(ieData.osg);
   document.getElementById('OSgridNo').value = otherGridNo || '';
   document.getElementById('otSampleDesc').value = ieData.osdsc || '';
+
+  document.querySelector(`input[name="rltSample"][value="${ieData.rltS}"]`).checked = true;
+  rltSample();
+
+  const rltSgridNo = await gridData(ieData.rlt);
+  document.getElementById('rltSgridNo').value = rltSgridNo || '';
+  document.querySelector(`input[name="pcbSample"][value="${ieData.pcS}"]`).checked = true;
+  pcbSample();
+  const pcSgridNo = await gridData(ieData.pc);
+  document.getElementById('pcSgridNo').value = pcSgridNo || '';
   document.querySelector(`input[name="MetastasisSample"][value="${ieData.mts}"]`).checked = true;
   if (ieData.cnst !== '') {
     document.querySelector(`input[name="customConsent"][value="${ieData.cnst}"]`).checked = true;
@@ -2869,6 +3717,10 @@ async function fillIeForm(ieData) {
   if (ieData.iss !== '') {
     document.querySelector(`input[name="IschemicRadio"][value="${ieData.iss}"]`).checked = true;
   }
+  if (ieData.nact) document.querySelector(`input[name="NACT"][value="${ieData.nact}"]`).checked = true;
+  NactYes();
+  document.getElementById('NACT_cycle').value = ieData.nactdc || '';
+  document.getElementById('NACT_cycle_D').value = ieData.nactdlc || '';
   document.getElementById('processedBy').value = ieData.prb || '';
   if (ieData.scpt !== '') {
     document.querySelector(`input[name="processedRadio"][value="${ieData.scpt}"]`).checked = true;
@@ -2877,6 +3729,9 @@ async function fillIeForm(ieData) {
   document.getElementById('BprocessedBy').value = ieData.bspb || '';
   document.getElementById('SprocessedBy').value = ieData.sspb || '';
   document.getElementById('OprocessedBy').value = ieData.ospb || '';
+  document.getElementById('RLTprocessedBy').value = ieData.rltpb || '';
+  document.getElementById('PCprocessedBy').value = ieData.psspb || '';
+
   document.getElementById('sefdataEB').value = ieData.sef_ub || '';
 
 
@@ -2920,6 +3775,23 @@ async function fillIeForm(ieData) {
   const ospt = formatTimestamp(ieData.ospt);
   document.getElementById('OtherSampleProcessedDate').value = ospt.date;
   document.getElementById('OtherSampleProcessedTime').value = ospt.time;
+
+  const rltrt = formatTimestamp(ieData.rltrt);
+  document.getElementById('RLTSampleReceivedDate').value = rltrt.date;
+  document.getElementById('RLTSampleReceivedTime').value = rltrt.time;
+
+  const rltpt = formatTimestamp(ieData.rltpt);
+  document.getElementById('RLTSampleProcessedDate').value = rltpt.date;
+  document.getElementById('RLTSampleProcessedTime').value = rltpt.time;
+
+  const pssrt = formatTimestamp(ieData.pssrt);
+  document.getElementById('PCSampleReceivedDate').value = pssrt.date;
+  document.getElementById('PCSampleReceivedTime').value = pssrt.time;
+
+  const psspb = formatTimestamp(ieData.psspb);
+  document.getElementById('PCSampleProcessedDate').value = psspb.date;
+  document.getElementById('PCSampleProcessedTime').value = psspb.time;
+
 }
 
 
@@ -3026,6 +3898,8 @@ function fillMdForm(mdData) {
   document.getElementById('pstOt').value = mdData.pstOt || '';
   document.getElementById('sampleGrade').value = mdData.gd || '';
   if (mdData.fc) document.querySelector(`input[name="focal"][value="${mdData.fc}"]`).checked = true;
+  if (mdData.dcis) document.querySelector(`input[name="dcis"][value="${mdData.dcis}"]`).checked = true;
+  document.getElementById('dcisGrade').value = mdData.dcisgd || '';
   if (mdData.lvi) document.querySelector(`input[name="LVI"][value="${mdData.lvi}"]`).checked = true;
   if (mdData.pni) document.querySelector(`input[name="PNI"][value="${mdData.pni}"]`).checked = true;
   document.getElementById('pTNM').value = mdData.ptnm || '';
@@ -3043,15 +3917,11 @@ function fillMdForm(mdData) {
   if (mdData.mpt) document.querySelector(`input[name="MPT"][value="${mdData.mpt}"]`).checked = true;
   document.getElementById('btHPEInput').value = mdData.btn || '';
   document.getElementById('biopsyDate').value = mdData.bd || '';
-  if (mdData.nact) document.querySelector(`input[name="NACT"][value="${mdData.nact}"]`).checked = true;
-  NactYes();
-  document.getElementById('NACT_cycle').value = mdData.nactdc || '';
-  document.getElementById('NACT_cycle_D').value = mdData.nactdlc || '';
   document.getElementById('StHPEInput').value = mdData.stn || '';
   document.getElementById('surgeryDate').value = mdData.sd || '';
   document.getElementById('rcbScores').value = mdData.rcbs || '';
   document.getElementById('rcbClass').value = mdData.rcbc || '';
-  
+
   if (mdData.act) document.querySelector(`input[name="ACT"][value="${mdData.act}"]`).checked = true;
   actYes();
   document.getElementById('actDrugCycles').value = mdData.actdc || '';
@@ -3193,10 +4063,25 @@ function submitFollowup() {
     fw_ub: user,  // You can dynamically set the field worker's name here
   };
 
-  // Firebase reference to the path you want to save the data to
   const db = firebase.database();  // Initialize Firebase database reference
   const dataPath = `Fw/${bioBankId}/${timestamp}`;
   let mode = localStorage.getItem('mode');
+  let dus = sessionStorage.getItem('userName');
+
+  let act = {
+    "mode": "",
+    "user": dus
+  };
+  let lastSection = localStorage.getItem('lastSection');
+  db.ref(`act/${bioBankId}/${lastSection}`).set(act)
+    .then(() => {
+      console.log("New act set, proceeding with pages_display.");
+    })
+    .catch((error) => {
+      console.error("Error setting new act: ", error);
+    });
+  // Firebase reference to the path you want to save the data to
+
   // Push the data to Firebase
   db.ref(dataPath).set(followupData)
     .then(() => {
@@ -3236,8 +4121,8 @@ function submitFollowup() {
 
   const timePFW = new Date()
   console.log("time", timePFW)
-  timePFW.setMinutes(timePFW.getMinutes() + 10 * 24 * 60);
-  // timePFW.setMinutes(timePFW.getMinutes() + 3);
+  // timePFW.setMinutes(timePFW.getMinutes() + 10 * 24 * 60);
+  timePFW.setMinutes(timePFW.getMinutes() + 3);
 
   const selectedStatus = document.querySelector('input[name="livestatus"]:checked').value;
   const lastfollow = document.querySelector('input[name="flexRadioDefault"]:checked').value;
@@ -3409,6 +4294,7 @@ function submitFollowup() {
 //       console.error("Error fetching seat data from Firebase:", error);
 //     });
 // }
+
 function updateBB(info, field) {
   console.log("Plasma info", info)
   const parts = info.split('/');
@@ -3426,77 +4312,6 @@ function updateBB(info, field) {
   }
 
   console.log("Current seatList", seatList);
-  // let prevSeatList = [];
-  // db.ref(`sef/${bioBankId}`).once('value')
-  //   .then(snapshot => {
-  //     let seqData = snapshot.val();
-  //     if (!seqData) {
-  //       console.error(`No seqData found for box: ${boxName}`);
-  //       return;
-  //     }
-
-  //     const seqIds = Object.keys(seqData); // Get the sequence IDs
-  //     console.log("seqIds", seqIds);
-
-  //     if (seqIds.length === 0) {
-  //       console.error("No sequence data available.");
-  //       return;
-  //     }
-
-  //     // Get the last sequence ID (assuming seqIds is ordered chronologically)
-  //     const lastSeqId = seqIds[seqIds.length - 1]; // Fix here
-  //     console.log("lastSeqId", lastSeqId);
-
-  //     const timestamps = Object.keys(seqData[lastSeqId]);
-  //     console.log("timestamps", timestamps);
-
-  //     if (timestamps.length === 0) {
-  //       console.error("No timestamps available.");
-  //       return;
-  //     }
-
-  //     // Get the most recent timestamp
-  //     const lastTimestamp = Math.max(...timestamps.map(ts => Number(ts))); // Convert timestamps to numbers
-  //     console.log("lastTimestamp", lastTimestamp);
-
-  //     const lastData = seqData[lastSeqId][lastTimestamp]; // Fetch the data for the last timestamp
-  //     console.log("lastData", lastData);
-
-  //     if (lastData && lastData.ie) {
-  //       let pervInfo = '';
-  //       switch (field) {
-  //         case 'Plasma':
-  //           pervInfo = lastData.ie.bpg;
-  //           break;
-  //         case 'Serum':
-  //           pervInfo = lastData.ie.bsg;
-  //           break;
-  //         case 'Buffy Coat':
-  //           pervInfo = lastData.ie.bbcg;
-  //           break;
-  //         case 'Other':
-  //           pervInfo = lastData.ie.osg;
-  //           break;
-  //         default:
-  //           console.error("Unknown field:", field);
-  //       }
-
-  //       // if (pervInfo !== "") {
-  //       //   const pervParts = pervInfo.split('/');
-  //       //   if (pervParts) {
-  //       //     prevSeatList = pervParts[1].split(',').map(seat => seat.trim());
-  //       //     console.log("Processing prevSeatList:", prevSeatList);
-  //       //   } else {
-  //       //     console.error("Invalid format in prevInfo. Expected 'box_name/seat_ids/sampleType'.");
-  //       //   }
-  //       // }
-  //     } else {
-  //       console.error(`${field} value not found in the last timestamp's 'ie' data.`);
-  //     }
-  //   })
-  //   .catch(error => {
-  //     console.error("Error fetching seqData from Firebase:", error);
-  //   });
 
   db.ref(`bb/${boxName}`).once('value')
     .then(snapshot => {
@@ -3506,7 +4321,6 @@ function updateBB(info, field) {
         return;
       }
 
-      // Mark the current seatList as "occupied"
       seatList.forEach(seatID => {
         let seatIndex = getSeatIndex(seatID);
         const seatUpdate = {
@@ -3523,37 +4337,107 @@ function updateBB(info, field) {
             console.error(`Error updating seat ${seatID}:`, error);
           });
       });
-
-      // console.log("prevSeatList", prevSeatList)
-      // console.log("seatList", seatList)
-
-      // const absentSeats = prevSeatList.filter(seatID => !seatList.includes(seatID));
-      // console.log("absentSeats", absentSeats)
-      // absentSeats.forEach(seatID => {
-      //   let seatIndex = getSeatIndex(seatID);
-      //   const seatUpdate = {
-      //     bioBankId: '',
-      //     sampleType: '',
-      //     status: "e"
-      //   };
-
-      //   db.ref(`bb/${boxName}/${seatIndex}`).update(seatUpdate)
-      //     .then(() => {
-      //       console.log(`Seat ${seatID} marked as "empty".`);
-      //     })
-      //     .catch(error => {
-      //       console.error(`Error updating seat ${seatID} as empty:`, error);
-      //     });
-      // });
-
     })
     .catch(error => {
       console.error("Error fetching seat data from Firebase:", error);
     });
 }
 
+function updateRLT(info, field) {
+  console.log("RLT info", info)
+  const parts = info.split('/');
 
+  const bioBankId = document.getElementById('bioBankId').value;
 
+  const boxName = parts[0].trim();
+  const seatList = parts[1].split(',').map(seat => seat.trim());
+  const sampleType = parts[2].trim();
+
+  console.log("bioBankId", bioBankId);
+  if (!bioBankId) {
+    console.error("No bioBankId found in localStorage");
+    return;
+  }
+
+  console.log("Current seatList", seatList);
+
+  db.ref(`rlt/${boxName}`).once('value')
+    .then(snapshot => {
+      let box = snapshot.val();
+      if (!box) {
+        console.error(`No box found with the name: ${boxName}`);
+        return;
+      }
+
+      seatList.forEach(seatID => {
+        let seatIndex = getSeatIndex(seatID);
+        const seatUpdate = {
+          bioBankId: bioBankId,
+          sampleType: sampleType,
+          status: "o" // Mark as occupied
+        };
+
+        db.ref(`rlt/${boxName}/${seatIndex}`).update(seatUpdate)
+          .then(() => {
+            console.log(`Seat ${seatID} updated successfully to "occupied".`);
+          })
+          .catch(error => {
+            console.error(`Error updating seat ${seatID}:`, error);
+          });
+      });
+    })
+    .catch(error => {
+      console.error("Error fetching seat data from Firebase:", error);
+    });
+}
+
+function updatePC(info, field) {
+  console.log("Primary Culture info", info)
+  const parts = info.split('/');
+
+  const bioBankId = document.getElementById('bioBankId').value;
+
+  const boxName = parts[0].trim();
+  const seatList = parts[1].split(',').map(seat => seat.trim());
+  const sampleType = parts[2].trim();
+
+  console.log("bioBankId", bioBankId);
+  if (!bioBankId) {
+    console.error("No bioBankId found in localStorage");
+    return;
+  }
+
+  console.log("Current seatList", seatList);
+
+  db.ref(`pcb/${boxName}`).once('value')
+    .then(snapshot => {
+      let box = snapshot.val();
+      if (!box) {
+        console.error(`No box found with the name: ${boxName}`);
+        return;
+      }
+
+      seatList.forEach(seatID => {
+        let seatIndex = getSeatIndex(seatID);
+        const seatUpdate = {
+          bioBankId: bioBankId,
+          sampleType: sampleType,
+          status: "o" // Mark as occupied
+        };
+
+        db.ref(`pcb/${boxName}/${seatIndex}`).update(seatUpdate)
+          .then(() => {
+            console.log(`Seat ${seatID} updated successfully to "occupied".`);
+          })
+          .catch(error => {
+            console.error(`Error updating seat ${seatID}:`, error);
+          });
+      });
+    })
+    .catch(error => {
+      console.error("Error fetching seat data from Firebase:", error);
+    });
+}
 
 
 // function updateBB(info) {
@@ -3888,6 +4772,32 @@ function popSharedmodal(bioboxName, samples) {
         })
         .catch(error => {
           console.error("Error fetching 'sb' data:", error);
+        });
+
+      fetchSeatDataFromDB('rlt', boxId)
+        .then(bbData => {
+          if (bbData) {
+            console.log(`Box ID ${boxId} for '${bioboxName}' found in 'bb'.`);
+            popSharedRLTmodal(bioboxName, samples);
+          } else {
+            console.log(`Box ID ${boxId} not found in 'bb'.`);
+          }
+        })
+        .catch(error => {
+          console.error("Error fetching 'bb' data:", error);
+        });
+
+        fetchSeatDataFromDB('pcb', boxId)
+        .then(bbData => {
+          if (bbData) {
+            console.log(`Box ID ${boxId} for '${bioboxName}' found in 'bb'.`);
+            popSharedPCmodal(bioboxName, samples);
+          } else {
+            console.log(`Box ID ${boxId} not found in 'bb'.`);
+          }
+        })
+        .catch(error => {
+          console.error("Error fetching 'bb' data:", error);
         });
 
     })
@@ -4286,6 +5196,302 @@ function popSharedSpecimenmodal(bioboxName, samples) {
 
 }
 
+function popSharedRLTmodal(bioboxName, samples) {
+  $('#sharedRLTModal').modal('show');
+
+  fetchSeatDataFromDB('rlt').then(seatData => {
+    populateBSeats('shared-r-box', seatData);
+  });
+
+  function fetchSeatDataFromDB(nodeName) {
+    return new Promise((resolve, reject) => {
+      let dbRef = firebase.database().ref(nodeName);
+      dbRef.once('value')
+        .then(snapshot => {
+          let seatData = snapshot.val();
+          resolve(seatData);
+        })
+        .catch(error => {
+          console.error("Error fetching seat data:", error);
+          reject(error);
+        });
+    });
+  }
+
+  function populateBSeats(containerClass, seatData) {
+    let container = document.querySelector(`.${containerClass}`);
+    container.innerHTML = '';
+
+    const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+    const cols = 10;
+
+    let gridSamples = [];
+    gridSamples = samples.split(',');
+    let activeBoxEntry = [];
+    let box_id = [];
+    db.ref('bn/').once('value')
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          const boxIDs = snapshot.val();
+
+          bioInfo = Object.entries(boxIDs).find(([bio_id, boxData]) => bio_id === bioboxName);
+          const [id, boxData] = bioInfo;
+
+          box_id = id;
+          console.log("bioinfo", bioInfo)
+          console.log("box_id", box_id)
+
+
+          // console.log("box name", boxname);
+          console.log("seatData", seatData);
+          console.log("box box_id", box_id);
+
+
+          activeBoxEntry = Object.entries(seatData).find(([boxid, data]) => boxid === box_id);
+
+
+          if (!activeBoxEntry) {
+            console.log("No active box found.");
+            return;
+          }
+          const [boxid, filteredSeats] = activeBoxEntry;
+          let boxName = [];
+          console.log("Active Box Name:", boxid);
+          const indexedSeats = filteredSeats;
+
+          db.ref('bn/' + boxid).once('value')
+            .then((snapshot) => {
+              if (snapshot.exists()) {
+                boxName = snapshot.val();
+
+                console.log("Box Name for ID " + boxid + ": " + boxName);
+                document.getElementById('cursharedRLTBox').textContent = boxName;
+
+              } else {
+                console.log("No box found with ID " + boxid);
+              }
+              if (!indexedSeats) {
+                console.log("No indexed seats available in the active box.");
+                return;
+              }
+              for (let row = 0; row < rows.length; row++) {
+                for (let col = 1; col <= cols; col++) {
+                  const labelName = `label_R${rows[row]}${col}`;
+                  const seatID = `${rows[row]}${col}`;
+                  const index = row * cols + (col - 1);
+
+                  const seat = indexedSeats[index];
+
+                  if (seat) {
+                    container.insertAdjacentHTML(
+                      "beforeend",
+                      `<input type="checkbox" name="seats" id="${seatID}" />` +
+                      `<label for="${seatID}" class="viewSeat" id="${labelName}">${labelName}</label>`
+                    );
+
+                    let labelElement = document.getElementById(labelName);
+                    if (labelElement) {
+                      if (seat.bioBankId !== '') {
+                        labelElement.innerHTML = `${seat.bioBankId || ''}<br>${seat.sampleType || ''}`;
+                        labelElement.style.fontWeight = "bolder";
+                        labelElement.style.fontSize = "9px";
+                        labelElement.style.textAlign = "center";
+                        labelElement.style.color = 'white';
+                      } else if (seat.bioBankId === '') {
+                        labelElement.innerHTML = `${'-'}<br>`;
+                        labelElement.style.color = "rgb(143, 218, 187)";
+                        labelElement.style.textAlign = "center";
+                      }
+
+                      if (seat.status === "o") {
+                        labelElement.style.background = "rgb(129, 129, 192)";
+                      } else if (seat.status === "s") {
+                        labelElement.style.background = "rgb(180, 180, 180)";
+                      } else if (seat.status === "ps") {
+                        labelElement.style.background = "rgb(193, 154, 107)";
+                      } else if (seat.status === "e") {
+                        labelElement.style.background = "rgb(143, 218, 187)";
+                      }
+
+                      if (gridSamples.includes(seatID)) {
+                        labelElement.style.background = "#4d6335";
+                        console.log("seatID in sahred Box", gridSamples)
+
+                        console.log("seatID in sahred Box", seatID)
+                      }
+                    }
+                  }
+                }
+                container.insertAdjacentHTML("beforeend", "<br/>");
+              }
+
+            })
+
+
+            .catch((error) => {
+              console.error("Error fetching box name for ID " + boxid + ": ", error);
+            });
+
+          // document.getElementById('currBloodBoxName').textContent = activeBoxName;
+
+        } else {
+          console.log("No boxes found in the database.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching box names:", error);
+      });
+  }
+}
+
+function popSharedPCmodal(bioboxName, samples) {
+  $('#sharedPCModal').modal('show');
+
+  fetchSeatDataFromDB('pcb').then(seatData => {
+    populateBSeats('shared-p-box', seatData);
+  });
+
+  function fetchSeatDataFromDB(nodeName) {
+    return new Promise((resolve, reject) => {
+      let dbRef = firebase.database().ref(nodeName);
+      dbRef.once('value')
+        .then(snapshot => {
+          let seatData = snapshot.val();
+          resolve(seatData);
+        })
+        .catch(error => {
+          console.error("Error fetching seat data:", error);
+          reject(error);
+        });
+    });
+  }
+
+  function populateBSeats(containerClass, seatData) {
+    let container = document.querySelector(`.${containerClass}`);
+    container.innerHTML = '';
+
+    const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+    const cols = 10;
+
+    let gridSamples = [];
+    gridSamples = samples.split(',');
+    let activeBoxEntry = [];
+    let box_id = [];
+    db.ref('bn/').once('value')
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          const boxIDs = snapshot.val();
+
+          bioInfo = Object.entries(boxIDs).find(([bio_id, boxData]) => bio_id === bioboxName);
+          const [id, boxData] = bioInfo;
+
+          box_id = id;
+          console.log("bioinfo", bioInfo)
+          console.log("box_id", box_id)
+
+
+          // console.log("box name", boxname);
+          console.log("seatData", seatData);
+          console.log("box box_id", box_id);
+
+
+          activeBoxEntry = Object.entries(seatData).find(([boxid, data]) => boxid === box_id);
+
+
+          if (!activeBoxEntry) {
+            console.log("No active box found.");
+            return;
+          }
+          const [boxid, filteredSeats] = activeBoxEntry;
+          let boxName = [];
+          console.log("Active Box Name:", boxid);
+          const indexedSeats = filteredSeats;
+
+          db.ref('bn/' + boxid).once('value')
+            .then((snapshot) => {
+              if (snapshot.exists()) {
+                boxName = snapshot.val();
+
+                console.log("Box Name for ID " + boxid + ": " + boxName);
+                document.getElementById('cursharedPCBox').textContent = boxName;
+
+              } else {
+                console.log("No box found with ID " + boxid);
+              }
+              if (!indexedSeats) {
+                console.log("No indexed seats available in the active box.");
+                return;
+              }
+              for (let row = 0; row < rows.length; row++) {
+                for (let col = 1; col <= cols; col++) {
+                  const labelName = `label_P${rows[row]}${col}`;
+                  const seatID = `${rows[row]}${col}`;
+                  const index = row * cols + (col - 1);
+
+                  const seat = indexedSeats[index];
+
+                  if (seat) {
+                    container.insertAdjacentHTML(
+                      "beforeend",
+                      `<input type="checkbox" name="seats" id="${seatID}" />` +
+                      `<label for="${seatID}" class="viewSeat" id="${labelName}">${labelName}</label>`
+                    );
+
+                    let labelElement = document.getElementById(labelName);
+                    if (labelElement) {
+                      if (seat.bioBankId !== '') {
+                        labelElement.innerHTML = `${seat.bioBankId || ''}<br>${seat.sampleType || ''}`;
+                        labelElement.style.fontWeight = "bolder";
+                        labelElement.style.fontSize = "9px";
+                        labelElement.style.textAlign = "center";
+                        labelElement.style.color = 'white';
+                      } else if (seat.bioBankId === '') {
+                        labelElement.innerHTML = `${'-'}<br>`;
+                        labelElement.style.color = "rgb(143, 218, 187)";
+                        labelElement.style.textAlign = "center";
+                      }
+
+                      if (seat.status === "o") {
+                        labelElement.style.background = "rgb(129, 129, 192)";
+                      } else if (seat.status === "s") {
+                        labelElement.style.background = "rgb(180, 180, 180)";
+                      } else if (seat.status === "ps") {
+                        labelElement.style.background = "rgb(193, 154, 107)";
+                      } else if (seat.status === "e") {
+                        labelElement.style.background = "rgb(143, 218, 187)";
+                      }
+
+                      if (gridSamples.includes(seatID)) {
+                        labelElement.style.background = "#4d6335";
+                        console.log("seatID in sahred Box", gridSamples)
+
+                        console.log("seatID in sahred Box", seatID)
+                      }
+                    }
+                  }
+                }
+                container.insertAdjacentHTML("beforeend", "<br/>");
+              }
+
+            })
+
+
+            .catch((error) => {
+              console.error("Error fetching box name for ID " + boxid + ": ", error);
+            });
+
+          // document.getElementById('currBloodBoxName').textContent = activeBoxName;
+
+        } else {
+          console.log("No boxes found in the database.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching box names:", error);
+      });
+  }
+}
+
 function retrieveOs(bioBankId) {
   db.ref(`Os/${bioBankId}`).once('value')
     .then((snapshot) => {
@@ -4619,7 +5825,72 @@ function otherSample() {
     // localStorage.removeItem("LocalOther");
   }
 }
+
+function rltSample() {
+  if ($('#rltSampleY').is(':checked')) {
+    $('#rltSampleTubes').show();
+  }
+  else if ($('#rltSampleN').is(':checked')) {
+    $('#rltSampleTubes').hide();
+    $('#rltSgridNo').val('');
+    localStorage.removeItem("LocalRltGrid");
+    localStorage.removeItem("rltSelectedGrid");
+
+    // let rltGrids = localStorage.getItem("LocalRltGrid");
+
+    // if (rltGrids !== null) {
+    //   let mainGrids = localStorage.getItem("selectedRltGrid");
+    //   let rltMainGridsArray = mainGrids.split(',');
+    //   let rltGridsArray = rltGrids.split(',');
+
+    //   rltMainGridsArray = rltMainGridsArray.filter(grid => !rltGridsArray.includes(grid));
+
+    //   localStorage.setItem("selectedRltGrid", rltMainGridsArray.join(','));
+    //   localStorage.removeItem("LocalRltGrid");
+
+    // }
+  }
+}
+
+rltSample();
+$('input[name="rltSample"]').change(function () {
+  rltSample();
+});
+
+function pcbSample() {
+  if ($('#pcbSampleY').is(':checked')) {
+    $('#pcbSampleTubes').show();
+  }
+  else if ($('#pcbSampleN').is(':checked')) {
+    $('#pcbSampleTubes').hide();
+    $('#pcSgridNo').val('');
+    localStorage.removeItem("LocalPC");
+    localStorage.removeItem("pcSelectedGrid");
+
+
+    // let pcbGrids = localStorage.getItem("LocalPcbGrid");
+
+    // if (pcbGrids !== null) {
+    //   let mainGrids = localStorage.getItem("selectedPcbGrid");
+    //   let pcbMainGridsArray = mainGrids.split(',');
+    //   let pcbGridsArray = pcbGrids.split(',');
+
+    //   pcbMainGridsArray = pcbMainGridsArray.filter(grid => !pcbGridsArray.includes(grid));
+
+    //   localStorage.setItem("selectedPcbGrid", pcbMainGridsArray.join(','));
+    //   localStorage.removeItem("LocalPcbGrid");
+    // }
+  }
+}
+
+pcbSample();
+$('input[name="pcbSample"]').change(function () {
+  pcbSample();
+});
+
+
 function sampleReceive() {
+  console.log("Function checking", $('#radioprocessed1').is(':checked'), $('#radioprocessed2').is(':checked'))
   if ($('#radioprocessed1').is(':checked')) {
     $('#receiveAllSample').show();
     $('#processAllSample').show();
@@ -4639,6 +5910,17 @@ function sampleReceive() {
     $('#OtherSampleReceivedTime').val('');
     $('#OtherSampleProcessedDate').val('');
     $('#OtherSampleProcessedTime').val('');
+    $('#RLTprocessedBy').val('');
+    $('#RLTSampleReceivedDate').val('');
+    $('#RLTSampleReceivedTime').val('');
+    $('#RLTSampleProcessedDate').val('');
+    $('#RLTSampleProcessedTime').val('');
+    $('#PCprocessedBy').val('');
+    $('#PCSampleReceivedDate').val('');
+    $('#PCSampleReceivedTime').val('');
+    $('#PCSampleProcessedDate').val('');
+    $('#PCSampleProcessedTime').val('');
+
   }
   else if ($('#radioprocessed2').is(':checked')) {
     $('#receiveAllSample').hide();
@@ -4654,15 +5936,6 @@ function sampleReceive() {
     $('#receiveAllSample').hide();
     $('#processAllSample').hide();
     $('#AllSamplesProcess').hide();
-    $('#receiveBloodSample').hide();
-    $('#processBloodSample').hide();
-    $('#BloodSamplesProcess').hide();
-    $('#receiveSpecimenSample').hide();
-    $('#processSpecimenSample').hide();
-    $('#SpecimenSamplesProcess').hide();
-    $('#receiveOtherSample').hide();
-    $('#processOtherSample').hide();
-    $('#OtherSamplesProcess').hide();
     $('#processedBy').val('');
     $('#sampleReceivedDate').val('');
     $('#sampleReceivedTime').val('');
@@ -4715,9 +5988,30 @@ function sampleReceive() {
     $('#receiveOtherSample').hide();
     $('#processOtherSample').hide();
     $('#OtherSamplesProcess').hide();
-
+  }
+  if (($('#radioprocessed2').is(':checked')) && ($('#rltSampleY').is(':checked'))) {
+    $('#receiveRLTSample').show();
+    $('#processRLTSample').show();
+    $('#RLTSamplesProcess').show();
+  }
+  else {
+    $('#receiveRLTSample').hide();
+    $('#processRLTSample').hide();
+    $('#RLTSamplesProcess').hide();
+  }
+  if (($('#radioprocessed2').is(':checked')) && ($('#pcbSampleY').is(':checked'))) {
+    $('#receivePCSample').show();
+    $('#processPCSample').show();
+    $('#PCSamplesProcess').show();
+  }
+  else {
+    $('#receivePCSample').hide();
+    $('#processPCSample').hide();
+    $('#PCSamplesProcess').hide();
   }
 }
+
+
 
 
 function familyHabitToggle() {
@@ -4827,3 +6121,15 @@ function pbYes() {
     $('#PBInput').val('');
   }
 }
+
+function dcisY() {
+  if ($('#dcisY').is(':checked')) {
+    $('#dcisGradeSec').show();
+  }
+  else {
+    $('#dcisGradeSec').hide();
+    $('#dcisGrade').val('');
+
+  }
+}
+
