@@ -349,18 +349,10 @@
                 <label for="AJCCInput">AJCC Staging</label>
                 <select id="AJCCInput" class="form-control">
                   <option selected>All</option>
-                  <option value="IA">IA</option>
-                  <option value="IB">IB</option>
-                  <option value="IC">IC</option>
-                  <option value="IIA">IIA</option>
-                  <option value="IIB">IIB</option>
-                  <option value="IIC">IIC</option>
-                  <option value="IIIA">IIIA</option>
-                  <option value="IIIB">IIIB</option>
-                  <option value="IIIC">IIIC</option>
-                  <option value="IVA">IVA</option>
-                  <option value="IVB">IVB</option>
-                  <option value="IVC">IVC</option>
+                  <option value="I">I</option>
+                  <option value="II">II</option>
+                  <option value="III">III</option>
+                  <option value="IV">IV</option>
                 </select>
               </div>
               
@@ -1862,18 +1854,18 @@
             const ajjcInputMatch = 
                criteria.ajjcInput === "All" ||
               !criteria.ajjcInput ||
-              (criteria.ajjcInput === "IA" && patientmd.as === "IA") ||
-              (criteria.ajjcInput === "IB" && patientmd.as === "IB") ||
-              (criteria.ajjcInput === "IC" && patientmd.as === "IC") ||
-              (criteria.ajjcInput === "IIA" && patientmd.as === "IIA") ||
-              (criteria.ajjcInput === "IIB" && patientmd.as === "IIB") ||
-              (criteria.ajjcInput === "IIC" && patientmd.as === "IIC") ||
-              (criteria.ajjcInput === "IIIA" && patientmd.as === "IIIA") ||
-              (criteria.ajjcInput === "IIIB" && patientmd.as === "IIIB")||
-              (criteria.ajjcInput === "IIIC" && patientmd.as === "IIIC") ||
-              (criteria.ajjcInput === "IVA" && patientmd.as === "IVA") ||
-              (criteria.ajjcInput === "IVB" && patientmd.as === "IVB") ||
-              (criteria.ajjcInput === "IVC" && patientmd.as === "IVC");
+              (criteria.ajjcInput === "I" && patientmd.as === "IA") ||
+              (criteria.ajjcInput === "I" && patientmd.as === "IB") ||
+              (criteria.ajjcInput === "I" && patientmd.as === "IC") ||
+              (criteria.ajjcInput === "II" && patientmd.as === "IIA") ||
+              (criteria.ajjcInput === "II" && patientmd.as === "IIB") ||
+              (criteria.ajjcInput === "II" && patientmd.as === "IIC") ||
+              (criteria.ajjcInput === "III" && patientmd.as === "IIIA") ||
+              (criteria.ajjcInput === "III" && patientmd.as === "IIIB")||
+              (criteria.ajjcInput === "III" && patientmd.as === "IIIC") ||
+              (criteria.ajjcInput === "IV" && patientmd.as === "IVA") ||
+              (criteria.ajjcInput === "IV" && patientmd.as === "IVB") ||
+              (criteria.ajjcInput === "IV" && patientmd.as === "IVC");
           
             const cSubInputMatch = 
                criteria.clinicalSubInput === "All" ||
