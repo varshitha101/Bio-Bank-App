@@ -2716,6 +2716,120 @@ function validateAndCollectData() {
         console.log("form1Data.ie.fng", form1Data.ie.fng)
         console.log("form1Data.ie.ftg", form1Data.ie.ftg)
 
+
+        // db.ref(`sef`).once('value', snapshot => {
+        //   const data = snapshot.val();
+        //   const keysArray = [];
+      
+        //   if (data) {
+        //     // Loop through the keys and push them into keysArray
+        //     Object.keys(data).forEach(key => {
+        //       keysArray.push(key);
+        //     });
+        //   }
+        //   const bioBankId = document.getElementById('bioBankId').value;
+      
+        //   const dbRef = db.ref(`sef/${bioBankId}`);
+        //   const snapshot = await dbRef.get();
+      
+        //   if (!snapshot.exists()) {
+        //     console.log("No data found for bioBankId:", bioBankId);
+        //     return;
+        //   }
+      
+        //   const dbData = snapshot.val();
+        //   console.log("dbData", dbData);
+      
+        //   Object.keys(dbData).forEach(seqNum => {
+        //     const seqData = dbData[seqNum];
+        //     console.log("seqData", seqData);
+      
+        //     // Get the latest timestamp
+        //     const latestTimestamp = Math.max(...Object.keys(seqData));
+      
+        //     const timestampData = seqData[latestTimestamp];
+        //     console.log("Latest timestampData", timestampData);
+      
+        //     if(bioBankId.exists(keysArray)){
+        //       db.ref(`sef/${bioBankId}/ ${seqNum}/${timestampData}`).once('value',snapshots=>{
+        //         const data = snapshots.val();
+        //         console.log("data.ie.bs",data.ie.bs)
+        //         if (data.ie.bs ==="false" && form1Data.ie.bs === "true"){
+        //           if (form1Data.ie.bpg) {
+        //             updateBB(form1Data.ie.bpg, "Plasma");
+        //           }
+        //           if (form1Data.ie.bsg) {
+        //             updateBB(form1Data.ie.bsg, "Serum");
+        //           }
+        //           if (form1Data.ie.bbcg) {
+        //             updateBB(form1Data.ie.bbcg, "Buffy Coat");
+        //           }
+        //         }
+        //         if (data.ie.ss ==="false" && form1Data.ie.ss === "true"){
+        //           if (form1Data.ie.ftg !== "" && form1Data.ie.ftg !== null) {
+        //             updateSB(form1Data.ie.ftg, "FT-1");
+        //           }
+        //           if (form1Data.ie.fng !== "" && form1Data.ie.fng !== null) {
+        //             updateSB(form1Data.ie.fng, "FN-1");
+        //           }
+        //         }
+        //         if (data.ie.osmp ==="false" && form1Data.ie.osmp === "true"){
+        //           if (form1Data.ie.osg) {
+        //             updateBB(form1Data.ie.osg, "Other");
+        //           }
+        //         }
+        //         if (data.ie.rltS ==="false" && form1Data.ie.rltS === "true"){
+        //           if (form1Data.ie.rlt) {
+        //             updateRLT(form1Data.ie.rlt, "RLT");
+        //           }
+        //         }
+        //         if (data.ie.pcS ==="false" && form1Data.ie.pcS === "true"){
+        //           if (form1Data.ie.pc) {
+        //             updatePC(form1Data.ie.pc, "PC");
+        //           }
+        //         }
+        //       })
+        //     }
+        //     else{
+        //       if (form1Data.ie.bpg) {
+        //         updateBB(form1Data.ie.bpg, "Plasma");
+        //       }
+        //       if (form1Data.ie.bsg) {
+        //         updateBB(form1Data.ie.bsg, "Serum");
+        //       }
+        //       if (form1Data.ie.bbcg) {
+        //         updateBB(form1Data.ie.bbcg, "Buffy Coat");
+        //       }
+        //       if (form1Data.ie.osg) {
+        //         updateBB(form1Data.ie.osg, "Other");
+        //       }
+        //       if (form1Data.ie.rlt) {
+        //         updateRLT(form1Data.ie.rlt, "RLT");
+        //       }
+        //       if (form1Data.ie.pc) {
+        //         updatePC(form1Data.ie.pc, "PC");
+        //       }
+      
+        //       // updateBB(form1Data.ie.bpg, "Plasma");
+        //       // updateBB(form1Data.ie.bsg, "Serum");
+        //       // updateBB(form1Data.ie.bbcg, "Buffy Coat");
+        //       // updateBB(form1Data.ie.osg, "Other");
+      
+      
+        //       if (form1Data.ie.ftg !== "" && form1Data.ie.ftg !== null) {
+        //         updateSB(form1Data.ie.ftg, "FT-1");
+        //       }
+        //       if (form1Data.ie.fng !== "" && form1Data.ie.fng !== null) {
+        //         updateSB(form1Data.ie.fng, "FN-1");
+        //       }
+        //     }
+        //   })
+          
+      
+        //   console.log("Keys Array:", keysArray);
+        // });
+
+
         console.log("Plasma data", form1Data.ie.bpg)
         if (form1Data.ie.bpg) {
           updateBB(form1Data.ie.bpg, "Plasma");
@@ -2733,7 +2847,7 @@ function validateAndCollectData() {
           updateRLT(form1Data.ie.rlt, "RLT");
         }
         if (form1Data.ie.pc) {
-          updatePC(form1Data.ie.pc, "RLT");
+          updatePC(form1Data.ie.pc, "PC");
         }
 
         // updateBB(form1Data.ie.bpg, "Plasma");
@@ -2861,6 +2975,9 @@ function validateAndCollectData() {
 
 
 // Validate Form 1
+
+
+
 function validateForm1() {
   const requiredFields = [
     { field: document.getElementById('mrnNo'), name: 'MRN Number' },
@@ -2873,6 +2990,9 @@ function validateForm1() {
     { field: document.querySelector('input[name="bloodSample"]:checked'), name: 'Blood Sample' },
     { field: document.querySelector('input[name="specimenSample"]:checked'), name: 'Specimen Sample' },
     { field: document.querySelector('input[name="otherSample"]:checked'), name: 'Other Sample' },
+    { field: document.querySelector('input[name="rltSample"]:checked'), name: 'RLT Sample' },
+    { field: document.querySelector('input[name="pcbSample"]:checked'), name: 'Primary Culture Sample' },
+
     // { field: document.querySelector('input[name="customConsent"]:checked'), name: 'Consent' },
     // { field: document.querySelector('input[name="IschemicRadio"]:checked'), name: 'Ischemic Sample' },
     // { field: document.querySelector('input[name="processedRadio"]:checked'), name: 'All samples Received Together' }
@@ -4787,7 +4907,7 @@ function popSharedmodal(bioboxName, samples) {
           console.error("Error fetching 'bb' data:", error);
         });
 
-        fetchSeatDataFromDB('pcb', boxId)
+      fetchSeatDataFromDB('pcb', boxId)
         .then(bbData => {
           if (bbData) {
             console.log(`Box ID ${boxId} for '${bioboxName}' found in 'bb'.`);
@@ -5752,6 +5872,8 @@ function hideLoadingModal() {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+
+
   const navLinks = document.querySelectorAll('.nav-link');
 
   navLinks.forEach(link => {
@@ -5766,6 +5888,8 @@ document.addEventListener('DOMContentLoaded', function () {
       }, 1000);
     });
   });
+
+
 });
 
 function searchLoadingModal() {
