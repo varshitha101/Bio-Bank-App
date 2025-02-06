@@ -189,11 +189,28 @@
                 <label for="cancer_type" class="col-sm-2 mb-1 col-form-label">Cancer Type <span
                     style="color: red; font-weight: bold;">*</span></label>
                 <div class="col-sm-10 mt-2">
-                  <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="customRadio1" name="radioCancerType" class="custom-control-input" required
-                      value="brst">
-                    <label class="custom-control-label" for="customRadio1">Breast Cancer</label>
-                  </div>
+                    <select id="cancer_type" class="form-control">
+                      <option value="0" selected>Select</option>
+                      <option value="brst">Breast Cancer</option>
+                      <option value="2" disabled>Ovary</option>
+                      <option value="3" disabled>Cervix</option>
+                      <option value="4" disabled>Endometrium</option>
+                      <option value="5" disabled>Pancreas</option>
+                      <option value="6" disabled>Uterus</option>
+                      <option value="7" disabled>Omentum</option>
+                      <option value="8" disabled>Vulva</option>
+                      <option value="9" disabled>Rectum</option>
+                      <option value="10" disabled>Colon</option>
+                      <option value="10" disabled>Esophagus</option>
+                      <option value="10" disabled>Stomach</option>
+                      <option value="10" disabled>Liver</option>
+                      <option value="10" disabled>Head and Neck</option>
+                      <option value="10" disabled>Urinary Bladder</option>
+                      <option value="10" disabled>Lung</option>
+                      <option value="10" disabled>Ureter</option>
+                      <option value="10" disabled>Thyroid</option>
+                      <option value="10" disabled>Lymph node and Soft tissue</option>
+                    </select>
                 </div>
               </div>
 
@@ -1213,21 +1230,26 @@
               <div class="row ml-1 mb-3">
                 <label for="AJCC" class="col-sm-3 mb-1 col-form-label">AJCC Staging</label>
                 <div class="col-sm-9">
-                  <select id="AJCC" class="form-control">
-                    <option value="">Select</option>
-                    <option value="IA">IA</option>
-                    <option value="IB">IB</option>
-                    <option value="IC">IC</option>
-                    <option value="IIA">IIA</option>
-                    <option value="IIB">IIB</option>
-                    <option value="IIC">IIC</option>
-                    <option value="IIIA">IIIA</option>
-                    <option value="IIIB">IIIB</option>
-                    <option value="IIIC">IIIC</option>
-                    <option value="IVA">IVA</option>
-                    <option value="IVB">IVB</option>
-                    <option value="IVC">IVC</option>
-                  </select>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <select id="AJCC1" class="form-control">
+                        <option value="">Select</option>
+                        <option value="I">I</option>                        
+                        <option value="II">II</option>                        
+                        <option value="III">III</option>                        
+                        <option value="IV">IV</option>
+                      </select>                    
+                    </div>
+                    <div class="col-sm-6">
+                      <select id="AJCC2" class="form-control">
+                        <option value="">Select</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                      </select>                    
+                    </div>
+                  </div>
+                  
                 </div>
               </div>
 
@@ -1280,18 +1302,35 @@
                 <label for="MetastasisPT" class="col-sm-3 mb-1 col-form-label">Metastasis Post Treatment</label>
                 <div class="col-sm-8">
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="MPTYes" name="MPT" class="custom-control-input" value=true>
+                    <input type="radio" id="MPTYes" name="MetaPT" class="custom-control-input" value=true>
                     <label class="custom-control-label" for="MPTYes">Yes</label>
                   </div>
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="MPTNo" name="MPT" class="custom-control-input" value=false>
+                    <input type="radio" id="MPTNo" name="MetaPT" class="custom-control-input" value=false>
                     <label class="custom-control-label" for="MPTNo">No</label>
                   </div>
                 </div>
                 <div class="col-sm-1 mt-2 erase-icon-container-MPT">
                 </div>
               </div>
-              <div class="row ml-1 mb-3">
+
+              <div class="row ml-1 mb-3" id="mptA" style="display: none;">
+                <label for="mpt_age" class="col-sm-3 mb-1 col-form-label">Age at Metastasis</label>
+                <div class="col-sm-9">
+                  <input type="number" class="form-control" max="100" id="mpt_age" placeholder="">
+                </div>
+              </div><div class="row ml-1 mb-3" id="mptS" style="display: none;">
+                <label for="mpt_site" class="col-sm-3 mb-1 col-form-label">Site</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="mpt_site" placeholder="">
+                </div>
+              </div><div class="row ml-1 mb-3" id="mptRS" style="display: none;">
+                <label for="mpt_rs" class="col-sm-3 mb-1 col-form-label">Receptor Status</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="mpt_rs" placeholder="">
+                </div>
+              </div>
+              <!-- <div class="row ml-1 mb-3">
                 <label for="HPE" class="col-sm-3 mb-1 col-form-label">Biopsy Tissue number HPE</label>
                 <div class="col-sm-9">
                   <input type="text" id="btHPEInput" class="form-control" placeholder="YY-S-XXXXXX" maxlength="11"
@@ -1316,24 +1355,24 @@
                 <div class="col-sm-9">
                   <input type="date" class="form-control" id="surgeryDate" placeholder="Select Date">
                 </div>
-              </div>
+              </div> -->
 
               <div class="row ml-1 mb-3">
                 <label for="rcbScore" class="col-sm-3 mb-1 col-form-label">RCB Scores</label>
                 <div class="col-sm-9">
-                  <select id="rcbScores" class="form-control">
-                    <option value="0">Select</option>
-                    <option value="1">I</option>
-                    <option value="2">II</option>
-                    <option value="3">III</option>
-                  </select>
+                  <input type="number" class="form-control" id="rcbScores" placeholder="value from 0 to 3.28">
                 </div>
               </div>
 
               <div class="row ml-1 mb-3">
                 <label for="rcbClass" class="col-sm-3 mb-1 col-form-label">RCB Class</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" id="rcbClass" placeholder="">
+                  <select id="rcbClass" class="form-control">
+                    <option value="" selected>Select</option>
+                    <option value="1">I</option>
+                    <option value="2">II</option>
+                    <option value="3">III</option>
+                  </select>
                 </div>
               </div>
 
@@ -1409,7 +1448,7 @@
               <div class="row ml-1 mb-3" id="PBN">
                 <label for="PBNum" class="col-sm-3 mb-1 col-form-label">Paraffin Block Number</label>
                 <div class="col-sm-9">
-                  <input type="text" id="PBInput" class="form-control" placeholder="YY-S-XXXX" maxlength="9"
+                  <input type="text" id="PBInput" class="form-control" placeholder="YY-M-XXXX" maxlength="9"
                     oninput="formatPBInput(this)" />
                 </div>
               </div>
@@ -2128,7 +2167,7 @@
 
       </div>
       <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255);">
-        Version 1.5.3
+        Version 1.5.4
       </div>
     </div>
   </footer>
@@ -6140,7 +6179,7 @@
         { field: document.getElementById('bioBankId'), name: 'Bio Bank ID' },
         { field: document.getElementById('patAge'), name: 'Age' },
         { field: document.querySelector('input[name="customRadio"]:checked'), name: 'Gender' },
-        { field: document.querySelector('input[name="radioCancerType"]:checked'), name: 'Cancer Type' },
+        { field: document.getElementById('cancer_type'), name: 'Cancer Type' },
         { field: document.querySelector('input[name="customProcedure"]:checked'), name: 'Procedure Types' },
         { field: document.querySelector('input[name="MetastasisSample"]:checked'), name: 'Metastasis Sample' },
         { field: document.querySelector('input[name="bloodSample"]:checked'), name: 'Blood Sample' },
@@ -6409,6 +6448,25 @@
       dcisY();
       $('input[name="dcis"]').change(function () {
         dcisY();
+      });
+      function MetaPT() {
+        if ($('#MPTYes').is(':checked')) {
+          $('#mptA').show();
+          $('#mptS').show();
+          $('#mptRS').show();
+        }
+        else {
+          $('#mptA').hide();
+          $('#mptS').hide();
+          $('#mptRS').hide();
+          $('#mpt_age').val('');
+          $('#mpt_site').val('');
+          $('#mpt_rs').val('');
+        }
+      }
+      MetaPT();
+      $('input[name="MetaPT"]').change(function () {
+        MetaPT();
       });
 
 
@@ -6906,6 +6964,7 @@
       });
 
 
+      
     });
 
   </script>
@@ -7043,10 +7102,13 @@
     function formatBioInput(input) {
       let value = input.value.replace(/[^a-zA-Z0-9]/g, '');
 
-      let ct = document.querySelector('input[name="radioCancerType"]:checked').value;
+      let ct = document.getElementById('cancer_type').value;
 
       if (ct === "brst" && !value.startsWith("BR")) {
         input.value = `BR${value}`;
+      }
+      if (input ===""){
+        input.value = '';
       }
     }
 
@@ -7230,6 +7292,8 @@
       else if (mode === 'SearchEdit' || mode === 'PendingEdit') {
         document.getElementById('mrnNo').setAttribute('disabled', true);
         document.getElementById('bioBankId').setAttribute('disabled', true);
+        document.getElementById('cancer_type').setAttribute('disabled', true);
+
         if (mode === 'PendingEdit') {
           document.getElementById('tab2-tab').classList.add('disabled');
         }
@@ -7242,11 +7306,7 @@
           input.setAttribute('disabled', true);
           console.log(`Input with ID ${input.id} disabled`);
         });
-        const ctInputs = document.querySelectorAll('input[name="radioCancerType"]');
-        ctInputs.forEach(input => {
-          input.setAttribute('disabled', true);
-          console.log(`Input with ID ${input.id} disabled`);
-        });
+        
         const pocedureInputs = document.querySelectorAll('input[name="customProcedure"]');
         pocedureInputs.forEach(input => {
           input.setAttribute('disabled', true);
@@ -7758,6 +7818,9 @@
       if (groupName = 'dcis') {
         dcisY();
       }
+      if (groupName = 'MetaPT') {
+        MetaPT();
+      }
     }
 
     // Function to append erase icons to specified radio groups
@@ -7778,7 +7841,7 @@
         { groupName: 'LVI', containerClass: 'erase-icon-container-LVI' },
         { groupName: 'PNI', containerClass: 'erase-icon-container-PNI' },
         { groupName: 'denovo', containerClass: 'erase-icon-container-denovo' },
-        { groupName: 'MPT', containerClass: 'erase-icon-container-MPT' },
+        { groupName: 'MetaPT', containerClass: 'erase-icon-container-MPT' },
         { groupName: 'NACT', containerClass: 'erase-icon-container-NACT' },
         { groupName: 'ACT', containerClass: 'erase-icon-container-ACT' },
         { groupName: 'RadioT', containerClass: 'erase-icon-container-RadioT' },
@@ -7994,6 +8057,24 @@
     }
 
 
+  </script>
+  <script>
+    // Get the input field element
+    const rcbScoresInput = document.getElementById('rcbScores');
+  
+    // Add an event listener to the input field for when the value changes
+    rcbScoresInput.addEventListener('input', function() {
+      let value = parseFloat(rcbScoresInput.value);
+  
+      // Check if the value exceeds the maximum allowed (3.28)
+      if (value > 3.28) {
+        // If the value is greater than 3.28, reset it to 0
+        rcbScoresInput.value = 0;
+      } else if (value < 0) {
+        // If the value is less than 0, reset it to 0 (optional, depending on the behavior you want)
+        rcbScoresInput.value = 0;
+      }
+    });
   </script>
 </body>
 
