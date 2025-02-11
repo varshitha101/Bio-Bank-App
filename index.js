@@ -3150,7 +3150,7 @@ function validateForm1() {
       const dateTime = new Date(dateTimeString);
 
       if (!isNaN(dateTime.getTime())) {
-        return dateTime.getTime(); // Returns timestamp in milliseconds
+        return dateTime.getTime()/1000; // Returns timestamp in milliseconds
       }
     }
     return null; // If invalid or empty, return null
@@ -3971,7 +3971,7 @@ async function fillIeForm(ieData) {
 
   const formatTimestamp = (timestamp) => {
     if (!timestamp) return { date: '', time: '' };
-    const dateObj = new Date(timestamp);
+    const dateObj = new Date(timestamp*1000);
     const date = dateObj.toISOString().split('T')[0];
     const time = dateObj.toTimeString().split(' ')[0];
     return { date, time };
@@ -4176,7 +4176,7 @@ function fillMdForm(mdData) {
   if (mdData.ipba) document.querySelector(`input[name="pbT"][value="${mdData.ipba}"]`).checked = true;
   document.getElementById('PBInput').value = mdData.ipbainfo || '';
 
-  document.getElementById('mddataEB').value = mdData.mdu || 'currentUser';
+  document.getElementById('mddataEB').value = mdData.mdu || '';
 }
 
 
@@ -4270,7 +4270,7 @@ function fillBrfForm(brfData) {
   // document.getElementById('ClinicalS').value = brfData.cs || '';
   document.getElementById('HistologicalS').value = brfData.ht || '';
   document.getElementById('sps').value = brfData.sps || '';
-  document.getElementById('brfdataEB').value = brfData.brfu || 'currentUser';
+  document.getElementById('brfdataEB').value = brfData.brfu || '';
 }
 
 
