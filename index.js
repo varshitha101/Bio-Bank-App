@@ -32,7 +32,19 @@ const firebaseConfig = {
   appId: "1:674946404975:web:777e4171f5b473e6b3f39a",
   measurementId: "G-MQP97GW8F9"
 };
-
+// {
+//   "type": "service_account",
+//   "project_id": "biobank-development",
+//   "private_key_id": "a6ea46700d8c0727d722c7259c11f25edade1511",
+//   "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCw8UekkQ4WHNEb\n0p0Qj3dh6AgshajU7L536SZgkL3JDF1/33Iix6UhMP21nhxU/otB/X/zSiKXkjF1\nnl2sqAZ7zuclO+aVu1E3PyV32jkPZ9m1AVfZBC8dz/pODCpFiFZREVzcWrC3Q6JK\n1+1hxNcBsivvxcHj8Hkg85YFNEODZkz3va7a4SlSB/qlzGAV6YAv8zLqPhOpUN6Q\n3P/sa7Srqj2EOuV0+QeaQ+aRUyiZXPJ3jW9Dz8TcjpPbE9cxVMyDnacedZSrQ6fh\n0+4PJ6dUhjpPGtllMY5kjFHcRaSuCKAo1h3R+k9dkCCIqCepee4kkhdCCXKydiAO\n2OZ3DfanAgMBAAECggEAALPzOjFN7OGSXB6OWaCIi2abJiL9d1mxUn7cJmB0fxrG\nH7ikuXWBssVwGlcK6kimLXUK9XCT0O8LW7PsMS4jIA9eLEFr/q5ZsvdWt6J4wWTa\nvnLzzSAfQPP3ewBoQ1gF0SahStf3xQ9wU97yOdJJ/tJh4IAIXZPwe3tE+dckqNuF\nzFdaahsdNoqY1JhXJzEQ0aAQ25jtki4ERloq8a2FSpssslKtO/aTmKsTYcJg9HKP\njBwaBuz5uv4aI4vYdQWk5ROkQGO6yuY/3T+VmW9tGYXem6z+yYnZj5mvGoiohfRu\njesB6DBg/iZ1xSXrUiyNpoe+1ZaDB7RbmGMLJeOzIQKBgQDXpBZYk4cpRVftuQV4\nCsEituqvFrAVggnvJEVTNiIBVSZ/Nt4BKNIcW8mcRnish7xTdGWWAUNao7HWm5Ea\nKLeVo+JtLke4S7HLQTCAFSGjlFJIvSOFzPd68d2RuXhK4Cs9HJAOr8neYS9Prjrk\nGQQ9Dyt0lMHz9UrmY7Ih3ZIH9wKBgQDSDwyzJhEiwQhVbMzHAeXoIi4QAGDO2bYk\ndXIRWkXe7qiTCV6YSiC0a2m8kBi8dg5c0sKCo+G4gDI+d6deN5sgWrr8HafZ5uk9\nXCX9HeZl08r8luYO4f7w+QcvxVt2dKaQAe/ydUI4uEQYSTVGuRvVfwjEx6ItXqdH\nG8MWBFS60QKBgChnBwTLh1x1MJdKvjqSkUMm0GvDrXQqLCBRRGfl0ZM8V/0n04qW\nEl/b1rdgAMYanG9qdIoZbHw0BWL3PMWQ8WypCwh3zlo6XHJ/oU2uJ+JVLOGSBnDQ\nSWIQpPnjrSUiQRevHVKTHxh6Tvn34/LOuRuTlwm9wWUrBUCLV1m/ANhbAoGAbteO\nJgJSTHp7gUg2DlUMEh/nGn54lu3+1OI8XLe74tUgkuYAym9jLpD3bI7E3r2U+pok\nFXeQpiDPYnMVF/xTmREHVf34El1sefpj+VqLtvO5Suv9XaEXO+TMTALiLnGDar36\n9X+2f+OL2xzWRglrjI7J+7wz8ajesAEQQk/qveECgYAhQTQz2WFRtathYDdVvdOk\niZAVDZdsFmN3rxNTYKfNjHbc9CgTYFp/9J8zs9KNfeSWIfqa8HYxzdg9+EX8SiIR\niBepGD/BP1Cnup39g0TPd5BV3G+hmhNkJ6gm98ufU4eXEIgtXFLdD6K19Cb8Q/yc\nIy2eEhzlmcp6gafkNaj9rg==\n-----END PRIVATE KEY-----\n",
+//   "client_email": "firebase-adminsdk-zhaws@biobank-development.iam.gserviceaccount.com",
+//   "client_id": "110705557810034239487",
+//   "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+//   "token_uri": "https://oauth2.googleapis.com/token",
+//   "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+//   "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-zhaws%40biobank-development.iam.gserviceaccount.com",
+//   "universe_domain": "googleapis.com"
+// }
 
 
 
@@ -4003,7 +4015,8 @@ async function fillIeForm(ieData) {
   const rltSgridNo = await gridData(ieData.rlt);
   document.getElementById('rltSgridNo').value = rltSgridNo || '';
   document.querySelector(`input[name="pcbSample"][value="${ieData.pcS}"]`).checked = true;
-  document.querySelector(`input[name="pcbV"][value="${ieData.pssvl}"]`).checked = true;
+  console.log("pcbv",ieData.pssvl)
+  if (ieData.pssvl !== undefined ) document.querySelector(`input[name="pcbV"][value="${ieData.pssvl}"]`).checked = true;
 
   pcbSample();
   const pcSgridNo = await gridData(ieData.pc);
@@ -4216,7 +4229,7 @@ function fillMdForm(mdData) {
     document.getElementById('tumorSizeW').value = tW;
     document.getElementById('tumorSizeH').value = tH;
   }
-  if (mdData.dm) document.querySelector(`input[name="denovo"][value="${mdData.dm}"]`).checked = true;
+  // if (mdData.dm) document.querySelector(`input[name="denovo"][value="${mdData.dm}"]`).checked = true;
   // if (mdData.mpt) document.querySelector(`input[name="MetaPT"][value="${mdData.mpt}"]`).checked = true;
     // document.getElementById('mpt_age').value = mdData.mptA || '';
     // document.getElementById('mpt_site').value = mdData.mptS || '';
