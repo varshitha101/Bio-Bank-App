@@ -104,48 +104,55 @@
 </head>
 
 <body>
-  <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #1991c994;">
-    <div class="container-fluid">
-      <div class="mx-auto">
-        <ul class="nav nav-pills nav-fill">
-          <li class="nav-item">
-            <a class="nav-link navLinks" href="#" data-href="statistics.html" id="homeLink">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link navLinks" href="#" data-href="home.html" id="sampleLink">Sample</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link navLinks" href="#" data-href="search.html" id="searchLink">Search</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link navLinks" href="#" data-href="todo.html" id="todoLink">To-Do list</a>
-          </li>
-        </ul>
-      </div>
-      <div id="loading" class="spinmodal" style="display: none;">
-        <!-- Initially hidden -->
-        <div class="spinmodal-content">
-          <div class="row">
-            <div class="col-4">
-              <div class="spinner"></div> <!-- Spinner circle -->
-            </div>
-            <div class="col-8">
-              <h3 style="align-content: center; padding-top: 20px;">Loading...</h3>
+  <div class="sticky-top">
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light" >
+      <div class="container-fluid">
+        <div class="mx-auto">
+          <ul class="nav nav-pills nav-fill">
+            <li class="nav-item">
+              <a class="nav-link navLinks" href="#" data-href="statistics.html" id="homeLink">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link navLinks" href="#" data-href="home.html" id="sampleLink">Sample</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link navLinks" href="#" data-href="search.html" id="searchLink">Search</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link navLinks" href="#" data-href="todo.html" id="todoLink">To-Do list</a>
+            </li>
+          </ul>
+        </div>
+        <div id="loading" class="spinmodal" style="display: none;">
+          <!-- Initially hidden -->
+          <div class="spinmodal-content">
+            <div class="row">
+              <div class="col-4">
+                <div class="spinner"></div> <!-- Spinner circle -->
+              </div>
+              <div class="col-8">
+                <h3 style="align-content: center; padding-top: 20px;">Loading...</h3>
+              </div>
             </div>
           </div>
         </div>
+        <div class="d-flex ms-auto">
+          <button onclick="logout()" id="logout" type="submit" class="btn btn-outline-light">Logout</button>
+        </div>
       </div>
-      <div class="d-flex ms-auto">
-        <button onclick="logout()" id="logout" type="submit" class="btn btn-outline-light">Logout</button>
+    </nav>
+    <nav aria-label="breadcrumb">
+      <div class="d-flex justify-content-between align-items-center">
+        <ol class="breadcrumb col-sm-12">
+          <li class="breadcrumb-item" id="bread2"></li>
+          <li class="breadcrumb-item active" aria-current="page">Library</li>
+        </ol>
+        <button type="button" id="breadBack" style="display: none; position: absolute; top: 60px; right: 2px; height: 40px;" class="btn btn-secondary" onclick="window.history.back();">Cancel</button>
       </div>
-    </div>
-  </nav>
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item" id="bread2"></li>
-      <li class="breadcrumb-item active" aria-current="page">Library</li>
-    </ol>
-  </nav>
+    </nav>
+    
+  </div>
+
   <div class="wrapper">
     <div class="container mt-3">
       <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -1167,7 +1174,7 @@
               </div>
 
               <div class="row ml-1 mb-3">
-                <label for="pSubtype" class="col-sm-3 mb-1 col-form-label">Pathologic Subtype</label>
+                <label for="pSubtype" class="col-sm-3 mb-1 col-form-label">Histological Subtype</label>
                 <div class="col-sm-9">
                   <select id="subtype" class="form-control">
                     <option value="">Select</option>
@@ -2251,7 +2258,7 @@
 
       </div>
       <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255);">
-        Version 1.5.5
+        Version 1.5.6
       </div>
     </div>
   </footer>
@@ -7383,7 +7390,9 @@
         document.getElementById('mrnNo').setAttribute('disabled', true);
         document.getElementById('bioBankId').setAttribute('disabled', true);
         document.getElementById('cancer_type').setAttribute('disabled', true);
+        document.getElementById('breadBack').style.display = "block";
 
+        
         if (mode === 'PendingEdit') {
           document.getElementById('tab2-tab').classList.add('disabled');
         }
@@ -8052,6 +8061,7 @@
   </script>
 
 <script>
+  
   document.addEventListener("DOMContentLoaded", function () {
     updateNavigation();
   });
@@ -8154,11 +8164,13 @@
       window.addEventListener('beforeunload', function (event) {
         if (!confirmationActive && !formSubmitting) {
           event.preventDefault();
-          event.returnValue = ''; 
+          event.returnValue = null; 
         }
       });
+      
 
-    } else {
+    } 
+    else {
       links.forEach(function (link) {
         link.addEventListener('click', function () {
           window.location.href = link.getAttribute('data-href');
@@ -8168,6 +8180,7 @@
       window.onbeforeunload = null;  
     }
   }
+
 </script>
 
 <script>
