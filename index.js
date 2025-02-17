@@ -3338,7 +3338,7 @@ function validateForm1() {
           rltS: document.querySelector('input[name="rltSample"]:checked').value,
           rlt: rltSgrid,
           pcS: document.querySelector('input[name="pcbSample"]:checked').value,
-          pssvl:  document.querySelector('input[name="pcbV"]:checked').value,
+          pssvl:  document.querySelector('input[name="pcbV"]:checked')?.value|| '',
           pc: pcSgrid,
           cnst: document.querySelector('input[name="customConsent"]:checked')?.value || '',
           iss: document.querySelector('input[name="IschemicRadio"]:checked')?.value || '',
