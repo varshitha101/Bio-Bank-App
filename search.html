@@ -34,6 +34,12 @@
       transition: background-color 0.3s ease, color 0.3s ease;
     }
 
+    .nav-pills .nav-link.active,
+    .nav-pills .show>.nav-link {
+      color: #fff;
+      background-color: #00ffa147;
+    }
+
     .radio-btn.active {
       background-color: #007bff;
       color: #fff;
@@ -50,7 +56,7 @@
 </head>
 
 <body>
-  <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #1991c994">
+  <nav class="navbar sticky-top navbar-expand-lg navbar-light">
     <div class="container-fluid">
       <div class="mx-auto">
         <ul class="nav nav-pills nav-fill">
@@ -201,15 +207,18 @@
                 <label for="ageCriterion">Age Criterion</label>
                 <select id="ageCriterion" class="form-control">
 
-                  <option selected>Greater than</option>
+                  <option selected>All</option>
+                  <option>Greater than</option>
+                  <option>Greater than Equal to</option>
                   <option>Less than</option>
+                  <option>Less than Equal to</option>
                   <option>Equal to</option>
                 </select>
               </div>
 
               <div class="form-group col-sm-1">
                 <label for="ageInput">Age</label>
-                <input type="text" id="ageInput" class="form-control" placeholder="yrs" value="15" />
+                <input type="text" id="ageInput" class="form-control" placeholder="yrs" value="" />
               </div>
 
               <div class="form-group col-xs-2 mr-2">
@@ -245,20 +254,12 @@
                 <select id="sampleType" class="form-control">
 
                   <option selected>All</option>
-                  <!-- <option value="Blood">Blood</option> -->
                   <option value="Plasma">Plasma</option>
-                  <!-- <option value="MPlasma">MPlasma</option> -->
                   <option value="Serum">Serum</option>
-                  <!-- <option value="MSerum">MSerum</option> -->
                   <option value="Buffy Coat">Buffy Coat</option>
-                  <!-- <option value="MBuffy Coat">MBuffy Coat</option> -->
-                  <!-- <option value="Specimen">Specimen</option> -->
                   <option value="FN">FN</option>
-                  <!-- <option value="MFN">MFN</option> -->
                   <option value="FT">FT</option>
-                  <!-- <option value="MFT">MFT</option> -->
                   <option value="Other">Other</option>
-                  <!-- <option value="MOther">MOther</option> -->
                   <option value="RLT">RLT</option>
                   <option value="PC">Primary Culture</option>
                 </select>
@@ -295,7 +296,7 @@
 
 
               <div class="form-group col-xs-2 mr-2">
-                <label for="pathSubtype">Pathologic Subtype</label>
+                <label for="pathSubtype">Histological subtype</label>
                 <select id="pathSubtype" class="form-control">
 
                   <option selected>All</option>
@@ -676,7 +677,20 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
   <!-- Firebase Realtime Database -->
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-
+  <script>
+    document.getElementById("ageCriterion").value = sessionStorage.getItem("ageCriterion")
+    document.getElementById("ageInput").value = sessionStorage.getItem("ageInput")
+    document.getElementById("cancerTypeInput").value = sessionStorage.getItem("cancerTypeInput")
+    document.getElementById("gradeInput").value = sessionStorage.getItem("gradeInput")
+    document.getElementById("nactInput").value = sessionStorage.getItem("nactInput")
+    document.getElementById("pathSubtype").value = sessionStorage.getItem("pathSubtypeInput")
+    document.getElementById("sampleType").value = sessionStorage.getItem("sampleTypeInput")
+    document.getElementById("sampleavailable").value = sessionStorage.getItem("sampleAvailable")
+    document.getElementById("cSubInput").value = sessionStorage.getItem("clinicalSubInput")
+    document.getElementById("metaInput").value = sessionStorage.getItem("metaInput")
+    document.getElementById("AJCCInput1").value = sessionStorage.getItem("ajjcInput1")
+    document.getElementById("AJCCInput2").value = sessionStorage.getItem("ajjcInput2")    
+  </script>
   <script>
 
     if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn') !== 'true') {
@@ -1378,7 +1392,7 @@
             console.log(" ############### ", data);
 
             //displaySamPatients_load(data);
-            displaySamPatients(data);
+            //displaySamPatients(data);
 
 
           } else {
@@ -1413,6 +1427,7 @@
 
 
     async function displaySamPatients(data) {
+      event.preventDefault();
       console.log("displaysamPatients - ", data);
       let countDownData = 0
       filteredPatientData = data;
@@ -1766,10 +1781,41 @@
       });
     }
 
+    function handleAgeInput() {
+      let ageC = document.getElementById("ageCriterion").value;
+      let ageInput = document.getElementById("ageInput");
+
+      if (ageC === "All") {
+        ageInput.value = 15;
+        ageInput.disabled = true;
+      } else {
+        ageInput.disabled = false;
+        // ageInput.value = '15';       
+      }
+    }
+
+    document.getElementById("ageCriterion").addEventListener("change", handleAgeInput);
+
+    window.addEventListener('DOMContentLoaded', function () {
+      handleAgeInput();
+    });
+
+
 
     async function searchSample(event) {
       searchLoadingModal();
-      event.preventDefault();
+      // localStorage.removeItem("ageCriterion")
+      // localStorage.removeItem("ageInput")
+      // localStorage.removeItem("cancerTypeInput")
+      // localStorage.removeItem("gradeInput")
+      // localStorage.removeItem("nactInput")
+      // localStorage.removeItem("pathSubtypeInput")
+      // localStorage.removeItem("sampleTypeInput")
+      // localStorage.removeItem("sampleAvailable")
+      // localStorage.removeItem("clinicalSubInput")
+      // localStorage.removeItem("metaInput")
+      // localStorage.removeItem("ajjcInput1")
+      // localStorage.removeItem("ajjcInput2")
 
       // Retrieve input values from the form
       const ageCriterion = document.getElementById("ageCriterion").value;
@@ -1778,13 +1824,25 @@
       const gradeInput = document.getElementById("gradeInput").value;
       const nactInput = document.getElementById("nactInput").value;
       const pathSubtypeInput = document.getElementById("pathSubtype").value;
-      const sampleTypeInput = document.getElementById("sampleType").value.toUpperCase();
+      const sampleTypeInput = document.getElementById("sampleType").value;
       const sampleAvailable = document.getElementById("sampleavailable").value;
       const clinicalSubInput = document.getElementById("cSubInput").value;
       const metaInput = document.getElementById("metaInput").value;
       const ajjcInput1 = document.getElementById("AJCCInput1").value;
       const ajjcInput2 = document.getElementById("AJCCInput2").value;
 
+      sessionStorage.setItem("ageCriterion", ageCriterion)
+      sessionStorage.setItem("ageInput", ageInput)
+      sessionStorage.setItem("cancerTypeInput", cancerTypeInput)
+      sessionStorage.setItem("gradeInput", gradeInput)
+      sessionStorage.setItem("nactInput", nactInput)
+      sessionStorage.setItem("pathSubtypeInput", pathSubtypeInput)
+      sessionStorage.setItem("sampleTypeInput", sampleTypeInput)
+      sessionStorage.setItem("sampleAvailable", sampleAvailable)
+      sessionStorage.setItem("clinicalSubInput", clinicalSubInput)
+      sessionStorage.setItem("metaInput", metaInput)
+      sessionStorage.setItem("ajjcInput1", ajjcInput1)
+      sessionStorage.setItem("ajjcInput2", ajjcInput2)
 
 
       if (!window.patientData) {
@@ -1832,8 +1890,11 @@
 
             const ageMatch =
               !criteria.ageInput ||
+              (criteria.ageCriterion === "All" && parseInt(patientData.ag) > criteria.ageInput) ||
               (criteria.ageCriterion === "Greater than" && parseInt(patientData.ag) > criteria.ageInput) ||
+              (criteria.ageCriterion === "Greater than Equal to" && parseInt(patientData.ag) >= criteria.ageInput) ||
               (criteria.ageCriterion === "Less than" && parseInt(patientData.ag) < criteria.ageInput) ||
+              (criteria.ageCriterion === "Less than Equal to" && parseInt(patientData.ag) <= criteria.ageInput) ||
               (criteria.ageCriterion === "Equal to" && parseInt(patientData.ag) === criteria.ageInput);
 
             const cancerTypeMatch =
@@ -1864,15 +1925,15 @@
                 if (sampleValue) {
                   const sampleType = sampleValue.split("/")[2]?.toUpperCase();
                   return (
-                    (sampleTypeInput === "ALL") ||
-                    (sampleTypeInput === "PLASMA" && (sampleType.startsWith("MPLASMA") || sampleType === "PLASMA")) ||
-                    (sampleTypeInput === "SERUM" && (sampleType.startsWith("MSERUM") || sampleType === "SERUM")) ||
-                    (sampleTypeInput === "BUFFY COAT" && (sampleType.startsWith("MBUFFY COAT") || sampleType === "BUFFY COAT")) ||
-                    (sampleTypeInput === "OTHER" && (sampleType.startsWith("MOTHER") || sampleType === "OTHER")) ||
-                    ((sampleType.startsWith("FN") || sampleType.startsWith("MFN")) && sampleTypeInput.startsWith("FN")) ||
-                    ((sampleType.startsWith("FT") || sampleType.startsWith("MFT")) && sampleTypeInput.startsWith("FT")) ||
-                    (sampleTypeInput === "RLT" && (sampleType.startsWith("RLT") || sampleType === "RLT")) ||
-                    (sampleTypeInput === "PC" && (sampleType.startsWith("PC") || sampleType === "PC"))
+                    (sampleTypeInput.toUpperCase() === "ALL") ||
+                    (sampleTypeInput.toUpperCase() === "PLASMA" && (sampleType.startsWith("MPLASMA") || sampleType === "PLASMA")) ||
+                    (sampleTypeInput.toUpperCase() === "SERUM" && (sampleType.startsWith("MSERUM") || sampleType === "SERUM")) ||
+                    (sampleTypeInput.toUpperCase() === "BUFFY COAT" && (sampleType.startsWith("MBUFFY COAT") || sampleType === "BUFFY COAT")) ||
+                    (sampleTypeInput.toUpperCase() === "OTHER" && (sampleType.startsWith("MOTHER") || sampleType === "OTHER")) ||
+                    ((sampleType.startsWith("FN") || sampleType.startsWith("MFN")) && sampleTypeInput.toUpperCase().startsWith("FN")) ||
+                    ((sampleType.startsWith("FT") || sampleType.startsWith("MFT")) && sampleTypeInput.toUpperCase().startsWith("FT")) ||
+                    (sampleTypeInput.toUpperCase() === "RLT" && (sampleType.startsWith("RLT") || sampleType === "RLT")) ||
+                    (sampleTypeInput.toUpperCase() === "PC" && (sampleType.startsWith("PC") || sampleType === "PC"))
 
                   );
                 }
@@ -2067,9 +2128,15 @@
       switch (criterion) {
         case "Greater than":
           return patientAge > ageNumber;
+        case "Greater than Equal to":
+          return patientAge >= ageNumber;
+        case "Less than Equal to":
+          return patientAge <= ageNumber;
         case "Less than":
           return patientAge < ageNumber;
         case "Equal to":
+          return patientAge === ageNumber;
+        case "All":
           return patientAge === ageNumber;
         default:
           return true;
@@ -2095,7 +2162,7 @@
         const individualSearch = document.getElementById("collapseExample");
         const sampleSearch = document.getElementById("collapseExample1");
         sampleSearchBtn.classList.add("active");
-
+        searchSample();
         if (individualSearch.classList.contains("show")) {
           individualSearch.classList.remove("show");
           individualSearchBtn.classList.remove("active");
@@ -2292,7 +2359,7 @@
             IHC_marker_description: row.sefData.md.ihcd || "-",
             Genetic_Testing: decodeProcedureType(row.sefData.md.gt) || "-",
             Genetic_Testing_Description: row.sefData.md.gtd || "-",
-            Pathologic_Subtype: decodeProcedureType(row.sefData.md.pst) || "-",
+            Histological_Subtype: decodeProcedureType(row.sefData.md.pst) || "-",
             Grade: row.sefData.md.gd || "-",
             Focality: row.sefData.md.fc === "true" ? "Unifocal" : row.sefData.md.fc === "false" ? "Multifocal" : "-",
             LVI: decodeProcedureType(row.sefData.md.lvi) || "-",
@@ -2593,7 +2660,7 @@
             IHC_marker_description: row.sefData.md.ihcd || "-",
             Genetic_Testing: decodeProcedureType(row.sefData.md.gt) || "-",
             Genetic_Testing_Description: row.sefData.md.gtd || "-",
-            Pathologic_Subtype: decodeProcedureType(row.sefData.md.pst) || "-",
+            Histological_Subtype: decodeProcedureType(row.sefData.md.pst) || "-",
             Grade: row.sefData.md.gd || "-",
             Focality: row.sefData.md.fc === "true" ? "Unifocal" : row.sefData.md.fc === "false" ? "Multifocal" : "-",
             LVI: decodeProcedureType(row.sefData.md.lvi) || "-",
