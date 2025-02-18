@@ -6539,13 +6539,16 @@
       $('input[name="dcis"]').change(function () {
         dcisY();
       });
-      function denovo() {
-        if ($('#denovoYes').is(':checked')) {
+
+      function toggleMetastasisFields() {
+        const isMetastasisSampleYes = $('#MetastasisSampleY').is(':checked');
+        const isDenovoYes = $('#denovoYes').is(':checked');
+
+        if (isMetastasisSampleYes || isDenovoYes) {
           $('#mptA').show();
           $('#mptS').show();
           $('#mptRS').show();
-        }
-        else {
+        } else {
           $('#mptA').hide();
           $('#mptS').hide();
           $('#mptRS').hide();
@@ -6554,9 +6557,9 @@
           $('#mpt_rs').val('');
         }
       }
-      denovo();
-      $('input[name="denovo"]').change(function () {
-        denovo();
+      toggleMetastasisFields();
+      $('input[name="MetastasisSample"], input[name="denovo"]').change(function () {
+        toggleMetastasisFields();
       });
 
 
