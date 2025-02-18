@@ -147,7 +147,7 @@
           <li class="breadcrumb-item" id="bread2"></li>
           <li class="breadcrumb-item active" aria-current="page">Library</li>
         </ol>
-        <button type="button" id="breadBack" style="display: none; position: absolute; top: 60px; right: 2px; height: 40px;" class="btn btn-secondary" onclick="window.history.back();">Cancel</button>
+        <button type="button" id="breadBack" style="display: none; position: absolute; top: 60px; right: 32px; height: 40px;" class="btn btn-secondary" onclick="window.history.back();">Cancel</button>
       </div>
     </nav>
     
@@ -7333,6 +7333,7 @@
         document.getElementById("sharedSampleBox").style.display = 'none';
         document.getElementById("shareSubmit").style.display = 'none';
         document.getElementById("rcbScores").placeholder = "";
+        document.getElementById('breadBack').style.display = "block";
 
         // formElements.forEach(element => {
         //   element.disabled = true;
@@ -7361,7 +7362,6 @@
         const followUpBtn = document.getElementById('subFollowUp');
         document.getElementById('tab1-tab').classList.add('disabled');
         document.getElementById('tab3-tab').classList.add('disabled');
-        document.getElementById('breadBack').style.display = "block";
 
         // formElements.forEach(element => {
         //   element.disabled = true;
