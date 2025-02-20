@@ -4004,8 +4004,8 @@ async function fillIeForm(ieData) {
   document.getElementById('rltSgridNo').value = rltSgridNo || '';
   document.querySelector(`input[name="pcbSample"][value="${ieData.pcS}"]`).checked = true;
   console.log("pcbv",ieData.pssvl)
-  if (ieData.pssvl !==  ""  ||  undefined) document.querySelector(`input[name="pcbV"][value="${ieData.pssvl}"]`).checked = true;
-
+  if (ieData.pssvl !== undefined && ieData.pssvl !== '' ) document.querySelector(`input[name="pcbV"][value="${ieData.pssvl}"]`).checked = true;
+  
   pcbSample();
   const pcSgridNo = await gridData(ieData.pc);
   document.getElementById('pcSgridNo').value = pcSgridNo || '';
@@ -4035,7 +4035,10 @@ async function fillIeForm(ieData) {
 
   const formatTimestamp = (timestamp) => {
     if (!timestamp) return { date: '', time: '' };
+    console.log("dateObj",timestamp)
+
     const dateObj = new Date(timestamp*1000);
+    console.log("dateObj",dateObj)
     const date = dateObj.toISOString().split('T')[0];
     const time = dateObj.toTimeString().split(' ')[0];
     return { date, time };
@@ -4074,21 +4077,21 @@ async function fillIeForm(ieData) {
   document.getElementById('OtherSampleProcessedDate').value = ospt.date;
   document.getElementById('OtherSampleProcessedTime').value = ospt.time;
 
-  const rltrt = formatTimestamp(ieData.rltrt);
-  document.getElementById('RLTSampleReceivedDate').value = rltrt.date;
-  document.getElementById('RLTSampleReceivedTime').value = rltrt.time;
+  const rsrt = formatTimestamp(ieData.rsrt);
+  document.getElementById('RLTSampleReceivedDate').value = rsrt.date;
+  document.getElementById('RLTSampleReceivedTime').value = rsrt.time;
 
-  const rltpt = formatTimestamp(ieData.rltpt);
-  document.getElementById('RLTSampleProcessedDate').value = rltpt.date;
-  document.getElementById('RLTSampleProcessedTime').value = rltpt.time;
+  const rspt = formatTimestamp(ieData.rspt);
+  document.getElementById('RLTSampleProcessedDate').value = rspt.date;
+  document.getElementById('RLTSampleProcessedTime').value = rspt.time;
 
-  const pssrt = formatTimestamp(ieData.pssrt);
-  document.getElementById('PCSampleReceivedDate').value = pssrt.date;
-  document.getElementById('PCSampleReceivedTime').value = pssrt.time;
+  const psrt = formatTimestamp(ieData.psrt);
+  document.getElementById('PCSampleReceivedDate').value = psrt.date;
+  document.getElementById('PCSampleReceivedTime').value = psrt.time;
 
-  const psspb = formatTimestamp(ieData.psspb);
-  document.getElementById('PCSampleProcessedDate').value = psspb.date;
-  document.getElementById('PCSampleProcessedTime').value = psspb.time;
+  const pspt = formatTimestamp(ieData.pspt);
+  document.getElementById('PCSampleProcessedDate').value = pspt.date;
+  document.getElementById('PCSampleProcessedTime').value = pspt.time;
 
 }
 
@@ -6208,10 +6211,7 @@ function pcbV() {
   }
 }
 
-pcbV();
-$('input[name="pcbV"]').change(function () {
-  pcbV();
-});
+
 
 function sampleReceive() {
   console.log("Function checking", $('#radioprocessed1').is(':checked'), $('#radioprocessed2').is(':checked'))
