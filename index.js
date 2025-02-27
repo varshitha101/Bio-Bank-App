@@ -3851,7 +3851,7 @@ function pages_display(mode, bioBankId, seq, timestampKey) {
   localStorage.setItem('bioid', bioBankId);
   localStorage.setItem('mode', mode)
 
-  sessionStorage.setItem('formData',"");
+  sessionStorage.removeItem('formData');
 
   if (mode != "") {
     console.log('dataPath', dataPath);
