@@ -3838,6 +3838,7 @@ function pages_display(mode, bioBankId, seq, timestampKey) {
   console.log("timestampKey", timestampKey);
   localStorage.setItem("bioBankId", bioBankId);
   localStorage.setItem("lastSection", seq);
+  localStorage.removeItem("MRN");
 
   if (seq != '') {
     var dataPath = `sef/${bioBankId}/${seq}/${timestampKey}`;
