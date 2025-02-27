@@ -223,7 +223,7 @@
       </div>
       <div class="credits"></div>
       <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">
-        Version 1.5.7
+        Version 1.5.9
       </div>
     </div>
   </footer>
@@ -325,9 +325,11 @@ document.addEventListener("DOMContentLoaded", function () {
               bioBankId: bioBankId,
               seq: sectionKey,
               age: dataEntry.ie.ag || "-",
-              gender: dataEntry.ie.sx || "-",
+              gender: dataEntry.ie.sx === 'F' ? 'Female' : (dataEntry.ie.sx === 'M' ? 'Male' : 'Unknown') || "-",
+
               cancerType: dataEntry.ie.ct === "brst" ? "Breast Cancer" : "-",
-              grade: dataEntry.md.gd || "-",
+              grade: dataEntry.md.gd.charAt(0).toUpperCase() + dataEntry.md.gd.slice(1)  || "-",
+              
               newtimestamp: newtimestamp,
             });
           }
@@ -667,7 +669,7 @@ document.addEventListener("DOMContentLoaded", function () {
           <th scope="row">${start + index + 1}</th> 
           <td>${patient.biobankID || "-"}</td>
           <td>${patient.age}</td>
-          <td>${patient.gender}</td>
+          <td>${patient.gender === 'F' ? 'Female' : (patient.gender === 'M' ? 'Male' : 'Unknown')}</td>
           <td>${patient.type_of_cancer}</td>
           <td>${patient.grade_of_cancer}</td>
         `;
@@ -751,7 +753,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         gender: ie.sx || "-",
                         type_of_cancer: ie.ct === "brst" ? "Breast Cancer" : "-",
                         stage_of_cancer: ie.stc || "-",
-                        grade_of_cancer: md.gd || "-",
+                        grade_of_cancer: md.gd.charAt(0).toUpperCase() + md.gd.slice(1)  || "-",
                         patientArrayKey,
                         latestTimestamp,
                       };
