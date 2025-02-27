@@ -655,7 +655,7 @@
       </div>
       <div class="credits"></div>
       <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">
-        Version 1.5.7
+        Version 1.5.9
       </div>
     </div>
   </footer>
@@ -717,7 +717,10 @@
 
     });
     let allDataDown = [];
-
+    // let sBioVal = document.getElementById('bioInput').value;
+    // if(sBioVal !== ""){
+    //   return searchPatient();
+    // }  
     function historyModal() {
       $("#exampleModalCenter").modal("show");
     }
@@ -1085,7 +1088,7 @@
 
 
     function displayIndSefEntries(data, bioId) {
-      console.log("displayIndSefEntries - ", data);
+      // console.log("displayIndSefEntries - ", data);
       filteredSefEntries = data; // Keep filteredSefEntries updated
       const tbody = document.querySelector(".patientTableBody");
       tbody.innerHTML = "";
@@ -1138,7 +1141,7 @@
           seqKey: lastSeqKey,
           age: patient.ie.ag || "-",
           gender: patient.ie.sx || "-",
-          grade: patient.md.gd || "-",
+          grade: patient.md.gd.charAt(0).toUpperCase() + patient.md.gd.slice(1) || "-",
           cancerType: patient.ie.ct === 'brst' ? "Breast Cancer" : "-",
           patientData: patient,
         });
@@ -1164,16 +1167,16 @@
           const row = document.createElement("tr");
           row.classList.add("patientRow");
           row.innerHTML = `
-        <th scope="row" class="sno small-text">${serialNumber}</th>
-        <td class="bioid small-text">${bioBankId}</td>
-        <td class="age small-text">${age}</td>
-        <td class="gender small-text">${gender}</td>
-        <td class="cancerType small-text">${cancerType}</td>
-        <td class="grade small-text">${grade}</td>
-        <td class="action small-text">
-          <button class="btn btn-success btn-sm" onclick="showHistory('${bioBankId}')">View Samples</button>
-        </td>
-      `;
+            <th scope="row" class="sno small-text">${serialNumber}</th>
+            <td class="bioid small-text">${bioBankId}</td>
+            <td class="age small-text">${age}</td>
+            <td class="gender small-text">${gender === 'F' ? 'Female' : (gender === 'M' ? 'Male' : 'Unknown')}</td>
+            <td class="cancerType small-text">${cancerType}</td>
+            <td class="grade small-text">${grade}</td>
+            <td class="action small-text">
+              <button class="btn btn-success btn-sm" onclick="showHistory('${bioBankId}')">View Samples</button>
+            </td>
+          `;
           tbody.appendChild(row);
         });
 
@@ -1341,7 +1344,7 @@
           }
         }
 
-        const seatListDisplay = seatList.length ? seatList.join(", ") : "-";
+       const seatListDisplay = seatList.length ? seatList.join(", ") : "-";
 
         // Create a table row for each sequence
         const row = document.createElement("tr");
@@ -1351,15 +1354,15 @@
       <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${bioBankId}</td>
       <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${patient.ag || "-"
           }</td>
-      <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${patient.sx || "-"
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${patient.sx === 'F' ? 'Female' : (patient.sx === 'M' ? 'Male' : 'Unknown') || "-"
           }</td>
+          
       <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${metas || "-"
           }</td> <!-- Display box name -->
       
       <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${patient.ct === 'brst' ? "Breast Cancer" : "-"
           }</td>
-     
-      <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${patientData.md?.gd || "-"
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${patientData.md.gd.charAt(0).toUpperCase() + patientData.md.gd.slice(1) || "-"
           }</td>
       <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">
         <button class="btn btn-primary btn-sm" onclick="editPatient('${bioBankId}', '${seq}', '${lastTimestampKey}')"><img src="assets/images/edit.svg" alt="Edit" width="16" height="16" style="vertical-align: middle; margin-right: 5px;"> </button>
@@ -1751,7 +1754,7 @@
             <th scope="row" class="sno small-text">${serialNumber}</th>
             <td class="patientName small-text">${bioBankId || "-"}</td>
             <td class="age small-text">${patientData.ag || "-"}</td>
-            <td class="gender small-text">${patientData.sx || "-"}</td>
+            <td class="gender small-text">${patientData.sx === 'F' ? 'Female' : (patientData.sx === 'M' ? 'Male' : 'Unknown') || "-"}</td>
             <td class="timestamp small-text" data-seq-key="${seqKey}" data-timestamp-key="${timestampKey}">${formatTimestamp(timestampKey) || "-"}</td>
             <td class="box small-text">${boxName || "-"}</td>
             <td class="grid small-text">${seat || '-'}</td>
@@ -2426,7 +2429,7 @@
             institute_or_Department: row.osData?.oslastTimestamp?.dpt || "-",
             project: row.osData?.oslastTimestamp?.prj || "-",
             PI_of_the_project: row.osData?.oslastTimestamp?.pip || "-",
-            Shared_status: row.osData?.oslastTimestamp?.ossts || "-",
+            Shared_status: decodeFollowUpType(row.osData?.oslastTimestamp?.ossts) || "-",
             Partial_shared_remark:row.osData?.oslastTimestamp?.psr || "-",
             Shared_form_updated_by: row.osData?.oslastTimestamp?.os_ub || "-"
 
@@ -2729,7 +2732,7 @@
             institute_or_Department: row.osData?.oslastTimestamp?.dpt || "-",
             project: row.osData?.oslastTimestamp?.prj || "-",
             PI_of_the_project: row.osData?.oslastTimestamp?.pip || "-",
-            Shared_status: row.osData?.oslastTimestamp?.ossts || "-",
+            Shared_status: decodeFollowUpType(row.osData?.oslastTimestamp?.ossts) || "-",
             Partial_shared_remark:row.osData?.oslastTimestamp?.psr || "-",
             Shared_form_updated_by: row.osData?.oslastTimestamp?.os_ub || "-"
 
@@ -2755,6 +2758,7 @@
     window.onload = function () {
       //localStorage.removeItem("sampleTypeInput");
       localStorage.setItem("sampleTypeInput", "All");
+
 
     }
 
@@ -2817,7 +2821,9 @@
       Lost_Follow : "Lost to Follow up",
       death_n_Dise : "Death not due to disease",
       remission : "Remission",
-      Other : "Other"
+      Other : "Other",
+      s : "Shared",
+      ps : "Partially Shared" 
     }
 
     function decodeFollowUpType(encodedValue) {
