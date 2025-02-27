@@ -1871,6 +1871,12 @@
                   <input type="text" class="form-control" placeholder="Remark" id="remark">
                 </div>
               </div>
+              <div class="row " id="followDone" style="text-align: center; display: none;">
+                <div class="col-sm-12">
+                  <button type="button" class="btn btn-success" onclick="submitFollowup()">Finish</button>
+                  <!-- Function call here -->
+                </div>
+              </div>
 
               <div class="row " style="text-align: center;">
                 <div class="col-sm-12">
@@ -2258,7 +2264,7 @@
 
       </div>
       <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255);">
-        Version 1.5.7
+        Version 1.5.9
       </div>
     </div>
   </footer>
@@ -2385,9 +2391,11 @@
     });
 
     document.getElementById('finishButton').addEventListener('click', function () {
-      window.location.href = 'home.html';
+      window.history.back();
     });
-
+    document.getElementById('followDone').addEventListener('click', function () {
+      window.history.back();
+    });
     function logout() {
       sessionStorage.removeItem('isLoggedIn');
       sessionStorage.removeItem('userName');
@@ -2499,8 +2507,9 @@
     function pcSModal() {
       let mode = localStorage.getItem('mode');
       let sts = localStorage.getItem("pcVStatus")
-
-      if (mode === 'SearchView' || (mode === 'PendingEdit' && (sts === "true")) || (mode === 'SearchEdit' && (sts === "true")) || mode === 'PendingView' || mode === 'ViewFollowUp' || mode === 'SharedView') {
+      let vSts = localStorage.getItem("pcVVStatus")
+      console.log("mode: ", mode, " sts: ", sts, " vsts: ", vSts)
+      if (mode === 'SearchView' || (mode === 'PendingEdit' && (sts === "true") && (vSts === "Yes")) || (mode === 'SearchEdit' && (sts === "true") && (vSts === "Yes")) || mode === 'PendingView' || mode === 'ViewFollowUp' || mode === 'SharedView') {
         if (document.getElementById("pcSgridNo").value !== '') {
           popVpcSModal()
         }
@@ -2676,7 +2685,7 @@
                             labelElement.style.textAlign = "center";
                             labelElement.style.color = 'white';
                           } else if (seat.bioBankId === '') {
-                            labelElement.innerHTML = `${'-'}<br>`;
+                            labelElement.innerHTML = `${'-'}</n>${'-'}`;
                             labelElement.style.color = "rgb(143, 218, 187)";
                             labelElement.style.textAlign = "center";
                           }
@@ -2689,6 +2698,7 @@
                             labelElement.style.background = "rgb(193, 154, 107)";
                           } else if (seat.status === "e") {
                             labelElement.style.background = "rgb(143, 218, 187)";
+                            labelElement.style.paddingTop = "6px";
                           }
 
                           if (gridSamples.includes(seatID)) {
@@ -2902,7 +2912,7 @@
                   labelElement.style.color = 'white';
                 }
                 else if (indexedSeats[index].bioBankId === '') {
-                  labelElement.innerHTML = `${'-'}<br>`;
+                  labelElement.innerHTML = `${'-'}</n>${'-'}`;
                   labelElement.style.color = "rgb(143, 218, 187)";
                   labelElement.style.textAlign = "center";
 
@@ -2923,6 +2933,7 @@
 
                 } else if (indexedSeats[index].status === "e") {
                   labelElement.style.background = "rgb(143, 218, 187)";
+                  labelElement.style.paddingTop = "6px";
 
                 }
               }
@@ -3148,7 +3159,7 @@
                             labelElement.style.textAlign = "center";
                             labelElement.style.color = 'white';
                           } else if (seat.bioBankId === '') {
-                            labelElement.innerHTML = `${'-'}<br>`;
+                            labelElement.innerHTML = `${'-'}</n>${'-'}`;
                             labelElement.style.color = "rgb(143, 218, 187)";
                             labelElement.style.textAlign = "center";
                           }
@@ -3161,6 +3172,7 @@
                             labelElement.style.background = "rgb(193, 154, 107)";
                           } else if (seat.status === "e") {
                             labelElement.style.background = "rgb(143, 218, 187)";
+                            labelElement.style.paddingTop = "6px";
                           }
 
                           if (gridSamples.includes(seatID)) {
@@ -3358,7 +3370,7 @@
                   labelElement.style.color = 'white';
                 }
                 else if (indexedSeats[index].bioBankId === '') {
-                  labelElement.innerHTML = `${'-'}<br>`;
+                  labelElement.innerHTML = `${'-'}</n>${'-'}`;
                   labelElement.style.color = "rgb(143, 218, 187)";
                   labelElement.style.textAlign = "center";
                 }
@@ -3371,6 +3383,7 @@
                   labelElement.style.background = "rgb(193, 154, 107)";
                 } else if (indexedSeats[index].status === "e") {
                   labelElement.style.background = "rgb(143, 218, 187)";
+                  labelElement.style.paddingTop = "6px";
                 }
               }
             }
@@ -3595,7 +3608,7 @@
                             labelElement.style.textAlign = "center";
                             labelElement.style.color = 'white';
                           } else if (seat.bioBankId === '') {
-                            labelElement.innerHTML = `${'-'}<br>`;
+                            labelElement.innerHTML = `${'-'}</n>${'-'}`;
                             labelElement.style.color = "rgb(143, 218, 187)";
                             labelElement.style.textAlign = "center";
                           }
@@ -3608,6 +3621,7 @@
                             labelElement.style.background = "rgb(193, 154, 107)";
                           } else if (seat.status === "e") {
                             labelElement.style.background = "rgb(143, 218, 187)";
+                            labelElement.style.paddingTop = "6px";
                           }
 
                           if (gridSamples.includes(seatID)) {
@@ -3804,7 +3818,7 @@
                   labelElement.style.color = 'white';
                 }
                 else if (indexedSeats[index].bioBankId === '') {
-                  labelElement.innerHTML = `${'-'}<br>`;
+                  labelElement.innerHTML = `${'-'}</n>${'-'}`;
                   labelElement.style.color = "rgb(143, 218, 187)";
                   labelElement.style.textAlign = "center";
                 }
@@ -3817,6 +3831,7 @@
                   labelElement.style.background = "rgb(193, 154, 107)";
                 } else if (indexedSeats[index].status === "e") {
                   labelElement.style.background = "rgb(143, 218, 187)";
+                  labelElement.style.paddingTop = "6px";
                 }
               }
             }
@@ -4030,7 +4045,7 @@
                             labelElement.style.textAlign = "center";
                             labelElement.style.color = 'white';
                           } else if (seat.bioBankId === '') {
-                            labelElement.innerHTML = `${'-'}<br>`;
+                            labelElement.innerHTML = `${'-'}</n>${'-'}`;
                             labelElement.style.color = "rgb(143, 218, 187)";
                             labelElement.style.textAlign = "center";
                           }
@@ -4043,6 +4058,7 @@
                             labelElement.style.background = "rgb(193, 154, 107)";
                           } else if (seat.status === "e") {
                             labelElement.style.background = "rgb(143, 218, 187)";
+                            labelElement.style.paddingTop = "6px";
                           }
 
                           if (gridSamples.includes(seatID)) {
@@ -4239,7 +4255,7 @@
                   labelElement.style.color = 'white';
                 }
                 else if (indexedSeats[index].bioBankId === '') {
-                  labelElement.innerHTML = `${'-'}<br>`;
+                  labelElement.innerHTML = `${'-'}</n>${'-'}`;
                   labelElement.style.color = "rgb(143, 218, 187)";
                   labelElement.style.textAlign = "center";
 
@@ -4253,6 +4269,7 @@
                   labelElement.style.background = "rgb(193, 154, 107)";
                 } else if (indexedSeats[index].status === "e") {
                   labelElement.style.background = "rgb(143, 218, 187)";
+                  labelElement.style.paddingTop = "6px";
                 }
               }
             }
@@ -4494,7 +4511,7 @@
                             labelElement.style.textAlign = "center";
                             labelElement.style.color = 'white';
                           } else if (seat.bioBankId === '') {
-                            labelElement.innerHTML = `${'-'}<br>`;
+                            labelElement.innerHTML = `${'-'}</n>${'-'}`;
                             labelElement.style.color = "rgb(143, 218, 187)";
                             labelElement.style.textAlign = "center";
                           }
@@ -4507,6 +4524,7 @@
                             labelElement.style.background = "rgb(193, 154, 107)";
                           } else if (seat.status === "e") {
                             labelElement.style.background = "rgb(143, 218, 187)";
+                            labelElement.style.paddingTop = "6px";
                           }
 
                           if (gridSamples.includes(seatID)) {
@@ -4694,7 +4712,7 @@
                   labelElement.style.color = 'white';
                 }
                 else if (indexedSeats[index].bioBankId === '') {
-                  labelElement.innerHTML = `${'-'}<br>`;
+                  labelElement.innerHTML = `${'-'}</n>${'-'}`;
                   labelElement.style.color = "rgb(143, 218, 187)";
                   labelElement.style.textAlign = "center";
                 }
@@ -4707,6 +4725,7 @@
                   labelElement.style.background = "rgb(193, 154, 107)";
                 } else if (indexedSeats[index].status === "e") {
                   labelElement.style.background = "rgb(143, 218, 187)";
+                  labelElement.style.paddingTop = "6px";
                 }
               }
             }
@@ -4939,7 +4958,7 @@
                             labelElement.style.textAlign = "center";
                             labelElement.style.color = 'white';
                           } else if (seat.bioBankId === '') {
-                            labelElement.innerHTML = `${'-'}<br>`;
+                            labelElement.innerHTML = `${'-'}</n>${'-'}`;
                             labelElement.style.color = "rgb(143, 218, 187)";
                             labelElement.style.textAlign = "center";
                           }
@@ -4952,6 +4971,7 @@
                             labelElement.style.background = "rgb(193, 154, 107)";
                           } else if (seat.status === "e") {
                             labelElement.style.background = "rgb(143, 218, 187)";
+                            labelElement.style.paddingTop = "6px";
                           }
 
                           if (gridSamples.includes(seatID)) {
@@ -5129,7 +5149,7 @@
                   labelElement.style.color = 'white';
                 }
                 else if (indexedSeats[index].bioBankId === '') {
-                  labelElement.innerHTML = `${'-'}<br>`;
+                  labelElement.innerHTML = `${'-'}</n>${'-'}`;
                   labelElement.style.color = "rgb(143, 218, 187)";
                   labelElement.style.textAlign = "center";
                 }
@@ -5142,6 +5162,7 @@
                   labelElement.style.background = "rgb(193, 154, 107)";
                 } else if (indexedSeats[index].status === "e") {
                   labelElement.style.background = "rgb(143, 218, 187)";
+                  labelElement.style.paddingTop = "6px";
                 }
               }
             }
@@ -5375,7 +5396,7 @@
                             labelElement.style.textAlign = "center";
                             labelElement.style.color = 'white';
                           } else if (seat.bioBankId === '') {
-                            labelElement.innerHTML = `${'-'}<br>`;
+                            labelElement.innerHTML = `${'-'}</n>${'-'}`;
                             labelElement.style.color = "rgb(143, 218, 187)";
                             labelElement.style.textAlign = "center";
                           }
@@ -5388,6 +5409,7 @@
                             labelElement.style.background = "rgb(193, 154, 107)";
                           } else if (seat.status === "e") {
                             labelElement.style.background = "rgb(143, 218, 187)";
+                            labelElement.style.paddingTop = "6px";
                           }
 
                           if (gridSamples.includes(seatID)) {
@@ -5592,7 +5614,7 @@
                   labelElement.style.color = 'white';
                 }
                 else if (indexedSeats[index].bioBankId === '') {
-                  labelElement.innerHTML = `${'-'}<br>`;
+                  labelElement.innerHTML = `${'-'}</n>${'-'}`;
                   labelElement.style.color = "rgb(143, 218, 187)";
                   labelElement.style.textAlign = "center";
 
@@ -5613,6 +5635,7 @@
 
                 } else if (indexedSeats[index].status === "e") {
                   labelElement.style.background = "rgb(143, 218, 187)";
+                  labelElement.style.paddingTop = "6px";
 
                 }
               }
@@ -5836,7 +5859,7 @@
                             labelElement.style.textAlign = "center";
                             labelElement.style.color = 'white';
                           } else if (seat.bioBankId === '') {
-                            labelElement.innerHTML = `${'-'}<br>`;
+                            labelElement.innerHTML = `${'-'}</n>${'-'}`;
                             labelElement.style.color = "rgb(143, 218, 187)";
                             labelElement.style.textAlign = "center";
                           }
@@ -5849,6 +5872,7 @@
                             labelElement.style.background = "rgb(193, 154, 107)";
                           } else if (seat.status === "e") {
                             labelElement.style.background = "rgb(143, 218, 187)";
+                            labelElement.style.paddingTop = "6px";
                           }
 
                           if (gridSamples.includes(seatID)) {
@@ -6061,7 +6085,7 @@
                   labelElement.style.color = 'white';
                 }
                 else if (indexedSeats[index].bioBankId === '') {
-                  labelElement.innerHTML = `${'-'}<br>`;
+                  labelElement.innerHTML = `${'-'}</n>${'-'}`;
                   labelElement.style.color = "rgb(143, 218, 187)";
                   labelElement.style.textAlign = "center";
 
@@ -6082,6 +6106,7 @@
 
                 } else if (indexedSeats[index].status === "e") {
                   labelElement.style.background = "rgb(143, 218, 187)";
+                  labelElement.style.paddingTop = "6px";
 
                 }
               }
@@ -6996,6 +7021,13 @@
           $('#noChild').show();
         } else {
           $('#noChild').hide();
+          $('#numChild').val("");
+          $('#ageFC').hide();
+          $('#breFd').hide();
+          $('#durFeed').hide();
+          $('#ageAtFirstChild').val("");
+          $('#dbf').val("");
+          $('input[name="breFd"]').prop('checked', false);
         }
       }
       parity();
@@ -7045,6 +7077,11 @@
         } else {
           $('#ageFC').hide();
           $('#breFd').hide();
+          $('input[name="breFd"]').prop('checked', false);
+          $('#ageAtFirstChild').val("");
+          $('#dbf').val("");
+          $('#durFeed').hide();
+
         }
       }
       numChild();
@@ -7058,6 +7095,8 @@
         }
         else {
           $('#durFeed').hide();
+          $('#dbf').val();
+
         }
       }
       breFd();
@@ -7364,6 +7403,7 @@
         const doneBtn = document.getElementById("sampleEntry1");
         const submitBtn = document.getElementById("submitButton");
         const finishBtn = document.getElementById('finishButton');
+        const followDone = document.getElementById('followDone');
         const followUpBtn = document.getElementById('subFollowUp');
         document.getElementById('tab1-tab').classList.add('disabled');
         document.getElementById('tab3-tab').classList.add('disabled');
@@ -7380,6 +7420,8 @@
           }
         });
         finishBtn.style.display = 'block'
+        followDone.style.display = 'block'
+
         doneBtn.style.display = 'none'
         followUpBtn.style.display = 'none'
         submitBtn.style.display = 'none'
@@ -7461,11 +7503,14 @@
         const otherSampleInputs = document.querySelectorAll('input[name="otherSample"]');
         const rltSampleInputs = document.querySelectorAll('input[name="rltSample"]');
         const pcSampleInputs = document.querySelectorAll('input[name="pcbSample"]');
+        const pcVSampleInputs = document.querySelectorAll('input[name="pcbV"]');
+
         localStorage.setItem("bloodVStatus", data.ie.bs);
         localStorage.setItem("specimenVStatus", data.ie.ss);
         localStorage.setItem("otherVStatus", data.ie.osmp);
         localStorage.setItem("rltVStatus", data.ie.rltS);
         localStorage.setItem("pcVStatus", data.ie.pcS);
+        localStorage.setItem("pcVVStatus", data.ie.pssvl);
 
         if (mode === 'SearchEdit' || mode === 'PendingEdit') {
           if (data.ie.bs === 'true') {
@@ -7526,6 +7571,18 @@
               console.log(`Input with ID ${input.id} enabled`);
             });
           }
+          if (data.ie.pssvl === 'Yes') {
+            pcVSampleInputs.forEach(input => {
+              input.setAttribute('disabled', true);
+              console.log(`Input with ID ${input.id} disabled`);
+            });
+          } else {
+            pcVSampleInputs.forEach(input => {
+              input.removeAttribute('disabled');
+              console.log(`Input with ID ${input.id} enabled`);
+            });
+          }
+
           document.getElementById('tab2').classList.add('disabled');
           document.getElementById('tab3').classList.add('disabled');
         }
@@ -8262,22 +8319,20 @@
           //     document.getElementById('HistologicalS').value = brfDataArr.ht || '';
           //   }
           // }
-        
-        } 
+
+        }
         else {
           return;
         }
       });
 
     }
-  
+
     function fillform2() {
-      const proType = document.querySelector('input[name="customProcedure"]:checked').value;
 
       let mode = localStorage.getItem('mode');
       let biobankID = localStorage.getItem('BioVal')
       console.log("biobankID ", biobankID)
-      console.log("proType ", proType)
       db.ref(`sef/${biobankID}/`).once('value').then(snapshot => {
         if (snapshot.exists()) {
           const data = snapshot.val();
@@ -8308,7 +8363,7 @@
           console.log("ieDataArr", ieDataArr);
           console.log("mdDataArr", mdDataArr);
           console.log("brfDataArr", brfDataArr);
-          if (ieDataArr.tpr === "r" && proType === "r") {
+          if (ieDataArr.tpr === "r") {
             const metastasisS = document.querySelector('input[name="MetastasisSample"]:checked').value;
 
 
@@ -8346,7 +8401,7 @@
       });
 
     }
-  
+
   </script>
 </body>
 
