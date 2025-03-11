@@ -1,13 +1,13 @@
 // Firebase configuration
 // const firebaseConfig = {
-//   apiKey: "AIzaSyDIFI_4lVb7FJmKgzWMbq6ZfKcBwpj-K4E",
-//   authDomain: "biobank-development.firebaseapp.com",
-//   databaseURL: "https://biobank-development-default-rtdb.firebaseio.com",
-//   projectId: "biobank-development",
-//   storageBucket: "biobank-development.firebasestorage.app",
-//   messagingSenderId: "31278898937",
-//   appId: "1:31278898937:web:01f96df7a640d9c1410c28",
-//   measurementId: "G-B98TGR5Q8Q"
+  // apiKey: "AIzaSyDIFI_4lVb7FJmKgzWMbq6ZfKcBwpj-K4E",
+  // authDomain: "biobank-development.firebaseapp.com",
+  // databaseURL: "https://biobank-development-default-rtdb.firebaseio.com",
+  // projectId: "biobank-development",
+  // storageBucket: "biobank-development.firebasestorage.app",
+  // messagingSenderId: "31278898937",
+  // appId: "1:31278898937:web:01f96df7a640d9c1410c28",
+  // measurementId: "G-B98TGR5Q8Q"
 // };
 
 // Staging
@@ -3838,7 +3838,7 @@ function pages_display(mode, bioBankId, seq, timestampKey) {
   console.log("timestampKey", timestampKey);
   localStorage.setItem("bioBankId", bioBankId);
   localStorage.setItem("lastSection", seq);
-  
+
   if (seq != '') {
     var dataPath = `sef/${bioBankId}/${seq}/${timestampKey}`;
   }
@@ -3854,6 +3854,8 @@ function pages_display(mode, bioBankId, seq, timestampKey) {
   sessionStorage.removeItem('formData');
 
   if (mode != "") {
+    // localStorage.removeItem("MRN");
+
     console.log('dataPath', dataPath);
     db.ref(dataPath).once('value')
       .then(snapshot => {
