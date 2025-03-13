@@ -706,11 +706,13 @@
 
                     <div class="col-sm-6">
                       <input type="date" class="form-control" id="sampleReceivedDate" placeholder="Select Date"
-                        required>
+                        oninput="formatRDateInput(this, 'sampleReceivedTime', 'sampleProcessedDate', 'sampleProcessedTime')"
+                        onkeydown="return false;" required>
                     </div>
                     <div class="col-sm-6">
                       <input type="time" class="form-control" id="sampleReceivedTime" placeholder="Select Date"
-                        required>
+                        oninput="formatRTimeInput(this, 'sampleReceivedTime', 'sampleProcessedTime')"
+                        onkeydown="return false;" required>
                     </div>
                   </div>
                 </div>
@@ -725,11 +727,13 @@
 
                     <div class="col-sm-6">
                       <input type="date" class="form-control" id="sampleProcessedDate" placeholder="Select Date"
-                        onclick="formatDateInput('sampleReceivedDate', 'sampleProcessedDate')" required>
+                        oninput="formatDateInput(this, 'sampleReceivedDate', 'sampleProcessedDate', 'sampleProcessedTime')"
+                        onkeydown="return false;" required>
                     </div>
                     <div class="col-sm-6">
                       <input type="time" class="form-control" id="sampleProcessedTime" placeholder="Select Date"
-                        oninput="formatTimeInput(this, 'sampleReceivedTime', 'sampleReceivedDate', 'sampleProcessedDate', 'sampleProcessedTime')" required>
+                        oninput="formatTimeInput(this, 'sampleReceivedTime', 'sampleReceivedDate', 'sampleProcessedDate', 'sampleProcessedTime')"
+                        onkeydown="return false;" required>
                     </div>
                   </div>
                 </div>
@@ -751,10 +755,13 @@
 
                     <div class="col-sm-6">
                       <input type="date" class="form-control" id="bloodSampleReceivedDate" placeholder="Select Date"
-                        required>
+                        oninput="formatRDateInput(this, 'bloodSampleReceivedTime', 'bloodSampleProcessedDate', 'bloodSampleProcessedTime')"
+                        onkeydown="return false;" required>
                     </div>
                     <div class="col-sm-6">
                       <input type="time" class="form-control" id="bloodSampleReceivedTime" placeholder="Select Date"
+                        onkeydown="return false;"
+                        oninput="formatRTimeInput(this, 'bloodSampleReceivedTime', 'bloodSampleProcessedTime')"
                         required>
                     </div>
                   </div>
@@ -770,11 +777,13 @@
 
                     <div class="col-sm-6">
                       <input type="date" class="form-control" id="bloodSampleProcessedDate" placeholder="Select Date"
-                        onclick="formatDateInput('bloodSampleReceivedDate', 'bloodSampleProcessedDate')" required>
+                        oninput="formatDateInput(this, 'bloodSampleReceivedDate', 'bloodSampleProcessedDate', 'bloodSampleProcessedTime')"
+                        onkeydown="return false;" required>
                     </div>
                     <div class="col-sm-6">
                       <input type="time" class="form-control" id="bloodSampleProcessedTime" placeholder="Select Date"
-                      oninput="formatTimeInput(this, 'bloodSampleReceivedTime', 'bloodSampleReceivedDate', 'bloodSampleProcessedDate', 'bloodSampleProcessedTime')" required>
+                        oninput="formatTimeInput(this, 'bloodSampleReceivedTime', 'bloodSampleReceivedDate', 'bloodSampleProcessedDate', 'bloodSampleProcessedTime')"
+                        onkeydown="return false;" required>
                     </div>
                   </div>
                 </div>
@@ -796,11 +805,13 @@
 
                     <div class="col-sm-6">
                       <input type="date" class="form-control" id="SpecimenSampleReceivedDate" placeholder="Select Date"
-                        required>
+                        oninput="formatRDateInput(this, 'SpecimenSampleReceivedTime', 'SpecimenSampleProcessedDate', 'SpecimenSampleProcessedTime')"
+                        onkeydown="return false;" required>
                     </div>
                     <div class="col-sm-6">
                       <input type="time" class="form-control" id="SpecimenSampleReceivedTime" placeholder="Select Date"
-                        required>
+                        oninput="formatRTimeInput(this, 'SpecimenSampleReceivedTime', 'SpecimenSampleProcessedTime')"
+                        onkeydown="return false;" required>
                     </div>
                   </div>
                 </div>
@@ -815,11 +826,13 @@
 
                     <div class="col-sm-6">
                       <input type="date" class="form-control" id="SpecimenSampleProcessedDate" placeholder="Select Date"
-                        onclick="formatDateInput('SpecimenSampleReceivedDate', 'SpecimenSampleProcessedDate')" required>
+                        oninput="formatDateInput(this, 'SpecimenSampleReceivedDate', 'SpecimenSampleProcessedDate', 'SpecimenSampleProcessedTime')"
+                        onkeydown="return false;" required>
                     </div>
                     <div class="col-sm-6">
                       <input type="time" class="form-control" id="SpecimenSampleProcessedTime" placeholder="Select Date"
-                      oninput="formatTimeInput(this, 'SpecimenSampleReceivedTime', 'SpecimenSampleReceivedDate', 'SpecimenSampleProcessedDate', 'SpecimenSampleProcessedTime')" required>
+                        oninput="formatTimeInput(this, 'SpecimenSampleReceivedTime', 'SpecimenSampleReceivedDate', 'SpecimenSampleProcessedDate', 'SpecimenSampleProcessedTime')"
+                        onkeydown="return false;" required>
                     </div>
                   </div>
                 </div>
@@ -841,11 +854,13 @@
 
                     <div class="col-sm-6">
                       <input type="date" class="form-control" id="OtherSampleReceivedDate" placeholder="Select Date"
-                        required>
+                        oninput="formatRDateInput(this, 'OtherSampleReceivedTime', 'OtherSampleProcessedDate', 'OtherSampleProcessedTime')"
+                        onkeydown="return false;" required>
                     </div>
                     <div class="col-sm-6">
                       <input type="time" class="form-control" id="OtherSampleReceivedTime" placeholder="Select Date"
-                        required>
+                        oninput="formatRTimeInput(this, 'OtherSampleReceivedTime', 'OtherSampleProcessedTime')"
+                        onkeydown="return false;" required>
                     </div>
                   </div>
                 </div>
@@ -860,11 +875,13 @@
 
                     <div class="col-sm-6">
                       <input type="date" class="form-control" id="OtherSampleProcessedDate" placeholder="Select Date"
-                        onclick="formatDateInput('OtherSampleReceivedDate', 'OtherSampleProcessedDate')" required>
+                        oninput="formatDateInput(this, 'OtherSampleReceivedDate', 'OtherSampleProcessedDate', 'OtherSampleProcessedTime')"
+                        onkeydown="return false;" required>
                     </div>
                     <div class="col-sm-6">
                       <input type="time" class="form-control" id="OtherSampleProcessedTime" placeholder="Select Date"
-                      oninput="formatTimeInput(this, 'OtherSampleReceivedTime', 'OtherSampleReceivedDate', 'OtherSampleProcessedDate', 'OtherSampleProcessedTime')" required>
+                        oninput="formatTimeInput(this, 'OtherSampleReceivedTime', 'OtherSampleReceivedDate', 'OtherSampleProcessedDate', 'OtherSampleProcessedTime')"
+                        onkeydown="return false;" required>
                     </div>
                   </div>
                 </div>
@@ -879,42 +896,43 @@
                 </div>
               </div>
               <div class="row ml-1 mb-3" id="receiveRLTSample" style="display: none;">
-                <label for="date" class="col-sm-2 mb-1 col-form-label">RLT sample Received Time
-                  <!-- <span style="color: red; font-weight: bold;">*</span> -->
-                </label>
+                <label for="date" class="col-sm-2 mb-1 col-form-label">RLT sample Received Time</label>
                 <div class="col-sm-10 mt-2">
                   <div class="row">
-
                     <div class="col-sm-6">
-                      <input type="date" class="form-control" id="RLTSampleReceivedDate" placeholder="Select Date"
-                        required>
+                      <input type="date" class="form-control" id="RLTSampleReceivedDate" placeholder="DD-MM-YYYY"
+                        oninput="formatRDateInput(this, 'RLTSampleReceivedTime', 'RLTSampleProcessedDate', 'RLTSampleProcessedTime');"
+                        onkeydown="return false;" required>
                     </div>
                     <div class="col-sm-6">
                       <input type="time" class="form-control" id="RLTSampleReceivedTime" placeholder="Select Date"
-                        required>
+                        required oninput="formatRTimeInput(this, 'RLTSampleReceivedTime', 'RLTSampleProcessedTime');"
+                        onkeydown="return false;">
                     </div>
                   </div>
                 </div>
               </div>
 
               <div class="row ml-1 mb-3" id="processRLTSample" style="display: none;">
-                <label for="date" class="col-sm-2 mb-1 col-form-label">RLT sample Processed Time
-                  <!-- <span style="color: red; font-weight: bold;">*</span> -->
-                </label>
+                <label for="date" class="col-sm-2 mb-1 col-form-label">RLT sample Processed Time</label>
                 <div class="col-sm-10 mt-2">
                   <div class="row">
-
                     <div class="col-sm-6">
                       <input type="date" class="form-control" id="RLTSampleProcessedDate" placeholder="Select Date"
-                        onclick="formatDateInput('RLTSampleReceivedDate', 'RLTSampleProcessedDate')" required>
+                        required
+                        oninput="formatDateInput(this, 'RLTSampleReceivedDate', 'RLTSampleProcessedDate', 'RLTSampleProcessedTime');"
+                        onkeydown="return false;">
                     </div>
                     <div class="col-sm-6">
                       <input type="time" class="form-control" id="RLTSampleProcessedTime" placeholder="Select Date"
-                      oninput="formatTimeInput(this, 'RLTSampleReceivedTime', 'RLTSampleReceivedDate', 'RLTSampleProcessedDate', 'RLTSampleProcessedTime')" required>
+                        required
+                        oninput="formatTimeInput(this, 'RLTSampleReceivedTime', 'RLTSampleReceivedDate', 'RLTSampleProcessedDate', 'RLTSampleProcessedTime');"
+                        onkeydown="return false;">
                     </div>
                   </div>
                 </div>
               </div>
+
 
               <div class="row ml-1 mb-3" id="PCSamplesProcess" style="display: none;">
                 <label for="boxNo" class="col-sm-2 mb-1 col-form-label">Primary Culture Sample Processed By
@@ -933,11 +951,13 @@
 
                     <div class="col-sm-6">
                       <input type="date" class="form-control" id="PCSampleReceivedDate" placeholder="Select Date"
-                        required>
+                        oninput="formatRDateInput(this, 'PCSampleReceivedTime', 'PCSampleProcessedDate', 'PCSampleProcessedTime')"
+                        onkeydown="return false;" required>
                     </div>
                     <div class="col-sm-6">
                       <input type="time" class="form-control" id="PCSampleReceivedTime" placeholder="Select Date"
-                        required>
+                        oninput="formatRTimeInput(this, 'PCSampleReceivedTime', 'PCSampleProcessedTime')"
+                        onkeydown="return false;" required>
                     </div>
                   </div>
                 </div>
@@ -952,11 +972,13 @@
 
                     <div class="col-sm-6">
                       <input type="date" class="form-control" id="PCSampleProcessedDate" placeholder="Select Date"
-                        onclick="formatDateInput('PCSampleReceivedDate', 'PCSampleProcessedDate')" required>
+                        oninput="formatDateInput(this, 'PCSampleReceivedDate', 'PCSampleProcessedDate', 'PCSampleProcessedTime')"
+                        onkeydown="return false;" required>
                     </div>
                     <div class="col-sm-6">
                       <input type="time" class="form-control" id="PCSampleProcessedTime" placeholder="Select Date"
-                      oninput="formatTimeInput(this, 'PCSampleReceivedTime', 'PCSampleReceivedDate', 'PCSampleProcessedDate', 'PCSampleProcessedTime')" required>
+                        oninput="formatTimeInput(this, 'PCSampleReceivedTime', 'PCSampleReceivedDate', 'PCSampleProcessedDate', 'PCSampleProcessedTime')"
+                        onkeydown="return false;" required>
                     </div>
                   </div>
                 </div>
@@ -2447,15 +2469,85 @@
     //   }
     // }
 
-    function formatDateInput(receivedDateId, processedDateId) {
-      const rTime = document.getElementById(receivedDateId).value;
-
-      if (rTime) {
-        document.getElementById(processedDateId).setAttribute('min', rTime);
-      } else {
-        alert("Fill the received date first");
+    function formatRDateInput(input, receivedTimeId, processedDateId, processedTimeId) {
+      const receivedTimeInput = document.getElementById(receivedTimeId);
+      if (receivedTimeInput) {
+        receivedTimeInput.value = ""; // Clear the time input
+      }
+      const processedDateInput = document.getElementById(processedDateId);
+      if (processedDateInput) {
+        processedDateInput.value = ""; // Clear the time input
+      }
+      const processedTimeInput = document.getElementById(processedTimeId);
+      if (processedTimeInput) {
+        processedTimeInput.value = ""; // Clear the time input
       }
     }
+
+
+    function formatDateInput(input, receivedDateId, processedDateId, processedTimeId) {
+      const rTime = document.getElementById(receivedDateId).value;
+      const pTime = input.value;
+      document.getElementById(processedDateId).setAttribute('min', rTime);
+
+      if (rTime) {
+
+        if (rTime > pTime) {
+          alert("The processed Date cannot be earlier than the received Date.");
+          input.value = "";
+        }
+      } else {
+        alert("Fill the received date first");
+        input.value = "";
+      }
+      const processedTimeInput = document.getElementById(processedTimeId);
+      if (processedTimeInput) {
+        processedTimeInput.value = ""; 
+      }
+    }
+
+    document.getElementById('sampleProcessedDate').addEventListener('click', function () {
+      const receivedDate = document.getElementById('sampleReceivedDate').value;
+      if (receivedDate) {
+        this.setAttribute('min', receivedDate);
+      }
+    });
+
+    document.getElementById('bloodSampleProcessedDate').addEventListener('click', function () {
+      const receivedDate = document.getElementById('bloodSampleReceivedDate').value;
+      if (receivedDate) {
+        this.setAttribute('min', receivedDate);
+      }
+    });
+
+    document.getElementById('SpecimenSampleProcessedDate').addEventListener('click', function () {
+      const receivedDate = document.getElementById('SpecimenSampleReceivedDate').value;
+      if (receivedDate) {
+        this.setAttribute('min', receivedDate);
+      }
+    });
+
+    document.getElementById('OtherSampleProcessedDate').addEventListener('click', function () {
+      const receivedDate = document.getElementById('OtherSampleReceivedDate').value;
+      if (receivedDate) {
+        this.setAttribute('min', receivedDate);
+      }
+    });
+
+    document.getElementById('RLTSampleProcessedDate').addEventListener('click', function () {
+      const receivedDate = document.getElementById('RLTSampleReceivedDate').value;
+      if (receivedDate) {
+        this.setAttribute('min', receivedDate);
+      }
+    });
+
+    document.getElementById('PCSampleProcessedDate').addEventListener('click', function () {
+      const receivedDate = document.getElementById('PCSampleReceivedDate').value;
+      if (receivedDate) {
+        this.setAttribute('min', receivedDate);
+      }
+    });
+
 
 
     // function formatT1Input(input) {
@@ -2507,7 +2599,12 @@
     //     alert("Please fill in the received time first.");
     //   }
     // }
-
+    function formatRTimeInput(input, receivedTimeId, processedTimeId) {
+      const processedTimeInput = document.getElementById(processedTimeId);
+      if (processedTimeInput) {
+        processedTimeInput.value = ""; // Clear the time input
+      }
+    }
 
     function formatTimeInput(input, receivedTimeId, receivedDateId, processedDateId, processedTimeId) {
       const rTime = document.getElementById(receivedTimeId).value;
@@ -8535,6 +8632,12 @@
 
     }
 
+  </script>
+  <script>
+    // Optional: Re-add readonly after date is selected
+    // document.getElementById('RLTSampleProcessedDate').addEventListener('change', function() {
+    //     this.setAttribute('readonly', true);
+    // });
   </script>
 </body>
 
