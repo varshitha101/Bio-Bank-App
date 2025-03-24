@@ -184,14 +184,17 @@
           <div class="table-responsive" id="inputSampleTable">
             <form class="form-group mt-3 form-step form-step-active" id="form1">
               <div class="row ml-1 mb-3">
-                <h3>Initial Entry</h3>
+                <h3 class="col-sm-10 col-form-label">Initially Entry</h3>
+                <div class="col-sm-2 mt-2 pl-5">
+                  <!-- <button type="submit" class="btn btn-success btn-xs" id="sampleEntry1">Save & Exit</button> -->
+                </div>
               </div>
 
               <div class="row ml-1 mb-3" id="mnrId">
                 <label for="mrnNo" class="col-sm-2 mb-1 col-form-label">MRN Number <span
                     style="color: red; font-weight: bold;">*</span> </label>
                 <div class="col-sm-10 mt-2">
-                  <input type="text" class="form-control" id="mrnNo" placeholder="Enter MRN Number" required>
+                  <input type="text" class="form-control" id="mrnNo" placeholder="Enter MRN Number" disabled required>
                 </div>
               </div>
               <div class="row ml-1 mb-3">
@@ -1001,7 +1004,7 @@
               <div class="col-12">
                 <div class="row" style="justify-content: space-around;">
                   <div class="col-4 mt-2" style="text-align: center;">
-                    <button type="submit" class="btn btn-success btn-xs" id="sampleEntry1">Done</button>
+                    <button type="submit" class="btn btn-success btn-xs" id="sampleEntry1">Save & Exit</button>
                   </div>
                   <div class="col-4 mt-2" style="text-align: center;">
                     <button type="button" class="btn btn-primary btn-xs btn-next" id="nextButton1">Next</button>
@@ -1011,7 +1014,10 @@
             </form>
             <form class="form-group mt-3 form-step" id="form2" style="display: none;">
               <div class="row ml-1 mb-3">
-                <h3>MetaData</h3>
+                <h3 class="col-sm-10 col-form-label">Metadata</h3>
+                <div class="col-sm-2 mt-2 pl-5">
+                  <!-- <button type="submit" class="btn btn-success btn-xs" id="sampleEntry2">Save & Exit</button> -->
+                </div>
               </div>
               <div id="mdCurrentUser" style="display: none;">
                 <div class="row ml-1 mb-3">
@@ -1583,6 +1589,9 @@
                     <button type="button" class="btn btn-primary btn-xs btn-prev" id="backButton1">Back</button>
                   </div>
                   <div class="col-4 mt-2" style="text-align: center;">
+                    <button type="submit" class="btn btn-success btn-xs" id="sampleEntry2">Save & Exit</button>
+                  </div>
+                  <div class="col-4 mt-2" style="text-align: center;">
                     <button type="button" class="btn btn-success btn-xs btn-next" id="nextButton2">Next</button>
                   </div>
                 </div>
@@ -1778,6 +1787,8 @@
                   <div class="col-4 mt-6" style="text-align: center;">
                     <button type="button" class="btn btn-primary btn-xs btn-prev" id="backButton2">Back</button>
                   </div>
+
+
                   <!-- <div class="col-4 mt-6" id style="text-align: center; display: flex; justify-content: space-around;" >
                   </div> -->
                   <div class="col-4 mt-6" style="text-align: center; display: flex; justify-content: space-around;">
@@ -2308,7 +2319,7 @@
 
       </div>
       <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255);">
-        Version 1.6
+        Version 1.6.1
       </div>
     </div>
   </footer>
@@ -2429,6 +2440,12 @@
         console.log("Saved to Firebase!")
       });
     });
+    document.addEventListener('DOMContentLoaded', function () {
+      document.getElementById("sampleEntry2").addEventListener("click", function () {
+        validateAndCollectData();
+        console.log("Saved to Firebase!")
+      });
+    });
 
     document.getElementById('submitButton').addEventListener('click', function () {
       validateAndCollectData();
@@ -2502,7 +2519,7 @@
       }
       const processedTimeInput = document.getElementById(processedTimeId);
       if (processedTimeInput) {
-        processedTimeInput.value = ""; 
+        processedTimeInput.value = "";
       }
     }
 
@@ -7481,6 +7498,21 @@
       if (input === "" || input.value === "BR") {
         input.value = '';
       }
+
+      if (input.value !== "") {
+        db.ref('bbnmrn/').once('value').then(function (snapshot) {
+          if (snapshot.exists()) {
+            let bbnmrn = snapshot.val();
+            Object.keys(bbnmrn).forEach(function (key) {
+              if (bbnmrn[key] === input.value) {
+                input.value = '';
+                alert("BioBank ID already exists");
+              }
+            });
+          }
+        });
+      }
+
     }
 
 
@@ -7598,6 +7630,7 @@
       if (mode === 'SearchView' || mode === 'PendingView') {
         const formElements = document.querySelectorAll('input, select, textarea');
         const doneBtn = document.getElementById("sampleEntry1");
+        const doneBtn2 = document.getElementById("sampleEntry2");
         const submitBtn = document.getElementById("submitButton");
         const finishBtn = document.getElementById('finishButton');
         const followUpBtn = document.getElementById('subFollowUp');
@@ -7622,6 +7655,7 @@
         });
         finishBtn.style.display = 'block'
         doneBtn.style.display = 'none'
+        doneBtn2.style.display = 'none'
         followUpBtn.style.display = 'none'
         submitBtn.style.display = 'none'
         document.getElementById('sefCurrentUser').style.display = "block"
@@ -7631,6 +7665,8 @@
       else if (mode === 'ViewFollowUp') {
         const formElements = document.querySelectorAll('input, select, textarea');
         const doneBtn = document.getElementById("sampleEntry1");
+        const doneBtn2 = document.getElementById("sampleEntry2");
+
         const submitBtn = document.getElementById("submitButton");
         const finishBtn = document.getElementById('finishButton');
         const followDone = document.getElementById('followDone');
@@ -7651,8 +7687,8 @@
         });
         finishBtn.style.display = 'block'
         followDone.style.display = 'block'
-
         doneBtn.style.display = 'none'
+        doneBtn2.style.display = 'none'
         followUpBtn.style.display = 'none'
         submitBtn.style.display = 'none'
         document.getElementById('sefCurrentUser').style.display = "block"
@@ -8105,6 +8141,7 @@
       if (mode === 'sharedView') {
         const formElements = document.querySelectorAll('input, select, textarea');
         const doneBtn = document.getElementById("sampleEntry1");
+        const doneBtn2 = document.getElementById("sampleEntry2");
         const submitBtn = document.getElementById("shareSubmit");
         document.getElementById('tab2-tab').classList.add('disabled');
         document.getElementById('tab1-tab').classList.add('disabled');
@@ -8122,6 +8159,7 @@
         document.getElementById('sharedCard').style.display = 'block';
         document.getElementById('shareForm').style.display = 'none';
         doneBtn.style.display = 'none';
+        doneBtn2.style.display = 'none';
         submitBtn.style.display = 'none';
       }
 
@@ -8344,6 +8382,7 @@
         var form1 = document.getElementById("form1");
         var submitButton = document.getElementById("submitButton");
         var sampleEntryButton = document.getElementById("sampleEntry1");
+        var sampleEntryButton2 = document.getElementById("sampleEntry2");
 
         if (form1) {
           form1.addEventListener("submit", function () {
