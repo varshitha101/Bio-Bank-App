@@ -7859,9 +7859,8 @@
       } else {
         console.error('No data found in sessionStorage');
       }
-      if (mode === 'ViewFollowUp') {
+      if (mode === 'ViewFollowUp' || mode === 'SearchView') {
         retrieveFollowup(biobankID);
-
       }
 
     });
