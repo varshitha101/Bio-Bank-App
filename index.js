@@ -1,14 +1,5 @@
 // Firebase configuration
-// const firebaseConfig = {
-  // apiKey: "AIzaSyDIFI_4lVb7FJmKgzWMbq6ZfKcBwpj-K4E",
-  // authDomain: "biobank-development.firebaseapp.com",
-  // databaseURL: "https://biobank-development-default-rtdb.firebaseio.com",
-  // projectId: "biobank-development",
-  // storageBucket: "biobank-development.firebasestorage.app",
-  // messagingSenderId: "31278898937",
-  // appId: "1:31278898937:web:01f96df7a640d9c1410c28",
-  // measurementId: "G-B98TGR5Q8Q"
-// };
+
 
 // Staging
 // const firebaseConfig = {
@@ -22,6 +13,21 @@
 //   measurementId: "G-CKEH775B84"
 // };
 
+
+//development
+// const firebaseConfig = {
+//   apiKey: "AIzaSyDIFI_4lVb7FJmKgzWMbq6ZfKcBwpj-K4E",
+//   authDomain: "biobank-development.firebaseapp.com",
+//   databaseURL: "https://biobank-development-default-rtdb.firebaseio.com",
+//   projectId: "biobank-development",
+//   storageBucket: "biobank-development.firebasestorage.app",
+//   messagingSenderId: "31278898937",
+//   appId: "1:31278898937:web:01f96df7a640d9c1410c28",
+//   measurementId: "G-B98TGR5Q8Q"
+// };
+
+
+//deployment
 const firebaseConfig = {
   apiKey: "AIzaSyCbpb_1jb6mDvF_7kuN8J0lwIoW7-mKd8g",
   authDomain: "bio-bank-deployment.firebaseapp.com",
@@ -6093,9 +6099,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
-function searchLoadingModal() {
-  document.getElementById('loading').style.display = 'flex';
-}
+
 
 
 
