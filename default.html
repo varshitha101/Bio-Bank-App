@@ -1928,7 +1928,7 @@
               </div>
               <div class="row " id="followDone" style="text-align: center; display: none;">
                 <div class="col-sm-12">
-                  <button type="button" class="btn btn-success" onclick="submitFollowup()">Finish</button>
+                  <button type="button" class="btn btn-success" id="finishButton1" >Finish</button>
                   <!-- Function call here -->
                 </div>
               </div>
@@ -2452,6 +2452,9 @@
     });
 
     document.getElementById('finishButton').addEventListener('click', function () {
+      window.history.back();
+    });
+    document.getElementById('finishButton1').addEventListener('click', function () {
       window.history.back();
     });
     document.getElementById('followDone').addEventListener('click', function () {
