@@ -2061,111 +2061,111 @@ function test4() {
 function openModal() {
   // $('#exampleModalCenter').modal('show');
   const path = 'bb/';
-      const path1 = 'sb/';
-      const path2 = 'rlt/';
-      const path3 = 'pcb/';
-      let promise = [];
-      let promises = []
-      const promise1 = db.ref('bb/').once('value')
-        .then(snapshot => {
-          const boxes = snapshot.val();
-          if (boxes) {
-            boxKeys = Object.keys(boxes); // Populate boxKeys here
-            console.log("boxKeys",boxKeys)
-            const bloodB = boxKeys.findIndex(boxKey => boxes[boxKey].bxsts === 'AC');
-            boxVal1 = boxKeys[bloodB];
-            console.log("bloodB", boxVal1)
-            if (boxVal1 === undefined) {
-              return false
-            }
-            else {
-              return true
-            }
-
-          }
-        });
-
-      const promise2 = db.ref(path1).once('value')
-        .then(snapshot => {
-          const boxes = snapshot.val();
-          if (boxes) {
-            boxKeys = Object.keys(boxes); // Populate boxKeys here
-            const tissueB = boxKeys.findIndex(boxKey => boxes[boxKey].bxsts === 'AC');
-            boxVal2 = boxKeys[tissueB];
-            console.log("bloodB", boxVal2)
-            if (boxVal2 === undefined) {
-              return false
-            }
-            else {
-              return true
-            }
-
-          }
-        });
-      const promise3 = db.ref(path2).once('value')
-        .then(snapshot => {
-          const boxes = snapshot.val();
-          if (boxes) {
-            boxKeys = Object.keys(boxes); // Populate boxKeys here
-            const rltB = boxKeys.findIndex(boxKey => boxes[boxKey].bxsts === 'AC');
-            boxVal3 = boxKeys[rltB];
-            console.log("bloodB", boxVal3)
-            if (boxVal3 === undefined) {
-              return false
-            }
-            else {
-              return true
-            }
-
-          }
-        });
-      const promise4 = db.ref(path3).once('value')
-        .then(snapshot => {
-          const boxes = snapshot.val();
-          if (boxes) {
-            boxKeys = Object.keys(boxes); // Populate boxKeys here
-            const primaryB = boxKeys.findIndex(boxKey => boxes[boxKey].bxsts === 'AC');
-            boxVal4 = boxKeys[primaryB];
-            console.log("bloodB", boxVal4)
-            if (boxVal4 === undefined) {
-              return false
-            }
-            else {
-              return true
-            }
-
-
-          }
-        });
-      promises.push(promise1, promise2, promise3, promise4)
-      // Promise.all([promise1,promise2,promise3,promise4]).then(() => {
-      //   console.log("promise1",promise1)
-      //   console.log("promise2",promise2)
-      //   console.log("promise3",promise3)
-      //   console.log("promise4",promise4)
-      //   if(promise1 && promise2 && promise3 && promise4){
-      //     $('#exampleModalCenter').modal('show');
-      //   }
-      //   else{
-      //     alert("Hi kishore")
-      //   }
-      // })
-      Promise.all([promise1, promise2, promise3, promise4]).then((results) => {
-        console.log("promise1 result:", results[0]);
-        console.log("promise2 result:", results[1]);
-        console.log("promise3 result:", results[2]);
-        console.log("promise4 result:", results[3]);
-
-        // Check if all the promises resolved to true
-        const allTrue = results.every(result => result === true);
-        if (allTrue) {
-          console.log("All promises are true");
-          $('#exampleModalCenter').modal('show');
-        } else {
-          console.log("Not all promises are true");
-          alert(`Please add boxes before adding samples`)
+  const path1 = 'sb/';
+  const path2 = 'rlt/';
+  const path3 = 'pcb/';
+  let promise = [];
+  let promises = []
+  const promise1 = db.ref('bb/').once('value')
+    .then(snapshot => {
+      const boxes = snapshot.val();
+      if (boxes) {
+        boxKeys = Object.keys(boxes); // Populate boxKeys here
+        console.log("boxKeys", boxKeys)
+        const bloodB = boxKeys.findIndex(boxKey => boxes[boxKey].bxsts === 'AC');
+        boxVal1 = boxKeys[bloodB];
+        console.log("bloodB", boxVal1)
+        if (boxVal1 === undefined) {
+          return false
         }
-      });
+        else {
+          return true
+        }
+
+      }
+    });
+
+  const promise2 = db.ref(path1).once('value')
+    .then(snapshot => {
+      const boxes = snapshot.val();
+      if (boxes) {
+        boxKeys = Object.keys(boxes); // Populate boxKeys here
+        const tissueB = boxKeys.findIndex(boxKey => boxes[boxKey].bxsts === 'AC');
+        boxVal2 = boxKeys[tissueB];
+        console.log("bloodB", boxVal2)
+        if (boxVal2 === undefined) {
+          return false
+        }
+        else {
+          return true
+        }
+
+      }
+    });
+  const promise3 = db.ref(path2).once('value')
+    .then(snapshot => {
+      const boxes = snapshot.val();
+      if (boxes) {
+        boxKeys = Object.keys(boxes); // Populate boxKeys here
+        const rltB = boxKeys.findIndex(boxKey => boxes[boxKey].bxsts === 'AC');
+        boxVal3 = boxKeys[rltB];
+        console.log("bloodB", boxVal3)
+        if (boxVal3 === undefined) {
+          return false
+        }
+        else {
+          return true
+        }
+
+      }
+    });
+  const promise4 = db.ref(path3).once('value')
+    .then(snapshot => {
+      const boxes = snapshot.val();
+      if (boxes) {
+        boxKeys = Object.keys(boxes); // Populate boxKeys here
+        const primaryB = boxKeys.findIndex(boxKey => boxes[boxKey].bxsts === 'AC');
+        boxVal4 = boxKeys[primaryB];
+        console.log("bloodB", boxVal4)
+        if (boxVal4 === undefined) {
+          return false
+        }
+        else {
+          return true
+        }
+
+
+      }
+    });
+  promises.push(promise1, promise2, promise3, promise4)
+  // Promise.all([promise1,promise2,promise3,promise4]).then(() => {
+  //   console.log("promise1",promise1)
+  //   console.log("promise2",promise2)
+  //   console.log("promise3",promise3)
+  //   console.log("promise4",promise4)
+  //   if(promise1 && promise2 && promise3 && promise4){
+  //     $('#exampleModalCenter').modal('show');
+  //   }
+  //   else{
+  //     alert("Hi kishore")
+  //   }
+  // })
+  Promise.all([promise1, promise2, promise3, promise4]).then((results) => {
+    console.log("promise1 result:", results[0]);
+    console.log("promise2 result:", results[1]);
+    console.log("promise3 result:", results[2]);
+    console.log("promise4 result:", results[3]);
+
+    // Check if all the promises resolved to true
+    const allTrue = results.every(result => result === true);
+    if (allTrue) {
+      console.log("All promises are true");
+      $('#exampleModalCenter').modal('show');
+    } else {
+      console.log("Not all promises are true");
+      alert(`Please add boxes before adding samples`)
+    }
+  });
 
 }
 
@@ -2830,7 +2830,7 @@ function validateAndCollectData() {
         // db.ref(`sef`).once('value', snapshot => {
         //   const data = snapshot.val();
         //   const keysArray = [];
-      
+
         //   if (data) {
         //     // Loop through the keys and push them into keysArray
         //     Object.keys(data).forEach(key => {
@@ -2838,28 +2838,28 @@ function validateAndCollectData() {
         //     });
         //   }
         //   const bioBankId = document.getElementById('bioBankId').value;
-      
+
         //   const dbRef = db.ref(`sef/${bioBankId}`);
         //   const snapshot = await dbRef.get();
-      
+
         //   if (!snapshot.exists()) {
         //     console.log("No data found for bioBankId:", bioBankId);
         //     return;
         //   }
-      
+
         //   const dbData = snapshot.val();
         //   console.log("dbData", dbData);
-      
+
         //   Object.keys(dbData).forEach(seqNum => {
         //     const seqData = dbData[seqNum];
         //     console.log("seqData", seqData);
-      
+
         //     // Get the latest timestamp
         //     const latestTimestamp = Math.max(...Object.keys(seqData));
-      
+
         //     const timestampData = seqData[latestTimestamp];
         //     console.log("Latest timestampData", timestampData);
-      
+
         //     if(bioBankId.exists(keysArray)){
         //       db.ref(`sef/${bioBankId}/ ${seqNum}/${timestampData}`).once('value',snapshots=>{
         //         const data = snapshots.val();
@@ -2919,13 +2919,13 @@ function validateAndCollectData() {
         //       if (form1Data.ie.pc) {
         //         updatePC(form1Data.ie.pc, "PC");
         //       }
-      
+
         //       // updateBB(form1Data.ie.bpg, "Plasma");
         //       // updateBB(form1Data.ie.bsg, "Serum");
         //       // updateBB(form1Data.ie.bbcg, "Buffy Coat");
         //       // updateBB(form1Data.ie.osg, "Other");
-      
-      
+
+
         //       if (form1Data.ie.ftg !== "" && form1Data.ie.ftg !== null) {
         //         updateSB(form1Data.ie.ftg, "FT-1");
         //       }
@@ -2934,8 +2934,8 @@ function validateAndCollectData() {
         //       }
         //     }
         //   })
-          
-      
+
+
         //   console.log("Keys Array:", keysArray);
         // });
 
@@ -2945,18 +2945,18 @@ function validateAndCollectData() {
         let rltS = localStorage.getItem("rltVStatus");
         let pcV = localStorage.getItem("pcVVStatus");
 
-        console.log("local shared bs: ",bS)
-        console.log("local shared tS: ",tS)
-        console.log("local shared oS: ",oS)
-        console.log("local shared rltS: ",form1Data.ie.rlt)
-        console.log("local shared rltS: ", rltS ==="false" )
-        console.log("local shared rltS: ",form1Data.ie.rltS === "true" )
+        console.log("local shared bs: ", bS)
+        console.log("local shared tS: ", tS)
+        console.log("local shared oS: ", oS)
+        console.log("local shared rltS: ", form1Data.ie.rlt)
+        console.log("local shared rltS: ", rltS === "false")
+        console.log("local shared rltS: ", form1Data.ie.rltS === "true")
 
-        console.log("local shared pcV: ",pcV)
+        console.log("local shared pcV: ", pcV)
 
 
         console.log("Plasma data", form1Data.ie.bpg)
-        if(mode !== "SearchEdit" && mode !=="PendingEdit"){
+        if (mode !== "SearchEdit" && mode !== "PendingEdit") {
           if (form1Data.ie.bpg) {
             updateBB(form1Data.ie.bpg, "Plasma");
           }
@@ -2975,13 +2975,13 @@ function validateAndCollectData() {
           if (form1Data.ie.pc) {
             updatePC(form1Data.ie.pc, "PC");
           }
-  
+
           // updateBB(form1Data.ie.bpg, "Plasma");
           // updateBB(form1Data.ie.bsg, "Serum");
           // updateBB(form1Data.ie.bbcg, "Buffy Coat");
           // updateBB(form1Data.ie.osg, "Other");
-  
-  
+
+
           if (form1Data.ie.ftg !== "" && form1Data.ie.ftg !== null) {
             updateSB(form1Data.ie.ftg, "FT-1");
           }
@@ -2989,43 +2989,43 @@ function validateAndCollectData() {
             updateSB(form1Data.ie.fng, "FN-1");
           }
         }
-        else if(mode === "SearchEdit" || mode ==="PendingEdit"){
-          if (form1Data.ie.bpg && bS ==="false" && form1Data.ie.bs === "true") {
+        else if (mode === "SearchEdit" || mode === "PendingEdit") {
+          if (form1Data.ie.bpg && bS === "false" && form1Data.ie.bs === "true") {
             updateBB(form1Data.ie.bpg, "Plasma");
           }
-          if (form1Data.ie.bsg && bS ==="false" && form1Data.ie.bs === "true") {
+          if (form1Data.ie.bsg && bS === "false" && form1Data.ie.bs === "true") {
             updateBB(form1Data.ie.bsg, "Serum");
           }
-          if (form1Data.ie.bbcg && bS ==="false" && form1Data.ie.bs === "true") {
+          if (form1Data.ie.bbcg && bS === "false" && form1Data.ie.bs === "true") {
             updateBB(form1Data.ie.bbcg, "Buffy Coat");
           }
-          if (form1Data.ie.osg && oS ==="false" && form1Data.ie.osmp === "true") {
+          if (form1Data.ie.osg && oS === "false" && form1Data.ie.osmp === "true") {
             updateBB(form1Data.ie.osg, "Other");
           }
-          if (form1Data.ie.rlt && rltS ==="false" && form1Data.ie.rltS === "true") {
-            console.log("local rltS: ",rltS)
-            console.log("local rltS: ",form1Data.ie.rltS)
+          if (form1Data.ie.rlt && rltS === "false" && form1Data.ie.rltS === "true") {
+            console.log("local rltS: ", rltS)
+            console.log("local rltS: ", form1Data.ie.rltS)
             updateRLT(form1Data.ie.rlt, "Search update RLT");
           }
-          if (form1Data.ie.pc && (pcV ==="No" || pcV ==="Inprogress") && form1Data.ie.pcS === "true" && form1Data.ie.pssvl === "Yes") {
-            console.log("local pcS: ",pcS)
+          if (form1Data.ie.pc && (pcV === "No" || pcV === "Inprogress") && form1Data.ie.pcS === "true" && form1Data.ie.pssvl === "Yes") {
+            console.log("local pcS: ", pcS)
             updatePC(form1Data.ie.pc, "PC");
           }
-  
+
           // updateBB(form1Data.ie.bpg, "Plasma");
           // updateBB(form1Data.ie.bsg, "Serum");
           // updateBB(form1Data.ie.bbcg, "Buffy Coat");
           // updateBB(form1Data.ie.osg, "Other");
-  
-  
-          if (form1Data.ie.ftg !== "" && form1Data.ie.ftg !== null && tS ==="false" && form1Data.ie.ss === "true") {
+
+
+          if (form1Data.ie.ftg !== "" && form1Data.ie.ftg !== null && tS === "false" && form1Data.ie.ss === "true") {
             updateSB(form1Data.ie.ftg, "FT-1");
           }
-          if (form1Data.ie.fng !== "" && form1Data.ie.fng !== null && tS ==="false" && form1Data.ie.ss === "true") {
+          if (form1Data.ie.fng !== "" && form1Data.ie.fng !== null && tS === "false" && form1Data.ie.ss === "true") {
             updateSB(form1Data.ie.fng, "FN-1");
           }
         }
-        
+
         patients();
 
         if (updateMode === 'true') {
@@ -3207,7 +3207,7 @@ function validateForm1() {
       const dateTime = new Date(dateTimeString);
 
       if (!isNaN(dateTime.getTime())) {
-        return dateTime.getTime()/1000; // Returns timestamp in milliseconds
+        return dateTime.getTime() / 1000; // Returns timestamp in milliseconds
       }
     }
     return null; // If invalid or empty, return null
@@ -3322,7 +3322,9 @@ function validateForm1() {
           // stc: document.querySelector('input[name="radioCancerStage"]:checked').value,
           tpr: document.querySelector('input[name="customProcedure"]:checked').value,
           dpr: document.getElementById('procedureDetail').value,
-          srn: document.getElementById('surgeonName').value,
+          srn: mode === "undefined" ? document.getElementById('surgeonName').value : document.getElementById('surgeonName1').value,
+
+          // srn: document.getElementById('surgeonName').value,
           mts: document.querySelector('input[name="MetastasisSample"]:checked').value,
           mspt: proType,
           dm: document.querySelector('input[name="denovo"]:checked')?.value || "",
@@ -3344,7 +3346,7 @@ function validateForm1() {
           rltS: document.querySelector('input[name="rltSample"]:checked').value,
           rlt: rltSgrid,
           pcS: document.querySelector('input[name="pcbSample"]:checked').value,
-          pssvl: document.querySelector('input[name="pcbV"]:checked')?.value|| '',
+          pssvl: document.querySelector('input[name="pcbV"]:checked')?.value || '',
           pc: pcSgrid,
           cnst: document.querySelector('input[name="customConsent"]:checked')?.value || '',
           iss: document.querySelector('input[name="IschemicRadio"]:checked')?.value || '',
@@ -3385,8 +3387,8 @@ function validateForm2() {
   let tW = document.getElementById('tumorSizeW').value;
   let tH = document.getElementById('tumorSizeH').value;
   let tumorSize = `${tL}x${tW}x${tH}`;
-  let ajcc1 = document.getElementById('AJCC1').value; 
-  let ajcc2 = document.getElementById('AJCC2').value; 
+  let ajcc1 = document.getElementById('AJCC1').value;
+  let ajcc2 = document.getElementById('AJCC2').value;
   let ajcc = `${ajcc1}${ajcc2}`;
   const form2Data = {
     md: {
@@ -3931,9 +3933,8 @@ function pages_display(mode, bioBankId, seq, timestampKey) {
   // }
 }
 
-
 async function fillIeForm(ieData) {
-
+  // initialize()
   const gridData = (gridValue) => {
     return new Promise((resolve) => {
       const gridVal = gridValue;
@@ -3965,11 +3966,13 @@ async function fillIeForm(ieData) {
   document.getElementById('patAge').value = ieData.ag || '';
   document.querySelector(`input[name="customRadio"][value="${ieData.sx}"]`).checked = true || '';
   document.getElementById("cancer_type").value = ieData.ct || '';
+  console.log("cancer_type", document.getElementById('cancer_type'))
+
   // document.querySelector(`input[name="radioCancerStage"][value="${ieData.stc}"] `).checked = true || '';
   document.querySelector(`input[name="customProcedure"][value="${ieData.tpr}"]`).checked = true;
   document.getElementById('procedureDetail').value = ieData.dpr || '';
-  document.getElementById('surgeonName').value = ieData.srn;
-  console.log("surgeonName", ieData.srn)
+  document.getElementById('surgeonName1').value = ieData.srn;
+  console.log("surgeonName", document.getElementById('surgeonName'))
   document.querySelector(`input[name="MetastasisSample"][value="${ieData.mts}"]`).checked = true;
   if (ieData.dm) document.querySelector(`input[name="denovo"][value="${ieData.dm}"]`).checked = true;
   // if (mdData.mpt) document.querySelector(`input[name="MetaPT"][value="${mdData.mpt}"]`).checked = true;
@@ -4012,9 +4015,9 @@ async function fillIeForm(ieData) {
   const rltSgridNo = await gridData(ieData.rlt);
   document.getElementById('rltSgridNo').value = rltSgridNo || '';
   document.querySelector(`input[name="pcbSample"][value="${ieData.pcS}"]`).checked = true;
-  console.log("pcbv",ieData.pssvl)
-  if (ieData.pssvl !== undefined && ieData.pssvl !== '' ) document.querySelector(`input[name="pcbV"][value="${ieData.pssvl}"]`).checked = true;
-  
+  console.log("pcbv", ieData.pssvl)
+  if (ieData.pssvl !== undefined && ieData.pssvl !== '') document.querySelector(`input[name="pcbV"][value="${ieData.pssvl}"]`).checked = true;
+
   pcbSample();
   const pcSgridNo = await gridData(ieData.pc);
   document.getElementById('pcSgridNo').value = pcSgridNo || '';
@@ -4044,10 +4047,10 @@ async function fillIeForm(ieData) {
 
   const formatTimestamp = (timestamp) => {
     if (!timestamp) return { date: '', time: '' };
-    console.log("dateObj",timestamp)
+    console.log("dateObj", timestamp)
 
-    const dateObj = new Date(timestamp*1000);
-    console.log("dateObj",dateObj)
+    const dateObj = new Date(timestamp * 1000);
+    console.log("dateObj", dateObj)
     const date = dateObj.toISOString().split('T')[0];
     const time = dateObj.toTimeString().split(' ')[0];
     return { date, time };
@@ -4213,13 +4216,13 @@ function fillMdForm(mdData) {
   if (mdData.lvi) document.querySelector(`input[name="LVI"][value="${mdData.lvi}"]`).checked = true;
   if (mdData.pni) document.querySelector(`input[name="PNI"][value="${mdData.pni}"]`).checked = true;
   document.getElementById('pTNM').value = mdData.ptnm || '';
-  if(mdData.as){
+  if (mdData.as) {
     let ajcc = mdData.as;
     let ajcc1 = ajcc.slice(0, -1);
     let ajcc2 = ajcc.slice(-1);
     document.getElementById('AJCC1').value = ajcc1 || '';
     document.getElementById('AJCC2').value = ajcc2 || '';
-  }  
+  }
   document.getElementById('nodesTested').value = mdData.nnt || '';
   document.getElementById('positiveNodes').value = mdData.npn || '';
   if (mdData.tsz) {
@@ -4231,9 +4234,9 @@ function fillMdForm(mdData) {
   }
   // if (mdData.dm) document.querySelector(`input[name="denovo"][value="${mdData.dm}"]`).checked = true;
   // if (mdData.mpt) document.querySelector(`input[name="MetaPT"][value="${mdData.mpt}"]`).checked = true;
-    // document.getElementById('mpt_age').value = mdData.mptA || '';
-    // document.getElementById('mpt_site').value = mdData.mptS || '';
-    // document.getElementById('mpt_rs').value = mdData.mptRS || '';
+  // document.getElementById('mpt_age').value = mdData.mptA || '';
+  // document.getElementById('mpt_site').value = mdData.mptS || '';
+  // document.getElementById('mpt_rs').value = mdData.mptRS || '';
   // document.getElementById('btHPEInput').value = mdData.btn || '';
   // document.getElementById('biopsyDate').value = mdData.bd || '';
   // document.getElementById('StHPEInput').value = mdData.stn || '';
@@ -4919,37 +4922,63 @@ function updateSB(info) {
 }
 
 
+let followupDataStore = {};
 
 function retrieveFollowup(bioBankId) {
   const db = firebase.database();
   const dataPath = `Fw/${bioBankId}`;
   console.log('Path', dataPath);
+  document.getElementById('followUpCard').style.display = 'block';
+  document.getElementById('followForm').style.display = 'none';
   db.ref(dataPath).once('value')
     .then((snapshot) => {
       if (snapshot.exists()) {
         const followupData = snapshot.val();
+        const container = document.querySelector('.card-followUp-container');
+        container.innerHTML = '';
         console.log('Retrieved follow-up data:', followupData);
         const timestamps = Object.keys(followupData);
-        const latestTimestamp = Math.max(...timestamps.map((t) => parseInt(t)));
 
-        const latestData = followupData[latestTimestamp];
-        displayFollowupData(latestData);
-      }
-      else {
+        // Store the follow-up data in a global object for easy reference
+        followupDataStore = followupData;
+
+        timestamps.forEach(timestamp => {
+          const date = new Date(Number(timestamp));
+          console.log("timestamp", timestamp)
+          console.log("date", date)
+          const istTimestamp = date.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+
+          const cardTemplate = `
+            <div class="card-body row" style="justify-content: space-around;">
+              <h5 class="card-title">${bioBankId}</h5>
+              <p class="card-text">${istTimestamp}</p>
+              <a href="#" class="btn btn-primary" onclick="displayFollowupData('${timestamp}')">View</a>
+            </div>
+          `;
+
+          container.insertAdjacentHTML('beforeend', cardTemplate);
+        });
+      } else {
         console.log('No follow-up data found for this BioBank ID.');
+        const container = document.querySelector('.card-followUp-container');
+        container.innerHTML = '<p>No Follow data available.</p>';
       }
     })
     .catch((error) => {
       console.error('Error retrieving follow-up data:', error);
       alert('There was an error retrieving the follow-up information. Please try again.');
     });
-
-
 }
 
-function displayFollowupData(data) {
-  // pet: '',  // Assuming you have a field for PET finding that needs to be populated
 
+function displayFollowupData(timestamp) {
+
+
+  const data = followupDataStore[timestamp];
+  console.log("follow Up data info: ", data)
+  // pet: '',  // Assuming you have a field for PET finding that needs to be populated
+  document.getElementById('followUpCard').style.display = 'none';
+  document.getElementById('followForm').style.display = 'block';
   console.log('Displaying follow-up data:', data);
   document.querySelector(`input[name="flexRadioDefault"][value="${data.lfs}"]`).checked = true;
   document.getElementById('otherR').value = data.othrs || '';
@@ -5827,7 +5856,7 @@ function retrieveOs(bioBankId) {
         console.log('Retrieved OutSource data:', outSourceData);
 
         // Clear any existing card bodies before populating new ones
-        const container = document.querySelector('.card-container');
+        const container = document.querySelector('.card-shared-container');
         container.innerHTML = '';
 
         // Loop through the sequence numbers in the data
@@ -5860,7 +5889,7 @@ function retrieveOs(bioBankId) {
         });
       } else {
         console.log('No OutSource data found for this BioBank ID.');
-        const container = document.querySelector('.card-container');
+        const container = document.querySelector('.card-shared-container');
         container.innerHTML = '<p>No OutSource data available.</p>';
       }
     })
@@ -5971,6 +6000,73 @@ function shared_pages_display(mode, bioBankId, seq, boxName, timestampKey) {
   }
 }
 
+function follow_pages_display(mode, bioBankId, seq, timestamp) {
+  console.log("mode", mode);
+  console.log("bioBankId", bioBankId);
+  // console.log("boxName", boxName)
+
+  var dataPath = `Fw/${bioBankId}/`;
+
+  console.log("datapath", dataPath);
+  console.log("DataConfig", db);
+
+  localStorage.setItem('bioid', bioBankId);
+  localStorage.setItem('mode', mode);
+
+
+  if (mode != "") {
+    console.log('dataPath', dataPath);
+    db.ref(dataPath).once('value')
+      .then(snapshot => {
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          console.log("Fetched data:", data);
+          sessionStorage.setItem('FollowData', JSON.stringify(data));
+          const storedData = sessionStorage.getItem('FollowData');
+          if (storedData) {
+            const parsedData = JSON.parse(storedData);
+            console.log('parsedData', parsedData);
+          } else {
+            console.log('No formData found in sessionStorage');
+          }
+          switch (mode) {
+            case 'ViewFollowUp':
+              localStorage.setItem("selectedGrid", "");
+              window.location.href = `default.html?mode=view`;
+              break;
+
+            default:
+              console.error('Unknown mode:', mode);
+          }
+        } else {
+          console.error('No data found at the specified path');
+        }
+      }).catch(error => {
+        console.error("Error fetching data:", error);
+      });
+  }
+  else if (mode === "") {
+    localStorage.setItem("selectedGrid", "");
+    window.location.href = "default.html";
+  }
+  else if (mode === undefined) {
+    const formElements = [
+      ...document.querySelectorAll('input, select, textarea'),
+    ];
+
+    // if (!mdData.pst) {
+    //   // Disable all elements
+    //   formElements.forEach((element) => {
+    //     element.disabled = true;
+    //   });
+
+    //   return; // Exit the function if `pst` is not available
+    // }
+
+  }
+}
+
+
 function displayOutsourceData(data) {
   console.log('Displaying Outsource data:', data);
 
@@ -6037,6 +6133,12 @@ function goToTimestampCard() {
   document.getElementById('shareForm').style.display = 'none';
 
   document.getElementById('sharedCard').style.display = 'block';
+}
+
+function goToFollowCard() {
+  document.getElementById('followForm').style.display = 'none';
+
+  document.getElementById('followUpCard').style.display = 'block';
 }
 let bnLocalS = [];
 
@@ -6193,7 +6295,7 @@ function pcbSample() {
     if ($('#pcbVY').is(':checked')) {
       $('#pcbSampleTubes').show();
     }
-    
+
   }
   else if ($('#pcbSampleN').is(':checked')) {
     $('#pcbSampleTubes').hide();
@@ -6489,3 +6591,33 @@ function toggleMetastasisFields() {
 function searchLoadingModal() {
   document.getElementById('loading').style.display = 'flex';
 }
+
+
+function initialize() {
+  var surInfo = db.ref("doctors");
+  surInfo.once("value")
+    .then(snap => {
+      if (snap.val() != null) {
+        const doctorsData = snap.val();
+        console.log("snap", doctorsData);
+
+        var surData = [];
+        surData.push("");
+        doctorsData.forEach((data) => {
+          surData.push(data);
+        });
+
+        // const surNameBox = document.getElementById('surgeonName');
+        // surNameBox.innerHTML = ""
+        // surData.forEach(name => {
+        //   const surName = `<option value="${name}">${name}</option>`
+        //   surNameBox.insertAdjacentHTML('beforeend', surName);
+        // }
+        
+        // )
+        // console.log("surgeonName", document.getElementById('surgeonName'))
+        // console.log("cancer_type", document.getElementById('cancer_type'))
+      }
+    });
+   
+  }
