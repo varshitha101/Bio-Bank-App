@@ -314,8 +314,29 @@
 
               <div class="row ml-1 mb-3">
                 <label for="surgeonName" class="col-sm-2 mb-1 col-form-label">Surgeon Name</label>
-                <div class="col-sm-10 mt-2">
+                <!-- <div class="col-sm-10 mt-2">
                   <input type="text" class="form-control" id="surgeonName" placeholder="Enter the Name of Surgeon">
+                </div> -->
+                <div class="col-sm-10 mt-2">
+                  <select id="surgeonName" class="form-control" style="display: none;">
+                    <option value=""></option>
+                    <option value="Dr.BSSrinath">Dr.BSSrinath</option>
+                    <option value="Dr.Manjunath Shastry">Dr.Manjunath Shastry</option>
+                    <option value="Dr.Lohita Krishna">Dr.Lohita Krishna</option>
+                    <option value="Dr.HG Srivatsa">Dr.HG Srivatsa</option>
+                    <option value="Dr.Sanjeev Kulkarni">Dr.Sanjeev Kulkarni</option>
+                    <option value="Dr. Srivatsa VN">Dr. Srivatsa VN</option>
+                    <option value="Dr. PK Jain">Dr. PK Jain</option>
+                    <option value="Dr. Annapurna V">Dr. Annapurna V</option>
+                    <option value="Dr. Vishnu Kurpad">Dr. Vishnu Kurpad</option>
+                    <option value="Dr. Karthik N Rao">Dr. Karthik N Rao</option>
+                    <option value="Dr. Arjun Kashyap">Dr. Arjun Kashyap</option>
+                    <option value="Dr. Sasi Mouli">Dr. Sasi Mouli</option>
+                    <option value="Dr. Sunil Kalmath">Dr. Sunil Kalmath</option>
+
+                  </select>
+                  <input type="text" class="form-control" id="surgeonName1" placeholder="" style="display: none;">
+
                 </div>
               </div>
               <!-- <div class="row ml-1 mb-3">
@@ -1804,7 +1825,12 @@
         </div>
 
         <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
-          <form class="form-group mt-3">
+          <div class="card" id="followUpCard" style="display: none;">
+            <div class="card-container card-followUp-container">
+
+            </div>
+          </div>
+          <form class="form-group mt-3" id="followForm" style="display: block;">
             <div class="form-check pl-2">
               <div class="row ml-1 mb-3">
                 <label class="col-sm-2 col-form-label Bold" for="">Last Followup status <span
@@ -1852,6 +1878,7 @@
                   </div>
                 </div>
               </div>
+
 
 
 
@@ -1928,7 +1955,8 @@
               </div>
               <div class="row " id="followDone" style="text-align: center; display: none;">
                 <div class="col-sm-12">
-                  <button type="button" class="btn btn-success" id="finishButton1" >Finish</button>
+                  <button type="button" class="btn btn-success" id="finishButton1"
+                    onclick="goToFollowCard()">Back</button>
                   <!-- Function call here -->
                 </div>
               </div>
@@ -1947,16 +1975,10 @@
 
         <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="tab3-tab">
           <div class="card" id="sharedCard" style="display: none;">
-            <!-- <div class="card-header" style="text-align: center;">
-              Featured
-            </div> -->
-            <div class="card-container">
-              <!-- Cards will be dynamically inserted here -->
+            <div class="card-container card-shared-container">
+
             </div>
           </div>
-
-
-
           <form class="form-group mt-3" id="shareForm" style="display: block;">
             <div class="row ml-1 mb-3">
               <label for="startInput" class="col-sm-2 mb-1 col-form-label col-form-label Bold">Date <span
@@ -2319,7 +2341,7 @@
 
       </div>
       <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255);">
-        Version 1.6.1
+        Version 1.6.2
       </div>
     </div>
   </footer>
@@ -2343,6 +2365,7 @@
 
     const app = firebase.initializeApp(firebaseConfig);
     const db = firebase.database(app);
+    initialize();
 
     localStorage.removeItem('selectedGrid');
     localStorage.removeItem("selectedSGrid");
@@ -2446,6 +2469,17 @@
         console.log("Saved to Firebase!")
       });
     });
+    document.addEventListener('DOMContentLoaded', function () {
+      let mode = localStorage.getItem('mode');
+      if (mode!=="undefined"){
+        document.getElementById("surgeonName1").style.display = "Block";
+        document.getElementById("surgeonName").style.display = "none";
+      }
+      if(mode==="undefined"){
+        document.getElementById("surgeonName").style.display = "Block";
+        document.getElementById("surgeonName1").style.display = "none";
+      }
+    });
 
     document.getElementById('submitButton').addEventListener('click', function () {
       validateAndCollectData();
@@ -2454,9 +2488,9 @@
     document.getElementById('finishButton').addEventListener('click', function () {
       window.history.back();
     });
-    document.getElementById('finishButton1').addEventListener('click', function () {
-      window.history.back();
-    });
+    // document.getElementById('finishButton1').addEventListener('click', function () {
+    //   window.history.back();
+    // });
     document.getElementById('followDone').addEventListener('click', function () {
       window.history.back();
     });
@@ -7626,6 +7660,7 @@
 
 
     document.addEventListener('DOMContentLoaded', function () {
+
       const formData = sessionStorage.getItem('formData');
       let mode = localStorage.getItem('mode');
       let biobankID = localStorage.getItem('bioid')
@@ -7637,6 +7672,8 @@
         const submitBtn = document.getElementById("submitButton");
         const finishBtn = document.getElementById('finishButton');
         const followUpBtn = document.getElementById('subFollowUp');
+        const followDone = document.getElementById('followDone');
+
         // document.getElementById('tab2-tab').classList.add('disabled');
         // document.getElementById('tab3-tab').classList.add('disabled');
         document.getElementById("backToCardBtn").style.display = 'none';
@@ -7644,6 +7681,7 @@
         document.getElementById("shareSubmit").style.display = 'none';
         document.getElementById("rcbScores").placeholder = "";
         document.getElementById('breadBack').style.display = "block";
+        document.getElementById('tab3-tab').classList.add('disabled');
 
         // formElements.forEach(element => {
         //   element.disabled = true;
@@ -7656,6 +7694,8 @@
             element.disabled = true;
           }
         });
+        followDone.style.display = 'block'
+
         finishBtn.style.display = 'block'
         doneBtn.style.display = 'none'
         doneBtn2.style.display = 'none'
@@ -7716,6 +7756,7 @@
 
         document.getElementById('tab3-tab').classList.add('disabled');
         document.getElementById('patAge').setAttribute('disabled', true);
+        document.getElementById('surgeonName1').setAttribute('disabled', true);
 
         const gdrInputs = document.querySelectorAll('input[name="customRadio"]');
         gdrInputs.forEach(input => {
@@ -7756,7 +7797,6 @@
 
 
       if (formData && mode !== "undefined" && mode !== 'ViewFollowUp') {
-
         const data = JSON.parse(formData);
         console.log("Data retrieved from sessionStorage:", data);
         localStorage.removeItem("bloodVStatus");
@@ -7861,6 +7901,7 @@
       }
       if (mode === 'ViewFollowUp' || mode === 'SearchView') {
         retrieveFollowup(biobankID);
+
       }
 
     });
@@ -8448,8 +8489,7 @@
       document.querySelectorAll('input[name="customProcedure"]').forEach(function (radio) {
         radio.addEventListener("change", function () {
           console.log("Data testing");
-
-          fillform();
+          fillform()
         });
       });
     });
