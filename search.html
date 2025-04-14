@@ -188,14 +188,13 @@
                   <th class="head-text" scope="col">Age</th>
                   <th class="head-text" scope="col">Gender</th>
                   <th class="head-text" scope="col">Cancer Type</th>
-                  <!-- <th scope="col">Stage of Cancer</th>-->
                   <th class="head-text" scope="col">Grade </th>
                   <th class="head-text" scope="col">Action</th>
                 </tr>
               </thead>
               <tbody class="patientTableBody" style="scroll-behavior: smooth">
                 <tr class="patientRow">
-                  <td></td>
+                  <!-- <td></td> -->
                   <th scope="row" class="sno"></th>
                   <td class="patientName"></td>
                   <td class="age"></td>
@@ -314,7 +313,7 @@
 
               </div>
 
-              <div class="form-group col-xs-2 mr-2">
+              <!-- <div class="form-group col-xs-2 mr-2">
                 <label for="ischemicInput">Ischemic</label>
                 <select id="ischemicInput" class="form-control">
 
@@ -322,9 +321,9 @@
                   <option value="Yes">Yes</option>
                   <option value="No">No</option>
                 </select>
-              </div>
+              </div> -->
               <div class="form-group col-xs-2 mr-2">
-                <label for="metaInput">Metastasis</label>
+                <label for="metaInput">Event</label>
                 <select id="metaInput" class="form-control">
 
                   <option selected>All</option>
@@ -418,16 +417,14 @@
 
 
               <div class="form-group col-xs-2 mr-2">
-                <label for="AJCCInput1">AJCC Staging</label>
-                <select id="AJCCInput1" class="form-control">
+                <label for="fh1">Family History</label>
+                <select id="fh1" class="form-control">
                   <option selected>All</option>
-                  <option value="I">I</option>
-                  <option value="II">II</option>
-                  <option value="III">III</option>
-                  <option value="IV">IV</option>
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
                 </select>
               </div>
-              <div class="form-group col-xs-2 mr-2">
+              <!-- <div class="form-group col-xs-2 mr-2">
                 <label for="AJCCInput2">AJCC Staging</label>
                 <select id="AJCCInput2" class="form-control">
                   <option selected>All</option>
@@ -435,16 +432,17 @@
                   <option value="B">B</option>
                   <option value="C">C</option>
                 </select>
-              </div>
+              </div> -->
               <div class="form-group col-xs-2 mr-2">
-                <label for="cSubInput">Clinical Subtype</label>
+                <label for="cSubInput">Subtype</label>
                 <select id="cSubInput" class="form-control">
                   <option selected>All</option>
                   <option value="HR positive">HR positive</option>
                   <option value="Her2 enriched">Her2 enriched</option>
                   <option value="Triple positive">Triple positive</option>
                   <option value="TNBC">TNBC</option>
-
+                  <option value="Low_ER">Low ER</option>
+                  <option value="Low_Her2">Low Her2</option>
                 </select>
               </div>
 
@@ -452,8 +450,7 @@
             <div class="row mb-1" style="justify-content: space-around">
               <div class="row">
                 <div style="justify-content: space-around">
-                  <button type="submit" class="btn btn-primary" id="sampleSubmit"
-                    onclick="searchLoadingModal(); searchSample(event);">
+                  <button type="submit" class="btn btn-primary" id="sampleSubmit" onclick="searchSample(event);">
                     Submit
                   </button>
                 </div>
@@ -536,7 +533,7 @@
                   <th class="head-text" scope="col">Sample Type</th>
                   <th class="head-text" scope="col">Cancer Type</th>
                   <!--  <th scope="col">Stage of Cancer</th> -->
-                  <th class="head-text" scope="col">Grade</th>
+                  <th class="head-text" scope="col">Nodal Status</th>
                   <th class="head-text" scope="col">Action</th>
                 </tr>
               </thead>
@@ -727,7 +724,7 @@
       </div>
       <div class="credits"></div>
       <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">
-        Version 1.6.2
+        Version 1.7.0
       </div>
     </div>
   </footer>
@@ -761,7 +758,7 @@
     document.getElementById("ageCriterion").value = sessionStorage.getItem("ageCriterion")
     document.getElementById("ageInput").value = sessionStorage.getItem("ageInput")
     document.getElementById("cancerTypeInput").value = sessionStorage.getItem("cancerTypeInput")
-    document.getElementById("ischemicInput").value = sessionStorage.getItem("ischemicInput")
+    // document.getElementById("ischemicInput").value = sessionStorage.getItem("ischemicInput")
 
     document.getElementById("gradeInput").value = sessionStorage.getItem("gradeInput")
     document.getElementById("nactInput").value = sessionStorage.getItem("nactInput")
@@ -770,8 +767,9 @@
     document.getElementById("sampleavailable").value = sessionStorage.getItem("sampleAvailable")
     document.getElementById("cSubInput").value = sessionStorage.getItem("clinicalSubInput")
     document.getElementById("metaInput").value = sessionStorage.getItem("metaInput")
-    document.getElementById("AJCCInput1").value = sessionStorage.getItem("ajjcInput1")
-    document.getElementById("AJCCInput2").value = sessionStorage.getItem("ajjcInput2")    
+    document.getElementById("fh1").value = sessionStorage.getItem("FamilyHInput")
+    // document.getElementById("AJCCInput2").value = sessionStorage.getItem("ajjcInput2")    
+
   </script>
   <script>
 
@@ -797,7 +795,7 @@
     document.getElementById('sampleSubmit').addEventListener('click', function () {
       const naviButtons = document.getElementById('naviButtons');
       naviButtons.style.display = 'block'
-      searchLoadingModal();
+      // searchLoadingModal();
     });
     let allDataDown = [];
     // let sBioVal = document.getElementById('bioInput').value;
@@ -880,10 +878,10 @@
       searchLoadingModal();
       setTimeout(() => {
 
-      indRowsPerPage = parseInt(this.value) || 10;
-      console.log("Rows per page for Ind updated to:", indRowsPerPage);
-      currentPage = 1;
-      displayIndSefEntries(filteredSefData);
+        indRowsPerPage = parseInt(this.value) || 10;
+        console.log("Rows per page for Ind updated to:", indRowsPerPage);
+        currentPage = 1;
+        displayIndSefEntries(filteredSefData);
       }, 1);
     });
 
@@ -891,14 +889,14 @@
       document.getElementById('loading').style.display = 'flex';
       setTimeout(() => {
         const value = this.value; // Get the selected value
-      if (value === "all") {
-        samRowsPerPage = "all"; // Set samRowsPerPage to "all"
-      } else {
-        samRowsPerPage = parseInt(value) || 10; // Use the selected number or default to 10
-      }
-      console.log("Rows per page for sam updated to:", samRowsPerPage);
-      currentPage = 1;
-      displaySamPatients(filteredPatientData);
+        if (value === "all") {
+          samRowsPerPage = "all"; // Set samRowsPerPage to "all"
+        } else {
+          samRowsPerPage = parseInt(value) || 10; // Use the selected number or default to 10
+        }
+        console.log("Rows per page for sam updated to:", samRowsPerPage);
+        currentPage = 1;
+        displaySamPatients(filteredPatientData);
 
       }, 1);
 
@@ -1295,26 +1293,62 @@
       });
     }
 
+    // function sharedFunc() {
+    //   selectedSerialNumData
+    //   const checkedBoxes = document.querySelectorAll(".selection:checked");
+
+    //   const selectedPatients = [];
+
+    //   console.log("checked boxes print -- ", checkedBoxes);
+
+    //   if (checkedBoxes.length === 0) {
+    //     console.log(" No sample is selected ---- ");
+    //     alert("Please select a sample to Share");
+    //     return
+    //   }
+
+    //   checkedBoxes.forEach((checkbox) => {
+    //     const row = checkbox.closest("tr");
+    //     const bioBankId = row.getAttribute("data-bioBankId");
+    //     const seqKey = row.getAttribute("data-seqKey");
+    //     const timestampKey = row.getAttribute("data-timestampKey");
+    //     const gridData = row.getAttribute("data-grid");
+    //     const boxName = row.getAttribute("data-box");
+
+    //     selectedPatients.push({
+    //       bioBankId: bioBankId,
+    //       seqKey: seqKey,
+    //       timestampKey: timestampKey,
+    //       gridData: gridData,
+    //       boxName: boxName,
+    //     });
+    //   });
+    //   const mode = "share";
+    //   shareData(mode, selectedPatients);
+    //   console.log("Selected patients for sharing:", selectedPatients);
+    // }
+
     function sharedFunc() {
-      const checkedBoxes = document.querySelectorAll(".selection:checked");
+      selectedSerialNumData
+      // const checkedBoxes = document.querySelectorAll(".selection:checked");
 
       const selectedPatients = [];
 
-      console.log("checked boxes print -- ", checkedBoxes);
+      // console.log("checked boxes print -- ", checkedBoxes);
 
-      if (checkedBoxes.length === 0) {
+      if (selectedSerialNumData.length === 0) {
         console.log(" No sample is selected ---- ");
         alert("Please select a sample to Share");
         return
       }
 
-      checkedBoxes.forEach((checkbox) => {
-        const row = checkbox.closest("tr");
-        const bioBankId = row.getAttribute("data-bioBankId");
-        const seqKey = row.getAttribute("data-seqKey");
-        const timestampKey = row.getAttribute("data-timestampKey");
-        const gridData = row.getAttribute("data-grid");
-        const boxName = row.getAttribute("data-box");
+      selectedSerialNumData.forEach((data) => {
+        // const row = checkbox.closest("tr");
+        const bioBankId = data.bioBankId;
+        const seqKey = data.seqKey;
+        const timestampKey = data.timestampKey;
+        const gridData = data.gridData;
+        const boxName = data.boxName;
 
         selectedPatients.push({
           bioBankId: bioBankId,
@@ -1446,9 +1480,9 @@
           if (patient.mspt === 'Sx') {
             metas = "Resection"
           } if (patient.mspt === 'MBx') {
-            metas = "Metastasis Biopsy"
+            metas = "Event Biopsy"
           } if (patient.mspt === 'MSx') {
-            metas = "Metastasis Resection"
+            metas = "Event Resection"
           }
         }
 
@@ -1551,7 +1585,7 @@
     }
 
     let selectedSerialNumbers = [];
-
+    let selectedSerialNumData = [];
 
     async function displaySamPatients(data) {
       // event.preventDefault();
@@ -1620,8 +1654,11 @@
             if (patientmd && patientmd.gd) {
               patientdd.gd = patientmd?.gd.charAt(0).toUpperCase() + patientmd?.gd.slice(1);
             }
+            if (patientmd && patientmd.npt) {
+              patientdd.npt = patientmd.npt;
+            }
             patient = patientdd;
-            // console.log("patient.gd", patient, patient.gd)
+            console.log("patient.gd", patient, patient.npn)
           }
 
           const fields = ["bpg", "bsg", "bbcg", "ftg", "fng", "osg", "rlt", "pc"];
@@ -1850,7 +1887,7 @@
             sampleType,
             patientData,
           } = sequence;
-
+          // console.log("nodal status: ", patientData.npn)
           const row = document.createElement("tr");
           row.classList.add("patientRow");
           row.setAttribute("data-bioBankId", bioBankId);
@@ -1875,7 +1912,7 @@
             <th class="head-text" scope="col">Sample Type</th>
             <th class="head-text" scope="col">Cancer Type</th>
             <!--  <th scope="col">Stage of Cancer</th> -->
-            <th class="head-text" scope="col">Grade</th>
+            <th class="head-text" scope="col">Nodal Status</th>
             <th class="head-text" scope="col">Action</th>
           </tr>
         `;
@@ -1891,7 +1928,7 @@
         <td class="grid small-text">${seat || '-'}</td>
         <td class="sampleType small-text">${sampleType || "-"}</td>
         <td class="cancerType small-text">${patientData.ct === "brst" ? "Breast Cancer" : "-"}</td>
-        <td class="grade small-text">${patientData.gd || "-"}</td>
+        <td class="grade small-text">${patientData.npn <= 0 ? 'Negative' : patientData.npn > 0 ? 'Positive' : "-"}</td>
         <td class="action small-text">
           <div class="btn-group" role="group" aria-label="Patient Actions">
           <button class="btn btn-primary btn-sm small-text" onclick="editPatient('${bioBankId}', '${seqKey}', '${timestampKey}')">
@@ -1917,10 +1954,27 @@
             const serialNumber = event.target.getAttribute("data-serial-number");
             if (event.target.checked) {
               selectedSerialNumbers.push(serialNumber);
-            } else {
-              selectedSerialNumbers = selectedSerialNumbers.filter(num => num !== serialNumber);
+              const row = event.target.closest("tr");
+              const bioBankId = row.getAttribute("data-bioBankId");
+              const seqKey = row.getAttribute("data-seqKey");
+              const timestampKey = row.getAttribute("data-timestampKey");
+              const gridData = row.getAttribute("data-grid");
+              const boxName = row.getAttribute("data-box");
+              selectedSerialNumData.push({
+                bioBankId: bioBankId,
+                seqKey: seqKey,
+                timestampKey: timestampKey,
+                gridData: gridData,
+                boxName: boxName,
+              });
             }
-            // console.log("Selected serial numbers: ", selectedSerialNumbers);
+            else {
+              selectedSerialNumbers = selectedSerialNumbers.filter(num => num !== serialNumber);
+              const row = event.target.closest("tr");
+              selectedSerialNumData = selectedSerialNumData.filter(data => data.bioBankId !== row.getAttribute("data-bioBankId") || data.seqKey !== row.getAttribute("data-seqKey") || data.timestampKey !== row.getAttribute("data-timestampKey") || data.gridData !== row.getAttribute("data-grid") || data.boxName !== row.getAttribute("data-box"));
+            }
+            console.log("Selected serial numbers: ", selectedSerialNumbers);
+            console.log("Selected serial numbers Data: ", selectedSerialNumData);
           });
         });
 
@@ -1935,15 +1989,31 @@
             if (isChecked) {
               if (!selectedSerialNumbers.includes(serialNumber)) {
                 selectedSerialNumbers.push(serialNumber);
+                const row = event.target.closest("tr");
+                const bioBankId = row.getAttribute("data-bioBankId");
+                const seqKey = row.getAttribute("data-seqKey");
+                const timestampKey = row.getAttribute("data-timestampKey");
+                const gridData = row.getAttribute("data-grid");
+                const boxName = row.getAttribute("data-box");
+                selectedSerialNumData.push({
+                  bioBankId: bioBankId,
+                  seqKey: seqKey,
+                  timestampKey: timestampKey,
+                  gridData: gridData,
+                  boxName: boxName,
+                });
               }
             } else {
               selectedSerialNumbers = [];
+              selectedSerialNumData = [];
             }
           });
           if (isChecked) {
             selectedSerialNumbers = Array.from({ length: allSequences.length }, (_, i) => (i + 1).toString());
           }
-          // console.log("Selected serial numbers: ", selectedSerialNumbers);
+          console.log("Selected serial numbers: ", selectedSerialNumbers);
+          console.log("Selected serial numbers Data: ", selectedSerialNumData);
+
         });
 
         if (selectedSerialNumbers.length === allSequences.length) {
@@ -1995,7 +2065,7 @@
       const ageCriterion = document.getElementById("ageCriterion").value;
       const ageInput = parseInt(document.getElementById("ageInput").value);
       const cancerTypeInput = document.getElementById("cancerTypeInput").value;
-      const ischemicInput = document.getElementById("ischemicInput").value;
+      // const ischemicInput = document.getElementById("ischemicInput").value;
       const gradeInput = document.getElementById("gradeInput").value;
       const nactInput = document.getElementById("nactInput").value;
       const pathSubtypeInput = document.getElementById("pathSubtype").value;
@@ -2005,8 +2075,8 @@
       const sampleAvailable = document.getElementById("sampleavailable").value;
       const clinicalSubInput = document.getElementById("cSubInput").value;
       const metaInput = document.getElementById("metaInput").value;
-      const ajjcInput1 = document.getElementById("AJCCInput1").value;
-      const ajjcInput2 = document.getElementById("AJCCInput2").value;
+      const FamilyHInput = document.getElementById("fh1").value;
+      // const ajjcInput2 = document.getElementById("AJCCInput2").value;
 
       console.log("sampleTypeInput: ", sampleTypeInput);
 
@@ -2014,7 +2084,7 @@
       sessionStorage.setItem("ageCriterion", ageCriterion)
       sessionStorage.setItem("ageInput", ageInput)
       sessionStorage.setItem("cancerTypeInput", cancerTypeInput)
-      sessionStorage.setItem("ischemicInput", ischemicInput)
+      // sessionStorage.setItem("ischemicInput", ischemicInput)
       sessionStorage.setItem("gradeInput", gradeInput)
       sessionStorage.setItem("nactInput", nactInput)
       sessionStorage.setItem("pathSubtypeInput", pathSubtypeInput)
@@ -2022,8 +2092,8 @@
       sessionStorage.setItem("sampleAvailable", sampleAvailable)
       sessionStorage.setItem("clinicalSubInput", clinicalSubInput)
       sessionStorage.setItem("metaInput", metaInput)
-      sessionStorage.setItem("ajjcInput1", ajjcInput1)
-      sessionStorage.setItem("ajjcInput2", ajjcInput2)
+      sessionStorage.setItem("FamilyHInput", FamilyHInput)
+      // sessionStorage.setItem("ajjcInput2", ajjcInput2)
 
 
       if (!window.patientData) {
@@ -2035,15 +2105,16 @@
         ageCriterion,
         ageInput,
         cancerTypeInput,
-        ischemicInput,
+        // ischemicInput,
         gradeInput,
         nactInput,
         pathSubtypeInput,
         sampleTypeInput,
         sampleAvailable,
         metaInput,
-        ajjcInput1,
-        ajjcInput2,
+        // ajjcInput1,
+        FamilyHInput,
+        // ajjcInput2,
         clinicalSubInput
       };
 
@@ -2095,11 +2166,11 @@
               (criteria.nactInput === "Yes" && patientData.nact === "true") ||
               (criteria.nactInput === "No" && patientData.nact === "false");
 
-            const ischemicMatch =
-              criteria.ischemicInput === "All" ||
-              !criteria.ischemicInput ||
-              (criteria.ischemicInput === "Yes" && patientData.iss === "true") ||
-              (criteria.ischemicInput === "No" && patientData.iss === "false");
+            // const ischemicMatch =
+            //   criteria.ischemicInput === "All" ||
+            //   !criteria.ischemicInput ||
+            //   (criteria.ischemicInput === "Yes" && patientData.iss === "true") ||
+            //   (criteria.ischemicInput === "No" && patientData.iss === "false");
 
 
             const pathSubtypeMatch =
@@ -2204,20 +2275,23 @@
               (criteria.metaInput === "Yes" && patientData.mts === "true") ||
               (criteria.metaInput === "No" && patientData.mts === "false");
 
-            const ajjcInputMatch1 =
-              criteria.ajjcInput1 === "All" ||
-              !criteria.ajjcInput1 ||
-              (criteria.ajjcInput1 === "I" && patientmd.as.slice(0, -1) === "I") ||
-              (criteria.ajjcInput1 === "II" && patientmd.as.slice(0, -1) === "II") ||
-              (criteria.ajjcInput1 === "III" && patientmd.as.slice(0, -1) === "III") ||
-              (criteria.ajjcInput1 === "IV" && patientmd.as.slice(0, -1) === "IV");
+            // const ajjcInputMatch1 =
+            //   criteria.ajjcInput1 === "All" ||
+            //   !criteria.ajjcInput1 ||
+            //   (criteria.metaInput === "Yes" && patientData.mts === "true") ||
+            //   (criteria.metaInput === "No" && patientData.mts === "false");
 
-            const ajjcInputMatch2 =
-              criteria.ajjcInput2 === "All" ||
-              !criteria.ajjcInput2 ||
-              (criteria.ajjcInput2 === "A" && patientmd.as.slice(-1) === "A") ||
-              (criteria.ajjcInput2 === "B" && patientmd.as.slice(-1) === "B") ||
-              (criteria.ajjcInput2 === "C" && patientmd.as.slice(-1) === "C");
+            // const ajjcInputMatch2 =
+            //   criteria.ajjcInput2 === "All" ||
+            //   !criteria.ajjcInput2 ||
+            //   (criteria.metaInput === "Yes" && patientData.mts === "true") ||
+            //   (criteria.metaInput === "No" && patientData.mts === "false");
+
+            const FamilyHInputMatch =
+              criteria.FamilyHInput === "All" ||
+              !criteria.FamilyHInput ||
+              (criteria.FamilyHInput === "Yes" && patientmd.fhc === "true") ||
+              (criteria.FamilyHInput === "No" && patientmd.fhc === "false");
 
             const cSubInputMatch =
               criteria.clinicalSubInput === "All" ||
@@ -2225,10 +2299,12 @@
               (criteria.clinicalSubInput === "HR positive" && patientbrf.sbt === "HR positive") ||
               (criteria.clinicalSubInput === "Her2 enriched" && patientbrf.sbt === "Her2 enriched") ||
               (criteria.clinicalSubInput === "Triple positive" && patientbrf.sbt === "Triple positive") ||
-              (criteria.clinicalSubInput === "TNBC" && patientbrf.sbt === "TNBC");
+              (criteria.clinicalSubInput === "TNBC" && patientbrf.sbt === "TNBC") ||
+              (criteria.clinicalSubInput === "Low_ER" && patientbrf.sbt === "Low_ER") ||
+              (criteria.clinicalSubInput === "Low_Her2" && patientbrf.sbt === "Low_Her2");
 
 
-            if (ageMatch && cancerTypeMatch && gradeMatch && nactMatch && ischemicMatch && pathSubtypeMatch && sampleTypeMatch && metaInputMatch && ajjcInputMatch1 && ajjcInputMatch2 && cSubInputMatch) {
+            if (ageMatch && cancerTypeMatch && gradeMatch && nactMatch && pathSubtypeMatch && sampleTypeMatch && metaInputMatch && FamilyHInputMatch && cSubInputMatch) {
               if (!filteredPatientData[bioBankId][seqNumber]) {
                 filteredPatientData[bioBankId][seqNumber] = {};
               }
@@ -2236,8 +2312,8 @@
                 if (!string) return string;
                 return string.charAt(0).toUpperCase() + string.slice(1);
               }
-
-              filteredPatientData[bioBankId][seqNumber][nestedKey] = { ...patientData, gd: capitalizeFirstLetter(patientmd?.gd) };
+              // console.log("nnt",patientmd.nnt)
+              filteredPatientData[bioBankId][seqNumber][nestedKey] = { ...patientData, gd: capitalizeFirstLetter(patientmd?.gd), npn: patientmd?.npn };
 
               /*if (sampleAvailableMatch) {
                 filteredPatientData[bioBankId][seqNumber][nestedKey] = {
@@ -2263,7 +2339,13 @@
 
       currentPage = 1;
       console.log("Filtered Patient Data:", filteredPatientData);
-
+      if (filteredPatientData && Object.keys(filteredPatientData).length > 0) {
+        console.log(" data found");
+        searchLoadingModal();
+      } else {
+        console.log("No data found");
+        alert("No data found from search");
+      }
       displaySamPatients(filteredPatientData);
     }
 
@@ -2335,7 +2417,7 @@
 
 
     function isMatch(patientData, criteria) {
-      const { ageCriterion, ageInput, cancerTypeInput, gradeInput, nactInput, pathSubtypeInput, ischemicInput, sampleTypeInput } = criteria;
+      const { ageCriterion, ageInput, cancerTypeInput, gradeInput, nactInput, pathSubtypeInput, sampleTypeInput } = criteria;
 
       const patient = patientData.ie || {};
       const ageMatch = checkAgeCriterion(patient.ag, ageCriterion, ageInput);
@@ -2352,11 +2434,11 @@
         ["bpg", "bsg", "bbcg", "fng", "ftg", "osg"].some((field) =>
           checkSampleType(patient[field], sampleTypeInput)
         );
-      const ischemicMatch =
-        ischemicInput === "All" ||
-        (ischemicInput === "Y" && patientData.iss === "true") ||
-        (ischemicInput === "N" && patientData.iss === "false");
-      return ageMatch && cancerTypeMatch && gradeMatch && nactMatch && pathSubtypeMatch && sampleTypeMatch && ischemicMatch;
+      // const ischemicMatch =
+      //   ischemicInput === "All" ||
+      //   (ischemicInput === "Y" && patientData.iss === "true") ||
+      //   (ischemicInput === "N" && patientData.iss === "false");
+      return ageMatch && cancerTypeMatch && gradeMatch && nactMatch && pathSubtypeMatch && sampleTypeMatch;
     }
 
     // Helper function to check sample type
@@ -2734,6 +2816,7 @@
         const timestampKey = row.getAttribute("data-timestampKey");
         const gridData = row.getAttribute("data-grid");
 
+
         // Fetch promises for each row
         const promise1 = db.ref(`sef/${bioBankId}/${seqKey}/${timestampKey}/`).once('value')
           .then(snapshot => snapshot.val() || {});
@@ -2852,17 +2935,18 @@
 
             Sample_Timestamp: formatTimestamp(row.timestampKey),
             bioBankId: row.bioBankId,
+            Consent: decodeProcedureType(row.sefData.ie.cnst) || "-",//Math.floor()/ 1000
             Age: row.sefData.ie.ag || "-",
             Gender: decodeProcedureType(row.sefData.ie.sx) || "-",
             CancerType: decodeProcedureType(row.sefData.ie.ct) || "-",
             ProcedureType: decodeProcedureType(row.sefData.ie.tpr),
             DetailProcedure: row.sefData.ie.dpr || "-",
             SurgeonName: row.sefData.ie.srn || "-",
-            MetastasisSample: decodeProcedureType(row.sefData.ie.mts) || "-",
-            Denovo_metastasis: decodeProcedureType(row.sefData.ie.dm) || "-",
-            Age_at_metastasis: row.sefData.ie.ag_ms || "-",
-            Site_metastasis: row.sefData.ie.site || "-",
-            Receptor_metastasis: row.sefData.ie.rcpt || "-",
+            EventSample: decodeProcedureType(row.sefData.ie.mts) || "-",
+            Denovo_Event: decodeProcedureType(row.sefData.ie.dm) || "-",
+            Age_at_Event: row.sefData.ie.ag_ms || "-",
+            Site_Event: row.sefData.ie.site || "-",
+            Receptor_Event: row.sefData.ie.rcpt || "-",
             TissueSample: decodeProcedureType(row.sefData.ie.ss) || "-",
             BloodSample: decodeProcedureType(row.sefData.ie.bs) || "-",
             OtherSample: decodeProcedureType(row.sefData.ie.osmp) || "-",
@@ -2879,12 +2963,12 @@
             RLTSampleGrid: row.rltGrid || "-",
             PrimarySampleGrid: row.pcGrid || "-",
             nact: decodeProcedureType(row.sefData.ie.nact) || "-",
+            Treatment_effect_in_Breast: decodeProcedureType(row.sefData.ie.nactEff) || "-",
             NACT_Drug_Cycles: row.sefData.ie.nactdc || "-",
             NACT_date_of_last_cycle: row.sefData.ie.nactdlc || "-",
             IschemicSample: decodeProcedureType(row.sefData.ie.iss) || "-",
             ProcessedBy: row.sefData.ie.prb || "-",
-            // SampleEntryUpdatedBy: row.sefData.ie.fng || "-",
-            Consent: decodeProcedureType(row.sefData.ie.cnst) || "-",//Math.floor()/ 1000
+            All_samples_Received_Together: decodeProcedureType(row.sefData.ie.scpt) || "-",
             SampleReceivedTime: formatTimestamp1(row.sefData.ie.srt) || "-",
             SampleProcessedTime: formatTimestamp1(row.sefData.ie.spt) || "-",
             BloodReceivedTime: formatTimestamp1(row.sefData.ie.brt) || "-",
@@ -2911,7 +2995,7 @@
             HistoryOfAlcoholConsumption: decodeProcedureType(row.sefData.md.hac) || "-",
             HistoryOfSmoking: decodeProcedureType(row.sefData.md.hs) || "-",
             ExistingComorbidities: decodeProcedureType(row.sefData.md.ec) || "-",
-            ComorbidityandCorrespondingMedicationsforComorbidity: row.sefData.md.ecm || "-",
+            Comorbidities_Details: decodeComorbiditiesType(row.sefData.md.cm) || '-',
             FF_QC_comments: row.sefData.md.ffqc || "-",
             FF_Tissue_Remarks: row.sefData.md.ftr || "-",
             Tumor_Site: decodeProcedureType(row.sefData.md.tst) || "-",
@@ -2921,6 +3005,7 @@
             IHC_Marker_status: decodeProcedureType(row.sefData.md.ihcm) || "-",
             IHC_marker_description: row.sefData.md.ihcd || "-",
             Genetic_Testing: decodeProcedureType(row.sefData.md.gt) || "-",
+            Genetic_Testing_Results: decodeProcedureType(row.sefData.md.gtr) || "-",
             Genetic_Testing_Description: row.sefData.md.gtd || "-",
             Histological_Subtype: decodeProcedureType(row.sefData.md.pst) || "-",
             Grade: row.sefData.md.gd || "-",
@@ -2945,8 +3030,14 @@
             ACT_Drug_Cycles: row.sefData.md.actdc || "-",
             ACT_Date_of_last_Cycle: row.sefData.md.actdls || "-",
             Radiotherapy: decodeProcedureType(row.sefData.md.rd) || "-",
-            Radiotherapy_details: row.sefData.md.rdd || "-",
+            Dosage_and_Fractions: row.sefData.md.rdd1 || "-",
+            Technique: row.sefData.md.rdd2 || "-",
+            Quadrant: row.sefData.md.rdd3 || "-",
             RT_date_of_last_cycle: row.sefData.md.rtdls || "-",
+            Hormonal_Therapy: decodeProcedureType(row.sefData.md.hrt) || "-",
+            Hormonal_Therapy_Details: row.sefData.md.hrtD || "-",
+            Targeted_Therapy: decodeProcedureType(row.sefData.md.trt) || "-",
+            Targeted_Therapy_Details: row.sefData.md.trtD || "-",
             ParaffinBlockAvailable: decodeProcedureType(row.sefData.md.ipba) || "-",
             ParaffinBlockNumber: row.sefData.md.ipbainfo || "-",
             Metadata_updated_by: row.sefData.md.mdu || "-",
@@ -2959,13 +3050,15 @@
             DurationBreastfeeding: row.sefData.brf.dbf || "-",
             MenopausalStatus: row.sefData.brf.ms || "-",
             //ER: decodeProcedureType(row.sefData.brf.er) || "-",
-            ER: decodeProcedureType(row.sefData.brf.er)?.toLowerCase() === "yes" ? "Positive" : "Negative" || "-",
-            PR: decodeProcedureType(row.sefData.brf.pr)?.toLowerCase() === "yes" ? "Positive" : "Negative" || "-",
-            HER2: decodeProcedureType(row.sefData.brf.h2)?.toLowerCase() === "yes" ? "Positive" : "Negative" || "-",
+            ER: row.sefData.brf.er || "-",
+            PR: row.sefData.brf.pr || "-",
+            HER2: row.sefData.brf.h2 || "-",
             Subtype: row.sefData.brf.sbt || "-",
             Ki67: row.sefData.brf.k67 || "-",
             // ClinicalStage_Brf: row.sefData.brf.cs || "-",
             BIRADS_score: row.sefData.brf.ht || "-",
+            PET_CT_SUV_Max: row.sefData.brf.pcsm || "-",
+            PET_CT_Volume: row.sefData.brf.pcvm || "-",
             sTILsPercentScores: row.sefData.brf.sps || "-",
             BR_form_updated_By: row.sefData.brf.brfu || "-",
 
@@ -2979,6 +3072,7 @@
             Reason_For_lost_to_follow_up: row.fwData?.fwlastTimestamp?.rlfw || "-",
             Other_reason: row.fwData?.fwlastTimestamp?.othrs || "-",
             Death_date: row.fwData?.fwlastTimestamp?.dd || "-",
+            Treatment_Completed: row.fwData?.fwlastTimestamp?.tc || "-",
             Remarks: row.fwData?.fwlastTimestamp?.rmks || "-",
             followUp_updated_by: row.fwData?.fwlastTimestamp?.fw_ub || "-",
 
@@ -3061,6 +3155,13 @@
       other: "Other histologic type not listed(specify)",
       s: "Shared",
       ps: "Partially Shared",
+      op1: "No known presurgical therapy",
+      op2: "No definitive response to presurgical therapy in the invasive carcinoma",
+      op3: "Probable or definite response to presurgical therapy in the invasive carcinoma",
+      op4: "No residual invasive carcinoma is present in the breast after presurgical therapy",
+      pos: "Positive",
+      nev: "Negative",
+      vus: "Variant of Uncertain Significance",
       // Add more mappings as needed
     };
 
@@ -3069,6 +3170,15 @@
     function decodeProcedureType(encodedValue) {
       return TypeMapping[encodedValue] || "-"; // Fallback to 'Unknown' if the value is not in the mapping
     }
+    function decodeComorbiditiesType(data) {
+      if (!data || !Array.isArray(data)) return "-";
+      const decodedValues = data.map(item => {
+        return `${item.selectedOption.toLowerCase()} : ${item.textValue.toLowerCase()}`;
+      });
+      return decodedValues.join(', ');
+    }
+
+
 
     const TypeFollowUp = {
       DiseaseF: "Disease Free",
@@ -3077,7 +3187,7 @@
       death_Dise: "Death due to disease",
       Lost_Follow: "Lost to Follow up",
       death_n_Dise: "Death not due to disease",
-      remission: "Remission",
+      metastasis: "Metastasis",
       Other: "Other",
       s: "Shared",
       ps: "Partially Shared"
