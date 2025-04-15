@@ -3265,7 +3265,7 @@ function validateForm1() {
   let proType = ""
   procType = document.querySelector('input[name="customProcedure"]:checked').value;
   metaType = document.querySelector('input[name="MetastasisSample"]:checked').value;
-  
+
   if (procType === "b" && metaType === "false") {
     proType = "Bx"
   }
@@ -3393,18 +3393,112 @@ function validateForm2() {
   let ajcc1 = document.getElementById('AJCC1').value;
   let ajcc2 = document.getElementById('AJCC2').value;
   let ajcc = `${ajcc1}${ajcc2}`;
-  const dropdownContainer = document.getElementById("cvSym");
-  const selectElements = dropdownContainer.getElementsByTagName("select");
-  const textInputs = dropdownContainer.getElementsByTagName("input");
 
+
+  // const dropdownContainer = document.getElementById("cvSym");
+  // const selectElements = dropdownContainer.getElementsByTagName("select");
+  // const textInputs = dropdownContainer.getElementsByClassName("selectOption");
+  // const textInputs1 = dropdownContainer.getElementsByClassName("OtherInput1");
+  // const textInputs2 = dropdownContainer.getElementsByClassName("OtherInput2");
+
+
+  // const medResults = [];
+
+  // for (let i = 0; i < selectElements.length; i++) {
+  //   console.log("selectElements[i].value", selectElements[i].value)
+  //   if (selectElements[i].value === "Other") {
+  //     medResults.push({
+  //       selectedOption: selectElements[i].value,
+  //       textValue: {
+  //         input1: textInputs1[i].value,
+  //         input2: textInputs2[i].value
+  //         // input2: textInputs2[i].value
+  //       }
+  //     });
+  //   }
+  //   if (selectElements[i].value != "Other") {
+  //     medResults.push({
+  //       selectedOption: selectElements[i].value,
+  //       textValue: textInputs[i].value
+  //     });
+  //   } 
+
+  // }
+
+
+  // const dropdownContainer = document.getElementById("cvSym");
+  // const selectElements = dropdownContainer.getElementsByTagName("select");
+  // const textInputs = dropdownContainer.getElementsByTagName("input");
+  // const textInputs1 = dropdownContainer.getElementsByClassName("OtherInput1");
+  // const textInputs2 = dropdownContainer.getElementsByClassName("OtherInput2");
+
+  // const medResults = [];
+
+  // for (let i = 0; i < selectElements.length; i++) {
+
+  //   console.log("selectElements[i].value", selectElements[i].value)
+
+
+  //   if (selectElements[i].value.toLowerCase() === "other") {
+  //     // console.log("selectElements[i].value", textInputs1[i].value)
+  //     // console.log("selectElements[i].value", textInputs2[i].value)
+  //     console.log("selectElements[i].value", textInputs2,textInputs1)
+
+  //     console.log("value---", textInputs2[i].value)
+
+  //     medResults.push({
+  //       selectedOption: selectElements[i].value,
+  //       textValue: {
+  //         input1: textInputs1[i].value,
+  //         input2: textInputs2[i].value
+  //         // input2: textInputs2[i].value
+  //       }
+  //     });
+  //   }
+  //   else if (selectElements[i].value.toLowerCase() !== "other") {
+  //     medResults.push({
+  //       selectedOption: selectElements[i].value,
+  //       textValue: textInputs[i].value
+  //     });
+  //   } 
+  // }
+  // console.log("medResults", medResults)
+
+  const dropdownContainer = document.getElementById("cvSym");
   const medResults = [];
 
-  for (let i = 0; i < selectElements.length; i++) {
-    medResults.push({
-      selectedOption: selectElements[i].value,
-      textValue: textInputs[i].value
-    });
+  const commandBlocks = dropdownContainer.getElementsByClassName("cmd");
+
+  // Each set of 3 .cmd elements is one row: [select], [input(s)], [delete]
+  for (let i = 0; i < commandBlocks.length; i += 3) {
+    const selectBlock = commandBlocks[i];
+    const inputBlock = commandBlocks[i + 1];
+
+    const selectElement = selectBlock.querySelector("select");
+    const selectedOption = selectElement.value;
+
+    if (selectedOption.toLowerCase() === "other") {
+      const input1 = inputBlock.querySelector(".OtherInput1");
+      const input2 = inputBlock.querySelector(".OtherInput2");
+
+      medResults.push({
+        selectedOption,
+        textValue: {
+          input1: input1?.value || "",
+          input2: input2?.value || ""
+        }
+      });
+    } else {
+      const textInput = inputBlock.querySelector("input");
+      medResults.push({
+        selectedOption,
+        textValue: textInput?.value || ""
+      });
+    }
   }
+
+  console.log("medResults", medResults);
+
   const form2Data = {
     md: {
       // fhc: document.querySelector('input[name="RadioFHabit"]:checked')?.value === 'true' ? true : false || false,
@@ -4057,7 +4151,7 @@ async function fillIeForm(ieData) {
   pcbSample();
   const pcSgridNo = await gridData(ieData.pc);
   document.getElementById('pcSgridNo').value = pcSgridNo || '';
-  
+
   if (ieData.iss !== '') {
     document.querySelector(`input[name="IschemicRadio"][value="${ieData.iss}"]`).checked = true;
   }
@@ -4229,7 +4323,6 @@ function fillMdForm(mdData) {
   if (mdData.hac) document.querySelector(`input[name="RadioAlcoholHabit"][value="${mdData.hac}"]`).checked = true;
   if (mdData.hs) document.querySelector(`input[name="RadioSmokeHabit"][value="${mdData.hs}"]`).checked = true;
   if (mdData.ec) document.querySelector(`input[name="ECH"][value="${mdData.ec}"]`).checked = true;
-  ExistComorbidity();
   // document.getElementById('comorbidityMedications').value = mdData.ecm || '';
   document.getElementById('ffQcComments').value = mdData.ffqc || '';
   document.getElementById('ffTissueRemarks').value = mdData.ftr || '';
@@ -4299,37 +4392,31 @@ function fillMdForm(mdData) {
   if (mdData.ipba) document.querySelector(`input[name="pbT"][value="${mdData.ipba}"]`).checked = true;
   document.getElementById('PBInput').value = mdData.ipbainfo || '';
   document.getElementById('mddataEB').value = mdData.mdu || '';
-  
-  if(mdData.cm){
-  let comMed = mdData.cm
-  const dropdownContainer = document.getElementById("cvSym");
 
-    keys = Object.keys(comMed);
-    console.log("keys: ",keys)
+  if (mdData.cm) {
+    let comMed = mdData.cm;
+    const dropdownContainer = document.getElementById("cvSym");
+    const keys = Object.keys(comMed);
+    console.log("keys: ", keys);
+  
     Object.keys(comMed).forEach(info => {
       const data = comMed[info];
-      console.log("optionData: ",data)
-
-      // Create a new div container for the dropdown and text input
+  
       const newDiv = document.createElement("div");
       const newDiv1 = document.createElement("div");
       const newDiv2 = document.createElement("div");
-
-      newDiv.classList.add("col-sm-3", "mt-2");
-      newDiv1.classList.add("col-sm-8", "mt-2");
-      newDiv2.classList.add("col-sm-1", "mt-2", "pr-4");
-
-      // Create a new select element
+  
+      newDiv.classList.add("col-sm-3", "mt-2", "cmd");
+      newDiv1.classList.add("col-sm-8", "mt-2", "cmd");
+      newDiv2.classList.add("col-sm-1", "mt-2", "pr-4", "cmd");
+  
+      // Create select and input wrapper
       const newSelect = document.createElement("select");
-      const newSelect1 = document.createElement("input");
-
+      const inputWrapper = document.createElement("div"); // This holds one or two inputs
+      inputWrapper.classList.add("form-row");
+  
       newSelect.classList.add("form-control");
-      newSelect1.classList.add("form-control");
-      
-      newSelect1.type = "text";
-      newSelect1.value = data.textValue; // Set the value of the text input
-
-      // Set options for the new select
+  
       const options = [
         { value: "", text: "" },
         { value: "Diabetic", text: "Type 2 Diabetic Mellitus" },
@@ -4337,22 +4424,50 @@ function fillMdForm(mdData) {
         { value: "Hypertension", text: "Hypertension" },
         { value: "Other", text: "Other" }
       ];
-
+  
       options.forEach(optionData => {
-        // console.log("optionData: ",optionData)
         const option = document.createElement("option");
         option.value = optionData.value;
         option.textContent = optionData.text;
         if (optionData.value === data.selectedOption) {
-          option.selected = true; // Set the selected option
+          option.selected = true;
         }
         newSelect.appendChild(option);
       });
-
+  
+      // Append the correct input(s) based on selectedOption
+      if (data.selectedOption === "Other") {
+        const otherInput1 = document.createElement("input");
+        const otherInput2 = document.createElement("input");
+  
+        otherInput1.classList.add("form-control", "col-sm-6");
+        otherInput2.classList.add("form-control", "col-sm-6");
+  
+        otherInput1.type = "text";
+        otherInput2.type = "text";
+  
+        otherInput1.placeholder = "Comorbidity";
+        otherInput2.placeholder = "Medicines";
+  
+        otherInput1.value = data.textValue.input1 || "";
+        otherInput2.value = data.textValue.input2 || "";
+  
+        inputWrapper.appendChild(otherInput1);
+        inputWrapper.appendChild(otherInput2);
+      } else {
+        const defaultInput = document.createElement("input");
+        defaultInput.classList.add("form-control");
+        defaultInput.type = "text";
+        defaultInput.placeholder = "Medicines";
+        defaultInput.value = data.textValue || "";
+        inputWrapper.appendChild(defaultInput);
+      }
+  
       newDiv2.style.display = "flex";
       newDiv2.style.flexDirection = "row-reverse";
       const imgGroup = document.createElement("div");
       imgGroup.classList.add("input-group-append");
+  
       const img1 = document.createElement("img");
       img1.src = "assets/images/delete-2.svg";
       img1.id = "cvSymRemBtn";
@@ -4365,28 +4480,57 @@ function fillMdForm(mdData) {
         dropdownContainer.removeChild(newDiv1);
         dropdownContainer.removeChild(newDiv2);
       });
-
+  
       imgGroup.appendChild(img1);
-
-      // Append new select to the new div
+  
       newDiv.appendChild(newSelect);
-      newDiv1.appendChild(newSelect1);
+      newDiv1.appendChild(inputWrapper);
       newDiv2.appendChild(imgGroup);
-
-      // Append new divs to the dropdown container
+  
       dropdownContainer.appendChild(newDiv);
       dropdownContainer.appendChild(newDiv1);
-      // dropdownContainer.style.display = "block";
+  
       if (mode === 'SearchView' || mode === 'PendingView') {
         const inputs = dropdownContainer.querySelectorAll("input, select");
         inputs.forEach(input => input.disabled = true);
       }
-      // Append new div2 to the dropdown container
+  
       if (mode !== 'SearchView' && mode !== 'PendingView') {
         dropdownContainer.appendChild(newDiv2);
       }
+  
+      // Attach change event to show/hide extra input fields dynamically
+      newSelect.addEventListener("change", function () {
+        inputWrapper.innerHTML = "";
+  
+        if (this.value === "Other") {
+          const otherInput1 = document.createElement("input");
+          const otherInput2 = document.createElement("input");
+  
+          otherInput1.classList.add("form-control", "col-sm-6");
+          otherInput2.classList.add("form-control", "col-sm-6");
+  
+          otherInput1.value = data.input1 || "";
+          otherInput2.value = data.input2 || "";
+  
+          // otherInput1.placeholder = "Comorbidity";
+          // otherInput2.placeholder = "Medicines";
+  
+          inputWrapper.appendChild(otherInput1);
+          inputWrapper.appendChild(otherInput2);
+        } else {
+          const defaultInput = document.createElement("input");
+          defaultInput.classList.add("form-control");
+          defaultInput.type = "text";
+          defaultInput.placeholder = "Medicines";
+          inputWrapper.appendChild(defaultInput);
+        }
+      });
     });
   }
+  ExistComorbidity();
+
+  
 }
 
 
@@ -4473,7 +4617,7 @@ function fillBrfForm(brfData) {
     document.querySelector(`input[name="PRRadio"][value="${brfData.pr}"]`).checked = true;
   }
   if (brfData.h2) {
-    console.log("brfData.h2: ",brfData.h2 )
+    console.log("brfData.h2: ", brfData.h2)
     document.querySelector(`input[name="HER2Radio"][value="${brfData.h2}"]`).checked = true;
   }
   document.getElementById('sbt').value = brfData.sbt || '';
@@ -5161,41 +5305,41 @@ function displayFollowupData(timestamp) {
 
   toggleFollowup()
   // $(document).ready(function () {
-    function toggleFollowup() {
-      if ($('#radioOther').is(':checked')) {
-        $('#otherText').show();
-      }
-      else {
-        $('#otherText').hide();
-      }
-      if ($('#radioRecurrence').is(':checked')) {
-        $('#recurID').show();
-      }
-      else {
-        $('#recurID').hide();
-      }
-      if ($('#radioLost').is(':checked')) {
-        $('#lostFollowUpID').show();
-      }
-      else {
-        $('#lostFollowUpID').hide();
-      }
-      if ($('#radioMetastasis').is(':checked')) {
-        $('#mFollowUpID').show();
-      }
-      else {
-        $('#mFollowUpID').hide();
-      }
-      if ($('#radioDiseasePro').is(':checked')) {
-        $('#proDisID').show();
-        $('#pmr').show();
-      }
-      else {
-        $('#proDisID').hide();
-        $('#pmr').hide();
-      }
+  function toggleFollowup() {
+    if ($('#radioOther').is(':checked')) {
+      $('#otherText').show();
     }
-    
+    else {
+      $('#otherText').hide();
+    }
+    if ($('#radioRecurrence').is(':checked')) {
+      $('#recurID').show();
+    }
+    else {
+      $('#recurID').hide();
+    }
+    if ($('#radioLost').is(':checked')) {
+      $('#lostFollowUpID').show();
+    }
+    else {
+      $('#lostFollowUpID').hide();
+    }
+    if ($('#radioMetastasis').is(':checked')) {
+      $('#mFollowUpID').show();
+    }
+    else {
+      $('#mFollowUpID').hide();
+    }
+    if ($('#radioDiseasePro').is(':checked')) {
+      $('#proDisID').show();
+      $('#pmr').show();
+    }
+    else {
+      $('#proDisID').hide();
+      $('#pmr').hide();
+    }
+  }
+
   //   toggleFollowup();
   //   $('input[name="flexRadioDefault"]').change(function () {
   //     toggleFollowup();
@@ -6214,7 +6358,7 @@ function follow_pages_display(mode, bioBankId, seq, timestamp) {
           }
         } else {
           console.error('No data found at the specified path');
-          alert('Follow-Up is not done yet');
+          alert('Follow-Up was not done yet');
         }
       }).catch(error => {
         console.error("Error fetching data:", error);
@@ -6639,19 +6783,35 @@ function familyHabitToggle() {
   }
 }
 
+// function ExistComorbidity() {
+//   if ($('#ECH1').is(':checked')) {
+//     $('#medications').show();
+//     $('#cvSym').show();
+//   }
+//   else {
+//     $('#medications').hide();
+//     $('#cvSym').hide();
+//     $('#cvSymV').val('');
+//     $('#comorbidityMedications').val('');
+//   }
+// }
+
 function ExistComorbidity() {
   if ($('#ECH1').is(':checked')) {
-    $('#medications').show();
     $('#cvSym').show();
+    
+
   }
   else {
-    $('#medications').hide();
     $('#cvSym').hide();
-    $('#cvSymV').val('');          
-    $('#comorbidityMedications').val('');
+    const dropdownContainer = document.getElementsByClassName("cmd");
+
+    // $('#comorbidityMedications').val('');
+    Array.from(dropdownContainer).forEach(container => {
+      container.innerHTML = "";
+    });
   }
 }
-
 function IHCMarker() {
   if ($('#IHC_yes').is(':checked')) {
     $('#ihcDescr').show();
@@ -6790,10 +6950,10 @@ function denovo() {
 function toggleMetastasisFields() {
   const isMetastasisSampleYes = $('#MetastasisSampleY').is(':checked');
   const isDenovoYes = $('#denovoYes').is(':checked');
-  if(isMetastasisSampleYes){
+  if (isMetastasisSampleYes) {
     $('#eventinfo').show();
   }
-  else{
+  else {
     $('#eventinfo').hide();
     $('#eventinfo').val();
   }
@@ -6847,11 +7007,11 @@ function initialize() {
         //   const surName = `<option value="${name}">${name}</option>`
         //   surNameBox.insertAdjacentHTML('beforeend', surName);
         // }
-        
+
         // )
         // console.log("surgeonName", document.getElementById('surgeonName'))
         // console.log("cancer_type", document.getElementById('cancer_type'))
       }
     });
-   
-  }
+
+}
