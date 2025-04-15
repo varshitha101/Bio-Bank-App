@@ -188,7 +188,7 @@
                   <th class="head-text" scope="col">Age</th>
                   <th class="head-text" scope="col">Gender</th>
                   <th class="head-text" scope="col">Cancer Type</th>
-                  <th class="head-text" scope="col">Grade </th>
+                  <th class="head-text" scope="col">Nodal Status</th>
                   <th class="head-text" scope="col">Action</th>
                 </tr>
               </thead>
@@ -1249,7 +1249,9 @@
           seqKey: lastSeqKey,
           age: patient.ie.ag || "-",
           gender: patient.ie.sx || "-",
-          grade: patient.md.gd.charAt(0).toUpperCase() + patient.md.gd.slice(1) || "-",
+          // grade: patient.md.gd.charAt(0).toUpperCase() + patient.md.gd.slice(1) || "-",
+          nodeS: patient.md.npn <= 0 ? 'Negative' : patient.md.npn > 0 ? 'Positive' : "-",
+
           cancerType: patient.ie.ct === 'brst' ? "Breast Cancer" : "-",
           patientData: patient,
         });
@@ -1268,7 +1270,7 @@
             bioBankId,
             age,
             gender,
-            grade,
+            nodeS,
             cancerType
           } = indSeqData;
 
@@ -1280,7 +1282,7 @@
             <td class="age small-text">${age}</td>
             <td class="gender small-text">${gender === 'F' ? 'Female' : (gender === 'M' ? 'Male' : 'Unknown')}</td>
             <td class="cancerType small-text">${cancerType}</td>
-            <td class="grade small-text">${grade}</td>
+            <td class="grade small-text">${nodeS}</td>
             <td class="action small-text">
               <button class="btn btn-success btn-sm" onclick="showHistory('${bioBankId}')">View Samples</button>
             </td>
