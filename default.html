@@ -215,6 +215,8 @@
                 </div>
               </div>
 
+
+
               <div class="row ml-1 mb-3">
                 <label for="cancer_type" class="col-sm-2 mb-1 col-form-label">Cancer Type <span
                     style="color: red; font-weight: bold;">*</span></label>
@@ -388,8 +390,7 @@
                   <select id="eventSelection" class="form-control">
                     <option value=""></option>
                     <option value="Local_Recurrence">Local Recurrence</option>
-                    <option value="Contralateral">Contralateral</option>
-                    <option value="Recurrence">Recurrence</option>
+                    <option value="Contralateral">Contralateral Recurrence</option>
                     <option value="Distant_Metastasis">Distant Metastasis</option>
                   </select>
                 </div>
@@ -1146,6 +1147,7 @@
                 </div>
               </div>
 
+
               <div class="row ml-1 mb-3">
                 <label for="EComorb" class="col-sm-3 mb-1 col-form-label">Existing Comorbidities</label>
                 <div class="col-sm-8">
@@ -1196,7 +1198,6 @@
                   </div> -->
                 </div>
               </div>
-
               <!-- <div class="row ml-1 mb-3" id="medications" style="display: none;">
                 <label for="Comorbidity" class="col-sm-3 mb-1 col-form-label">Comorbidity & Corresponding Medications
                   for Comorbidity</label>
@@ -1301,7 +1302,7 @@
                     <option value="">Select</option>
                     <option value="pos">Positive</option>
                     <option value="nev">Negative</option>
-                    <option value="vus">Variant of Unknown Significance</option>
+                    <option value="vus">Variant of Uncertain Significance</option>
                   </select>
                 </div>
 
@@ -6926,15 +6927,13 @@
       function ExistComorbidity() {
         if ($('#ECH1').is(':checked')) {
           $('#cvSym').show();
-          const dropdownContainer = document.getElementsByClassName("cmd");
-          console.log("dropdownContainer", dropdownContainer);
-          Array.from(dropdownContainer).forEach(container => {
-            container.innerHTML = "";
-          });
         }
         else {
           $('#cvSym').hide();
-          // $('#comorbidityMedications').val('');
+          const dropdownContainer = document.getElementsByClassName("cmd");
+          Array.from(dropdownContainer).forEach(container => {
+            container.innerHTML = "";
+          });
         }
       }
 
@@ -8641,7 +8640,7 @@
             });
         }
       }
-      else{
+      else {
         if (bread2Link) {
           window.location.href = bread2Link.href;
         }
@@ -8859,37 +8858,30 @@
             if (mdDataArr.ec) document.querySelector(`input[name="ECH"][value="${mdDataArr.ec}"]`).checked = true;
             ExistComorbidity();
             // document.getElementById('comorbidityMedications').value = mdDataArr.ecm || '';
-
             if (mdDataArr.cm) {
-              let comMed = mdDataArr.cm
+              let comMed = mdDataArr.cm;
               const dropdownContainer = document.getElementById("cvSym");
+              const keys = Object.keys(comMed);
+              console.log("keys: ", keys);
 
-              keys = Object.keys(comMed);
-              console.log("keys: ", keys)
               Object.keys(comMed).forEach(info => {
                 const data = comMed[info];
-                console.log("optionData: ", data)
 
-                // Create a new div container for the dropdown and text input
                 const newDiv = document.createElement("div");
                 const newDiv1 = document.createElement("div");
                 const newDiv2 = document.createElement("div");
 
-                newDiv.classList.add("col-sm-3", "mt-2");
-                newDiv1.classList.add("col-sm-8", "mt-2");
-                newDiv2.classList.add("col-sm-1", "mt-2", "pr-4");
+                newDiv.classList.add("col-sm-3", "mt-2", "cmd");
+                newDiv1.classList.add("col-sm-8", "mt-2", "cmd");
+                newDiv2.classList.add("col-sm-1", "mt-2", "pr-4", "cmd");
 
-                // Create a new select element
+                // Create select and input wrapper
                 const newSelect = document.createElement("select");
-                const newSelect1 = document.createElement("input");
+                const inputWrapper = document.createElement("div"); // This holds one or two inputs
+                inputWrapper.classList.add("form-row");
 
                 newSelect.classList.add("form-control");
-                newSelect1.classList.add("form-control");
 
-                newSelect1.type = "text";
-                newSelect1.value = data.textValue; // Set the value of the text input
-
-                // Set options for the new select
                 const options = [
                   { value: "", text: "" },
                   { value: "Diabetic", text: "Type 2 Diabetic Mellitus" },
@@ -8899,20 +8891,48 @@
                 ];
 
                 options.forEach(optionData => {
-                  // console.log("optionData: ",optionData)
                   const option = document.createElement("option");
                   option.value = optionData.value;
                   option.textContent = optionData.text;
                   if (optionData.value === data.selectedOption) {
-                    option.selected = true; // Set the selected option
+                    option.selected = true;
                   }
                   newSelect.appendChild(option);
                 });
+
+                // Append the correct input(s) based on selectedOption
+                if (data.selectedOption === "Other") {
+                  const otherInput1 = document.createElement("input");
+                  const otherInput2 = document.createElement("input");
+
+                  otherInput1.classList.add("form-control", "col-sm-6");
+                  otherInput2.classList.add("form-control", "col-sm-6");
+
+                  otherInput1.type = "text";
+                  otherInput2.type = "text";
+
+                  otherInput1.placeholder = "Comorbidity";
+                  otherInput2.placeholder = "Medicines";
+
+                  otherInput1.value = data.textValue.input1 || "";
+                  otherInput2.value = data.textValue.input2 || "";
+
+                  inputWrapper.appendChild(otherInput1);
+                  inputWrapper.appendChild(otherInput2);
+                } else {
+                  const defaultInput = document.createElement("input");
+                  defaultInput.classList.add("form-control");
+                  defaultInput.type = "text";
+                  defaultInput.placeholder = "Medicines";
+                  defaultInput.value = data.textValue || "";
+                  inputWrapper.appendChild(defaultInput);
+                }
 
                 newDiv2.style.display = "flex";
                 newDiv2.style.flexDirection = "row-reverse";
                 const imgGroup = document.createElement("div");
                 imgGroup.classList.add("input-group-append");
+
                 const img1 = document.createElement("img");
                 img1.src = "assets/images/delete-2.svg";
                 img1.id = "cvSymRemBtn";
@@ -8928,23 +8948,49 @@
 
                 imgGroup.appendChild(img1);
 
-                // Append new select to the new div
                 newDiv.appendChild(newSelect);
-                newDiv1.appendChild(newSelect1);
+                newDiv1.appendChild(inputWrapper);
                 newDiv2.appendChild(imgGroup);
 
-                // Append new divs to the dropdown container
                 dropdownContainer.appendChild(newDiv);
                 dropdownContainer.appendChild(newDiv1);
-                // dropdownContainer.style.display = "block";
+
                 if (mode === 'SearchView' || mode === 'PendingView') {
                   const inputs = dropdownContainer.querySelectorAll("input, select");
                   inputs.forEach(input => input.disabled = true);
                 }
-                // Append new div2 to the dropdown container
+
                 if (mode !== 'SearchView' && mode !== 'PendingView') {
                   dropdownContainer.appendChild(newDiv2);
                 }
+
+                // Attach change event to show/hide extra input fields dynamically
+                newSelect.addEventListener("change", function () {
+                  inputWrapper.innerHTML = "";
+
+                  if (this.value === "Other") {
+                    const otherInput1 = document.createElement("input");
+                    const otherInput2 = document.createElement("input");
+
+                    otherInput1.classList.add("form-control", "col-sm-6");
+                    otherInput2.classList.add("form-control", "col-sm-6");
+
+                    otherInput1.value = data.input1 || "";
+                    otherInput2.value = data.input2 || "";
+
+                    // otherInput1.placeholder = "Comorbidity";
+                    // otherInput2.placeholder = "Medicines";
+
+                    inputWrapper.appendChild(otherInput1);
+                    inputWrapper.appendChild(otherInput2);
+                  } else {
+                    const defaultInput = document.createElement("input");
+                    defaultInput.classList.add("form-control");
+                    defaultInput.type = "text";
+                    defaultInput.placeholder = "Medicines";
+                    inputWrapper.appendChild(defaultInput);
+                  }
+                });
               });
             }
 
@@ -9086,38 +9132,31 @@
               if (mdDataArr.hac) document.querySelector(`input[name="RadioAlcoholHabit"][value="${mdDataArr.hac}"]`).checked = true;
               if (mdDataArr.hs) document.querySelector(`input[name="RadioSmokeHabit"][value="${mdDataArr.hs}"]`).checked = true;
               if (mdDataArr.ec) document.querySelector(`input[name="ECH"][value="${mdDataArr.ec}"]`).checked = true;
-              ExistComorbidity();
               // document.getElementById('comorbidityMedications').value = mdDataArr.ecm || '';
               if (mdDataArr.cm) {
-                let comMed = mdDataArr.cm
+                let comMed = mdDataArr.cm;
                 const dropdownContainer = document.getElementById("cvSym");
+                const keys = Object.keys(comMed);
+                console.log("keys: ", keys);
 
-                keys = Object.keys(comMed);
-                console.log("keys: ", keys)
                 Object.keys(comMed).forEach(info => {
                   const data = comMed[info];
-                  console.log("optionData: ", data)
 
-                  // Create a new div container for the dropdown and text input
                   const newDiv = document.createElement("div");
                   const newDiv1 = document.createElement("div");
                   const newDiv2 = document.createElement("div");
 
-                  newDiv.classList.add("col-sm-3", "mt-2");
-                  newDiv1.classList.add("col-sm-8", "mt-2");
-                  newDiv2.classList.add("col-sm-1", "mt-2", "pr-4");
+                  newDiv.classList.add("col-sm-3", "mt-2", "cmd");
+                  newDiv1.classList.add("col-sm-8", "mt-2", "cmd");
+                  newDiv2.classList.add("col-sm-1", "mt-2", "pr-4", "cmd");
 
-                  // Create a new select element
+                  // Create select and input wrapper
                   const newSelect = document.createElement("select");
-                  const newSelect1 = document.createElement("input");
+                  const inputWrapper = document.createElement("div"); // This holds one or two inputs
+                  inputWrapper.classList.add("form-row");
 
                   newSelect.classList.add("form-control");
-                  newSelect1.classList.add("form-control");
 
-                  newSelect1.type = "text";
-                  newSelect1.value = data.textValue; // Set the value of the text input
-
-                  // Set options for the new select
                   const options = [
                     { value: "", text: "" },
                     { value: "Diabetic", text: "Type 2 Diabetic Mellitus" },
@@ -9127,20 +9166,48 @@
                   ];
 
                   options.forEach(optionData => {
-                    // console.log("optionData: ",optionData)
                     const option = document.createElement("option");
                     option.value = optionData.value;
                     option.textContent = optionData.text;
                     if (optionData.value === data.selectedOption) {
-                      option.selected = true; // Set the selected option
+                      option.selected = true;
                     }
                     newSelect.appendChild(option);
                   });
+
+                  // Append the correct input(s) based on selectedOption
+                  if (data.selectedOption === "Other") {
+                    const otherInput1 = document.createElement("input");
+                    const otherInput2 = document.createElement("input");
+
+                    otherInput1.classList.add("form-control", "col-sm-6");
+                    otherInput2.classList.add("form-control", "col-sm-6");
+
+                    otherInput1.type = "text";
+                    otherInput2.type = "text";
+
+                    otherInput1.placeholder = "Comorbidity";
+                    otherInput2.placeholder = "Medicines";
+
+                    otherInput1.value = data.textValue.input1 || "";
+                    otherInput2.value = data.textValue.input2 || "";
+
+                    inputWrapper.appendChild(otherInput1);
+                    inputWrapper.appendChild(otherInput2);
+                  } else {
+                    const defaultInput = document.createElement("input");
+                    defaultInput.classList.add("form-control");
+                    defaultInput.type = "text";
+                    defaultInput.placeholder = "Medicines";
+                    defaultInput.value = data.textValue || "";
+                    inputWrapper.appendChild(defaultInput);
+                  }
 
                   newDiv2.style.display = "flex";
                   newDiv2.style.flexDirection = "row-reverse";
                   const imgGroup = document.createElement("div");
                   imgGroup.classList.add("input-group-append");
+
                   const img1 = document.createElement("img");
                   img1.src = "assets/images/delete-2.svg";
                   img1.id = "cvSymRemBtn";
@@ -9156,25 +9223,52 @@
 
                   imgGroup.appendChild(img1);
 
-                  // Append new select to the new div
                   newDiv.appendChild(newSelect);
-                  newDiv1.appendChild(newSelect1);
+                  newDiv1.appendChild(inputWrapper);
                   newDiv2.appendChild(imgGroup);
 
-                  // Append new divs to the dropdown container
                   dropdownContainer.appendChild(newDiv);
                   dropdownContainer.appendChild(newDiv1);
-                  // dropdownContainer.style.display = "block";
+
                   if (mode === 'SearchView' || mode === 'PendingView') {
                     const inputs = dropdownContainer.querySelectorAll("input, select");
                     inputs.forEach(input => input.disabled = true);
                   }
-                  // Append new div2 to the dropdown container
+
                   if (mode !== 'SearchView' && mode !== 'PendingView') {
                     dropdownContainer.appendChild(newDiv2);
                   }
+
+                  // Attach change event to show/hide extra input fields dynamically
+                  newSelect.addEventListener("change", function () {
+                    inputWrapper.innerHTML = "";
+
+                    if (this.value === "Other") {
+                      const otherInput1 = document.createElement("input");
+                      const otherInput2 = document.createElement("input");
+
+                      otherInput1.classList.add("form-control", "col-sm-6");
+                      otherInput2.classList.add("form-control", "col-sm-6");
+
+                      otherInput1.value = data.input1 || "";
+                      otherInput2.value = data.input2 || "";
+
+                      // otherInput1.placeholder = "Comorbidity";
+                      // otherInput2.placeholder = "Medicines";
+
+                      inputWrapper.appendChild(otherInput1);
+                      inputWrapper.appendChild(otherInput2);
+                    } else {
+                      const defaultInput = document.createElement("input");
+                      defaultInput.classList.add("form-control");
+                      defaultInput.type = "text";
+                      defaultInput.placeholder = "Medicines";
+                      inputWrapper.appendChild(defaultInput);
+                    }
+                  });
                 });
               }
+              ExistComorbidity();
 
               if (mdDataArr.tst) document.querySelector(`input[name="tumorSite"][value="${mdDataArr.tst}"]`).checked = true;
               document.getElementById('ageAtDiagnosis').value = mdDataArr.ad || '';
@@ -9374,9 +9468,6 @@
     </script> -->
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-
-      ECH();
-
       function ECH() {
         let mode = localStorage.getItem('mode');
         if (mode == 'SearchView' || mode == 'PendingView') {
@@ -9396,15 +9487,11 @@
           newDiv1.classList.add("col-sm-8", "mt-2", "cmd");
           newDiv2.classList.add("col-sm-1", "mt-2", "pr-4", "cmd");
 
-
           const newSelect = document.createElement("select");
-          const newSelect1 = document.createElement("input");
+          const newSelect1 = document.createElement("div"); // Container for two textboxes
 
-          newSelect.classList.add("form-control");
-          newSelect1.classList.add("form-control");
-          newSelect1.type = "text";
-          newSelect1.textContent = "";
-          newSelect1.placeholder = "Medicines";
+          newSelect.classList.add("form-control", "selectOption");
+          newSelect1.classList.add("form-row"); // Add a row class for layout
 
           const options = [
             { value: "", text: "Select" },
@@ -9419,10 +9506,7 @@
             option.value = optionData.value;
             option.textContent = optionData.text;
             newSelect.appendChild(option);
-            newSelect.classList.add('disabled');
-
           });
-
 
           newDiv2.style.display = "flex";
           newDiv2.style.flexDirection = "row-reverse";
@@ -9445,8 +9529,6 @@
 
           imgGroup.appendChild(img1);
 
-
-
           newDiv.appendChild(newSelect);
           newDiv1.appendChild(newSelect1);
           newDiv2.appendChild(imgGroup);
@@ -9455,8 +9537,41 @@
           dropdownContainer.appendChild(newDiv1);
           dropdownContainer.appendChild(newDiv2);
 
+          // Add event listener for the "Other" option
+          newSelect.addEventListener("change", function () {
+            if (newSelect.value === "Other") {
+              // Clear the container and add two textboxes
+              newSelect1.innerHTML = ""; // Clear any existing content
+
+              const otherInput1 = document.createElement("input");
+              const otherInput2 = document.createElement("input");
+
+              otherInput1.classList.add("form-control", "col-sm-6", "OtherInput1");
+              otherInput2.classList.add("form-control", "col-sm-6", "OtherInput2");
+
+              otherInput1.type = "text";
+              otherInput2.type = "text";
+
+              otherInput1.placeholder = "Comorbidity";
+              otherInput2.placeholder = "Medicines";
+
+              newSelect1.appendChild(otherInput1);
+              newSelect1.appendChild(otherInput2);
+            }
+            if (newSelect.value !== "Other") {
+              // Reset to a single textbox if "Other" is not selected
+              newSelect1.innerHTML = ""; // Clear any existing content
+              const defaultInput = document.createElement("input");
+              defaultInput.classList.add("form-control", "selectinfo");
+              defaultInput.type = "text";
+              defaultInput.placeholder = "Medicines";
+              newSelect1.appendChild(defaultInput);
+            }
+          });
         });
       }
+
+      ECH();
     });
 
     // document.addEventListener("DOMContentLoaded", function () {
