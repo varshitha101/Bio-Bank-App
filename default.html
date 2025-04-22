@@ -251,7 +251,7 @@
                 <label for="bioBankId" class="col-sm-2 mb-1 col-form-label">Bio Bank ID <span
                     style="color: red; font-weight: bold;">*</span></label>
                 <div class="col-sm-10 mt-2">
-                  <input type="text" class="form-control" id="bioBankId" placeholder="Enter Bio Bank ID" disabled>
+                  <input type="text" class="form-control" id="bioBankId" placeholder="Enter Bio Bank ID" oninput="formatBioInput(this)">
                 </div>
               </div>
 
@@ -390,7 +390,7 @@
                   <select id="eventSelection" class="form-control">
                     <option value=""></option>
                     <option value="Local_Recurrence">Local Recurrence</option>
-                    <option value="Contralateral">Contralateral Recurrence</option>
+                    <option value="Contralateral_Recurrence">Contralateral Recurrence</option>
                     <option value="Distant_Metastasis">Distant Metastasis</option>
                   </select>
                 </div>
@@ -1219,7 +1219,7 @@
                 </div>
               </div>
               <div class="row ml-1 mb-3">
-                <label for="tumor" class="col-sm-3 mb-1 col-form-label">Tumor Site (Right/Left/Bilateral)</label>
+                <label for="tumor" class="col-sm-3 mb-1 col-form-label">Tumor Site</label>
                 <div class="col-sm-8">
                   <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="tumorR" name="tumorSite" class="custom-control-input" value="R">
@@ -2024,6 +2024,16 @@
                     <input class="custom-control-input" type="radio" name="flexRadioDefault" id="radioMetastasis"
                       value="metastasis">
                     <label class="custom-control-label" for="radioMetastasis">Metastasis</label>
+                  </div>
+                  <div class="custom-control custom-radio">
+                    <input class="custom-control-input" type="radio" name="flexRadioDefault" id="radioUnderTreat"
+                      value="UnderTreat">
+                    <label class="custom-control-label" for="radioMetastasis">Undergoing Treatment</label>
+                  </div>
+                  <div class="custom-control custom-radio">
+                    <input class="custom-control-input" type="radio" name="flexRadioDefault" id="radioStabDis"
+                      value="StabDis">
+                    <label class="custom-control-label" for="radioMetastasis">Stable Disease</label>
                   </div>
                   <div class="custom-control custom-radio">
                     <input class="custom-control-input" type="radio" name="flexRadioDefault" id="radioOther"
@@ -3369,34 +3379,25 @@
                 if (indexedSeats[index].bioBankId !== '') {
                   labelElement.innerHTML = `${indexedSeats[index].bioBankId || ''}<br>${indexedSeats[index].sampleType || ''}`;
                   labelElement.style.fontWeight = "bolder";
-                  labelElement.style.fontSize = "9px";
+                  labelElement.style.fontSize = "8px";
                   labelElement.style.textAlign = "center";
                   labelElement.style.color = 'white';
                 }
                 else if (indexedSeats[index].bioBankId === '') {
-                  labelElement.innerHTML = `${'-'}</n>${'-'}`;
+                  labelElement.innerHTML = `${'-'}<br>${'-'}`;
                   labelElement.style.color = "rgb(143, 218, 187)";
                   labelElement.style.textAlign = "center";
-
+                  labelElement.style.fontSize = "8px";
                 }
-
-                // if (seatID.includes(grid)) {
-                //   console.log("seatID", seatID.includes(grid) + " seatID", seatID)
-                // }
 
                 if (indexedSeats[index].status === "o") {
                   labelElement.style.background = "rgb(129, 129, 192)";
-
                 } else if (indexedSeats[index].status === "s") {
                   labelElement.style.background = "rgb(180, 180, 180)";
-
                 } else if (indexedSeats[index].status === "ps") {
                   labelElement.style.background = "rgb(193, 154, 107)";
-
                 } else if (indexedSeats[index].status === "e") {
                   labelElement.style.background = "rgb(143, 218, 187)";
-                  labelElement.style.paddingTop = "6px";
-
                 }
               }
             }
@@ -3828,14 +3829,15 @@
                 if (indexedSeats[index].bioBankId !== '') {
                   labelElement.innerHTML = `${indexedSeats[index].bioBankId || ''}<br>${seat.sampleType || ''}`;
                   labelElement.style.fontWeight = "bolder";
-                  labelElement.style.fontSize = "9px";
+                  labelElement.style.fontSize = "8px";
                   labelElement.style.textAlign = "center";
                   labelElement.style.color = 'white';
                 }
                 else if (indexedSeats[index].bioBankId === '') {
-                  labelElement.innerHTML = `${'-'}</n>${'-'}`;
+                  labelElement.innerHTML = `${'-'}<br>${'-'}`;
                   labelElement.style.color = "rgb(143, 218, 187)";
                   labelElement.style.textAlign = "center";
+                  labelElement.style.fontSize = "8px";
                 }
 
                 if (indexedSeats[index].status === "o") {
@@ -3846,7 +3848,6 @@
                   labelElement.style.background = "rgb(193, 154, 107)";
                 } else if (indexedSeats[index].status === "e") {
                   labelElement.style.background = "rgb(143, 218, 187)";
-                  labelElement.style.paddingTop = "6px";
                 }
               }
             }
@@ -4276,14 +4277,15 @@
                 if (indexedSeats[index].bioBankId !== '') {
                   labelElement.innerHTML = `${indexedSeats[index].bioBankId || ''}<br>${seat.sampleType || ''}`;
                   labelElement.style.fontWeight = "bolder";
-                  labelElement.style.fontSize = "9px";
+                  labelElement.style.fontSize = "8px";
                   labelElement.style.textAlign = "center";
                   labelElement.style.color = 'white';
                 }
                 else if (indexedSeats[index].bioBankId === '') {
-                  labelElement.innerHTML = `${'-'}</n>${'-'}`;
+                  labelElement.innerHTML = `${'-'}<br>${'-'}`;
                   labelElement.style.color = "rgb(143, 218, 187)";
                   labelElement.style.textAlign = "center";
+                  labelElement.style.fontSize = "8px";
                 }
 
                 if (indexedSeats[index].status === "o") {
@@ -4294,7 +4296,6 @@
                   labelElement.style.background = "rgb(193, 154, 107)";
                 } else if (indexedSeats[index].status === "e") {
                   labelElement.style.background = "rgb(143, 218, 187)";
-                  labelElement.style.paddingTop = "6px";
                 }
               }
             }
@@ -4713,15 +4714,15 @@
                 if (indexedSeats[index].bioBankId !== '') {
                   labelElement.innerHTML = `${indexedSeats[index].bioBankId || ''}<br>${seat.sampleType || ''}`;
                   labelElement.style.fontWeight = "bolder";
-                  labelElement.style.fontSize = "9px";
+                  labelElement.style.fontSize = "8px";
                   labelElement.style.textAlign = "center";
                   labelElement.style.color = 'white';
                 }
                 else if (indexedSeats[index].bioBankId === '') {
-                  labelElement.innerHTML = `${'-'}</n>${'-'}`;
+                  labelElement.innerHTML = `${'-'}<br>${'-'}`;
                   labelElement.style.color = "rgb(143, 218, 187)";
                   labelElement.style.textAlign = "center";
-
+                  labelElement.style.fontSize = "8px";
                 }
 
                 if (indexedSeats[index].status === "o") {
@@ -4732,7 +4733,6 @@
                   labelElement.style.background = "rgb(193, 154, 107)";
                 } else if (indexedSeats[index].status === "e") {
                   labelElement.style.background = "rgb(143, 218, 187)";
-                  labelElement.style.paddingTop = "6px";
                 }
               }
             }
@@ -4744,6 +4744,7 @@
           const rev = localStorage.getItem("LocalOther")
 
           if (rev !== null) {
+            
             let arr = splitStringToArray(rev)
             BloodSelectedSeats = arr;
           }
@@ -5168,14 +5169,15 @@
                 if (indexedSeats[index].bioBankId !== '') {
                   labelElement.innerHTML = `${indexedSeats[index].bioBankId || ''}<br>${seatData.sampleType || ''}`;
                   labelElement.style.fontWeight = "bolder";
-                  labelElement.style.fontSize = "9px";
+                  labelElement.style.fontSize = "8px";
                   labelElement.style.textAlign = "center";
                   labelElement.style.color = 'white';
                 }
                 else if (indexedSeats[index].bioBankId === '') {
-                  labelElement.innerHTML = `${'-'}</n>${'-'}`;
+                  labelElement.innerHTML = `${'-'}<br>${'-'}`;
                   labelElement.style.color = "rgb(143, 218, 187)";
                   labelElement.style.textAlign = "center";
+                  labelElement.style.fontSize = "8px";
                 }
 
                 if (indexedSeats[index].status === "o") {
@@ -5186,7 +5188,6 @@
                   labelElement.style.background = "rgb(193, 154, 107)";
                 } else if (indexedSeats[index].status === "e") {
                   labelElement.style.background = "rgb(143, 218, 187)";
-                  labelElement.style.paddingTop = "6px";
                 }
               }
             }
@@ -5300,14 +5301,16 @@
         }
 
         window.handleDone = function () {
-
+          const rev = localStorage.getItem("LocalFT")
+          let arr = splitStringToArray(rev)
+          SpecimenSelectedSeats = arr;
           if (SpecimenSelectedSeats.length === maxSelectionsFT) {
             updateFTGridInput();
             ftListener = false;
             $('#specimenModalCenter').modal('hide');
-
           }
           else {
+            console.log("Please select the maximum number of selections",SpecimenSelectedSeats);
             alert(`Please select ${maxSelectionsFT} grids`)
           }
         };
@@ -5605,14 +5608,15 @@
                 if (indexedSeats[index].bioBankId !== '') {
                   labelElement.innerHTML = `${indexedSeats[index].bioBankId || ''}<br>${seatData.sampleType || ''}`;
                   labelElement.style.fontWeight = "bolder";
-                  labelElement.style.fontSize = "9px";
+                  labelElement.style.fontSize = "8px";
                   labelElement.style.textAlign = "center";
                   labelElement.style.color = 'white';
                 }
                 else if (indexedSeats[index].bioBankId === '') {
-                  labelElement.innerHTML = `${'-'}</n>${'-'}`;
+                  labelElement.innerHTML = `${'-'}<br>${'-'}`;
                   labelElement.style.color = "rgb(143, 218, 187)";
                   labelElement.style.textAlign = "center";
+                  labelElement.style.fontSize = "8px";
                 }
 
                 if (indexedSeats[index].status === "o") {
@@ -5623,7 +5627,6 @@
                   labelElement.style.background = "rgb(193, 154, 107)";
                 } else if (indexedSeats[index].status === "e") {
                   labelElement.style.background = "rgb(143, 218, 187)";
-                  labelElement.style.paddingTop = "6px";
                 }
               }
             }
@@ -5737,7 +5740,9 @@
         }
 
         window.handleDone = function () {
-
+          const rev = localStorage.getItem("LocalFN")
+          let arr = splitStringToArray(rev)
+          SpecimenSelectedSeats = arr;
           if (SpecimenSelectedSeats.length === maxSelections) {
             updateFNGridInput();
             fnListener = false;
@@ -5990,7 +5995,7 @@
         // document.getElementById('currBloodBoxName').textContent = activeBoxName;
         if (grid !== null) {
           console.log("grid", grid)
-          arr = splitRLTStringToArray(grid);
+          rArr = splitRLTStringToArray(grid);
           rArrinx = [];
           rArr.forEach(item => { rArrinx.push(getSeatIndex(item)) })
 
@@ -6066,14 +6071,15 @@
                 if (indexedSeats[index].bioBankId !== '') {
                   labelElement.innerHTML = `${indexedSeats[index].bioBankId || ''}<br>${indexedSeats[index].sampleType || ''}`;
                   labelElement.style.fontWeight = "bolder";
-                  labelElement.style.fontSize = "9px";
+                  labelElement.style.fontSize = "8px";
                   labelElement.style.textAlign = "center";
                   labelElement.style.color = 'white';
                 }
                 else if (indexedSeats[index].bioBankId === '') {
-                  labelElement.innerHTML = `${'-'}</n>${'-'}`;
+                  labelElement.innerHTML = `${'-'}<br>${'-'}`;
                   labelElement.style.color = "rgb(143, 218, 187)";
                   labelElement.style.textAlign = "center";
+                  labelElement.style.fontSize = "8px";
                 }
 
                 if (indexedSeats[index].status === "o") {
@@ -6084,7 +6090,6 @@
                   labelElement.style.background = "rgb(193, 154, 107)";
                 } else if (indexedSeats[index].status === "e") {
                   labelElement.style.background = "rgb(143, 218, 187)";
-                  labelElement.style.paddingTop = "6px";
                 }
               }
             }
@@ -6529,34 +6534,25 @@
                 if (indexedSeats[index].bioBankId !== '') {
                   labelElement.innerHTML = `${indexedSeats[index].bioBankId || ''}<br>${indexedSeats[index].sampleType || ''}`;
                   labelElement.style.fontWeight = "bolder";
-                  labelElement.style.fontSize = "9px";
+                  labelElement.style.fontSize = "8px";
                   labelElement.style.textAlign = "center";
                   labelElement.style.color = 'white';
                 }
                 else if (indexedSeats[index].bioBankId === '') {
-                  labelElement.innerHTML = `${'-'}</n>${'-'}`;
+                  labelElement.innerHTML = `${'-'}<br>${'-'}`;
                   labelElement.style.color = "rgb(143, 218, 187)";
                   labelElement.style.textAlign = "center";
-
+                  labelElement.style.fontSize = "8px";
                 }
-
-                // if (seatID.includes(grid)) {
-                //   console.log("seatID", seatID.includes(grid) + " seatID", seatID)
-                // }
 
                 if (indexedSeats[index].status === "o") {
                   labelElement.style.background = "rgb(129, 129, 192)";
-
                 } else if (indexedSeats[index].status === "s") {
                   labelElement.style.background = "rgb(180, 180, 180)";
-
                 } else if (indexedSeats[index].status === "ps") {
                   labelElement.style.background = "rgb(193, 154, 107)";
-
                 } else if (indexedSeats[index].status === "e") {
                   labelElement.style.background = "rgb(143, 218, 187)";
-                  labelElement.style.paddingTop = "6px";
-
                 }
               }
             }
@@ -7755,33 +7751,61 @@
       input.value = formattedValue;
     }
 
-    document.getElementById('cancer_type').addEventListener('change', function () {
-      let bioDataArray = [];
-      let mrnDataArray = [];
-      let MRNnum = localStorage.getItem("MRN");
-      db.ref('bbnmrn/').once('value').then(function (snapshot) {
-        if (snapshot.exists()) {
-          let bbnmrn = snapshot.val();
-          Object.values(bbnmrn).forEach(function (value) {
-            if (value) {
-              value = value.slice(2);
-              bioDataArray.push(value);
-            }
-          });
-          Object.keys(bbnmrn).forEach(function (value) {
-            mrnDataArray.push(value);
-          });
-          if (!mrnDataArray.includes(MRNnum)) {
-            let bio_info = Math.max(...bioDataArray);
-            console.log("Max bioDataArray value: ", bio_info);
-            let nextBioInfo = (bio_info + 1).toString().padStart(4, '0');
-            document.getElementById('bioBankId').value = `BR${nextBioInfo}`;
+    function formatBioInput(input) {
+      let value = input.value.replace(/[^a-zA-Z0-9]/g, '');
+
+      let ct = document.getElementById('cancer_type').value;
+
+      if (ct === "brst" && !value.startsWith("BR")) {
+        input.value = `BR${value}`;
+      }
+      if (input === "" || input.value === "BR") {
+        input.value = '';
+      }
+
+      if (input.value !== "") {
+        db.ref('bbnmrn/').once('value').then(function (snapshot) {
+          if (snapshot.exists()) {
+            let bbnmrn = snapshot.val();
+            Object.keys(bbnmrn).forEach(function (key) {
+              if (bbnmrn[key] === input.value) {
+                input.value = '';
+                alert("BioBank ID already exists");
+              }
+            });
           }
-        } else {
-          document.getElementById('bioBankId').value = 'BR0001';
-        }
-      });
-    });
+        });
+      }
+
+    }
+
+    // document.getElementById('cancer_type').addEventListener('change', function () {
+    //   let bioDataArray = [];
+    //   let mrnDataArray = [];
+    //   let MRNnum = localStorage.getItem("MRN");
+    //   db.ref('bbnmrn/').once('value').then(function (snapshot) {
+    //     if (snapshot.exists()) {
+    //       let bbnmrn = snapshot.val();
+    //       Object.values(bbnmrn).forEach(function (value) {
+    //         if (value) {
+    //           value = value.slice(2);
+    //           bioDataArray.push(value);
+    //         }
+    //       });
+    //       Object.keys(bbnmrn).forEach(function (value) {
+    //         mrnDataArray.push(value);
+    //       });
+    //       if (!mrnDataArray.includes(MRNnum)) {
+    //         let bio_info = Math.max(...bioDataArray);
+    //         console.log("Max bioDataArray value: ", bio_info);
+    //         let nextBioInfo = (bio_info + 1).toString().padStart(4, '0');
+    //         document.getElementById('bioBankId').value = `BR${nextBioInfo}`;
+    //       }
+    //     } else {
+    //       document.getElementById('bioBankId').value = 'BR0001';
+    //     }
+    //   });
+    // });
 
 
 
