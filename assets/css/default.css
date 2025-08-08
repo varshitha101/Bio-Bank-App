@@ -1,22 +1,14 @@
 :root {
-  --primary-color: rgb(11, 78, 179);
+  --primary-color: #1991c9;
 }
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-/* Progressbar */
 .progressbar {
   position: relative;
   display: flex;
+  width: 900px;
   justify-content: space-between;
   counter-reset: step;
-  margin: 2rem 0 4rem;
+  margin: 1rem 4rem 1rem 5rem;
 }
-
 .progressbar::before,
 .progress {
   content: "";
@@ -38,7 +30,7 @@
 .progress-step {
   width: 2.1875rem;
   height: 2.1875rem;
-  background-color: #dcdcdc;
+  background-color: #e0e0e0;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -50,15 +42,23 @@
   content: counter(step);
 }
 
-.progress-step::after {
-  content: attr(data-title);
-  position: absolute;
-  top: calc(100% + 0.5rem);
-  font-size: 0.85rem;
-  color: #666;
-}
-
 .progress-step-active {
   background-color: var(--primary-color);
   color: #f3f3f3;
+}
+
+.nav-tab-link {
+  color: #1991c9;
+  font-weight: bold;
+}
+.navbar-image-logo {
+  width: 100px;
+  height: 50px;
+  background: #fff; /* White background */
+}
+.navbar-image-logo2 {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #fff; /* White background */
 }
