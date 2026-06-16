@@ -4,7 +4,7 @@ Bio-Bank-App is a web-based application for managing and tracking biological sam
 
 # Deployment
 
-Deployment link - https://varshitha101.github.io/bio_bank_Application/login.html
+Deployment link - https://varshitha101.github.io/Bio-Bank-App/login.html
 
 ## Features
 
