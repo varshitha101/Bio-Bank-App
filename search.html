@@ -4836,6 +4836,7 @@
       }
 
       function atyp_hene(data) {
+        if(!data || data.length === 0) return "-";
         const mapping = {
           op1: "Minimally invasive",
           op2: "Invasive",
@@ -4844,11 +4845,12 @@
         };
         const res = [];
         for (let i = 0; i < data.length; i++) {
-          res.push(mapping[data[i].op]);
+          res.push(mapping[data[i]?.op]);
         }
         return res.length > 0 ? res.join(", ") : "-";
       }
       function mcpt1_hene(data, type) {
+        if(!data || data.length === 0) return "-";
         const mapping = {
           op1: "Salivary duct carcinoma",
           op2: "Myoepithelial carcinoma",

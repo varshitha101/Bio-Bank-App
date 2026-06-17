@@ -8644,7 +8644,7 @@ function popSharedPCmodal(bioboxName, samples, bioId, requestToken) {
 }
 
 function retrieveOs(bioBankId) {
-  const bioId = bioBankId.slice(0, 2);
+  const bioId = bioBankId?.slice(0, 2);
   db.ref(`Os/${bioId}/${bioBankId}`)
     .once("value")
     .then((snapshot) => {
