@@ -378,6 +378,7 @@
                   let ceixCancer = 0;
                   let endmCancer = 0;
                   let ovryCancer = 0;
+                  let heneCancer = 0;
 
                   let biopsy = 0;
                   let resection = 0;
@@ -421,7 +422,7 @@
                           else if (cancer === "ceix") ceixCancer++;
                           else if (cancer === "endm") endmCancer++;
                           else if (cancer === "ovry") ovryCancer++;
-
+                          else if (cancer === "hene") heneCancer++;
                           if (procedure === "b") biopsy++;
                           else if (procedure === "r") resection++;
 
@@ -462,7 +463,7 @@
                     document.getElementById("samples").innerHTML = count;
 
                     ageChart(countUnder30, count30to40, count41to50, count51to60, countAbove60);
-                    cancerChart(breastCancer, ceixCancer, endmCancer, ovryCancer);
+                    cancerChart(breastCancer, ceixCancer, endmCancer, ovryCancer, heneCancer);
                     procedureChart(biopsy, resection);
                     sampleTypeChart(countBS, countSS, countOS, countRLT, countPC, countCombined);
                     hideLoadingModal();
@@ -473,7 +474,7 @@
                   console.log("No seat data available.");
                   document.getElementById("samples").innerHTML = 0;
                   ageChart(0, 0, 0, 0, 0);
-                  cancerChart(0, 0, 0, 0);
+                  cancerChart(0, 0, 0, 0, 0);
                   procedureChart(0, 0);
                   sampleTypeChart(0, 0, 0, 0, 0, 0);
                   hideLoadingModal();
