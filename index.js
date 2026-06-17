@@ -5961,6 +5961,7 @@ function fillMdForm_hene(mdData) {
     document.getElementById("mte1_hene").value = mdData?.mte1 || "";
     document.getElementById("mte1_hene").dispatchEvent(new Event("change"));
     document.getElementById("mte2_hene").value = mdData?.mte2 || "";
+    document.getElementById("mte2_hene").dispatchEvent(new Event("change"));
     document.getElementById("mte_hene_other").value = mdData?.mteOth || "";
 
     if (mdData?.lvi) document.querySelector(`input[name="LVI_hene"][value="${mdData.lvi}"]`).checked = true || "";

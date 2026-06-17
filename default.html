@@ -11317,12 +11317,13 @@
             })
               ? currentValue
               : "";
-
+            const mode = localStorage.getItem("mode");
+            const isReadOnlyMode = ["SearchView", "EditFollowUps", "PendingView", "ViewFollowUp", "SharedView", "sharedView", "share", "view"].includes(mode);
             if (primaryId === "mte1_hene" && secondaryId === "mte2_hene") {
               const otherInput = document.getElementById("mte_hene_other");
               if (otherInput) {
                 const shouldEnableOther = ["op8", "op9"].includes(secondarySelect.value);
-                otherInput.disabled = secondarySelect.disabled || !shouldEnableOther;
+                otherInput.disabled = secondarySelect.disabled || !shouldEnableOther || isReadOnlyMode;
                 if (!shouldEnableOther) {
                   otherInput.value = "";
                 }
@@ -11332,7 +11333,7 @@
               const otherInput = document.getElementById("tumorType_Oth_hene");
               if (otherInput) {
                 const shouldEnableOther = ["op17", "op18", "op19", "op27", "op28", "op29"].includes(secondarySelect.value);
-                otherInput.disabled = secondarySelect.disabled || !shouldEnableOther;
+                otherInput.disabled = secondarySelect.disabled || !shouldEnableOther || isReadOnlyMode;
                 if (!shouldEnableOther) {
                   otherInput.value = "";
                 }
