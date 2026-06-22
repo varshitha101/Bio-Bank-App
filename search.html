@@ -917,7 +917,7 @@
           &copy; Copyright <strong><span></span></strong>. All Rights Reserved
         </div>
         <div class="credits"></div>
-        <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">Version 1.8.11</div>
+        <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">Version 1.8.12</div>
       </div>
     </footer>
 
@@ -4421,12 +4421,12 @@
         const mapping = {
           op1: "Squamous Cell Carcinoma and Subtypes",
           op2: "Neuroendocrine",
-          op3: "Type of Combined Histology (select all that apply",
+          op3: "Type of Combined Histology (select all that apply)",
           op4: "Other",
-          op5: "Histologic Type (oropharynx",
-          op6: "Histologic Type (hypopharynx",
-          op7: "Histology Type (Neuroendocrine",
-          op8: "Type of Combined Histology (select all that apply",
+          op5: "Histologic Type (oropharynx)",
+          op6: "Histologic Type (hypopharynx)",
+          op7: "Histology Type (Neuroendocrine)",
+          op8: "Type of Combined Histology (select all that apply)",
           op9: "Other",
           op10: "Squamous cell carcinoma, non-keratinizing, HPV-associated",
           op11: "Squamous cell carcinoma, keratinizing, HPV-associated",
@@ -4436,22 +4436,22 @@
           op15: "Papillary squamous cell carcinoma, HPV-associated",
           op16: "Spindle cell / sarcomatoid squamous carcinoma, HPV-associated",
           op17: "Lymphoepithelial carcinoma (non-nasopharyngeal), HPV-associated",
-          op18: "Other HPV-associated histologic type not listed (specify",
+          op18: "Other HPV-associated histologic type not listed",
           op19: "Carcinomas",
           op20: "Neuroendocrine",
-          op21: "Type of Combined Histology# (select all that apply",
+          op21: "Type of Combined Histology (select all that apply)",
           op22: "Other",
           op23: "Squamous cell carcinoma and subtypes",
           op24: "Neuroendocrine",
-          op25: "Type of Combined Histology (select all that apply",
+          op25: "Type of Combined Histology (select all that apply)",
           op26: "Other",
           op27: "Carcinomas",
           op28: "Neuroendocrine",
-          op29: "Type of Combined Histology (select all that apply",
+          op29: "Type of Combined Histology (select all that apply)",
           op30: "Other",
           op31: "Carcinoma ex pleomorphic adenoma",
           op32: "Mucoepidermoid carcinoma",
-          op33: "Adenoid cystic carcinoma [tubular / cribriform",
+          op33: "Adenoid cystic carcinoma [tubular / cribriform]",
           op34: "Adenoid cystic carcinoma, solid",
           op35: "Acinic cell carcinoma",
           op36: "Secretory carcinoma",
@@ -4980,6 +4980,16 @@
         }
         return res.length > 0 ? res.join("; ") : "-";
       }
+      function hpv_hene(option) {
+        const mapping = {
+          pos: "Positive",
+          equ: "Equivocal",
+          neg: "Negative",
+          unk: "Unknown",
+          oth: "Others",
+        };
+        return mapping[option] || "-";
+      }
       function getExcelData(rowsData) {
         return rowsData.map((row) => {
           if (row.sefData.ie.ct === "brst")
@@ -5133,7 +5143,7 @@
               "Treatment Completed": row?.fwData?.fwlastTimestamp?.tc || "-",
               "followUp updated by": row?.fwData?.fwlastTimestamp?.fw_ub || "-",
 
-              "Shared Date - Time": formatTimestamp(row?.osData?.lastKey) || "-",
+              "Shared Form Date - Time": formatTimestamp(row?.osData?.lastKey) || "-",
               "Shared Date": row?.osData?.oslastTimestamp?.doe || "-",
               "Shared Grid": row?.oSgrid,
               "Institute or Department": row?.osData?.oslastTimestamp?.dpt || "-",
@@ -5210,7 +5220,7 @@
               "Primary Culture Sample Received Time": formatTimestamp(row?.sefData?.ie?.psrt) || "-",
               "Primary Culture Sample processed Time": formatTimestamp(row?.sefData?.ie?.pspt) || "-",
               "Data Entry By": row?.sefData?.ie?.sef_ub || "-",
-              "HPV status": decodeProcedureType(row?.sefData?.md?.hpv),
+              "HPV status": hpv_hene(row?.sefData?.md?.hpv),
               "Family History Cancer": decodeProcedureType(row?.sefData?.md?.fhc),
               "Family Relation": row?.sefData?.md?.fhcr || "-",
               "Family Cancer Type": row?.sefData?.md?.fhct || "-",
@@ -5292,18 +5302,18 @@
               "Distance from Noninvasive Tumor to Closest Specimen Margin (Other)": row?.sefData?.md?.msts1Oth || "-",
               "Margin(s) Involved by Noninvasive Tumor (per orientation)": msts2_hene(row?.sefData?.md?.msts2) || "-",
               "Margin(s) Involved by Noninvasive Tumor (per orientation) (Other)": row?.sefData?.md?.msts2Oth || "-",
-              "Tumor Bed Margin Status for Invasive Tumor": tbmsts_hene(row?.sefData?.md?.tbmsts) || "-",
-              "Tumor Bed Margin Status for Invasive Tumor (Other)": row?.sefData?.md?.tbmstsOth || "-",
-              "Distance from Invasive Tumor to True Margin Surface": tbmsts1_hene(row?.sefData?.md?.tbmsts1) || "-",
-              "Distance from Invasive Tumor to True Margin Surface (Other)": row?.sefData?.md?.tbmsts1Oth || "-",
-              "Tumor Bed Margin(s) Involved by Invasive Tumor (per part labeling)": tbmsts2_hene(row?.sefData?.md?.tbmsts2) || "-",
-              "Tumor Bed Margin(s) Involved by Invasive Tumor (per part labeling) (Other)": row?.sefData?.md?.tbmsts2Oth || "-",
-              "Tumor Bed Margin Status for Non-invasive Tumor": tbmstsN_hene(row?.sefData?.md?.tbmstsN) || "-",
-              "Tumor Bed Margin Status for Non-invasive Tumor (Other)": row?.sefData?.md?.tbmstsNOth || "-",
-              "Distance from Non-invasive Tumor to True Margin Surface": tbmstsN1_hene(row?.sefData?.md?.tbmstsN1) || "-",
-              "Distance from Non-invasive Tumor to True Margin Surface (Other)": row?.sefData?.md?.tbmstsN1Oth || "-",
-              "Tumor Bed Margin(s) Involved by Non-invasive Tumor (per orientation)": tbmstsN2_hene(row?.sefData?.md?.tbmstsN2) || "-",
-              "Tumor Bed Margin(s) Involved by Non-invasive Tumor (per orientation) (Other)": row?.sefData?.md?.tbmstsN2Oth || "-",
+              "Tumor Bed Margin Status for Invasive Tumor": tbmsts_hene(row?.sefData?.md?.tbsts) || "-",
+              "Tumor Bed Margin Status for Invasive Tumor (Other)": row?.sefData?.md?.tbstsOth || "-",
+              "Distance from Invasive Tumor to True Margin Surface": tbmsts1_hene(row?.sefData?.md?.tbsts1) || "-",
+              "Distance from Invasive Tumor to True Margin Surface (Other)": row?.sefData?.md?.tbsts1Oth || "-",
+              "Tumor Bed Margin(s) Involved by Invasive Tumor (per part labeling)": tbmsts2_hene(row?.sefData?.md?.tbsts2) || "-",
+              "Tumor Bed Margin(s) Involved by Invasive Tumor (per part labeling) (Other)": row?.sefData?.md?.tbsts2Oth || "-",
+              "Tumor Bed Margin Status for Non-invasive Tumor": tbmstsN_hene(row?.sefData?.md?.tbstsN) || "-",
+              "Tumor Bed Margin Status for Non-invasive Tumor (Other)": row?.sefData?.md?.tbstsNOth || "-",
+              "Distance from Non-invasive Tumor to True Margin Surface": tbmstsN1_hene(row?.sefData?.md?.tbstsN1) || "-",
+              "Distance from Non-invasive Tumor to True Margin Surface (Other)": row?.sefData?.md?.tbstsN1Oth || "-",
+              "Tumor Bed Margin(s) Involved by Non-invasive Tumor (per orientation)": tbmstsN2_hene(row?.sefData?.md?.tbstsN2) || "-",
+              "Tumor Bed Margin(s) Involved by Non-invasive Tumor (per orientation) (Other)": row?.sefData?.md?.tbstsN2Oth || "-",
               "Bony margins": row?.sefData?.md?.bm || "-",
               "Additional findings": row?.sefData?.md?.addF || "-",
               "Modified Classification (required only if applicable)": mC_hene(row?.sefData?.md?.mC) || "-",
@@ -5347,7 +5357,7 @@
               "Treatment Completed": row?.fwData?.fwlastTimestamp?.tc || "-",
               "followUp updated by": row?.fwData?.fwlastTimestamp?.fw_ub || "-",
 
-              "Shared Date - Time": formatTimestamp(row?.osData?.lastKey) || "-",
+              "Shared Form Date - Time": formatTimestamp(row?.osData?.lastKey) || "-",
               "Shared Date": row?.osData?.oslastTimestamp?.doe || "-",
               "Shared Grid": row?.oSgrid,
               "Institute or Department": row?.osData?.oslastTimestamp?.dpt || "-",
@@ -5517,7 +5527,7 @@
               "Treatment Completed": row?.fwData?.fwlastTimestamp?.tc || "-",
               "followUp updated by": row?.fwData?.fwlastTimestamp?.fw_ub || "-",
 
-              "Shared Date - Time": formatTimestamp(row?.osData?.lastKey) || "-",
+              "Shared Form Date - Time": formatTimestamp(row?.osData?.lastKey) || "-",
               "Shared Date": row?.osData?.oslastTimestamp?.doe || "-",
               "Shared Grid": row?.oSgrid,
               "Institute or Department": row?.osData?.oslastTimestamp?.dpt || "-",
@@ -5718,7 +5728,7 @@
               "Treatment Completed": row?.fwData?.fwlastTimestamp?.tc || "-",
               "followUp updated by": row?.fwData?.fwlastTimestamp?.fw_ub || "-",
 
-              "Shared Date - Time": formatTimestamp(row?.osData?.lastKey) || "-",
+              "Shared Form Date - Time": formatTimestamp(row?.osData?.lastKey) || "-",
               "Shared Date": row?.osData?.oslastTimestamp?.doe || "-",
               "Shared Grid": row?.oSgrid,
               "Institute or Department": row?.osData?.oslastTimestamp?.dpt || "-",
@@ -5946,7 +5956,7 @@
               "Treatment Completed": row?.fwData?.fwlastTimestamp?.tc || "-",
               "followUp updated by": row?.fwData?.fwlastTimestamp?.fw_ub || "-",
 
-              "Shared Date - Time": formatTimestamp(row?.osData?.lastKey) || "-",
+              "Shared Form Date - Time": formatTimestamp(row?.osData?.lastKey) || "-",
               "Shared Date": row?.osData?.oslastTimestamp?.doe || "-",
               "Shared Grid": row?.oSgrid,
               "Institute or Department": row?.osData?.oslastTimestamp?.dpt || "-",

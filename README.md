@@ -335,5 +335,6 @@ Following features and changes have been incorporates:
 - Issues related to "Histological Subtype" have been resolved.
 - The option population for the "All Samples Received Together?" question has been made dynamic.
 - Issues related to Sample Search and its search parameters have been resolved.
+- Issue related Excel has been resolved.
 
 <hr>
