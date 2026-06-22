@@ -5866,6 +5866,7 @@ function fillMdForm_hene(mdData) {
     document.getElementById("pType_hene").value = mdData?.pt || "";
     pTyp_pSubTyp_hene(mdData?.pt);
     document.getElementById("pType_Oth_hene").value = mdData?.ptOth || "";
+    document.getElementById("pType_Oth_hene").disabled = isReadOnlyViewMode(mode);
     if (mdData.pst) {
       const data = Array.isArray(mdData.pst) ? mdData.pst : [mdData.pst];
 
@@ -5885,6 +5886,7 @@ function fillMdForm_hene(mdData) {
           const otherInput = document.getElementById(`pSubType_${subtypeValue}_Oth_hene`);
           if (otherInput) {
             otherInput.value = item.text || "";
+            otherInput.disabled = isReadOnlyViewMode(mode);
           }
         }
       });
@@ -5916,6 +5918,7 @@ function fillMdForm_hene(mdData) {
           const otherInput = document.getElementById("mcpt1_op6_Oth_hene");
           if (otherInput) {
             otherInput.value = item?.text || "";
+            otherInput.disabled = isReadOnlyViewMode(mode);
           }
         }
       });
@@ -5923,28 +5926,100 @@ function fillMdForm_hene(mdData) {
 
     if (mdData.psc1) {
       document.querySelector(`input[name="psc1_hene"][value="${mdData.psc1}"]`).checked = true || "";
-      if (mdData.psc1 === "op1") document.getElementById("psc1_op1_Oth_hene").value = mdData?.psc1Oth;
-      if (mdData.psc1 === "op2") document.getElementById("psc1_op2_Oth_hene").value = mdData?.psc1Oth;
-      if (mdData.psc1 === "op3") document.getElementById("psc1_op3_Oth_hene").value = mdData?.psc1Oth;
+      if (mdData.psc1 === "op1") {
+        const otherInput = document.getElementById("psc1_op1_Oth_hene");
+        if (otherInput) {
+          otherInput.value = mdData?.psc1Oth || "";
+          otherInput.disabled = isReadOnlyViewMode(mode);
+        }
+      }
+      if (mdData.psc1 === "op2") {
+        const otherInput = document.getElementById("psc1_op2_Oth_hene");
+        if (otherInput) {
+          otherInput.value = mdData?.psc1Oth || "";
+          otherInput.disabled = isReadOnlyViewMode(mode);
+        }
+      }
+      if (mdData.psc1 === "op3") {
+        const otherInput = document.getElementById("psc1_op3_Oth_hene");
+        if (otherInput) {
+          otherInput.value = mdData?.psc1Oth || "";
+          otherInput.disabled = isReadOnlyViewMode(mode);
+        }
+      }
     }
     if (mdData.psc2) {
       document.querySelector(`input[name="psc2_hene"][value="${mdData.psc2}"]`).checked = true || "";
-      if (mdData.psc2 === "op1") document.getElementById("psc2_op1_Oth_hene").value = mdData?.psc2Oth;
-      if (mdData.psc2 === "op2") document.getElementById("psc2_op2_Oth_hene").value = mdData?.psc2Oth;
-      if (mdData.psc2 === "op3") document.getElementById("psc2_op3_Oth_hene").value = mdData?.psc2Oth;
+      if (mdData.psc2 === "op1") {
+        const otherInput = document.getElementById("psc2_op1_Oth_hene");
+        if (otherInput) {
+          otherInput.value = mdData?.psc2Oth || "";
+          otherInput.disabled = isReadOnlyViewMode(mode);
+        }
+      }
+      if (mdData.psc2 === "op2") {
+        const otherInput = document.getElementById("psc2_op2_Oth_hene");
+        if (otherInput) {
+          otherInput.value = mdData?.psc2Oth || "";
+          otherInput.disabled = isReadOnlyViewMode(mode);
+        }
+      }
+      if (mdData.psc2 === "op3") {
+        const otherInput = document.getElementById("psc2_op3_Oth_hene");
+        if (otherInput) {
+          otherInput.value = mdData?.psc2Oth || "";
+          otherInput.disabled = isReadOnlyViewMode(mode);
+        }
+      }
     }
 
     if (mdData.ppc) {
       document.querySelector(`input[name="ppc_hene"][value="${mdData.ppc}"]`).checked = true || "";
-      if (mdData.ppc === "op1") document.getElementById("ppc_op1_Oth_hene").value = mdData?.ppcOth;
-      if (mdData.ppc === "op2") document.getElementById("ppc_op2_Oth_hene").value = mdData?.ppcOth;
-      if (mdData.ppc === "op3") document.getElementById("ppc_op3_Oth_hene").value = mdData?.ppcOth;
+      if (mdData.ppc === "op1") {
+        const otherInput = document.getElementById("ppc_op1_Oth_hene");
+        if (otherInput) {
+          otherInput.value = mdData?.ppcOth || "";
+          otherInput.disabled = isReadOnlyViewMode(mode);
+        }
+      }
+      if (mdData.ppc === "op2") {
+        const otherInput = document.getElementById("ppc_op2_Oth_hene");
+        if (otherInput) {
+          otherInput.value = mdData?.ppcOth || "";
+          otherInput.disabled = isReadOnlyViewMode(mode);
+        }
+      }
+      if (mdData.ppc === "op3") {
+        const otherInput = document.getElementById("ppc_op3_Oth_hene");
+        if (otherInput) {
+          otherInput.value = mdData?.ppcOth || "";
+          otherInput.disabled = isReadOnlyViewMode(mode);
+        }
+      }
     }
     if (mdData.pcc) {
       document.querySelector(`input[name="pcc_hene"][value="${mdData.pcc}"]`).checked = true || "";
-      if (mdData.pcc === "op1") document.getElementById("pcc_op1_Oth_hene").value = mdData?.pccOth;
-      if (mdData.pcc === "op2") document.getElementById("pcc_op2_Oth_hene").value = mdData?.pccOth;
-      if (mdData.pcc === "op3") document.getElementById("pcc_op3_Oth_hene").value = mdData?.pccOth;
+      if (mdData.pcc === "op1") {
+        const otherInput = document.getElementById("pcc_op1_Oth_hene");
+        if (otherInput) {
+          otherInput.value = mdData?.pccOth || "";
+          otherInput.disabled = isReadOnlyViewMode(mode);
+        }
+      }
+      if (mdData.pcc === "op2") {
+        const otherInput = document.getElementById("pcc_op2_Oth_hene");
+        if (otherInput) {
+          otherInput.value = mdData?.pccOth || "";
+          otherInput.disabled = isReadOnlyViewMode(mode);
+        }
+      }
+      if (mdData.pcc === "op3") {
+        const otherInput = document.getElementById("pcc_op3_Oth_hene");
+        if (otherInput) {
+          otherInput.value = mdData?.pccOth || "";
+          otherInput.disabled = isReadOnlyViewMode(mode);
+        }
+      }
     }
 
     document.getElementById("histGrade_hene").value = mdData?.pgd || "";
@@ -9320,8 +9395,8 @@ function fetchPendingFollowUps() {
   let currentFPage = 1;
   let totalFPages = 1;
 
-  let allPatientData = [];
-
+  const allPatientData = [];
+  const promises = [];
   const selectEntries = document.getElementById("pfollow");
   if (selectEntries) {
     selectEntries.addEventListener("change", (event) => {
@@ -9526,7 +9601,7 @@ function fetchPendingFollowUps() {
           hasDueFollowUps = true;
           const sefRef = db.ref(`sef/${bioId}/${biobankID}`).orderByKey().limitToLast(1);
 
-          sefRef.once("value").then((sefSnapshot) => {
+          const promise = sefRef.once("value").then((sefSnapshot) => {
             const data = sefSnapshot.val();
             if (data) {
               const patientArrays = Object.keys(data);
@@ -9561,14 +9636,26 @@ function fetchPendingFollowUps() {
             totalFPages = Math.ceil(allPatientData.length / rowsPerFPage);
             displayPage();
           });
+
+          promises.push(promise);
         }
       });
-      localStorage.setItem("pendingFollowUpsCount", allPatientData.length);
-      updateTodoBadge("pendingFollowUpsBadge");
-      updateTodoBadge("todoBadge");
+      Promise.all(promises).then(() => {
+        console.log("Final count:", allPatientData.length);
+
+        totalFPages = Math.ceil(allPatientData.length / rowsPerFPage);
+
+        localStorage.setItem("pendingFollowUpsCount", allPatientData.length);
+
+        updateTodoBadge("pendingFollowUpsBadge");
+        updateTodoBadge("todoBadge");
+
+        displayPage();
+      });
     }
 
     if (!hasDueFollowUps) {
+      console.log("No due follow-ups found");
       totalFPages = 0;
       localStorage.setItem("pendingFollowUpsCount", 0);
       updateTodoBadge("pendingFollowUpsBadge");
@@ -12137,6 +12224,7 @@ function breFd_ovry() {
 }
 // Head and Neck Histological Subtype
 function pTyp_pSubTyp_hene(pt) {
+  const mode = localStorage.getItem("mode");
   const option = pt || $("#pType_hene").val();
   const showSubType = [
     "op1",
@@ -12177,10 +12265,12 @@ function pTyp_pSubTyp_hene(pt) {
     "op53",
     "op54",
   ].includes(option);
-  const enableOtherType = ["op9", "op18", "op43", "op58"].includes(option);
+  const supportsOtherType = ["op9", "op18", "op43", "op58"].includes(option);
+  const enableOtherType = supportsOtherType || isReadOnlyViewMode(mode);
   $("#histological_subtype").toggle(showSubType);
+  console.log("pType_Oth_hene is ", enableOtherType);
   $("#pType_Oth_hene")
-    .prop("disabled", !enableOtherType)
+    .prop("disabled", !supportsOtherType || isReadOnlyViewMode(mode))
     .val(enableOtherType ? $("#pType_Oth_hene").val() : "");
 
   $("#pType_op1_hene").toggle(option === "op1");
@@ -12239,7 +12329,12 @@ function pTyp_pSubTyp_hene(pt) {
       const target = `#pSubType_${$(this).val()}_Oth_hene`;
 
       if ($(target).length) {
-        $(target).prop("disabled", true).val("");
+        // enable when checked and disble when checked if in read mode
+        $(target).prop("disabled", !$(this).is(":checked") || isReadOnlyViewMode(mode));
+
+        if (!$(this).is(":checked")) {
+          $(target).val("");
+        }
       }
     });
   }

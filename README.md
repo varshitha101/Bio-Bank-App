@@ -322,3 +322,18 @@ Following features and changes have been incorporates:
 - Added Head and Neck Cancer with all functionality.
 
 <hr>
+
+### Version 1.8.11
+
+- The meta-data form for Head and Neck Cancer type has been updated according to the Excel document shared on 11-06-2026.
+- Head & Cancer Type and Tumor Site have been added to the Search parameters for Head and Neck Cancer type.
+
+<hr>
+
+### Version 1.8.12
+
+- Issues related to "Histological Subtype" have been resolved.
+- The option population for the "All Samples Received Together?" question has been made dynamic.
+- Issues related to Sample Search and its search parameters have been resolved.
+
+<hr>

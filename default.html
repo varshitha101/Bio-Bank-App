@@ -7534,7 +7534,7 @@
                         </div>
                         <div class="custom-control custom-checkbox">
                           <input type="checkbox" id="tumorSubType_op55_hene" name="tumorSubType_hene" class="custom-control-input" value="op55" />
-                          <label class="custom-control-label" for="tumorSubType_op55_hene">Palatine tonsil</label>
+                          <label class="custom-control-label" for="tumorSubType_op55_hene">False vocal cord</label>
                         </div>
                         <div class="custom-control custom-checkbox">
                           <input type="checkbox" id="tumorSubType_op56_hene" name="tumorSubType_hene" class="custom-control-input" value="op56" />
@@ -7872,6 +7872,7 @@
                         <div class="custom-control custom-checkbox">
                           <input type="checkbox" id="tumorSubType_op131_hene" name="tumorSubType_hene" class="custom-control-input" value="op131" />
                           <label class="custom-control-label" for="tumorSubType_op131_hene">Other</label>
+                          <input type="text" class="form-control mt-2" id="tumorSubType_op131_Oth_hene" placeholder="specify" disabled />
                         </div>
                       </div>
                       <div id="tumorType_op16_hene" style="display: none">
@@ -7918,6 +7919,7 @@
                         <div class="custom-control custom-checkbox">
                           <input type="checkbox" id="tumorSubType_op142_hene" name="tumorSubType_hene" class="custom-control-input" value="op142" />
                           <label class="custom-control-label" for="tumorSubType_op142_hene">Other</label>
+                          <input type="text" class="form-control mt-2" id="tumorSubType_op142_Oth_hene" placeholder="specify" disabled />
                         </div>
                         <div class="custom-control custom-checkbox">
                           <input type="checkbox" id="tumorSubType_op143_hene" name="tumorSubType_hene" class="custom-control-input" value="op143" />
@@ -8069,7 +8071,7 @@
                         </div>
                         <div class="custom-control custom-checkbox">
                           <input type="checkbox" id="tumorSubType_op178_hene" name="tumorSubType_hene" class="custom-control-input" value="op178" />
-                          <label class="custom-control-label" for="tumorSubType_op178_hene">Palatine tonsil</label>
+                          <label class="custom-control-label" for="tumorSubType_op178_hene">False vocal cord</label>
                         </div>
                         <div class="custom-control custom-checkbox">
                           <input type="checkbox" id="tumorSubType_op179_hene" name="tumorSubType_hene" class="custom-control-input" value="op179" />
@@ -8490,10 +8492,10 @@
                         </div>
                       </div>
                       <div id="pType_op5_hene">
-                        <div class="custom-control custom-checkbox">
+                        <!-- <div class="custom-control custom-checkbox">
                           <input type="checkbox" id="pSubType_op23_hene" name="pSubType_hene" class="custom-control-input" value="op23" />
                           <label class="custom-control-label" for="pSubType_op23_hene">Squamous Cell Carcinoma Subtypes of the Oropharynx</label>
-                        </div>
+                        </div> -->
                         <div class="custom-control custom-checkbox">
                           <input type="checkbox" id="pSubType_op24_hene" name="pSubType_hene" class="custom-control-input" value="op24" />
                           <label class="custom-control-label" for="pSubType_op24_hene">Squamous cell carcinoma, [conventional] keratinizing, HPV-independent</label>
@@ -8524,7 +8526,7 @@
                         </div>
                         <div class="custom-control custom-checkbox">
                           <input type="checkbox" id="pSubType_op31_hene" name="pSubType_hene" class="custom-control-input" value="op31" />
-                          <label class="custom-control-label" for="pSubType_op31_hene">Carcinoma, type cannot be determined</label>
+                          <label class="custom-control-label" for="pSubType_op31_hene">Carcinoma cuniculatum</label>
                         </div>
                         <div class="custom-control custom-checkbox">
                           <input type="checkbox" id="pSubType_op32_hene" name="pSubType_hene" class="custom-control-input" value="op32" />
@@ -8536,10 +8538,10 @@
                         </div>
                       </div>
                       <div id="pType_op6_hene">
-                        <div class="custom-control custom-checkbox">
+                        <!-- <div class="custom-control custom-checkbox">
                           <input type="checkbox" id="pSubType_op34_hene" name="pSubType_hene" class="custom-control-input" value="op34" />
                           <label class="custom-control-label" for="pSubType_op34_hene">Squamous Cell Carcinoma Subtypes of the Hypopharynx</label>
-                        </div>
+                        </div> -->
                         <div class="custom-control custom-checkbox">
                           <input type="checkbox" id="pSubType_op35_hene" name="pSubType_hene" class="custom-control-input" value="op35" />
                           <label class="custom-control-label" for="pSubType_op35_hene">Squamous cell carcinoma, conventional [keratinizing]</label>
@@ -9020,8 +9022,8 @@
                         <label class="custom-control-label" for="mcpt1_op6_hene">Others</label>
                         <input type="text" class="form-control" id="mcpt1_op6_Oth_hene" placeholder="specify" disabled />
                       </div>
-                      <div class="col-sm-1 mt-2 erase-icon-container-mcpt1-hene"></div>
                     </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-mcpt1-hene"></div>
                   </div>
                   <div class="row ml-1 mb-3" id="pType_op33_hene">
                     <label for="psc1_hene" class="col-sm-3 mb-1 col-form-label">Percentage of Solid Component for Adenoid Cystic Carcinoma</label>
@@ -9476,6 +9478,7 @@
                         <div class="col-sm">
                           <select id="tbmsts_hene" class="form-control">
                             <option value="">Select</option>
+                            <option value="op0">Not applicable</option>
                             <option value="op1">All tumor bed margins negative for invasive tumour</option>
                             <option value="op2">Invasive tumor present at tumor bed margin(s)</option>
                             <option value="op3">Other</option>
@@ -17483,6 +17486,7 @@
         bloodSample();
         $('input[name="bloodSample"]').change(function () {
           bloodSample();
+          sampleReceive();
         });
         // Cervix
         function bloodsample_ceix() {
@@ -17539,6 +17543,7 @@
         bloodsample_ceix();
         $('input[name="bloodsample_ceix"]').change(function () {
           bloodsample_ceix();
+          sampleReceive_ceix();
         });
         // Ovary
         function bloodSample_ovry() {
@@ -17595,6 +17600,7 @@
         bloodSample_ovry();
         $('input[name="bloodSample_ovry"]').change(function () {
           bloodSample_ovry();
+          sampleReceive_ovry();
         });
         // Endometrium
         function bloodSample_endm() {
@@ -17651,6 +17657,7 @@
         bloodSample_endm();
         $('input[name="bloodSample_endm"]').change(function () {
           bloodSample_endm();
+          sampleReceive_endm();
         });
         // Head and Neck Cancer
         function bloodSample_hene() {
@@ -17707,6 +17714,7 @@
         bloodSample_hene();
         $('input[name="bloodSample_hene"]').change(function () {
           bloodSample_hene();
+          sampleReceive_hene();
         });
         // Lung Cancer
         function bloodSample_lung() {
@@ -17763,6 +17771,7 @@
         bloodSample_lung();
         $('input[name="bloodSample_lung"]').change(function () {
           bloodSample_lung();
+          sampleReceive_lung();
         });
         // Breast
         function otherSample() {
@@ -17792,6 +17801,7 @@
         otherSample();
         $('input[name="otherSample"]').change(function () {
           otherSample();
+          sampleReceive();
         });
         // Lung Cancer
         function otherSample_lung() {
@@ -17821,6 +17831,7 @@
         otherSample_lung();
         $('input[name="otherSample_lung"]').change(function () {
           otherSample_lung();
+          sampleReceive_lung();
         });
         // Head and Neck Cancer
         function otherSample_hene() {
@@ -17850,6 +17861,7 @@
         otherSample_hene();
         $('input[name="otherSample_hene"]').change(function () {
           otherSample_hene();
+          sampleReceive_hene();
         });
         // Cervix
         function otherSample_ceix() {
@@ -17879,6 +17891,7 @@
         otherSample_ceix();
         $('input[name="otherSample_ceix"]').change(function () {
           otherSample_ceix();
+          sampleReceive_ceix();
         });
         // Ovary
         function otherSample_ovry() {
@@ -17908,6 +17921,7 @@
         otherSample_ovry();
         $('input[name="otherSample_ovry"]').change(function () {
           otherSample_ovry();
+          sampleReceive_ovry();
         });
         // Endometrium
         function otherSample_endm() {
@@ -17937,6 +17951,7 @@
         otherSample_endm();
         $('input[name="otherSample_endm"]').change(function () {
           otherSample_endm();
+          sampleReceive_endm();
         });
 
         // Breast
@@ -17964,6 +17979,7 @@
         specimenSample();
         $('input[name="specimenSample"]').change(function () {
           specimenSample();
+          sampleReceive();
         });
         // Cervix
         function specimenSample_ceix() {
@@ -17990,6 +18006,7 @@
         specimenSample_ceix();
         $('input[name="specimenSample_ceix"]').change(function () {
           specimenSample_ceix();
+          sampleReceive_ceix();
         });
         // Ovary
         function specimenSample_ovry() {
@@ -18016,6 +18033,7 @@
         specimenSample_ovry();
         $('input[name="specimenSample_ovry"]').change(function () {
           specimenSample_ovry();
+          sampleReceive_ovry();
         });
         // Endometrium
         function specimenSample_endm() {
@@ -18042,6 +18060,7 @@
         specimenSample_endm();
         $('input[name="specimenSample_endm"]').change(function () {
           specimenSample_endm();
+          sampleReceive_endm();
         });
         // Head and Neck Cancer
         function specimenSample_hene() {
@@ -18068,6 +18087,7 @@
         specimenSample_hene();
         $('input[name="specimenSample_hene"]').change(function () {
           specimenSample_hene();
+          sampleReceive_hene();
         }); // Lung Cancer
         function specimenSample_lung() {
           if ($("#specimenSampleY_lung").is(":checked")) {
@@ -18093,6 +18113,7 @@
         specimenSample_lung();
         $('input[name="specimenSample_lung"]').change(function () {
           specimenSample_lung();
+          sampleReceive_lung();
         });
         // Breast
         function rltSample() {
@@ -18108,6 +18129,7 @@
         rltSample();
         $('input[name="rltSample"]').change(function () {
           rltSample();
+          sampleReceive();
         });
         // Cervix
         function rltSample_ceix() {
@@ -18123,6 +18145,7 @@
         rltSample_ceix();
         $('input[name="rltSample_ceix"]').change(function () {
           rltSample_ceix();
+          sampleReceive_ceix();
         });
         // Ovary
         function rltSample_ovry() {
@@ -18138,6 +18161,7 @@
         rltSample_ovry();
         $('input[name="rltSample_ovry"]').change(function () {
           rltSample_ovry();
+          sampleReceive_ovry();
         });
         // Endometrium
         function rltSample_endm() {
@@ -18153,6 +18177,7 @@
         rltSample_endm();
         $('input[name="rltSample_endm"]').change(function () {
           rltSample_endm();
+          sampleReceive_endm();
         });
         // Head and Neck Cancer
         function rltSample_hene() {
@@ -18168,6 +18193,7 @@
         rltSample_hene();
         $('input[name="rltSample_hene"]').change(function () {
           rltSample_hene();
+          sampleReceive_hene();
         });
         // Lung Cancer
         function rltSample_lung() {
@@ -18183,6 +18209,7 @@
         rltSample_lung();
         $('input[name="rltSample_lung"]').change(function () {
           rltSample_lung();
+          sampleReceive_lung();
         });
         // Breast
         function pcbSample() {
@@ -18203,6 +18230,7 @@
         pcbSample();
         $('input[name="pcbSample"]').change(function () {
           pcbSample();
+          sampleReceive();
         });
         function pcbV() {
           if ($("#pcbVY").is(":checked")) {
@@ -18217,6 +18245,7 @@
         pcbV();
         $('input[name="pcbV"]').change(function () {
           pcbV();
+          sampleReceive();
         });
         // Cervix
         function pcbSample_ceix() {
@@ -18237,6 +18266,7 @@
         pcbSample_ceix();
         $('input[name="pcbSample_ceix"]').change(function () {
           pcbSample_ceix();
+          sampleReceive_ceix();
         });
         function pcbV_ceix() {
           if ($("#pcbVY_ceix").is(":checked")) {
@@ -18251,6 +18281,7 @@
         pcbV_ceix();
         $('input[name="pcbV_ceix"]').change(function () {
           pcbV_ceix();
+          sampleReceive_ceix();
         });
         // Ovary
         function pcbSample_ovry() {
@@ -18271,6 +18302,7 @@
         pcbSample_ovry();
         $('input[name="pcbSample_ovry"]').change(function () {
           pcbSample_ovry();
+          sampleReceive_ovry();
         });
         function pcbV_ovry() {
           if ($("#pcbVY_ovry").is(":checked")) {
@@ -18285,6 +18317,7 @@
         pcbV_ovry();
         $('input[name="pcbV_ovry"]').change(function () {
           pcbV_ovry();
+          sampleReceive_ovry();
         });
         // Endometrium
         function pcbSample_endm() {
@@ -18305,6 +18338,7 @@
         pcbSample_endm();
         $('input[name="pcbSample_endm"]').change(function () {
           pcbSample_endm();
+          sampleReceive_endm();
         });
         function pcbV_endm() {
           if ($("#pcbVY_endm").is(":checked")) {
@@ -18319,6 +18353,7 @@
         pcbV_endm();
         $('input[name="pcbV_endm"]').change(function () {
           pcbV_endm();
+          sampleReceive_endm();
         });
         // Head and Neck Cancer
         function pcbSample_hene() {
@@ -18339,6 +18374,7 @@
         pcbSample_hene();
         $('input[name="pcbSample_hene"]').change(function () {
           pcbSample_hene();
+          sampleReceive_hene();
         });
         function pcbV_hene() {
           if ($("#pcbVY_hene").is(":checked")) {
@@ -18353,6 +18389,7 @@
         pcbV_hene();
         $('input[name="pcbV_hene"]').change(function () {
           pcbV_hene();
+          sampleReceive_hene();
         });
         // Lung Cancer
         function pcbSample_lung() {
@@ -18373,6 +18410,7 @@
         pcbSample_lung();
         $('input[name="pcbSample_lung"]').change(function () {
           pcbSample_lung();
+          sampleReceive_lung();
         });
         function pcbV_lung() {
           if ($("#pcbVY_lung").is(":checked")) {
@@ -18387,6 +18425,7 @@
         pcbV_lung();
         $('input[name="pcbV_lung"]').change(function () {
           pcbV_lung();
+          sampleReceive_lung();
         });
         // Breast
         function sampleReceive() {
@@ -19817,10 +19856,11 @@
             "op53",
             "op54",
           ].includes(option);
-          const enableOtherType = ["op9", "op18", "op43", "op58"].includes(option);
+          const supportsOtherType = ["op9", "op18", "op43", "op58"].includes(option);
+          const enableOtherType = supportsOtherType || isReadOnlyViewMode(mode);
           $("#histological_subtype").toggle(showSubType);
           $("#pType_Oth_hene")
-            .prop("disabled", !enableOtherType)
+            .prop("disabled", !supportsOtherType || isReadOnlyViewMode(mode))
             .val(enableOtherType ? $("#pType_Oth_hene").val() : "");
 
           $("#pType_op1_hene").toggle(option === "op1");
@@ -19879,6 +19919,7 @@
               const target = `#pSubType_${$(this).val()}_Oth_hene`;
 
               if ($(target).length) {
+                // enable when checked and disble when checked if in read mode
                 $(target).prop("disabled", true).val("");
               }
             });
@@ -19895,7 +19936,7 @@
             const target = `#pSubType_${value}_Oth_hene`;
 
             if ($(target).length) {
-              $(target).prop("disabled", !$(this).is(":checked"));
+              $(target).prop("disabled", !$(this).is(":checked") || isReadOnlyViewMode(mode));
 
               if (!$(this).is(":checked")) {
                 $(target).val("");
@@ -21373,7 +21414,6 @@
       document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll('input[name="customProcedure"]').forEach(function (radio) {
           radio.addEventListener("change", function () {
-            console.log("customProcedure changed");
             const proType = document.querySelector('input[name="customProcedure"]:checked').value;
             const mode = localStorage.getItem("mode");
             const biobankID = localStorage.getItem("BioVal");
@@ -21511,7 +21551,6 @@
                 }
 
                 if (ieDataArr.tpr === "b" && proType === "r") {
-                  // toggleCancerSampleEntry(ieDataArr.ct);
                   document.getElementById("bioBankId").value = biobankID || "";
                   document.getElementById("cancer_type").value = ieDataArr.ct || "";
                   if (bioId === "BR") {
@@ -21671,7 +21710,8 @@
                     document.getElementById("sbt").value = brfDataArr.sbt || "";
                     document.getElementById("k67").value = brfDataArr.k67 || "";
                     document.getElementById("HistologicalS").value = brfDataArr.ht || "";
-                  } else if (bioId === "CV") {
+                  }
+                  if (bioId === "CV") {
                     if (ieDataArr.sx) document.querySelector(`input[name="customRadio_ceix"][value="${ieDataArr.sx}"]`).checked = true || "";
                     if (mdDataArr.fhc) document.querySelector(`input[name="RadioFHabit_ceix"][value="${mdDataArr.fhc}"]`).checked = true;
 
@@ -21877,7 +21917,8 @@
                     document.getElementById("parity_ceix").value = brfDataArr.pty || "";
                     parity_ceix();
                     if (brfDataArr.ms) document.querySelector(`input[name="mStatus_ceix"][value="${brfDataArr.ms}"]`).checked = true;
-                  } else if (bioId === "EM") {
+                  }
+                  if (bioId === "EM") {
                     if (ieDataArr.sx) document.querySelector(`input[name="customRadio_endm"][value="${ieDataArr.sx}"]`).checked = true;
                     if (mdDataArr.fhc) document.querySelector(`input[name="RadioFHabit_endm"][value="${mdDataArr.fhc}"]`).checked = true;
 
@@ -22031,7 +22072,8 @@
                     if (brfDataArr.pr) document.querySelector(`input[name="PRRadio_endm"][value="${brfDataArr.pr}"]`).checked = true;
 
                     document.getElementById("k67_endm").value = brfDataArr.k67 || "";
-                  } else if (bioId === "OV") {
+                  }
+                  if (bioId === "OV") {
                     if (ieDataArr.sx) document.querySelector(`input[name="customRadio_ovry"][value="${ieDataArr.sx}"]`).checked = true;
                     if (mdDataArr.fhc) document.querySelector(`input[name="RadioFHabit_ovry"][value="${mdDataArr.fhc}"]`).checked = true;
 
@@ -22389,7 +22431,6 @@
                         }
 
                         checkbox.checked = true;
-                        // checkbox.dispatchEvent(new Event("change"));
 
                         if (item?.text) {
                           const otherInput = document.getElementById(`tumorSubType_${subtypeValue}_Oth_hene`);
@@ -22401,11 +22442,11 @@
                         }
                       });
                     }
-                    // document.getElementById("ageAtDiagnosis").value = mdDataArr.ad || "";
                     document.getElementById("clinicalStage_hene").value = mdDataArr.cs || "";
                     document.getElementById("pType_hene").value = mdDataArr?.pt || "";
-                    pTyp_pSubTyp_hene(mdDataArr?.pt);
+                    pTyp_pSubTyp_hene();
                     document.getElementById("pType_Oth_hene").value = mdDataArr?.ptOth || "";
+                    document.getElementById("pType_Oth_hene").disabled = isReadOnlyViewMode(mode);
                     if (mdDataArr.pst) {
                       const data = Array.isArray(mdDataArr.pst) ? mdDataArr.pst : [mdDataArr.pst];
 
@@ -22429,6 +22470,38 @@
                         }
                       });
                     }
+                    if (mdDataArr.atyp) {
+                      const data = Array.isArray(mdDataArr.atyp) ? mdDataArr.atyp : [mdDataArr.atyp];
+
+                      data.forEach((item) => {
+                        const subtypeValue = item?.op;
+                        const checkbox = document.querySelector(`input[name="atyp_hene"][value="${subtypeValue}"]`);
+
+                        if (!checkbox) {
+                          return;
+                        }
+
+                        checkbox.checked = true;
+                      });
+                    }
+                    if (mdDataArr.mcpt1) {
+                      const data = Array.isArray(mdDataArr.mcpt1) ? mdDataArr.mcpt1 : [mdDataArr.mcpt1];
+                      data.forEach((item) => {
+                        const subtypeValue = item?.op;
+                        const checkbox = document.querySelector(`input[name="mcpt1_hene"][value="${subtypeValue}"]`);
+                        if (!checkbox) {
+                          return;
+                        }
+                        checkbox.checked = true;
+                        if (subtypeValue === "op6") {
+                          const otherInput = document.getElementById("mcpt1_op6_Oth_hene");
+                          if (otherInput) {
+                            otherInput.value = item?.text || "";
+                          }
+                        }
+                      });
+                    }
+
                     if (mdDataArr.psc1) {
                       document.querySelector(`input[name="psc1_hene"][value="${mdDataArr.psc1}"]`).checked = true || "";
                       if (mdDataArr.psc1 === "op1") document.getElementById("psc1_op1_Oth_hene").value = mdDataArr?.psc1Oth;
@@ -22453,9 +22526,6 @@
                       if (mdDataArr.pcc === "op1") document.getElementById("pcc_op1_Oth_hene").value = mdDataArr?.pccOth;
                       if (mdDataArr.pcc === "op2") document.getElementById("pcc_op2_Oth_hene").value = mdDataArr?.pccOth;
                       if (mdDataArr.pcc === "op3") document.getElementById("pcc_op3_Oth_hene").value = mdDataArr?.pccOth;
-                      if (mdDataArr.pcc === "op8") document.getElementById("pcc_op8_Oth_hene").value = mdDataArr?.pccOth;
-                      if (mdDataArr.pcc === "op20") document.getElementById("pcc_op20_Oth_hene").value = mdDataArr?.pccOth;
-                      if (mdDataArr.pcc === "op21") document.getElementById("pcc_op21_Oth_hene").value = mdDataArr?.pccOth;
                     }
                   }
                 }
@@ -22508,7 +22578,6 @@
                     brfDataArr = formMap[bioId] || null;
                   }
                 }
-                console.log("mode", mode, "biobankID", biobankID, "bioId", bioId, "ieDataArr.tpr", ieDataArr.tpr, "ieDataArr.mts", ieDataArr.mts, "metastasisS", metastasisS);
                 if (ieDataArr.tpr === "r") {
                   if (ieDataArr.mts === "false" && metastasisS === "true") {
                     document.getElementById("bioBankId").value = biobankID || "";
@@ -22661,7 +22730,8 @@
                       document.getElementById("ageAtMenarche").value = brfDataArr.am || "";
                       document.getElementById("k67").value = brfDataArr.k67 || "";
                       document.getElementById("HistologicalS").value = brfDataArr.ht || "";
-                    } else if (bioId === "EM") {
+                    }
+                    if (bioId === "EM") {
                       document.querySelector(`input[name="customRadio_endm"][value="${ieDataArr.sx}"]`).checked = true || "";
                       if (mdDataArr.fhc !== "") document.querySelector(`input[name="RadioFHabit_endm"][value="${mdDataArr.fhc}"]`).checked = true;
 
@@ -22807,7 +22877,8 @@
                       document.getElementById("pstOt_endm").value = mdDataArr.pstOt || "";
                       document.getElementById("ageAtMenarche_endm").value = brfDataArr.am || "";
                       document.getElementById("k67_endm").value = brfDataArr.k67 || "";
-                    } else if (bioId === "CV") {
+                    }
+                    if (bioId === "CV") {
                       document.querySelector(`input[name="customRadio_ceix"][value="${ieDataArr.sx}"]`).checked = true || "";
                       if (mdDataArr.fhc !== "") document.querySelector(`input[name="RadioFHabit_ceix"][value="${mdDataArr.fhc}"]`).checked = true;
 
@@ -23012,7 +23083,8 @@
 
                       document.getElementById("ageAtMenarche_ceix").value = brfDataArr.am || "";
                       document.getElementById("k67_ceix").value = brfDataArr.k67 || "";
-                    } else if (bioId === "OV") {
+                    }
+                    if (bioId === "OV") {
                       document.querySelector(`input[name="customRadio_ovry"][value="${ieDataArr.sx}"]`).checked = true || "";
                       if (mdDataArr.fhc !== "") document.querySelector(`input[name="RadioFHabit_ovry"][value="${mdDataArr.fhc}"]`).checked = true;
 
@@ -23207,7 +23279,8 @@
                       document.getElementById("clinicalStage_ovry").value = mdDataArr.cs || "";
                       document.getElementById("ageAtMenarche_ovry").value = brfDataArr.am || "";
                       document.getElementById("k67_ovry").value = brfDataArr.k67 || "";
-                    } else if (bioId === "HN") {
+                    }
+                    if (bioId === "HN") {
                       document.querySelector(`input[name="customRadio_hene"][value="${ieDataArr.sx}"]`).checked = true || "";
                       if (mdDataArr.fhc !== "") {
                         document.querySelector(`input[name="RadioFHabit_hene"][value="${mdDataArr.fhc}"]`).checked = true;
@@ -23346,6 +23419,91 @@
                         });
                       }
                       ExistComorbidity_hene();
+                      document.getElementById("pType_hene").value = mdDataArr?.pt || "";
+                      pTyp_pSubTyp_hene();
+                      document.getElementById("pType_Oth_hene").value = mdDataArr?.ptOth || "";
+                      document.getElementById("pType_Oth_hene").disabled = isReadOnlyViewMode(mode);
+
+                      if (mdDataArr.pst) {
+                        const data = Array.isArray(mdDataArr.pst) ? mdDataArr.pst : [mdDataArr.pst];
+
+                        data.forEach((item) => {
+                          const subtypeValue = item?.op;
+                          const checkbox = document.querySelector(`input[name="pSubType_hene"][value="${subtypeValue}"]`);
+                          console.log("Processing subtype:", subtypeValue, "Checkbox found:", !!checkbox);
+                          if (!checkbox) {
+                            console.warn("Subtype checkbox not found for value:", subtypeValue);
+                            return;
+                          }
+
+                          checkbox.checked = true;
+                          // checkbox.dispatchEvent(new Event("change"));
+
+                          if (item?.text) {
+                            const otherInput = document.getElementById(`pSubType_${subtypeValue}_Oth_hene`);
+                            if (otherInput) {
+                              otherInput.value = item.text || "";
+                            }
+                          }
+                        });
+                      }
+                      if (mdDataArr.atyp) {
+                        const data = Array.isArray(mdDataArr.atyp) ? mdDataArr.atyp : [mdDataArr.atyp];
+
+                        data.forEach((item) => {
+                          const subtypeValue = item?.op;
+                          const checkbox = document.querySelector(`input[name="atyp_hene"][value="${subtypeValue}"]`);
+
+                          if (!checkbox) {
+                            return;
+                          }
+
+                          checkbox.checked = true;
+                        });
+                      }
+                      if (mdDataArr.mcpt1) {
+                        const data = Array.isArray(mdDataArr.mcpt1) ? mdDataArr.mcpt1 : [mdDataArr.mcpt1];
+                        data.forEach((item) => {
+                          const subtypeValue = item?.op;
+                          const checkbox = document.querySelector(`input[name="mcpt1_hene"][value="${subtypeValue}"]`);
+                          if (!checkbox) {
+                            return;
+                          }
+                          checkbox.checked = true;
+                          if (subtypeValue === "op6") {
+                            const otherInput = document.getElementById("mcpt1_op6_Oth_hene");
+                            if (otherInput) {
+                              otherInput.value = item?.text || "";
+                            }
+                          }
+                        });
+                      }
+
+                      if (mdDataArr.psc1) {
+                        document.querySelector(`input[name="psc1_hene"][value="${mdDataArr.psc1}"]`).checked = true || "";
+                        if (mdDataArr.psc1 === "op1") document.getElementById("psc1_op1_Oth_hene").value = mdDataArr?.psc1Oth;
+                        if (mdDataArr.psc1 === "op2") document.getElementById("psc1_op2_Oth_hene").value = mdDataArr?.psc1Oth;
+                        if (mdDataArr.psc1 === "op3") document.getElementById("psc1_op3_Oth_hene").value = mdDataArr?.psc1Oth;
+                      }
+                      if (mdDataArr.psc2) {
+                        document.querySelector(`input[name="psc2_hene"][value="${mdDataArr.psc2}"]`).checked = true || "";
+                        if (mdDataArr.psc2 === "op1") document.getElementById("psc2_op1_Oth_hene").value = mdDataArr?.psc2Oth;
+                        if (mdDataArr.psc2 === "op2") document.getElementById("psc2_op2_Oth_hene").value = mdDataArr?.psc2Oth;
+                        if (mdDataArr.psc2 === "op3") document.getElementById("psc2_op3_Oth_hene").value = mdDataArr?.psc2Oth;
+                      }
+
+                      if (mdDataArr.ppc) {
+                        document.querySelector(`input[name="ppc_hene"][value="${mdDataArr.ppc}"]`).checked = true || "";
+                        if (mdDataArr.ppc === "op1") document.getElementById("ppc_op1_Oth_hene").value = mdDataArr?.ppcOth;
+                        if (mdDataArr.ppc === "op2") document.getElementById("ppc_op2_Oth_hene").value = mdDataArr?.ppcOth;
+                        if (mdDataArr.ppc === "op3") document.getElementById("ppc_op3_Oth_hene").value = mdDataArr?.ppcOth;
+                      }
+                      if (mdDataArr.pcc) {
+                        document.querySelector(`input[name="pcc_hene"][value="${mdDataArr.pcc}"]`).checked = true || "";
+                        if (mdDataArr.pcc === "op1") document.getElementById("pcc_op1_Oth_hene").value = mdDataArr?.pccOth;
+                        if (mdDataArr.pcc === "op2") document.getElementById("pcc_op2_Oth_hene").value = mdDataArr?.pccOth;
+                        if (mdDataArr.pcc === "op3") document.getElementById("pcc_op3_Oth_hene").value = mdDataArr?.pccOth;
+                      }
 
                       document.getElementById("tumorType_hene").value = mdDataArr?.ttyp || "";
                       document.getElementById("tumorType_hene").dispatchEvent(new Event("change"));
@@ -23376,10 +23534,8 @@
                           }
                         });
                       }
-                      document.getElementById("tumorSubSiteOther_hene").value = mdDataArr?.tsubOth || "";
                       document.getElementById("ageAtDiagnosis_hene").value = mdDataArr.ad || "";
                       document.getElementById("clinicalStage_hene").value = mdDataArr.cs || "";
-                      document.getElementById("subtype_hene").value = mdDataArr.pst || "";
                     }
                   }
                 }

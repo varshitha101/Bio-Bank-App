@@ -131,11 +131,6 @@
                 </span>
                 entries
               </p>
-              <div>
-                <div class="row" style="justify-content: center">
-                  <button type="button" id="download1" class="btn btn-success mr-2" style="display: none">Download</button>
-                </div>
-              </div>
             </div>
           </div>
 
@@ -191,7 +186,7 @@
                   <option value="ovry">Ovarian Cancer</option>
                   <option value="ceix">Cervical Cancer</option>
                   <option value="endm">Endometrial Cancer</option>
-                  <option value="hene">Head and Neck</option>
+                  <option value="hene">Head and Neck Cancer</option>
                   <option value="5" disabled>Pancreas</option>
                   <option value="6" disabled>Uterus</option>
                   <option value="7" disabled>Omentum</option>
@@ -752,8 +747,8 @@
                   </select>
                 </div>
                 <div class="form-group col-xs-2 mr-2">
-                  <label for="fh1_hene">Family History</label>
-                  <select id="fh1_hene" class="form-control">
+                  <label for="FamilyHInput_hene">Family History</label>
+                  <select id="FamilyHInput_hene" class="form-control">
                     <option selected>All</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
@@ -1022,20 +1017,115 @@
       }
 
       function toggleCancerSampleEntry(selectedCancerType) {
-        const cancerType = selectedCancerType || "";
+        return new Promise((resolve) => {
+          const cancerType = selectedCancerType || "";
 
-        sessionStorage.setItem("cancerTypeInput", cancerType);
+          sessionStorage.setItem("cancerTypeInput", cancerType);
 
-        $("#sampleSearchForm").toggle(cancerType === "brst");
-        $("#sampleSearchForm_ceix").toggle(cancerType === "ceix");
-        $("#sampleSearchForm_endm").toggle(cancerType === "endm");
-        $("#sampleSearchForm_ovry").toggle(cancerType === "ovry");
-        $("#sampleSearchForm_hene").toggle(cancerType === "hene");
+          $("#sampleSearchForm").toggle(cancerType === "brst");
+          $("#sampleSearchForm_ceix").toggle(cancerType === "ceix");
+          $("#sampleSearchForm_endm").toggle(cancerType === "endm");
+          $("#sampleSearchForm_ovry").toggle(cancerType === "ovry");
+          $("#sampleSearchForm_hene").toggle(cancerType === "hene");
 
-        document.getElementById("AllCheck").checked = false;
-        clearSampleSearchResults();
+          document.getElementById("AllCheck").checked = false;
+          clearSampleSearchResults();
+          clearSampleSearchParameters();
+          resolve();
+        });
       }
+      function clearSampleSearchParameters() {
+        console.log("Clearing sample search parameters");
+        // Breast
+        if (document.getElementById("ageCriterion")) document.getElementById("ageCriterion").value = "All";
+        if (document.getElementById("ageInput")) document.getElementById("ageInput").value = "15";
+        if (document.getElementById("ageInput")) document.getElementById("ageInput").disabled = true; // Disable age input if "All"
+        if (document.getElementById("gradeInput")) document.getElementById("gradeInput").value = "All";
+        if (document.getElementById("nactInput")) document.getElementById("nactInput").value = "All";
+        if (document.getElementById("pathSubtype")) document.getElementById("pathSubtype").value = "All";
+        if (document.getElementById("sampleavailable")) document.getElementById("sampleavailable").value = "All";
+        if (document.getElementById("cSubInput")) document.getElementById("cSubInput").value = "All";
+        if (document.getElementById("metaInput")) document.getElementById("metaInput").value = "All";
+        if (document.getElementById("fh1")) document.getElementById("fh1").value = "All";
+        document.querySelectorAll('input[name="sampleType"]').forEach((cb) => (cb.checked = true));
+        if (typeof updateSampleDropdown === "function") updateSampleDropdown();
+        if (document.getElementById("biobankIdInput")) document.getElementById("biobankIdInput").value = "";
 
+        // Ovary
+        if (document.getElementById("nactInput_ovry")) document.getElementById("nactInput_ovry").value = "All";
+        if (document.getElementById("pathSubtype_ovry")) document.getElementById("pathSubtype_ovry").value = "All";
+        if (document.getElementById("fh1_ovry")) document.getElementById("fh1_ovry").value = "All";
+        if (document.getElementById("figoInput_ovry")) document.getElementById("figoInput_ovry").value = "All";
+        if (document.getElementById("biobankIdInput_ovry")) document.getElementById("biobankIdInput_ovry").value = "";
+
+        // Cervix
+        if (document.getElementById("nactInput_ceix")) document.getElementById("nactInput_ceix").value = "All";
+        if (document.getElementById("pathSubtype_ceix")) document.getElementById("pathSubtype_ceix").value = "All";
+        if (document.getElementById("fh1_ceix")) document.getElementById("fh1_ceix").value = "All";
+        if (document.getElementById("figoInput_ceix")) document.getElementById("figoInput_ceix").value = "All";
+        if (document.getElementById("biobankIdInput_ceix")) document.getElementById("biobankIdInput_ceix").value = "";
+
+        // Endm
+        if (document.getElementById("nactInput_endm")) document.getElementById("nactInput_endm").value = "All";
+        if (document.getElementById("pathType_endm")) document.getElementById("pathType_endm").value = "All";
+        if (document.getElementById("fh1_endm")) document.getElementById("fh1_endm").value = "All";
+        if (document.getElementById("figoInput_endm")) document.getElementById("figoInput_endm").value = "All";
+        if (document.getElementById("biobankIdInput_endm")) document.getElementById("biobankIdInput_endm").value = "";
+
+        // Head and Neck Cancer
+        if (document.getElementById("nactInput_hene")) document.getElementById("nactInput_hene").value = "All";
+        if (document.getElementById("pathType_hene")) document.getElementById("pathType_hene").value = "All";
+        if (document.getElementById("FamilyHInput_hene")) document.getElementById("FamilyHInput_hene").value = "All";
+        if (document.getElementById("tumorType_hene")) {
+          document.getElementById("tumorType_hene").value = "All";
+          document.getElementById("tumorType_hene").dispatchEvent(new Event("change"));
+        }
+        if (document.getElementById("tumorSite_hene")) document.getElementById("tumorSite_hene").value = "All";
+        if (document.getElementById("biobankIdInput_hene")) document.getElementById("biobankIdInput_hene").value = "";
+
+        // const localStorageNames = [
+        //   { name: "cancerTypeInput", value: "" },
+        //   { name: "ageCriterion", value: "All" },
+        //   { name: "ageInput", value: "15" },
+        //   { name: "gradeInput", value: "All" },
+        //   { name: "nactInput", value: "All" },
+        //   { name: "pathSubtypeInput", value: "All" },
+        //   { name: "sampleTypeInput", value: "All" },
+        //   { name: "sampleAvailable", value: "All" },
+        //   { name: "clinicalSubInput", value: "All" },
+        //   { name: "metaInput", value: "All" },
+        //   { name: "FamilyHInput", value: "All" },
+        //   { name: "biobankIdInput", value: "" },
+        //   // Ovary
+        //   { name: "nactInput_ovry", value: "All" },
+        //   { name: "pathSubtypeInput_ovry", value: "All" },
+        //   { name: "FamilyHInput_ovry", value: "All" },
+        //   { name: "figoInput_ovry", value: "All" },
+        //   { name: "biobankIdInput_ovry", value: "" },
+        //   // Cervix
+        //   { name: "nactInput_ceix", value: "All" },
+        //   { name: "pathSubtypeInput_ceix", value: "All" },
+        //   { name: "FamilyHInput_ceix", value: "All" },
+        //   { name: "figoInput_ceix", value: "All" },
+        //   { name: "biobankIdInput_ceix", value: "" },
+        //   // Endm
+        //   { name: "nactInput_endm", value: "All" },
+        //   { name: "pathSubtypeInput_endm", value: "All" },
+        //   { name: "FamilyHInput_endm", value: "All" },
+        //   { name: "figoInput_endm", value: "All" },
+        //   { name: "biobankIdInput_endm", value: "" },
+        //   // Head and Neck Cancer
+        //   { name: "nactInput_hene", value: "All" },
+        //   { name: "pathType_hene", value: "All" },
+        //   { name: "FamilyHInput_hene", value: "All" },
+        //   { name: "tumorType_hene", value: "All" },
+        //   { name: "tumorSite_hene", value: "All" },
+        //   { name: "biobankIdInput_hene", value: "" },
+        // ];
+        // localStorageNames.forEach((item) => {
+        //   sessionStorage.setItem(item.name, item.value);
+        // });
+      }
       function clearSampleSearchResults() {
         const tbody = document.querySelector(".patientTableBody1");
         const pagination = document.querySelector(".samPagination");
@@ -1079,60 +1169,61 @@
 
         function syncSecondaryOptions() {
           const currentValue = secondarySelect.value;
+          const tumorType_hene = {
+            All: {
+              All: "All",
+            },
+            oral: {
+              All: "All",
+              op1: "Oral cavity",
+            },
+            pharynx: {
+              All: "All",
+              op2: "Oropharynx",
+              op3: "Hypopharynx",
+              op4: "Nasopharynx",
+            },
+            larynx: {
+              All: "All",
+              op5: "Supraglottic larynx",
+              op6: "Glottic larynx",
+              op7: "Subglottic larynx",
+            },
+            nasal: {
+              All: "All",
+              op8: "Nasal cavity and paranasal sinus",
+            },
+            salivary: {
+              All: "All",
+              op9: "Major Salivary Gland",
+              op10: "Oral cavity",
+              op11: "Oropharynx",
+              op12: "Hypopharynx",
+              op13: "Supraglottic larynx",
+              op14: "Glottic larynx",
+              op15: "Nasopharynx",
+              op16: "Nasal and paranasal sinuses",
+              op17: "Subglottic larynx",
+              op18: "Trachea",
+              op19: "Cervical esophagus",
+            },
+            melanoma: {
+              All: "All",
+              op20: "Oral cavity",
+              op21: "Oropharynx",
+              op22: "Hypopharynx",
+              op23: "Supraglottic larynx",
+              op24: "Glottic larynx",
+              op25: "Nasopharynx",
+              op26: "Nasal and paranasal sinuses",
+              op27: "Subglottic larynx",
+              op28: "Trachea",
+              op29: "Cervical esophagus",
+            },
+          };
           let mainOption;
           if (primaryId === "tumorType_hene") {
-            mainOption = {
-              All: {
-                All: "All",
-              },
-              oral: {
-                All: "All",
-                op1: "Oral cavity",
-              },
-              pharynx: {
-                All: "All",
-                op2: "Oropharynx",
-                op3: "Hypopharynx",
-                op4: "Nasopharynx",
-              },
-              larynx: {
-                All: "All",
-                op5: "Supraglottic larynx",
-                op6: "Glottic larynx",
-                op7: "Subglottic larynx",
-              },
-              nasal: {
-                All: "All",
-                op8: "Nasal cavity and paranasal sinus",
-              },
-              salivary: {
-                All: "All",
-                op9: "Major Salivary Gland",
-                op10: "Oral cavity",
-                op11: "Oropharynx",
-                op12: "Hypopharynx",
-                op13: "Supraglottic larynx",
-                op14: "Glottic larynx",
-                op15: "Nasopharynx",
-                op16: "Nasal and paranasal sinuses",
-                op17: "Subglottic larynx",
-                op18: "Trachea",
-                op19: "Cervical esophagus",
-              },
-              melanoma: {
-                All: "All",
-                op20: "Oral cavity",
-                op21: "Oropharynx",
-                op22: "Hypopharynx",
-                op23: "Supraglottic larynx",
-                op24: "Glottic larynx",
-                op25: "Nasopharynx",
-                op26: "Nasal and paranasal sinuses",
-                op27: "Subglottic larynx",
-                op28: "Trachea",
-                op29: "Cervical esophagus",
-              },
-            };
+            mainOption = tumorType_hene;
           }
           const options = mainOption[primarySelect.value] || [""];
           const optionEntries = Array.isArray(options)
@@ -1158,7 +1249,7 @@
 
           secondarySelect.disabled = shouldDisableSecondary;
 
-          if (hasAllOption) {
+          if (shouldDisableSecondary && hasAllOption) {
             secondarySelect.value = "All";
           } else if (
             !shouldDisableSecondary &&
@@ -1167,13 +1258,14 @@
             })
           ) {
             secondarySelect.value = currentValue;
+          } else if (hasAllOption) {
+            secondarySelect.value = "All";
           } else {
             secondarySelect.value = "";
           }
         }
 
         primarySelect.addEventListener("change", syncSecondaryOptions);
-        secondarySelect.addEventListener("change", syncSecondaryOptions);
         syncSecondaryOptions();
       }
 
@@ -2287,6 +2379,14 @@
         document.getElementById("figoInput_endm").value = "All";
         document.getElementById("biobankIdInput_endm").value = "";
 
+        // Head and Neck Cancer
+        document.getElementById("nactInput_hene").value = "All";
+        document.getElementById("pathType_hene").value = "All";
+        document.getElementById("FamilyHInput_hene").value = "All";
+        document.getElementById("tumorType_hene").value = "All";
+        document.getElementById("tumorSite_hene").value = "All";
+        document.getElementById("biobankIdInput_hene").value = "";
+
         const localStorageNames = [
           { name: "cancerTypeInput", value: "" },
           { name: "ageCriterion", value: "All" },
@@ -2318,9 +2418,9 @@
           { name: "FamilyHInput_endm", value: "All" },
           { name: "figoInput_endm", value: "All" },
           { name: "biobankIdInput_endm", value: "" },
-          // Head and Neck
+          // Head and Neck Cancer
           { name: "nactInput_hene", value: "All" },
-          { name: "pathSubtypeInput_hene", value: "All" },
+          { name: "pathType_hene", value: "All" },
           { name: "FamilyHInput_hene", value: "All" },
           { name: "tumorType_hene", value: "All" },
           { name: "tumorSite_hene", value: "All" },
@@ -2332,68 +2432,76 @@
       }
 
       function getSearchQuery(cancerTypeInput) {
+        console.log("getSearchQuery called with:", cancerTypeInput);
         document.getElementById("cancerTypeInput").value = cancerTypeInput || "";
-        toggleCancerSampleEntry(cancerTypeInput);
+        toggleCancerSampleEntry(cancerTypeInput).then(() => {
+          try {
+            console.log("Bring back the changes", cancerTypeInput);
+            if (cancerTypeInput === "brst") {
+              document.getElementById("ageCriterion").value = sessionStorage.getItem("ageCriterion") || "All";
+              document.getElementById("ageInput").value = sessionStorage.getItem("ageInput") || "15";
+              document.getElementById("ageInput").disabled = true; // Disable age input if "All"
+              document.getElementById("gradeInput").value = sessionStorage.getItem("gradeInput") || "All";
+              document.getElementById("nactInput").value = sessionStorage.getItem("nactInput") || "All";
+              document.getElementById("pathSubtype").value = sessionStorage.getItem("pathSubtypeInput") || "All";
+              document.getElementById("sampleavailable").value = sessionStorage.getItem("sampleAvailable") || "All";
+              document.getElementById("cSubInput").value = sessionStorage.getItem("clinicalSubInput") || "All";
+              document.getElementById("metaInput").value = sessionStorage.getItem("metaInput") || "All";
+              document.getElementById("fh1").value = sessionStorage.getItem("FamilyHInput") || "All";
+              document.querySelectorAll('input[name="sampleType"]').forEach((cb) => (cb.checked = true));
+              const tempbiobankIdInput = sessionStorage.getItem("biobankIdInput") && sessionStorage.getItem("biobankIdInput") !== "undefined" ? sessionStorage.getItem("biobankIdInput") : "";
+              document.getElementById("biobankIdInput").value = tempbiobankIdInput || "";
+              if (typeof updateSampleDropdown === "function") updateSampleDropdown();
 
-        if (cancerTypeInput === "brst") {
-          document.getElementById("ageCriterion").value = sessionStorage.getItem("ageCriterion") || "All";
-          document.getElementById("ageInput").value = sessionStorage.getItem("ageInput") || "15";
-          document.getElementById("ageInput").disabled = true; // Disable age input if "All"
-          document.getElementById("gradeInput").value = sessionStorage.getItem("gradeInput") || "All";
-          document.getElementById("nactInput").value = sessionStorage.getItem("nactInput") || "All";
-          document.getElementById("pathSubtype").value = sessionStorage.getItem("pathSubtypeInput") || "All";
-          document.getElementById("sampleavailable").value = sessionStorage.getItem("sampleAvailable") || "All";
-          document.getElementById("cSubInput").value = sessionStorage.getItem("clinicalSubInput") || "All";
-          document.getElementById("metaInput").value = sessionStorage.getItem("metaInput") || "All";
-          document.getElementById("fh1").value = sessionStorage.getItem("FamilyHInput") || "All";
-          document.querySelectorAll('input[name="sampleType"]').forEach((cb) => (cb.checked = true));
-          const tempbiobankIdInput = sessionStorage.getItem("biobankIdInput") && sessionStorage.getItem("biobankIdInput") !== "undefined" ? sessionStorage.getItem("biobankIdInput") : "";
-          document.getElementById("biobankIdInput").value = tempbiobankIdInput || "";
-          if (typeof updateSampleDropdown === "function") updateSampleDropdown();
+              searchSample();
+            } else if (cancerTypeInput === "endm") {
+              document.getElementById("nactInput_endm").value = sessionStorage.getItem("nactInput_endm") || "All";
+              document.getElementById("pathSubtype_endm").value = sessionStorage.getItem("pathSubtypeInput_endm") || "All";
+              document.getElementById("fh1_endm").value = sessionStorage.getItem("FamilyHInput_endm") || "All";
+              document.getElementById("figoInput_endm").value = sessionStorage.getItem("figoInput_endm") || "All";
+              const tempbiobankIdInput =
+                sessionStorage.getItem("biobankIdInput_endm") && sessionStorage.getItem("biobankIdInput_endm") !== "undefined" ? sessionStorage.getItem("biobankIdInput_endm") : "";
+              document.getElementById("biobankIdInput_endm").value = tempbiobankIdInput || "";
 
-          searchSample();
-        } else if (cancerTypeInput === "endm") {
-          document.getElementById("nactInput_endm").value = sessionStorage.getItem("nactInput_endm") || "All";
-          document.getElementById("pathSubtype_endm").value = sessionStorage.getItem("pathSubtypeInput_endm") || "All";
-          document.getElementById("fh1_endm").value = sessionStorage.getItem("FamilyHInput_endm") || "All";
-          document.getElementById("figoInput_endm").value = sessionStorage.getItem("figoInput_endm") || "All";
-          const tempbiobankIdInput =
-            sessionStorage.getItem("biobankIdInput_endm") && sessionStorage.getItem("biobankIdInput_endm") !== "undefined" ? sessionStorage.getItem("biobankIdInput_endm") : "";
-          document.getElementById("biobankIdInput_endm").value = tempbiobankIdInput || "";
+              searchSample_endm();
+            } else if (cancerTypeInput === "ovry") {
+              document.getElementById("nactInput_ovry").value = sessionStorage.getItem("nactInput_ovry") || "All";
+              document.getElementById("pathSubtype_ovry").value = sessionStorage.getItem("pathSubtypeInput_ovry") || "All";
+              document.getElementById("fh1_ovry").value = sessionStorage.getItem("FamilyHInput_ovry") || "All";
+              document.getElementById("figoInput_ovry").value = sessionStorage.getItem("figoInput_ovry") || "All";
+              const tempbiobankIdInput =
+                sessionStorage.getItem("biobankIdInput_ovry") && sessionStorage.getItem("biobankIdInput_ovry") !== "undefined" ? sessionStorage.getItem("biobankIdInput_ovry") : "";
+              document.getElementById("biobankIdInput_ovry").value = tempbiobankIdInput || "";
 
-          searchSample_endm();
-        } else if (cancerTypeInput === "ovry") {
-          document.getElementById("nactInput_ovry").value = sessionStorage.getItem("nactInput_ovry") || "All";
-          document.getElementById("pathSubtype_ovry").value = sessionStorage.getItem("pathSubtypeInput_ovry") || "All";
-          document.getElementById("fh1_ovry").value = sessionStorage.getItem("FamilyHInput_ovry") || "All";
-          document.getElementById("figoInput_ovry").value = sessionStorage.getItem("figoInput_ovry") || "All";
-          const tempbiobankIdInput =
-            sessionStorage.getItem("biobankIdInput_ovry") && sessionStorage.getItem("biobankIdInput_ovry") !== "undefined" ? sessionStorage.getItem("biobankIdInput_ovry") : "";
-          document.getElementById("biobankIdInput_ovry").value = tempbiobankIdInput || "";
+              searchSample_ovry();
+            } else if (cancerTypeInput === "ceix") {
+              document.getElementById("nactInput_ceix").value = sessionStorage.getItem("nactInput_ceix") || "All";
+              document.getElementById("pathSubtype_ceix").value = sessionStorage.getItem("pathSubtypeInput_ceix") || "All";
+              document.getElementById("fh1_ceix").value = sessionStorage.getItem("FamilyHInput_ceix") || "All";
+              document.getElementById("figoInput_ceix").value = sessionStorage.getItem("figoInput_ceix") || "All";
+              const tempbiobankIdInput =
+                sessionStorage.getItem("biobankIdInput_ceix") && sessionStorage.getItem("biobankIdInput_ceix") !== "undefined" ? sessionStorage.getItem("biobankIdInput_ceix") : "";
+              document.getElementById("biobankIdInput_ceix").value = tempbiobankIdInput || "";
 
-          searchSample_ovry();
-        } else if (cancerTypeInput === "ceix") {
-          document.getElementById("nactInput_ceix").value = sessionStorage.getItem("nactInput_ceix") || "All";
-          document.getElementById("pathSubtype_ceix").value = sessionStorage.getItem("pathSubtypeInput_ceix") || "All";
-          document.getElementById("fh1_ceix").value = sessionStorage.getItem("FamilyHInput_ceix") || "All";
-          document.getElementById("figoInput_ceix").value = sessionStorage.getItem("figoInput_ceix") || "All";
-          const tempbiobankIdInput =
-            sessionStorage.getItem("biobankIdInput_ceix") && sessionStorage.getItem("biobankIdInput_ceix") !== "undefined" ? sessionStorage.getItem("biobankIdInput_ceix") : "";
-          document.getElementById("biobankIdInput_ceix").value = tempbiobankIdInput || "";
+              searchSample_ceix();
+            } else if (cancerTypeInput === "hene") {
+              document.getElementById("nactInput_hene").value = sessionStorage.getItem("nactInput_hene") || "All";
+              document.getElementById("pathType_hene").value = sessionStorage.getItem("pathType_hene") || "All";
+              document.getElementById("tumorType_hene").value = sessionStorage.getItem("tumorType_hene") || "All";
+              document.getElementById("tumorType_hene").dispatchEvent(new Event("change"));
+              document.getElementById("tumorSite_hene").value = sessionStorage.getItem("tumorSite_hene") || "All";
+              document.getElementById("FamilyHInput_hene").value = sessionStorage.getItem("FamilyHInput_hene") || "All";
+              const tempbiobankIdInput =
+                sessionStorage.getItem("biobankIdInput_hene") && sessionStorage.getItem("biobankIdInput_hene") !== "undefined" ? sessionStorage.getItem("biobankIdInput_hene") : "";
+              document.getElementById("biobankIdInput_hene").value = tempbiobankIdInput || "";
+              console.log("Head and Neck Cancer Applying the change");
 
-          searchSample_ceix();
-        } else if (cancerTypeInput === "hene") {
-          document.getElementById("nactInput_hene").value = sessionStorage.getItem("nactInput_hene") || "All";
-          document.getElementById("pathType_hene").value = sessionStorage.getItem("pathTypeInput_hene") || "All";
-          document.getElementById("tumorType_hene").value = sessionStorage.getItem("tumorType_hene") || "All";
-          document.getElementById("tumorSite_hene").value = sessionStorage.getItem("tumorSite_hene") || "All";
-          document.getElementById("fh1_hene").value = sessionStorage.getItem("FamilyHInput_hene") || "All";
-          const tempbiobankIdInput =
-            sessionStorage.getItem("biobankIdInput_hene") && sessionStorage.getItem("biobankIdInput_hene") !== "undefined" ? sessionStorage.getItem("biobankIdInput_hene") : "";
-          document.getElementById("biobankIdInput_hene").value = tempbiobankIdInput || "";
-
-          searchSample_hene();
-        }
+              searchSample_hene();
+            }
+          } catch (error) {
+            console.error("Error applying changes for Head and Neck Cancer:", error);
+          }
+        });
       }
       // Breast Cancer
       async function searchSample(event) {
@@ -2974,7 +3082,7 @@
             }
           });
       }
-      // Head and Neck
+      // Head and Neck Cancer
       async function searchSample_hene(event) {
         if (event) {
           event.preventDefault();
@@ -2988,7 +3096,7 @@
         const tumorTypeInput = document.getElementById("tumorType_hene").value;
         const tumorSiteInput = document.getElementById("tumorSite_hene").value;
         const pathTypeInput = document.getElementById("pathType_hene").value;
-        const FamilyHInput = document.getElementById("fh1_hene").value;
+        const FamilyHInput = document.getElementById("FamilyHInput_hene").value;
         const tempBiobankIdInput = document.getElementById("biobankIdInput_hene").value ? document.getElementById("biobankIdInput_hene").value : "";
         const biobankIdInput_hene = tempBiobankIdInput && tempBiobankIdInput.length === 6 ? tempBiobankIdInput : "";
 
@@ -4670,6 +4778,7 @@
 
       function tbmsts_hene(option) {
         const mapping = {
+          op0: "Not applicable",
           op1: "All tumor bed margins negative for invasive tumour",
           op2: "Invasive tumor present at tumor bed margin(s)",
           op3: "Other",
@@ -4836,7 +4945,7 @@
       }
 
       function atyp_hene(data) {
-        if(!data || data.length === 0) return "-";
+        if (!data || data.length === 0) return "-";
         const mapping = {
           op1: "Minimally invasive",
           op2: "Invasive",
@@ -4845,12 +4954,12 @@
         };
         const res = [];
         for (let i = 0; i < data.length; i++) {
-          res.push(mapping[data[i]?.op]);
+          if (mapping[data[i]?.op]) res.push(mapping[data[i]?.op]);
         }
-        return res.length > 0 ? res.join(", ") : "-";
+        return res.length > 0 ? res.join("; ") : "-";
       }
       function mcpt1_hene(data, type) {
-        if(!data || data.length === 0) return "-";
+        if (!data || data.length === 0) return "-";
         const mapping = {
           op1: "Salivary duct carcinoma",
           op2: "Myoepithelial carcinoma",
@@ -4862,14 +4971,14 @@
         const res = [];
         if (type === "data") {
           for (let i = 0; i < data.length; i++) {
-            res.push(mapping[data[i].op]);
+            if (mapping[data[i]?.op]) res.push(mapping[data[i]?.op]);
           }
         } else {
           for (let i = 0; i < data.length; i++) {
-            res.push(data[i].text);
+            if (data[i]?.text) res.push(data[i].text);
           }
         }
-        return res.length > 0 ? res.join(", ") : "-";
+        return res.length > 0 ? res.join("; ") : "-";
       }
       function getExcelData(rowsData) {
         return rowsData.map((row) => {

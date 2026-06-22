@@ -316,6 +316,9 @@
       const app = firebase.initializeApp(firebaseConfig);
       const db = firebase.database(app);
       let clickEvent = false;
+      document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("searchBtn").addEventListener("click", populateGraph);
+      });
       window.onload = function () {
         document.getElementById("optionInput").value = "select";
         localStorage.setItem("startInput", "");
@@ -343,151 +346,148 @@
         $("#endInput").attr("disabled", true);
         localStorage.setItem("startInput", formattedStartDate);
         localStorage.setItem("endInput", formattedEndDate);
-        document.getElementById("searchBtn").click(); // Simulate a click on the search button to load data
+        populateGraph();
       };
 
-      document.addEventListener("DOMContentLoaded", function () {
-        document.getElementById("searchBtn").addEventListener("click", function (event) {
-          event.preventDefault();
-          try {
-            if (!clickEvent) {
-              searchLoadingModal();
-            }
-            clickEvent = false;
-            let startDate = localStorage.getItem("startInput");
-            let endDate = localStorage.getItem("endInput");
-            if (!startDate || !endDate) {
-              hideLoadingModal();
-              alert("Please select From and To Date");
-              return; // Exit the function if dates are not valid
-            }
-
-            db.ref("Patients")
-              .once("value")
-              .then((snapshot) => {
-                if (snapshot && snapshot.exists()) {
-                  const patientsData = snapshot.val();
-
-                  let countUnder30 = 0;
-                  let count30to40 = 0;
-                  let count41to50 = 0;
-                  let count51to60 = 0;
-                  let countAbove60 = 0;
-
-                  let breastCancer = 0;
-                  let ceixCancer = 0;
-                  let endmCancer = 0;
-                  let ovryCancer = 0;
-                  let heneCancer = 0;
-
-                  let biopsy = 0;
-                  let resection = 0;
-
-                  let countBS = 0; // Blood Samples
-                  let countSS = 0; // Specimen Samples
-                  let countOS = 0; // Other Samples
-                  let countRLT = 0; // RLT Samples
-                  let countPC = 0; // PC Samples
-                  let countCombined = 0; // Combined Samples
-
-                  let count = 0; // This will count the total number of sequences (s1, s2, etc.) that meet the timestamp condition
-
-                  let startDate = localStorage.getItem("startInput");
-                  let endDate = localStorage.getItem("endInput");
-
-                  if (startDate !== "" && endDate !== "") {
-                    let startTimestamp = getTimestamp(startDate); // Start of the day timestamp
-                    let endTimestamp = getTimestamp(endDate, true); // End of the day timestamp
-
-                    Object.keys(patientsData).forEach((bioBankId) => {
-                      const biobankData = patientsData[bioBankId];
-                      Object.keys(biobankData).forEach((seqNum) => {
-                        const sectionData = biobankData[seqNum];
-                        const timestampExists = sectionData && sectionData.ts ? sectionData.ts * 1000 <= endTimestamp && sectionData.ts * 1000 >= startTimestamp : false;
-                        if (timestampExists) {
-                          count++;
-                          const age = parseInt(sectionData?.age) || "";
-                          const cancer = sectionData?.ct || "";
-                          const gender = sectionData?.gndr || "";
-                          const procedure = sectionData?.typ || "";
-                          const smty = sectionData?.smty !== "" ? sectionData?.smty.split(",") || [] : []; // Split the sample types string into an array
-
-                          if (age < 30) countUnder30++;
-                          else if (age >= 30 && age <= 39) count30to40++;
-                          else if (age >= 40 && age <= 49) count41to50++;
-                          else if (age >= 50 && age <= 59) count51to60++;
-                          else if (age >= 60) countAbove60++;
-
-                          if (cancer === "brst") breastCancer++;
-                          else if (cancer === "ceix") ceixCancer++;
-                          else if (cancer === "endm") endmCancer++;
-                          else if (cancer === "ovry") ovryCancer++;
-                          else if (cancer === "hene") heneCancer++;
-                          if (procedure === "b") biopsy++;
-                          else if (procedure === "r") resection++;
-
-                          let hasBlood = smty.includes("B");
-                          let hasSpecimen = smty.includes("S");
-                          let hasOther = smty.includes("O");
-                          let hasRLT = smty.includes("R");
-                          let hasPC = smty.includes("P");
-
-                          if (
-                            (hasBlood && hasSpecimen) ||
-                            (hasBlood && hasOther) ||
-                            (hasBlood && hasRLT) ||
-                            (hasBlood && hasPC) ||
-                            (hasSpecimen && hasOther) ||
-                            (hasSpecimen && hasRLT) ||
-                            (hasSpecimen && hasPC) ||
-                            (hasOther && hasRLT) ||
-                            (hasOther && hasPC) ||
-                            (hasRLT && hasPC)
-                          ) {
-                            countCombined++; // Increment combined count
-                          } else if (hasBlood && !hasSpecimen && !hasOther && !hasRLT && !hasPC) {
-                            countBS++; // Increment blood count
-                          } else if (hasSpecimen && !hasBlood && !hasOther && !hasRLT && !hasPC) {
-                            countSS++; // Increment specimen count
-                          } else if (hasOther && !hasBlood && !hasSpecimen && !hasRLT && !hasPC) {
-                            countOS++; // Increment other count
-                          } else if (hasRLT && !hasBlood && !hasSpecimen && !hasOther && !hasPC) {
-                            countRLT++; // Increment RLT count
-                          } else if (hasPC && !hasBlood && !hasSpecimen && !hasOther && !hasRLT) {
-                            countPC++; // Increment PC count
-                          }
-                        }
-                      });
-                    });
-
-                    document.getElementById("samples").innerHTML = count;
-
-                    ageChart(countUnder30, count30to40, count41to50, count51to60, countAbove60);
-                    cancerChart(breastCancer, ceixCancer, endmCancer, ovryCancer, heneCancer);
-                    procedureChart(biopsy, resection);
-                    sampleTypeChart(countBS, countSS, countOS, countRLT, countPC, countCombined);
-                    hideLoadingModal();
-                  } else {
-                    alert("Please select From and To Date");
-                  }
-                } else {
-                  console.log("No seat data available.");
-                  document.getElementById("samples").innerHTML = 0;
-                  ageChart(0, 0, 0, 0, 0);
-                  cancerChart(0, 0, 0, 0, 0);
-                  procedureChart(0, 0);
-                  sampleTypeChart(0, 0, 0, 0, 0, 0);
-                  hideLoadingModal();
-                }
-              })
-              .catch((error) => {
-                console.error("Error fetching seat data from Firebase:", error);
-              });
-          } catch (error) {
-            console.error("Error processing seat data:", error);
+      function populateGraph() {
+        try {
+          if (!clickEvent) {
+            searchLoadingModal();
           }
-        });
-      });
+          clickEvent = false;
+          let startDate = localStorage.getItem("startInput");
+          let endDate = localStorage.getItem("endInput");
+          if (!startDate || !endDate) {
+            hideLoadingModal();
+            alert("Please select From and To Date");
+            return; // Exit the function if dates are not valid
+          }
+
+          db.ref("Patients")
+            .once("value")
+            .then((snapshot) => {
+              if (snapshot && snapshot.exists()) {
+                const patientsData = snapshot.val();
+
+                let countUnder30 = 0;
+                let count30to39 = 0;
+                let count40to49 = 0;
+                let count50to59 = 0;
+                let countAbove60 = 0;
+
+                let breastCancer = 0;
+                let ceixCancer = 0;
+                let endmCancer = 0;
+                let ovryCancer = 0;
+                let heneCancer = 0;
+
+                let biopsy = 0;
+                let resection = 0;
+
+                let countBS = 0; // Blood Samples
+                let countSS = 0; // Specimen Samples
+                let countOS = 0; // Other Samples
+                let countRLT = 0; // RLT Samples
+                let countPC = 0; // PC Samples
+                let countCombined = 0; // Combined Samples
+
+                let count = 0; // This will count the total number of sequences (s1, s2, etc.) that meet the timestamp condition
+
+                let startDate = localStorage.getItem("startInput");
+                let endDate = localStorage.getItem("endInput");
+
+                if (startDate !== "" && endDate !== "") {
+                  let startTimestamp = getTimestamp(startDate); // Start of the day timestamp
+                  let endTimestamp = getTimestamp(endDate, true); // End of the day timestamp
+
+                  Object.keys(patientsData).forEach((bioBankId) => {
+                    const biobankData = patientsData[bioBankId];
+                    Object.keys(biobankData).forEach((seqNum) => {
+                      const sectionData = biobankData[seqNum];
+                      const timestampExists = sectionData && sectionData.ts ? sectionData.ts * 1000 <= endTimestamp && sectionData.ts * 1000 >= startTimestamp : false;
+                      if (timestampExists) {
+                        count++;
+                        const age = parseInt(sectionData?.age) || "";
+                        const cancer = sectionData?.ct || "";
+                        const gender = sectionData?.gndr || "";
+                        const procedure = sectionData?.typ || "";
+                        const smty = sectionData?.smty !== "" ? sectionData?.smty.split(",") || [] : []; // Split the sample types string into an array
+
+                        if (age < 30) countUnder30++;
+                        else if (age >= 30 && age <= 39) count30to39++;
+                        else if (age >= 40 && age <= 49) count40to49++;
+                        else if (age >= 50 && age <= 59) count50to59++;
+                        else if (age >= 60) countAbove60++;
+
+                        if (cancer === "brst") breastCancer++;
+                        else if (cancer === "ceix") ceixCancer++;
+                        else if (cancer === "endm") endmCancer++;
+                        else if (cancer === "ovry") ovryCancer++;
+                        else if (cancer === "hene") heneCancer++;
+                        if (procedure === "b") biopsy++;
+                        else if (procedure === "r") resection++;
+
+                        let hasBlood = smty.includes("B");
+                        let hasSpecimen = smty.includes("S");
+                        let hasOther = smty.includes("O");
+                        let hasRLT = smty.includes("R");
+                        let hasPC = smty.includes("P");
+
+                        if (
+                          (hasBlood && hasSpecimen) ||
+                          (hasBlood && hasOther) ||
+                          (hasBlood && hasRLT) ||
+                          (hasBlood && hasPC) ||
+                          (hasSpecimen && hasOther) ||
+                          (hasSpecimen && hasRLT) ||
+                          (hasSpecimen && hasPC) ||
+                          (hasOther && hasRLT) ||
+                          (hasOther && hasPC) ||
+                          (hasRLT && hasPC)
+                        ) {
+                          countCombined++; // Increment combined count
+                        } else if (hasBlood && !hasSpecimen && !hasOther && !hasRLT && !hasPC) {
+                          countBS++; // Increment blood count
+                        } else if (hasSpecimen && !hasBlood && !hasOther && !hasRLT && !hasPC) {
+                          countSS++; // Increment specimen count
+                        } else if (hasOther && !hasBlood && !hasSpecimen && !hasRLT && !hasPC) {
+                          countOS++; // Increment other count
+                        } else if (hasRLT && !hasBlood && !hasSpecimen && !hasOther && !hasPC) {
+                          countRLT++; // Increment RLT count
+                        } else if (hasPC && !hasBlood && !hasSpecimen && !hasOther && !hasRLT) {
+                          countPC++; // Increment PC count
+                        }
+                      }
+                    });
+                  });
+
+                  document.getElementById("samples").innerHTML = count;
+
+                  ageChart(countUnder30, count30to39, count40to49, count50to59, countAbove60);
+                  cancerChart(breastCancer, ceixCancer, endmCancer, ovryCancer, heneCancer);
+                  procedureChart(biopsy, resection);
+                  sampleTypeChart(countBS, countSS, countOS, countRLT, countPC, countCombined);
+                  hideLoadingModal();
+                } else {
+                  alert("Please select From and To Date");
+                }
+              } else {
+                console.log("No seat data available.");
+                document.getElementById("samples").innerHTML = 0;
+                ageChart(0, 0, 0, 0, 0);
+                cancerChart(0, 0, 0, 0, 0);
+                procedureChart(0, 0);
+                sampleTypeChart(0, 0, 0, 0, 0, 0);
+                hideLoadingModal();
+              }
+            })
+            .catch((error) => {
+              console.error("Error fetching seat data from Firebase:", error);
+            });
+        } catch (error) {
+          console.error("Error processing seat data:", error);
+        }
+      }
 
       document.addEventListener("DOMContentLoaded", () => {
         fetchPendingEntries();
