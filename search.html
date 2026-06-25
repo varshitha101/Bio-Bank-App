@@ -4646,7 +4646,7 @@
           }
         } else {
           for (let i = 0; i < data.length; i++) {
-            if (mapping[data[i].text]) res.push(mapping[data[i].text]);
+            if (data[i].text) res.push(data[i].text);
           }
         }
         return res.length > 0 ? res.join("; ") : null;

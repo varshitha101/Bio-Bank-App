@@ -8266,7 +8266,6 @@
                     </div>
                     <div class="col-sm-1 mt-2 erase-icon-container-GeneticT-hene"></div>
                   </div>
-
                   <div class="row ml-1 mb-3" id="gtrs_hene" style="display: none">
                     <label for="" class="col-sm-3 mb-1 col-form-label">Genetic Testing Results</label>
                     <div class="col-sm-9 mt-2">
@@ -8303,87 +8302,13 @@
                     <div class="col-sm-9">
                       <select id="pType_hene" class="form-control">
                         <option value="">Select</option>
-                        <optgroup label="Oral cavity">
-                          <option value="op1">Squamous Cell Carcinoma and Subtypes</option>
-                          <option value="op2">Neuroendocrine</option>
-                          <option value="op3">Type of Combined Histology (select all that apply)</option>
-                          <option value="op4">Other</option>
-                        </optgroup>
-                        <optgroup label="HPV-Ind_Oropharynx_Hypopharynx">
-                          <option value="op5">Histologic Type (oropharynx)</option>
-                          <option value="op6">Histologic Type (hypopharynx)</option>
-                          <option value="op7">Histology Type (Neuroendocrine)</option>
-                          <option value="op8">Type of Combined Histology (select all that apply)</option>
-                          <option value="op9">Other</option>
-                        </optgroup>
-                        <optgroup label="HPV-Assoc_Oropharynx">
-                          <option value="op10">Squamous cell carcinoma, non-keratinizing, HPV-associated</option>
-                          <option value="op11">Squamous cell carcinoma, keratinizing, HPV-associated</option>
-                          <option value="op12">Adenosquamous carcinoma, HPV-associated</option>
-                          <option value="op13">Ciliated adenosquamous carcinoma, HPV-associated</option>
-                          <option value="op14">Basaloid squamous cell carcinoma, HPV-associated</option>
-                          <option value="op15">Papillary squamous cell carcinoma, HPV-associated</option>
-                          <option value="op16">Spindle cell / sarcomatoid squamous carcinoma, HPV-associated</option>
-                          <option value="op17">Lymphoepithelial carcinoma (non-nasopharyngeal), HPV-associated</option>
-                          <option value="op18">Other HPV-associated histologic type not listed (specify)</option>
-                        </optgroup>
-                        <optgroup label="Pharynx">
-                          <option value="op19">Carcinomas</option>
-                          <option value="op20">Neuroendocrine</option>
-                          <option value="op21">Type of Combined Histology# (select all that apply)</option>
-                          <option value="op22">Other</option>
-                        </optgroup>
-                        <optgroup label="Larynx">
-                          <option value="op23">Squamous cell carcinoma and subtypes</option>
-                          <option value="op24">Neuroendocrine</option>
-                          <option value="op25">Type of Combined Histology (select all that apply)</option>
-                          <option value="op26">Other</option>
-                        </optgroup>
-                        <optgroup label="NASAL CAVITY AND PARANASAL SINUSES">
-                          <option value="op27">Carcinomas</option>
-                          <option value="op28">Neuroendocrine</option>
-                          <option value="op29">Type of Combined Histology (select all that apply)</option>
-                          <option value="op30">Other</option>
-                        </optgroup>
-                        <optgroup label="Major and Minor Salivary gland">
-                          <option value="op31">Carcinoma ex pleomorphic adenoma</option>
-                          <option value="op32">Mucoepidermoid carcinoma</option>
-                          <option value="op33">Adenoid cystic carcinoma [tubular / cribriform]</option>
-                          <option value="op34">Adenoid cystic carcinoma, solid</option>
-                          <option value="op35">Acinic cell carcinoma</option>
-                          <option value="op36">Secretory carcinoma</option>
-                          <option value="op37">Polymorphous adenocarcinoma, conventional</option>
-                          <option value="op38">Polymorphous adenocarcinoma, cribriform subtype</option>
-                          <option value="op39">Salivary duct carcinoma</option>
-                          <option value="op40">Epithelial-myoepithelial carcinoma</option>
-                          <option value="op41">Hyalinizing clear cell carcinoma</option>
-                          <option value="op42">Microsecretory adenocarcinoma</option>
-                          <option value="op43">Intraductal carcinoma</option>
-                          <option value="op44">Basal cell adenocarcinoma</option>
-                          <option value="op45">Carcinosarcoma</option>
-                          <option value="op46">Mucinous adenocarcinoma, NOS</option>
-                          <option value="op47">Mucinous adenocarcinoma, intraductal papillary mucinous neoplasia subtype</option>
-                          <option value="op48">Mucinous adenocarcinoma, colloid / signet ring subtype</option>
-                          <option value="op49">Sclerosing microcystic adenocarcinoma</option>
-                          <option value="op50">Lymphoepithelial carcinoma</option>
-                          <option value="op51">Myoepithelial carcinoma</option>
-                          <option value="op52">Sebaceous adenocarcinoma</option>
-                          <option value="op53">Sialoblastoma</option>
-                          <option value="op54">Other</option>
-                        </optgroup>
-                        <optgroup label="Mucosal Melanoma">
-                          <option value="op55">Desmoplastic</option>
-                          <option value="op56">Lentiginous</option>
-                          <option value="op57">Nodular</option>
-                          <option value="op58">Other</option>
-                        </optgroup>
                       </select>
                       <div class="mt-2">
                         <input type="text" class="form-control" id="pType_Oth_hene" placeholder="" disabled />
                       </div>
                     </div>
                   </div>
-                  <div class="row ml-1 mb-3" id="histological_subtype">
+                  <div class="row ml-1 mb-3" id="histological_subtype" style="display: none">
                     <label for="pSubType_hene" class="col-sm-3 mb-1 col-form-label">Histological Subtype</label>
                     <div class="col-sm-8">
                       <div id="pType_op1_hene">
@@ -11290,8 +11215,10 @@
               mainOption = treatmentBreast_lung;
             } else if (primaryId === "mte1_hene") {
               mainOption = mteOptions_hene;
-            } else if (primaryId === "tumorType_hene") {
+            } else if (primaryId === "tumorType_hene" && secondaryId === "tumorSite_hene") {
               mainOption = tumorType_Site_hene;
+            } else if (primaryId === "tumorType_hene" && secondaryId === "pType_hene") {
+              mainOption = type_pt_hene;
             } else {
               mainOption = figoOptionsByStage_endm;
             }
@@ -11357,7 +11284,124 @@
         initializeDoubleOption("mte1_hene", "mte2_hene");
         initializeDoubleOption("tumorType_hene", "tumorSite_hene");
       });
+      document.addEventListener("DOMContentLoaded", function () {
+        function updateHistologicalType() {
+          const tumorType = document.getElementById("tumorType_hene").value;
+          const tumorSite = document.getElementById("tumorSite_hene").value;
+          const pType = document.getElementById("pType_hene");
 
+          const hpvStatus = document.querySelector('input[name="HPV_sts_hene"]:checked')?.value || "";
+
+          let options = {};
+
+          if (tumorType === "oral") {
+            options = {
+              op1: "Squamous Cell Carcinoma and Subtypes",
+              op2: "Neuroendocrine",
+              op3: "Type of Combined Histology (select all that apply)",
+              op4: "Other",
+            };
+          } else if (tumorType === "larynx") {
+            options = {
+              op23: "Squamous cell carcinoma and subtypes",
+              op24: "Neuroendocrine",
+              op25: "Type of Combined Histology (select all that apply)",
+              op26: "Other",
+            };
+          } else if (tumorType === "nasal") {
+            options = {
+              op27: "Carcinomas",
+              op28: "Neuroendocrine",
+              op29: "Type of Combined Histology (select all that apply)",
+              op30: "Other",
+            };
+          } else if (tumorType === "salivary") {
+            options = {
+              op31: "Carcinoma ex pleomorphic adenoma",
+              op32: "Mucoepidermoid carcinoma",
+              op33: "Adenoid cystic carcinoma [tubular / cribriform]",
+              op34: "Adenoid cystic carcinoma, solid",
+              op35: "Acinic cell carcinoma",
+              op36: "Secretory carcinoma",
+              op37: "Polymorphous adenocarcinoma, conventional",
+              op38: "Polymorphous adenocarcinoma, cribriform subtype",
+              op39: "Salivary duct carcinoma",
+              op40: "Epithelial-myoepithelial carcinoma",
+              op41: "Hyalinizing clear cell carcinoma",
+              op42: "Microsecretory adenocarcinoma",
+              op43: "Intraductal carcinoma",
+              op44: "Basal cell adenocarcinoma",
+              op45: "Carcinosarcoma",
+              op46: "Mucinous adenocarcinoma, NOS",
+              op47: "Mucinous adenocarcinoma, intraductal papillary mucinous neoplasia subtype",
+              op48: "Mucinous adenocarcinoma, colloid / signet ring subtype",
+              op49: "Sclerosing microcystic adenocarcinoma",
+              op50: "Lymphoepithelial carcinoma",
+              op51: "Myoepithelial carcinoma",
+              op52: "Sebaceous adenocarcinoma",
+              op53: "Sialoblastoma",
+              op54: "Other",
+            };
+          } else if (tumorType === "melanoma") {
+            options = {
+              op55: "Desmoplastic",
+              op56: "Lentiginous",
+              op57: "Nodular",
+              op58: "Other",
+            };
+          } else if (tumorType === "pharynx") {
+            if (tumorSite === "op4") {
+              options = {
+                op19: "Carcinomas",
+                op20: "Neuroendocrine",
+                op21: "Type of Combined Histology# (select all that apply)",
+                op22: "Other",
+              };
+            } else if (tumorSite === "op2" && hpvStatus === "pos") {
+              options = {
+                op10: "Squamous cell carcinoma, non-keratinizing, HPV-associated",
+                op11: "Squamous cell carcinoma, keratinizing, HPV-associated",
+                op12: "Adenosquamous carcinoma, HPV-associated",
+                op13: "Ciliated adenosquamous carcinoma, HPV-associated",
+                op14: "Basaloid squamous cell carcinoma, HPV-associated",
+                op15: "Papillary squamous cell carcinoma, HPV-associated",
+                op16: "Spindle cell / sarcomatoid squamous carcinoma, HPV-associated",
+                op17: "Lymphoepithelial carcinoma (non-nasopharyngeal), HPV-associated",
+                op18: "Other HPV-associated histologic type not listed (specify)",
+              };
+            } else if ((tumorSite === "op2" && hpvStatus === "neg") || tumorSite === "op3") {
+              options = {
+                op5: "Histologic Type (oropharynx)",
+                op6: "Histologic Type (hypopharynx)",
+                op7: "Histology Type (Neuroendocrine)",
+                op8: "Type of Combined Histology (select all that apply)",
+                op9: "Other",
+              };
+            } else {
+              pType.innerHTML = '<option value="">Select</option>';
+              pType.disabled = true;
+              return;
+            }
+          } else {
+            pType.innerHTML = '<option value="">Select</option>';
+            pType.disabled = true;
+            return;
+          }
+
+          pType.disabled = false;
+          pType.innerHTML = '<option value="">Select</option>';
+
+          Object.entries(options).forEach(([value, text]) => {
+            pType.add(new Option(text, value));
+          });
+        }
+        updateHistologicalType();
+        document.getElementById("tumorType_hene").addEventListener("change", updateHistologicalType);
+
+        document.getElementById("tumorSite_hene").addEventListener("change", updateHistologicalType);
+
+        document.querySelectorAll('input[name="HPV_sts_hene"]').forEach((r) => r.addEventListener("change", updateHistologicalType));
+      });
       document.addEventListener("DOMContentLoaded", () => {
         fetchPendingEntries();
         fetchPendingFollowUps();

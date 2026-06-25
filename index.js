@@ -2109,6 +2109,7 @@ function validateAndCollectData() {
         }
         return data;
       }
+      
     })
     .catch((error) => {
       console.error("Error during form validation:", error);
