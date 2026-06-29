@@ -63,7 +63,18 @@ function getnewBoxId(newBoxId, existingBoxes) {
   }
   return newBoxId;
 }
+function getMappedCancerTypeFromHome(activeCancerType) {
+  const cancerTypeMap = {
+    BR: "brst",
+    OV: "ovry",
+    CV: "ceix",
+    EM: "endm",
+    LU: "lung",
+    HN: "hene",
+  };
 
+  return cancerTypeMap[activeCancerType] || "";
+}
 async function populateAllBoxData(activeCancerType) {
   if (!activeCancerType || activeCancerType === "0") {
     hideLoadingModal();
@@ -208,7 +219,7 @@ async function populateBBData(activeCancerType) {
     const dataSnapshot = await db.ref(`bb/${boxVal}/`).once("value");
 
     if (dataSnapshot.exists()) {
-      populateBBLabels(dataSnapshot.val(), boxVal, "call from populateBBData");
+      populateBBLabels(getMappedCancerTypeFromHome(activeCancerType), dataSnapshot.val(), boxVal);
       return;
     }
 
@@ -219,7 +230,7 @@ async function populateBBData(activeCancerType) {
   }
 }
 
-function populateBBLabels(data, boxVal, debug) {
+function populateBBLabels(activeCancerType, data, boxVal) {
   const rows = "ABCDEFGHIJ";
   const cols = 10;
 
@@ -253,10 +264,9 @@ function populateBBLabels(data, boxVal, debug) {
           const matchedData = [];
           newLabelElement.addEventListener("click", async function () {
             const bioBankId = bioBankIds[index];
-            const bioId = bioBankId?.slice(0, 2);
             const sampleType = sample[index];
 
-            const dbRef = db.ref(`sef/${bioId}/${bioBankId}`);
+            const dbRef = db.ref(`sef/${activeCancerType}/${bioBankId}`);
             const snapshot = await dbRef.get();
 
             if (!snapshot.exists()) {
@@ -337,7 +347,7 @@ function populateBBLabels(data, boxVal, debug) {
 
             if (matchedData.length > 0) {
               matchedData.forEach((item) => {
-                pages_display(item.mode, item.bioBankId, item.seq, item.timestamp);
+                pages_display(item.mode, activeCancerType, item.bioBankId, item.seq, item.timestamp);
               });
             } else {
               console.log("No match found for:", matchedData);
@@ -352,12 +362,11 @@ function populateBBLabels(data, boxVal, debug) {
 
           newLabelElement.addEventListener("click", async function () {
             const bioBankId = bioBankIds[index];
-            const bioId = bioBankId?.slice(0, 2);
             const sampleType = sample[index];
 
             localStorage.setItem("sharedbioid", bioBankId);
 
-            const dbRef = db.ref(`sef/${bioId}/${bioBankId}`);
+            const dbRef = db.ref(`sef/${activeCancerType}/${bioBankId}`);
             const snapshot = await dbRef.get();
 
             if (!snapshot.exists()) {
@@ -457,12 +466,11 @@ function populateBBLabels(data, boxVal, debug) {
 
           newLabelElement.addEventListener("click", async function () {
             const bioBankId = bioBankIds[index];
-            const bioId = bioBankId?.slice(0, 2);
             const sampleType = sample[index];
 
             localStorage.setItem("sharedbioid", bioBankId);
 
-            const dbRef = db.ref(`sef/${bioId}/${bioBankId}`);
+            const dbRef = db.ref(`sef/${activeCancerType}/${bioBankId}`);
             const snapshot = await dbRef.get();
 
             if (!snapshot.exists()) {
@@ -720,7 +728,7 @@ async function populateSBData(activeCancerType) {
 
     const dataSnapshot = await db.ref(`sb/${boxVal}/`).once("value");
     if (dataSnapshot.exists()) {
-      populateSBLabels(dataSnapshot.val());
+      populateSBLabels(getMappedCancerTypeFromHome(activeCancerType), dataSnapshot.val());
       return;
     }
 
@@ -731,7 +739,7 @@ async function populateSBData(activeCancerType) {
   }
 }
 
-function populateSBLabels(data) {
+function populateSBLabels(activeCancerType, data) {
   const rows = "ABCDEFGHIJ";
   const cols = 10;
 
@@ -765,11 +773,10 @@ function populateSBLabels(data) {
           const matchedData = [];
           newLabelElement.addEventListener("click", async function () {
             const bioBankId = bioBankIds[index];
-            const bioId = bioBankId?.slice(0, 2);
             const sampleType = sample[index];
             console.log("sampleType", sampleType);
 
-            const dbRef = db.ref(`sef/${bioId}/${bioBankId}`);
+            const dbRef = db.ref(`sef/${activeCancerType}/${bioBankId}`);
             const snapshot = await dbRef.get();
 
             if (!snapshot.exists()) {
@@ -818,7 +825,7 @@ function populateSBLabels(data) {
 
             if (matchedData.length > 0) {
               matchedData.forEach((item) => {
-                pages_display(item.mode, item.bioBankId, item.seq, item.timestamp);
+                pages_display(item.mode, activeCancerType, item.bioBankId, item.seq, item.timestamp);
               });
             } else {
               console.log("No match found for:", labelName);
@@ -832,12 +839,11 @@ function populateSBLabels(data) {
 
           newLabelElement.addEventListener("click", async function () {
             const bioBankId = bioBankIds[index];
-            const bioId = bioBankId?.slice(0, 2);
             const sampleType = sample[index];
 
             localStorage.setItem("sharedbioid", bioBankId);
 
-            const dbRef = db.ref(`sef/${bioId}/${bioBankId}`);
+            const dbRef = db.ref(`sef/${activeCancerType}/${bioBankId}`);
             const snapshot = await dbRef.get();
 
             if (!snapshot.exists()) {
@@ -902,12 +908,11 @@ function populateSBLabels(data) {
 
           newLabelElement.addEventListener("click", async function () {
             const bioBankId = bioBankIds[index];
-            const bioId = bioBankId?.slice(0, 2);
             const sampleType = sample[index];
 
             localStorage.setItem("sharedbioid", bioBankId);
 
-            const dbRef = db.ref(`sef/${bioId}/${bioBankId}`);
+            const dbRef = db.ref(`sef/${activeCancerType}/${bioBankId}`);
             const snapshot = await dbRef.get();
 
             if (!snapshot.exists()) {
@@ -1072,7 +1077,7 @@ async function populateRLTData(activeCancerType) {
 
     const dataSnapshot = await db.ref(`rlt/${boxVal}/`).once("value");
     if (dataSnapshot.exists()) {
-      populateRLTLabels(dataSnapshot.val(), boxVal, "call from populateBBData");
+      populateRLTLabels(getMappedCancerTypeFromHome(activeCancerType), dataSnapshot.val(), boxVal);
       return;
     }
 
@@ -1083,7 +1088,7 @@ async function populateRLTData(activeCancerType) {
   }
 }
 
-function populateRLTLabels(data, boxVal, debug) {
+function populateRLTLabels(activeCancerType, data, boxVal) {
   const rows = "ABCDEFGHIJ";
   const cols = 10;
 
@@ -1117,10 +1122,9 @@ function populateRLTLabels(data, boxVal, debug) {
           const matchedData = [];
           newLabelElement.addEventListener("click", async function () {
             const bioBankId = bioBankIds[index];
-            const bioId = bioBankId?.slice(0, 2);
             const sampleType = sample[index];
 
-            const dbRef = db.ref(`sef/${bioId}/${bioBankId}`);
+            const dbRef = db.ref(`sef/${activeCancerType}/${bioBankId}`);
             const snapshot = await dbRef.get();
 
             if (!snapshot.exists()) {
@@ -1155,7 +1159,7 @@ function populateRLTLabels(data, boxVal, debug) {
 
             if (matchedData.length > 0) {
               matchedData.forEach((item) => {
-                pages_display(item.mode, item.bioBankId, item.seq, item.timestamp);
+                pages_display(item.mode, activeCancerType, item.bioBankId, item.seq, item.timestamp);
               });
             } else {
               console.log("No match found for:", labelName);
@@ -1169,12 +1173,11 @@ function populateRLTLabels(data, boxVal, debug) {
 
           newLabelElement.addEventListener("click", async function () {
             const bioBankId = bioBankIds[index];
-            const bioId = bioBankId?.slice(0, 2);
             const sampleType = sample[index];
 
             localStorage.setItem("sharedbioid", bioBankId);
 
-            const dbRef = db.ref(`sef/${bioId}/${bioBankId}`);
+            const dbRef = db.ref(`sef/${activeCancerType}/${bioBankId}`);
             const snapshot = await dbRef.get();
 
             if (!snapshot.exists()) {
@@ -1223,11 +1226,10 @@ function populateRLTLabels(data, boxVal, debug) {
           const matchedData = [];
           newLabelElement.addEventListener("click", async function () {
             const bioBankId = bioBankIds[index];
-            const bioId = bioBankId?.slice(0, 2);
             const sampleType = sample[index];
 
             localStorage.setItem("sharedbioid", bioBankId);
-            const dbRef = db.ref(`sef/${bioId}/${bioBankId}`);
+            const dbRef = db.ref(`sef/${activeCancerType}/${bioBankId}`);
             const snapshot = await dbRef.get();
 
             if (!snapshot.exists()) {
@@ -1378,7 +1380,7 @@ async function populatePCBData(activeCancerType) {
 
     const dataSnapshot = await db.ref(`pcb/${boxVal}/`).once("value");
     if (dataSnapshot.exists()) {
-      populatePCBLabels(dataSnapshot.val(), boxVal, "call from populateBBData");
+      populatePCBLabels(getMappedCancerTypeFromHome(activeCancerType), dataSnapshot.val(), boxVal);
       return;
     }
 
@@ -1389,7 +1391,7 @@ async function populatePCBData(activeCancerType) {
   }
 }
 
-function populatePCBLabels(data, boxVal, debug) {
+function populatePCBLabels(activeCancerType, data, boxVal) {
   const rows = "ABCDEFGHIJ";
   const cols = 10;
 
@@ -1423,10 +1425,9 @@ function populatePCBLabels(data, boxVal, debug) {
           const matchedData = [];
           newLabelElement.addEventListener("click", async function () {
             const bioBankId = bioBankIds[index];
-            const bioId = bioBankId?.slice(0, 2);
             const sampleType = sample[index];
 
-            const dbRef = db.ref(`sef/${bioId}/${bioBankId}`);
+            const dbRef = db.ref(`sef/${activeCancerType}/${bioBankId}`);
             const snapshot = await dbRef.get();
 
             if (!snapshot.exists()) {
@@ -1461,7 +1462,7 @@ function populatePCBLabels(data, boxVal, debug) {
 
             if (matchedData.length > 0) {
               matchedData.forEach((item) => {
-                pages_display(item.mode, item.bioBankId, item.seq, item.timestamp);
+                pages_display(item.mode, activeCancerType, item.bioBankId, item.seq, item.timestamp);
               });
             } else {
               console.log("No match found for:", labelName);
@@ -1474,12 +1475,11 @@ function populatePCBLabels(data, boxVal, debug) {
           const matchedData = [];
           newLabelElement.addEventListener("click", async function () {
             const bioBankId = bioBankIds[index];
-            const bioId = bioBankId?.slice(0, 2);
             const sampleType = sample[index];
 
             localStorage.setItem("sharedbioid", bioBankId);
 
-            const dbRef = db.ref(`sef/${bioId}/${bioBankId}`);
+            const dbRef = db.ref(`sef/${activeCancerType}/${bioBankId}`);
             const snapshot = await dbRef.get();
 
             if (!snapshot.exists()) {
@@ -1528,12 +1528,11 @@ function populatePCBLabels(data, boxVal, debug) {
           const matchedData = [];
           newLabelElement.addEventListener("click", async function () {
             const bioBankId = bioBankIds[index];
-            const bioId = bioBankId?.slice(0, 2);
             const sampleType = sample[index];
 
             localStorage.setItem("sharedbioid", bioBankId);
 
-            const dbRef = db.ref(`sef/${bioId}/${bioBankId}`);
+            const dbRef = db.ref(`sef/${activeCancerType}/${bioBankId}`);
             const snapshot = await dbRef.get();
 
             if (!snapshot.exists()) {
@@ -2037,64 +2036,77 @@ function validateAndCollectData() {
         let pcV = localStorage.getItem("pcVVStatus");
 
         if (mode !== "SearchEdit" && mode !== "PendingEdit") {
+          const promises = [];
           if (form1Data.ie.bpg) {
-            updateBB(form1Data.ie.bpg, "Plasma");
+            promises.push(updateBB(form1Data.ie.bpg, "Plasma"));
           }
           if (form1Data.ie.bsg) {
-            updateBB(form1Data.ie.bsg, "Serum");
+            promises.push(updateBB(form1Data.ie.bsg, "Serum"));
           }
           if (form1Data.ie.bbcg) {
-            updateBB(form1Data.ie.bbcg, "Buffy Coat");
+            promises.push(updateBB(form1Data.ie.bbcg, "Buffy Coat"));
           }
           if (form1Data.ie.osg) {
-            updateBB(form1Data.ie.osg, "Other");
+            promises.push(updateBB(form1Data.ie.osg, "Other"));
           }
           if (form1Data.ie.rlt) {
-            updateRLT(form1Data.ie.rlt, "form entry");
+            promises.push(updateRLT(form1Data.ie.rlt, "form entry"));
           }
           if (form1Data.ie.pc) {
-            updatePC(form1Data.ie.pc, "PC");
+            promises.push(updatePC(form1Data.ie.pc, "PC"));
           }
-
           if (form1Data.ie.ftg !== "" && form1Data.ie.ftg !== null) {
-            updateSB(form1Data.ie.ftg, "FT-1");
+            promises.push(updateSB(form1Data.ie.ftg, "FT-1"));
           }
           if (form1Data.ie.fng !== "" && form1Data.ie.fng !== null) {
-            updateSB(form1Data.ie.fng, "FN-1");
+            promises.push(updateSB(form1Data.ie.fng, "FN-1"));
           }
+          Promise.all(promises)
+            .then(() => {
+              console.log("All updates completed successfully.");
+            })
+            .catch((error) => {
+              console.error("Error updating data: ", error);
+            });
         } else if (mode === "SearchEdit" || mode === "PendingEdit") {
+          const promises = [];
           if (form1Data.ie.bpg && bS === "false" && form1Data.ie.bs === "true") {
-            updateBB(form1Data.ie.bpg, "Plasma");
+            promises.push(updateBB(form1Data.ie.bpg, "Plasma"));
           }
           if (form1Data.ie.bsg && bS === "false" && form1Data.ie.bs === "true") {
-            updateBB(form1Data.ie.bsg, "Serum");
+            promises.push(updateBB(form1Data.ie.bsg, "Serum"));
           }
           if (form1Data.ie.bbcg && bS === "false" && form1Data.ie.bs === "true") {
-            updateBB(form1Data.ie.bbcg, "Buffy Coat");
+            promises.push(updateBB(form1Data.ie.bbcg, "Buffy Coat"));
           }
           if (form1Data.ie.osg && oS === "false" && form1Data.ie.osmp === "true") {
-            updateBB(form1Data.ie.osg, "Other");
+            promises.push(updateBB(form1Data.ie.osg, "Other"));
           }
           if (form1Data.ie.rlt && rltS === "false" && form1Data.ie.rltS === "true") {
-            updateRLT(form1Data.ie.rlt, "Search update RLT");
+            promises.push(updateRLT(form1Data.ie.rlt, "Search update RLT"));
           }
           if (form1Data.ie.pc && (pcV === "No" || pcV === "Inprogress") && form1Data.ie.pcS === "true" && form1Data.ie.pssvl === "Yes") {
-            updatePC(form1Data.ie.pc, "PC");
+            promises.push(updatePC(form1Data.ie.pc, "PC"));
           }
 
           if (form1Data.ie.ftg !== "" && form1Data.ie.ftg !== null && tS === "false" && form1Data.ie.ss === "true") {
-            updateSB(form1Data.ie.ftg, "FT-1");
+            promises.push(updateSB(form1Data.ie.ftg, "FT-1"));
           }
           if (form1Data.ie.fng !== "" && form1Data.ie.fng !== null && tS === "false" && form1Data.ie.ss === "true") {
-            updateSB(form1Data.ie.fng, "FN-1");
+            promises.push(updateSB(form1Data.ie.fng, "FN-1"));
           }
+          Promise.all(promises)
+            .then(() => {
+              console.log("All updates completed successfully.");
+            })
+            .catch((error) => {
+              console.error("Error updating data: ", error);
+            });
         }
         const bioBankId = document.getElementById("bioBankId").value;
         const mrnData = document.getElementById("mrnNo").value;
 
         if (bioBankId && mrnData && bioBankId !== "" && mrnData !== "") {
-          // localStorage.removeItem("selectedActiveCancerType");
-
           if (updateMode === "true") {
             console.log("Updating data to Firebase:", data);
             updateToFirebase(data);
@@ -2109,7 +2121,6 @@ function validateAndCollectData() {
         }
         return data;
       }
-      
     })
     .catch((error) => {
       console.error("Error during form validation:", error);
@@ -4255,11 +4266,11 @@ function redirectAfterSampleEntry(mode) {
 
 function saveToFirebase(data) {
   const bioBankId = document.getElementById("bioBankId").value;
-  const bioId = bioBankId?.slice(0, 2);
+  const cancer_type = data?.ie?.ct;
   const timestamp = Math.floor(Date.now() / 1000);
   const mrnData = document.getElementById("mrnNo").value;
   if (bioBankId && mrnData && bioBankId !== "" && mrnData !== "") {
-    db.ref(`sef/${bioId}/${bioBankId}`).once("value", (snapshot) => {
+    db.ref(`sef/${cancer_type}/${bioBankId}`).once("value", (snapshot) => {
       const sections = snapshot.val();
       let nextSectionIndex = 1;
 
@@ -4309,7 +4320,7 @@ function saveToFirebase(data) {
           henef: data.brf,
         };
       }
-      db.ref(`sef/${bioId}/${bioBankId}/${nextSection}/${timestamp}`)
+      db.ref(`sef/${cancer_type}/${bioBankId}/${nextSection}/${timestamp}`)
         .set(formattedData)
         .then(() => {
           patients(bioBankId, nextSection);
@@ -4376,49 +4387,48 @@ function updateToFirebase(data) {
   let mode = localStorage.getItem("mode");
 
   if (bioBankId && mrnData && bioBankId !== "" && mrnData !== "") {
-    const bioId = bioBankId?.slice(0, 2);
-    db.ref(`sef/${bioId}/${bioBankId}`).once("value", (snapshot) => {
+    const cancer_type = data?.ie?.ct;
+    db.ref(`sef/${cancer_type}/${bioBankId}`).once("value", (snapshot) => {
       const sections = snapshot.val();
+      let formattedData;
+      if (cancer_type === "brst") {
+        formattedData = {
+          ie: data.ie,
+          md: data.md,
+          brf: data.brf,
+        };
+      } else if (cancer_type === "endm") {
+        formattedData = {
+          ie: data.ie,
+          md: data.md,
+          emf: data.brf,
+        };
+      } else if (cancer_type === "ceix") {
+        formattedData = {
+          ie: data.ie,
+          md: data.md,
+          cvf: data.brf,
+        };
+      } else if (cancer_type === "ovry") {
+        formattedData = {
+          ie: data.ie,
+          md: data.md,
+          ovf: data.brf,
+        };
+      } else if (cancer_type === "hene") {
+        formattedData = {
+          ie: data.ie,
+          md: data.md,
+          henef: data.brf,
+        };
+      }
 
       if (sections) {
         const sectionKeys = Object.keys(sections);
         let lastSection = sectionKeys[sectionKeys.length - 1];
         lastSection = localStorage.getItem("lastSection") && localStorage.getItem("lastSection") !== "undefined" ? localStorage.getItem("lastSection") : lastSection;
-        const cancer_type = data?.ie?.ct;
-        let formattedData;
-        if (cancer_type === "brst") {
-          formattedData = {
-            ie: data.ie,
-            md: data.md,
-            brf: data.brf,
-          };
-        } else if (cancer_type === "endm") {
-          formattedData = {
-            ie: data.ie,
-            md: data.md,
-            emf: data.brf,
-          };
-        } else if (cancer_type === "ceix") {
-          formattedData = {
-            ie: data.ie,
-            md: data.md,
-            cvf: data.brf,
-          };
-        } else if (cancer_type === "ovry") {
-          formattedData = {
-            ie: data.ie,
-            md: data.md,
-            ovf: data.brf,
-          };
-        } else if (cancer_type === "hene") {
-          formattedData = {
-            ie: data.ie,
-            md: data.md,
-            henef: data.brf,
-          };
-        }
 
-        db.ref(`sef/${bioId}/${bioBankId}/${lastSection}/${timestamp}`)
+        db.ref(`sef/${cancer_type}/${bioBankId}/${lastSection}/${timestamp}`)
           .set(formattedData)
           .then(() => {
             let user = sessionStorage.getItem("userName");
@@ -4452,9 +4462,8 @@ function updateToFirebase(data) {
           });
       } else {
         const firstSection = `s1`;
-        const bioId = bioBankId?.slice(0, 2);
-        db.ref(`sef/${bioId}/${bioBankId}/${firstSection}/${timestamp}`)
-          .set(data)
+        db.ref(`sef/${cancer_type}/${bioBankId}/${firstSection}/${timestamp}`)
+          .set(formattedData)
           .then(() => {
             db.ref(`bb/${boxName}/${seatIndex}`)
               .update(seatUpdate)
@@ -4579,7 +4588,7 @@ function patients(biobankId, section) {
     age: document.getElementById(patAge).value, // Assuming 'patAge' is the age input field
     ct: cancer_type, // Type of Cancer
     gndr: document.querySelector(`input[name="${customRadio}"]:checked`)?.value || "", // Gender
-    grc: document.getElementById(sampleGrade)?.value || "", // Grade of Cancer
+    // grc: document.getElementById(sampleGrade)?.value || "", // Grade of Cancer
     smty: smty || "",
     typ: document.querySelector(`input[name="${customProcedure}"]:checked`)?.value || "", // Type of Procedure
     ts: timestamp,
@@ -4587,27 +4596,24 @@ function patients(biobankId, section) {
   db.ref(`Patients/${biobankId}/${section}`)
     .set(patientInfo)
     .then(() => {
+      localStorage.setItem("BioVal", "");
       console.log("Patient info saved successfully.");
     })
     .catch((error) => {
       console.error("Error writing to Firebase", error);
     });
-
-  const mrnData = document.getElementById("mrnNo").value; // If you need to handle MRN number as well
-  // });
 }
 
 const upUrlParams = new URLSearchParams(window.location.search);
 const update = upUrlParams.get("update");
 
-function pages_display(mode, bioBankId, seq, timestampKey) {
+function pages_display(mode, cancer_type, bioBankId, seq, timestampKey) {
   localStorage.setItem("bioBankId", bioBankId);
   localStorage.setItem("lastSection", seq);
-  const bioId = bioBankId?.slice(0, 2);
   if (seq != "") {
-    var dataPath = `sef/${bioId}/${bioBankId}/${seq}/${timestampKey}`;
+    var dataPath = `sef/${cancer_type}/${bioBankId}/${seq}/${timestampKey}`;
   } else {
-    var dataPath = `Fw/${bioId}/${bioBankId}/${timestampKey}`;
+    var dataPath = `Fw/${bioBankId}/${timestampKey}`;
   }
 
   localStorage.setItem("bioid", bioBankId);
@@ -7563,8 +7569,7 @@ function submitFollowup() {
       };
 
       const db = firebase.database(); // Initialize Firebase database reference
-      const bioId = bioBankId.slice(0, 2);
-      const dataPath = `Fw/${bioId}/${bioBankId}/${timestamp}`;
+      const dataPath = `Fw/${bioBankId}/${timestamp}`;
       let mode = localStorage.getItem("mode");
       let dus = sessionStorage.getItem("userName");
 
@@ -7855,8 +7860,7 @@ let followupDataStore = {};
 
 function retrieveFollowup(bioBankId) {
   const db = firebase.database();
-  const bioId = bioBankId.slice(0, 2);
-  const dataPath = `Fw/${bioId}/${bioBankId}`;
+  const dataPath = `Fw/${bioBankId}`;
 
   document.getElementById("followUpCard").style.display = "block";
   document.getElementById("followForm").style.display = "none";
@@ -8721,8 +8725,7 @@ function popSharedPCmodal(bioboxName, samples, bioId, requestToken) {
 }
 
 function retrieveOs(bioBankId) {
-  const bioId = bioBankId?.slice(0, 2);
-  db.ref(`Os/${bioId}/${bioBankId}`)
+  db.ref(`Os/${bioBankId}`)
     .once("value")
     .then((snapshot) => {
       if (snapshot.exists()) {
@@ -8762,11 +8765,10 @@ function retrieveOs(bioBankId) {
 }
 
 function viewShared(bioBankId, timestamp) {
-  const bioId = bioBankId.slice(0, 2);
   document.getElementById("sharedCard").style.display = "none";
   document.getElementById("shareForm").style.display = "block";
 
-  db.ref(`Os/${bioId}/${bioBankId}`)
+  db.ref(`Os/${bioBankId}`)
     .once("value")
     .then((snapshot) => {
       if (snapshot.exists()) {
@@ -8792,8 +8794,7 @@ function viewShared(bioBankId, timestamp) {
 function shared_pages_display(mode, bioBankId, seq, boxName, timestampKey) {
   localStorage.setItem("sharedBox", boxName);
 
-  const bioId = bioBankId.slice(0, 2);
-  var dataPath = `Os/${bioId}/${bioBankId}/${seq}/`;
+  var dataPath = `Os/${bioBankId}/${seq}/`;
 
   localStorage.setItem("bioid", bioBankId);
   localStorage.setItem("mode", mode);
@@ -8835,51 +8836,6 @@ function shared_pages_display(mode, bioBankId, seq, boxName, timestampKey) {
     const formElements = [...document.querySelectorAll("input, select, textarea")];
   }
 }
-
-// function follow_pages_display(mode, bioBankId, seq, timestamp) {
-//   var dataPath = `Fw/${bioBankId}/`;
-
-//   localStorage.setItem("bioid", bioBankId);
-//   localStorage.setItem("mode", mode);
-
-//   if (mode != "") {
-//     db.ref(dataPath)
-//       .once("value")
-//       .then((snapshot) => {
-//         if (snapshot.exists()) {
-//           const data = snapshot.val();
-
-//           sessionStorage.setItem("FollowData", JSON.stringify(data));
-//           const storedData = sessionStorage.getItem("FollowData");
-//           if (storedData) {
-//             const parsedData = JSON.parse(storedData);
-//           } else {
-//             console.log("No formData found in sessionStorage");
-//           }
-//           switch (mode) {
-//             case "ViewFollowUp":
-//               localStorage.setItem("selectedGrid", "");
-//               window.location.href = `default.html?mode=view#tab2`;
-//               break;
-
-//             default:
-//               console.error("Unknown mode:", mode);
-//           }
-//         } else {
-//           console.error("No data found at the specified path");
-//           alert("Follow-Up is not done yet");
-//         }
-//       })
-//       .catch((error) => {
-//         console.error("Error fetching data:", error);
-//       });
-//   } else if (mode === "") {
-//     localStorage.setItem("selectedGrid", "");
-//     window.location.href = "default.html";
-//   } else if (mode === undefined) {
-//     const formElements = [...document.querySelectorAll("input, select, textarea")];
-//   }
-// }
 
 function displayOutsourceData(bioBankId, data) {
   console.log("Displaying outsource data for bioBankId:", bioBankId, "Data:", data);
@@ -9086,12 +9042,12 @@ function fetchPendingEntries() {
   const currentTime = Date.now();
 
   db.ref("sef").once("value", (snapshot) => {
-    const allData = snapshot.val();
-    window.patientData = allData;
+    if (snapshot && snapshot.exists()) {
+      const allData = snapshot.val();
+      window.patientData = allData;
 
-    if (allData) {
-      Object.keys(allData).forEach((bioId) => {
-        const bioIdData = allData[bioId];
+      Object.keys(allData).forEach((cancer_type) => {
+        const bioIdData = allData[cancer_type];
         Object.keys(bioIdData).forEach((bioBankId) => {
           // console.log("Processing bioBankId:", bioBankId);
           const sections = bioIdData[bioBankId];
@@ -9115,6 +9071,7 @@ function fetchPendingEntries() {
                 age: dataEntry.ie.ag || "-",
                 gender: getGender(dataEntry.ie.sx),
                 cancerType: getCancerType(dataEntry.ie.ct),
+                ct: dataEntry.ie.ct,
                 newtimestamp: newtimestamp,
               });
             }
@@ -9262,7 +9219,7 @@ function fetchPendingEntries() {
       editBtn.addEventListener("click", () => {
         const seq = entry.seq;
         const timestampKey = entry.newtimestamp;
-        editPatient(entry.bioBankId, seq, timestampKey);
+        editPatient(entry.ct, entry.bioBankId, seq, timestampKey);
       });
 
       const viewPendingFormBtn = document.createElement("button");
@@ -9271,7 +9228,7 @@ function fetchPendingEntries() {
       viewPendingFormBtn.addEventListener("click", () => {
         const seq = entry.seq;
         const timestampKey = entry.newtimestamp;
-        viewPendingForm(entry.bioBankId, seq, timestampKey);
+        viewPendingForm(entry.ct, entry.bioBankId, seq, timestampKey);
       });
 
       actionCell.appendChild(editBtn);
@@ -9293,46 +9250,46 @@ function fetchPendingEntries() {
   }
 }
 
-function viewPendingForm(bioBankId, seq, timestampKey) {
+function viewPendingForm(cancer_type, bioBankId, seq, timestampKey) {
   const bioId = bioBankId?.slice(0, 2);
-  if (window.patientData[bioId]?.[bioBankId]) {
-    handlePendingForm(bioBankId, seq, timestampKey);
+  if (window.patientData[cancer_type]?.[bioBankId]) {
+    handlePendingForm(cancer_type, bioBankId, seq, timestampKey);
   } else {
     console.error(`Patient data not found for bioBankId ${bioBankId}`);
   }
 }
 
-function handlePendingForm(bioBankId, seq, timestampKey) {
+function handlePendingForm(cancer_type, bioBankId, seq, timestampKey) {
   const bioId = bioBankId?.slice(0, 2);
-  const patientSeq = window.patientData[bioId]?.[bioBankId];
+  const patientSeq = window.patientData[cancer_type]?.[bioBankId];
   if (patientSeq && patientSeq[seq] && patientSeq[seq][timestampKey]) {
     const timestampData = patientSeq[seq][timestampKey];
     let viewT = "PendingView";
 
-    pages_display(viewT, bioBankId, seq, timestampKey);
+    pages_display(viewT, cancer_type, bioBankId, seq, timestampKey);
   } else {
     console.error(`Sequence ${seq} or timestampKey ${timestampKey} not found for patient ${bioBankId}`);
   }
 }
 
-function editPatient(bioBankId, seq, timestampKey) {
+function editPatient(cancer_type, bioBankId, seq, timestampKey) {
   const bioId = bioBankId?.slice(0, 2);
-  if (!window.patientData[bioId]?.[bioBankId]) {
+  if (!window.patientData[cancer_type]?.[bioBankId]) {
     fetchPatientData(bioBankId)
       .then(() => {
-        handleEditPatientData(bioBankId, seq, timestampKey);
+        handleEditPatientData(cancer_type, bioBankId, seq, timestampKey);
       })
       .catch((error) => {
         console.error("Error fetching patient data:", error);
       });
   } else {
-    handleEditPatientData(bioBankId, seq, timestampKey);
+    handleEditPatientData(cancer_type, bioBankId, seq, timestampKey);
   }
 }
 
-function handleEditPatientData(bioBankId, seq, timestampKey) {
+function handleEditPatientData(cancer_type, bioBankId, seq, timestampKey) {
   const bioId = bioBankId?.slice(0, 2);
-  const patientSeq = window.patientData[bioId]?.[bioBankId];
+  const patientSeq = window.patientData[cancer_type]?.[bioBankId];
   if (patientSeq && patientSeq[seq] && patientSeq[seq][timestampKey]) {
     const timestampData = patientSeq[seq][timestampKey];
     let editT = "PendingEdit";
@@ -9359,7 +9316,7 @@ function handleEditPatientData(bioBankId, seq, timestampKey) {
               .set(act)
               .then(() => {
                 console.log("New act set, proceeding with pages_display.");
-                pages_display(editT, bioBankId, seq, timestampKey);
+                pages_display(editT, cancer_type, bioBankId, seq, timestampKey);
               })
               .catch((error) => {
                 console.error("Error setting new act: ", error);
@@ -9370,7 +9327,7 @@ function handleEditPatientData(bioBankId, seq, timestampKey) {
             .set(act)
             .then(() => {
               console.log("Path not found, new act set. Proceeding with pages_display.");
-              pages_display(editT, bioBankId, seq, timestampKey);
+              pages_display(editT, cancer_type, bioBankId, seq, timestampKey);
             })
             .catch((error) => {
               console.error("Error setting new act: ", error);
@@ -9386,11 +9343,7 @@ function handleEditPatientData(bioBankId, seq, timestampKey) {
 }
 
 function fetchPendingFollowUps() {
-  const db = firebase.database();
-
   const todayTimestamp = new Date().getTime();
-
-  const pfwRef = db.ref("pfw");
 
   let rowsPerFPage = 5;
   let currentFPage = 1;
@@ -9558,7 +9511,7 @@ function fetchPendingFollowUps() {
         entryBtn.textContent = "Follow-Up";
         entryBtn.addEventListener("click", () => {
           const entry = "EditFollowUps";
-          pages_display(entry, patient.biobankID, patient.patientArrayKey, patient.latestTimestamp);
+          pages_display(entry, patient.type_of_cancer, patient.biobankID, patient.latestSeqNum, patient.latestTimestamp);
         });
 
         const viewBtn = document.createElement("button");
@@ -9566,7 +9519,7 @@ function fetchPendingFollowUps() {
         viewBtn.textContent = "View";
         viewBtn.addEventListener("click", () => {
           const entry = "ViewFollowUp";
-          pages_display(entry, patient.biobankID, patient.patientArrayKey, patient.latestTimestamp);
+          pages_display(entry, patient.type_of_cancer, patient.biobankID, patient.latestSeqNum, patient.latestTimestamp);
         });
 
         modCell.appendChild(entryBtn);
@@ -9584,86 +9537,110 @@ function fetchPendingFollowUps() {
   };
 
   const seennBiobanks = [];
-  pfwRef.once("value").then((snapshot) => {
-    const pfwData = snapshot.val() || {};
-    const brKeys = Object.keys(pfwData) || [];
-    let hasDueFollowUps = false;
+  db.ref("pfw")
+    .once("value")
+    .then((snapshot) => {
+      const pfwData = snapshot.val() || {};
+      const brKeys = Object.keys(pfwData) || [];
+      let hasDueFollowUps = false;
 
-    if (brKeys.length > 0) {
-      brKeys.forEach((biobankID) => {
-        if (seennBiobanks.includes(biobankID)) {
-          return; // Skip if already processed
-        }
-        seennBiobanks.push(biobankID);
-        const bioId = biobankID?.slice(0, 2);
-        const timestamp = pfwData[biobankID];
+      if (brKeys.length > 0) {
+        const promises = brKeys.map((biobankID) => {
+          if (seennBiobanks.includes(biobankID)) {
+            return Promise.resolve(); // Skip if already processed
+          }
+          seennBiobanks.push(biobankID);
+          const bioId = biobankID?.slice(0, 2);
+          const timestamp = pfwData[biobankID];
 
-        if (timestamp < todayTimestamp) {
-          hasDueFollowUps = true;
-          const sefRef = db.ref(`sef/${bioId}/${biobankID}`).orderByKey().limitToLast(1);
+          if (timestamp < todayTimestamp) {
+            hasDueFollowUps = true;
+            return getLatestData(biobankID).then((latestSeq) => {
+              if (latestSeq) {
+                const latestSeqNum = latestSeq?.latestSeqNum;
+                const latestSeqNumData = latestSeq?.latestSeqNumData;
+                const cancer_type = latestSeqNumData.ct;
+                return db
+                  .ref(`sef/${cancer_type}/${biobankID}/${latestSeqNum}`)
+                  .orderByKey()
+                  .limitToLast(1)
+                  .once("value")
+                  .then((snapshot) => {
+                    const sefData = snapshot.val();
 
-          const promise = sefRef.once("value").then((sefSnapshot) => {
-            const data = sefSnapshot.val();
-            if (data) {
-              const patientArrays = Object.keys(data);
+                    if (sefData && typeof sefData === "object") {
+                      const timestamps = Object.keys(sefData);
 
-              patientArrays.forEach((patientArrayKey) => {
-                const patientArray = data[patientArrayKey];
+                      const latestTimestamp = Math.max(...timestamps.map((t) => parseInt(t)));
+                      const latestData = sefData[latestTimestamp];
 
-                if (patientArray && typeof patientArray === "object") {
-                  const timestamps = Object.keys(patientArray);
+                      if (latestData) {
+                        const { ie, md } = latestData;
 
-                  const latestTimestamp = Math.max(...timestamps.map((t) => parseInt(t)));
-                  const latestData = patientArray[latestTimestamp];
+                        const patientData = {
+                          biobankID,
+                          age: ie.ag || "-",
+                          gender: getGender(ie.sx),
+                          type_of_cancer: getCancerType(ie.ct),
+                          stage_of_cancer: ie.stc || "-",
+                          latestSeqNum,
+                          latestTimestamp,
+                        };
 
-                  if (latestData) {
-                    const { ie, md } = latestData;
+                        allPatientData.push(patientData);
+                      }
+                    }
+                  });
+              }
+              totalFPages = Math.ceil(allPatientData.length / rowsPerFPage);
+              displayPage();
+            });
+          }
+        });
+        Promise.all(promises).then(() => {
+          totalFPages = Math.ceil(allPatientData.length / rowsPerFPage);
 
-                    const patientData = {
-                      biobankID,
-                      age: ie.ag || "-",
-                      gender: getGender(ie.sx),
-                      type_of_cancer: getCancerType(ie.ct),
-                      stage_of_cancer: ie.stc || "-",
-                      patientArrayKey,
-                      latestTimestamp,
-                    };
+          localStorage.setItem("pendingFollowUpsCount", allPatientData.length);
 
-                    allPatientData.push(patientData);
-                  }
-                }
-              });
-            }
-            totalFPages = Math.ceil(allPatientData.length / rowsPerFPage);
-            displayPage();
-          });
+          updateTodoBadge("pendingFollowUpsBadge");
+          updateTodoBadge("todoBadge");
 
-          promises.push(promise);
-        }
-      });
-      Promise.all(promises).then(() => {
-        console.log("Final count:", allPatientData.length);
+          displayPage();
+        });
+      }
 
-        totalFPages = Math.ceil(allPatientData.length / rowsPerFPage);
-
-        localStorage.setItem("pendingFollowUpsCount", allPatientData.length);
-
+      if (!hasDueFollowUps) {
+        console.log("No due follow-ups found");
+        totalFPages = 0;
+        localStorage.setItem("pendingFollowUpsCount", 0);
         updateTodoBadge("pendingFollowUpsBadge");
         updateTodoBadge("todoBadge");
-
         displayPage();
-      });
-    }
+      }
+    });
+}
+function getLatestData(biobankID) {
+  return db
+    .ref(`Patients/${biobankID}`)
+    .once("value")
+    .then((snapshot) => {
+      if (snapshot && snapshot.exists()) {
+        const timstamps = [];
+        const biobankIdData = snapshot.val();
+        Object.keys(biobankIdData).forEach((seqNum) => {
+          const patientData = biobankIdData[seqNum];
+          if (patientData && patientData.ts) {
+            timstamps.push(patientData.ts);
+          }
+        });
+        timstamps.sort((a, b) => b - a);
 
-    if (!hasDueFollowUps) {
-      console.log("No due follow-ups found");
-      totalFPages = 0;
-      localStorage.setItem("pendingFollowUpsCount", 0);
-      updateTodoBadge("pendingFollowUpsBadge");
-      updateTodoBadge("todoBadge");
-      displayPage();
-    }
-  });
+        const latestSeqNum = Object.keys(biobankIdData).find((seqNum) => biobankIdData[seqNum].ts === timstamps[0]);
+        return { latestSeqNum, latestSeqNumData: biobankIdData[latestSeqNum] };
+      } else {
+        return null;
+      }
+    });
 }
 function toggleFollowup() {
   if ($("#radioOther").is(":checked")) {

@@ -10934,7 +10934,7 @@
           &copy; Copyright <strong><span></span></strong>. All Rights Reserved
         </div>
         <div class="credits"></div>
-        <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">Version 1.8.12</div>
+        <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">Version 1.8.13</div>
       </div>
     </footer>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -15927,7 +15927,14 @@
       // function allowToSelectCancerType() {}
 
       function toggleCancerSampleEntry(selectedCancerType) {
-        const cancerType = selectedCancerType || "0";
+        let cancerType = selectedCancerType || "0";
+        const storeBio = localStorage.getItem("BioVal");
+        if (storeBio) {
+          const biobankIdElement = document.getElementById("bioBankId");
+          biobankIdElement.value = storeBio;
+          biobankIdElement.disabled = true;
+          console.log("Biobank ID set to:", storeBio);
+        }
         const showSampleEntry = cancerType !== "brst" && cancerType !== "ceix" && cancerType !== "endm" && cancerType !== "ovry" && cancerType !== "hene" && cancerType !== "lung";
         $("#sample_entry_none").toggle(showSampleEntry);
         // sample entry form
@@ -15953,7 +15960,7 @@
         $("#LU_Specific_form_entry").toggle(cancerType === "lung");
 
         const mode = localStorage.getItem("mode");
-        if (!(mode === "SearchView" || mode === "PendingEdit" || mode === "SearchEdit" || mode === "PendingView" || mode === "SharedView" || mode === "EditFollowUps")) {
+        if (!(mode === "SearchView" || mode === "PendingEdit" || mode === "SearchEdit" || mode === "PendingView" || mode === "SharedView" || mode === "EditFollowUps" || mode === "undefined")) {
           document.getElementById("bioBankId").value = "";
         }
         // Blood
@@ -16346,6 +16353,8 @@
       }
 
       function validateBioId(input) {
+        // const storeBio = localStorage.getItem("BioVal");
+        // if (!storeBio) {
         const val = (input.value || "").trim().toUpperCase();
         if (!val) return;
 
@@ -16366,8 +16375,11 @@
               input.value = "";
             }
           });
+        // }
       }
       function formatBioInput(input) {
+        // const storeBio = localStorage.getItem("BioVal");
+        // if (!storeBio) {
         let raw = (input.value || "").replace(/[^a-zA-Z0-9]/g, "");
 
         const ctEl = document.getElementById("cancer_type");
@@ -16419,6 +16431,7 @@
             });
         }
       }
+      // }
     </script>
 
     <script>
@@ -20808,9 +20821,8 @@
 
           selectedPatients.forEach((patient) => {
             const { bioBankId, seqKey, boxName, gridData } = patient;
-            const bioId = bioBankId.slice(0, 2);
             let seatList = Array.isArray(gridData) ? gridData : gridData.split(",").map((seat) => seat.trim());
-            db.ref(`Os/${bioId}/${bioBankId}`)
+            db.ref(`Os/${bioBankId}`)
               .once("value")
               .then((snapshot) => {
                 const sections = snapshot.val();
@@ -20843,8 +20855,7 @@
                 seatList.forEach((seatID) => {
                   existingEntry.lbi[box_id].push(seatID.trim());
                 });
-                const bioId = bioBankId.slice(0, 2);
-                return db.ref(`Os/${bioId}/${bioBankId}/${seqKey}/${timestamp}`).set(existingEntry);
+                return db.ref(`Os/${bioBankId}/${seqKey}/${timestamp}`).set(existingEntry);
               })
               .then(() => {
                 const seatPromises = seatList.map((seatID) => {
@@ -21461,8 +21472,8 @@
             const proType = document.querySelector('input[name="customProcedure"]:checked').value;
             const mode = localStorage.getItem("mode");
             const biobankID = localStorage.getItem("BioVal");
-            const bioId = biobankID?.slice(0, 2);
-            fillform(proType, mode, bioId, biobankID);
+            const cancer_type = document.getElementById("cancer_type").value;
+            fillform(proType, mode, biobankID, cancer_type);
           });
         });
         document.querySelectorAll('input[name="customProcedure_ceix"]').forEach(function (radio) {
@@ -21470,8 +21481,8 @@
             const proType = document.querySelector('input[name="customProcedure_ceix"]:checked').value;
             const mode = localStorage.getItem("mode");
             const biobankID = localStorage.getItem("BioVal");
-            const bioId = biobankID?.slice(0, 2);
-            fillform(proType, mode, bioId, biobankID);
+            const cancer_type = document.getElementById("cancer_type").value;
+            fillform(proType, mode, biobankID, cancer_type);
           });
         });
         document.querySelectorAll('input[name="customProcedure_endm"]').forEach(function (radio) {
@@ -21479,8 +21490,8 @@
             const proType = document.querySelector('input[name="customProcedure_endm"]:checked').value;
             const mode = localStorage.getItem("mode");
             const biobankID = localStorage.getItem("BioVal");
-            const bioId = biobankID?.slice(0, 2);
-            fillform(proType, mode, bioId, biobankID);
+            const cancer_type = document.getElementById("cancer_type").value;
+            fillform(proType, mode, biobankID, cancer_type);
           });
         });
         document.querySelectorAll('input[name="customProcedure_ovry"]').forEach(function (radio) {
@@ -21488,8 +21499,8 @@
             const proType = document.querySelector('input[name="customProcedure_ovry"]:checked').value;
             const mode = localStorage.getItem("mode");
             const biobankID = localStorage.getItem("BioVal");
-            const bioId = biobankID?.slice(0, 2);
-            fillform(proType, mode, bioId, biobankID);
+            const cancer_type = document.getElementById("cancer_type").value;
+            fillform(proType, mode, biobankID, cancer_type);
           });
         });
         document.querySelectorAll('input[name="customProcedure_hene"]').forEach(function (radio) {
@@ -21497,8 +21508,8 @@
             const proType = document.querySelector('input[name="customProcedure_hene"]:checked').value;
             const mode = localStorage.getItem("mode");
             const biobankID = localStorage.getItem("BioVal");
-            const bioId = biobankID?.slice(0, 2);
-            fillform(proType, mode, bioId, biobankID);
+            const cancer_type = document.getElementById("cancer_type").value;
+            fillform(proType, mode, biobankID, cancer_type);
           });
         });
       });
@@ -21507,62 +21518,86 @@
           radio.addEventListener("change", function () {
             const mode = localStorage.getItem("mode");
             const biobankID = localStorage.getItem("BioVal");
-            const bioId = biobankID?.slice(0, 2);
             const metastasisS = document.querySelector('input[name="MetastasisSample"]:checked').value;
-
-            fillform2(mode, biobankID, bioId, metastasisS);
+            const cancer_type = document.getElementById("cancer_type").value;
+            fillform2(mode, biobankID, metastasisS, cancer_type);
           });
         });
         document.querySelectorAll('input[name="MetastasisSample_hene"]').forEach(function (radio) {
           radio.addEventListener("change", function () {
             const mode = localStorage.getItem("mode");
             const biobankID = localStorage.getItem("BioVal");
-            const bioId = biobankID?.slice(0, 2);
             const metastasisS = document.querySelector('input[name="MetastasisSample_hene"]:checked').value;
-
-            fillform2(mode, biobankID, bioId, metastasisS);
+            const cancer_type = document.getElementById("cancer_type").value;
+            fillform2(mode, biobankID, metastasisS, cancer_type);
           });
         });
         document.querySelectorAll('input[name="MetastasisSample_endm"]').forEach(function (radio) {
           radio.addEventListener("change", function () {
             const mode = localStorage.getItem("mode");
             const biobankID = localStorage.getItem("BioVal");
-            const bioId = biobankID?.slice(0, 2);
             const metastasisS = document.querySelector('input[name="MetastasisSample_endm"]:checked').value;
-            fillform2(mode, biobankID, bioId, metastasisS);
+            const cancer_type = document.getElementById("cancer_type").value;
+            fillform2(mode, biobankID, metastasisS, cancer_type);
           });
         });
         document.querySelectorAll('input[name="MetastasisSample_ceix"]').forEach(function (radio) {
           radio.addEventListener("change", function () {
             const mode = localStorage.getItem("mode");
             const biobankID = localStorage.getItem("BioVal");
-            const bioId = biobankID?.slice(0, 2);
             const metastasisS = document.querySelector('input[name="MetastasisSample_ceix"]:checked').value;
-
-            fillform2(mode, biobankID, bioId, metastasisS);
+            const cancer_type = document.getElementById("cancer_type").value;
+            fillform2(mode, biobankID, metastasisS, cancer_type);
           });
         });
         document.querySelectorAll('input[name="MetastasisSample_ovry"]').forEach(function (radio) {
           radio.addEventListener("change", function () {
             const mode = localStorage.getItem("mode");
             const biobankID = localStorage.getItem("BioVal");
-            const bioId = biobankID?.slice(0, 2);
             const metastasisS = document.querySelector('input[name="MetastasisSample_ovry"]:checked').value;
-            fillform2(mode, biobankID, bioId, metastasisS);
+            const cancer_type = document.getElementById("cancer_type").value;
+            fillform2(mode, biobankID, metastasisS, cancer_type);
           });
         });
       });
       function isReadOnlyViewMode(mode) {
         return ["SearchView", "PendingView", "pendingView", "EditFollowUps", "ViewFollowUp", "SharedView", "sharedView", "share", "view"].includes(mode);
       }
-      function fillform(proType, mode, bioId, biobankID) {
-        db.ref(`sef/${bioId}/${biobankID}/`)
+      function getCancerRelatedData(data, cancer_type) {
+        const data1 = {};
+        if (data) {
+          const seqKeys = Object.keys(data);
+          console.log("seqKeys in getCancerRelatedData", seqKeys);
+          seqKeys.sort();
+          console.log("seqKeys sorted in getCancerRelatedData", seqKeys);
+          seqKeys.forEach((seq) => {
+            const seqData = data[seq];
+            const timeStamps = seqData ? Object.keys(seqData) : [];
+            console.log("timestamps", timeStamps);
+            timeStamps.forEach((ts) => {
+              console.log("timestamps", ts, seqData[ts]);
+              if (seqData[ts]?.ie?.ct === cancer_type) {
+                if (!data1[seq]) data1[seq] = {};
+                if (!data1[seq][ts]) data1[seq][ts] = {};
+                data1[seq][ts] = seqData[ts];
+              } else {
+                console.log("Cancer type mismatch", seqData[ts]?.ie?.ct, cancer_type);
+              }
+            });
+          });
+        }
+        return data1;
+      }
+      // Biopsy to Resection
+      function fillform(proType, mode, biobankID, cancer_type) {
+        db.ref(`sef/${cancer_type}/${biobankID}/`)
           .once("value")
           .then((snapshot) => {
             try {
-              if (snapshot.exists()) {
-                const data = snapshot.val();
+              if (snapshot && snapshot.exists()) {
+                const data = getCancerRelatedData(snapshot.val(), cancer_type);
                 const seqKeys = Object.keys(data);
+                console.log("seqKeys in fillform", seqKeys);
                 seqKeys.sort();
                 const lastSeqKey = seqKeys[seqKeys.length - 1];
 
@@ -21582,15 +21617,16 @@
                   if (lastTimestampData.md) {
                     mdDataArr = lastTimestampData.md;
                   }
-                  if (lastTimestampData.brf || lastTimestampData.cvf || lastTimestampData.emf || lastTimestampData.ovf) {
+                  if (lastTimestampData.brf || lastTimestampData.cvf || lastTimestampData.emf || lastTimestampData.ovf || lastTimestampData.henef) {
                     const formMap = {
-                      BR: lastTimestampData.brf,
-                      CV: lastTimestampData.cvf,
-                      EM: lastTimestampData.emf,
-                      OV: lastTimestampData.ovf,
+                      brst: lastTimestampData.brf,
+                      ceix: lastTimestampData.cvf,
+                      endm: lastTimestampData.emf,
+                      ovry: lastTimestampData.ovf,
+                      hene: lastTimestampData.henef,
                     };
 
-                    brfDataArr = formMap[bioId] || null;
+                    brfDataArr = formMap[cancer_type] || null;
                   }
                 }
 
@@ -22581,15 +22617,14 @@
             }
           });
       }
-
-      function fillform2(mode, biobankID, bioId, metastasisS) {
+      // Resection to Samle at event
+      function fillform2(mode, biobankID, metastasisS, cancer_type) {
         try {
-          db.ref(`sef/${bioId}/${biobankID}/`)
+          db.ref(`sef/${cancer_type}/${biobankID}/`)
             .once("value")
             .then((snapshot) => {
-              if (snapshot.exists()) {
-                const data = snapshot.val();
-                console.log("Data", data);
+              if (snapshot && snapshot.exists()) {
+                const data = getCancerRelatedData(snapshot.val(), cancer_type);
                 const seqKeys = Object.keys(data);
                 seqKeys.sort();
                 const lastSeqKey = seqKeys[seqKeys.length - 1];
@@ -22610,16 +22645,16 @@
                   if (lastTimestampData.md) {
                     mdDataArr = lastTimestampData.md;
                   }
-                  if (lastTimestampData.brf || lastTimestampData.cvf || lastTimestampData.emf || lastTimestampData.ovf) {
+                  if (lastTimestampData.brf || lastTimestampData.cvf || lastTimestampData.emf || lastTimestampData.ovf || lastTimestampData.henef) {
                     const formMap = {
-                      BR: lastTimestampData.brf,
-                      CV: lastTimestampData.cvf,
-                      EM: lastTimestampData.emf,
-                      OV: lastTimestampData.ovf,
-                      HN: lastTimestampData.henef,
+                      brst: lastTimestampData.brf,
+                      ceix: lastTimestampData.cvf,
+                      endm: lastTimestampData.emf,
+                      ovry: lastTimestampData.ovf,
+                      hene: lastTimestampData.henef,
                     };
 
-                    brfDataArr = formMap[bioId] || null;
+                    brfDataArr = formMap[cancer_type] || null;
                   }
                 }
                 if (ieDataArr.tpr === "r") {
@@ -22919,8 +22954,8 @@
                       document.getElementById("clinicalStage_endm").value = mdDataArr.cs || "";
                       document.getElementById("subtype_endm").value = mdDataArr.pst || "";
                       document.getElementById("pstOt_endm").value = mdDataArr.pstOt || "";
-                      document.getElementById("ageAtMenarche_endm").value = brfDataArr.am || "";
-                      document.getElementById("k67_endm").value = brfDataArr.k67 || "";
+                      document.getElementById("ageAtMenarche_endm").value = brfDataArr?.am || "";
+                      document.getElementById("k67_endm").value = brfDataArr?.k67 || "";
                     }
                     if (bioId === "CV") {
                       document.querySelector(`input[name="customRadio_ceix"][value="${ieDataArr.sx}"]`).checked = true || "";

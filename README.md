@@ -338,3 +338,11 @@ Following features and changes have been incorporates:
 - Issue related Excel has been resolved.
 
 <hr>
+
+### Version 1.8.13
+
+- Excel releated issue has been resolved.
+- The Histological Type question is now dependent on the Head & Neck Type. For Pharynx cases, it will additionally depend on the Head & Neck Type, Tumor Site, and HPV Status.
+- For a single MRN number, only one Bio-bank ID will be linked, and data for multiple cancer types can be entered.
+
+<hr>

@@ -917,7 +917,7 @@
           &copy; Copyright <strong><span></span></strong>. All Rights Reserved
         </div>
         <div class="credits"></div>
-        <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">Version 1.8.12</div>
+        <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">Version 1.8.13</div>
       </div>
     </footer>
 
@@ -1338,42 +1338,46 @@
         updateTodoBadge("todoBadge");
       });
 
-      function handleHistory(bioBankId, seq) {
-        const bioId = bioBankId?.slice(0, 2);
-        const patientSeq = window.sefData[bioBankId];
-        const patientTimestamps = patientSeq[seq];
+      function handleHistory(cancer_type, bioBankId, seq) {
+        db.ref(`sef/${cancer_type}/${bioBankId}/${seq}`)
+          .once("value")
+          .then((snapshot) => {
+            if (snapshot && snapshot.exists()) {
+              const patientTimestamps = snapshot.val();
 
-        if (!patientTimestamps) {
-          console.error(`No timestamps found for BioBank ID: ${bioBankId} and sequence: ${seq}`);
-          return;
-        }
+              const timestampKeys = Object.keys(patientTimestamps);
+              const modalBody = document.querySelector("#exampleModal .modal-body tbody");
+              modalBody.innerHTML = "";
 
-        const timestampKeys = Object.keys(patientTimestamps);
-        const modalBody = document.querySelector("#exampleModal .modal-body tbody");
-        modalBody.innerHTML = "";
+              timestampKeys.forEach((timestampKey, index) => {
+                const timestampData = patientTimestamps[timestampKey];
 
-        timestampKeys.forEach((timestampKey, index) => {
-          const timestampData = patientTimestamps[timestampKey];
-
-          const dateObj = new Date(Number(timestampKey) * 1000);
-          const dateStr = dateObj.toLocaleDateString();
-          const timeStr = dateObj.toLocaleTimeString();
-          const row = document.createElement("tr");
-          row.innerHTML = `
+                const dateObj = new Date(Number(timestampKey) * 1000);
+                const dateStr = dateObj.toLocaleDateString();
+                const timeStr = dateObj.toLocaleTimeString();
+                const row = document.createElement("tr");
+                row.innerHTML = `
                     <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${index + 1}</td>
                     <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${dateStr}</td>
                     <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${timeStr}</td>
                     <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">
-                      <button class="btn btn-info btn-sm" onclick="viewPatient('${bioBankId}', '${seq}', '${timestampKey}')">View</button>
+                      <button class="btn btn-info btn-sm" onclick="viewPatient('${cancer_type}','${bioBankId}', '${seq}', '${timestampKey}')">View</button>
                     </td>
                   `;
-          modalBody.appendChild(row);
-        });
-        $("#exampleModal").modal("show");
-        document.getElementById("mainContent").style.filter = "blur(10px)";
-        $("#exampleModal").on("hidden.bs.modal", function () {
-          document.getElementById("mainContent").style.filter = "none";
-        });
+                modalBody.appendChild(row);
+              });
+              $("#exampleModal").modal("show");
+              document.getElementById("mainContent").style.filter = "blur(10px)";
+              $("#exampleModal").on("hidden.bs.modal", function () {
+                document.getElementById("mainContent").style.filter = "none";
+              });
+            } else {
+              console.error(`No timestamps found for BioBank ID: ${bioBankId} and sequence: ${seq}`);
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching patient timestamps:", error);
+          });
       }
 
       let currentPage = 1;
@@ -1548,24 +1552,25 @@
         if (event) {
           event.preventDefault();
         }
-        fetchBnData();
-
         const bioID = document.getElementById("bioInput").value.trim().toLowerCase();
 
         const filteredSefEntries = {};
-        Object.keys(window.sefData).forEach((bioBankId) => {
-          if (bioBankId.toLowerCase().includes(bioID)) {
-            filteredSefEntries[bioBankId] = window.sefData[bioBankId];
-          }
-        });
-        filteredSefData = filteredSefEntries;
+        const data = window.patientsData || {};
+        if (data) {
+          Object.keys(data).forEach((bioBankId) => {
+            if (bioBankId.toLowerCase().includes(bioID)) {
+              filteredSefEntries[bioBankId] = data[bioBankId];
+            }
+          });
+          filteredSefData = filteredSefEntries;
 
-        currentPage = 1;
-        displayIndSefEntries(filteredSefEntries, bioID);
+          currentPage = 1;
+          displayIndSefEntries(filteredSefEntries, bioID);
+        }
       }
 
       function getGender(g) {
-        g = g.toLowerCase();
+        g = g?.toLowerCase();
         switch (g) {
           case "f":
             return "Female";
@@ -1633,19 +1638,17 @@
         Object.entries(data).forEach(([bioBankId, patientSeq]) => {
           const seqKeys = Object.keys(patientSeq);
           const lastSeqKey = seqKeys[seqKeys.length - 1];
-          const patientTimestamps = patientSeq[lastSeqKey];
-          const timestampKeys = Object.keys(patientTimestamps);
-          const lastTimestampKey = timestampKeys[timestampKeys.length - 1];
-          const patient = patientTimestamps[lastTimestampKey];
+          const patient = patientSeq[lastSeqKey];
 
-          if (!patient || !patient.ie || !patient.md) return;
+          if (!patient) return;
           const promise1 = indSeqData.push({
             serialNumber: indSeqData.length + 1,
             bioBankId,
             seqKey: lastSeqKey,
-            age: patient.ie.ag || "-",
-            gender: getGender(patient.ie.sx),
-            cancerType: getCancerType(patient.ie.ct),
+            age: patient.age || "-",
+            gender: getGender(patient.gndr),
+            ct: patient.ct,
+            cancerType: getCancerType(patient.ct),
             patientData: patient,
           });
           promises.push(promise1);
@@ -1653,7 +1656,7 @@
         Promise.all(promises).then(() => {
           const paginatedBioBankIds = indSeqData.slice(start, end);
           paginatedBioBankIds.forEach((indSeqData) => {
-            const { serialNumber, bioBankId, age, gender, nodeS, cancerType } = indSeqData;
+            const { serialNumber, bioBankId, age, gender, ct, cancerType } = indSeqData;
 
             const row = document.createElement("tr");
             row.classList.add("patientRow");
@@ -1664,7 +1667,7 @@
                         <td class="gender small-text">${gender}</td>
                         <td class="cancerType small-text">${cancerType}</td>
                         <td class="action small-text">
-                          <button class="btn btn-success btn-sm" onclick="showHistory('${bioBankId}')">View Samples</button>
+                          <button class="btn btn-success btn-sm" onclick="showHistory('${ct}','${bioBankId}')">View Samples</button>
                         </td>
                       `;
             tbody.appendChild(row);
@@ -1721,7 +1724,7 @@
         }
       }
 
-      function editPatient(bioBankId, seq, timestampKey) {
+      function editPatient(cancer_type, bioBankId, seq, timestampKey) {
         let editS = "SearchEdit";
         let user = sessionStorage.getItem("userName");
         let act = {
@@ -1743,7 +1746,7 @@
                 db.ref(refPath)
                   .set(act)
                   .then(() => {
-                    pages_display(editS, bioBankId, seq, timestampKey);
+                    pages_display(editS, cancer_type, bioBankId, seq, timestampKey);
                   })
                   .catch((error) => {
                     console.error("Error setting new act:", error);
@@ -1753,7 +1756,7 @@
               db.ref(refPath)
                 .set(act)
                 .then(() => {
-                  pages_display(editS, bioBankId, seq, timestampKey);
+                  pages_display(editS, cancer_type, bioBankId, seq, timestampKey);
                 })
                 .catch((error) => {
                   console.error("Error setting new act:", error);
@@ -1765,88 +1768,92 @@
           });
       }
 
-      function viewPatient(bioBankId, seq, timestampKey) {
-        const bioId = bioBankId?.slice(0, 2);
-        const patientSeq = window.sefData[bioBankId];
-        const timestampData = patientSeq[seq][timestampKey]; // Get the timestamp data
+      function viewPatient(cancer_type, bioBankId, seq, timestampKey) {
         let viewS = "SearchView";
-        pages_display(viewS, bioBankId, seq, timestampKey);
+        pages_display(viewS, cancer_type, bioBankId, seq, timestampKey);
       }
 
-      function showHistory(bioBankId) {
-        const bioId = bioBankId?.slice(0, 2);
-        const patientSeq = window.sefData[bioBankId]; // Assuming you are using filtered data
+      function showHistory(cancerType, bioBankId) {
+        console.log("path", `sef/${cancerType}/${bioBankId}`);
+        db.ref(`sef/${cancerType}/${bioBankId}`)
+          .once("value")
+          .then((snapshot) => {
+            if (snapshot && snapshot.exists()) {
+              const patientSeq = snapshot.val();
 
-        if (!patientSeq) {
-          console.error(`No data found for BioBank ID: ${bioBankId}`);
-          return;
-        }
-        const tbody = document.querySelector("#exampleModalCenter .modal-body tbody");
-        tbody.innerHTML = ""; // Clear the existing content
+              const tbody = document.querySelector("#exampleModalCenter .modal-body tbody");
+              tbody.innerHTML = ""; // Clear the existing content
 
-        const seqKeys = Object.keys(patientSeq);
-        seqKeys.forEach((seq, index) => {
-          const patientTimestamps = patientSeq[seq];
-          const timestampKeys = Object.keys(patientTimestamps);
-          const lastTimestampKey = timestampKeys[timestampKeys.length - 1];
-          const patientData = patientTimestamps[lastTimestampKey];
-          const patient = patientData.ie || {};
-          const fields = ["bpg", "bsg", "bbcg", "ftg", "fng", "osg", "rlt", "pc"];
+              const seqKeys = Object.keys(patientSeq);
+              seqKeys.forEach((seq, index) => {
+                const patientTimestamps = patientSeq[seq];
+                const timestampKeys = Object.keys(patientTimestamps);
+                const lastTimestampKey = timestampKeys[timestampKeys.length - 1];
+                const patientData = patientTimestamps[lastTimestampKey];
+                const patient = patientData.ie || {};
+                const fields = ["bpg", "bsg", "bbcg", "ftg", "fng", "osg", "rlt", "pc"];
 
-          let boxid = "";
-          let seatList = [];
-          fields.forEach((field) => {
-            const fieldData = patient[field];
-            if (fieldData) {
-              const parts = fieldData.split("/"); // Assuming the box name and seat list are separated by "/"
+                let boxid = "";
+                let seatList = [];
+                fields.forEach((field) => {
+                  const fieldData = patient[field];
+                  if (fieldData) {
+                    const parts = fieldData.split("/"); // Assuming the box name and seat list are separated by "/"
 
-              boxid = parts[0].trim();
+                    boxid = parts[0].trim();
 
-              seatList = parts[1] ? parts[1].split(",") : []; // Split the seats into an array
+                    seatList = parts[1] ? parts[1].split(",") : []; // Split the seats into an array
+                  }
+                });
+                const storedBnData = JSON.parse(localStorage.getItem("bnData"));
+
+                const boxEntry = storedBnData.find((entry) => entry.id === boxid);
+
+                if (boxEntry) {
+                  boxName = boxEntry.name;
+                }
+                let metas = "";
+                if (patient.mspt) {
+                  if (patient.mspt === "Bx") {
+                    metas = "Biopsy";
+                  }
+                  if (patient.mspt === "Sx") {
+                    metas = "Resection";
+                  }
+                  if (patient.mspt === "MBx") {
+                    metas = "Event Biopsy";
+                  }
+                  if (patient.mspt === "MSx") {
+                    metas = "Event Resection";
+                  }
+                }
+
+                const seatListDisplay = seatList.length ? seatList.join(", ") : "-";
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                      <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${index + 1}</td>
+                      <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${bioBankId}</td>
+                      <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${patient.ag || "-"}</td>
+                      <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${getGender(patient.sx)}</td>
+                      <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${metas || "-"}</td> <!-- Display box name -->
+                      <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${getCancerType(patient.ct)}</td>
+                      <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">
+                        <button class="btn btn-primary btn-sm" onclick="editPatient('${patient.ct}', '${bioBankId}', '${seq}', '${lastTimestampKey}')"><img src="assets/images/edit.svg" alt="Edit" width="16" height="16" style="vertical-align: middle; margin-right: 5px;"> </button>
+                        <button class="btn btn-info btn-sm" onclick="viewPatient('${patient.ct}', '${bioBankId}', '${seq}', '${lastTimestampKey}')"> <img src="assets/images/visibility.svg" alt="View" width="16" height="16" style="vertical-align: middle; margin-right: 5px;"></button>
+                        <button class="btn btn-primary btn-sm" onclick="handleHistory('${patient.ct}', '${bioBankId}', '${seq}', '${patientSeq}')"><img src="assets/images/history.svg" alt="History" width="16" height="16" style="vertical-align: middle; margin-right: 5px;"> </button>
+                      </td>
+                    `;
+
+                tbody.appendChild(row);
+              });
+              $("#exampleModalCenter").modal("show");
+            } else {
+              console.error(`No data found for BioBank ID: ${bioBankId}`);
             }
+          })
+          .catch((error) => {
+            console.error(`Error fetching data for BioBank ID: ${bioBankId}`, error);
           });
-          const storedBnData = JSON.parse(localStorage.getItem("bnData"));
-
-          const boxEntry = storedBnData.find((entry) => entry.id === boxid);
-
-          if (boxEntry) {
-            boxName = boxEntry.name;
-          }
-          let metas = "";
-          if (patient.mspt) {
-            if (patient.mspt === "Bx") {
-              metas = "Biopsy";
-            }
-            if (patient.mspt === "Sx") {
-              metas = "Resection";
-            }
-            if (patient.mspt === "MBx") {
-              metas = "Event Biopsy";
-            }
-            if (patient.mspt === "MSx") {
-              metas = "Event Resection";
-            }
-          }
-
-          const seatListDisplay = seatList.length ? seatList.join(", ") : "-";
-          const row = document.createElement("tr");
-          row.innerHTML = `
-                  <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${index + 1}</td>
-                  <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${bioBankId}</td>
-                  <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${patient.ag || "-"}</td>
-                  <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${getGender(patient.sx)}</td>
-                  <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${metas || "-"}</td> <!-- Display box name -->
-                  <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${getCancerType(patient.ct)}</td>
-                  <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">
-                    <button class="btn btn-primary btn-sm" onclick="editPatient('${bioBankId}', '${seq}', '${lastTimestampKey}')"><img src="assets/images/edit.svg" alt="Edit" width="16" height="16" style="vertical-align: middle; margin-right: 5px;"> </button>
-                    <button class="btn btn-info btn-sm" onclick="viewPatient('${bioBankId}', '${seq}', '${lastTimestampKey}')"> <img src="assets/images/visibility.svg" alt="View" width="16" height="16" style="vertical-align: middle; margin-right: 5px;"></button>
-                    <button class="btn btn-primary btn-sm" onclick="handleHistory('${bioBankId}', '${seq}')"><img src="assets/images/history.svg" alt="History" width="16" height="16" style="vertical-align: middle; margin-right: 5px;"> </button>
-                  </td>
-                `;
-
-          tbody.appendChild(row);
-        });
-        $("#exampleModalCenter").modal("show");
       }
 
       document.getElementById("AllCheck").addEventListener("change", function (event) {
@@ -2196,13 +2203,13 @@
                     <td class="cancerType small-text">${getCancerType(patientData.ct)}</td>
                     <td class="action small-text">
                       <div class="btn-group" role="group" aria-label="Patient Actions">
-                      <button class="btn btn-primary btn-sm small-text" onclick="editPatient('${bioBankId}', '${seqKey}', '${timestampKey}')">
+                      <button class="btn btn-primary btn-sm small-text" onclick="editPatient('${patientData.ct}', '${bioBankId}', '${seqKey}', '${timestampKey}')">
                         <img src="assets/images/edit.svg" alt="Edit" width="16" height="16" style="vertical-align: middle; margin-right: 5px;">
                       </button>
-                      <button class="btn btn-info btn-sm small-text" onclick="viewPatient('${bioBankId}', '${seqKey}', '${timestampKey}')">
+                      <button class="btn btn-info btn-sm small-text" onclick="viewPatient('${patientData.ct}', '${bioBankId}', '${seqKey}', '${timestampKey}')">
                         <img src="assets/images/visibility.svg" alt="View" width="16" height="16" style="vertical-align: middle; margin-right: 5px;">
                       </button>
-                      <button class="btn btn-success btn-sm small-text" onclick="handleHistory('${bioBankId}', '${seqKey}')">
+                      <button class="btn btn-success btn-sm small-text" onclick="handleHistory('${patientData.ct}', '${bioBankId}', '${seqKey}')">
                         <img src="assets/images/history.svg" alt="History" width="16" height="16" style="vertical-align: middle; margin-right: 5px;">
                       </button>
                       </div>
@@ -2545,7 +2552,7 @@
         sessionStorage.setItem("FamilyHInput", FamilyHInput);
         sessionStorage.setItem("biobankIdInput", biobankIdInput);
 
-        db.ref("sef/BR")
+        db.ref(`sef/${cancerTypeInput}`)
           .once("value")
           .then((snapshot) => {
             // Handle the snapshot data here
@@ -2751,7 +2758,7 @@
         sessionStorage.setItem("figoInput_ovry", figoInput);
         sessionStorage.setItem("biobankIdInput_ovry", biobankIdInput_ovry);
 
-        db.ref("sef/OV")
+        db.ref(`sef/${cancerTypeInput}`)
           .once("value")
           .then((snapshot) => {
             if (snapshot && snapshot.exists()) {
@@ -2868,7 +2875,7 @@
         sessionStorage.setItem("figoInput_ceix", figoInput);
         sessionStorage.setItem("biobankIdInput_ceix", biobankIdInput_ceix);
 
-        db.ref("sef/CV")
+        db.ref(`sef/${cancerTypeInput}`)
           .once("value")
           .then((snapshot) => {
             if (snapshot && snapshot.exists()) {
@@ -2987,7 +2994,7 @@
         sessionStorage.setItem("FamilyHInput_endm", FamilyHInput);
         sessionStorage.setItem("figoInput_endm", figoInput);
         sessionStorage.setItem("biobankIdInput_endm", biobankIdInput_endm);
-        db.ref("sef/EM")
+        db.ref(`sef/${cancerTypeInput}`)
           .once("value")
           .then((snapshot) => {
             if (snapshot && snapshot.exists()) {
@@ -3107,7 +3114,7 @@
         sessionStorage.setItem("pathType_hene", pathTypeInput);
         sessionStorage.setItem("FamilyHInput_hene", FamilyHInput);
         sessionStorage.setItem("biobankIdInput_hene", biobankIdInput_hene);
-        db.ref("sef/HN")
+        db.ref(`sef/${cancerTypeInput}`)
           .once("value")
           .then((snapshot) => {
             if (snapshot && snapshot.exists()) {
@@ -3215,24 +3222,12 @@
           sampleSearch.classList.remove("show");
           sampleSearchBtn.classList.remove("active");
         }
-        const sefData = {};
-        db.ref("sef")
+        db.ref("Patients")
           .once("value")
           .then((snapshot) => {
-            if (snapshot.exists()) {
-              const data = snapshot.val();
-
-              window.sefData = {};
-
-              Object.keys(data).forEach((cancerType) => {
-                const cancerData = data[cancerType];
-
-                Object.keys(cancerData).forEach((bioId) => {
-                  window.sefData[bioId] = cancerData[bioId];
-                });
-              });
-              searchPatient();
-            }
+            if (snapshot && snapshot.exists()) window.patientsData = snapshot.val();
+            else window.patientsData = {};
+            searchPatient();
           });
       });
 
@@ -3250,6 +3245,7 @@
       });
 
       document.getElementById("download2").addEventListener("click", function () {
+        const cancerTypeInput = document.getElementById("cancerTypeInput").value;
         const isAllChecked = document.getElementById("AllCheck").checked;
         if (isAllChecked) {
           if (!allDataDown || allDataDown.length === 0) {
@@ -3258,15 +3254,14 @@
           }
           const rowPromises = allDataDown.map((row) => {
             const { bioBankId, seqKey, timestampKey, seat } = row;
-            const bioId = bioBankId?.slice(0, 2);
 
             const promise1 = db
-              .ref(`sef/${bioId}/${bioBankId}/${seqKey}/${timestampKey}/`)
+              .ref(`sef/${cancerTypeInput}/${bioBankId}/${seqKey}/${timestampKey}/`)
               .once("value")
               .then((snapshot) => snapshot.val() || {});
 
             const promise2 = db
-              .ref(`Fw/${bioId}/${bioBankId}/`)
+              .ref(`Fw/${bioBankId}/`)
               .limitToLast(1)
               .once("value")
               .then((snapshot) => {
@@ -3282,7 +3277,7 @@
               });
 
             const promise3 = db
-              .ref(`Os/${bioId}/${bioBankId}/${seqKey}`)
+              .ref(`Os/${bioBankId}/${seqKey}`)
               .limitToLast(1)
               .once("value")
               .then((snapshot) => {
@@ -3377,17 +3372,16 @@
 
           selectedPatients.forEach((data) => {
             const bioBankId = data.bioBankId;
-            const bioId = bioBankId?.slice(0, 2);
             const seqKey = data.seqKey;
             const timestampKey = data.timestampKey;
             const gridData = data.gridData;
             const promise1 = db
-              .ref(`sef/${bioId}/${bioBankId}/${seqKey}/${timestampKey}/`)
+              .ref(`sef/${cancerTypeInput}/${bioBankId}/${seqKey}/${timestampKey}/`)
               .once("value")
               .then((snapshot) => snapshot.val() || {});
 
             const promise2 = db
-              .ref(`Fw/${bioId}/${bioBankId}/`)
+              .ref(`Fw/${bioBankId}/`)
               .limitToLast(1)
               .once("value")
               .then((snapshot) => {
@@ -3404,7 +3398,7 @@
               });
 
             const promise3 = db
-              .ref(`Os/${bioId}/${bioBankId}/${seqKey}`)
+              .ref(`Os/${bioBankId}/${seqKey}`)
               .limitToLast(1)
               .once("value")
               .then((snapshot) => {
