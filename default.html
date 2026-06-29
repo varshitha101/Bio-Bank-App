@@ -19837,7 +19837,6 @@
           if (mode === "undefined") {
             $('input[name="tumorSubType_hene"]').each(function () {
               $(this).prop("checked", false);
-              console.log("clearing checkbox");
               const target = `#tumorSubType_${$(this).val()}_Oth_hene`;
 
               if ($(target).length) {
@@ -19972,7 +19971,6 @@
           if (mode === "undefined") {
             $('input[name="pSubType_hene"]').each(function () {
               $(this).prop("checked", false);
-              console.log("clearing checkbox");
               const target = `#pSubType_${$(this).val()}_Oth_hene`;
 
               if ($(target).length) {
@@ -21563,31 +21561,7 @@
       function isReadOnlyViewMode(mode) {
         return ["SearchView", "PendingView", "pendingView", "EditFollowUps", "ViewFollowUp", "SharedView", "sharedView", "share", "view"].includes(mode);
       }
-      function getCancerRelatedData(data, cancer_type) {
-        const data1 = {};
-        if (data) {
-          const seqKeys = Object.keys(data);
-          console.log("seqKeys in getCancerRelatedData", seqKeys);
-          seqKeys.sort();
-          console.log("seqKeys sorted in getCancerRelatedData", seqKeys);
-          seqKeys.forEach((seq) => {
-            const seqData = data[seq];
-            const timeStamps = seqData ? Object.keys(seqData) : [];
-            console.log("timestamps", timeStamps);
-            timeStamps.forEach((ts) => {
-              console.log("timestamps", ts, seqData[ts]);
-              if (seqData[ts]?.ie?.ct === cancer_type) {
-                if (!data1[seq]) data1[seq] = {};
-                if (!data1[seq][ts]) data1[seq][ts] = {};
-                data1[seq][ts] = seqData[ts];
-              } else {
-                console.log("Cancer type mismatch", seqData[ts]?.ie?.ct, cancer_type);
-              }
-            });
-          });
-        }
-        return data1;
-      }
+
       // Biopsy to Resection
       function fillform(proType, mode, biobankID, cancer_type) {
         db.ref(`sef/${cancer_type}/${biobankID}/`)
@@ -21595,7 +21569,7 @@
           .then((snapshot) => {
             try {
               if (snapshot && snapshot.exists()) {
-                const data = getCancerRelatedData(snapshot.val(), cancer_type);
+                const data = snapshot.val();
                 const seqKeys = Object.keys(data);
                 console.log("seqKeys in fillform", seqKeys);
                 seqKeys.sort();
@@ -21633,7 +21607,7 @@
                 if (ieDataArr.tpr === "b" && proType === "r") {
                   document.getElementById("bioBankId").value = biobankID || "";
                   document.getElementById("cancer_type").value = ieDataArr.ct || "";
-                  if (bioId === "BR") {
+                  if (cancer_type === "brst") {
                     if (mdDataArr.sx) document.querySelector(`input[name="customRadio"][value="${ieDataArr.sx}"]`).checked = true || "";
                     if (mdDataArr.fhc) document.querySelector(`input[name="RadioFHabit"][value="${mdDataArr.fhc}"]`).checked = true;
 
@@ -21791,7 +21765,7 @@
                     document.getElementById("k67").value = brfDataArr.k67 || "";
                     document.getElementById("HistologicalS").value = brfDataArr.ht || "";
                   }
-                  if (bioId === "CV") {
+                  if (cancer_type === "ceix") {
                     if (ieDataArr.sx) document.querySelector(`input[name="customRadio_ceix"][value="${ieDataArr.sx}"]`).checked = true || "";
                     if (mdDataArr.fhc) document.querySelector(`input[name="RadioFHabit_ceix"][value="${mdDataArr.fhc}"]`).checked = true;
 
@@ -21998,7 +21972,7 @@
                     parity_ceix();
                     if (brfDataArr.ms) document.querySelector(`input[name="mStatus_ceix"][value="${brfDataArr.ms}"]`).checked = true;
                   }
-                  if (bioId === "EM") {
+                  if (cancer_type === "endm") {
                     if (ieDataArr.sx) document.querySelector(`input[name="customRadio_endm"][value="${ieDataArr.sx}"]`).checked = true;
                     if (mdDataArr.fhc) document.querySelector(`input[name="RadioFHabit_endm"][value="${mdDataArr.fhc}"]`).checked = true;
 
@@ -22153,7 +22127,7 @@
 
                     document.getElementById("k67_endm").value = brfDataArr.k67 || "";
                   }
-                  if (bioId === "OV") {
+                  if (cancer_type === "ovry") {
                     if (ieDataArr.sx) document.querySelector(`input[name="customRadio_ovry"][value="${ieDataArr.sx}"]`).checked = true;
                     if (mdDataArr.fhc) document.querySelector(`input[name="RadioFHabit_ovry"][value="${mdDataArr.fhc}"]`).checked = true;
 
@@ -22355,7 +22329,7 @@
 
                     document.getElementById("k67_ovry").value = brfDataArr.k67 || "";
                   }
-                  if (bioId === "HN") {
+                  if (cancer_type === "hene") {
                     if (mdDataArr.sx) document.querySelector(`input[name="customRadio_hene"][value="${ieDataArr.sx}"]`).checked = true || "";
                     if (mdDataArr.fhc) document.querySelector(`input[name="RadioFHabit_hene"][value="${mdDataArr.fhc}"]`).checked = true;
 
@@ -22612,6 +22586,7 @@
               } else {
                 return;
               }
+              console.log("Form filled successfully for Biospy to Resection.");
             } catch (error) {
               console.error("Error filling form:", error);
             }
@@ -22624,7 +22599,7 @@
             .once("value")
             .then((snapshot) => {
               if (snapshot && snapshot.exists()) {
-                const data = getCancerRelatedData(snapshot.val(), cancer_type);
+                const data = snapshot.val();
                 const seqKeys = Object.keys(data);
                 seqKeys.sort();
                 const lastSeqKey = seqKeys[seqKeys.length - 1];
@@ -22661,7 +22636,7 @@
                   if (ieDataArr.mts === "false" && metastasisS === "true") {
                     document.getElementById("bioBankId").value = biobankID || "";
                     document.getElementById("cancer_type").value = ieDataArr.ct || "";
-                    if (bioId === "BR") {
+                    if (cancer_type === "brst") {
                       document.querySelector(`input[name="customRadio"][value="${ieDataArr.sx}"]`).checked = true || "";
                       if (mdDataArr.fhc !== "") {
                         document.querySelector(`input[name="RadioFHabit"][value="${mdDataArr.fhc}"]`).checked = true;
@@ -22810,7 +22785,7 @@
                       document.getElementById("k67").value = brfDataArr.k67 || "";
                       document.getElementById("HistologicalS").value = brfDataArr.ht || "";
                     }
-                    if (bioId === "EM") {
+                    if (cancer_type === "endm") {
                       document.querySelector(`input[name="customRadio_endm"][value="${ieDataArr.sx}"]`).checked = true || "";
                       if (mdDataArr.fhc !== "") document.querySelector(`input[name="RadioFHabit_endm"][value="${mdDataArr.fhc}"]`).checked = true;
 
@@ -22957,7 +22932,7 @@
                       document.getElementById("ageAtMenarche_endm").value = brfDataArr?.am || "";
                       document.getElementById("k67_endm").value = brfDataArr?.k67 || "";
                     }
-                    if (bioId === "CV") {
+                    if (cancer_type === "ceix") {
                       document.querySelector(`input[name="customRadio_ceix"][value="${ieDataArr.sx}"]`).checked = true || "";
                       if (mdDataArr.fhc !== "") document.querySelector(`input[name="RadioFHabit_ceix"][value="${mdDataArr.fhc}"]`).checked = true;
 
@@ -23163,7 +23138,7 @@
                       document.getElementById("ageAtMenarche_ceix").value = brfDataArr.am || "";
                       document.getElementById("k67_ceix").value = brfDataArr.k67 || "";
                     }
-                    if (bioId === "OV") {
+                    if (cancer_type === "ovry") {
                       document.querySelector(`input[name="customRadio_ovry"][value="${ieDataArr.sx}"]`).checked = true || "";
                       if (mdDataArr.fhc !== "") document.querySelector(`input[name="RadioFHabit_ovry"][value="${mdDataArr.fhc}"]`).checked = true;
 
@@ -23359,7 +23334,7 @@
                       document.getElementById("ageAtMenarche_ovry").value = brfDataArr.am || "";
                       document.getElementById("k67_ovry").value = brfDataArr.k67 || "";
                     }
-                    if (bioId === "HN") {
+                    if (cancer_type === "hene") {
                       document.querySelector(`input[name="customRadio_hene"][value="${ieDataArr.sx}"]`).checked = true || "";
                       if (mdDataArr.fhc !== "") {
                         document.querySelector(`input[name="RadioFHabit_hene"][value="${mdDataArr.fhc}"]`).checked = true;

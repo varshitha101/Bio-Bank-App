@@ -2014,9 +2014,10 @@ function validateAndCollectData() {
     Promise.resolve(validateForm1()), // Wraps the synchronous result in a resolved promise
     Promise.resolve(validateForm2()),
     Promise.resolve(validateForm3()),
+    Promise.resolve(validatePatients()),
   ])
     .then((results) => {
-      const [form1Data, form2Data, form3Data] = results;
+      const [form1Data, form2Data, form3Data, patientInfo] = results;
 
       if (form1Data && form2Data && form3Data) {
         const data = {
@@ -2024,7 +2025,7 @@ function validateAndCollectData() {
           md: form2Data.md,
           brf: form3Data.brf,
         };
-
+        patientInfo["mspt"] = data?.ie?.mspt;
         const updateMode = new URLSearchParams(window.location.search).get("update");
 
         let mode = localStorage.getItem("mode");
@@ -2109,10 +2110,10 @@ function validateAndCollectData() {
         if (bioBankId && mrnData && bioBankId !== "" && mrnData !== "") {
           if (updateMode === "true") {
             console.log("Updating data to Firebase:", data);
-            updateToFirebase(data);
+            updateToFirebase(data, patientInfo);
           } else {
             console.log("Saving data to Firebase:", data);
-            saveToFirebase(data);
+            saveToFirebase(data, patientInfo);
           }
         } else if (!bioBankId || bioBankId === "") {
           alert("Biobank ID is missing");
@@ -4241,255 +4242,7 @@ function validateForm3() {
     return form3Data;
   }
 }
-
-function redirectAfterSampleEntry(mode) {
-  switch (mode) {
-    case "SearchView":
-    case "SearchEdit":
-      window.location.href = "search.html";
-      break;
-    case "PendingView":
-    case "PendingEdit":
-    case "EditFollowUps":
-    case "ViewFollowUp":
-      window.location.href = "todo.html";
-      break;
-    case "undefined":
-      window.location.href = "home.html";
-      break;
-    default:
-      window.location.href = "statistics.html";
-
-      console.error("Unknown mode:", mode);
-  }
-}
-
-function saveToFirebase(data) {
-  const bioBankId = document.getElementById("bioBankId").value;
-  const cancer_type = data?.ie?.ct;
-  const timestamp = Math.floor(Date.now() / 1000);
-  const mrnData = document.getElementById("mrnNo").value;
-  if (bioBankId && mrnData && bioBankId !== "" && mrnData !== "") {
-    db.ref(`sef/${cancer_type}/${bioBankId}`).once("value", (snapshot) => {
-      const sections = snapshot.val();
-      let nextSectionIndex = 1;
-
-      if (sections) {
-        const sectionKeys = Object.keys(sections);
-        sectionKeys.forEach((key) => {
-          const sectionNumber = parseInt(key.replace("s", ""), 10);
-          if (sectionNumber >= nextSectionIndex) {
-            nextSectionIndex = sectionNumber + 1;
-          }
-        });
-      }
-
-      let nextSection = `s${nextSectionIndex}`;
-      nextSection = localStorage.getItem("lastSection") && localStorage.getItem("lastSection") !== "undefined" ? localStorage.getItem("lastSection") : nextSection;
-
-      const cancer_type = data?.ie?.ct;
-      let formattedData;
-      if (cancer_type === "brst") {
-        formattedData = {
-          ie: data.ie,
-          md: data.md,
-          brf: data.brf,
-        };
-      } else if (cancer_type === "endm") {
-        formattedData = {
-          ie: data.ie,
-          md: data.md,
-          emf: data.brf,
-        };
-      } else if (cancer_type === "ceix") {
-        formattedData = {
-          ie: data.ie,
-          md: data.md,
-          cvf: data.brf,
-        };
-      } else if (cancer_type === "ovry") {
-        formattedData = {
-          ie: data.ie,
-          md: data.md,
-          ovf: data.brf,
-        };
-      } else if (cancer_type === "hene") {
-        formattedData = {
-          ie: data.ie,
-          md: data.md,
-          henef: data.brf,
-        };
-      }
-      db.ref(`sef/${cancer_type}/${bioBankId}/${nextSection}/${timestamp}`)
-        .set(formattedData)
-        .then(() => {
-          patients(bioBankId, nextSection);
-          alert("Form submitted successfully");
-        })
-        .catch((error) => {
-          console.error("Error writing to Firebase", error);
-        });
-
-      db.ref(`bbnmrn/${mrnData}`)
-        .set(bioBankId)
-        .then(() => {
-          console.log("stored in bbnmrn");
-        })
-        .catch((error) => {
-          console.error("Error storing in bbnmrn:", error);
-        });
-
-      const dueDate = new Date();
-      // const threeMonthInMinutes = 3 * 30 * 24 * 60; // Approximation of 3 months in minutes
-      const threeMonthInMinutes = 10; // 10 min
-      dueDate.setMinutes(dueDate.getMinutes() + threeMonthInMinutes);
-
-      const bioBankPath = `pfw/${bioBankId}`;
-
-      db.ref(bioBankPath)
-        .once("value")
-        .then((snapshot) => {
-          let mode = localStorage.getItem("mode");
-
-          if (snapshot.exists()) {
-            redirectAfterSampleEntry(mode);
-          } else {
-            db.ref(bioBankPath)
-              .set(dueDate.getTime()) // Store as Unix timestamp (milliseconds since 1970)
-              .then(() => {
-                redirectAfterSampleEntry(mode);
-              })
-              .catch((error) => {
-                console.error("Error storing in pfw:", error);
-              });
-          }
-        })
-        .catch((error) => {
-          console.error("Error checking path existence:", error);
-        });
-    });
-  } else if (!bioBankId || bioBankId === "") {
-    alert("Biobank ID is missing");
-    console.warn("Biobank ID is missing");
-  } else if (!mrnData || mrnData === "") {
-    alert("MRN Number is missing");
-    console.warn("MRN Number is missing");
-  } else {
-    alert("Biobank ID or MRN Number is missing");
-    console.warn("Biobank ID or MRN Number is missing");
-  }
-}
-
-function updateToFirebase(data) {
-  const timestamp = Math.floor(Date.now() / 1000);
-  const bioBankId = document.getElementById("bioBankId").value;
-  const mrnData = document.getElementById("mrnNo").value;
-  let mode = localStorage.getItem("mode");
-
-  if (bioBankId && mrnData && bioBankId !== "" && mrnData !== "") {
-    const cancer_type = data?.ie?.ct;
-    db.ref(`sef/${cancer_type}/${bioBankId}`).once("value", (snapshot) => {
-      const sections = snapshot.val();
-      let formattedData;
-      if (cancer_type === "brst") {
-        formattedData = {
-          ie: data.ie,
-          md: data.md,
-          brf: data.brf,
-        };
-      } else if (cancer_type === "endm") {
-        formattedData = {
-          ie: data.ie,
-          md: data.md,
-          emf: data.brf,
-        };
-      } else if (cancer_type === "ceix") {
-        formattedData = {
-          ie: data.ie,
-          md: data.md,
-          cvf: data.brf,
-        };
-      } else if (cancer_type === "ovry") {
-        formattedData = {
-          ie: data.ie,
-          md: data.md,
-          ovf: data.brf,
-        };
-      } else if (cancer_type === "hene") {
-        formattedData = {
-          ie: data.ie,
-          md: data.md,
-          henef: data.brf,
-        };
-      }
-
-      if (sections) {
-        const sectionKeys = Object.keys(sections);
-        let lastSection = sectionKeys[sectionKeys.length - 1];
-        lastSection = localStorage.getItem("lastSection") && localStorage.getItem("lastSection") !== "undefined" ? localStorage.getItem("lastSection") : lastSection;
-
-        db.ref(`sef/${cancer_type}/${bioBankId}/${lastSection}/${timestamp}`)
-          .set(formattedData)
-          .then(() => {
-            let user = sessionStorage.getItem("userName");
-
-            let act = {
-              mode: "",
-              user: user,
-            };
-
-            const finalizeUpdate = () => {
-              alert("Form updated successfully ");
-              redirectAfterSampleEntry(mode);
-            };
-
-            if (mode === "SearchEdit" || mode === "PendingEdit") {
-              db.ref(`act/${bioBankId}/${lastSection}`)
-                .set(act)
-                .then(() => {
-                  patients(bioBankId, lastSection);
-                  finalizeUpdate();
-                })
-                .catch((error) => {
-                  console.error("Error setting new act: ", error);
-                });
-            } else {
-              finalizeUpdate();
-            }
-          })
-          .catch((error) => {
-            console.error("Error writing to Firebase", error);
-          });
-      } else {
-        const firstSection = `s1`;
-        db.ref(`sef/${cancer_type}/${bioBankId}/${firstSection}/${timestamp}`)
-          .set(formattedData)
-          .then(() => {
-            db.ref(`bb/${boxName}/${seatIndex}`)
-              .update(seatUpdate)
-              .then(() => {
-                patients(bioBankId, firstSection);
-                console.log(`Seat ${seatID} updated successfully in Firebase.`);
-              })
-              .catch((error) => {
-                console.error(`Error updating seat ${seatID}:`, error);
-              });
-          })
-          .catch((error) => {
-            console.error("Error writing to Firebase", error);
-          });
-      }
-    });
-  } else if (!bioBankId || bioBankId === "") {
-    alert("Biobank ID is missing");
-  } else if (!mrnData || mrnData === "") {
-    alert("MRN Number is missing");
-  } else {
-    alert("Biobank ID or MRN Number is missing");
-  }
-}
-
-function patients(biobankId, section) {
+function validatePatients() {
   function getIds(ct) {
     if (ct === "brst") {
       return {
@@ -4569,9 +4322,8 @@ function patients(biobankId, section) {
   const cancer_type = document.getElementById("cancer_type")?.value || ""; // Type of Cancer
 
   const { bloodSampleY, specimenSampleY, otherSampleY, rltSampleY, pcbSampleY, patAge, customRadio, sampleGrade, customProcedure } = getIds(cancer_type);
-  const timestamp = Math.floor(Date.now() / 1000); // Current timestamp
 
-  let smtyArray = [];
+  const smtyArray = [];
   const bloodSampleSelected = document.getElementById(bloodSampleY).checked;
   const specimenSampleSelected = document.getElementById(specimenSampleY).checked;
   const otherSampleSelected = document.getElementById(otherSampleY).checked;
@@ -4588,12 +4340,264 @@ function patients(biobankId, section) {
     age: document.getElementById(patAge).value, // Assuming 'patAge' is the age input field
     ct: cancer_type, // Type of Cancer
     gndr: document.querySelector(`input[name="${customRadio}"]:checked`)?.value || "", // Gender
-    // grc: document.getElementById(sampleGrade)?.value || "", // Grade of Cancer
     smty: smty || "",
     typ: document.querySelector(`input[name="${customProcedure}"]:checked`)?.value || "", // Type of Procedure
-    ts: timestamp,
   };
-  db.ref(`Patients/${biobankId}/${section}`)
+
+  return patientInfo;
+}
+function redirectAfterSampleEntry(mode) {
+  switch (mode) {
+    case "SearchView":
+    case "SearchEdit":
+      window.location.href = "search.html";
+      break;
+    case "PendingView":
+    case "PendingEdit":
+    case "EditFollowUps":
+    case "ViewFollowUp":
+      window.location.href = "todo.html";
+      break;
+    case "undefined":
+      window.location.href = "home.html";
+      break;
+    default:
+      window.location.href = "statistics.html";
+
+      console.error("Unknown mode:", mode);
+  }
+}
+
+function saveToFirebase(data, patientInfo) {
+  const bioBankId = document.getElementById("bioBankId").value;
+  const cancer_type = data?.ie?.ct;
+  const timestamp = Math.floor(Date.now() / 1000);
+  patientInfo["ts"] = timestamp;
+
+  const mrnData = document.getElementById("mrnNo").value;
+  if (bioBankId && mrnData && bioBankId !== "" && mrnData !== "") {
+    db.ref(`sef/${cancer_type}/${bioBankId}`).once("value", (snapshot) => {
+      const sections = snapshot.val();
+      let nextSectionIndex = 1;
+
+      if (sections) {
+        const sectionKeys = Object.keys(sections);
+        sectionKeys.forEach((key) => {
+          const sectionNumber = parseInt(key.replace("s", ""), 10);
+          if (sectionNumber >= nextSectionIndex) {
+            nextSectionIndex = sectionNumber + 1;
+          }
+        });
+      }
+
+      let nextSection = `s${nextSectionIndex}`;
+      nextSection = localStorage.getItem("lastSection") && localStorage.getItem("lastSection") !== "undefined" ? localStorage.getItem("lastSection") : nextSection;
+
+      const cancer_type = data?.ie?.ct;
+      let formattedData;
+      if (cancer_type === "brst") {
+        formattedData = {
+          ie: data.ie,
+          md: data.md,
+          brf: data.brf,
+        };
+      } else if (cancer_type === "endm") {
+        formattedData = {
+          ie: data.ie,
+          md: data.md,
+          emf: data.brf,
+        };
+      } else if (cancer_type === "ceix") {
+        formattedData = {
+          ie: data.ie,
+          md: data.md,
+          cvf: data.brf,
+        };
+      } else if (cancer_type === "ovry") {
+        formattedData = {
+          ie: data.ie,
+          md: data.md,
+          ovf: data.brf,
+        };
+      } else if (cancer_type === "hene") {
+        formattedData = {
+          ie: data.ie,
+          md: data.md,
+          henef: data.brf,
+        };
+      }
+      db.ref(`sef/${cancer_type}/${bioBankId}/${nextSection}/${timestamp}`)
+        .set(formattedData)
+        .then(() => {
+          patients(bioBankId, cancer_type, nextSection, patientInfo);
+          alert("Form submitted successfully");
+        })
+        .catch((error) => {
+          console.error("Error writing to Firebase", error);
+        });
+
+      db.ref(`bbnmrn/${mrnData}`)
+        .set(bioBankId)
+        .then(() => {
+          console.log("stored in bbnmrn");
+        })
+        .catch((error) => {
+          console.error("Error storing in bbnmrn:", error);
+        });
+
+      const dueDate = new Date();
+      // const threeMonthInMinutes = 3 * 30 * 24 * 60; // Approximation of 3 months in minutes
+      const threeMonthInMinutes = 10; // 10 min
+      dueDate.setMinutes(dueDate.getMinutes() + threeMonthInMinutes);
+
+      const bioBankPath = `pfw/${bioBankId}`;
+
+      db.ref(bioBankPath)
+        .once("value")
+        .then((snapshot) => {
+          let mode = localStorage.getItem("mode");
+
+          if (snapshot.exists()) {
+            redirectAfterSampleEntry(mode);
+          } else {
+            db.ref(bioBankPath)
+              .set(dueDate.getTime()) // Store as Unix timestamp (milliseconds since 1970)
+              .then(() => {
+                redirectAfterSampleEntry(mode);
+              })
+              .catch((error) => {
+                console.error("Error storing in pfw:", error);
+              });
+          }
+        })
+        .catch((error) => {
+          console.error("Error checking path existence:", error);
+        });
+    });
+  } else if (!bioBankId || bioBankId === "") {
+    alert("Biobank ID is missing");
+    console.warn("Biobank ID is missing");
+  } else if (!mrnData || mrnData === "") {
+    alert("MRN Number is missing");
+    console.warn("MRN Number is missing");
+  } else {
+    alert("Biobank ID or MRN Number is missing");
+    console.warn("Biobank ID or MRN Number is missing");
+  }
+}
+
+function updateToFirebase(data, patientInfo) {
+  const timestamp = Math.floor(Date.now() / 1000);
+  patientInfo["ts"] = timestamp;
+  const bioBankId = document.getElementById("bioBankId").value;
+  const mrnData = document.getElementById("mrnNo").value;
+  let mode = localStorage.getItem("mode");
+
+  if (bioBankId && mrnData && bioBankId !== "" && mrnData !== "") {
+    const cancer_type = data?.ie?.ct;
+    db.ref(`sef/${cancer_type}/${bioBankId}`).once("value", (snapshot) => {
+      const sections = snapshot.val();
+      let formattedData;
+      if (cancer_type === "brst") {
+        formattedData = {
+          ie: data.ie,
+          md: data.md,
+          brf: data.brf,
+        };
+      } else if (cancer_type === "endm") {
+        formattedData = {
+          ie: data.ie,
+          md: data.md,
+          emf: data.brf,
+        };
+      } else if (cancer_type === "ceix") {
+        formattedData = {
+          ie: data.ie,
+          md: data.md,
+          cvf: data.brf,
+        };
+      } else if (cancer_type === "ovry") {
+        formattedData = {
+          ie: data.ie,
+          md: data.md,
+          ovf: data.brf,
+        };
+      } else if (cancer_type === "hene") {
+        formattedData = {
+          ie: data.ie,
+          md: data.md,
+          henef: data.brf,
+        };
+      }
+
+      if (sections) {
+        const sectionKeys = Object.keys(sections);
+        let lastSection = sectionKeys[sectionKeys.length - 1];
+        lastSection = localStorage.getItem("lastSection") && localStorage.getItem("lastSection") !== "undefined" ? localStorage.getItem("lastSection") : lastSection;
+
+        db.ref(`sef/${cancer_type}/${bioBankId}/${lastSection}/${timestamp}`)
+          .set(formattedData)
+          .then(() => {
+            let user = sessionStorage.getItem("userName");
+
+            let act = {
+              mode: "",
+              user: user,
+            };
+
+            const finalizeUpdate = () => {
+              alert("Form updated successfully ");
+              redirectAfterSampleEntry(mode);
+            };
+
+            if (mode === "SearchEdit" || mode === "PendingEdit") {
+              db.ref(`act/${bioBankId}/${lastSection}`)
+                .set(act)
+                .then(() => {
+                  patients(bioBankId, cancer_type, lastSection, patientInfo);
+                  finalizeUpdate();
+                })
+                .catch((error) => {
+                  console.error("Error setting new act: ", error);
+                });
+            } else {
+              finalizeUpdate();
+            }
+          })
+          .catch((error) => {
+            console.error("Error writing to Firebase", error);
+          });
+      } else {
+        const firstSection = `s1`;
+        db.ref(`sef/${cancer_type}/${bioBankId}/${firstSection}/${timestamp}`)
+          .set(formattedData)
+          .then(() => {
+            db.ref(`bb/${boxName}/${seatIndex}`)
+              .update(seatUpdate)
+              .then(() => {
+                patients(bioBankId, cancer_type, firstSection, patientInfo);
+                console.log(`Seat ${seatID} updated successfully in Firebase.`);
+              })
+              .catch((error) => {
+                console.error(`Error updating seat ${seatID}:`, error);
+              });
+          })
+          .catch((error) => {
+            console.error("Error writing to Firebase", error);
+          });
+      }
+    });
+  } else if (!bioBankId || bioBankId === "") {
+    alert("Biobank ID is missing");
+  } else if (!mrnData || mrnData === "") {
+    alert("MRN Number is missing");
+  } else {
+    alert("Biobank ID or MRN Number is missing");
+  }
+}
+
+function patients(biobankId, cancer_type, section, patientInfo) {
+  db.ref(`Patients/${biobankId}/${cancer_type}/${section}`)
     .set(patientInfo)
     .then(() => {
       localStorage.setItem("BioVal", "");
@@ -9625,18 +9629,28 @@ function getLatestData(biobankID) {
     .once("value")
     .then((snapshot) => {
       if (snapshot && snapshot.exists()) {
-        const timstamps = [];
+        let maxSeqNum = null;
+        let maxCancerType = null;
+        let maxTimestamp = null;
         const biobankIdData = snapshot.val();
-        Object.keys(biobankIdData).forEach((seqNum) => {
-          const patientData = biobankIdData[seqNum];
-          if (patientData && patientData.ts) {
-            timstamps.push(patientData.ts);
-          }
+        Object.keys(biobankIdData).forEach((cancer_type) => {
+          const bioBankCancerData = biobankIdData[cancer_type];
+          Object.keys(bioBankCancerData).forEach((seqNum) => {
+            const patientData = bioBankCancerData[seqNum];
+            if (patientData && patientData.ts && patientData.ts > maxTimestamp) {
+              maxTimestamp = patientData.ts;
+              maxSeqNum = seqNum;
+              maxCancerType = cancer_type;
+            }
+          });
         });
-        timstamps.sort((a, b) => b - a);
-
-        const latestSeqNum = Object.keys(biobankIdData).find((seqNum) => biobankIdData[seqNum].ts === timstamps[0]);
-        return { latestSeqNum, latestSeqNumData: biobankIdData[latestSeqNum] };
+        if (maxSeqNum && maxCancerType) {
+          const latestSeqNumData = biobankIdData[maxCancerType][maxSeqNum];
+          const latestSeqNum = maxSeqNum;
+          return { latestSeqNum, latestSeqNumData };
+        } else {
+          return null;
+        }
       } else {
         return null;
       }

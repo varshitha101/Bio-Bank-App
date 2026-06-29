@@ -1573,12 +1573,16 @@
         g = g?.toLowerCase();
         switch (g) {
           case "f":
+          case "female":
             return "Female";
           case "m":
+          case "male":
             return "Male";
           case "o":
+          case "other":
             return "Other";
           case "t":
+          case "transgender":
             return "Transgender";
           default:
             return "-";
@@ -1635,16 +1639,30 @@
         const bioBankIds = Object.keys(data);
         let indSeqData = [];
         let promises = [];
-        Object.entries(data).forEach(([bioBankId, patientSeq]) => {
-          const seqKeys = Object.keys(patientSeq);
-          const lastSeqKey = seqKeys[seqKeys.length - 1];
-          const patient = patientSeq[lastSeqKey];
+        bioBankIds.forEach((bioBankId) => {
+          let maxCancerType = null;
+          let maxSeqKey = null;
+          let maxTimestamp = null;
+          const patientCancerTypes = data[bioBankId];
+          const patientCancerTypesKeys = Object.keys(patientCancerTypes);
+          patientCancerTypesKeys.forEach((cancer_type) => {
+            const seqKeys = Object.keys(patientCancerTypes[cancer_type]);
+            seqKeys.forEach((sq) => {
+              const seqKeyData = patientCancerTypes[cancer_type][sq];
+              if (seqKeyData && seqKeyData?.ts && (seqKeyData?.ts > maxTimestamp || maxTimestamp === null)) {
+                maxTimestamp = seqKeyData.ts;
+                maxCancerType = cancer_type;
+                maxSeqKey = sq;
+              }
+            });
+          });
 
+          const patient = data[bioBankId][maxCancerType][maxSeqKey];
           if (!patient) return;
           const promise1 = indSeqData.push({
             serialNumber: indSeqData.length + 1,
             bioBankId,
-            seqKey: lastSeqKey,
+            seqKey: maxSeqKey,
             age: patient.age || "-",
             gender: getGender(patient.gndr),
             ct: patient.ct,
@@ -1667,7 +1685,7 @@
                         <td class="gender small-text">${gender}</td>
                         <td class="cancerType small-text">${cancerType}</td>
                         <td class="action small-text">
-                          <button class="btn btn-success btn-sm" onclick="showHistory('${ct}','${bioBankId}')">View Samples</button>
+                          <button class="btn btn-success btn-sm" onclick="showHistory('${bioBankId}')">View Samples</button>
                         </td>
                       `;
             tbody.appendChild(row);
@@ -1773,45 +1791,37 @@
         pages_display(viewS, cancer_type, bioBankId, seq, timestampKey);
       }
 
-      function showHistory(cancerType, bioBankId) {
-        console.log("path", `sef/${cancerType}/${bioBankId}`);
-        db.ref(`sef/${cancerType}/${bioBankId}`)
+      function showHistory(bioBankId) {
+        db.ref(`Patients/${bioBankId}`)
           .once("value")
           .then((snapshot) => {
             if (snapshot && snapshot.exists()) {
-              const patientSeq = snapshot.val();
-
+              const patientOrderedList = [];
+              const patientsBioBankData = snapshot.val();
+              const cancerTypes = Object.keys(patientsBioBankData);
+              cancerTypes.forEach((cancer_type) => {
+                const patientSeq = patientsBioBankData[cancer_type];
+                const seqKeys = Object.keys(patientSeq);
+                seqKeys.forEach((seqKey) => {
+                  const timestamp = patientSeq[seqKey] && patientSeq[seqKey].ts ? patientSeq[seqKey].ts : null;
+                  if (timestamp) patientOrderedList.push([cancer_type, seqKey, timestamp]);
+                });
+              });
+              console.log(
+                "Before sort",
+                patientOrderedList.map((x) => x[2]),
+              );
+              patientOrderedList.sort((a, b) => Number(a[2]) - Number(b[2]));
+              console.log(
+                "After sort",
+                patientOrderedList.map((x) => x[2]),
+              );
+              let serialNo = 1;
               const tbody = document.querySelector("#exampleModalCenter .modal-body tbody");
               tbody.innerHTML = ""; // Clear the existing content
+              patientOrderedList.forEach(([cancer_type, seqKey, timestamp]) => {
+                const patient = patientsBioBankData[cancer_type][seqKey];
 
-              const seqKeys = Object.keys(patientSeq);
-              seqKeys.forEach((seq, index) => {
-                const patientTimestamps = patientSeq[seq];
-                const timestampKeys = Object.keys(patientTimestamps);
-                const lastTimestampKey = timestampKeys[timestampKeys.length - 1];
-                const patientData = patientTimestamps[lastTimestampKey];
-                const patient = patientData.ie || {};
-                const fields = ["bpg", "bsg", "bbcg", "ftg", "fng", "osg", "rlt", "pc"];
-
-                let boxid = "";
-                let seatList = [];
-                fields.forEach((field) => {
-                  const fieldData = patient[field];
-                  if (fieldData) {
-                    const parts = fieldData.split("/"); // Assuming the box name and seat list are separated by "/"
-
-                    boxid = parts[0].trim();
-
-                    seatList = parts[1] ? parts[1].split(",") : []; // Split the seats into an array
-                  }
-                });
-                const storedBnData = JSON.parse(localStorage.getItem("bnData"));
-
-                const boxEntry = storedBnData.find((entry) => entry.id === boxid);
-
-                if (boxEntry) {
-                  boxName = boxEntry.name;
-                }
                 let metas = "";
                 if (patient.mspt) {
                   if (patient.mspt === "Bx") {
@@ -1828,19 +1838,18 @@
                   }
                 }
 
-                const seatListDisplay = seatList.length ? seatList.join(", ") : "-";
                 const row = document.createElement("tr");
                 row.innerHTML = `
-                      <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${index + 1}</td>
+                      <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${serialNo++}</td>
                       <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${bioBankId}</td>
-                      <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${patient.ag || "-"}</td>
-                      <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${getGender(patient.sx)}</td>
+                      <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${patient.age || "-"}</td>
+                      <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${getGender(patient.gndr)}</td>
                       <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${metas || "-"}</td> <!-- Display box name -->
                       <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">${getCancerType(patient.ct)}</td>
                       <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">
-                        <button class="btn btn-primary btn-sm" onclick="editPatient('${patient.ct}', '${bioBankId}', '${seq}', '${lastTimestampKey}')"><img src="assets/images/edit.svg" alt="Edit" width="16" height="16" style="vertical-align: middle; margin-right: 5px;"> </button>
-                        <button class="btn btn-info btn-sm" onclick="viewPatient('${patient.ct}', '${bioBankId}', '${seq}', '${lastTimestampKey}')"> <img src="assets/images/visibility.svg" alt="View" width="16" height="16" style="vertical-align: middle; margin-right: 5px;"></button>
-                        <button class="btn btn-primary btn-sm" onclick="handleHistory('${patient.ct}', '${bioBankId}', '${seq}', '${patientSeq}')"><img src="assets/images/history.svg" alt="History" width="16" height="16" style="vertical-align: middle; margin-right: 5px;"> </button>
+                        <button class="btn btn-primary btn-sm" onclick="editPatient('${patient.ct}', '${bioBankId}', '${seqKey}', '${patient.ts}')"><img src="assets/images/edit.svg" alt="Edit" width="16" height="16" style="vertical-align: middle; margin-right: 5px;"> </button>
+                        <button class="btn btn-info btn-sm" onclick="viewPatient('${patient.ct}', '${bioBankId}', '${seqKey}', '${patient.ts}')"> <img src="assets/images/visibility.svg" alt="View" width="16" height="16" style="vertical-align: middle; margin-right: 5px;"></button>
+                        <button class="btn btn-primary btn-sm" onclick="handleHistory('${patient.ct}', '${bioBankId}', '${seqKey}', '${patient.ts}')"><img src="assets/images/history.svg" alt="History" width="16" height="16" style="vertical-align: middle; margin-right: 5px;"> </button>
                       </td>
                     `;
 

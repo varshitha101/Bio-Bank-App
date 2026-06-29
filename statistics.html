@@ -402,62 +402,65 @@
 
                   Object.keys(patientsData).forEach((bioBankId) => {
                     const biobankData = patientsData[bioBankId];
-                    Object.keys(biobankData).forEach((seqNum) => {
-                      const sectionData = biobankData[seqNum];
-                      const timestampExists = sectionData && sectionData.ts ? sectionData.ts * 1000 <= endTimestamp && sectionData.ts * 1000 >= startTimestamp : false;
-                      if (timestampExists) {
-                        count++;
-                        const age = parseInt(sectionData?.age) || "";
-                        const cancer = sectionData?.ct || "";
-                        const gender = sectionData?.gndr || "";
-                        const procedure = sectionData?.typ || "";
-                        const smty = sectionData?.smty !== "" ? sectionData?.smty.split(",") || [] : []; // Split the sample types string into an array
+                    Object.keys(biobankData).forEach((cancer_type) => {
+                      const cancerData = biobankData[cancer_type];
+                      Object.keys(cancerData).forEach((seqNum) => {
+                        const sectionData = cancerData[seqNum];
+                        const timestampExists = sectionData && sectionData.ts ? sectionData.ts * 1000 <= endTimestamp && sectionData.ts * 1000 >= startTimestamp : false;
+                        if (timestampExists) {
+                          count++;
+                          const age = parseInt(sectionData?.age) || "";
+                          const cancer = sectionData?.ct || "";
+                          const gender = sectionData?.gndr || "";
+                          const procedure = sectionData?.typ || "";
+                          const smty = sectionData?.smty !== "" ? sectionData?.smty.split(",") || [] : []; // Split the sample types string into an array
 
-                        if (age < 30) countUnder30++;
-                        else if (age >= 30 && age <= 39) count30to39++;
-                        else if (age >= 40 && age <= 49) count40to49++;
-                        else if (age >= 50 && age <= 59) count50to59++;
-                        else if (age >= 60) countAbove60++;
+                          if (age < 30) countUnder30++;
+                          else if (age >= 30 && age <= 39) count30to39++;
+                          else if (age >= 40 && age <= 49) count40to49++;
+                          else if (age >= 50 && age <= 59) count50to59++;
+                          else if (age >= 60) countAbove60++;
 
-                        if (cancer === "brst") breastCancer++;
-                        else if (cancer === "ceix") ceixCancer++;
-                        else if (cancer === "endm") endmCancer++;
-                        else if (cancer === "ovry") ovryCancer++;
-                        else if (cancer === "hene") heneCancer++;
-                        if (procedure === "b") biopsy++;
-                        else if (procedure === "r") resection++;
+                          if (cancer === "brst") breastCancer++;
+                          else if (cancer === "ceix") ceixCancer++;
+                          else if (cancer === "endm") endmCancer++;
+                          else if (cancer === "ovry") ovryCancer++;
+                          else if (cancer === "hene") heneCancer++;
+                          if (procedure === "b") biopsy++;
+                          else if (procedure === "r") resection++;
 
-                        let hasBlood = smty.includes("B");
-                        let hasSpecimen = smty.includes("S");
-                        let hasOther = smty.includes("O");
-                        let hasRLT = smty.includes("R");
-                        let hasPC = smty.includes("P");
+                          let hasBlood = smty.includes("B");
+                          let hasSpecimen = smty.includes("S");
+                          let hasOther = smty.includes("O");
+                          let hasRLT = smty.includes("R");
+                          let hasPC = smty.includes("P");
 
-                        if (
-                          (hasBlood && hasSpecimen) ||
-                          (hasBlood && hasOther) ||
-                          (hasBlood && hasRLT) ||
-                          (hasBlood && hasPC) ||
-                          (hasSpecimen && hasOther) ||
-                          (hasSpecimen && hasRLT) ||
-                          (hasSpecimen && hasPC) ||
-                          (hasOther && hasRLT) ||
-                          (hasOther && hasPC) ||
-                          (hasRLT && hasPC)
-                        ) {
-                          countCombined++; // Increment combined count
-                        } else if (hasBlood && !hasSpecimen && !hasOther && !hasRLT && !hasPC) {
-                          countBS++; // Increment blood count
-                        } else if (hasSpecimen && !hasBlood && !hasOther && !hasRLT && !hasPC) {
-                          countSS++; // Increment specimen count
-                        } else if (hasOther && !hasBlood && !hasSpecimen && !hasRLT && !hasPC) {
-                          countOS++; // Increment other count
-                        } else if (hasRLT && !hasBlood && !hasSpecimen && !hasOther && !hasPC) {
-                          countRLT++; // Increment RLT count
-                        } else if (hasPC && !hasBlood && !hasSpecimen && !hasOther && !hasRLT) {
-                          countPC++; // Increment PC count
+                          if (
+                            (hasBlood && hasSpecimen) ||
+                            (hasBlood && hasOther) ||
+                            (hasBlood && hasRLT) ||
+                            (hasBlood && hasPC) ||
+                            (hasSpecimen && hasOther) ||
+                            (hasSpecimen && hasRLT) ||
+                            (hasSpecimen && hasPC) ||
+                            (hasOther && hasRLT) ||
+                            (hasOther && hasPC) ||
+                            (hasRLT && hasPC)
+                          ) {
+                            countCombined++; // Increment combined count
+                          } else if (hasBlood && !hasSpecimen && !hasOther && !hasRLT && !hasPC) {
+                            countBS++; // Increment blood count
+                          } else if (hasSpecimen && !hasBlood && !hasOther && !hasRLT && !hasPC) {
+                            countSS++; // Increment specimen count
+                          } else if (hasOther && !hasBlood && !hasSpecimen && !hasRLT && !hasPC) {
+                            countOS++; // Increment other count
+                          } else if (hasRLT && !hasBlood && !hasSpecimen && !hasOther && !hasPC) {
+                            countRLT++; // Increment RLT count
+                          } else if (hasPC && !hasBlood && !hasSpecimen && !hasOther && !hasRLT) {
+                            countPC++; // Increment PC count
+                          }
                         }
-                      }
+                      });
                     });
                   });
 
