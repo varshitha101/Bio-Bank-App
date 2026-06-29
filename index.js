@@ -774,7 +774,6 @@ function populateSBLabels(activeCancerType, data) {
           newLabelElement.addEventListener("click", async function () {
             const bioBankId = bioBankIds[index];
             const sampleType = sample[index];
-            console.log("sampleType", sampleType);
 
             const dbRef = db.ref(`sef/${activeCancerType}/${bioBankId}`);
             const snapshot = await dbRef.get();
@@ -1667,7 +1666,6 @@ function openModal() {
       .then((snapshot) => {
         if (snapshot && snapshot.exists()) {
           const data = snapshot.val();
-          // console.log("Data snapshot:", data);
           Object.keys(data).forEach((box_type) => {
             // box_type -> sb,bb,rlt,pcb
             const boxes = data[box_type];
@@ -1681,7 +1679,6 @@ function openModal() {
               }
             }
           });
-          // console.log(results);
           // Check if all the promises resolved to true
           const allTrue = results.every((result) => result === true) && results.length === 4;
           if (allTrue) {
@@ -4487,16 +4484,16 @@ function saveToFirebase(data, patientInfo) {
 }
 
 function updateToFirebase(data, patientInfo) {
-  const timestamp = Math.floor(Date.now() / 1000);
-  patientInfo["ts"] = timestamp;
   const bioBankId = document.getElementById("bioBankId").value;
   const mrnData = document.getElementById("mrnNo").value;
   let mode = localStorage.getItem("mode");
 
+  const timestamp = Math.floor(Date.now() / 1000);
+  patientInfo["ts"] = timestamp;
+
   if (bioBankId && mrnData && bioBankId !== "" && mrnData !== "") {
     const cancer_type = data?.ie?.ct;
     db.ref(`sef/${cancer_type}/${bioBankId}`).once("value", (snapshot) => {
-      const sections = snapshot.val();
       let formattedData;
       if (cancer_type === "brst") {
         formattedData = {
@@ -4529,8 +4526,9 @@ function updateToFirebase(data, patientInfo) {
           henef: data.brf,
         };
       }
-
-      if (sections) {
+      
+      if (snapshot && snapshot.exists()) {
+        const sections = snapshot.val();
         const sectionKeys = Object.keys(sections);
         let lastSection = sectionKeys[sectionKeys.length - 1];
         lastSection = localStorage.getItem("lastSection") && localStorage.getItem("lastSection") !== "undefined" ? localStorage.getItem("lastSection") : lastSection;
@@ -4572,15 +4570,8 @@ function updateToFirebase(data, patientInfo) {
         db.ref(`sef/${cancer_type}/${bioBankId}/${firstSection}/${timestamp}`)
           .set(formattedData)
           .then(() => {
-            db.ref(`bb/${boxName}/${seatIndex}`)
-              .update(seatUpdate)
-              .then(() => {
-                patients(bioBankId, cancer_type, firstSection, patientInfo);
-                console.log(`Seat ${seatID} updated successfully in Firebase.`);
-              })
-              .catch((error) => {
-                console.error(`Error updating seat ${seatID}:`, error);
-              });
+            patients(bioBankId, cancer_type, firstSection, patientInfo);
+            console.log(`Form updated successfully `);
           })
           .catch((error) => {
             console.error("Error writing to Firebase", error);
@@ -5884,7 +5875,6 @@ function fillMdForm_hene(mdData) {
       data.forEach((item) => {
         const subtypeValue = item?.op;
         const checkbox = document.querySelector(`input[name="pSubType_hene"][value="${subtypeValue}"]`);
-        console.log("Processing subtype:", subtypeValue, "Checkbox found:", !!checkbox);
         if (!checkbox) {
           console.warn("Subtype checkbox not found for value:", subtypeValue);
           return;
@@ -6355,7 +6345,6 @@ function fillMdForm_endm(mdData) {
     if (mdData.hac) document.querySelector(`input[name="RadioAlcoholHabit_endm"][value="${mdData.hac}"]`).checked = true || "";
     if (mdData.hs) document.querySelector(`input[name="RadioSmokeHabit_endm"][value="${mdData.hs}"]`).checked = true || "";
     if (mdData.ec) document.querySelector(`input[name="ECH_endm"][value="${mdData.ec}"]`).checked = true || "";
-    // console.log("Endometriosis data:", mdData.cm);
 
     document.getElementById("ffQcComments_endm").value = mdData.ffqc || "";
     document.getElementById("ffTissueRemarks_endm").value = mdData.ftr || "";
@@ -6379,7 +6368,6 @@ function fillMdForm_endm(mdData) {
       }
     }
     if (mdData.sint === "other") {
-      console.log("Other sint selected", mdData.sintOther);
       const container1 = document.getElementById("sint_other_specify_endm");
       if (container1) {
         container1.style.display = "block";
@@ -6440,7 +6428,6 @@ function fillMdForm_endm(mdData) {
     document.getElementById("pTNM_endm").value = mdData.ptnm || "";
     if (mdData.as) {
       const { ajcc1, ajcc2 } = splitFigo(mdData.as);
-      // console.log({ ajcc1, ajcc2 });
       const figoStageEndm = document.getElementById("FIGO1_endm");
       const figoSubStageEndm = document.getElementById("FIGO2_endm");
 
@@ -6838,7 +6825,6 @@ function fillMdForm_ovry(mdData) {
 
     if (mdData.as) {
       const { ajcc1, ajcc2 } = splitFigo(mdData.as, "FIGO1_ovry_2021");
-      // console.log({ ajcc1, ajcc2 });
       const figoStageEndm = document.getElementById("FIGO1_ovry_2021");
       const figoSubStageEndm = document.getElementById("FIGO2_ovry_2021");
 
@@ -6850,7 +6836,6 @@ function fillMdForm_ovry(mdData) {
     }
     if (mdData.as1) {
       const { ajcc1, ajcc2 } = splitFigo(mdData.as1, "FIGO1_ovry_2014");
-      // console.log({ ajcc1, ajcc2 });
       const figoStageEndm = document.getElementById("FIGO1_ovry_2014");
       const figoSubStageEndm = document.getElementById("FIGO2_ovry_2014");
 
@@ -7223,7 +7208,6 @@ function fillMdForm_ceix(mdData) {
     document.getElementById("pTNM_ceix").value = mdData.ptnm || "";
     if (mdData.as) {
       const { ajcc1, ajcc2 } = splitFigo(mdData.as);
-      // console.log({ ajcc1, ajcc2 });
       const figoStageEndm = document.getElementById("FIGO1_ceix");
       const figoSubStageEndm = document.getElementById("FIGO2_ceix");
 
@@ -7435,7 +7419,6 @@ function fillBrfForm(brfData) {
 // Head and Neck Cancer
 function fillBrfForm_hene(brfData) {
   try {
-    // console.log("brfData", brfData);
     document.getElementById("pcsm_hene").value = brfData.pcsm || "";
     document.getElementById("pcvm_hene").value = brfData.pcvm || "";
     document.getElementById("sps_hene").value = brfData.sps || "";
@@ -7955,7 +7938,6 @@ function isCurrentSharedModalRequest(requestToken) {
 function popSharedmodal(bioboxName, samples, bioBankId) {
   const requestToken = ++sharedModalRequestToken;
 
-  console.log("bioboxName:", bioboxName, "samples:", samples, "bioBankId:", bioBankId);
   function fetchBoxIdFromBN(boxName, bioId) {
     return new Promise((resolve, reject) => {
       let dbRef = firebase.database().ref(`bn/${bioId}`);
@@ -7970,14 +7952,12 @@ function popSharedmodal(bioboxName, samples, bioBankId) {
               boxes.push([box_id, box_typeData[box_id]]);
             });
           });
-          console.log("Boxes:", boxes);
           const boxEntry = boxes.find(([id, name]) => id === boxName);
 
           if (boxEntry) {
             const [boxId] = boxEntry;
             resolve(boxId);
           } else {
-            console.log(`Box name ${boxName} not found in 'bn'.`);
             resolve(null); // Resolve with null if box not found
           }
         })
@@ -8143,7 +8123,6 @@ function popSharedBloodmodal(bioboxName, samples, bioId, requestToken) {
               boxes.push([box_id, box_typeData[box_id]]);
             });
           });
-          console.log("Boxes:", boxes);
           bioInfo = boxes.find(([bio_id, boxData]) => bio_id === bioboxName);
           const [id, boxData] = bioInfo;
 
@@ -8305,7 +8284,6 @@ function popSharedSpecimenmodal(bioboxName, samples, bioId, requestToken) {
               boxes.push([box_id, box_typeData[box_id]]);
             });
           });
-          console.log("Boxes:", boxes);
           bioInfo = boxes.find(([bio_id, boxData]) => bio_id === bioboxName);
           const [id, boxData] = bioInfo;
           box_id = id;
@@ -8466,7 +8444,6 @@ function popSharedRLTmodal(bioboxName, samples, bioId, requestToken) {
               boxes.push([box_id, box_typeData[box_id]]);
             });
           });
-          console.log("Boxes:", boxes);
           bioInfo = boxes.find(([bio_id, boxData]) => bio_id === bioboxName);
           const [id, boxData] = bioInfo;
 
@@ -8628,7 +8605,6 @@ function popSharedPCmodal(bioboxName, samples, bioId, requestToken) {
               boxes.push([box_id, box_typeData[box_id]]);
             });
           });
-          console.log("Boxes:", boxes);
           bioInfo = boxes.find(([bio_id, boxData]) => bio_id === bioboxName);
           const [id, boxData] = bioInfo;
 
@@ -8842,7 +8818,6 @@ function shared_pages_display(mode, bioBankId, seq, boxName, timestampKey) {
 }
 
 function displayOutsourceData(bioBankId, data) {
-  console.log("Displaying outsource data for bioBankId:", bioBankId, "Data:", data);
   document.querySelector(`input[name="sharestatus"][value="${data.ossts}"]`).checked = true || "";
   document.getElementById("startInputOutsource").value = data.doe || "";
   document.getElementById("institute").value = data.dpt || "";
@@ -9053,12 +9028,10 @@ function fetchPendingEntries() {
       Object.keys(allData).forEach((cancer_type) => {
         const bioIdData = allData[cancer_type];
         Object.keys(bioIdData).forEach((bioBankId) => {
-          // console.log("Processing bioBankId:", bioBankId);
           const sections = bioIdData[bioBankId];
           Object.keys(sections).forEach((sectionKey) => {
             const section = sections[sectionKey];
             const timestamps = Object.keys(section);
-            // console.log("Timestamps for sectionKey:", sectionKey, timestamps);
             let timestamp = Number(timestamps[0]) * 1000;
             let newtimestamp = timestamps[timestamps.length - 1];
 
@@ -9067,7 +9040,6 @@ function fetchPendingEntries() {
             const patient = dataEntry.ie || {};
             const differenceInMinutes = (currentTime - timestamp) / (60 * 1000);
             const res = dataEntry && (dataEntry?.md?.pst === "" || !dataEntry?.md?.hasOwnProperty("pst")) && differenceInMinutes > sevenDaysInMinutes;
-            // console.log("Data entry:", dataEntry, "Difference in minutes:", differenceInMinutes, "Result:", res);
             if (res) {
               tableData.push({
                 bioBankId: bioBankId,
@@ -9499,7 +9471,6 @@ function fetchPendingFollowUps() {
     if (currentFPageData.length > 0) {
       currentFPageData.forEach((patient, index) => {
         const row = document.createElement("tr");
-
         row.innerHTML = `
           <th scope="row">${start + index + 1}</th> 
           <td>${patient.biobankID || "-"}</td>
@@ -9515,7 +9486,7 @@ function fetchPendingFollowUps() {
         entryBtn.textContent = "Follow-Up";
         entryBtn.addEventListener("click", () => {
           const entry = "EditFollowUps";
-          pages_display(entry, patient.type_of_cancer, patient.biobankID, patient.latestSeqNum, patient.latestTimestamp);
+          pages_display(entry, patient.ct, patient.biobankID, patient.latestSeqNum, patient.latestTimestamp);
         });
 
         const viewBtn = document.createElement("button");
@@ -9523,7 +9494,7 @@ function fetchPendingFollowUps() {
         viewBtn.textContent = "View";
         viewBtn.addEventListener("click", () => {
           const entry = "ViewFollowUp";
-          pages_display(entry, patient.type_of_cancer, patient.biobankID, patient.latestSeqNum, patient.latestTimestamp);
+          pages_display(entry, patient.ct, patient.biobankID, patient.latestSeqNum, patient.latestTimestamp);
         });
 
         modCell.appendChild(entryBtn);
@@ -9585,6 +9556,7 @@ function fetchPendingFollowUps() {
                           biobankID,
                           age: ie.ag || "-",
                           gender: getGender(ie.sx),
+                          ct: ie.ct,
                           type_of_cancer: getCancerType(ie.ct),
                           stage_of_cancer: ie.stc || "-",
                           latestSeqNum,
@@ -12260,7 +12232,6 @@ function pTyp_pSubTyp_hene(pt) {
   const supportsOtherType = ["op9", "op18", "op43", "op58"].includes(option);
   const enableOtherType = supportsOtherType || isReadOnlyViewMode(mode);
   $("#histological_subtype").toggle(showSubType);
-  console.log("pType_Oth_hene is ", enableOtherType);
   $("#pType_Oth_hene")
     .prop("disabled", !supportsOtherType || isReadOnlyViewMode(mode))
     .val(enableOtherType ? $("#pType_Oth_hene").val() : "");
@@ -12317,7 +12288,6 @@ function pTyp_pSubTyp_hene(pt) {
   if (mode === "undefined") {
     $('input[name="pSubType_hene"]').each(function () {
       $(this).prop("checked", false);
-      console.log("clearing checkbox");
       const target = `#pSubType_${$(this).val()}_Oth_hene`;
 
       if ($(target).length) {
