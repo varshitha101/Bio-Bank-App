@@ -14627,6 +14627,7 @@
           const cancer_type = document.getElementById("cancer_type").value;
           let fn_tubes = null;
           if (cancer_type === "brst") fn_tubes = "fn_tubes";
+          else if (cancer_type === "ovry") fn_tubes = "fn_tubes_ovry";
           else if (cancer_type === "ceix") fn_tubes = "fn_tubes_ceix";
           else if (cancer_type === "endm") fn_tubes = "fn_tubes_endm";
           else if (cancer_type === "hene") fn_tubes = "fn_tubes_hene";
@@ -22583,16 +22584,17 @@
                     }
                   }
                 }
+                console.log("Form filled successfully for Biospy to Resection.");
               } else {
+                console.log("Data doesn't exists for Biospy to Resection.");
                 return;
               }
-              console.log("Form filled successfully for Biospy to Resection.");
             } catch (error) {
               console.error("Error filling form:", error);
             }
           });
       }
-      // Resection to Samle at event
+      // Resection to Sample at event
       function fillform2(mode, biobankID, metastasisS, cancer_type) {
         try {
           db.ref(`sef/${cancer_type}/${biobankID}/`)
@@ -23593,7 +23595,9 @@
                     }
                   }
                 }
+                console.log("Form filled for Resection to Sample at event.");
               } else {
+                console.log("Data doesn't exist for Resection to Sample at event.");
                 return;
               }
             });

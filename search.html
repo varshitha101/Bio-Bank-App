@@ -945,17 +945,53 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
     <script>
+      const allowedPrefixes = ["BR", "HN", "LU", "CV", "EM", "OV"];
+
+      function formatBioInput(input) {
+        let raw = (input.value || "").replace(/[^a-zA-Z0-9]/g, "").toUpperCase();
+
+        let letters = raw.replace(/[^A-Z]/g, "").slice(0, 2);
+        let digits = raw.replace(/[^0-9]/g, "").slice(0, 4);
+
+        input.value = (letters + digits).slice(0, 6);
+
+        // Validate only when full length is reached
+        if (input.value.length === 6) {
+          if (!/^[A-Z]{2}\d{4}$/.test(input.value)) {
+            alert("Bio Bank ID must be 2 letters followed by 4 digits.");
+            input.value = "";
+            return;
+          }
+
+          const prefix = input.value.substring(0, 2);
+
+          if (!allowedPrefixes.includes(prefix)) {
+            alert(`Invalid Bio Bank ID prefix. Allowed prefixes: ${allowedPrefixes.join(", ")}`);
+            input.value = "";
+            return;
+          }
+        }
+      }
+
       function validateBioId(input) {
         const val = (input.value || "").trim().toUpperCase();
+
         if (!val) return;
 
-        if (val.length !== 6 || !/^[A-Z]{2}\d{4}$/.test(val)) {
-          alert("Bio Bank ID must be exactly 6 characters: first 2 letters then 4 digits.");
+        if (!/^[A-Z]{2}\d{4}$/.test(val)) {
+          alert("Bio Bank ID must be 2 letters followed by 4 digits.");
           input.value = "";
           return;
         }
 
-        // Uniqueness check only for valid 6-char IDs
+        const prefix = val.substring(0, 2);
+
+        if (!allowedPrefixes.includes(prefix)) {
+          alert(`Invalid Bio Bank ID prefix. Allowed prefixes: ${allowedPrefixes.join(", ")}`);
+          input.value = "";
+          return;
+        }
+
         db.ref("bbnmrn")
           .orderByValue()
           .equalTo(val)
@@ -966,54 +1002,6 @@
               input.value = "";
             }
           });
-      }
-      function formatBioInput(input) {
-        let raw = (input.value || "").replace(/[^a-zA-Z0-9]/g, "");
-
-        const ctEl = document.getElementById("cancerTypeInput");
-        const ct = ctEl ? ctEl.value : "";
-        // Build prefix (letters) and digits separately
-        let prefix = raw
-          .slice(0, 2)
-          .replace(/[^A-Za-z]/g, "")
-          .toUpperCase();
-        if (ct === "brst") {
-          prefix = "BR"; // force BR for breast
-        } else if (ct === "ceix") {
-          prefix = "CV"; // force CV for cervix
-        } else if (ct === "endm") {
-          prefix = "EM"; // force EM for endometrium
-        } else if (ct === "ovry") {
-          prefix = "OV"; // force OV for ovary
-        } else if (ct === "hene") {
-          prefix = "HN"; // force HN for head and neck
-        } else {
-          prefix = prefix.slice(0, 2);
-        }
-        let digits = raw.slice(prefix.length).replace(/\D/g, "").slice(0, 4);
-
-        // Enforce 2 letters + up to 4 digits while typing
-        input.value = (prefix + digits).slice(0, 6);
-
-        // Only validate strictly when full length reached
-        if (input.value.length === 6) {
-          if (!/^[A-Za-z]{2}\d{4}$/.test(input.value)) {
-            alert("Bio Bank ID must be exactly 6 characters: first 2 letters then 4 digits.");
-            input.value = "";
-            return;
-          }
-          // Uniqueness check (only at full length)
-          db.ref("bbnmrn")
-            .orderByValue()
-            .equalTo(input.value)
-            .once("value")
-            .then((snap) => {
-              if (!snap.exists()) {
-                alert("BioBank ID does not exist");
-                input.value = "";
-              }
-            });
-        }
       }
 
       function toggleCancerSampleEntry(selectedCancerType) {
