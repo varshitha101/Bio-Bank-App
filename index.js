@@ -285,62 +285,66 @@ function populateBBLabels(activeCancerType, data, boxVal) {
 
               if (sampleType === "Plasma" && timestampData.ie.bpg) {
                 const bpg = timestampData.ie.bpg;
-                const boxName = bpg.split("/")[0];
-                const bpgIndex1 = bpg.split("/")[1];
+                if (bpg) {
+                  const boxName = bpg.split("/")[0];
+                  const bpgIndex1 = bpg.split("/")[1];
 
-                if (bpgIndex1 && bpgIndex1.includes(getSeatLabel(index))) {
-                  matchedData.push({
-                    mode: "SearchView",
-                    bioBankId,
-                    seq: seqNum,
-                    timestamp: latestTimestamp,
-                  });
+                  if (bpgIndex1 && bpgIndex1.includes(getSeatLabel(index))) {
+                    matchedData.push({
+                      mode: "SearchView",
+                      bioBankId,
+                      seq: seqNum,
+                      timestamp: latestTimestamp,
+                    });
+                  }
                 }
               }
 
               if (sampleType === "Serum" && timestampData.ie.bsg) {
                 const bsg = timestampData.ie.bsg;
+                if (bsg) {
+                  const bsgIndex1 = bsg.split("/")[1]; // get index1
 
-                console.log("bsgIndex1", getSeatLabel(index));
-                const bsgIndex1 = bsg.split("/")[1]; // get index1
-
-                if (bsgIndex1 && bsgIndex1.includes(getSeatLabel(index))) {
-                  matchedData.push({
-                    mode: "SearchView",
-                    bioBankId,
-                    seq: seqNum,
-                    timestamp: latestTimestamp,
-                  });
+                  if (bsgIndex1 && bsgIndex1.includes(getSeatLabel(index))) {
+                    matchedData.push({
+                      mode: "SearchView",
+                      bioBankId,
+                      seq: seqNum,
+                      timestamp: latestTimestamp,
+                    });
+                  }
                 }
               }
 
               if (sampleType === "Buffy Coat" && timestampData.ie.bbcg) {
                 const bbcg = timestampData.ie.bbcg;
+                if (bbcg) {
+                  const bbcgIndex1 = bbcg.split("/")[1];
 
-                const bbcgIndex1 = bbcg.split("/")[1];
-
-                if (bbcgIndex1 && bbcgIndex1.includes(getSeatLabel(index))) {
-                  matchedData.push({
-                    mode: "SearchView",
-                    bioBankId,
-                    seq: seqNum,
-                    timestamp: latestTimestamp,
-                  });
+                  if (bbcgIndex1 && bbcgIndex1.includes(getSeatLabel(index))) {
+                    matchedData.push({
+                      mode: "SearchView",
+                      bioBankId,
+                      seq: seqNum,
+                      timestamp: latestTimestamp,
+                    });
+                  }
                 }
               }
 
               if (sampleType === "Other" && timestampData.ie.osg) {
                 const osg = timestampData.ie.osg;
+                if (osg) {
+                  const osgIndex1 = osg.split("/")[1];
 
-                const osgIndex1 = osg.split("/")[1];
-
-                if (osgIndex1 && osgIndex1.includes(getSeatLabel(index))) {
-                  matchedData.push({
-                    mode: "SearchView",
-                    bioBankId,
-                    seq: seqNum,
-                    timestamp: latestTimestamp,
-                  });
+                  if (osgIndex1 && osgIndex1.includes(getSeatLabel(index))) {
+                    matchedData.push({
+                      mode: "SearchView",
+                      bioBankId,
+                      seq: seqNum,
+                      timestamp: latestTimestamp,
+                    });
+                  }
                 }
               }
             });
@@ -375,48 +379,48 @@ function populateBBLabels(activeCancerType, data, boxVal) {
             }
 
             const dbData = snapshot.val();
-
             Object.keys(dbData).forEach((seqNum) => {
               const seqData = dbData[seqNum];
-
               Object.keys(seqData).forEach((timestamp) => {
                 const timestampData = seqData[timestamp];
-
                 if (sampleType === "Plasma" && timestampData.ie) {
                   const bpg = timestampData.ie.bpg;
-                  const boxName = bpg.split("/")[0];
-                  const bpgIndex1 = bpg.split("/")[1];
+                  if (bpg) {
+                    const boxName = bpg.split("/")[0];
+                    const bpgIndex1 = bpg.split("/")[1];
 
-                  if (bpgIndex1 && bpgIndex1.includes(getSeatLabel(index))) {
-                    matchedData.push({
-                      mode: "sharedView",
-                      boxName,
-                      bioBankId,
-                      seq: seqNum,
-                      timestamp,
-                    });
+                    if (bpgIndex1 && bpgIndex1.includes(getSeatLabel(index))) {
+                      matchedData.push({
+                        mode: "sharedView",
+                        boxName,
+                        bioBankId,
+                        seq: seqNum,
+                        timestamp,
+                      });
+                    }
                   }
                 }
                 if (sampleType === "Serum" && timestampData.ie) {
                   const bsg = timestampData.ie.bsg;
+                  if (bsg) {
+                    const boxName = bsg?.split("/")[0];
+                    const bsgIndex1 = bsg?.split("/")[1]; // get index1
 
-                  const boxName = bsg.split("/")[0];
-                  const bsgIndex1 = bsg.split("/")[1]; // get index1
-
-                  if (bsgIndex1 && bsgIndex1.includes(getSeatLabel(index))) {
-                    matchedData.push({
-                      mode: "sharedView",
-                      boxName,
-                      bioBankId,
-                      seq: seqNum,
-                      timestamp,
-                    });
+                    if (bsgIndex1 && bsgIndex1.includes(getSeatLabel(index))) {
+                      matchedData.push({
+                        mode: "sharedView",
+                        boxName,
+                        bioBankId,
+                        seq: seqNum,
+                        timestamp,
+                      });
+                    }
                   }
                 }
                 if (sampleType === "Buffy Coat" && timestampData.ie) {
                   const bbcg = timestampData.ie.bbcg;
 
-                  if (bbcg !== undefined) {
+                  if (bbcg) {
                     const boxName = bbcg.split("/")[0];
                     const bbcgIndex1 = bbcg.split("/")[1];
 
@@ -433,18 +437,19 @@ function populateBBLabels(activeCancerType, data, boxVal) {
                 }
                 if (sampleType === "Other" && timestampData.ie) {
                   const osg = timestampData.ie.osg;
+                  if (osg) {
+                    const boxName = osg.split("/")[0];
+                    const osgIndex1 = osg.split("/")[1];
 
-                  const boxName = osg.split("/")[0];
-                  const osgIndex1 = osg.split("/")[1];
-
-                  if (osgIndex1 && osgIndex1.includes(getSeatLabel(index))) {
-                    matchedData.push({
-                      mode: "sharedView",
-                      boxName,
-                      bioBankId,
-                      seq: seqNum,
-                      timestamp,
-                    });
+                    if (osgIndex1 && osgIndex1.includes(getSeatLabel(index))) {
+                      matchedData.push({
+                        mode: "sharedView",
+                        boxName,
+                        bioBankId,
+                        seq: seqNum,
+                        timestamp,
+                      });
+                    }
                   }
                 }
               });
@@ -489,7 +494,7 @@ function populateBBLabels(activeCancerType, data, boxVal) {
                 if (sampleType === "Plasma" && timestampData.ie) {
                   const bpg = timestampData.ie.bpg;
 
-                  if (bpg !== undefined) {
+                  if (bpg) {
                     const boxName = bpg.split("/")[0];
                     const bpgIndex1 = bpg.split("/")[1];
 
@@ -507,49 +512,55 @@ function populateBBLabels(activeCancerType, data, boxVal) {
                 if (sampleType === "Serum" && timestampData.ie) {
                   const bsg = timestampData.ie.bsg;
 
-                  const boxName = bsg.split("/")[0];
-                  const bsgIndex1 = bsg.split("/")[1]; // get index1
+                  if (bsg) {
+                    const boxName = bsg.split("/")[0];
+                    const bsgIndex1 = bsg.split("/")[1]; // get index1
 
-                  if (bsgIndex1 && bsgIndex1.includes(getSeatLabel(index))) {
-                    matchedData.push({
-                      mode: "sharedView",
-                      boxName,
-                      bioBankId,
-                      seq: seqNum,
-                      timestamp,
-                    });
+                    if (bsgIndex1 && bsgIndex1.includes(getSeatLabel(index))) {
+                      matchedData.push({
+                        mode: "sharedView",
+                        boxName,
+                        bioBankId,
+                        seq: seqNum,
+                        timestamp,
+                      });
+                    }
                   }
                 }
                 if (sampleType === "Buffy Coat" && timestampData.ie) {
                   const bbcg = timestampData.ie.bbcg;
 
-                  const boxName = bbcg.split("/")[0];
-                  const bbcgIndex1 = bbcg.split("/")[1];
+                  if (bbcg) {
+                    const boxName = bbcg.split("/")[0];
+                    const bbcgIndex1 = bbcg.split("/")[1];
 
-                  if (bbcgIndex1 && bbcgIndex1.includes(getSeatLabel(index))) {
-                    matchedData.push({
-                      mode: "sharedView",
-                      boxName,
-                      bioBankId,
-                      seq: seqNum,
-                      timestamp,
-                    });
+                    if (bbcgIndex1 && bbcgIndex1.includes(getSeatLabel(index))) {
+                      matchedData.push({
+                        mode: "sharedView",
+                        boxName,
+                        bioBankId,
+                        seq: seqNum,
+                        timestamp,
+                      });
+                    }
                   }
                 }
                 if (sampleType === "Other" && timestampData.ie) {
                   const osg = timestampData.ie.osg;
 
-                  const boxName = osg.split("/")[0];
-                  const osgIndex1 = osg.split("/")[1];
+                  if (osg) {
+                    const boxName = osg.split("/")[0];
+                    const osgIndex1 = osg.split("/")[1];
 
-                  if (osgIndex1 && osgIndex1.includes(getSeatLabel(index))) {
-                    matchedData.push({
-                      mode: "sharedView",
-                      boxName,
-                      bioBankId,
-                      seq: seqNum,
-                      timestamp,
-                    });
+                    if (osgIndex1 && osgIndex1.includes(getSeatLabel(index))) {
+                      matchedData.push({
+                        mode: "sharedView",
+                        boxName,
+                        bioBankId,
+                        seq: seqNum,
+                        timestamp,
+                      });
+                    }
                   }
                 }
               });
@@ -793,31 +804,35 @@ function populateSBLabels(activeCancerType, data) {
               const timestampData = seqData[latestTimestamp];
               if (sampleType.includes("FT") && timestampData.ie.ftg) {
                 const ftg = timestampData.ie.ftg;
-                const boxName = ftg.split("/")[0];
-                const ftgIndex1 = ftg.split("/")[1];
+                if (ftg) {
+                  const boxName = ftg.split("/")[0];
+                  const ftgIndex1 = ftg.split("/")[1];
 
-                if (ftgIndex1 && ftgIndex1.includes(getSeatLabel(index))) {
-                  matchedData.push({
-                    mode: "SearchView",
-                    bioBankId,
-                    seq: seqNum,
-                    timestamp: latestTimestamp,
-                  });
+                  if (ftgIndex1 && ftgIndex1.includes(getSeatLabel(index))) {
+                    matchedData.push({
+                      mode: "SearchView",
+                      bioBankId,
+                      seq: seqNum,
+                      timestamp: latestTimestamp,
+                    });
+                  }
                 }
               }
 
               if (sampleType.includes("FN") && timestampData.ie.fng) {
                 const fng = timestampData.ie.fng;
-                const boxName = fng.split("/")[0];
-                const fngIndex1 = fng.split("/")[1];
+                if (fng) {
+                  const boxName = fng.split("/")[0];
+                  const fngIndex1 = fng.split("/")[1];
 
-                if (fngIndex1 && fngIndex1.includes(getSeatLabel(index))) {
-                  matchedData.push({
-                    mode: "SearchView",
-                    bioBankId,
-                    seq: seqNum,
-                    timestamp: latestTimestamp,
-                  });
+                  if (fngIndex1 && fngIndex1.includes(getSeatLabel(index))) {
+                    matchedData.push({
+                      mode: "SearchView",
+                      bioBankId,
+                      seq: seqNum,
+                      timestamp: latestTimestamp,
+                    });
+                  }
                 }
               }
             });
@@ -860,33 +875,36 @@ function populateSBLabels(activeCancerType, data) {
 
                 if (sampleType.includes("FT") && timestampData.ie.ftg) {
                   const ftg = timestampData.ie.ftg;
-                  const boxName = ftg.split("/")[0];
-                  const ftgIndex1 = ftg.split("/")[1];
+                  if (ftg) {
+                    const boxName = ftg.split("/")[0];
+                    const ftgIndex1 = ftg.split("/")[1];
 
-                  if (ftgIndex1 && ftgIndex1.includes(getSeatLabel(index))) {
-                    matchedData.push({
-                      mode: "sharedView",
-                      boxName,
-                      bioBankId,
-                      seq: seqNum,
-                      timestamp,
-                    });
+                    if (ftgIndex1 && ftgIndex1.includes(getSeatLabel(index))) {
+                      matchedData.push({
+                        mode: "sharedView",
+                        boxName,
+                        bioBankId,
+                        seq: seqNum,
+                        timestamp,
+                      });
+                    }
                   }
                 }
                 if (sampleType.includes("FN") && timestampData.ie.fng) {
                   const fng = timestampData.ie.fng;
+                  if (fng) {
+                    const boxName = fng.split("/")[0];
+                    const fngIndex1 = fng.split("/")[1]; // get index1
 
-                  const boxName = fng.split("/")[0];
-                  const fngIndex1 = fng.split("/")[1]; // get index1
-
-                  if (fngIndex1 && fngIndex1.includes(getSeatLabel(index))) {
-                    matchedData.push({
-                      mode: "sharedView",
-                      boxName,
-                      bioBankId,
-                      seq: seqNum,
-                      timestamp,
-                    });
+                    if (fngIndex1 && fngIndex1.includes(getSeatLabel(index))) {
+                      matchedData.push({
+                        mode: "sharedView",
+                        boxName,
+                        bioBankId,
+                        seq: seqNum,
+                        timestamp,
+                      });
+                    }
                   }
                 }
               });
@@ -929,33 +947,36 @@ function populateSBLabels(activeCancerType, data) {
 
                 if (sampleType.includes("FT") && timestampData.ie) {
                   const ftg = timestampData.ie.ftg;
-                  const boxName = ftg.split("/")[0];
-                  const ftgIndex1 = ftg.split("/")[1];
+                  if (ftg) {
+                    const boxName = ftg.split("/")[0];
+                    const ftgIndex1 = ftg.split("/")[1];
 
-                  if (ftgIndex1 && ftgIndex1.includes(getSeatLabel(index))) {
-                    matchedData.push({
-                      mode: "sharedView",
-                      boxName,
-                      bioBankId,
-                      seq: seqNum,
-                      timestamp,
-                    });
+                    if (ftgIndex1 && ftgIndex1.includes(getSeatLabel(index))) {
+                      matchedData.push({
+                        mode: "sharedView",
+                        boxName,
+                        bioBankId,
+                        seq: seqNum,
+                        timestamp,
+                      });
+                    }
                   }
                 }
                 if (sampleType.includes("FN") && timestampData.ie) {
                   const fng = timestampData.ie.fng;
+                  if (fng) {
+                    const boxName = fng.split("/")[0];
+                    const fngIndex1 = fng.split("/")[1]; // get index1
 
-                  const boxName = fng.split("/")[0];
-                  const fngIndex1 = fng.split("/")[1]; // get index1
-
-                  if (fngIndex1 && fngIndex1.includes(getSeatLabel(index))) {
-                    matchedData.push({
-                      mode: "sharedView",
-                      boxName,
-                      bioBankId,
-                      seq: seqNum,
-                      timestamp,
-                    });
+                    if (fngIndex1 && fngIndex1.includes(getSeatLabel(index))) {
+                      matchedData.push({
+                        mode: "sharedView",
+                        boxName,
+                        bioBankId,
+                        seq: seqNum,
+                        timestamp,
+                      });
+                    }
                   }
                 }
               });
@@ -1142,16 +1163,18 @@ function populateRLTLabels(activeCancerType, data, boxVal) {
 
               if ((sampleType === "RLT" || sampleType === "RLT") && timestampData.ie.rlt) {
                 const rlt = timestampData.ie.rlt;
-                const boxName = rlt.split("/")[0];
-                const rltIndex1 = rlt.split("/")[1];
+                if (rlt) {
+                  const boxName = rlt.split("/")[0];
+                  const rltIndex1 = rlt.split("/")[1];
 
-                if (rltIndex1 && rltIndex1.includes(getSeatLabel(index))) {
-                  matchedData.push({
-                    mode: "SearchView",
-                    bioBankId,
-                    seq: seqNum,
-                    timestamp: latestTimestamp,
-                  });
+                  if (rltIndex1 && rltIndex1.includes(getSeatLabel(index))) {
+                    matchedData.push({
+                      mode: "SearchView",
+                      bioBankId,
+                      seq: seqNum,
+                      timestamp: latestTimestamp,
+                    });
+                  }
                 }
               }
             });
@@ -1194,17 +1217,19 @@ function populateRLTLabels(activeCancerType, data, boxVal) {
 
                 if ((sampleType === "RLT" || sampleType === "RLT") && timestampData.ie.rlt) {
                   const rlt = timestampData.ie.rlt;
-                  const boxName = rlt.split("/")[0];
-                  const rltIndex1 = rlt.split("/")[1];
+                  if (rlt) {
+                    const boxName = rlt.split("/")[0];
+                    const rltIndex1 = rlt.split("/")[1];
 
-                  if (rltIndex1 && rltIndex1.includes(getSeatLabel(index))) {
-                    matchedData.push({
-                      mode: "sharedView",
-                      boxName,
-                      bioBankId,
-                      seq: seqNum,
-                      timestamp,
-                    });
+                    if (rltIndex1 && rltIndex1.includes(getSeatLabel(index))) {
+                      matchedData.push({
+                        mode: "sharedView",
+                        boxName,
+                        bioBankId,
+                        seq: seqNum,
+                        timestamp,
+                      });
+                    }
                   }
                 }
               });
@@ -1246,17 +1271,19 @@ function populateRLTLabels(activeCancerType, data, boxVal) {
 
                 if ((sampleType === "RLT" || sampleType === "RLT") && timestampData.ie.rlt) {
                   const rlt = timestampData.ie.rlt;
-                  const boxName = rlt.split("/")[0];
-                  const rltIndex1 = rlt.split("/")[1];
+                  if (rlt) {
+                    const boxName = rlt.split("/")[0];
+                    const rltIndex1 = rlt.split("/")[1];
 
-                  if (rltIndex1 && rltIndex1.includes(getSeatLabel(index))) {
-                    matchedData.push({
-                      mode: "sharedView",
-                      boxName,
-                      bioBankId,
-                      seq: seqNum,
-                      timestamp,
-                    });
+                    if (rltIndex1 && rltIndex1.includes(getSeatLabel(index))) {
+                      matchedData.push({
+                        mode: "sharedView",
+                        boxName,
+                        bioBankId,
+                        seq: seqNum,
+                        timestamp,
+                      });
+                    }
                   }
                 }
               });
@@ -1445,16 +1472,18 @@ function populatePCBLabels(activeCancerType, data, boxVal) {
 
               if ((sampleType === "PC" || sampleType === "PC") && timestampData.ie.pc) {
                 const pc = timestampData.ie.pc;
-                const boxName = pc.split("/")[0];
-                const pcIndex1 = pc.split("/")[1];
+                if (pc) {
+                  const boxName = pc.split("/")[0];
+                  const pcIndex1 = pc.split("/")[1];
 
-                if (pcIndex1 && pcIndex1.includes(getSeatLabel(index))) {
-                  matchedData.push({
-                    mode: "SearchView",
-                    bioBankId,
-                    seq: seqNum,
-                    timestamp: latestTimestamp,
-                  });
+                  if (pcIndex1 && pcIndex1.includes(getSeatLabel(index))) {
+                    matchedData.push({
+                      mode: "SearchView",
+                      bioBankId,
+                      seq: seqNum,
+                      timestamp: latestTimestamp,
+                    });
+                  }
                 }
               }
             });
@@ -1496,17 +1525,19 @@ function populatePCBLabels(activeCancerType, data, boxVal) {
 
                 if ((sampleType === "PC" || sampleType === "PC") && timestampData.ie.pc) {
                   const pc = timestampData.ie.pc;
-                  const boxName = pc.split("/")[0];
-                  const pcIndex1 = pc.split("/")[1];
+                  if (pc) {
+                    const boxName = pc.split("/")[0];
+                    const pcIndex1 = pc.split("/")[1];
 
-                  if (pcIndex1 && pcIndex1.includes(getSeatLabel(index))) {
-                    matchedData.push({
-                      mode: "sharedView",
-                      boxName,
-                      bioBankId,
-                      seq: seqNum,
-                      timestamp,
-                    });
+                    if (pcIndex1 && pcIndex1.includes(getSeatLabel(index))) {
+                      matchedData.push({
+                        mode: "sharedView",
+                        boxName,
+                        bioBankId,
+                        seq: seqNum,
+                        timestamp,
+                      });
+                    }
                   }
                 }
               });
@@ -1549,17 +1580,19 @@ function populatePCBLabels(activeCancerType, data, boxVal) {
 
                 if ((sampleType === "PC" || sampleType === "PC") && timestampData.ie.pc) {
                   const pc = timestampData.ie.pc;
-                  const boxName = pc.split("/")[0];
-                  const pcIndex1 = pc.split("/")[1];
+                  if (pc) {
+                    const boxName = pc.split("/")[0];
+                    const pcIndex1 = pc.split("/")[1];
 
-                  if (pcIndex1 && pcIndex1.includes(getSeatLabel(index))) {
-                    matchedData.push({
-                      mode: "sharedView",
-                      boxName,
-                      bioBankId,
-                      seq: seqNum,
-                      timestamp,
-                    });
+                    if (pcIndex1 && pcIndex1.includes(getSeatLabel(index))) {
+                      matchedData.push({
+                        mode: "sharedView",
+                        boxName,
+                        bioBankId,
+                        seq: seqNum,
+                        timestamp,
+                      });
+                    }
                   }
                 }
               });
@@ -4526,7 +4559,7 @@ function updateToFirebase(data, patientInfo) {
           henef: data.brf,
         };
       }
-      
+
       if (snapshot && snapshot.exists()) {
         const sections = snapshot.val();
         const sectionKeys = Object.keys(sections);
@@ -5866,7 +5899,8 @@ function fillMdForm_hene(mdData) {
     if (mdData.mps) document.querySelector(`input[name="mps_hene"][value="${mdData.mps}"]`).checked = true || "";
 
     document.getElementById("pType_hene").value = mdData?.pt || "";
-    pTyp_pSubTyp_hene(mdData?.pt);
+    document.getElementById("pType_hene").disabled = isReadOnlyViewMode(mode);
+    document.getElementById("pType_hene").dispatchEvent(new Event("change"));
     document.getElementById("pType_Oth_hene").value = mdData?.ptOth || "";
     document.getElementById("pType_Oth_hene").disabled = isReadOnlyViewMode(mode);
     if (mdData.pst) {
@@ -9038,16 +9072,25 @@ function fetchPendingEntries() {
             const dataEntry = section[newtimestamp];
 
             const patient = dataEntry.ie || {};
+            const ct = patient.ct;
             const differenceInMinutes = (currentTime - timestamp) / (60 * 1000);
-            const res = dataEntry && (dataEntry?.md?.pst === "" || !dataEntry?.md?.hasOwnProperty("pst")) && differenceInMinutes > sevenDaysInMinutes;
+            const histResult =
+              ct === "brst" || ct === "endm"
+                ? dataEntry?.md?.pst === ""
+                : ct === "ceix" || ct === "ovry"
+                  ? !dataEntry?.md?.hasOwnProperty("pst")
+                  : ct === "hene"
+                    ? !dataEntry?.md?.hasOwnProperty("pst") && dataEntry?.md?.pt === ""
+                    : false;
+            const res = dataEntry && histResult && differenceInMinutes > sevenDaysInMinutes;
             if (res) {
               tableData.push({
                 bioBankId: bioBankId,
                 seq: sectionKey,
-                age: dataEntry.ie.ag || "-",
-                gender: getGender(dataEntry.ie.sx),
-                cancerType: getCancerType(dataEntry.ie.ct),
-                ct: dataEntry.ie.ct,
+                age: patient.ag || "-",
+                gender: getGender(patient.sx),
+                cancerType: getCancerType(ct),
+                ct: ct,
                 newtimestamp: newtimestamp,
               });
             }
@@ -12184,120 +12227,5 @@ function breFd_ovry() {
   } else {
     $("#durFeed_ovry").hide();
     $("#dbf_ovry").val("");
-  }
-}
-// Head and Neck Histological Subtype
-function pTyp_pSubTyp_hene(pt) {
-  const mode = localStorage.getItem("mode");
-  const option = pt || $("#pType_hene").val();
-  const showSubType = [
-    "op1",
-    "op2",
-    "op3",
-    "op4",
-    "op5",
-    "op6",
-    "op7",
-    "op8",
-    "op9",
-    "op19",
-    "op20",
-    "op21",
-    "op22",
-    "op23",
-    "op24",
-    "op25",
-    "op26",
-    "op27",
-    "op28",
-    "op29",
-    "op30",
-    "op39",
-    "op40",
-    "op41",
-    "op42",
-    "op43",
-    "op44",
-    "op45",
-    "op46",
-    "op47",
-    "op48",
-    "op49",
-    "op50",
-    "op51",
-    "op52",
-    "op53",
-    "op54",
-  ].includes(option);
-  const supportsOtherType = ["op9", "op18", "op43", "op58"].includes(option);
-  const enableOtherType = supportsOtherType || isReadOnlyViewMode(mode);
-  $("#histological_subtype").toggle(showSubType);
-  $("#pType_Oth_hene")
-    .prop("disabled", !supportsOtherType || isReadOnlyViewMode(mode))
-    .val(enableOtherType ? $("#pType_Oth_hene").val() : "");
-
-  $("#pType_op1_hene").toggle(option === "op1");
-  $("#pType_op2_hene").toggle(option === "op2");
-  $("#pType_op3_hene").toggle(option === "op3");
-  $("#pType_op4_hene").toggle(option === "op4");
-  $("#pType_op5_hene").toggle(option === "op5");
-  $("#pType_op6_hene").toggle(option === "op6");
-  $("#pType_op7_hene").toggle(option === "op7");
-  $("#pType_op8_hene").toggle(option === "op8");
-  $("#pType_op9_hene").toggle(option === "op9");
-  $("#pType_op19_hene").toggle(option === "op19");
-  $("#pType_op20_hene").toggle(option === "op20");
-  $("#pType_op21_hene").toggle(option === "op21");
-  $("#pType_op22_hene").toggle(option === "op22");
-  $("#pType_op23_hene").toggle(option === "op23");
-  $("#pType_op24_hene").toggle(option === "op24");
-  $("#pType_op25_hene").toggle(option === "op25");
-  $("#pType_op26_hene").toggle(option === "op26");
-  $("#pType_op27_hene").toggle(option === "op27");
-  $("#pType_op28_hene").toggle(option === "op28");
-  $("#pType_op29_hene").toggle(option === "op29");
-  $("#pType_op30_hene").toggle(
-    option === "op30" ||
-      option === "op39" ||
-      option === "op40" ||
-      option === "op41" ||
-      option === "op42" ||
-      option === "op43" ||
-      option === "op44" ||
-      option === "op45" ||
-      option === "op46" ||
-      option === "op47" ||
-      option === "op48" ||
-      option === "op49" ||
-      option === "op50" ||
-      option === "op51" ||
-      option === "op52" ||
-      option === "op54" ||
-      option === "op53",
-  );
-
-  $("#pType_op31_1_hene").toggle(option === "op31");
-  $("#pType_op31_2_hene").toggle(option === "op31");
-  $("#pType_op33_hene").toggle(option === "op32" || option === "op33");
-  $("#pType_op34_hene").toggle(option === "op34");
-
-  $("#pType_op35_1_hene").toggle(option === "op35" || option === "op36" || option === "op37" || option === "op38");
-  $("#pType_op35_2_hene").toggle(option === "op35" || option === "op36" || option === "op37" || option === "op38");
-
-  // Clear the tags when switched
-  if (mode === "undefined") {
-    $('input[name="pSubType_hene"]').each(function () {
-      $(this).prop("checked", false);
-      const target = `#pSubType_${$(this).val()}_Oth_hene`;
-
-      if ($(target).length) {
-        // enable when checked and disble when checked if in read mode
-        $(target).prop("disabled", !$(this).is(":checked") || isReadOnlyViewMode(mode));
-
-        if (!$(this).is(":checked")) {
-          $(target).val("");
-        }
-      }
-    });
   }
 }

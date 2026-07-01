@@ -65,3 +65,60 @@
   padding: 0.25em 0.45em;
   display: none;
 }
+
+.sample-search-form-hene {
+  width: 100%;
+}
+
+.sample-search-form-hene .hene-search-grid {
+  display: grid;
+  grid-template-columns: minmax(90px, 0.75fr) minmax(120px, 1fr) minmax(230px, 1.8fr) minmax(160px, 1.2fr);
+  gap: 14px 26px;
+  align-items: end;
+}
+
+.sample-search-form-hene .hene-field {
+  margin-bottom: 0;
+}
+
+.sample-search-form-hene .hene-field label {
+  display: block;
+  margin-bottom: 0.45rem;
+}
+
+.sample-search-form-hene .hene-field-histology {
+  grid-column: span 2;
+}
+
+.sample-search-form-hene .hene-search-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.sample-search-form-hene .hene-search-action-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+@media (max-width: 991.98px) {
+  .sample-search-form-hene .hene-search-grid {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+  }
+
+  .sample-search-form-hene .hene-field-histology {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .sample-search-form-hene .hene-search-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sample-search-form-hene .hene-field-histology {
+    grid-column: auto;
+  }
+}

@@ -143,7 +143,7 @@
                       <option value="ceix">Cervical Cancer</option>
                       <option value="endm">Endometrial Cancer</option>
                       <option value="hene">Head and Neck Cancer</option>
-                      <option value="lung" disabled>Lung Cancer</option>
+                      <option value="lung">Lung Cancer</option>
                       <option value="pncr" disabled>Pancreas</option>
                       <option value="utrs" disabled>Uterus</option>
                       <option value="omnt" disabled>Omentum</option>
@@ -3154,7 +3154,7 @@
                 </div>
                 <!-- Head and Neck Cancer Sample Entry End -->
                 <!-- Lung Cancer Sample Entry Start -->
-                <!-- <div id="sample_entry_lung">
+                <div id="sample_entry_lung">
                   <div class="row ml-1 mb-3">
                     <label for="patAge_lung" class="col-sm-2 mb-1 col-form-label">Age <span style="color: red; font-weight: bold">*</span></label>
                     <div class="col-sm-10 mt-2">
@@ -3262,7 +3262,43 @@
                   <div class="row ml-1 mb-3" id="mptS_lung" style="display: none">
                     <label for="mpt_site_lung" class="col-sm-2 mb-1 col-form-label">Site</label>
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="mpt_site_lung" placeholder="" />
+                      <select id="mpt_site_lung" class="form-control">
+                        <option value=""></option>
+                        <option value="op1">Upper lobe of lung</option>
+                        <option value="op2">Middle lobe of lung</option>
+                        <option value="op3">Lower lobe of lung</option>
+                        <option value="op4">Bronchus, main</option>
+                        <option value="op5">Bronchus intermedius</option>
+                        <option value="op6">Bronchus, lobar</option>
+                        <option value="op7">Other</option>
+                        <option value="op8">Not specified</option>
+                      </select>
+                      <input type="text" class="form-control mt-2" id="mpt_site_Oth_lung" placeholder="specify" disabled />
+                    </div>
+                  </div>
+
+                  <div class="row ml-1 mb-3" id="syncT_C_lung" style="display: none">
+                    <label for="syncT_lung" class="col-sm-2 mb-1 col-form-label">Synchronous Tumors</label>
+                    <div class="col-sm-10">
+                      <select id="syncT_lung" class="form-control">
+                        <option value=""></option>
+                        <option value="op1">Not present</option>
+                        <option value="op2">Present</option>
+                        <option value="op3">Cannot be determined</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="row ml-1 mb-3" id="priT_C_lung" style="display: none">
+                    <label for="priT_lung" class="col-sm-2 mb-1 col-form-label">Total Number of Primary Tumors</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="priT_lung" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="specID_C_lung" style="display: none">
+                    <label for="specID_lung" class="col-sm-2 mb-1 col-form-label">Specimen ID(s)</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="specID_lung" placeholder="" />
                     </div>
                   </div>
 
@@ -3477,30 +3513,61 @@
                   <div class="row ml-1 mb-3" id="nactTE_lung" style="display: none">
                     <label for="" class="col-sm-2 mb-1 col-form-label">Treatment effect in Breast</label>
                     <div class="col-sm-10">
-                      <div class="row">
-                        <div class="col-sm-6">
-                          <select id="nactEff_lung1" class="form-control">
-                            <option value=""></option>
-                            <option value="op1">No known presurgical therapy</option>
-                            <option value="op2">Not identified</option>
-                            <option value="op3">Present</option>
-                            <option value="op4">Percentage of Residual Viable Tumor</option>
-                            <option value="op5">Percentage of Necrosis</option>
-                            <option value="op6">Percentage of Stroma (includes fibrosis and inflammation)</option>
-                            <option value="op7">Inflammation</option>
-                          </select>
-                        </div>
-                        <div class="col-sm-6">
-                          <select id="nactEff_lung2" class="form-control">
-                            <option value="">Select</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="row mt-2">
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control" id="nactEffOther_lung" placeholder="" disabled />
-                        </div>
-                      </div>
+                      <select id="nactEff_lung" class="form-control">
+                        <option value=""></option>
+                        <option value="op1">No known presurgical therapy</option>
+                        <option value="op2">Not identified</option>
+                        <option value="op3">Present</option>
+                        <option value="op4">Cannot be determined</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="pRVT_C_lung" style="display: none">
+                    <label for="" class="col-sm-2 mb-1 col-form-label">Percentage of Residual Viable Tumor</label>
+                    <div class="col-sm-10">
+                      <select id="pRVT_lung" class="form-control">
+                        <option value=""></option>
+                        <option value="op1">Specify percentage</option>
+                        <option value="op2">Other</option>
+                        <option value="op3">Cannot be determined</option>
+                      </select>
+                      <input type="text" class="form-control mt-2" id="pRVT_Oth_lung" placeholder="specify" disabled />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="pN_C_lung" style="display: none">
+                    <label for="" class="col-sm-2 mb-1 col-form-label">Percentage of Necrosis</label>
+                    <div class="col-sm-10">
+                      <select id="pN_lung" class="form-control">
+                        <option value=""></option>
+                        <option value="op1">Specify percentage</option>
+                        <option value="op2">Other</option>
+                        <option value="op3">Cannot be determined</option>
+                      </select>
+                      <input type="text" class="form-control mt-2" id="pN_Oth_lung" placeholder="specify" disabled />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="pS_C_lung" style="display: none">
+                    <label for="" class="col-sm-2 mb-1 col-form-label">Percentage of Stroma (includes fibrosis and inflammation)</label>
+                    <div class="col-sm-10">
+                      <select id="pS_lung" class="form-control">
+                        <option value=""></option>
+                        <option value="op1">Specify percentage</option>
+                        <option value="op2">Other</option>
+                        <option value="op3">Cannot be determined</option>
+                      </select>
+                      <input type="text" class="form-control mt-2" id="pS_Oth_lung" placeholder="specify" disabled />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="nactTE_lung" style="display: none">
+                    <label for="" class="col-sm-2 mb-1 col-form-label">Inflammation</label>
+                    <div class="col-sm-10">
+                      <select id="nactEff_lung" class="form-control">
+                        <option value=""></option>
+                        <option value="op1">Mild</option>
+                        <option value="op2">Not identified</option>
+                        <option value="op3">Present</option>
+                        <option value="op4">Cannot be determined</option>
+                      </select>
                     </div>
                   </div>
 
@@ -3753,7 +3820,7 @@
                       </div>
                     </div>
                   </div>
-                </div> -->
+                </div>
                 <!-- Breast Cancer Sample Entry End -->
               </form>
               <form class="form-group mt-3 form-step" id="form2" style="display: none">
@@ -9803,6 +9870,758 @@
                   </div>
                 </div>
                 <!-- Meta-Data Head and Neck End -->
+                <!-- Meta-Data Lung Cancer Start -->
+                <div id="metaData_entry_lung">
+                  <div class="row ml-1 mb-3">
+                    <h3 class="col-sm-10 col-form-label">Metadata</h3>
+                    <div class="col-sm-2 mt-2 pl-5"></div>
+                  </div>
+                  <div id="mdCurrentUser_lung" style="display: none">
+                    <div class="row ml-1 mb-3">
+                      <label for="boxNo_lung" class="col-sm-3 mb-1 col-form-label">Data Entry By </label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" id="mddataEB_lung" placeholder="" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="RadioFHabit_lung" class="col-sm-3 mb-1 col-form-label">Family History of Cancer</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="familyHistoryCancer1_lung" name="RadioFHabit_lung" class="custom-control-input" value="true" />
+                        <label class="custom-control-label" for="familyHistoryCancer1_lung">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="familyHistoryCancer2_lung" name="RadioFHabit_lung" class="custom-control-input" value="false" />
+                        <label class="custom-control-label" for="familyHistoryCancer2_lung">No</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-RadioFHabit-lung">
+                      <!-- The icon will be dynamically inserted here -->
+                    </div>
+                  </div>
+
+                  <div class="row ml-1 mb-3" id="relation_Cancer_lung" style="display: none">
+                    <label for="date" class="col-sm-3 mb-1 col-form-label">Relation and Cancer type</label>
+                    <div class="col-sm-9">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <input type="text" class="form-control" id="familyRelation_lung" placeholder="Relation" />
+                        </div>
+                        <div class="col-sm-6">
+                          <input type="text" class="form-control" id="familyCancerType_lung" placeholder="Cancer Type" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="RadioFdHabit_lung" class="col-sm-3 mb-1 col-form-label">Food Habits</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="foodH1_lung" name="RadioFdHabit_lung" class="custom-control-input" value="true" />
+                        <label class="custom-control-label" for="foodH1_lung">Veg</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="foodH2_lung" name="RadioFdHabit_lung" class="custom-control-input" value="false" />
+                        <label class="custom-control-label" for="foodH2_lung">Non Veg</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-RadioFdHabit-lung"></div>
+                  </div>
+
+                  <div class="row ml-1 mb-3">
+                    <label for="alcoholHabit_lung" class="col-sm-3 mb-1 col-form-label">History of Alcohol Consumption</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="AlcoholH1_lung" name="RadioAlcoholHabit_lung" class="custom-control-input" value="true" />
+                        <label class="custom-control-label" for="AlcoholH1_lung">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="AlcoholH2_lung" name="RadioAlcoholHabit_lung" class="custom-control-input" value="false" />
+                        <label class="custom-control-label" for="AlcoholH2_lung">No</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-RadioAlcoholHabit-lung"></div>
+                  </div>
+
+                  <div class="row ml-1 mb-3">
+                    <label for="smokingHabit_lung" class="col-sm-3 mb-1 col-form-label">History of Smoking</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="smokeH1_lung" name="RadioSmokeHabit_lung" class="custom-control-input" value="true" />
+                        <label class="custom-control-label" for="smokeH1_lung">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="smokeH2_lung" name="RadioSmokeHabit_lung" class="custom-control-input" value="false" />
+                        <label class="custom-control-label" for="smokeH2_lung">No</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-RadioSmokeHabit-lung"></div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="ECH_lung" class="col-sm-3 mb-1 col-form-label">Existing Comorbidities</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="ECH1_lung" name="ECH_lung" class="custom-control-input" value="true" />
+                        <label class="custom-control-label" for="ECH1_lung">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="ECH2_lung" name="ECH_lung" class="custom-control-input" value="false" />
+                        <label class="custom-control-label" for="ECH2_lung">No</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-ECH-lung"></div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="cvSym_lung" style="display: none">
+                    <label for="" class="col-sm-11 mb-1 col-form-label">Comorbidities Details</label>
+                    <div class="col-sm-1 mt-2 pr-4" style="display: flex; flex-direction: row-reverse">
+                      <div class="input-group-append">
+                        <img src="assets/images/add-med-1.svg" alt="" id="cvSymAddBtn_lung" style="height: 28px; width: 28px; cursor: pointer" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="FF_QC_lung" class="col-sm-3 mb-1 col-form-label">FF_QC comments</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="ffQcComments_lung" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="FF_ti_lung" class="col-sm-3 mb-1 col-form-label">FF_tissue Remarks</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="ffTissueRemarks_lung" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="tumorSite_lung" class="col-sm-3 mb-1 col-form-label">Tumor Site</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="tumorSite_lung" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="tumorSubTypeContainer_lung">
+                    <label for="tumorSubSite_lung" class="col-sm-3 mb-1 col-form-label">Tumor Subsite</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="tumorSubSite_lung" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="tumorLat_lung" class="col-sm-3 mb-1 col-form-label">Tumor Laterality</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="tumorLatR_lung" name="tumorLat_lung" class="custom-control-input" value="R" />
+                        <label class="custom-control-label" for="tumorLatR_lung">Right</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="tumorLatL_lung" name="tumorLat_lung" class="custom-control-input" value="L" />
+                        <label class="custom-control-label" for="tumorLatL_lung">Left</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="tumorLatNS_lung" name="tumorLat_lung" class="custom-control-input" value="NS" />
+                        <label class="custom-control-label" for="tumorLatNS_lung">Not specified</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-tumorLat-lung"></div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="tumorPercentage_lung" class="col-sm-3 mb-1 col-form-label">Tumor %</label>
+                    <div class="col-sm-9">
+                      <input type="number" class="form-control" id="tumorPercentage_lung" placeholder="Percentage %" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="ageAtDiagnosis_lung" class="col-sm-3 mb-1 col-form-label">Age at Diagnosis</label>
+                    <div class="col-sm-9">
+                      <input type="number" class="form-control" id="ageAtDiagnosis_lung" placeholder="yrs" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="cStage_lung" class="col-sm-3 mb-1 col-form-label">Clinical Stage</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="clinicalStage_lung" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="IHC_Status_lung" class="col-sm-3 mb-1 col-form-label">IHC Marker status</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="IHC_yes_lung" name="IHC_Status_lung" class="custom-control-input" value="true" />
+                        <label class="custom-control-label" for="IHC_yes_lung">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="IHC_no_lung" name="IHC_Status_lung" class="custom-control-input" value="false" />
+                        <label class="custom-control-label" for="IHC_no_lung">No</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-IHC-lung"></div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="ihcDescr_lung" style="display: none">
+                    <label for="IHC_Description_lung" class="col-sm-3 mb-1 col-form-label">IHC Marker Description</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="IHC_Description_lung" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="GeneticT_lung" class="col-sm-3 mb-1 col-form-label">Genetic Testing</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="gt_yes_lung" name="GeneticT_lung" class="custom-control-input" value="true" />
+                        <label class="custom-control-label" for="gt_yes_lung">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="gt_no_lung" name="GeneticT_lung" class="custom-control-input" value="false" />
+                        <label class="custom-control-label" for="gt_no_lung">No</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-GeneticT-lung"></div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="gtrs_lung" style="display: none">
+                    <label for="" class="col-sm-3 mb-1 col-form-label">Genetic Testing Results</label>
+                    <div class="col-sm-9 mt-2">
+                      <select id="gtr_lung" class="form-control">
+                        <option value="">Select</option>
+                        <option value="pos">Positive</option>
+                        <option value="nev">Negative</option>
+                        <option value="vus">Variant of Uncertain Significance</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="dt_Desc_lung" style="display: none">
+                    <label for="GT_Description_lung" class="col-sm-3 mb-1 col-form-label">Genetic Testing Description</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="GT_Description_lung" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="pType_lung" class="col-sm-3 mb-1 col-form-label">Histological Type</label>
+                    <div class="col-sm-9">
+                      <select id="pType_lung" class="form-control">
+                        <option value="">Select</option>
+                        <option value="op1">Adenocarcinoma in situ (AIS), non-mucinous</option>
+                        <option value="op2">Adenocarcinoma in situ (AIS), mucinous</option>
+                        <option value="op3">Minimally invasive adenocarcinoma, non-mucinous</option>
+                        <option value="op4">Minimally invasive adenocarcinoma, mucinous</option>
+                        <option value="op5">Invasive lepidic adenocarcinoma</option>
+                        <option value="op6">Invasive acinar adenocarcinoma</option>
+                        <option value="op7">Invasive papillary adenocarcinoma</option>
+                        <option value="op8">Invasive micropapillary adenocarcinoma</option>
+                        <option value="op9">Invasive solid adenocarcinoma</option>
+                        <option value="op10">Invasive mucinous adenocarcinoma</option>
+                        <option value="op11">Mixed invasive mucinous and non-mucinous adenocarcinoma</option>
+                        <option value="op12">Colloid adenocarcinoma</option>
+                        <option value="op13">Fetal adenocarcinoma</option>
+                        <option value="op14">Enteric-type adenocarcinoma</option>
+                        <option value="op15">Squamous cell carcinoma in situ (SCIS)</option>
+                        <option value="op16">Invasive squamous cell carcinoma, keratinizing</option>
+                        <option value="op17">Invasive squamous cell carcinoma, non-keratinizing</option>
+                        <option value="op18">Invasive squamous cell carcinoma, basaloid</option>
+                        <option value="op19">Lymphoepithelial carcinoma</option>
+                        <option value="op20">Large cell carcinoma</option>
+                        <option value="op21">Adenosquamous carcinoma</option>
+                        <option value="op22">Pleomorphic carcinoma</option>
+                        <option value="op23">Pulmonary blastoma</option>
+                        <option value="op24">Carcinosarcoma</option>
+                        <option value="op25">NUT carcinoma</option>
+                        <option value="op26">Thoracic SMARCA4-deficient undifferentiated tumor</option>
+                        <option value="op27">Adenoid cystic carcinoma</option>
+                        <option value="op28">Epithelial-myoepithelial carcinoma</option>
+                        <option value="op29">Mucoepidermoid carcinoma</option>
+                        <option value="op30">Hyalinizing clear cell carcinoma</option>
+                        <option value="op31">Myoepithelial carcinoma</option>
+                        <option value="op32">Typical carcinoid / Neuroendocrine tumor, grade 1</option>
+                        <option value="op33">Atypical carcinoid / Neuroendocrine tumor, grade 2</option>
+                        <option value="op34">Carcinoid tumor, NOS / Neuroendocrine tumor, NOS</option>
+                        <option value="op35">Small cell carcinoma</option>
+                        <option value="op36">Combined small cell carcinoma (small cell carcinoma and non-small cell component) (specify type of non-small cell component)</option>
+                        <option value="op37">Large cell neuroendocrine carcinoma</option>
+                        <option value="op38">Combined large cell neuroendocrine carcinoma (LCNEC and other non-small cell component) (specify other type of non-small cell component)</option>
+                        <option value="op39">Carcinoma, type cannot be determined</option>
+                        <option value="op40">Non-small cell carcinoma, subtype cannot be determined</option>
+                        <option value="op41">Other histologic type not listed</option>
+                        <option value="op42">No viable tumor present</option>
+                        <option value="op43">Histologic Type Comment</option>
+                      </select>
+                      <div class="mt-2">
+                        <input type="text" class="form-control" id="pType_Oth_lung" placeholder="" disabled />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="pleC_C_lung" style="display: none">
+                    <label for="pleC_lung" class="col-sm-3 mb-1 col-form-label">Pleomorphic carcinoma</label>
+                    <div class="col-sm-9">
+                      <select id="pleC_lung" class="form-control">
+                        <option value="">Select</option>
+                        <option value="op1">Spindle cell carcinoma</option>
+                        <option value="op2">Giant cell carcinoma</option>
+                        <option value="op3">Adenocarcinoma</option>
+                        <option value="op4">Squamous cell carcinoma</option>
+                        <option value="op5">Large cell carcinoma</option>
+                        <option value="op6">Other</option>
+                      </select>
+                      <input type="text" class="form-control mt-2" id="pleC_specify_lung" placeholder="Specify" disabled />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="pFAC_C_lung" style="display: none">
+                    <label for="pFAC_lung" class="col-sm-3 mb-1 col-form-label">Percentage of Fetal Adenocarcinoma Component</label>
+                    <div class="col-sm-9">
+                      <input type="number" class="form-control" id="pFAC_lung" placeholder="%" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="pPMSC_C_lung" style="display: none">
+                    <label for="pPMSC_lung" class="col-sm-3 mb-1 col-form-label">Percentage of Primitive Mesenchymal Stromal Component</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="pPMSC_lung" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="pNCCC_C_lung" style="display: none">
+                    <label for="pNCCC_lung" class="col-sm-3 mb-1 col-form-label">Percentage of Non-small Cell Carcinoma Component</label>
+                    <div class="col-sm-9">
+                      <input type="number" class="form-control" id="pNCCC_lung" placeholder="%" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="pNCCC_S_C_lung" style="display: none">
+                    <label for="pNCCC_S_lung" class="col-sm-3 mb-1 col-form-label">Specify Histologic Type(s)</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="pNCCC_S_lung" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="pSC_C_lung" style="display: none">
+                    <label for="pSC_lung" class="col-sm-3 mb-1 col-form-label">Percentage of Sarcomatous Component</label>
+                    <div class="col-sm-9">
+                      <input type="number" class="form-control" id="pSC_lung" placeholder="%" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="pSC_S_C_lung" style="display: none">
+                    <label for="pSC_S_lung" class="col-sm-3 mb-1 col-form-label">Specify Histologic Type(s)</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="pSC_S_lung" placeholder="" />
+                    </div>
+                  </div>
+
+                  <div class="row ml-1 mb-3">
+                    <label for="pPat_lung" class="col-sm-3 mb-1 col-form-label">Histologic Patterns (may include percentages)</label>
+                    <div class="col-sm-9">
+                      <select id="pPat_lung" class="form-control">
+                        <option value="">Select</option>
+                        <option value="op1">Not applicable</option>
+                        <option value="op2">Acinar</option>
+                        <option value="op3">Papillary</option>
+                        <option value="op4">Lepidic</option>
+                        <option value="op5">Solid</option>
+                        <option value="op6">Micropapillary</option>
+                        <option value="op7">Complex glands (cribriform and fused glands)</option>
+                        <option value="op8">Other</option>
+                      </select>
+                      <input type="text" class="form-control mt-2" id="pPat_Oth_lung" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="grade_lung" class="col-sm-3 mb-1 col-form-label">Histologic Grade</label>
+                    <div class="col-sm-9">
+                      <select id="grade_lung" class="form-control">
+                        <option value="">Select</option>
+                        <option value="grade2">G1, well-differentiated</option>
+                        <option value="grade3">G2, moderately differentiated</option>
+                        <option value="grade4">G3, poorly differentiated</option>
+                        <option value="grade5">G4, undifferentiated</option>
+                        <option value="grade6">Other</option>
+                        <option value="grade7">GX, cannot be assessed</option>
+                        <option value="grade8">Not applicable</option>
+                      </select>
+                      <input type="text" class="form-control mt-2" id="grade_Oth_lung" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="stas_lung" class="col-sm-3 mb-1 col-form-label">Spread Through Air Spaces (STAS)</label>
+                    <div class="col-sm-9">
+                      <select id="stas_lung" class="form-control">
+                        <option value="">Select</option>
+                        <option value="stas1">Not identified</option>
+                        <option value="stas2">Present</option>
+                        <option value="stas3">Cannot be determined</option>
+                        <option value="stas4">Not applicable</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="foc_lung" class="col-sm-3 mb-1 col-form-label">Focality</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="foc_lung" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="VPI_lung" class="col-sm-3 mb-1 col-form-label">Visceral Pleura Invasion</label>
+                    <div class="col-sm-9">
+                      <select id="VPI_lung" class="form-control">
+                        <option value="">Select</option>
+                        <option value="op1">Not identified</option>
+                        <option value="op2">Present</option>
+                        <option value="op3">Cannot be determined</option>
+                        <option value="op4">Other</option>
+                      </select>
+                      <input type="text" class="form-control mt-2" id="VPI_Oth_lung" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="DIOther_lung" class="col-sm-3 mb-1 col-form-label">Direct Invasion of Other Structures</label>
+                    <div class="col-sm-9">
+                      <select id="DIOther_lung" class="form-control">
+                        <option value="">Select</option>
+                        <option value="op1">Not applicable (no other structures present)</option>
+                        <option value="op2">Not identified</option>
+                        <option value="op3">Present</option>
+                      </select>
+                      <input type="text" class="form-control mt-2" id="DIOther_Oth_lung" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="LVI_lung" class="col-sm-3 mb-1 col-form-label">Lymphatic and / or Vascular Invasion</label>
+                    <div class="col-sm-9">
+                      <select id="LVI_lung" class="form-control">
+                        <option value="">Select</option>
+                        <option value="op1">Not identified</option>
+                        <option value="op2">Present</option>
+                        <option value="op3">Cannot be determined</option>
+                      </select>
+                      <input type="text" class="form-control mt-2" id="LVI_Oth_lung" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="LVI_P_C_lung" style="display: none">
+                    <label for="LVI_P_lung" class="col-sm-3 mb-1 col-form-label">If Lymphatic and / or Vascular Invasion is present</label>
+                    <div class="col-sm-9">
+                      <select id="LVI_P_lung" class="form-control">
+                        <option value="">Select</option>
+                        <option value="op1">Lymphatic invasion present</option>
+                        <option value="op2">Arterial invasion present</option>
+                        <option value="op3">Venous invasion present</option>
+                        <option value="op4">Other</option>
+                      </select>
+                      <input type="text" class="form-control mt-2" id="LVI_P_Oth_lung" placeholder="" />
+                    </div>
+                  </div>
+
+                  <div class="row ml-1 mb-3">
+                    <label for="smsts_lung" class="col-sm-3 mb-1 col-form-label">Specimen Margin Status for Invasive Tumor</label>
+                    <div class="col-sm-9">
+                      <!-- <div class="row"> -->
+                      <!-- <div class="col-sm"> -->
+                      <select id="smsts_lung" class="form-control">
+                        <option value="">Select</option>
+                        <option value="op1">All specimen margins negative for invasive tumour</option>
+                        <option value="op2">Invasive tumor present at margin</option>
+                        <option value="op3">Other</option>
+                        <option value="op4">Cannot be determined</option>
+                        <option value="op5">Not applicable</option>
+                      </select>
+                      <input type="text" class="form-control mt-2" id="smsts_text_lung" placeholder="specify" disabled />
+                      <!-- </div> -->
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="cmim_C_lung" style="display: none">
+                    <label for="pSC_S_lung" class="col-sm-3 mb-1 col-form-label">Closest Margin(s) to Invasive Tumor</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="pSC_S_lung" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="dITCM_C_lung" style="display: none">
+                    <label for="dITCM_lung" class="col-sm-3 mb-1 col-form-label">Distance from Invasive Tumor to Closest Margin</label>
+                    <div class="col-sm-9">
+                      <input type="number" class="form-control" id="dITCM_lung" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="mInvT_C_lung" style="display: none">
+                    <label for="mInvT_lung" class="col-sm-3 mb-1 col-form-label">Margin(s) Involved by Invasive Tumor</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="mInvT_lung" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="smstsN_lung" class="col-sm-3 mb-1 col-form-label">Specimen Margin Status for Noninvasive Tumor (High-grade Dysplasia)</label>
+                    <div class="col-sm-9">
+                      <!-- <div class="row"> -->
+                      <!-- <div class="col-sm"> -->
+                      <select id="smstsN_lung" class="form-control">
+                        <option value="">Select</option>
+                        <option value="op1">All specimen margins negative for invasive tumour</option>
+                        <option value="op2">Carcinoma in situ present at bronchial margin</option>
+                        <option value="op3">Carcinoma in situ present at parenchymal margin</option>
+                        <option value="op4">Lepidic component of invasive carcinoma present at parenchymal margin</option>
+                        <option value="op5">Other</option>
+                        <option value="op6">Cannot be determined</option>
+                        <option value="op7">Not applicable</option>
+                      </select>
+                      <input type="text" class="form-control mt-2" id="smstsN_text_lung" placeholder="specify" disabled />
+                      <!-- </div> -->
+                      <!-- </div> -->
+                    </div>
+                  </div>
+
+                  <div class="row ml-1 mb-3">
+                    <label for="mC_lung" class="col-sm-3 mb-1 col-form-label">Modified Classification (required only if applicable)</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="mC_na_lung" name="mC_lung" class="custom-control-input" value="na" />
+                        <label class="custom-control-label" for="mC_na_lung">Not applicable</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="mC_app_lung" name="mC_lung" class="custom-control-input" value="y" />
+                        <label class="custom-control-label" for="mC_app_lung">y (post-neoadjuvant therapy)</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="mC_cbd_lung" name="mC_lung" class="custom-control-input" value="r" />
+                        <label class="custom-control-label" for="mC_cbd_lung">r (recurrence)</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-mC-lung"></div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="pTNM_lung" class="col-sm-3 mb-1 col-form-label">pTNM</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="pTNM_lung" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="smstsN_hene" class="col-sm-3 mb-1 col-form-label">AJCC Staging</label>
+                    <div class="col-sm-9">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <select id="FIGO1_lung" class="form-control">
+                            <option value="">Select</option>
+                            <option value="I">I</option>
+                            <option value="II">II</option>
+                            <option value="III">III</option>
+                            <option value="IV">IV</option>
+                          </select>
+                        </div>
+                        <div class="col-sm-6">
+                          <select id="FIGO2_lung" class="form-control">
+                            <option value="">Select</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="addF_lung" class="col-sm-3 mb-1 col-form-label">Additional Findings</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="addF_lung" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="rlnsts_lung" class="col-sm-3 mb-1 col-form-label">Regional Lymph Node Status</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="rlnsts_na_lung" name="rlnsts_lung" class="custom-control-input" value="na" />
+                        <label class="custom-control-label" for="rlnsts_na_lung">Not applicable (no regional lymph nodes submitted or found)</label>
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="rlnsts_rlnsts_lung" name="rlnsts_lung" class="custom-control-input" value="rlnsts" />
+                        <label class="custom-control-label" for="rlnsts_rlnsts_lung">Regional lymph nodes present</label>
+                      </div>
+                      <input type="text" class="form-control" id="rlnsts_oth_lung" placeholder="" />
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-rlnsts-lung"></div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="nodes_lung" class="col-sm-3 mb-1 col-form-label">Number of Nodes tested</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="nodesTested_lung" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="nodes_lung" class="col-sm-3 mb-1 col-form-label">Number of Positive Nodes</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="positiveNodes_lung" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="sizeLNMD_lung" class="col-sm-3 mb-1 col-form-label">Size of Largest Nodal Metastatic Deposit (cm)</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="sizeLNMD_lung" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="ENE_lung" class="col-sm-3 mb-1 col-form-label">Extranodal Extension (ENE)</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="ENE_na_lung" name="ENE_lung" class="custom-control-input" value="na" />
+                        <label class="custom-control-label" for="ENE_na_lung">Not applicable</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="ENE_ni_lung" name="ENE_lung" class="custom-control-input" value="ni" />
+                        <label class="custom-control-label" for="ENE_ni_lung">Not identified</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="ENE_pres_lung" name="ENE_lung" class="custom-control-input" value="pres" />
+                        <label class="custom-control-label" for="ENE_pres_lung">Present</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-ENE-lung"></div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="disM_lung" class="col-sm-3 mb-1 col-form-label">DISTANT METASTASIS</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="disM_lung" placeholder="" />
+                    </div>
+                  </div>
+
+                  <div class="row ml-1 mb-3">
+                    <label for="tumor_Size_lung" class="col-sm-3 mb-1 col-form-label">Tumor Size</label>
+                    <div class="col-sm-9">
+                      <div class="row">
+                        <div class="col-4">
+                          <input type="text" class="form-control" id="tumorSizeL_lung" placeholder="cm" />
+                        </div>
+                        <div class="col-4">
+                          <input type="text" class="form-control" id="tumorSizeW_lung" placeholder="cm" />
+                        </div>
+                        <div class="col-4">
+                          <input type="text" class="form-control" id="tumorSizeH_lung" placeholder="cm" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row ml-1 mb-3">
+                    <label for="invTS_lung" class="col-sm-3 mb-1 col-form-label">Invasive Tumor Size</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="invTS_lung" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="totalTS_lung" class="col-sm-3 mb-1 col-form-label">Total Tumor Size</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="totalTS_lung" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="sSC_lung" class="col-sm-3 mb-1 col-form-label">Size of In Situ Carcinoma in Centimeters (cm)</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="sSC_lung" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="ACT_lung" class="col-sm-3 mb-1 col-form-label">ACT</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="ACTYes_lung" name="ACT_lung" class="custom-control-input" value="true" />
+                        <label class="custom-control-label" for="ACTYes_lung">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="ACTNo_lung" name="ACT_lung" class="custom-control-input" value="false" />
+                        <label class="custom-control-label" for="ACTNo_lung">No</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-ACT-lung"></div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="actDC_lung" style="display: none">
+                    <label for="ACT_Cycles_lung" class="col-sm-3 mb-1 col-form-label">ACT Drug Cycles</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="actDrugCycles_lung" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="actDLC_lung" style="display: none">
+                    <label for="actDate_lung" class="col-sm-3 mb-1 col-form-label">ACT Date of last Cycle</label>
+                    <div class="col-sm-9">
+                      <input type="date" class="form-control" id="actDateLastCycle_lung" placeholder="Select Date" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="radioThy_lung" class="col-sm-3 mb-1 col-form-label">Radio Therapy</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="RTYes_lung" name="RadioT_lung" class="custom-control-input" value="true" />
+                        <label class="custom-control-label" for="RTYes_lung">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="RTNo_lung" name="RadioT_lung" class="custom-control-input" value="false" />
+                        <label class="custom-control-label" for="RTNo_lung">No</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-RadioT-lung"></div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="rtDC1_lung" style="display: none">
+                    <label for="RT_Cycles_lung" class="col-sm-3 mb-1 col-form-label">Dosage & Fractions</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="rtDetails1_lung" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="rtDC2_lung" style="display: none">
+                    <label for="RT_Cycles_lung" class="col-sm-3 mb-1 col-form-label">Technique</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="rtDetails2_lung" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="rtDC3_lung" style="display: none">
+                    <label for="RT_Cycles_lung" class="col-sm-3 mb-1 col-form-label">Quadrant</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="rtDetails3_lung" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="rtDLC_lung" style="display: none">
+                    <label for="rtDate_lung" class="col-sm-3 mb-1 col-form-label">Radiotherapy Date of last Cycle</label>
+                    <div class="col-sm-9">
+                      <input type="date" class="form-control" id="radiotherapyLastCycleDate_lung" placeholder="Select Date" />
+                    </div>
+                  </div>
+
+                  <div class="row ml-1 mb-3">
+                    <label for="tarT_lung" class="col-sm-3 mb-1 col-form-label">Targeted Therapy</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="tarTYes_lung" name="tarT_lung" class="custom-control-input" value="true" />
+                        <label class="custom-control-label" for="tarTYes_lung">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="tarTNo_lung" name="tarT_lung" class="custom-control-input" value="false" />
+                        <label class="custom-control-label" for="tarTNo_lung">No</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-TT-lung"></div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="tarTD_lung" style="display: none">
+                    <label for="Tar_Cycles_lung" class="col-sm-3 mb-1 col-form-label">Targeted Therapy Details</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="Tar_Cycles_lung" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="paraThy_lung" class="col-sm-3 mb-1 col-form-label">Is paraffin Block Available</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="pbYes_lung" name="pbT_lung" class="custom-control-input" value="true" />
+                        <label class="custom-control-label" for="pbYes_lung">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="pbNo_lung" name="pbT_lung" class="custom-control-input" value="false" />
+                        <label class="custom-control-label" for="pbNo_lung">No</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-pbT_lung"></div>
+                  </div>
+
+                  <div class="row ml-1 mb-3" id="PBN_lung" style="display: none">
+                    <label for="PBNum_lung" class="col-sm-3 mb-1 col-form-label">Paraffin Block Number</label>
+                    <div class="col-sm-9">
+                      <input type="text" id="PBInput_lung" class="form-control" placeholder="YY-S-11111" maxlength="10" oninput="formatPBInput1(this)" />
+                    </div>
+                  </div>
+
+                  <div class="col-12">
+                    <div class="row" style="justify-content: space-around">
+                      <div class="col-4 mt-2" style="text-align: center">
+                        <button type="button" class="btn btn-primary btn-xs btn-prev" id="backButton1">Back</button>
+                      </div>
+                      <div class="col-4 mt-2" style="text-align: center">
+                        <button type="button" class="btn btn-success btn-xs" id="sampleEntry2">Save & Exit</button>
+                      </div>
+                      <div class="col-4 mt-2" style="text-align: center">
+                        <button type="button" class="btn btn-success btn-xs btn-next" id="nextButton2">Next</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Meta-Data Lung Cancer End -->
               </form>
 
               <form class="form-group mt-3 form-step" id="form3" style="display: none">
@@ -10442,6 +11261,76 @@
                   </div>
                 </div>
                 <!-- Head and Neck specific form entry end -->
+
+                <!-- Lung specific form entry start -->
+                <div id="LU_Specific_form_entry">
+                  <div class="row ml-1 mb-3">
+                    <h3>LU Specific</h3>
+                  </div>
+                  <div id="brfCurrentUser_lung" style="display: none">
+                    <div class="row ml-1 mb-3">
+                      <label for="boxNo_lung" class="col-sm-2 mb-1 col-form-label">Data Entry By </label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="brfdataEB_lung" placeholder="" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="HER2_lung" class="col-sm-2 mb-1 col-form-label">HER2</label>
+                    <div class="col-sm-9 mt-2">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="HER2Pos_lung" name="HER2Radio_lung" class="custom-control-input" value="Positive" />
+                        <label class="custom-control-label" for="HER2Pos_lung">Positive</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="HER2Nev_lung" name="HER2Radio_lung" class="custom-control-input" value="Negative" />
+                        <label class="custom-control-label" for="HER2Nev_lung">Negative</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="HER2Low_lung" name="HER2Radio_lung" class="custom-control-input" value="Low_Her2" />
+                        <label class="custom-control-label" for="HER2Low_lung">Low Her2</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-HER2Radio-lung"></div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="ki_lung" class="col-sm-2 mb-1 col-form-label">Ki67</label>
+                    <div class="col-sm-10 mt-2">
+                      <input type="number" class="form-control" id="k67_lung" placeholder="Percentage %" />
+                    </div>
+                  </div>
+
+                  <div class="row ml-1 mb-3">
+                    <label for="CT_SUV_Max_lung" class="col-sm-2 mb-1 col-form-label">PET CT SUV Max</label>
+                    <div class="col-sm-10 mt-2">
+                      <input type="text" class="form-control" id="pcsm_lung" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="CT_Volume_lung" class="col-sm-2 mb-1 col-form-label">PET CT Volume</label>
+                    <div class="col-sm-10 mt-2">
+                      <input type="text" class="form-control" id="pcvm_lung" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="stils_lung" class="col-sm-2 mb-1 col-form-label">sTILs Percent Scores</label>
+                    <div class="col-sm-10 mt-2">
+                      <input type="text" class="form-control" id="sps_lung" placeholder="Percentage %" />
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="row" style="justify-content: space-around">
+                      <div class="col-4 mt-6" style="text-align: center">
+                        <button type="button" class="btn btn-primary btn-xs btn-prev" id="backButton2">Back</button>
+                      </div>
+                      <div class="col-4 mt-6" style="text-align: center; display: flex; justify-content: space-around">
+                        <button type="button" class="btn btn-success btn-xs" id="finishButton">Finish</button>
+                        <button type="button" class="btn btn-success btn-xs" id="submitButton">Submit</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Lung specific form entry end -->
               </form>
             </div>
           </div>
@@ -10934,7 +11823,7 @@
           &copy; Copyright <strong><span></span></strong>. All Rights Reserved
         </div>
         <div class="credits"></div>
-        <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">Version 1.8.13</div>
+        <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">Version 1.8.14</div>
       </div>
     </footer>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -11121,6 +12010,11 @@
           III: ["", "A", "B", "C", "C1", "C2"],
           IV: ["", "A", "B"],
         };
+        const figoOptionByStage_lung = {
+          I: ["A", "B"],
+          II: ["A", "B", "C"],
+          III: ["A", "B", "C"],
+        };
         const treatmentBreast_lung = {
           op4: {
             op1: "Specify percentage",
@@ -11211,8 +12105,8 @@
               mainOption = figoOptionsByStage2014;
             } else if (primaryId === "FIGO1_ceix") {
               mainOption = figoOptionByStage_ceix;
-            } else if (primaryId === "nactEff_lung1") {
-              mainOption = treatmentBreast_lung;
+            } else if (primaryId === "FIGO1_lung") {
+              mainOption = figoOptionByStage_lung;
             } else if (primaryId === "mte1_hene") {
               mainOption = mteOptions_hene;
             } else if (primaryId === "tumorType_hene" && secondaryId === "tumorSite_hene") {
@@ -11239,8 +12133,7 @@
               secondarySelect.appendChild(option);
             });
 
-            const disableSecondaryForTreatment =
-              (primaryId === "nactEff_lung1" && ["", "op1", "op2", "op3"].includes(primarySelect.value)) || (primaryId === "mte1_hene" && ["", "op1"].includes(primarySelect.value));
+            const disableSecondaryForTreatment = primaryId === "mte1_hene" && ["", "op1"].includes(primarySelect.value);
             secondarySelect.disabled = primarySelect.disabled || primarySelect.value === "" || disableSecondaryForTreatment;
             secondarySelect.value = optionEntries.some(function (entry) {
               return entry.value === currentValue;
@@ -11280,7 +12173,7 @@
         initializeDoubleOption("FIGO1_ovry_2014", "FIGO2_ovry_2014");
         initializeDoubleOption("FIGO1_endm", "FIGO2_endm");
         initializeDoubleOption("FIGO1_ceix", "FIGO2_ceix");
-        initializeDoubleOption("nactEff_lung1", "nactEff_lung2");
+        initializeDoubleOption("FIGO1_lung", "FIGO2_lung");
         initializeDoubleOption("mte1_hene", "mte2_hene");
         initializeDoubleOption("tumorType_hene", "tumorSite_hene");
       });
@@ -13763,7 +14656,7 @@
             endm: "ftgrid_endm",
             ovry: "ftgrid_ovry",
             hene: "ftgrid_hene",
-            // lung: "ftgrid_lung",
+            lung: "ftgrid_lung",
           },
           fn: {
             brst: "fngrid",
@@ -13771,7 +14664,7 @@
             endm: "fngrid_endm",
             ovry: "fngrid_ovry",
             hene: "fngrid_hene",
-            // lung: "fngrid_lung",
+            lung: "fngrid_lung",
           },
         };
         const defaultId = gridType === "ft" ? "ftgrid" : "fngrid";
@@ -13793,7 +14686,7 @@
             endm: "ft_tubes_endm",
             ovry: "ft_tubes_ovry",
             hene: "ft_tubes_hene",
-            // lung: "ft_tubes_lung",
+            lung: "ft_tubes_lung",
           },
           fn: {
             brst: "fn_tubes",
@@ -13801,7 +14694,7 @@
             endm: "fn_tubes_endm",
             ovry: "fn_tubes_ovry",
             hene: "fn_tubes_hene",
-            // lung: "fn_tubes_lung",
+            lung: "fn_tubes_lung",
           },
         };
         const defaultId = gridType === "ft" ? "ft_tubes" : "fn_tubes";
@@ -13925,13 +14818,15 @@
           const rows = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
           const cols = 10;
           const cancer_type = document.getElementById("cancer_type").value;
+
           let ftgridId = null;
           if (cancer_type === "brst") ftgridId = "ftgrid";
           else if (cancer_type === "ceix") ftgridId = "ftgrid_ceix";
           else if (cancer_type === "endm") ftgridId = "ftgrid_endm";
           else if (cancer_type === "ovry") ftgridId = "ftgrid_ovry";
-          // else if (cancer_type === "lung") ftgridId = "ftgrid_lung";
+          else if (cancer_type === "lung") ftgridId = "ftgrid_lung";
           else if (cancer_type === "hene") ftgridId = "ftgrid_hene";
+
           const FTBoxName = document.getElementById(ftgridId).value;
           const boxname = FTBoxName.split("/")[0];
           const gridSample = FTBoxName.split("/")[1];
@@ -14147,13 +15042,15 @@
             localStorage.removeItem("LocalFT");
           }
           const cancer_type = document.getElementById("cancer_type").value;
+
           let ft_tubes = null;
           if (cancer_type === "brst") ft_tubes = "ft_tubes";
           else if (cancer_type === "ceix") ft_tubes = "ft_tubes_ceix";
           else if (cancer_type === "endm") ft_tubes = "ft_tubes_endm";
           else if (cancer_type === "ovry") ft_tubes = "ft_tubes_ovry";
           else if (cancer_type === "hene") ft_tubes = "ft_tubes_hene";
-          // else if (cancer_type === "lung") ft_tubes = "ft_tubes_lung";
+          else if (cancer_type === "lung") ft_tubes = "ft_tubes_lung";
+
           const maxSelectionsFT = parseInt(document.getElementById(ft_tubes).value, 10);
 
           const [box_id, filteredSeats] = activeBoxEntry;
@@ -14401,6 +15298,7 @@
           const rows = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
           const cols = 10;
           const cancer_type = document.getElementById("cancer_type").value;
+
           let fngrid = null;
           if (cancer_type === "brst") fngrid = "fngrid";
           else if (cancer_type === "ceix") fngrid = "fngrid_ceix";
@@ -14408,6 +15306,7 @@
           else if (cancer_type === "ovry") fngrid = "fngrid_ovry";
           else if (cancer_type === "hene") fngrid = "fngrid_hene";
           else if (cancer_type === "lung") fngrid = "fngrid_lung";
+
           const FNBoxName = document.getElementById(fngrid).value;
           const boxname = FNBoxName.split("/")[0];
           const gridSample = FNBoxName.split("/")[1];
@@ -14625,6 +15524,7 @@
             localStorage.removeItem("LocalFN");
           }
           const cancer_type = document.getElementById("cancer_type").value;
+
           let fn_tubes = null;
           if (cancer_type === "brst") fn_tubes = "fn_tubes";
           else if (cancer_type === "ovry") fn_tubes = "fn_tubes_ovry";
@@ -14632,6 +15532,7 @@
           else if (cancer_type === "endm") fn_tubes = "fn_tubes_endm";
           else if (cancer_type === "hene") fn_tubes = "fn_tubes_hene";
           else if (cancer_type === "lung") fn_tubes = "fn_tubes_lung";
+
           const maxSelections = parseInt(document.getElementById(fn_tubes).value, 10);
 
           const [box_id, filteredSeats] = activeBoxEntry;
@@ -15865,23 +16766,24 @@
             { field: document.querySelector('input[name="pcbSample_hene"]:checked'), name: "PC Sample" },
             { field: document.querySelector('input[name="processedRadio_hene"]:checked'), name: "All samples Received Together?" },
           ];
-        } else if (cancer_type === "lung") {
-          requiredFields = [
-            { field: document.getElementById("mrnNo"), name: "MRN Number" },
-            { field: document.getElementById("bioBankId"), name: "Bio Bank ID" },
-            { field: document.getElementById("cancer_type"), name: "Cancer Type" },
-            { field: document.getElementById("patAge_lung"), name: "Age" },
-            { field: document.querySelector('input[name="customRadio_lung"]:checked'), name: "Gender" },
-            { field: document.querySelector('input[name="customProcedure_lung"]:checked'), name: "Procedure Types" },
-            { field: document.querySelector('input[name="MetastasisSample_lung"]:checked'), name: "Metastasis Sample" },
-            { field: document.querySelector('input[name="bloodSample_lung"]:checked'), name: "Blood Sample" },
-            { field: document.querySelector('input[name="specimenSample_lung"]:checked'), name: "Specimen Sample" },
-            { field: document.querySelector('input[name="otherSample_lung"]:checked'), name: "Other Sample" },
-            { field: document.querySelector('input[name="rltSample_lung"]:checked'), name: "RLT Sample" },
-            { field: document.querySelector('input[name="pcbSample_lung"]:checked'), name: "PC Sample" },
-            { field: document.querySelector('input[name="processedRadio_lung"]:checked'), name: "All samples Received Together?" },
-          ];
         }
+        // else if (cancer_type === "lung") {
+        //   requiredFields = [
+        //     { field: document.getElementById("mrnNo"), name: "MRN Number" },
+        //     { field: document.getElementById("bioBankId"), name: "Bio Bank ID" },
+        //     { field: document.getElementById("cancer_type"), name: "Cancer Type" },
+        //     { field: document.getElementById("patAge_lung"), name: "Age" },
+        //     { field: document.querySelector('input[name="customRadio_lung"]:checked'), name: "Gender" },
+        //     { field: document.querySelector('input[name="customProcedure_lung"]:checked'), name: "Procedure Types" },
+        //     { field: document.querySelector('input[name="MetastasisSample_lung"]:checked'), name: "Metastasis Sample" },
+        //     { field: document.querySelector('input[name="bloodSample_lung"]:checked'), name: "Blood Sample" },
+        //     { field: document.querySelector('input[name="specimenSample_lung"]:checked'), name: "Specimen Sample" },
+        //     { field: document.querySelector('input[name="otherSample_lung"]:checked'), name: "Other Sample" },
+        //     { field: document.querySelector('input[name="rltSample_lung"]:checked'), name: "RLT Sample" },
+        //     { field: document.querySelector('input[name="pcbSample_lung"]:checked'), name: "PC Sample" },
+        //     { field: document.querySelector('input[name="processedRadio_lung"]:checked'), name: "All samples Received Together?" },
+        //   ];
+        // }
 
         let allFilled = true;
         const emptyFields = [];
@@ -16400,11 +17302,9 @@
           prefix = "OV"; // force OV for ovary
         } else if (ct === "hene") {
           prefix = "HN"; // force HN for hene
-        }
-        // else if (ct === "lung") {
-        //   prefix = "LU"; // force LU for lung
-        // }
-        else {
+        } else if (ct === "lung") {
+          prefix = "LU"; // force LU for lung
+        } else {
           prefix = prefix.slice(0, 2);
         }
         let digits = raw.slice(prefix.length).replace(/\D/g, "").slice(0, 4);
@@ -16691,6 +17591,20 @@
         $('input[name="RadioFHabit"]').change(function () {
           familyHabitToggle();
         });
+        // Lung Cancer
+        function familyHabitToggle_lung() {
+          if ($("#familyHistoryCancer1_lung").is(":checked")) {
+            $("#relation_Cancer_lung").show();
+          } else {
+            $("#relation_Cancer_lung").hide();
+            $("#familyRelation_lung").val("");
+            $("#familyCancerType_lung").val("");
+          }
+        }
+        familyHabitToggle_lung();
+        $('input[name="RadioFHabit_lung"]').change(function () {
+          familyHabitToggle_lung();
+        });
         // Head and Neck
         function familyHabitToggle_hene() {
           if ($("#familyHistoryCancer1_hene").is(":checked")) {
@@ -16778,6 +17692,22 @@
         $('input[name="ECH"]').change(function () {
           ExistComorbidity();
         });
+        // Lung Cancer
+        function ExistComorbidity_lung() {
+          if ($("#ECH1_lung").is(":checked")) {
+            $("#cvSym_lung").show();
+          } else {
+            $("#cvSym_lung").hide();
+            const dropdownContainer = document.getElementsByClassName("cmd_lung");
+            Array.from(dropdownContainer).forEach((container) => {
+              container.innerHTML = "";
+            });
+          }
+        }
+        ExistComorbidity_lung();
+        $('input[name="ECH_lung"]').change(function () {
+          ExistComorbidity_lung();
+        });
         // Head and Neck
         function ExistComorbidity_hene() {
           if ($("#ECH1_hene").is(":checked")) {
@@ -16856,6 +17786,19 @@
         $('input[name="IHC"]').change(function () {
           IHCMarker();
         });
+        // Lung Cancer
+        function IHCMarker_lung() {
+          if ($("#IHC_yes_lung").is(":checked")) {
+            $("#ihcDescr_lung").show();
+          } else {
+            $("#ihcDescr_lung").hide();
+            $("#IHC_Description_lung").val("");
+          }
+        }
+        IHCMarker_lung();
+        $('input[name="IHC_Status_lung"]').change(function () {
+          IHCMarker_lung();
+        });
 
         // Head and Neck
         function IHCMarker_hene() {
@@ -16925,6 +17868,214 @@
         GeneticT();
         $('input[name="GeneticT"]').change(function () {
           GeneticT();
+        });
+
+        // Lung Cancer
+        function GeneticT_lung() {
+          if ($("#gt_yes_lung").is(":checked")) {
+            $("#dt_Desc_lung").show();
+            $("#gtrs_lung").show();
+          } else {
+            $("#dt_Desc_lung").hide();
+            $("#gtrs_lung").hide();
+            $("#gtr_lung").val("");
+            $("#GT_Description_lung").val("");
+          }
+        }
+        GeneticT_lung();
+        $('input[name="GeneticT_lung"]').change(function () {
+          GeneticT_lung();
+        });
+        // Lung Cancer
+        function pType_lung() {
+          const showType = ["op38", "op36", "op39", "op40", "op41", "op42", "op43"];
+          const option = $("#pType_lung").val();
+          if (showType.includes(option)) {
+            $("#pType_Oth_lung").prop("disabled", false);
+          } else {
+            $("#pType_Oth_lung").prop("disabled", true).val("");
+          }
+          if (option === "op22") {
+            $("#pleC_C_lung").show();
+          } else {
+            $("#pleC_C_lung").hide();
+            $("#pleC_lung").val("");
+          }
+          if (option === "op23") {
+            $("#pFAC_C_lung").show();
+            $("#pPMSC_C_lung").show();
+          } else {
+            $("#pFAC_C_lung").hide();
+            $("#pFAC_lung").val("");
+            $("#pPMSC_C_lung").hide();
+            $("#pPMSC_lung").val("");
+          }
+          if (option === "op24") {
+            $("#pNCCC_C_lung").show();
+            $("#pNCCC_S_C_lung").show();
+            $("#pSC_C_lung").show();
+            $("#pSC_S_C_lung").show();
+          } else {
+            $("#pNCCC_C_lung").hide();
+            $("#pNCCC_lung").val("");
+            $("#pNCCC_S_C_lung").hide();
+            $("#pNCCC_S_lung").val("");
+            $("#pSC_C_lung").hide();
+            $("#pSC_lung").val("");
+            $("#pSC_S_C_lung").hide();
+            $("#pSC_S_lung").val("");
+          }
+        }
+        pType_lung();
+        $("#pType_lung").change(function () {
+          pType_lung();
+        });
+        // Lung Cancer
+        function pleC_lung() {
+          const option = $("#pleC_lung").val();
+          if (["op1", "op2", "op3", "op4", "op5", "op6"].includes(option)) {
+            $("#pleC_specify_lung").prop("disabled", false);
+          } else {
+            $("#pleC_specify_lung").prop("disabled", true).val("");
+          }
+        }
+        pleC_lung();
+        $("#pleC_lung").change(function () {
+          pleC_lung();
+        });
+        // Lung Cancer
+        function pGrade_lung() {
+          const option = $("#grade_lung").val();
+          if (["grade6", "grade7", "grade8"].includes(option)) {
+            $("#grade_Oth_lung").prop("disabled", false);
+          } else {
+            $("#grade_Oth_lung").prop("disabled", true).val("");
+          }
+        }
+        pGrade_lung();
+        $("#grade_lung").change(function () {
+          pGrade_lung();
+        });
+        // Lung Cancer
+        function VPI_lung() {
+          const option = $("#VPI_lung").val();
+          if (["op4"].includes(option)) {
+            $("#VPI_Oth_lung").prop("disabled", false);
+          } else {
+            $("#VPI_Oth_lung").prop("disabled", true).val("");
+          }
+        }
+        VPI_lung();
+        $("#VPI_lung").change(function () {
+          VPI_lung();
+        });
+        // Lung Cancer
+        function DIOther_lung() {
+          const option = $("#DIOther_lung").val();
+          if (["op3"].includes(option)) {
+            $("#DIOther_Oth_lung").prop("disabled", false);
+          } else {
+            $("#DIOther_Oth_lung").prop("disabled", true).val("");
+          }
+        }
+        DIOther_lung();
+        $("#DIOther_lung").change(function () {
+          DIOther_lung();
+        });
+        // Lung Cancer
+        function LVI_lung() {
+          const option = $("#LVI_lung").val();
+          if (["op3"].includes(option)) {
+            $("#LVI_Oth_lung").prop("disabled", false);
+          } else {
+            $("#LVI_Oth_lung").prop("disabled", true).val("");
+          }
+          if (["op2"].includes(option)) {
+            $("#LVI_P_C_lung").show();
+          } else {
+            $("#LVI_P_C_lung").hide();
+          }
+        }
+        LVI_lung();
+        $("#LVI_lung").change(function () {
+          LVI_lung();
+        });
+        // Lung Cancer
+        function LVI_P_lung() {
+          const option = $("#LVI_P_lung").val();
+          if (["op4"].includes(option)) {
+            $("#LVI_P_Oth_lung").prop("disabled", true);
+          } else {
+            $("#LVI_P_Oth_lung").prop("disabled", false).val("");
+          }
+        }
+        LVI_P_lung();
+        $("#LVI_P_lung").change(function () {
+          LVI_P_lung();
+        });
+        // Lung Cancer
+        function smsts_lung() {
+          const option = $("#smsts_lung").val();
+          if (["op3", "op4", "op5"].includes(option)) {
+            $("#smsts_text_lung").prop("disabled", true);
+          } else {
+            $("#smsts_text_lung").prop("disabled", false).val("");
+          }
+          if (["op1"].includes(option)) {
+            $("#cmim_C_lung").show();
+            $("#dITCM_C_lung").show();
+          } else {
+            $("#cmim_C_lung").hide();
+            $("#dITCM_C_lung").hide();
+            $("#dITCM_lung").val("");
+            $("#dITCM_lung").val("");
+          }
+          if (["op2"].includes(option)) {
+            $("#mInvT_C_lung").show();
+          } else {
+            $("#mInvT_C_lung").hide();
+            $("#mInvT_lung").val("");
+          }
+        }
+        smsts_lung();
+        $("#smsts_lung").change(function () {
+          smsts_lung();
+        });
+        function smstsN_lung() {
+          const option = $("#smstsN_lung").val();
+          if (["op2", "op3", "op4", "op5", "op6", "op7"].includes(option)) {
+            $("#smstsN_text_lung").prop("disabled", false);
+          } else {
+            $("#smstsN_text_lung").prop("disabled", true).val("");
+          }
+        }
+        smstsN_lung();
+        $("#smstsN_lung").change(function () {
+          smstsN_lung();
+        });
+        function rlnsts_lung() {
+          if ($("#rlnsts_rlnsts_lung").is(":checked")) {
+            $("#rlnsts_oth_lung").prop("disabled", true);
+          } else {
+            $("#rlnsts_oth_lung").prop("disabled", false).val("");
+          }
+        }
+        rlnsts_lung();
+        $('input[name="rlnsts_lung"]').change(function () {
+          rlnsts_lung();
+        });
+        // Lung Cancer
+        function pPatterns_lung() {
+          const option = $("#pPat_lung").val();
+          if (["op2", "op3", "op4", "op5", "op6", "op7", "op8"].includes(option)) {
+            $("#pPat_Oth_lung").prop("disabled", false);
+          } else {
+            $("#pPat_Oth_lung").prop("disabled", true).val("");
+          }
+        }
+        pPatterns_lung();
+        $("#pPat_lung").change(function () {
+          pPatterns_lung();
         });
         // Head and Neck
         function GeneticT_hene() {
@@ -17147,6 +18298,7 @@
             $("#nactDC_lung").hide();
             $("#nactDLC_lung").hide();
             $("#nactTE_lung").hide();
+            $("#nactEff_lung").val("");
             $("#NACT_cycle_lung").val("");
             $("#NACT_cycle_D_lung").val("");
           }
@@ -17154,6 +18306,131 @@
         NactYes_lung();
         $('input[name="NACT_lung"]').change(function () {
           NactYes_lung();
+          TreatmentEff_lung();
+          pRVT_C_lung();
+          pN_C_lung();
+          pS_C_lung();
+        });
+        // Lung Cancer
+        function TreatmentEff_lung() {
+          if ($("#nactEff_lung").val() === "op3") {
+            $("#pRVT_C_lung").show();
+            $("#pN_C_lung").show();
+            $("#pS_C_lung").show();
+          } else {
+            $("#pRVT_C_lung").hide();
+            $("#pN_C_lung").hide();
+            $("#pS_C_lung").hide();
+            $("#pRVT_lung").val("");
+            $("#pN_lung").val("");
+            $("#pS_lung").val("");
+          }
+        }
+        TreatmentEff_lung();
+        $("#nactEff_lung").change(function () {
+          TreatmentEff_lung();
+          pRVT_C_lung();
+          pN_C_lung();
+          pS_C_lung();
+        });
+        function pRVT_C_lung() {
+          const option = $("#pRVT_lung").val();
+          const $input = $("#pRVT_Oth_lung");
+
+          if (["op1", "op2", "op3"].includes(option)) {
+            $input.prop("disabled", false);
+
+            if (option === "op1") {
+              $input.attr("placeholder", "Percentage %");
+              $input.attr("type", "number");
+            } else if (option === "op2") {
+              $input.attr("placeholder", "Specify");
+              $input.attr("type", "text");
+            } else if (option === "op3") {
+              $input.attr("placeholder", "");
+              $input.attr("type", "text");
+            } else {
+              $input.prop("disabled", true);
+              $input.val("");
+              $input.attr("placeholder", "");
+              $input.attr("type", "text");
+            }
+          } else {
+            $input.prop("disabled", true);
+            $input.val("");
+            $input.attr("placeholder", "");
+            $input.attr("type", "text");
+          }
+        }
+        pRVT_C_lung();
+        $("#pRVT_lung").change(function () {
+          pRVT_C_lung();
+        });
+        function pN_C_lung() {
+          const option = $("#pN_lung").val();
+          const $input = $("#pN_Oth_lung");
+
+          if (["op1", "op2", "op3"].includes(option)) {
+            $input.prop("disabled", false);
+
+            if (option === "op1") {
+              $input.attr("placeholder", "Percentage %");
+              $input.attr("type", "number");
+            } else if (option === "op2") {
+              $input.attr("placeholder", "Specify");
+              $input.attr("type", "text");
+            } else if (option === "op3") {
+              $input.attr("placeholder", "");
+              $input.attr("type", "text");
+            } else {
+              $input.prop("disabled", true);
+              $input.val("");
+              $input.attr("placeholder", "");
+              $input.attr("type", "text");
+            }
+          } else {
+            $input.prop("disabled", true);
+            $input.val("");
+            $input.attr("placeholder", "");
+            $input.attr("type", "text");
+          }
+        }
+        pN_C_lung();
+        $("#pN_lung").change(function () {
+          pN_C_lung();
+        });
+        function pS_C_lung() {
+          const option = $("#pS_lung").val();
+          const $input = $("#pS_Oth_lung");
+
+          if (["op1", "op2", "op3"].includes(option)) {
+            $input.prop("disabled", false);
+
+            if (option === "op1") {
+              $input.attr("placeholder", "Percentage %");
+              $input.attr("type", "number");
+            } else if (option === "op2") {
+              $input.attr("placeholder", "Specify");
+              $input.attr("type", "text");
+            } else if (option === "op3") {
+              $input.attr("placeholder", "");
+              $input.attr("type", "text");
+            } else {
+              $input.prop("disabled", true);
+              $input.val("");
+              $input.attr("placeholder", "");
+              $input.attr("type", "text");
+            }
+          } else {
+            $input.prop("disabled", true);
+            $input.val("");
+            $input.attr("placeholder", "");
+            $input.attr("type", "text");
+          }
+        }
+        pS_C_lung();
+        $("#pS_lung").change(function () {
+          pS_C_lung();
         });
         // Breast
         function actYes() {
@@ -17186,6 +18463,22 @@
         actYes_hene();
         $('input[name="ACT_hene"]').change(function () {
           actYes_hene();
+        });
+        // Lung Cancer
+        function actYes_lung() {
+          if ($("#ACTYes_lung").is(":checked")) {
+            $("#actDC_lung").show();
+            $("#actDLC_lung").show();
+          } else {
+            $("#actDC_lung").hide();
+            $("#actDLC_lung").hide();
+            $("#actDrugCycles_lung").val("");
+            $("#actDateLastCycle_lung").val("");
+          }
+        }
+        actYes_lung();
+        $('input[name="ACT_lung"]').change(function () {
+          actYes_lung();
         });
 
         // Ovary
@@ -17475,19 +18768,50 @@
           if (isMetastasisSampleYes || isDenovoYes) {
             $("#mptA_lung").show();
             $("#mptS_lung").show();
-            // $("#mptRS_lung").show();
+            $("#syncT_C_lung").show();
           } else {
             $("#mptA_lung").hide();
             $("#mptS_lung").hide();
-            // $("#mptRS_lung").hide();
+            $("#syncT_C_lung").hide();
             $("#mpt_age_lung").val("");
             $("#mpt_site_lung").val("");
-            // $("#mpt_rs_lung").val("");
+            $("#syncT_C_lung").val("");
           }
         }
         toggleMetastasisFields_lung();
         $('input[name="MetastasisSample_lung"], input[name="denovo_lung"]').change(function () {
           toggleMetastasisFields_lung();
+        });
+        // Lung Cancer
+        function toggle_mptS() {
+          const isSyncPresent = $("#mpt_site_lung").val();
+          if (["op1", "op2", "op3", "op4", "op5", "op6", "op7"].includes(isSyncPresent)) {
+            $("#mpt_site_Oth_lung").prop("disabled", false);
+          } else {
+            $("#mpt_site_Oth_lung").prop("disabled", true || isReadOnlyViewMode(mode));
+            $("#mpt_site_Oth_lung").val("");
+          }
+        }
+        toggle_mptS();
+        $("#mpt_site_lung").change(function () {
+          toggle_mptS();
+        });
+        // Lung Cancer
+        function toggleSyncT() {
+          const isSyncPresent = $("#syncT_lung").val();
+          if (isSyncPresent === "op2") {
+            $("#priT_C_lung").show();
+            $("#specID_C_lung").show();
+          } else {
+            $("#priT_C_lung").hide();
+            $("#priT_lung").val("");
+            $("#specID_C_lung").hide();
+            $("#specID_lung").val("");
+          }
+        }
+        toggleSyncT();
+        $("#syncT_lung").change(function () {
+          toggleSyncT();
         });
         // Breast
         function bloodSample() {
@@ -19219,6 +20543,28 @@
         $('input[name="RadioT_hene"]').change(function () {
           RadioTYes_hene();
         });
+        // Lung Cancer
+        function RadioTYes_lung() {
+          if ($("#RTYes_lung").is(":checked")) {
+            $("#rtDC1_lung").show();
+            $("#rtDC2_lung").show();
+            $("#rtDC3_lung").show();
+            $("#rtDLC_lung").show();
+          } else {
+            $("#rtDC1_lung").hide();
+            $("#rtDC2_lung").hide();
+            $("#rtDC3_lung").hide();
+            $("#rtDLC_lung").hide();
+            $("#rtDetails1_lung").val("");
+            $("#rtDetails2_lung").val("");
+            $("#rtDetails3_lung").val("");
+            $("#radiotherapyLastCycleDate_lung").val("");
+          }
+        }
+        RadioTYes_lung();
+        $('input[name="RadioT_lung"]').change(function () {
+          RadioTYes_lung();
+        });
         // Cervix
         function RadioTYes_ceix() {
           if ($("#RTYes_ceix").is(":checked")) {
@@ -19365,6 +20711,19 @@
         $('input[name="tarT_hene"]').change(function () {
           tarTYes_hene();
         });
+        // Lung cancer
+        function tarTYes_lung() {
+          if ($("#tarTYes_lung").is(":checked")) {
+            $("#tarTD_lung").show();
+          } else {
+            $("#tarTD_lung").hide();
+            $("#Tar_Cycles_lung").val("");
+          }
+        }
+        tarTYes_lung();
+        $('input[name="tarT_lung"]').change(function () {
+          tarTYes_lung();
+        });
         // Ovary
         function tarTYes_ovry() {
           if ($("#tarTYes_ovry").is(":checked")) {
@@ -19418,7 +20777,7 @@
         $('input[name="pbT"]').change(function () {
           pbYes();
         });
-        // Head andNeck
+        // Head and Neck
         function pbYes_hene() {
           if ($("#pbYes_hene").is(":checked")) {
             $("#PBN_hene").show();
@@ -19430,6 +20789,19 @@
         pbYes_hene();
         $('input[name="pbT_hene"]').change(function () {
           pbYes_hene();
+        });
+        // Lung Cancer
+        function pbYes_lung() {
+          if ($("#pbYes_lung").is(":checked")) {
+            $("#PBN_lung").show();
+          } else {
+            $("#PBN_lung").hide();
+            $("#PBInput_lung").val("");
+          }
+        }
+        pbYes_lung();
+        $('input[name="pbT_lung"]').change(function () {
+          pbYes_lung();
         });
         // Cervix
         function pbYes_ceix() {
@@ -19637,6 +21009,8 @@
         bindAgeRangeValidation("#patAge_endm", 15, 100);
         // Cervix
         bindAgeRangeValidation("#patAge_ceix", 15, 100);
+        // Cervix
+        bindAgeRangeValidation("#patAge_lung", 15, 100);
         // Age of marriage Cervix
         bindAgeRangeValidation("#ageAtMarriage_ceix", 15, 100);
         // Age of first coitus
@@ -19693,6 +21067,16 @@
             alert("Please enter a valid number lesser than Number Of Para-aortic Nodes Tested");
             positiveNodesValue = "";
             $("#positiveNodes_pa_ovry").val(positiveNodesValue);
+          }
+        });
+        $("#positiveNodes_lung").on("input", function () {
+          let positiveNodesValue = parseInt($("#positiveNodes_lung").val(), 10);
+          let nodesTested = parseInt(document.getElementById("nodesTested_lung").value, 10);
+
+          if (positiveNodesValue > nodesTested) {
+            alert("Please enter a valid number lesser than Number Of Nodes Tested");
+            positiveNodesValue = "";
+            $("#positiveNodes_lung").val(positiveNodesValue);
           }
         });
         $("#positiveNodes_hene").on("input", function () {
@@ -19780,6 +21164,19 @@
           breFd_ovry();
         });
 
+        function clearHeadAndNeckSubtypeGroup(groupName, otherInputPrefix) {
+          $(`input[name="${groupName}"]`).each(function () {
+            $(this).prop("checked", false);
+            const target = `#${otherInputPrefix}_${$(this).val()}_Oth_hene`;
+
+            if ($(target).length) {
+              $(target).prop("disabled", true).val("");
+            }
+          });
+        }
+
+        let previousTumorSite_hene = $("#tumorSite_hene").val();
+
         // Head and Neck Tumor Subtype
         function tumorTyp_tumorSubTyp_hene() {
           const option = $("#tumorSite_hene").val();
@@ -19834,21 +21231,16 @@
           $("#tumorType_op25_hene").toggle(option === "op25");
           $("#tumorType_op26_hene").toggle(option === "op26");
 
-          // Clear the tags when switched
-          if (mode === "undefined") {
-            $('input[name="tumorSubType_hene"]').each(function () {
-              $(this).prop("checked", false);
-              const target = `#tumorSubType_${$(this).val()}_Oth_hene`;
-
-              if ($(target).length) {
-                $(target).prop("disabled", true).val("");
-              }
-            });
+          if (option !== previousTumorSite_hene) {
+            clearHeadAndNeckSubtypeGroup("tumorSubType_hene", "tumorSubType");
           }
+
+          previousTumorSite_hene = option;
         }
         tumorTyp_tumorSubTyp_hene();
         $("#tumorSite_hene,#tumorType_hene").on("change", function () {
           tumorTyp_tumorSubTyp_hene();
+          pTyp_pSubTyp_hene();
         });
         function tumorSubType_hene() {
           $('input[name="tumorSubType_hene"]').each(function () {
@@ -19872,6 +21264,8 @@
         });
 
         // Head and Neck Histological Subtype
+        let previousPType_hene = $("#pType_hene").val();
+
         function pTyp_pSubTyp_hene() {
           const option = $("#pType_hene").val();
           const showSubType = [
@@ -19968,18 +21362,11 @@
           $("#pType_op35_1_hene").toggle(option === "op35" || option === "op36" || option === "op37" || option === "op38");
           $("#pType_op35_2_hene").toggle(option === "op35" || option === "op36" || option === "op37" || option === "op38");
 
-          // Clear the tags when switched
-          if (mode === "undefined") {
-            $('input[name="pSubType_hene"]').each(function () {
-              $(this).prop("checked", false);
-              const target = `#pSubType_${$(this).val()}_Oth_hene`;
-
-              if ($(target).length) {
-                // enable when checked and disble when checked if in read mode
-                $(target).prop("disabled", true).val("");
-              }
-            });
+          if (option !== previousPType_hene) {
+            clearHeadAndNeckSubtypeGroup("pSubType_hene", "pSubType");
           }
+
+          previousPType_hene = option;
         }
         pTyp_pSubTyp_hene();
         $("#pType_hene").on("change", function () {
@@ -21267,10 +22654,10 @@
 
           // Lung Cancer
           // Form 1
-          // { groupName: "denovo_lung", containerClass: "erase-icon-container-denovo-lung" },
-          // { groupName: "IschemicRadio_lung", containerClass: "erase-icon-container-lung" },
-          // { groupName: "NACT_lung", containerClass: "erase-icon-container-NACT-lung" },
-          // { groupName: "processedRadio_lung", containerClass: "erase-icon-container-samRev-lung" },
+          { groupName: "denovo_lung", containerClass: "erase-icon-container-denovo-lung" },
+          { groupName: "IschemicRadio_lung", containerClass: "erase-icon-container-lung" },
+          { groupName: "NACT_lung", containerClass: "erase-icon-container-NACT-lung" },
+          { groupName: "processedRadio_lung", containerClass: "erase-icon-container-samRev-lung" },
         ];
 
         radioGroups.forEach((group) => {
@@ -22338,6 +23725,7 @@
                     document.getElementById("familyRelation_hene").value = mdDataArr.fhcr || "";
                     document.getElementById("familyCancerType_hene").value = mdDataArr.fhct || "";
 
+                    if (mdDataArr.hpv) document.querySelector(`input[name="HPV_sts_hene"][value="${mdDataArr.hpv}"]`).checked = true;
                     if (mdDataArr.fh) document.querySelector(`input[name="RadioFdHabit_hene"][value="${mdDataArr.fh}"]`).checked = true;
                     if (mdDataArr.hac) document.querySelector(`input[name="RadioAlcoholHabit_hene"][value="${mdDataArr.hac}"]`).checked = true;
                     if (mdDataArr.hs) document.querySelector(`input[name="RadioSmokeHabit_hene"][value="${mdDataArr.hs}"]`).checked = true;
@@ -22499,7 +23887,8 @@
                     }
                     document.getElementById("clinicalStage_hene").value = mdDataArr.cs || "";
                     document.getElementById("pType_hene").value = mdDataArr?.pt || "";
-                    pTyp_pSubTyp_hene();
+                    document.getElementById("pType_hene").disabled = isReadOnlyViewMode(mode);
+                    document.getElementById("pType_hene").dispatchEvent(new Event("change"));
                     document.getElementById("pType_Oth_hene").value = mdDataArr?.ptOth || "";
                     document.getElementById("pType_Oth_hene").disabled = isReadOnlyViewMode(mode);
                     if (mdDataArr.pst) {
@@ -23345,6 +24734,7 @@
                       document.getElementById("familyRelation_hene").value = mdDataArr.fhcr || "";
                       document.getElementById("familyCancerType_hene").value = mdDataArr.fhct || "";
 
+                      if (mdDataArr.hpv) document.querySelector(`input[name="HPV_sts_hene"][value="${mdDataArr.hpv}"]`).checked = true;
                       if (mdDataArr.fh) document.querySelector(`input[name="RadioFdHabit_hene"][value="${mdDataArr.fh}"]`).checked = true;
                       if (mdDataArr.hac) document.querySelector(`input[name="RadioAlcoholHabit_hene"][value="${mdDataArr.hac}"]`).checked = true;
                       if (mdDataArr.hs) document.querySelector(`input[name="RadioSmokeHabit_hene"][value="${mdDataArr.hs}"]`).checked = true;
@@ -23475,8 +24865,39 @@
                         });
                       }
                       ExistComorbidity_hene();
+                      document.getElementById("tumorType_hene").value = mdDataArr?.ttyp || "";
+                      document.getElementById("tumorType_hene").dispatchEvent(new Event("change"));
+                      document.getElementById("tumorSite_hene").value = mdDataArr?.tst || "";
+                      document.getElementById("tumorType_Oth_hene").value = mdDataArr?.tstOth || "";
+                      document.getElementById("tumorSite_hene").dispatchEvent(new Event("change"));
+                      if (mdDataArr.tsub) {
+                        const data = Array.isArray(mdDataArr.tsub) ? mdDataArr.tsub : [mdDataArr.tsub];
+
+                        data.forEach((item) => {
+                          const subtypeValue = item?.op;
+                          const checkbox = document.querySelector(`input[name="tumorSubType_hene"][value="${subtypeValue}"]`);
+
+                          if (!checkbox) {
+                            return;
+                          }
+
+                          checkbox.checked = true;
+                          // checkbox.dispatchEvent(new Event("change"));
+
+                          if (item?.text) {
+                            const otherInput = document.getElementById(`tumorSubType_${subtypeValue}_Oth_hene`);
+
+                            if (otherInput) {
+                              otherInput.value = item.text || "";
+                              otherInput.disabled = isReadOnlyViewMode(mode);
+                            }
+                          }
+                        });
+                      }
+
                       document.getElementById("pType_hene").value = mdDataArr?.pt || "";
-                      pTyp_pSubTyp_hene();
+                      document.getElementById("pType_hene").disabled = isReadOnlyViewMode(mode);
+                      document.getElementById("pType_hene").dispatchEvent(new Event("change"));
                       document.getElementById("pType_Oth_hene").value = mdDataArr?.ptOth || "";
                       document.getElementById("pType_Oth_hene").disabled = isReadOnlyViewMode(mode);
 
@@ -23561,35 +24982,6 @@
                         if (mdDataArr.pcc === "op3") document.getElementById("pcc_op3_Oth_hene").value = mdDataArr?.pccOth;
                       }
 
-                      document.getElementById("tumorType_hene").value = mdDataArr?.ttyp || "";
-                      document.getElementById("tumorType_hene").dispatchEvent(new Event("change"));
-                      document.getElementById("tumorSite_hene").value = mdDataArr?.tst || "";
-                      document.getElementById("tumorType_Oth_hene").value = mdDataArr?.tstOth || "";
-                      document.getElementById("tumorSite_hene").dispatchEvent(new Event("change"));
-                      if (mdDataArr.tsub) {
-                        const data = Array.isArray(mdDataArr.tsub) ? mdDataArr.tsub : [mdDataArr.tsub];
-
-                        data.forEach((item) => {
-                          const subtypeValue = item?.op;
-                          const checkbox = document.querySelector(`input[name="tumorSubType_hene"][value="${subtypeValue}"]`);
-
-                          if (!checkbox) {
-                            return;
-                          }
-
-                          checkbox.checked = true;
-                          // checkbox.dispatchEvent(new Event("change"));
-
-                          if (item?.text) {
-                            const otherInput = document.getElementById(`tumorSubType_${subtypeValue}_Oth_hene`);
-
-                            if (otherInput) {
-                              otherInput.value = item.text || "";
-                              otherInput.disabled = isReadOnlyViewMode(mode);
-                            }
-                          }
-                        });
-                      }
                       document.getElementById("ageAtDiagnosis_hene").value = mdDataArr.ad || "";
                       document.getElementById("clinicalStage_hene").value = mdDataArr.cs || "";
                     }
@@ -23679,20 +25071,20 @@
                   { value: "Other", text: "Other" },
                 ],
               };
+            } else if (ct === "lung") {
+              return {
+                cvSymAddBtn: "cvSymAddBtn_lung",
+                cvSym: "cvSym_lung",
+                commandClass: "cmd_lung",
+                options: [
+                  { value: "", text: "Select" },
+                  { value: "Diabetic", text: "Type 2 Diabetic Mellitus" },
+                  { value: "Cardiac", text: "Cardiac History" },
+                  { value: "Hypertension", text: "Hypertension" },
+                  { value: "Other", text: "Other" },
+                ],
+              };
             }
-            // else if (ct === "lung") {
-            //   return {
-            //     cvSymAddBtn: "cvSymAddBtn_lung",
-            //     cvSym: "cvSym_lung",
-            //     commandClass: "cmd_lung",
-            //     options: [
-            //       { value: "", text: "Select" },
-            //       { value: "Diabetic", text: "Type 2 Diabetic Mellitus" },
-            //       { value: "Cardiac", text: "Cardiac History" },
-            //       { value: "Hypertension", text: "Hypertension" },
-            //     ],
-            //   };
-            // }
           }
 
           const echIds = getECHIds(cancer_type);
