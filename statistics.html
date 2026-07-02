@@ -166,7 +166,7 @@
           &copy; Copyright <strong><span></span></strong>. All Rights Reserved
         </div>
         <div class="credits"></div>
-        <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">Version 1.8.14</div>
+        <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">Version 1.8.15</div>
       </div>
     </footer>
     <script src="chart.js"></script>
@@ -380,6 +380,7 @@
                 let endmCancer = 0;
                 let ovryCancer = 0;
                 let heneCancer = 0;
+                let lungCancer = 0;
 
                 let biopsy = 0;
                 let resection = 0;
@@ -426,6 +427,8 @@
                           else if (cancer === "endm") endmCancer++;
                           else if (cancer === "ovry") ovryCancer++;
                           else if (cancer === "hene") heneCancer++;
+                          else if (cancer === "lung") lungCancer++;
+
                           if (procedure === "b") biopsy++;
                           else if (procedure === "r") resection++;
 
@@ -467,7 +470,7 @@
                   document.getElementById("samples").innerHTML = count;
 
                   ageChart(countUnder30, count30to39, count40to49, count50to59, countAbove60);
-                  cancerChart(breastCancer, ceixCancer, endmCancer, ovryCancer, heneCancer);
+                  cancerChart(breastCancer, ceixCancer, endmCancer, ovryCancer, heneCancer, lungCancer);
                   procedureChart(biopsy, resection);
                   sampleTypeChart(countBS, countSS, countOS, countRLT, countPC, countCombined);
                   hideLoadingModal();
@@ -478,7 +481,7 @@
                 console.log("No seat data available.");
                 document.getElementById("samples").innerHTML = 0;
                 ageChart(0, 0, 0, 0, 0);
-                cancerChart(0, 0, 0, 0, 0);
+                cancerChart(0, 0, 0, 0, 0, 0);
                 procedureChart(0, 0);
                 sampleTypeChart(0, 0, 0, 0, 0, 0);
                 hideLoadingModal();

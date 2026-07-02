@@ -2865,7 +2865,7 @@
                     </div>
                   </div>
                   <div class="row ml-1 mb-3" id="pcbSampleTubes_hene" style="display: none">
-                    <label for="pcbSgridNo_hene" class="col-sm-2 mb-1 col-form-label">PC Sample Grid</label>
+                    <label for="pcSgridNo_hene" class="col-sm-2 mb-1 col-form-label">PC Sample Grid</label>
                     <div class="col-sm-10 mt-2">
                       <input type="button" class="form-control" id="pcSgridNo_hene" onclick="pcSModal()" placeholder="PC Sample Grid" />
                     </div>
@@ -3474,7 +3474,7 @@
                     </div>
                   </div>
                   <div class="row ml-1 mb-3" id="pcbSampleTubes_lung" style="display: none">
-                    <label for="pcbSgridNo_lung" class="col-sm-2 mb-1 col-form-label">PC Sample Grid</label>
+                    <label for="pcSgridNo_lung" class="col-sm-2 mb-1 col-form-label">PC Sample Grid</label>
                     <div class="col-sm-10 mt-2">
                       <input type="button" class="form-control" id="pcSgridNo_lung" onclick="pcSModal()" placeholder="PC Sample Grid" />
                     </div>
@@ -3558,10 +3558,10 @@
                       <input type="text" class="form-control mt-2" id="pS_Oth_lung" placeholder="specify" disabled />
                     </div>
                   </div>
-                  <div class="row ml-1 mb-3" id="nactTE_lung" style="display: none">
+                  <div class="row ml-1 mb-3" id="inf_C_lung" style="display: none">
                     <label for="" class="col-sm-2 mb-1 col-form-label">Inflammation</label>
                     <div class="col-sm-10">
-                      <select id="nactEff_lung" class="form-control">
+                      <select id="inf_lung" class="form-control">
                         <option value=""></option>
                         <option value="op1">Mild</option>
                         <option value="op2">Not identified</option>
@@ -3595,7 +3595,7 @@
                         <label class="custom-control-label" for="radioprocessed2_lung">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-samRev"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-samRev-lung"></div>
                   </div>
 
                   <div class="row ml-1 mb-3" id="AllSamplesProcess_lung" style="display: none">
@@ -10318,9 +10318,9 @@
                     </div>
                   </div>
                   <div class="row ml-1 mb-3" id="cmim_C_lung" style="display: none">
-                    <label for="pSC_S_lung" class="col-sm-3 mb-1 col-form-label">Closest Margin(s) to Invasive Tumor</label>
+                    <label for="cmim_lung" class="col-sm-3 mb-1 col-form-label">Closest Margin(s) to Invasive Tumor</label>
                     <div class="col-sm-9">
-                      <input type="text" class="form-control" id="pSC_S_lung" placeholder="" />
+                      <input type="text" class="form-control" id="cmim_lung" placeholder="" />
                     </div>
                   </div>
                   <div class="row ml-1 mb-3" id="dITCM_C_lung" style="display: none">
@@ -10437,7 +10437,7 @@
                   <div class="row ml-1 mb-3">
                     <label for="sizeLNMD_lung" class="col-sm-3 mb-1 col-form-label">Size of Largest Nodal Metastatic Deposit (cm)</label>
                     <div class="col-sm-9">
-                      <input type="text" class="form-control" id="sizeLNMD_lung" placeholder="" />
+                      <input type="number" class="form-control" id="sizeLNMD_lung" placeholder="" />
                     </div>
                   </div>
                   <div class="row ml-1 mb-3">
@@ -10497,7 +10497,7 @@
                   <div class="row ml-1 mb-3">
                     <label for="sSC_lung" class="col-sm-3 mb-1 col-form-label">Size of In Situ Carcinoma in Centimeters (cm)</label>
                     <div class="col-sm-9">
-                      <input type="text" class="form-control" id="sSC_lung" placeholder="" />
+                      <input type="number" class="form-control" id="sSC_lung" placeholder="" />
                     </div>
                   </div>
                   <div class="row ml-1 mb-3">
@@ -10564,7 +10564,26 @@
                       <input type="date" class="form-control" id="radiotherapyLastCycleDate_lung" placeholder="Select Date" />
                     </div>
                   </div>
-
+                  <div class="row ml-1 mb-3">
+                    <label for="HorT_lung" class="col-sm-3 mb-1 col-form-label">Hormonal Therapy</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="horTYes_lung" name="horT_lung" class="custom-control-input" value="true" />
+                        <label class="custom-control-label" for="horTYes_lung">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="horTNo_lung" name="horT_lung" class="custom-control-input" value="false" />
+                        <label class="custom-control-label" for="horTNo_lung">No</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-HT-lung"></div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="horTD_lung" style="display: none">
+                    <label for="hormone_Cycles_lung" class="col-sm-3 mb-1 col-form-label">Hormonal Therapy Details</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="hormone_Cycles_lung" placeholder="" />
+                    </div>
+                  </div>
                   <div class="row ml-1 mb-3">
                     <label for="tarT_lung" class="col-sm-3 mb-1 col-form-label">Targeted Therapy</label>
                     <div class="col-sm-8">
@@ -10597,7 +10616,7 @@
                         <label class="custom-control-label" for="pbNo_lung">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-pbT_lung"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-pbT-lung"></div>
                   </div>
 
                   <div class="row ml-1 mb-3" id="PBN_lung" style="display: none">
@@ -11823,7 +11842,7 @@
           &copy; Copyright <strong><span></span></strong>. All Rights Reserved
         </div>
         <div class="credits"></div>
-        <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">Version 1.8.14</div>
+        <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">Version 1.8.15</div>
       </div>
     </footer>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -12012,7 +12031,7 @@
         };
         const figoOptionByStage_lung = {
           I: ["A", "B"],
-          II: ["A", "B", "C"],
+          II: ["A", "B"],
           III: ["A", "B", "C"],
         };
         const treatmentBreast_lung = {
@@ -12133,7 +12152,7 @@
               secondarySelect.appendChild(option);
             });
 
-            const disableSecondaryForTreatment = primaryId === "mte1_hene" && ["", "op1"].includes(primarySelect.value);
+            const disableSecondaryForTreatment = (primaryId === "mte1_hene" && ["", "op1"].includes(primarySelect.value)) || (primaryId === "FIGO1_lung" && ["", "IV"].includes(primarySelect.value));
             secondarySelect.disabled = primarySelect.disabled || primarySelect.value === "" || disableSecondaryForTreatment;
             secondarySelect.value = optionEntries.some(function (entry) {
               return entry.value === currentValue;
@@ -12388,6 +12407,22 @@
           "PCSampleProcessedDate_hene",
           "actDateLastCycle_hene",
           "radiotherapyLastCycleDate_hene",
+          // Lung
+          "NACT_cycle_D_lung",
+          "actDateLastCycle_lung",
+          "radiotherapyLastCycleDate_lung",
+          "sampleReceivedDate_lung",
+          "sampleProcessedDate_lung",
+          "bloodSampleProcessedDate_lung",
+          "SpecimenSampleReceivedDate_lung",
+          "bloodSampleReceivedDate_lung",
+          "SpecimenSampleProcessedDate_lung",
+          "OtherSampleReceivedDate_lung",
+          "OtherSampleProcessedDate_lung",
+          "RLTSampleReceivedDate_lung",
+          "RLTSampleProcessedDate_lung",
+          "PCSampleReceivedDate_lung",
+          "PCSampleProcessedDate_lung",
         ];
         dateFilters.forEach((dateFilter) => {
           const input = document.getElementById(dateFilter);
@@ -12717,7 +12752,7 @@
           ceix: "pcbSgridNo_ceix",
           endm: "pcSgridNo_endm",
           ovry: "pcbSgridNo_ovry",
-          lung: "pcbSgridNo_lung",
+          lung: "pcSgridNo_lung",
           hene: "pcSgridNo_hene",
         };
 
@@ -16766,24 +16801,23 @@
             { field: document.querySelector('input[name="pcbSample_hene"]:checked'), name: "PC Sample" },
             { field: document.querySelector('input[name="processedRadio_hene"]:checked'), name: "All samples Received Together?" },
           ];
+        } else if (cancer_type === "lung") {
+          requiredFields = [
+            { field: document.getElementById("mrnNo"), name: "MRN Number" },
+            { field: document.getElementById("bioBankId"), name: "Bio Bank ID" },
+            { field: document.getElementById("cancer_type"), name: "Cancer Type" },
+            { field: document.getElementById("patAge_lung"), name: "Age" },
+            { field: document.querySelector('input[name="customRadio_lung"]:checked'), name: "Gender" },
+            { field: document.querySelector('input[name="customProcedure_lung"]:checked'), name: "Procedure Types" },
+            { field: document.querySelector('input[name="MetastasisSample_lung"]:checked'), name: "Metastasis Sample" },
+            { field: document.querySelector('input[name="bloodSample_lung"]:checked'), name: "Blood Sample" },
+            { field: document.querySelector('input[name="specimenSample_lung"]:checked'), name: "Specimen Sample" },
+            { field: document.querySelector('input[name="otherSample_lung"]:checked'), name: "Other Sample" },
+            { field: document.querySelector('input[name="rltSample_lung"]:checked'), name: "RLT Sample" },
+            { field: document.querySelector('input[name="pcbSample_lung"]:checked'), name: "PC Sample" },
+            { field: document.querySelector('input[name="processedRadio_lung"]:checked'), name: "All samples Received Together?" },
+          ];
         }
-        // else if (cancer_type === "lung") {
-        //   requiredFields = [
-        //     { field: document.getElementById("mrnNo"), name: "MRN Number" },
-        //     { field: document.getElementById("bioBankId"), name: "Bio Bank ID" },
-        //     { field: document.getElementById("cancer_type"), name: "Cancer Type" },
-        //     { field: document.getElementById("patAge_lung"), name: "Age" },
-        //     { field: document.querySelector('input[name="customRadio_lung"]:checked'), name: "Gender" },
-        //     { field: document.querySelector('input[name="customProcedure_lung"]:checked'), name: "Procedure Types" },
-        //     { field: document.querySelector('input[name="MetastasisSample_lung"]:checked'), name: "Metastasis Sample" },
-        //     { field: document.querySelector('input[name="bloodSample_lung"]:checked'), name: "Blood Sample" },
-        //     { field: document.querySelector('input[name="specimenSample_lung"]:checked'), name: "Specimen Sample" },
-        //     { field: document.querySelector('input[name="otherSample_lung"]:checked'), name: "Other Sample" },
-        //     { field: document.querySelector('input[name="rltSample_lung"]:checked'), name: "RLT Sample" },
-        //     { field: document.querySelector('input[name="pcbSample_lung"]:checked'), name: "PC Sample" },
-        //     { field: document.querySelector('input[name="processedRadio_lung"]:checked'), name: "All samples Received Together?" },
-        //   ];
-        // }
 
         let allFilled = true;
         const emptyFields = [];
@@ -17119,43 +17153,43 @@
           }
         }
       });
-      // // Lung Cancer
-      // document.getElementById("ft_tubes_lung").addEventListener("change", function () {
-      //   var selectedValue = this.value;
+      // Lung Cancer
+      document.getElementById("ft_tubes_lung").addEventListener("change", function () {
+        var selectedValue = this.value;
 
-      //   if (selectedValue) {
-      //     $("#ftgrid_lung").val("");
-      //     let spGrids = localStorage.getItem("selectedSGrid");
-      //     let ftGrids = localStorage.getItem("LocalFT");
+        if (selectedValue) {
+          $("#ftgrid_lung").val("");
+          let spGrids = localStorage.getItem("selectedSGrid");
+          let ftGrids = localStorage.getItem("LocalFT");
 
-      //     if (spGrids && ftGrids) {
-      //       let spGridsArray = spGrids.split(",");
-      //       let ftGridsArray = ftGrids.split(",");
+          if (spGrids && ftGrids) {
+            let spGridsArray = spGrids.split(",");
+            let ftGridsArray = ftGrids.split(",");
 
-      //       spGridsArray = spGridsArray.filter((grid) => !ftGridsArray.includes(grid));
-      //       localStorage.setItem("selectedSGrid", spGridsArray.join(","));
-      //       localStorage.removeItem("LocalFT");
-      //     }
-      //   }
-      // });
-      // document.getElementById("fn_tubes_lung").addEventListener("change", function () {
-      //   var selectedValue = this.value;
+            spGridsArray = spGridsArray.filter((grid) => !ftGridsArray.includes(grid));
+            localStorage.setItem("selectedSGrid", spGridsArray.join(","));
+            localStorage.removeItem("LocalFT");
+          }
+        }
+      });
+      document.getElementById("fn_tubes_lung").addEventListener("change", function () {
+        var selectedValue = this.value;
 
-      //   if (selectedValue) {
-      //     $("#fngrid_lung").val("");
-      //     let spGrids = localStorage.getItem("selectedSGrid");
-      //     let fnGrids = localStorage.getItem("LocalFN");
+        if (selectedValue) {
+          $("#fngrid_lung").val("");
+          let spGrids = localStorage.getItem("selectedSGrid");
+          let fnGrids = localStorage.getItem("LocalFN");
 
-      //     if (spGrids && fnGrids) {
-      //       let spGridsArray = spGrids.split(",");
-      //       let fnGridsArray = fnGrids.split(",");
+          if (spGrids && fnGrids) {
+            let spGridsArray = spGrids.split(",");
+            let fnGridsArray = fnGrids.split(",");
 
-      //       spGridsArray = spGridsArray.filter((grid) => !fnGridsArray.includes(grid));
-      //       localStorage.setItem("selectedSGrid", spGridsArray.join(","));
-      //       localStorage.removeItem("LocalFN");
-      //     }
-      //   }
-      // });
+            spGridsArray = spGridsArray.filter((grid) => !fnGridsArray.includes(grid));
+            localStorage.setItem("selectedSGrid", spGridsArray.join(","));
+            localStorage.removeItem("LocalFN");
+          }
+        }
+      });
     </script>
 
     <script>
@@ -17934,7 +17968,7 @@
         function pleC_lung() {
           const option = $("#pleC_lung").val();
           if (["op1", "op2", "op3", "op4", "op5", "op6"].includes(option)) {
-            $("#pleC_specify_lung").prop("disabled", false);
+            $("#pleC_specify_lung").prop("disabled", isReadOnlyViewMode(mode));
           } else {
             $("#pleC_specify_lung").prop("disabled", true).val("");
           }
@@ -17947,7 +17981,7 @@
         function pGrade_lung() {
           const option = $("#grade_lung").val();
           if (["grade6", "grade7", "grade8"].includes(option)) {
-            $("#grade_Oth_lung").prop("disabled", false);
+            $("#grade_Oth_lung").prop("disabled", isReadOnlyViewMode(mode));
           } else {
             $("#grade_Oth_lung").prop("disabled", true).val("");
           }
@@ -17960,7 +17994,7 @@
         function VPI_lung() {
           const option = $("#VPI_lung").val();
           if (["op4"].includes(option)) {
-            $("#VPI_Oth_lung").prop("disabled", false);
+            $("#VPI_Oth_lung").prop("disabled", isReadOnlyViewMode(mode));
           } else {
             $("#VPI_Oth_lung").prop("disabled", true).val("");
           }
@@ -17973,7 +18007,7 @@
         function DIOther_lung() {
           const option = $("#DIOther_lung").val();
           if (["op3"].includes(option)) {
-            $("#DIOther_Oth_lung").prop("disabled", false);
+            $("#DIOther_Oth_lung").prop("disabled", isReadOnlyViewMode(mode));
           } else {
             $("#DIOther_Oth_lung").prop("disabled", true).val("");
           }
@@ -17986,7 +18020,7 @@
         function LVI_lung() {
           const option = $("#LVI_lung").val();
           if (["op3"].includes(option)) {
-            $("#LVI_Oth_lung").prop("disabled", false);
+            $("#LVI_Oth_lung").prop("disabled", isReadOnlyViewMode(mode));
           } else {
             $("#LVI_Oth_lung").prop("disabled", true).val("");
           }
@@ -18004,9 +18038,9 @@
         function LVI_P_lung() {
           const option = $("#LVI_P_lung").val();
           if (["op4"].includes(option)) {
-            $("#LVI_P_Oth_lung").prop("disabled", true);
+            $("#LVI_P_Oth_lung").prop("disabled", isReadOnlyViewMode(mode));
           } else {
-            $("#LVI_P_Oth_lung").prop("disabled", false).val("");
+            $("#LVI_P_Oth_lung").prop("disabled", true).val("");
           }
         }
         LVI_P_lung();
@@ -18016,10 +18050,11 @@
         // Lung Cancer
         function smsts_lung() {
           const option = $("#smsts_lung").val();
+
           if (["op3", "op4", "op5"].includes(option)) {
-            $("#smsts_text_lung").prop("disabled", true);
+            $("#smsts_text_lung").prop("disabled", isReadOnlyViewMode(mode));
           } else {
-            $("#smsts_text_lung").prop("disabled", false).val("");
+            $("#smsts_text_lung").prop("disabled", true).val("");
           }
           if (["op1"].includes(option)) {
             $("#cmim_C_lung").show();
@@ -18044,7 +18079,7 @@
         function smstsN_lung() {
           const option = $("#smstsN_lung").val();
           if (["op2", "op3", "op4", "op5", "op6", "op7"].includes(option)) {
-            $("#smstsN_text_lung").prop("disabled", false);
+            $("#smstsN_text_lung").prop("disabled", isReadOnlyViewMode(mode));
           } else {
             $("#smstsN_text_lung").prop("disabled", true).val("");
           }
@@ -18055,9 +18090,9 @@
         });
         function rlnsts_lung() {
           if ($("#rlnsts_rlnsts_lung").is(":checked")) {
-            $("#rlnsts_oth_lung").prop("disabled", true);
+            $("#rlnsts_oth_lung").prop("disabled", isReadOnlyViewMode(mode));
           } else {
-            $("#rlnsts_oth_lung").prop("disabled", false).val("");
+            $("#rlnsts_oth_lung").prop("disabled", true).val("");
           }
         }
         rlnsts_lung();
@@ -18068,7 +18103,7 @@
         function pPatterns_lung() {
           const option = $("#pPat_lung").val();
           if (["op2", "op3", "op4", "op5", "op6", "op7", "op8"].includes(option)) {
-            $("#pPat_Oth_lung").prop("disabled", false);
+            $("#pPat_Oth_lung").prop("disabled", isReadOnlyViewMode(mode));
           } else {
             $("#pPat_Oth_lung").prop("disabled", true).val("");
           }
@@ -18317,13 +18352,16 @@
             $("#pRVT_C_lung").show();
             $("#pN_C_lung").show();
             $("#pS_C_lung").show();
+            $("#inf_C_lung").show();
           } else {
             $("#pRVT_C_lung").hide();
             $("#pN_C_lung").hide();
             $("#pS_C_lung").hide();
+            $("#inf_C_lung").hide();
             $("#pRVT_lung").val("");
             $("#pN_lung").val("");
             $("#pS_lung").val("");
+            $("#inf_lung").val("");
           }
         }
         TreatmentEff_lung();
@@ -18336,30 +18374,41 @@
         function pRVT_C_lung() {
           const option = $("#pRVT_lung").val();
           const $input = $("#pRVT_Oth_lung");
+          const isReadOnly = isReadOnlyViewMode(localStorage.getItem("mode"));
 
-          if (["op1", "op2", "op3"].includes(option)) {
-            $input.prop("disabled", false);
-
-            if (option === "op1") {
-              $input.attr("placeholder", "Percentage %");
-              $input.attr("type", "number");
-            } else if (option === "op2") {
-              $input.attr("placeholder", "Specify");
-              $input.attr("type", "text");
-            } else if (option === "op3") {
-              $input.attr("placeholder", "");
-              $input.attr("type", "text");
-            } else {
-              $input.prop("disabled", true);
-              $input.val("");
-              $input.attr("placeholder", "");
-              $input.attr("type", "text");
-            }
-          } else {
+          if (!["op1", "op2", "op3"].includes(option)) {
             $input.prop("disabled", true);
             $input.val("");
-            $input.attr("placeholder", "");
-            $input.attr("type", "text");
+            $input.attr({
+              placeholder: "",
+              type: "text",
+            });
+            return;
+          }
+
+          $input.prop("disabled", isReadOnly);
+
+          switch (option) {
+            case "op1":
+              $input.attr({
+                placeholder: "Percentage %",
+                type: "number",
+              });
+              break;
+
+            case "op2":
+              $input.attr({
+                placeholder: "Specify",
+                type: "text",
+              });
+              break;
+
+            case "op3":
+              $input.attr({
+                placeholder: "",
+                type: "text",
+              });
+              break;
           }
         }
         pRVT_C_lung();
@@ -18369,9 +18418,10 @@
         function pN_C_lung() {
           const option = $("#pN_lung").val();
           const $input = $("#pN_Oth_lung");
+          const isReadOnly = isReadOnlyViewMode(localStorage.getItem("mode"));
 
           if (["op1", "op2", "op3"].includes(option)) {
-            $input.prop("disabled", false);
+            $input.prop("disabled", isReadOnly);
 
             if (option === "op1") {
               $input.attr("placeholder", "Percentage %");
@@ -18402,9 +18452,10 @@
         function pS_C_lung() {
           const option = $("#pS_lung").val();
           const $input = $("#pS_Oth_lung");
+          const isReadOnly = isReadOnlyViewMode(localStorage.getItem("mode"));
 
           if (["op1", "op2", "op3"].includes(option)) {
-            $input.prop("disabled", false);
+            $input.prop("disabled", isReadOnly);
 
             if (option === "op1") {
               $input.attr("placeholder", "Percentage %");
@@ -18786,9 +18837,9 @@
         function toggle_mptS() {
           const isSyncPresent = $("#mpt_site_lung").val();
           if (["op1", "op2", "op3", "op4", "op5", "op6", "op7"].includes(isSyncPresent)) {
-            $("#mpt_site_Oth_lung").prop("disabled", false);
+            $("#mpt_site_Oth_lung").prop("disabled", isReadOnlyViewMode(mode));
           } else {
-            $("#mpt_site_Oth_lung").prop("disabled", true || isReadOnlyViewMode(mode));
+            $("#mpt_site_Oth_lung").prop("disabled", true);
             $("#mpt_site_Oth_lung").val("");
           }
         }
@@ -19470,7 +19521,8 @@
         $('input[name="specimenSample_hene"]').change(function () {
           specimenSample_hene();
           sampleReceive_hene();
-        }); // Lung Cancer
+        });
+        // Lung Cancer
         function specimenSample_lung() {
           if ($("#specimenSampleY_lung").is(":checked")) {
             $("#countFttubes_lung").show();
@@ -20645,6 +20697,19 @@
         $('input[name="horT"]').change(function () {
           horTYes();
         });
+        // Lung
+        function horTYes_lung() {
+          if ($("#horTYes_lung").is(":checked")) {
+            $("#horTD_lung").show();
+          } else {
+            $("#horTD_lung").hide();
+            $("#hormone_Cycles_lung").val("");
+          }
+        }
+        horTYes_lung();
+        $('input[name="horT_lung"]').change(function () {
+          horTYes_lung();
+        });
         // Cervix
         function horTYes_ceix() {
           if ($("#horTYes_ceix").is(":checked")) {
@@ -21440,6 +21505,7 @@
             if (biobankID.startsWith("EM")) return "surgeonName_endm";
             if (biobankID.startsWith("OV")) return "surgeonName_ovry";
             if (biobankID.startsWith("HN")) return "surgeonName_hene";
+            if (biobankID.startsWith("LU")) return "surgeonName_lung";
           }
           function getDataEntryIds(biobankID) {
             if (biobankID.startsWith("BR"))
@@ -21472,6 +21538,12 @@
                 mdCurrentUser: "mdCurrentUser_hene",
                 brfCurrentUser: "brfCurrentUser_hene",
               };
+            if (biobankID.startsWith("LU"))
+              return {
+                sefCurrentUser: "sefCurrentUser_lung",
+                mdCurrentUser: "mdCurrentUser_lung",
+                brfCurrentUser: "brfCurrentUser_lung",
+              };
           }
 
           if (mode === "SearchView" || mode === "PendingView") {
@@ -21495,37 +21567,45 @@
                 "PlasmagridNo_endm",
                 "PlasmagridNo_ovry",
                 "PlasmagridNo_hene",
+                "PlasmagridNo_lung",
                 "SerumgridNo",
+                "SerumgridNo_lung",
                 "SerumgridNo_ceix",
                 "SerumgridNo_endm",
                 "SerumgridNo_ovry",
                 "SerumgridNo_hene",
                 "bufferCoatgridNo",
+                "bufferCoatgridNo_lung",
                 "bufferCoatgridNo_ceix",
                 "bufferCoatgridNo_endm",
                 "bufferCoatgridNo_ovry",
                 "bufferCoatgridNo_hene",
                 "OSgridNo",
+                "OSgridNo_lung",
                 "OSgridNo_ceix",
                 "OSgridNo_endm",
                 "OSgridNo_ovry",
                 "OSgridNo_hene",
                 "ftgrid",
+                "ftgrid_lung",
                 "ftgrid_ceix",
                 "ftgrid_endm",
                 "ftgrid_ovry",
                 "ftgrid_hene",
                 "fngrid",
+                "fngrid_lung",
                 "fngrid_ceix",
                 "fngrid_endm",
                 "fngrid_ovry",
                 "fngrid_hene",
                 "rltSgridNo",
+                "rltSgridNo_lung",
                 "rltSgridNo_ceix",
                 "rltSgridNo_endm",
                 "rltSgridNo_ovry",
                 "rltSgridNo_hene",
                 "pcSgridNo",
+                "pcSgridNo_lung",
                 "pcbSgridNo_ceix",
                 "pcSgridNo_endm",
                 "pcbSgridNo_ovry",
@@ -21570,37 +21650,45 @@
                 "PlasmagridNo_endm",
                 "PlasmagridNo_ovry",
                 "PlasmagridNo_hene",
+                "PlasmagridNo_lung",
                 "SerumgridNo",
+                "SerumgridNo_lung",
                 "SerumgridNo_ceix",
                 "SerumgridNo_endm",
                 "SerumgridNo_ovry",
                 "SerumgridNo_hene",
                 "bufferCoatgridNo",
+                "bufferCoatgridNo_lung",
                 "bufferCoatgridNo_ceix",
                 "bufferCoatgridNo_endm",
                 "bufferCoatgridNo_ovry",
                 "bufferCoatgridNo_hene",
                 "OSgridNo",
+                "OSgridNo_lung",
                 "OSgridNo_ceix",
                 "OSgridNo_endm",
                 "OSgridNo_ovry",
                 "OSgridNo_hene",
                 "ftgrid",
+                "ftgrid_lung",
                 "ftgrid_ceix",
                 "ftgrid_endm",
                 "ftgrid_ovry",
                 "ftgrid_hene",
                 "fngrid",
+                "fngrid_lung",
                 "fngrid_ceix",
                 "fngrid_endm",
                 "fngrid_ovry",
                 "fngrid_hene",
                 "rltSgridNo",
+                "rltSgridNo_lung",
                 "rltSgridNo_ceix",
                 "rltSgridNo_endm",
                 "rltSgridNo_ovry",
                 "rltSgridNo_hene",
                 "pcSgridNo",
+                "pcSgridNo_lung",
                 "pcbSgridNo_ceix",
                 "pcSgridNo_endm",
                 "pcbSgridNo_ovry",
@@ -21659,41 +21747,49 @@
             formElements.forEach((element) => {
               const idsToExclude = [
                 "PlasmagridNo",
+                "PlasmagridNo_lung",
                 "PlasmagridNo_ceix",
                 "PlasmagridNo_endm",
                 "PlasmagridNo_ovry",
                 "PlasmagridNo_hene",
                 "SerumgridNo",
+                "SerumgridNo_lung",
                 "SerumgridNo_ceix",
                 "SerumgridNo_endm",
                 "SerumgridNo_ovry",
                 "SerumgridNo_hene",
                 "bufferCoatgridNo",
+                "bufferCoatgridNo_lung",
                 "bufferCoatgridNo_ceix",
                 "bufferCoatgridNo_endm",
                 "bufferCoatgridNo_ovry",
                 "bufferCoatgridNo_hene",
                 "OSgridNo",
+                "OSgridNo_lung",
                 "OSgridNo_ceix",
                 "OSgridNo_endm",
                 "OSgridNo_ovry",
                 "OSgridNo_hene",
                 "ftgrid",
+                "ftgrid_lung",
                 "ftgrid_ceix",
                 "ftgrid_endm",
                 "ftgrid_ovry",
                 "ftgrid_hene",
                 "fngrid",
+                "fngrid_lung",
                 "fngrid_ceix",
                 "fngrid_endm",
                 "fngrid_ovry",
                 "fngrid_hene",
                 "rltSgridNo",
+                "rltSgridNo_lung",
                 "rltSgridNo_ceix",
                 "rltSgridNo_endm",
                 "rltSgridNo_ovry",
                 "rltSgridNo_hene",
                 "pcSgridNo",
+                "pcSgridNo_lung",
                 "pcbSgridNo_ceix",
                 "pcSgridNo_endm",
                 "pcbSgridNo_ovry",
@@ -22091,6 +22187,86 @@
                 if (data.ie.ss === "true") {
                   document.getElementById("ft_tubes_hene").setAttribute("disabled", true);
                   document.getElementById("fn_tubes_hene").setAttribute("disabled", true);
+                  specimenSampleInputs.forEach((input) => {
+                    input.setAttribute("disabled", true);
+                    localStorage.removeItem("LocalFT");
+                  });
+                } else {
+                  specimenSampleInputs.forEach((input) => {
+                    input.removeAttribute("disabled");
+                  });
+                }
+                if (data.ie.osmp === "true") {
+                  otherSampleInputs.forEach((input) => {
+                    input.setAttribute("disabled", true);
+                  });
+                } else {
+                  otherSampleInputs.forEach((input) => {
+                    input.removeAttribute("disabled");
+                  });
+                }
+                if (data.ie.rltS === "true") {
+                  rltSampleInputs.forEach((input) => {
+                    input.setAttribute("disabled", true);
+                  });
+                } else {
+                  rltSampleInputs.forEach((input) => {
+                    input.removeAttribute("disabled");
+                  });
+                }
+                if (data.ie.pcS === "true") {
+                  pcSampleInputs.forEach((input) => {
+                    input.setAttribute("disabled", true);
+                  });
+                } else {
+                  pcSampleInputs.forEach((input) => {
+                    input.removeAttribute("disabled");
+                  });
+                }
+                if (data.ie.pssvl === "Yes") {
+                  pcVSampleInputs.forEach((input) => {
+                    input.setAttribute("disabled", true);
+                  });
+                } else {
+                  pcVSampleInputs.forEach((input) => {
+                    input.removeAttribute("disabled");
+                  });
+                }
+
+                document.getElementById("tab2").classList.add("disabled");
+                document.getElementById("tab3").classList.add("disabled");
+              }
+            } else if (cancer_type === "lung") {
+              if (data.ie) fillIeForm_lung(data.ie);
+              if (data.md) fillMdForm_lung(data.md);
+              if (data.luf) fillBrfForm_lung(data.luf);
+              const bloodSampleInputs = document.querySelectorAll('input[name="bloodSample_lung"]');
+              const specimenSampleInputs = document.querySelectorAll('input[name="specimenSample_lung"]');
+              const otherSampleInputs = document.querySelectorAll('input[name="otherSample_lung"]');
+              const rltSampleInputs = document.querySelectorAll('input[name="rltSample_lung"]');
+              const pcSampleInputs = document.querySelectorAll('input[name="pcbSample_lung"]');
+              const pcVSampleInputs = document.querySelectorAll('input[name="pcbV_lung"]');
+
+              localStorage.setItem("bloodVStatus", data.ie.bs);
+              localStorage.setItem("specimenVStatus", data.ie.ss);
+              localStorage.setItem("otherVStatus", data.ie.osmp);
+              localStorage.setItem("rltVStatus", data.ie.rltS);
+              localStorage.setItem("pcVStatus", data.ie.pcS);
+              localStorage.setItem("pcVVStatus", data.ie.pssvl);
+
+              if (mode === "SearchEdit" || mode === "PendingEdit") {
+                if (data.ie.bs === "true") {
+                  bloodSampleInputs.forEach((input) => {
+                    input.setAttribute("disabled", true);
+                  });
+                } else {
+                  bloodSampleInputs.forEach((input) => {
+                    input.removeAttribute("disabled");
+                  });
+                }
+                if (data.ie.ss === "true") {
+                  document.getElementById("ft_tubes_lung").setAttribute("disabled", true);
+                  document.getElementById("fn_tubes_lung").setAttribute("disabled", true);
                   specimenSampleInputs.forEach((input) => {
                     input.setAttribute("disabled", true);
                     localStorage.removeItem("LocalFT");
@@ -22658,6 +22834,25 @@
           { groupName: "IschemicRadio_lung", containerClass: "erase-icon-container-lung" },
           { groupName: "NACT_lung", containerClass: "erase-icon-container-NACT-lung" },
           { groupName: "processedRadio_lung", containerClass: "erase-icon-container-samRev-lung" },
+          // Form 2
+          { groupName: "RadioFHabit_lung", containerClass: "erase-icon-container-RadioFHabit-lung" },
+          { groupName: "RadioFdHabit_lung", containerClass: "erase-icon-container-RadioFdHabit-lung" },
+          { groupName: "RadioAlcoholHabit_lung", containerClass: "erase-icon-container-RadioAlcoholHabit-lung" },
+          { groupName: "RadioSmokeHabit_lung", containerClass: "erase-icon-container-RadioSmokeHabit-lung" },
+          { groupName: "ECH_lung", containerClass: "erase-icon-container-ECH-lung" },
+          { groupName: "tumorLat_lung", containerClass: "erase-icon-container-tumorLat-lung" },
+          { groupName: "IHC_Status_lung", containerClass: "erase-icon-container-IHC-lung" },
+          { groupName: "GeneticT_lung", containerClass: "erase-icon-container-GeneticT-lung" },
+          { groupName: "mC_lung", containerClass: "erase-icon-container-mC-lung" },
+          { groupName: "rlnsts_lung", containerClass: "erase-icon-container-rlnsts-lung" },
+          { groupName: "ENE_lung", containerClass: "erase-icon-container-ENE-lung" },
+          { groupName: "ACT_lung", containerClass: "erase-icon-container-ACT-lung" },
+          { groupName: "RadioT_lung", containerClass: "erase-icon-container-RadioT-lung" },
+          { groupName: "horT_lung", containerClass: "erase-icon-container-HT-lung" },
+          { groupName: "tarT_lung", containerClass: "erase-icon-container-TT-lung" },
+          { groupName: "pbT_lung", containerClass: "erase-icon-container-pbT-lung" },
+          // Form 3
+          { groupName: "HER2Radio_lung", containerClass: "erase-icon-container-HER2Radio-lung" },
         ];
 
         radioGroups.forEach((group) => {

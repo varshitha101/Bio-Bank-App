@@ -346,3 +346,16 @@ Following features and changes have been incorporates:
 - For a single MRN number, only one Bio-bank ID will be linked, and data for multiple cancer types can be entered.
 
 <hr>
+
+### Version 1.8.14
+
+- Issues related to Histological Type-Subtype have been resolved.
+- HPV Status has been added to Sample Search Parameters.
+
+<hr>
+
+### Version 1.8.15
+
+- Added Lung Cancer.
+
+<hr>

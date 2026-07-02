@@ -341,9 +341,124 @@
                 </div>
               </div>
             </form>
+            <!-- Lung Cancer -->
+            <form id="sampleSearchForm_lung">
+              <div class="row" style="justify-content: space-evenly">
+                <div class="form-group col-xs-2 mr-2">
+                  <label for="metaInput_lung">Event</label>
+                  <select id="metaInput_lung" class="form-control">
+                    <option value="All" selected>All</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+                <div class="form-group col-xs-2 mr-2">
+                  <label for="nactInput_lung">NACT</label>
+                  <select id="nactInput_lung" class="form-control">
+                    <option value="All" selected>All</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+                <div class="form-group col-xs-2 mr-2">
+                  <label for="fh1_lung">Family History</label>
+                  <select id="fh1_lung" class="form-control">
+                    <option value="All" selected>All</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+                <div class="form-group col-xs-2 mr-2">
+                  <label for="ajccInput_lung">AJCC stage</label>
+                  <select id="ajccInput_lung" class="form-control">
+                    <option value="All" selected>All</option>
+                    <option value="IA">IA</option>
+                    <option value="IB">IB</option>
+                    <option value="IIA">IIA</option>
+                    <option value="IIB">IIB</option>
+                    <option value="IIIA">IIIA</option>
+                    <option value="IIIB">IIIB</option>
+                    <option value="IIIC">IIIC</option>
+                    <option value="IV">IV</option>
+                  </select>
+                </div>
+                <div class="form-group col-xs-2 mr-2">
+                  <label for="biobankIdInput_lung">Bio Bank ID </label>
+                  <input type="text" id="biobankIdInput_lung" class="form-control" placeholder="Enter Bio Bank ID" onblur="validateBioId(this)" oninput="formatBioInput(this)" />
+                </div>
+                <div class="form-group col-xs-2 mr-2">
+                  <label for="pathType_lung">Histological Type</label>
+                  <select id="pathType_lung" class="form-control">
+                    <option value="All" selected>All</option>
+                    <option value="op1">Adenocarcinoma in situ (AIS), non-mucinous</option>
+                    <option value="op2">Adenocarcinoma in situ (AIS), mucinous</option>
+                    <option value="op3">Minimally invasive adenocarcinoma, non-mucinous</option>
+                    <option value="op4">Minimally invasive adenocarcinoma, mucinous</option>
+                    <option value="op5">Invasive lepidic adenocarcinoma</option>
+                    <option value="op6">Invasive acinar adenocarcinoma</option>
+                    <option value="op7">Invasive papillary adenocarcinoma</option>
+                    <option value="op8">Invasive micropapillary adenocarcinoma</option>
+                    <option value="op9">Invasive solid adenocarcinoma</option>
+                    <option value="op10">Invasive mucinous adenocarcinoma</option>
+                    <option value="op11">Mixed invasive mucinous and non-mucinous adenocarcinoma</option>
+                    <option value="op12">Colloid adenocarcinoma</option>
+                    <option value="op13">Fetal adenocarcinoma</option>
+                    <option value="op14">Enteric-type adenocarcinoma</option>
+                    <option value="op15">Squamous cell carcinoma in situ (SCIS)</option>
+                    <option value="op16">Invasive squamous cell carcinoma, keratinizing</option>
+                    <option value="op17">Invasive squamous cell carcinoma, non-keratinizing</option>
+                    <option value="op18">Invasive squamous cell carcinoma, basaloid</option>
+                    <option value="op19">Lymphoepithelial carcinoma</option>
+                    <option value="op20">Large cell carcinoma</option>
+                    <option value="op21">Adenosquamous carcinoma</option>
+                    <option value="op22">Pleomorphic carcinoma</option>
+                    <option value="op23">Pulmonary blastoma</option>
+                    <option value="op24">Carcinosarcoma</option>
+                    <option value="op25">NUT carcinoma</option>
+                    <option value="op26">Thoracic SMARCA4-deficient undifferentiated tumor</option>
+                    <option value="op27">Adenoid cystic carcinoma</option>
+                    <option value="op28">Epithelial-myoepithelial carcinoma</option>
+                    <option value="op29">Mucoepidermoid carcinoma</option>
+                    <option value="op30">Hyalinizing clear cell carcinoma</option>
+                    <option value="op31">Myoepithelial carcinoma</option>
+                    <option value="op32">Typical carcinoid / Neuroendocrine tumor, grade 1</option>
+                    <option value="op33">Atypical carcinoid / Neuroendocrine tumor, grade 2</option>
+                    <option value="op34">Carcinoid tumor, NOS / Neuroendocrine tumor, NOS</option>
+                    <option value="op35">Small cell carcinoma</option>
+                    <option value="op36">Combined small cell carcinoma (small cell carcinoma and non-small cell component) (specify type of non-small cell component)</option>
+                    <option value="op37">Large cell neuroendocrine carcinoma</option>
+                    <option value="op38">Combined large cell neuroendocrine carcinoma (LCNEC and other non-small cell component) (specify other type of non-small cell component)</option>
+                    <option value="op39">Carcinoma, type cannot be determined</option>
+                    <option value="op40">Non-small cell carcinoma, subtype cannot be determined</option>
+                    <option value="op41">Other histologic type not listed</option>
+                    <option value="op42">No viable tumor present</option>
+                    <option value="op43">Histologic Type Comment</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-1" style="justify-content: space-around">
+                <div class="row">
+                  <div style="justify-content: space-around">
+                    <button type="submit" class="btn btn-primary" id="sampleSubmit" onclick="searchSample_lung(event)">Submit</button>
+                  </div>
+                  &emsp; &emsp;
+                  <div style="justify-content: space-around">
+                    <button type="reset" class="btn btn-warning" id="sampleReset" onclick="resetSample()">Reset</button>
+                  </div>
+                </div>
+              </div>
+            </form>
             <!-- Cervix Cancer -->
             <form id="sampleSearchForm_ceix">
               <div class="row" style="justify-content: space-evenly">
+                <div class="form-group col-xs-2 mr-2">
+                  <label for="metaInput_ceix">Event</label>
+                  <select id="metaInput_ceix" class="form-control">
+                    <option value="All" selected>All</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
                 <div class="form-group col-xs-2 mr-2">
                   <label for="nactInput_ceix">NACT</label>
                   <select id="nactInput_ceix" class="form-control">
@@ -440,6 +555,14 @@
             <!-- Endm Cancer -->
             <form id="sampleSearchForm_endm">
               <div class="row" style="justify-content: space-evenly">
+                <div class="form-group col-xs-2 mr-2">
+                  <label for="metaInput_endm">Event</label>
+                  <select id="metaInput_endm" class="form-control">
+                    <option value="All" selected>All</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
                 <div class="form-group col-xs-2 mr-2">
                   <label for="nactInput_endm">NACT</label>
                   <select id="nactInput_endm" class="form-control">
@@ -543,6 +666,14 @@
             <!-- Ovary Cancer -->
             <form id="sampleSearchForm_ovry">
               <div class="row" style="justify-content: space-evenly">
+                <div class="form-group col-xs-2 mr-2">
+                  <label for="metaInput_ovry">Event</label>
+                  <select id="metaInput_ovry" class="form-control">
+                    <option value="All" selected>All</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
                 <div class="form-group col-xs-2 mr-2">
                   <label for="nactInput_ovry">NACT</label>
                   <select id="nactInput_ovry" class="form-control">
@@ -661,6 +792,14 @@
             <!-- Head and Neck Cancer -->
             <form id="sampleSearchForm_hene" class="sample-search-form-hene">
               <div class="hene-search-grid">
+                <div class="form-group hene-field hene-field-event">
+                  <label for="metaInput_hene">Event</label>
+                  <select id="metaInput_hene" class="form-control">
+                    <option value="All" selected>All</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
                 <div class="form-group hene-field hene-field-nact">
                   <label for="nactInput_hene">NACT</label>
                   <select id="nactInput_hene" class="form-control">
@@ -870,7 +1009,7 @@
           &copy; Copyright <strong><span></span></strong>. All Rights Reserved
         </div>
         <div class="credits"></div>
-        <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">Version 1.8.14</div>
+        <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">Version 1.8.15</div>
       </div>
     </footer>
 
@@ -964,6 +1103,7 @@
           sessionStorage.setItem("cancerTypeInput", cancerType);
 
           $("#sampleSearchForm").toggle(cancerType === "brst");
+          $("#sampleSearchForm_lung").toggle(cancerType === "lung");
           $("#sampleSearchForm_ceix").toggle(cancerType === "ceix");
           $("#sampleSearchForm_endm").toggle(cancerType === "endm");
           $("#sampleSearchForm_ovry").toggle(cancerType === "ovry");
@@ -1709,6 +1849,8 @@
             return "Breast Cancer";
           case "hene":
             return "Head and Neck Cancer";
+          case "lung":
+            return "Lung Cancer";
           default:
             return "-";
         }
@@ -2459,6 +2601,7 @@
         document.getElementById("biobankIdInput").value = "";
 
         // Ovary
+        document.getElementById("metaInput_ovry").value = "All";
         document.getElementById("nactInput_ovry").value = "All";
         document.getElementById("pathSubtype_ovry").value = "All";
         document.getElementById("fh1_ovry").value = "All";
@@ -2466,6 +2609,7 @@
         document.getElementById("biobankIdInput_ovry").value = "";
 
         // Cervix
+        document.getElementById("metaInput_ceix").value = "All";
         document.getElementById("nactInput_ceix").value = "All";
         document.getElementById("pathSubtype_ceix").value = "All";
         document.getElementById("fh1_ceix").value = "All";
@@ -2473,6 +2617,7 @@
         document.getElementById("biobankIdInput_ceix").value = "";
 
         // Endm
+        document.getElementById("metaInput_endm").value = "All";
         document.getElementById("nactInput_endm").value = "All";
         document.getElementById("pathType_endm").value = "All";
         document.getElementById("fh1_endm").value = "All";
@@ -2480,6 +2625,7 @@
         document.getElementById("biobankIdInput_endm").value = "";
 
         // Head and Neck Cancer
+        document.getElementById("metaInput_hene").value = "All";
         document.getElementById("nactInput_hene").value = "All";
         document.getElementById("FamilyHInput_hene").value = "All";
         syncHeadAndNeckFilters({
@@ -2489,6 +2635,14 @@
           pathType: "All",
         });
         document.getElementById("biobankIdInput_hene").value = "";
+
+        // Lung Cancer
+        document.getElementById("metaInput_lung").value = "All";
+        document.getElementById("nactInput_lung").value = "All";
+        document.getElementById("pathType_lung").value = "All";
+        document.getElementById("fh1_lung").value = "All";
+        document.getElementById("ajccInput_lung").value = "All";
+        document.getElementById("biobankIdInput_lung").value = "";
 
         const localStorageNames = [
           { name: "cancerTypeInput", value: "" },
@@ -2504,12 +2658,14 @@
           { name: "FamilyHInput", value: "All" },
           { name: "biobankIdInput", value: "" },
           // Ovary
+          { name: "metaInput_ovry", value: "All" },
           { name: "nactInput_ovry", value: "All" },
           { name: "pathSubtypeInput_ovry", value: "All" },
           { name: "FamilyHInput_ovry", value: "All" },
           { name: "figoInput_ovry", value: "All" },
           { name: "biobankIdInput_ovry", value: "" },
           // Cervix
+          { name: "metaInput_ceix", value: "All" },
           { name: "nactInput_ceix", value: "All" },
           { name: "pathSubtypeInput_ceix", value: "All" },
           { name: "FamilyHInput_ceix", value: "All" },
@@ -2519,9 +2675,11 @@
           { name: "nactInput_endm", value: "All" },
           { name: "pathSubtypeInput_endm", value: "All" },
           { name: "FamilyHInput_endm", value: "All" },
+          { name: "metaInput_endm", value: "All" },
           { name: "figoInput_endm", value: "All" },
           { name: "biobankIdInput_endm", value: "" },
           // Head and Neck Cancer
+          { name: "metaInput_hene", value: "All" },
           { name: "nactInput_hene", value: "All" },
           { name: "hpvStatus_hene", value: "All" },
           { name: "pathType_hene", value: "All" },
@@ -2529,6 +2687,13 @@
           { name: "tumorType_hene", value: "All" },
           { name: "tumorSite_hene", value: "All" },
           { name: "biobankIdInput_hene", value: "" },
+          // Lung Cancer
+          { name: "metaInput_lung", value: "All" },
+          { name: "nactInput_lung", value: "All" },
+          { name: "pathType_lung", value: "All" },
+          { name: "fh1_lung", value: "All" },
+          { name: "ajccInput_lung", value: "All" },
+          { name: "biobankIdInput_lung", value: "" },
         ];
         localStorageNames.forEach((item) => {
           sessionStorage.setItem(item.name, item.value);
@@ -2559,6 +2724,7 @@
 
               searchSample();
             } else if (cancerTypeInput === "endm") {
+              document.getElementById("metaInput_endm").value = sessionStorage.getItem("metaInput_endm") || "All";
               document.getElementById("nactInput_endm").value = sessionStorage.getItem("nactInput_endm") || "All";
               document.getElementById("pathSubtype_endm").value = sessionStorage.getItem("pathSubtypeInput_endm") || "All";
               document.getElementById("fh1_endm").value = sessionStorage.getItem("FamilyHInput_endm") || "All";
@@ -2569,6 +2735,7 @@
 
               searchSample_endm();
             } else if (cancerTypeInput === "ovry") {
+              document.getElementById("metaInput_ovry").value = sessionStorage.getItem("metaInput_ovry") || "All";
               document.getElementById("nactInput_ovry").value = sessionStorage.getItem("nactInput_ovry") || "All";
               document.getElementById("pathSubtype_ovry").value = sessionStorage.getItem("pathSubtypeInput_ovry") || "All";
               document.getElementById("fh1_ovry").value = sessionStorage.getItem("FamilyHInput_ovry") || "All";
@@ -2579,6 +2746,7 @@
 
               searchSample_ovry();
             } else if (cancerTypeInput === "ceix") {
+              document.getElementById("metaInput_ceix").value = sessionStorage.getItem("metaInput_ceix") || "All";
               document.getElementById("nactInput_ceix").value = sessionStorage.getItem("nactInput_ceix") || "All";
               document.getElementById("pathSubtype_ceix").value = sessionStorage.getItem("pathSubtypeInput_ceix") || "All";
               document.getElementById("fh1_ceix").value = sessionStorage.getItem("FamilyHInput_ceix") || "All";
@@ -2589,6 +2757,7 @@
 
               searchSample_ceix();
             } else if (cancerTypeInput === "hene") {
+              document.getElementById("metaInput_hene").value = sessionStorage.getItem("metaInput_hene") || "All";
               document.getElementById("nactInput_hene").value = sessionStorage.getItem("nactInput_hene") || "All";
               syncHeadAndNeckFilters({
                 hpvStatus: sessionStorage.getItem("hpvStatus_hene") || "All",
@@ -2603,6 +2772,17 @@
               console.log("Head and Neck Cancer Applying the change");
 
               searchSample_hene();
+            } else if (cancerTypeInput === "lung") {
+              document.getElementById("metaInput_lung").value = sessionStorage.getItem("metaInput_lung") || "All";
+              document.getElementById("nactInput_lung").value = sessionStorage.getItem("nactInput_lung") || "All";
+              document.getElementById("pathType_lung").value = sessionStorage.getItem("pathType_lung") || "All";
+              document.getElementById("fh1_lung").value = sessionStorage.getItem("fh1_lung") || "All";
+              document.getElementById("ajccInput_lung").value = sessionStorage.getItem("ajccInput_lung") || "All";
+              const tempbiobankIdInput =
+                sessionStorage.getItem("biobankIdInput_lung") && sessionStorage.getItem("biobankIdInput_lung") !== "undefined" ? sessionStorage.getItem("biobankIdInput_lung") : "";
+              document.getElementById("biobankIdInput_lung").value = tempbiobankIdInput || "";
+
+              searchSample_lung();
             }
           } catch (error) {
             console.error("Error applying changes for Head and Neck Cancer:", error);
@@ -2832,6 +3012,133 @@
             }
           });
       }
+      // Lung Cancer
+      async function searchSample_lung(event) {
+        if (event) {
+          event.preventDefault();
+        }
+
+        selectedSerialNumbers = [];
+        selectedSerialNumData = [];
+
+        const cancerTypeInput = document.getElementById("cancerTypeInput").value;
+        const nactInput = document.getElementById("nactInput_lung").value;
+        const pathTypeInput = document.getElementById("pathType_lung").value;
+        const metaInput = document.getElementById("metaInput_lung").value;
+        const FamilyHInput = document.getElementById("fh1_lung").value;
+        const ajccInput = document.getElementById("ajccInput_lung").value;
+        const tempBiobankIdInput = document.getElementById("biobankIdInput_lung").value ? document.getElementById("biobankIdInput_lung").value : "";
+        const biobankIdInput = tempBiobankIdInput && tempBiobankIdInput.length === 6 ? tempBiobankIdInput : "";
+
+        sessionStorage.setItem("cancerTypeInput", cancerTypeInput);
+        sessionStorage.setItem("nactInput_lung", nactInput);
+        sessionStorage.setItem("pathType_lung", pathTypeInput);
+        sessionStorage.setItem("metaInput_lung", metaInput);
+        sessionStorage.setItem("fh1_lung", FamilyHInput);
+        sessionStorage.setItem("ajccInput_lung", ajccInput);
+        sessionStorage.setItem("biobankIdInput_lung", biobankIdInput);
+
+        db.ref(`sef/${cancerTypeInput}`)
+          .once("value")
+          .then((snapshot) => {
+            // Handle the snapshot data here
+            if (snapshot && snapshot.exists()) {
+              const criteria = {
+                cancerTypeInput,
+                nactInput,
+                pathTypeInput,
+                metaInput,
+                FamilyHInput,
+                ajccInput,
+                biobankIdInput,
+              };
+
+              const filteredPatientData = {};
+              const patientData = snapshot.val();
+              window.sefData = patientData;
+              for (const bioBankId of Object.keys(patientData)) {
+                const patientEntries = patientData[bioBankId];
+                const seqNumbers = Object.keys(patientEntries);
+
+                if (seqNumbers.length === 0) continue;
+
+                filteredPatientData[bioBankId] = {};
+                let countDownData = 0;
+
+                for (const seqNumber of seqNumbers) {
+                  const entryData = patientEntries[seqNumber];
+                  const nestedKeys = Object.keys(entryData);
+                  const maxTimestamp = nestedKeys && nestedKeys.length > 0 ? Math.max(...nestedKeys.map((key) => parseInt(key))) : null;
+                  if (maxTimestamp) {
+                    const patientData = entryData[maxTimestamp]?.ie;
+                    const patientmd = entryData[maxTimestamp]?.md;
+                    const patientbrf = entryData[maxTimestamp]?.brf;
+
+                    if (!patientData) continue;
+
+                    const biobankIdMatch = !criteria.biobankIdInput || bioBankId === criteria.biobankIdInput;
+                    if (!biobankIdMatch) continue;
+
+                    const cancerTypeMatch = patientData.ct === criteria.cancerTypeInput.toLowerCase();
+                    if (!cancerTypeMatch) continue;
+
+                    const nactMatch =
+                      criteria.nactInput === "All" ||
+                      !criteria.nactInput ||
+                      (criteria.nactInput === "Yes" && patientData.nact === "true") ||
+                      (criteria.nactInput === "No" && patientData.nact === "false");
+                    if (!nactMatch) continue;
+
+                    const pathTypeMatch = criteria.pathTypeInput === "All" || !criteria.pathTypeInput || patientmd.pt === criteria.pathTypeInput;
+                    if (!pathTypeMatch) continue;
+                    const ajccInputMatch = criteria.ajccInput === "All" || !criteria.ajccInput || patientmd.as === criteria.ajccInput;
+                    if (!ajccInputMatch) continue;
+
+                    const metaInputMatch =
+                      criteria.metaInput === "All" ||
+                      !criteria.metaInput ||
+                      (criteria.metaInput === "Yes" && patientData.mts === "true") ||
+                      (criteria.metaInput === "No" && patientData.mts === "false");
+                    if (!metaInputMatch) continue;
+
+                    const FamilyHInputMatch =
+                      criteria.FamilyHInput === "All" ||
+                      !criteria.FamilyHInput ||
+                      (criteria.FamilyHInput === "Yes" && patientmd.fhc === "true") ||
+                      (criteria.FamilyHInput === "No" && patientmd.fhc === "false");
+                    if (!FamilyHInputMatch) continue;
+
+                    if (cancerTypeMatch && nactMatch && pathTypeMatch && ajccInputMatch && metaInputMatch && FamilyHInputMatch && biobankIdMatch) {
+                      if (!filteredPatientData[bioBankId][seqNumber]) {
+                        filteredPatientData[bioBankId][seqNumber] = {};
+                      }
+                      function capitalizeFirstLetter(string) {
+                        if (!string) return string;
+                        return string.charAt(0).toUpperCase() + string.slice(1);
+                      }
+                      filteredPatientData[bioBankId][seqNumber][maxTimestamp] = { ...patientData };
+                    }
+                  }
+                }
+
+                if (Object.keys(filteredPatientData[bioBankId]).length === 0) {
+                  delete filteredPatientData[bioBankId];
+                }
+              }
+
+              selectedSerialNumbers = [];
+
+              currentPage = 1;
+
+              if (filteredPatientData && Object.keys(filteredPatientData).length > 0) {
+                searchLoadingModal();
+              }
+              displaySamPatients(filteredPatientData);
+            } else {
+              alert("No data to download.");
+            }
+          });
+      }
 
       // Ovary
       async function searchSample_ovry(event) {
@@ -2843,6 +3150,7 @@
         selectedSerialNumData = [];
 
         const cancerTypeInput = document.getElementById("cancerTypeInput").value;
+        const metaInput = document.getElementById("metaInput_ovry").value;
         const nactInput = document.getElementById("nactInput_ovry").value;
         const pathSubtypeInput = document.getElementById("pathSubtype_ovry").value;
         const FamilyHInput = document.getElementById("fh1_ovry").value;
@@ -2851,6 +3159,7 @@
         const biobankIdInput_ovry = tempBiobankIdInput_ovry && tempBiobankIdInput_ovry.length === 6 ? tempBiobankIdInput_ovry : "";
 
         sessionStorage.setItem("cancerTypeInput", cancerTypeInput);
+        sessionStorage.setItem("metaInput_ovry", metaInput);
         sessionStorage.setItem("nactInput_ovry", nactInput);
         sessionStorage.setItem("pathSubtypeInput_ovry", pathSubtypeInput);
         sessionStorage.setItem("FamilyHInput_ovry", FamilyHInput);
@@ -2863,6 +3172,7 @@
             if (snapshot && snapshot.exists()) {
               const criteria = {
                 cancerTypeInput,
+                metaInput,
                 nactInput,
                 pathSubtypeInput,
                 FamilyHInput,
@@ -2899,6 +3209,13 @@
                     const cancerTypeMatch = patientData.ct.toLowerCase() === criteria.cancerTypeInput.toLowerCase();
                     if (!cancerTypeMatch) continue;
 
+                    const metaInputMatch =
+                      criteria.metaInput === "All" ||
+                      !criteria.metaInput ||
+                      (criteria.metaInput === "Yes" && patientData.mts === "true") ||
+                      (criteria.metaInput === "No" && patientData.mts === "false");
+                    if (!metaInputMatch) continue;
+
                     const nactMatch =
                       criteria.nactInput === "All" ||
                       !criteria.nactInput ||
@@ -2920,7 +3237,7 @@
                     const figoInputMatch = criteria.figoInput === "All" || !criteria.figoInput || patientmd.as.toLowerCase() === criteria.figoInput.toLowerCase();
                     if (!figoInputMatch) continue;
 
-                    if (cancerTypeMatch && nactMatch && pathSubtypeMatch && FamilyHInputMatch && figoInputMatch && bioBankIdMatch) {
+                    if (cancerTypeMatch && metaInputMatch && nactMatch && pathSubtypeMatch && FamilyHInputMatch && figoInputMatch && bioBankIdMatch) {
                       if (!filteredPatientData[bioBankId][seqNumber]) {
                         filteredPatientData[bioBankId][seqNumber] = {};
                       }
@@ -2961,6 +3278,7 @@
 
         const cancerTypeInput = document.getElementById("cancerTypeInput").value;
         const nactInput = document.getElementById("nactInput_ceix").value;
+        const metaInput = document.getElementById("metaInput_ceix").value;
         const pathSubtypeInput = document.getElementById("pathSubtype_ceix").value;
         const FamilyHInput = document.getElementById("fh1_ceix").value;
         const figoInput = document.getElementById("figoInput_ceix").value;
@@ -2969,6 +3287,7 @@
 
         sessionStorage.setItem("cancerTypeInput", cancerTypeInput);
         sessionStorage.setItem("nactInput_ceix", nactInput);
+        sessionStorage.setItem("metaInput_ceix", metaInput);
         sessionStorage.setItem("pathSubtypeInput_ceix", pathSubtypeInput);
         sessionStorage.setItem("FamilyHInput_ceix", FamilyHInput);
         sessionStorage.setItem("figoInput_ceix", figoInput);
@@ -2981,6 +3300,7 @@
               const criteria = {
                 cancerTypeInput,
                 nactInput,
+                metaInput,
                 pathSubtypeInput,
                 FamilyHInput,
                 figoInput,
@@ -3017,6 +3337,13 @@
                     const cancerTypeMatch = patientData.ct.toLowerCase() === criteria.cancerTypeInput.toLowerCase();
                     if (!cancerTypeMatch) continue;
 
+                    const metaInputMatch =
+                      criteria.metaInput.toLowerCase() === "all" ||
+                      !criteria.metaInput ||
+                      (criteria.metaInput.toLowerCase() === "yes" && patientData.mts === "true") ||
+                      (criteria.metaInput.toLowerCase() === "no" && patientData.mts === "false");
+                    if (!metaInputMatch) continue;
+
                     const nactMatch =
                       criteria.nactInput.toLowerCase() === "all" ||
                       !criteria.nactInput ||
@@ -3038,7 +3365,7 @@
                     const figoInputMatch = criteria.figoInput.toLowerCase() === "all" || !criteria.figoInput || patientmd.as.toLowerCase() === criteria.figoInput.toLowerCase();
                     if (!figoInputMatch) continue;
 
-                    if (cancerTypeMatch && nactMatch && pathSubtypeMatch && FamilyHInputMatch && figoInputMatch && bioBankIdMatch) {
+                    if (cancerTypeMatch && metaInputMatch && nactMatch && pathSubtypeMatch && FamilyHInputMatch && figoInputMatch && bioBankIdMatch) {
                       if (!filteredPatientData[bioBankId][seqNumber]) {
                         filteredPatientData[bioBankId][seqNumber] = {};
                       }
@@ -3080,6 +3407,7 @@
         selectedSerialNumData = [];
 
         const cancerTypeInput = document.getElementById("cancerTypeInput").value;
+        const metaInput = document.getElementById("metaInput_endm").value;
         const nactInput = document.getElementById("nactInput_endm").value;
         const pathSubtypeInput = document.getElementById("pathSubtype_endm").value;
         const FamilyHInput = document.getElementById("fh1_endm").value;
@@ -3088,6 +3416,7 @@
         const biobankIdInput_endm = tempBiobankIdInput && tempBiobankIdInput.length === 6 ? tempBiobankIdInput : "";
 
         sessionStorage.setItem("cancerTypeInput", cancerTypeInput);
+        sessionStorage.setItem("metaInput_endm", metaInput);
         sessionStorage.setItem("nactInput_endm", nactInput);
         sessionStorage.setItem("pathSubtypeInput_endm", pathSubtypeInput);
         sessionStorage.setItem("FamilyHInput_endm", FamilyHInput);
@@ -3099,6 +3428,7 @@
             if (snapshot && snapshot.exists()) {
               const criteria = {
                 cancerTypeInput,
+                metaInput,
                 nactInput,
                 pathSubtypeInput,
                 FamilyHInput,
@@ -3136,6 +3466,13 @@
 
                     const cancerTypeMatch = patientData.ct.toLowerCase() === criteria.cancerTypeInput.toLowerCase();
                     if (!cancerTypeMatch) continue;
+
+                    const metaInputMatch =
+                      criteria.metaInput.toLowerCase() === "all" ||
+                      !criteria.metaInput ||
+                      (criteria.metaInput.toLowerCase() === "yes" && patientData.mts === "true") ||
+                      (criteria.metaInput.toLowerCase() === "no" && patientData.mts === "false");
+                    if (!metaInputMatch) continue;
 
                     const nactMatch =
                       criteria.nactInput.toLowerCase() === "all" ||
@@ -3199,6 +3536,7 @@
 
         const cancerTypeInput = document.getElementById("cancerTypeInput").value;
         const nactInput = document.getElementById("nactInput_hene").value;
+        const metaInput = document.getElementById("metaInput_hene").value;
         const hpvStatusInput = document.getElementById("hpvStatus_hene").value;
         const tumorTypeInput = document.getElementById("tumorType_hene").value;
         const tumorSiteInput = document.getElementById("tumorSite_hene").value;
@@ -3209,6 +3547,7 @@
 
         sessionStorage.setItem("cancerTypeInput", cancerTypeInput);
         sessionStorage.setItem("nactInput_hene", nactInput);
+        sessionStorage.setItem("metaInput_hene", metaInput);
         sessionStorage.setItem("hpvStatus_hene", hpvStatusInput);
         sessionStorage.setItem("tumorType_hene", tumorTypeInput);
         sessionStorage.setItem("tumorSite_hene", tumorSiteInput);
@@ -3221,6 +3560,7 @@
             if (snapshot && snapshot.exists()) {
               const criteria = {
                 cancerTypeInput,
+                metaInput,
                 nactInput,
                 hpvStatusInput,
                 tumorTypeInput,
@@ -3261,6 +3601,13 @@
                     const cancerTypeMatch = patientData.ct.toLowerCase() === criteria.cancerTypeInput.toLowerCase();
                     if (!cancerTypeMatch) continue;
 
+                    const metaInputMatch =
+                      criteria.metaInput === "All" ||
+                      !criteria.metaInput ||
+                      (criteria.metaInput === "Yes" && patientData.mts === "true") ||
+                      (criteria.metaInput === "No" && patientData.mts === "false");
+                    if (!metaInputMatch) continue;
+
                     const nactMatch =
                       criteria.nactInput.toLowerCase() === "all" ||
                       !criteria.nactInput ||
@@ -3287,7 +3634,7 @@
                       (criteria.FamilyHInput.toLowerCase() === "no" && patientmd.fhc === "false");
                     if (!FamilyHInputMatch) continue;
 
-                    if (cancerTypeMatch && nactMatch && hpvStatusMatch && tumorTypeMatch && tumorSiteMatch && pathTypeMatch && FamilyHInputMatch && biobankIdMatch) {
+                    if (cancerTypeMatch && metaInputMatch && nactMatch && hpvStatusMatch && tumorTypeMatch && tumorSiteMatch && pathTypeMatch && FamilyHInputMatch && biobankIdMatch) {
                       if (!filteredPatientData[bioBankId][seqNumber]) {
                         filteredPatientData[bioBankId][seqNumber] = {};
                       }
@@ -3591,6 +3938,7 @@
           endm: "Endometrial Cancer",
           ovry: "Ovarian Cancer",
           hene: "Head and Neck Cancer",
+          lung: "Lung Cancer",
           F: "Female",
           M: "Male",
           BL: "Bilateral",
@@ -5089,6 +5437,227 @@
         };
         return mapping[option] || "-";
       }
+      function decodeSite_lung(option) {
+        const mapping = {
+          op1: "Upper lobe of lung",
+          op2: "Middle lobe of lung",
+          op3: "Lower lobe of lung",
+          op4: "Bronchus, main",
+          op5: "Bronchus intermedius",
+          op6: "Bronchus, lobar",
+          op7: "Other",
+          op8: "Not specified",
+        };
+        return mapping[option] || "-";
+      }
+      function decodenactEff_lung(option) {
+        const mapping = {
+          op1: "No known presurgical therapy",
+          op2: "Not identified",
+          op3: "Present",
+          op4: "Cannot be determined",
+        };
+        return mapping[option] || "-";
+      }
+      function decodetsub_lung(option) {
+        const mapping = {
+          R: "Right",
+          L: "Left",
+          NS: "Not specified",
+        };
+        return mapping[option] || "-";
+      }
+      function decodepst_lung(option) {
+        const mapping = {
+          op1: "Adenocarcinoma in situ (AIS), non-mucinous",
+          op2: "Adenocarcinoma in situ (AIS), mucinous",
+          op3: "Minimally invasive adenocarcinoma, non-mucinous",
+          op4: "Minimally invasive adenocarcinoma, mucinous",
+          op5: "Invasive lepidic adenocarcinoma",
+          op6: "Invasive acinar adenocarcinoma",
+          op7: "Invasive papillary adenocarcinoma",
+          op8: "Invasive micropapillary adenocarcinoma",
+          op9: "Invasive solid adenocarcinoma",
+          op10: "Invasive mucinous adenocarcinoma",
+          op11: "Mixed invasive mucinous and non-mucinous adenocarcinoma",
+          op12: "Colloid adenocarcinoma",
+          op13: "Fetal adenocarcinoma",
+          op14: "Enteric-type adenocarcinoma",
+          op15: "Squamous cell carcinoma in situ (SCIS)",
+          op16: "Invasive squamous cell carcinoma, keratinizing",
+          op17: "Invasive squamous cell carcinoma, non-keratinizing",
+          op18: "Invasive squamous cell carcinoma, basaloid",
+          op19: "Lymphoepithelial carcinoma",
+          op20: "Large cell carcinoma",
+          op21: "Adenosquamous carcinoma",
+          op22: "Pleomorphic carcinoma",
+          op23: "Pulmonary blastoma",
+          op24: "Carcinosarcoma",
+          op25: "NUT carcinoma",
+          op26: "Thoracic SMARCA4-deficient undifferentiated tumor",
+          op27: "Adenoid cystic carcinoma",
+          op28: "Epithelial-myoepithelial carcinoma",
+          op29: "Mucoepidermoid carcinoma",
+          op30: "Hyalinizing clear cell carcinoma",
+          op31: "Myoepithelial carcinoma",
+          op32: "Typical carcinoid / Neuroendocrine tumor, grade 1",
+          op33: "Atypical carcinoid / Neuroendocrine tumor, grade 2",
+          op34: "Carcinoid tumor, NOS / Neuroendocrine tumor, NOS",
+          op35: "Small cell carcinoma",
+          op36: "Combined small cell carcinoma (small cell carcinoma and non-small cell component) (specify type of non-small cell component)",
+          op37: "Large cell neuroendocrine carcinoma",
+          op38: "Combined large cell neuroendocrine carcinoma (LCNEC and other non-small cell component) (specify other type of non-small cell component)",
+          op39: "Carcinoma, type cannot be determined",
+          op40: "Non-small cell carcinoma, subtype cannot be determined",
+          op41: "Other histologic type not listed",
+          op42: "No viable tumor present",
+          op43: "Histologic Type Comment",
+        };
+        return mapping[option] || "-";
+      }
+      function decodepleC_lung(option) {
+        const mapping = {
+          op1: "Spindle cell carcinoma",
+          op2: "Giant cell carcinoma",
+          op3: "Adenocarcinoma",
+          op4: "Squamous cell carcinoma",
+          op5: "Large cell carcinoma",
+          op6: "Other",
+        };
+        return mapping[option] || "-";
+      }
+
+      function decodepPat_lung(option) {
+        const mapping = {
+          op1: "Not applicable",
+          op2: "Acinar",
+          op3: "Papillary",
+          op4: "Lepidic",
+          op5: "Solid",
+          op6: "Micropapillary",
+          op7: "Complex glands (cribriform and fused glands)",
+          op8: "Other",
+        };
+        return mapping[option] || "-";
+      }
+      function decodeGrade_lung(option) {
+        const mapping = {
+          grade2: "G1, well-differentiated",
+          grade3: "G2, moderately differentiated",
+          grade4: "G3, poorly differentiated",
+          grade5: "G4, undifferentiated",
+          grade6: "Other",
+          grade7: "GX, cannot be assessed",
+          grade8: "Not applicable",
+        };
+        return mapping[option] || "-";
+      }
+      function decodeSTAS_lung(option) {
+        const mapping = {
+          stas1: "Not identified",
+          stas2: "Present",
+          stas3: "Cannot be determined",
+          stas4: "Not applicable",
+        };
+        return mapping[option] || "-";
+      }
+      function decodevpi_lung(option) {
+        const mapping = {
+          vpi1: "Not identified",
+          vpi2: "Present",
+          vpi3: "Cannot be determined",
+          vpi4: "Other",
+        };
+        return mapping[option] || "-";
+      }
+      function decodedi_lung(option) {
+        const mapping = {
+          op1: "Not applicable (no other structures present)",
+          op2: "Not identified",
+          op3: "Present",
+        };
+        return mapping[option] || "-";
+      }
+      function decodelvi_lung(option) {
+        const mapping = {
+          op1: "Not identified",
+          op2: "Present",
+          op3: "Cannot be determined",
+        };
+        return mapping[option] || "-";
+      }
+      function decodelviP_lung(option) {
+        const mapping = {
+          op1: "Lymphatic invasion present",
+          op2: "Arterial invasion present",
+          op3: "Venous invasion present",
+          op4: "Other",
+        };
+        return mapping[option] || "-";
+      }
+      function decodeSmsts_lung(option) {
+        const mapping = {
+          op1: "All specimen margins negative for invasive tumour",
+          op2: "Invasive tumor present at margin",
+          op3: "Other",
+          op4: "Cannot be determined",
+          op5: "Not applicable",
+        };
+        return mapping[option] || "-";
+      }
+      function decodeSmstsN_lung(option) {
+        const mapping = {
+          op1: "All specimen margins negative for invasive tumour",
+          op2: "Carcinoma in situ present at bronchial margin",
+          op3: "Carcinoma in situ present at parenchymal margin",
+          op4: "Lepidic component of invasive carcinoma present at parenchymal margin",
+          op5: "Other",
+          op6: "Cannot be determined",
+          op7: "Not applicable",
+        };
+        return mapping[option] || "-";
+      }
+      function decodepRVT_lung(option) {
+        const mapping = {
+          op1: "Specify percentage",
+          op2: "Other",
+          op3: "Cannot be determined",
+        };
+        return mapping[option] || "-";
+      }
+      function decodepN_lung(option) {
+        const mapping = {
+          op1: "Specify percentage",
+          op2: "Other",
+          op3: "Cannot be determined",
+        };
+        return mapping[option] || "-";
+      }
+      function decodepS_lung(option) {
+        const mapping = {
+          op1: "Specify percentage",
+          op2: "Other",
+          op3: "Cannot be determined",
+        };
+        return mapping[option] || "-";
+      }
+      function decodeinf_lung(option) {
+        const mapping = {
+          op1: "Mild",
+          op2: "Not identified",
+          op3: "Present",
+          op4: "Cannot be determined",
+        };
+        return mapping[option] || "-";
+      }
+      function decodesyncT_hene(option) {
+        const mapping = {
+          op1: "Not present",
+          op2: "Present",
+          op3: "Cannot be determined",
+        };
+        return mapping[option] || "-";
+      }
       function getExcelData(rowsData) {
         return rowsData.map((row) => {
           if (row.sefData.ie.ct === "brst")
@@ -5228,6 +5797,196 @@
               "PET CT Volume": row?.sefData?.brf?.pcvm || "-",
               "sTILs Percent Scores": row?.sefData?.brf?.sps || "-",
               "BR Specific form updated by": row?.sefData?.brf?.brfu || "-",
+              "follow Up Time": formatTimestamp(Math.floor(row?.fwData?.timestamp) / 1000) || "-",
+              "Last Followup status": decodeFollowUpType(row?.fwData?.fwlastTimestamp?.lfs) || "-",
+              "Other reason": row?.fwData?.fwlastTimestamp?.othrs || "-",
+              "Last Follow up Date": row?.fwData?.fwlastTimestamp?.lfd || "-",
+              "Reason For lost to follow up": row?.fwData?.fwlastTimestamp?.rlfw || "-",
+              "Recurrence Date": row?.fwData?.fwlastTimestamp?.rd || "-",
+              "Reported Date for Progressive Disease": row?.fwData?.fwlastTimestamp?.rdpd || "-",
+              "Progression metastasis remark": row?.fwData?.fwlastTimestamp?.pet || "-",
+              "Vital Status": row?.fwData?.fwlastTimestamp?.vs || "-",
+              "Death Date": row?.fwData?.fwlastTimestamp?.dd || "-",
+              Remarks: row?.fwData?.fwlastTimestamp?.rmks || "-",
+              "Treatment Completed": row?.fwData?.fwlastTimestamp?.tc || "-",
+              "followUp updated by": row?.fwData?.fwlastTimestamp?.fw_ub || "-",
+
+              "Shared Form Date - Time": formatTimestamp(row?.osData?.lastKey) || "-",
+              "Shared Date": row?.osData?.oslastTimestamp?.doe || "-",
+              "Shared Grid": row?.oSgrid,
+              "Institute or Department": row?.osData?.oslastTimestamp?.dpt || "-",
+              Project: row?.osData?.oslastTimestamp?.prj || "-",
+              "PI of the Project": row?.osData?.oslastTimestamp?.pip || "-",
+              "Shared status": decodeFollowUpType(row?.osData?.oslastTimestamp?.ossts) || "-",
+              "Partial shared remark": row?.osData?.oslastTimestamp?.psr || "-",
+              "Shared form updated by": row?.osData?.oslastTimestamp?.os_ub || "-",
+            };
+          if (row.sefData.ie.ct === "lung")
+            return {
+              Timestamp: formatTimestamp(row?.timestampKey),
+              Consent: decodeProcedureType(row?.sefData?.ie?.cnst) || "-",
+              "Cancer Type": decodeProcedureType(row?.sefData?.ie?.ct) || "-",
+              "Bio Bank ID": row?.bioBankId,
+              Age: row?.sefData?.ie?.ag || "-",
+              Gender: decodeProcedureType(row?.sefData?.ie?.sx) || "-",
+              "Procedure Types": decodeProcedureType(row?.sefData?.ie?.tpr),
+              "Details of Procedure": row?.sefData?.ie?.dpr || "-",
+              "Surgeon Name": row?.sefData?.ie?.srn || "-",
+              "Event Sample": decodeProcedureType(row?.sefData?.ie?.mts) || "-",
+              "Event Info": decodeProcedureType(row?.sefData?.ie?.es) || "-",
+              "Denovo Event": decodeProcedureType(row?.sefData?.ie?.dm) || "-",
+              "Age at Event": row?.sefData?.ie?.ag_ms || "-",
+              Site: decodeSite_lung(row?.sefData?.ie?.site) || "-",
+              "Site (Other)": row?.sefData?.ie?.siteOth || "-",
+              "Synchronous Tumors": decodesyncT_hene(row?.sefData?.ie?.syncT) || "-",
+              "Total Number of Primary Tumors": row?.sefData?.ie?.priT || "-",
+              "Specimen ID(s)": row?.sefData?.ie?.specID || "-",
+              "Tissue Sample": decodeProcedureType(row?.sefData?.ie?.ss) || "-",
+              "No of FT Tubes": row?.sefData?.ie?.nft ? (row?.sefData?.ie?.nft.toString() === "0" ? "None" : row?.sefData?.ie?.nft) : "-",
+              "FT Tissue Box Name": row?.ftgGrid && typeof row?.ftgGrid === "string" ? row?.ftgGrid.split("/")[0] : "-",
+              "FT Tube Grids": row?.ftgGrid && typeof row?.ftgGrid === "string" ? row?.ftgGrid.split("/")[1] : "-",
+              "No of FN Tubes": row?.sefData?.ie?.nfn ? (row?.sefData?.ie?.nfn.toString() === "0" ? "None" : row?.sefData?.ie?.nfn) : "-",
+              "FN Tissue Box Name": row?.fngGrid && typeof row?.fngGrid === "string" ? row?.fngGrid.split("/")[0] : "-",
+              "FN Tube Grids": row?.fngGrid && typeof row?.fngGrid === "string" ? row?.fngGrid.split("/")[1] : "-",
+              "Blood Sample": decodeProcedureType(row?.sefData?.ie?.bs) || "-",
+              "Blood box name(Serum)": row?.serumGrid && typeof row?.serumGrid === "string" ? row?.serumGrid.split("/")[0] : "-",
+              "Serum Grid": row?.serumGrid && typeof row?.serumGrid === "string" ? row?.serumGrid.split("/")[1] : "-",
+              "Blood box name(Plasma)": row?.plasmaGrid && typeof row?.plasmaGrid === "string" ? row?.plasmaGrid.split("/")[0] : "-",
+              "Plasma Grid": row?.plasmaGrid && typeof row?.plasmaGrid === "string" ? row?.plasmaGrid.split("/")[1] : "-",
+              "Blood box name(Buffy coat)": row?.buffyCoatGrid && typeof row?.buffyCoatGrid === "string" ? row?.buffyCoatGrid.split("/")[0] : "-",
+              "Buffy Coat Grid": row?.buffyCoatGrid && typeof row?.buffyCoatGrid === "string" ? row?.buffyCoatGrid.split("/")[1] : "-",
+              "Other Sample": decodeProcedureType(row?.sefData?.ie?.osmp) || "-",
+              "Other Sample box name": row?.otherGrid && typeof row?.otherGrid === "string" ? row?.otherGrid.split("/")[0] : "-",
+              "Other Sample Grid": row?.otherGrid && typeof row?.otherGrid === "string" ? row?.otherGrid.split("/")[1] : "-",
+              "Other Sample description": row?.sefData?.ie?.osdsc || "-",
+              "RLT Sample": decodeProcedureType(row?.sefData?.ie?.rltS) || "-",
+              "RLT Sample Box name": row?.rltGrid && typeof row?.rltGrid === "string" ? row?.rltGrid.split("/")[0] : "-",
+              "RLT Sample Grid": row?.rltGrid && typeof row?.rltGrid === "string" ? row?.rltGrid.split("/")[1] : "-",
+              "Primary Culture Sample": decodeProcedureType(row?.sefData?.ie?.pcS) || "-",
+              "Is Primary Culture Viable": row?.sefData?.ie?.pssvl || "-",
+              "Primary Culture Sample Box name": row?.pcGrid && typeof row?.pcGrid === "string" ? row?.pcGrid.split("/")[0] : "-",
+              "Primary Culture Sample Grids": row?.pcGrid && typeof row?.pcGrid === "string" ? row?.pcGrid.split("/")[1] : "-",
+              "Ischemic Sample": decodeProcedureType(row?.sefData?.ie?.iss) || "-",
+              NACT: decodeProcedureType(row?.sefData?.ie?.nact) || "-",
+              "Treatment effect": decodenactEff_lung(row?.sefData?.ie?.nactEff) || "-",
+              "Percentage of Residual Viable Tumor": decodepRVT_lung(row?.sefData?.ie?.pRVT) || "-",
+              "Percentage of Residual Viable Tumor (Other)": row?.sefData?.ie?.pRVTOth || "-",
+              "Percentage of Necrosis": decodepN_lung(row?.sefData?.ie?.pN) || "-",
+              "Percentage of Necrosis (Other)": row?.sefData?.ie?.pNOth || "-",
+              "Percentage of Stroma (includes fibrosis and inflammation)": decodepS_lung(row?.sefData?.ie?.pS) || "-",
+              "Percentage of Stroma (includes fibrosis and inflammation) (Other)": row?.sefData?.ie?.pSOth || "-",
+              Inflammation: decodeinf_lung(row?.sefData?.ie?.inf) || "-",
+              "NACT Drug Cycles": row?.sefData?.ie?.nactdc || "-",
+              "NACT date of last cycle": row?.sefData?.ie?.nactdlc || "-",
+              "All sample Received together?": decodeProcedureType(row?.sefData?.ie?.scpt) || "-",
+              "Processed By": row?.sefData?.ie?.prb || "-",
+              "Received Time": formatTimestamp(row?.sefData?.ie?.srt) || "-",
+              "Processed Time": formatTimestamp(row?.sefData?.ie?.spt) || "-",
+              "Blood Sample Processed By": row?.sefData?.ie?.bspb || "-",
+              "Blood Sample Received Time": formatTimestamp(row?.sefData?.ie?.brt) || "-",
+              "Blood Sample Processed Time": formatTimestamp(row?.sefData?.ie?.bpt) || "-",
+              "Tissue Sample Processed by": row?.sefData?.ie?.sspb || "-",
+              "Tissue Sample Received Time": formatTimestamp(row?.sefData?.ie?.sprt) || "-",
+              "Tissue Sample Processed Time": formatTimestamp(row?.sefData?.ie?.sppt) || "-",
+              "Other Sample Processed by": row?.sefData?.ie?.ospb || "-",
+              "Other Sample Received Time": formatTimestamp(row?.sefData?.ie?.osrt) || "-",
+              "Other Sample Processed Time": formatTimestamp(row?.sefData?.ie?.ospt) || "-",
+              "RLT Sample processed by": row?.sefData?.ie?.rltpb || "-",
+              "RLT Sample Received Time": formatTimestamp(row?.sefData?.ie?.rsrt) || "-",
+              "RLT Sample processed Time": formatTimestamp(row?.sefData?.ie?.rspt) || "-",
+              "Primary Culture Sample processed by": row?.sefData?.ie?.psspb || "-",
+              "Primary Culture Sample Received Time": formatTimestamp(row?.sefData?.ie?.psrt) || "-",
+              "Primary Culture Sample processed Time": formatTimestamp(row?.sefData?.ie?.pspt) || "-",
+              "Data Entry By": row?.sefData?.ie?.sef_ub || "-",
+              "Family History Cancer": decodeProcedureType(row?.sefData?.md?.fhc),
+              "Family Relation": row?.sefData?.md?.fhcr || "-",
+              "Family Cancer Type": row?.sefData?.md?.fhct || "-",
+              "Food Habbits": row?.sefData?.md?.fh === "true" ? "Veg" : row?.sefData?.md?.fh === "false" ? "Non Veg" : "-",
+              "History Of Alcohol Consumption": decodeProcedureType(row?.sefData?.md?.hac) || "-",
+              "History Of Smoking": decodeProcedureType(row?.sefData?.md?.hs) || "-",
+              "Existing Comorbidities": decodeProcedureType(row?.sefData?.md?.ec) || "-",
+              "Type 2 Diabetic Mellitus": findComorb("diabetic", row?.sefData?.md?.cm),
+              "Cardiac History": findComorb("cardiac", row?.sefData?.md?.cm),
+              Hypertension: findComorb("hypertension", row?.sefData?.md?.cm),
+              "Other Comorbidities": findComorb("other1", row?.sefData?.md?.cm),
+              "Other medications": findComorb("other2", row?.sefData?.md?.cm),
+              "FF QC comments": row?.sefData?.md?.ffqc || "-",
+              "FF Tissue Remarks": row?.sefData?.md?.ftr || "-",
+              "Tumor Site": row?.sefData?.md?.tst || "-",
+              "Tumor Subsite": row?.sefData?.md?.tsub || "-",
+              "Tumor Laterality": decodetsub_lung(row?.sefData?.md?.tlat) || "-",
+              "Tumor Percentage": row?.sefData?.md?.tp || "-",
+              "Age At Diagnosis": row?.sefData?.md?.ad || "-",
+              "Clinical Stage ": row?.sefData?.md?.cs || "-",
+              "IHC Marker status": decodeProcedureType(row?.sefData?.md?.ihcm) || "-",
+              "IHC marker description": row?.sefData?.md?.ihcd || "-",
+              "Genetic Testing": decodeProcedureType(row?.sefData?.md?.gt) || "-",
+              "Genetic Testing Results": decodeProcedureType(row?.sefData?.md?.gtr) || "-",
+              "Genetic Testing Description": row?.sefData?.md?.gtd || "-",
+              "Histological Type": decodepst_lung(row?.sefData?.md?.pt) || "-",
+              "Histological Type (Other)": row?.sefData?.md?.ptOth || "-",
+              "Pleomorphic carcinoma": decodepleC_lung(row?.sefData?.md?.pleC) || "-",
+              "Pleomorphic carcinoma (Other)": row?.sefData?.md?.pleCOth || "-",
+              "Percentage of Fetal Adenocarcinoma Component": row?.sefData?.md?.pFAC || "-",
+              "Percentage of Primitive Mesenchymal Stromal Component": row?.sefData?.md?.pPMSC || "-",
+              "Percentage of Non-small Cell Carcinoma Component": row?.sefData?.md?.pNCCC || "-",
+              "Specify Histologic Type(s)": row?.sefData?.md?.pNCCCS || "-",
+              "Percentage of Sarcomatous Component": row?.sefData?.md?.pSC || "-",
+              "Specify Histologic Type(s) ": row?.sefData?.md?.pSCS || "-",
+              "Histologic Patterns (may include percentages)": decodepPat_lung(row?.sefData?.md?.pPat) || "-",
+              "Histologic Patterns (may include percentages) (Other)": row?.sefData?.md?.pPatOth || "-",
+              "Histologic Grade": decodeGrade_lung(row?.sefData?.md?.grade) || "-",
+              "Histologic Grade (Other)": row?.sefData?.md?.gradeOth || "-",
+              "Spread Through Air Spaces (STAS)": decodeSTAS_lung(row?.sefData?.md?.stas) || "-",
+              Focality: row?.sefData?.md?.foc || "-",
+              "Visceral Pleura Invasion": decodevpi_lung(row?.sefData?.md?.vpi) || "-",
+              "Visceral Pleura Invasion (Other)": row?.sefData?.md?.vpiOth || "-",
+              "Direct Invasion of Other Structures": decodedi_lung(row?.sefData?.md?.di) || "-",
+              "Direct Invasion of Other Structures (Other)": row?.sefData?.md?.diOth || "-",
+              "Lymphatic and / or Vascular Invasion": decodelvi_lung(row?.sefData?.md?.lvi) || "-",
+              "Lymphatic and / or Vascular Invasion (Other)": row?.sefData?.md?.lviOth || "-",
+              "If Lymphatic and / or Vascular Invasion is present": decodelviP_lung(row?.sefData?.md?.lviP) || "-",
+              "If Lymphatic and / or Vascular Invasion is present (Other)": row?.sefData?.md?.lviPOth || "-",
+              "Specimen Margin Status for Invasive Tumor": decodeSmsts_lung(row?.sefData?.md?.smsts) || "-",
+              "Specimen Margin Status for Invasive Tumor (Other)": row?.sefData?.md?.smstsOth || "-",
+              "Closest Margin(s) to Invasive Tumor": row?.sefData?.md?.cmin || "-",
+              "Distance from Invasive Tumor to Closest Margin": row?.sefData?.md?.dITCM || "-",
+              "Margin(s) Involved by Invasive Tumor": row?.sefData?.md?.mInvT || "-",
+              "Specimen Margin Status for Noninvasive Tumor (High-grade Dysplasia)": decodeSmstsN_lung(row?.sefData?.md?.smstsN) || "-",
+              "Specimen Margin Status for Noninvasive Tumor (High-grade Dysplasia) (Other)": row?.sefData?.md?.smstsNOth || "-",
+              "Modified Classification (required only if applicable)": mC_hene(row?.sefData?.md?.mC) || "-",
+              pTNM: row?.sefData?.md?.ptpTNMnm || "-",
+              "AJCC Staging": row?.sefData?.md?.as || "-",
+              "Additional Findings": row?.sefData?.md?.addF || "-",
+              "Regional Lymph Node Status": rlnS_hene(row?.sefData?.md?.rlnS) || "-",
+              "Regional lymph nodes present,name the nodal stations examined": row?.sefData?.md?.rlnSOth || "-",
+              "Number Of Nodes Tested": row?.sefData?.md?.nnt || "-",
+              "Number Of Positive Nodes": row?.sefData?.md?.npn || "-",
+              "Size of Largest Nodal Metastatic Deposit (cm)": row?.sefData?.md?.sizeLNMD,
+              "Extranodal Extension (ENE)": ene_hene(row?.sefData?.md?.ene) || "-",
+              "DISTANT METASTASIS": row?.sefData?.md?.disM || "-",
+              "Tumor Size": row?.sefData?.md?.tsz === "xx" || row?.sefData?.md?.tsz === undefined ? "-" : row?.sefData?.md?.tsz,
+              ACT: decodeProcedureType(row?.sefData?.md?.act) || "-",
+              "ACT Drug Cycles": row?.sefData?.md?.actdc || "-",
+              "ACT Date of last Cycle": row?.sefData?.md?.actdls || "-",
+              Radiotherapy: decodeProcedureType(row?.sefData?.md?.rd) || "-",
+              "Dosage & Fractions": row?.sefData?.md?.rdd1 || "-",
+              Technique: row?.sefData?.md?.rdd2 || "-",
+              Quadrant: row?.sefData?.md?.rdd3 || "-",
+              "Radiotherapy Date of last Cycle": row?.sefData?.md?.rtdls || "-",
+              "Hormonal Therapy": decodeProcedureType(row?.sefData?.md?.hrt) || "-",
+              "Hormonal Therapy Details": row?.sefData?.md?.hrtD || "-",
+              "Targeted Therapy": decodeProcedureType(row?.sefData?.md?.trt) || "-",
+              "Targeted Therapy Details": row?.sefData?.md?.trtD || "-",
+              "Is paraffin Block Available ": decodeProcedureType(row?.sefData?.md?.ipba) || "-",
+              "Paraffin Block Number": row?.sefData?.md?.ipbainfo || "-",
+              "Metadata updated by": row?.sefData?.md?.mdu || "-",
+              HER2: decodeProcedureType(row?.sefData?.luf?.h2) || "-",
+              Ki67: row?.sefData?.luf?.k67 || "-",
+              "PET CT SUV Max": row?.sefData?.luf?.pcsm || "-",
+              "PET CT Volume": row?.sefData?.luf?.pcvm || "-",
+              "sTILs Percent Scores": row?.sefData?.luf?.sps || "-",
+              "LU Specific form updated by": row?.sefData?.luf?.lufu || "-",
               "follow Up Time": formatTimestamp(Math.floor(row?.fwData?.timestamp) / 1000) || "-",
               "Last Followup status": decodeFollowUpType(row?.fwData?.fwlastTimestamp?.lfs) || "-",
               "Other reason": row?.fwData?.fwlastTimestamp?.othrs || "-",

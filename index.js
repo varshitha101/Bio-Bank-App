@@ -1,13 +1,13 @@
 const firebaseConfig = {
   // bio-bank-dev-internal
-  apiKey: "AIzaSyCcJCAYpAsSnR-gpFvd_lhWFEzy8trecO4",
-  authDomain: "cmc-me.firebaseapp.com",
-  databaseURL: "https://cmc-me-default-rtdb.firebaseio.com",
-  projectId: "cmc-me",
-  storageBucket: "cmc-me.firebasestorage.app",
-  messagingSenderId: "396271698475",
-  appId: "1:396271698475:web:c0dc04eb762be010de606e",
-  measurementId: "G-JRMT69JTJR",
+  // apiKey: "AIzaSyCcJCAYpAsSnR-gpFvd_lhWFEzy8trecO4",
+  // authDomain: "cmc-me.firebaseapp.com",
+  // databaseURL: "https://cmc-me-default-rtdb.firebaseio.com",
+  // projectId: "cmc-me",
+  // storageBucket: "cmc-me.firebasestorage.app",
+  // messagingSenderId: "396271698475",
+  // appId: "1:396271698475:web:c0dc04eb762be010de606e",
+  // measurementId: "G-JRMT69JTJR",
 
   // biobank-development
   // apiKey: "AIzaSyDIFI_4lVb7FJmKgzWMbq6ZfKcBwpj-K4E",
@@ -30,14 +30,14 @@ const firebaseConfig = {
   // measurementId: "G-MQP97GW8F9",
 
   // testing-python
-  // apiKey: "AIzaSyBC_ehBcCYIraaD5LjlbB_17O3lg0zthWs",
-  // authDomain: "testingpython-696b1.firebaseapp.com",
-  // databaseURL: "https://testingpython-696b1-default-rtdb.firebaseio.com",
-  // projectId: "testingpython-696b1",
-  // storageBucket: "testingpython-696b1.firebasestorage.app",
-  // messagingSenderId: "55140796461",
-  // appId: "1:55140796461:web:ddff904be4adade360d0a4",
-  // measurementId: "G-TQFN0LVYQ9",
+  apiKey: "AIzaSyBC_ehBcCYIraaD5LjlbB_17O3lg0zthWs",
+  authDomain: "testingpython-696b1.firebaseapp.com",
+  databaseURL: "https://testingpython-696b1-default-rtdb.firebaseio.com",
+  projectId: "testingpython-696b1",
+  storageBucket: "testingpython-696b1.firebasestorage.app",
+  messagingSenderId: "55140796461",
+  appId: "1:55140796461:web:ddff904be4adade360d0a4",
+  measurementId: "G-TQFN0LVYQ9",
 };
 
 let currentBloodBoxIndex = 0;
@@ -2502,24 +2502,23 @@ function validateForm1() {
         { field: document.querySelector('input[name="pcbSample_hene"]:checked'), name: "PC Sample" },
         { field: document.querySelector('input[name="processedRadio_hene"]:checked'), name: "All samples Received Together?" },
       ];
+    } else if (cancer_type === "lung") {
+      requiredFields = [
+        { field: document.getElementById("mrnNo"), name: "MRN Number" },
+        { field: document.getElementById("bioBankId"), name: "Bio Bank ID" },
+        { field: document.getElementById("cancer_type"), name: "Cancer Type" },
+        { field: document.getElementById("patAge_lung"), name: "Age" },
+        { field: document.querySelector('input[name="customRadio_lung"]:checked'), name: "Gender" },
+        { field: document.querySelector('input[name="customProcedure_lung"]:checked'), name: "Procedure Types" },
+        { field: document.querySelector('input[name="MetastasisSample_lung"]:checked'), name: "Metastasis Sample" },
+        { field: document.querySelector('input[name="bloodSample_lung"]:checked'), name: "Blood Sample" },
+        { field: document.querySelector('input[name="specimenSample_lung"]:checked'), name: "Specimen Sample" },
+        { field: document.querySelector('input[name="otherSample_lung"]:checked'), name: "Other Sample" },
+        { field: document.querySelector('input[name="rltSample_lung"]:checked'), name: "RLT Sample" },
+        { field: document.querySelector('input[name="pcbSample_lung"]:checked'), name: "PC Sample" },
+        { field: document.querySelector('input[name="processedRadio_lung"]:checked'), name: "All samples Received Together?" },
+      ];
     }
-    // else if (cancer_type === "lung") {
-    //   requiredFields = [
-    //     { field: document.getElementById("mrnNo"), name: "MRN Number" },
-    //     { field: document.getElementById("bioBankId"), name: "Bio Bank ID" },
-    //     { field: document.getElementById("cancer_type"), name: "Cancer Type" },
-    //     { field: document.getElementById("patAge_lung"), name: "Age" },
-    //     { field: document.querySelector('input[name="customRadio_lung"]:checked'), name: "Gender" },
-    //     { field: document.querySelector('input[name="customProcedure_lung"]:checked'), name: "Procedure Types" },
-    //     { field: document.querySelector('input[name="MetastasisSample_lung"]:checked'), name: "Metastasis Sample" },
-    //     { field: document.querySelector('input[name="bloodSample_lung"]:checked'), name: "Blood Sample" },
-    //     { field: document.querySelector('input[name="specimenSample_lung"]:checked'), name: "Specimen Sample" },
-    //     { field: document.querySelector('input[name="otherSample_lung"]:checked'), name: "Other Sample" },
-    //     { field: document.querySelector('input[name="rltSample_lung"]:checked'), name: "RLT Sample" },
-    //     { field: document.querySelector('input[name="pcbSample_lung"]:checked'), name: "PC Sample" },
-    //     { field: document.querySelector('input[name="processedRadio_lung"]:checked'), name: "All samples Received Together?" },
-    //   ];
-    // }
 
     let allFilled = true;
     let biochar = true;
@@ -3167,6 +3166,138 @@ function validateForm1() {
           return form1Data;
         },
       );
+    } else if (cancer_type === "lung") {
+      let proType = "";
+      const procType = document.querySelector('input[name="customProcedure_lung"]:checked').value;
+      const metaType = document.querySelector('input[name="MetastasisSample_lung"]:checked').value;
+
+      if (procType === "b" && metaType === "false") {
+        proType = "Bx";
+      } else if (procType === "b" && metaType === "true") {
+        proType = "MBx";
+      } else if (procType === "r" && metaType === "false") {
+        proType = "Sx";
+      } else if (procType === "r" && metaType === "true") {
+        proType = "MSx";
+      }
+
+      return Promise.all([
+        gridData("PlasmagridNo_lung", "bn/LU/bb"),
+        gridData("SerumgridNo_lung", "bn/LU/bb"),
+        gridData("bufferCoatgridNo_lung", "bn/LU/bb"),
+        gridData("OSgridNo_lung", "bn/LU/bb"),
+        gridData("ftgrid_lung", "bn/LU/sb"),
+        gridData("fngrid_lung", "bn/LU/sb"),
+        gridData("rltSgridNo_lung", "bn/LU/rlt"),
+        gridData("pcSgridNo_lung", "bn/LU/pcb"),
+        getDateAndTime("sampleReceivedDate_lung", "sampleReceivedTime_lung"),
+        getDateAndTime("sampleProcessedDate_lung", "sampleProcessedTime_lung"),
+        getDateAndTime("bloodSampleReceivedDate_lung", "bloodSampleReceivedTime_lung"),
+        getDateAndTime("bloodSampleProcessedDate_lung", "bloodSampleProcessedTime_lung"),
+        getDateAndTime("SpecimenSampleReceivedDate_lung", "SpecimenSampleReceivedTime_lung"),
+        getDateAndTime("SpecimenSampleProcessedDate_lung", "SpecimenSampleProcessedTime_lung"),
+        getDateAndTime("OtherSampleReceivedDate_lung", "OtherSampleReceivedTime_lung"),
+        getDateAndTime("OtherSampleProcessedDate_lung", "OtherSampleProcessedTime_lung"),
+        getDateAndTime("RLTSampleReceivedDate_lung", "RLTSampleReceivedTime_lung"),
+        getDateAndTime("RLTSampleProcessedDate_lung", "RLTSampleProcessedTime_lung"),
+        getDateAndTime("PCSampleReceivedDate_lung", "PCSampleReceivedTime_lung"),
+        getDateAndTime("PCSampleProcessedDate_lung", "PCSampleProcessedTime_lung"),
+      ]).then(
+        ([
+          plasmagrid,
+          Serumgrid,
+          buffyCoatgrid,
+          otherSgrid,
+          ftSgrid,
+          fnSgrid,
+          rltSgrid,
+          pcSgrid,
+          aRtimestamp,
+          aPtimestamp,
+          bRtimestamp,
+          bPtimestamp,
+          sRtimestamp,
+          sPtimestamp,
+          oRtimestamp,
+          oPtimestamp,
+          rRtimestamp,
+          rPtimestamp,
+          pRtimestamp,
+          pPtimestamp,
+        ]) => {
+          const form1Data = {
+            ie: {
+              cnst: document.querySelector('input[name="customConsent"]:checked')?.value || "",
+              ct: document.getElementById("cancer_type").value,
+              ag: document.getElementById("patAge_lung").value,
+              sx: document.querySelector('input[name="customRadio_lung"]:checked').value,
+              tpr: document.querySelector('input[name="customProcedure_lung"]:checked').value,
+              dpr: document.getElementById("procedureDetail_lung").value,
+              srn: document.getElementById("surgeonName_lung").value,
+              mts: document.querySelector('input[name="MetastasisSample_lung"]:checked').value,
+              es: document.getElementById("eventSelection_lung").value,
+              mspt: proType,
+              dm: document.querySelector('input[name="denovo_lung"]:checked')?.value || "",
+              ag_ms: document.getElementById("mpt_age_lung").value || "",
+              site: document.getElementById("mpt_site_lung").value || "",
+              siteOth: document.getElementById("mpt_site_Oth_lung").value || "",
+              syncT: document.getElementById("syncT_lung").value || "",
+              priT: document.getElementById("priT_lung").value || "",
+              specID: document.getElementById("specID_lung").value || "",
+              ss: document.querySelector('input[name="specimenSample_lung"]:checked').value,
+              nft: document.getElementById("ft_tubes_lung").value,
+              nfn: document.getElementById("fn_tubes_lung").value,
+              bs: document.querySelector('input[name="bloodSample_lung"]:checked').value,
+              bpg: plasmagrid,
+              bsg: Serumgrid,
+              bbcg: buffyCoatgrid,
+              ftg: ftSgrid,
+              fng: fnSgrid,
+              osmp: document.querySelector('input[name="otherSample_lung"]:checked').value,
+              osg: otherSgrid,
+              osdsc: document.getElementById("otSampleDesc_lung").value,
+              rltS: document.querySelector('input[name="rltSample_lung"]:checked').value,
+              rlt: rltSgrid,
+              pcS: document.querySelector('input[name="pcbSample_lung"]:checked').value,
+              pssvl: document.querySelector('input[name="pcbV_lung"]:checked')?.value || "",
+              pc: pcSgrid,
+              iss: document.querySelector('input[name="IschemicRadio_lung"]:checked')?.value || "",
+              nact: document.querySelector('input[name="NACT_lung"]:checked')?.value || "",
+              nactEff: document.getElementById("nactEff_lung")?.value || "",
+              pRVT: document.getElementById("pRVT_lung")?.value || "",
+              pRVTOth: document.getElementById("pRVT_Oth_lung")?.value || "",
+              pN: document.getElementById("pN_lung")?.value || "",
+              pNOth: document.getElementById("pN_Oth_lung")?.value || "",
+              pS: document.getElementById("pS_lung")?.value || "",
+              pSOth: document.getElementById("pS_Oth_lung")?.value || "",
+              inf: document.getElementById("inf_lung")?.value || "",
+              nactdc: document.getElementById("NACT_cycle_lung").value || "",
+              nactdlc: document.getElementById("NACT_cycle_D_lung").value || "",
+              prb: document.getElementById("processedBy_lung").value,
+              scpt: document.querySelector('input[name="processedRadio_lung"]:checked')?.value || "",
+              srt: aRtimestamp, // These will now either be valid timestamps or null
+              spt: aPtimestamp,
+              brt: bRtimestamp,
+              bpt: bPtimestamp,
+              sprt: sRtimestamp,
+              sppt: sPtimestamp,
+              osrt: oRtimestamp,
+              ospt: oPtimestamp,
+              rsrt: rRtimestamp,
+              rspt: rPtimestamp,
+              psrt: pRtimestamp,
+              pspt: pPtimestamp,
+              bspb: document.getElementById("BprocessedBy_lung").value,
+              sspb: document.getElementById("SprocessedBy_lung").value,
+              ospb: document.getElementById("OprocessedBy_lung").value,
+              rltpb: document.getElementById("RLTprocessedBy_lung").value,
+              psspb: document.getElementById("PCprocessedBy_lung").value,
+              sef_ub: user,
+            },
+          };
+          return form1Data;
+        },
+      );
     }
   } catch (error) {
     console.error(error);
@@ -3181,6 +3312,7 @@ function validateForm2() {
       if (ct === "ceix") return { p1: "tumorSizeL_ceix", p2: "tumorSizeW_ceix", p3: "tumorSizeH_ceix" };
       if (ct === "ovry") return { p1: "tumorSizeL_ovry", p2: "tumorSizeW_ovry", p3: "tumorSizeH_ovry" };
       if (ct === "hene") return { p1: "tumorSizeL_hene", p2: "tumorSizeW_hene", p3: "tumorSizeH_hene" };
+      if (ct === "lung") return { p1: "tumorSizeL_lung", p2: "tumorSizeW_lung", p3: "tumorSizeH_lung" };
     }
     const { p1, p2, p3 } = getTumorSzeIds(cancer_type);
 
@@ -3198,6 +3330,7 @@ function validateForm2() {
       if (ct === "ceix") return { p1: "FIGO1_ceix", p2: "FIGO2_ceix" };
       if (ct === "ovry") return { p1: "FIGO1_ovry_2021", p2: "FIGO2_ovry_2021" };
       if (ct === "ovry1") return { p1: "FIGO1_ovry_2014", p2: "FIGO2_ovry_2014" };
+      if (ct === "lung") return { p1: "FIGO1_lung", p2: "FIGO2_lung" };
     }
     const { p1, p2 } = getAJCCIds(cancer_type) || {};
 
@@ -3217,6 +3350,7 @@ function validateForm2() {
       if (ct === "ceix") return { p1: "cvSym_ceix", p2: "cmd_ceix" };
       if (ct === "ovry") return { p1: "cvSym_ovry", p2: "cmd_ovry" };
       if (ct === "hene") return { p1: "cvSym_hene", p2: "cmd_hene" };
+      if (ct === "lung") return { p1: "cvSym_lung", p2: "cmd_lung" };
     }
     const { p1, p2 } = getCVSYMIds(cancer_type) || {};
 
@@ -4168,6 +4302,98 @@ function validateForm2() {
       },
     };
     return form2Data;
+  } else if (cancer_type === "lung") {
+    const tumorSize = getTumorSize(cancer_type);
+    const ajcc = getAJCC(cancer_type);
+    const medResults = getCVSYM(cancer_type);
+
+    const form2Data = {
+      md: {
+        fhc: document.querySelector('input[name="RadioFHabit_lung"]:checked')?.value || "",
+        fhcr: document.getElementById("familyRelation_lung").value || "",
+        fhct: document.getElementById("familyCancerType_lung").value || "",
+        fh: document.querySelector('input[name="RadioFdHabit_lung"]:checked')?.value || "",
+        hac: document.querySelector('input[name="RadioAlcoholHabit_lung"]:checked')?.value || "",
+        hs: document.querySelector('input[name="RadioSmokeHabit_lung"]:checked')?.value || "",
+        ec: document.querySelector('input[name="ECH_lung"]:checked')?.value || "",
+        cm: medResults,
+        ffqc: document.getElementById("ffQcComments_lung").value || "",
+        ftr: document.getElementById("ffTissueRemarks_lung").value || "",
+        tst: document.getElementById("tumorSite_lung")?.value || "",
+        tsub: document.getElementById("tumorSubSite_lung")?.value || "",
+        tlat: document.querySelector('input[name="tumorLat_lung"]:checked')?.value || "",
+        tp: document.getElementById("tumorPercentage_lung").value || "",
+        ad: document.getElementById("ageAtDiagnosis_lung").value || "",
+        cs: document.getElementById("clinicalStage_lung")?.value || "",
+        ihcm: document.querySelector('input[name="IHC_Status_lung"]:checked')?.value || "",
+        ihcd: document.getElementById("IHC_Description_lung")?.value || "",
+        gt: document.querySelector('input[name="GeneticT_lung"]:checked')?.value || "",
+        gtr: document.getElementById("gtr_lung")?.value || "",
+        gtd: document.getElementById("GT_Description_lung")?.value || "",
+        pt: document.getElementById("pType_lung")?.value || "",
+        ptOth: document.getElementById("pType_Oth_lung")?.value || "",
+        pleC: document.getElementById("pleC_lung")?.value || "",
+        pleCOth: document.getElementById("pleC_specify_lung")?.value || "",
+        pFAC: document.getElementById("pFAC_lung")?.value || "",
+        pPMSC: document.getElementById("pPMSC_lung")?.value || "",
+        pNCCC: document.getElementById("pNCCC_lung")?.value || "",
+        pNCCCS: document.getElementById("pNCCC_S_lung")?.value || "",
+        pSC: document.getElementById("pSC_lung")?.value || "",
+        pSCS: document.getElementById("pSC_S_lung")?.value || "",
+        pPat: document.getElementById("pPat_lung")?.value || "",
+        pPatOth: document.getElementById("pPat_Oth_lung")?.value || "",
+        grade: document.getElementById("grade_lung")?.value || "",
+        gradeOth: document.getElementById("grade_Oth_lung")?.value || "",
+        stas: document.getElementById("stas_lung")?.value || "",
+        foc: document.getElementById("foc_lung")?.value || "",
+        vpi: document.getElementById("VPI_lung")?.value || "",
+        vpiOth: document.getElementById("VPI_Oth_lung")?.value || "",
+        di: document.getElementById("DIOther_lung")?.value || "",
+        diOth: document.getElementById("DIOther_Oth_lung")?.value || "",
+        lvi: document.getElementById("LVI_lung")?.value || "",
+        lviOth: document.getElementById("LVI_Oth_lung")?.value || "",
+        lviP: document.getElementById("LVI_P_lung")?.value || "",
+        lviPOth: document.getElementById("LVI_P_Oth_lung")?.value || "",
+        smsts: document.getElementById("smsts_lung")?.value || "",
+        smstsOth: document.getElementById("smsts_text_lung")?.value || "",
+        cmin: document.getElementById("cmim_lung")?.value || "",
+        dITCM: document.getElementById("dITCM_lung")?.value || "",
+        mInvT: document.getElementById("mInvT_lung")?.value || "",
+        smstsN: document.getElementById("smstsN_lung")?.value || "",
+        smstsNOth: document.getElementById("smstsN_text_lung")?.value || "",
+        mC: document.querySelector('input[name="mC_lung"]:checked')?.value || "",
+        pTNM: document.getElementById("pTNM_lung").value || "",
+        as: ajcc || "",
+        addF: document.getElementById("addF_lung").value || "",
+        rlnsts: document.querySelector('input[name="rlnsts_lung"]:checked')?.value || "",
+        rlnstsOth: document.getElementById("rlnsts_oth_lung").value || "",
+        nnt: document.getElementById("nodesTested_lung").value || "",
+        npn: document.getElementById("positiveNodes_lung").value || "",
+        sizeLNMD: document.getElementById("sizeLNMD_lung").value || "",
+        ene: document.querySelector('input[name="ENE_lung"]:checked')?.value || "",
+        disM: document.getElementById("disM_lung").value || "",
+        invTS: document.getElementById("invTS_lung").value || "",
+        tTS: document.getElementById("totalTS_lung").value || "",
+        sSc: document.getElementById("sSC_lung").value || "",
+        tsz: tumorSize,
+        act: document.querySelector('input[name="ACT_lung"]:checked')?.value || "",
+        actdc: document.getElementById("actDrugCycles_lung").value || "",
+        actdls: document.getElementById("actDateLastCycle_lung").value || "",
+        rd: document.querySelector('input[name="RadioT_lung"]:checked')?.value || "",
+        rdd1: document.getElementById("rtDetails1_lung").value || "",
+        rdd2: document.getElementById("rtDetails2_lung").value || "",
+        rdd3: document.getElementById("rtDetails3_lung").value || "",
+        rtdls: document.getElementById("radiotherapyLastCycleDate_lung").value || "",
+        hrt: document.querySelector('input[name="horT_lung"]:checked')?.value || "",
+        hrtD: document.getElementById("hormone_Cycles_lung").value || "",
+        trt: document.querySelector('input[name="tarT_lung"]:checked')?.value || "",
+        trtD: document.getElementById("Tar_Cycles_lung").value || "",
+        mdu: user,
+        ipba: document.querySelector('input[name="pbT_lung"]:checked')?.value || "",
+        ipbainfo: document.getElementById("PBInput_lung")?.value || "",
+      },
+    };
+    return form2Data;
   }
 }
 
@@ -4270,6 +4496,19 @@ function validateForm3() {
     };
 
     return form3Data;
+  } else if (cancer_type === "lung") {
+    const form3Data = {
+      brf: {
+        h2: document.querySelector('input[name="HER2Radio_lung"]:checked')?.value || "",
+        k67: document.getElementById("k67_lung").value || "",
+        pcsm: document.getElementById("pcsm_lung").value || "",
+        pcvm: document.getElementById("pcvm_lung").value || "",
+        sps: document.getElementById("sps_lung").value || "",
+        lufu: user,
+      },
+    };
+
+    return form3Data;
   }
 }
 function validatePatients() {
@@ -4334,20 +4573,19 @@ function validatePatients() {
         sampleGrade: "histGrade_hene",
         customProcedure: "customProcedure_hene",
       };
+    } else if (ct === "lung") {
+      return {
+        bloodSampleY: "bloodSampleY_lung",
+        specimenSampleY: "specimenSampleY_lung",
+        otherSampleY: "otherSampleY_lung",
+        rltSampleY: "rltSampleY_lung",
+        pcbSampleY: "pcbSampleY_lung",
+        patAge: "patAge_lung",
+        customRadio: "customRadio_lung",
+        sampleGrade: "sampleGrade_lung",
+        customProcedure: "customProcedure_lung",
+      };
     }
-    // else if (ct === "lung") {
-    //   return {
-    //     bloodSampleY: "bloodSampleY_lung",
-    //     specimenSampleY: "specimenSampleY_lung",
-    //     otherSampleY: "otherSampleY_lung",
-    //     rltSampleY: "rltSampleY_lung",
-    //     pcbSampleY: "pcbSampleY_lung",
-    //     patAge: "patAge_lung",
-    //     customRadio: "customRadio_lung",
-    //     sampleGrade: "sampleGrade_lung",
-    //     customProcedure: "customProcedure_lung",
-    //   };
-    // }
   }
   const cancer_type = document.getElementById("cancer_type")?.value || ""; // Type of Cancer
 
@@ -4455,6 +4693,12 @@ function saveToFirebase(data, patientInfo) {
           md: data.md,
           henef: data.brf,
         };
+      } else if (cancer_type === "lung") {
+        formattedData = {
+          ie: data.ie,
+          md: data.md,
+          luf: data.brf,
+        };
       }
       db.ref(`sef/${cancer_type}/${bioBankId}/${nextSection}/${timestamp}`)
         .set(formattedData)
@@ -4557,6 +4801,12 @@ function updateToFirebase(data, patientInfo) {
           ie: data.ie,
           md: data.md,
           henef: data.brf,
+        };
+      } else if (cancer_type === "lung") {
+        formattedData = {
+          ie: data.ie,
+          md: data.md,
+          luf: data.brf,
         };
       }
 
@@ -4875,6 +5125,201 @@ async function fillIeForm(ieData) {
 
   document.getElementById("PCSampleProcessedDate").value = pspt.date;
   document.getElementById("PCSampleProcessedTime").value = pspt.time;
+}
+
+// Lung Cancer
+async function fillIeForm_lung(ieData) {
+  // Helper Function
+  const gridData = (gridValue, type) => {
+    return new Promise((resolve) => {
+      const gridVal = gridValue;
+      if (gridVal) {
+        let parts = gridVal.split("/");
+        let boxID = parts[0];
+        db.ref(`bn/LU/${type}`)
+          .once("value")
+          .then((snapshot) => {
+            let boxIDs = snapshot.val();
+            const boxEntry = Object.entries(boxIDs).find(([id, name]) => id === boxID);
+            if (boxEntry) {
+              const [id, name] = boxEntry;
+              parts[0] = name;
+              const updatedgridNo = parts.join("/");
+
+              resolve(updatedgridNo);
+            } else {
+              resolve(gridVal); // If no match found, resolve with original value
+            }
+          });
+      } else {
+        resolve(null); // If invalid or empty, resolve with null
+      }
+    });
+  };
+  // Helper Function
+  const formatTimestamp = (timestamp) => {
+    if (!timestamp) return { date: "", time: "" };
+
+    const dateObj = new Date(timestamp * 1000);
+
+    const date = dateObj.toISOString().split("T")[0];
+    const time = dateObj.toTimeString().split(" ")[0];
+    return { date, time };
+  };
+
+  const bioid = localStorage.getItem("bioid");
+  const bioidParts = bioid.match(/^([A-Za-z]+)(\d+)$/);
+  if (bioidParts) {
+    const prefix = bioidParts[1];
+    let number = bioidParts[2];
+    const paddedNumber = number.padStart(4, "0");
+    document.getElementById("bioBankId").value = `${prefix}${paddedNumber}`;
+  }
+
+  if (ieData.cnst) document.querySelector(`input[name="customConsent"][value="${ieData.cnst}"]`).checked = true || "";
+
+  document.getElementById("cancer_type").value = ieData.ct || "";
+  toggleCancerSampleEntry(ieData.ct);
+
+  document.getElementById("patAge_lung").value = ieData.ag || "";
+
+  if (ieData.sx) document.querySelector(`input[name="customRadio_lung"][value="${ieData.sx}"]`).checked = true || "";
+
+  if (ieData.tpr) document.querySelector(`input[name="customProcedure_lung"][value="${ieData.tpr}"]`).checked = true || "";
+
+  document.getElementById("procedureDetail_lung").value = ieData.dpr || "";
+
+  document.getElementById("surgeonName_lung").value = ieData.srn;
+
+  if (ieData.mts) document.querySelector(`input[name="MetastasisSample_lung"][value="${ieData.mts}"]`).checked = true || "";
+  document.getElementById("eventSelection_lung").value = ieData.es;
+  if (ieData.dm) document.querySelector(`input[name="denovo_lung"][value="${ieData.dm}"]`).checked = true || "";
+  document.getElementById("mpt_age_lung").value = ieData.ag_ms || "";
+  document.getElementById("mpt_site_lung").value = ieData.site || "";
+  toggle_mptS();
+  document.getElementById("mpt_site_Oth_lung").value = ieData.siteOth || "";
+
+  document.getElementById("syncT_lung").value = ieData.syncT || "";
+  document.getElementById("priT_lung").value = ieData.priT || "";
+  document.getElementById("specID_lung").value = ieData.specID || "";
+
+  if (ieData.ss) document.querySelector(`input[name="specimenSample_lung"][value="${ieData.ss}"]`).checked = true || "";
+
+  const [ftGridNo, fnGridNo, plasmaGridNo, SerumGridNo, BuffyGridNo, otherGridNo, rltSgridNo, pcSgridNo, srt, spt, brt, bpt, sprt, sppt, osrt, ospt, rsrt, rspt, psrt, pspt] = await Promise.all([
+    gridData(ieData.ftg, "sb"),
+    gridData(ieData.fng, "sb"),
+    gridData(ieData.bpg, "bb"),
+    gridData(ieData.bsg, "bb"),
+    gridData(ieData.bbcg, "bb"),
+    gridData(ieData.osg, "bb"),
+    gridData(ieData.rlt, "rlt"),
+    gridData(ieData.pc, "pcb"),
+    formatTimestamp(ieData.srt),
+    formatTimestamp(ieData.spt),
+    formatTimestamp(ieData.brt),
+    formatTimestamp(ieData.bpt),
+    formatTimestamp(ieData.sprt),
+    formatTimestamp(ieData.sppt),
+    formatTimestamp(ieData.osrt),
+    formatTimestamp(ieData.ospt),
+    formatTimestamp(ieData.rsrt),
+    formatTimestamp(ieData.rspt),
+    formatTimestamp(ieData.psrt),
+    formatTimestamp(ieData.pspt),
+  ]);
+  specimenSample_lung();
+  document.getElementById("ft_tubes_lung").value = ieData.nft || "";
+  document.getElementById("ftgrid_lung").value = ftGridNo || "";
+  document.getElementById("fn_tubes_lung").value = ieData.nfn || "";
+  document.getElementById("fngrid_lung").value = fnGridNo || "";
+
+  if (ieData.bs) document.querySelector(`input[name="bloodSample_lung"][value="${ieData.bs}"]`).checked = true || "";
+  bloodSample_lung();
+  document.getElementById("PlasmagridNo_lung").value = plasmaGridNo || ""; // Set the resolved value
+  document.getElementById("SerumgridNo_lung").value = SerumGridNo || "";
+  document.getElementById("bufferCoatgridNo_lung").value = BuffyGridNo || "";
+
+  if (ieData.osmp) document.querySelector(`input[name="otherSample_lung"][value="${ieData.osmp}"]`).checked = true || "";
+  otherSample_lung();
+
+  document.getElementById("OSgridNo_lung").value = otherGridNo || "";
+  document.getElementById("otSampleDesc_lung").value = ieData.osdsc || "";
+
+  if (ieData.rltS) document.querySelector(`input[name="rltSample_lung"][value="${ieData.rltS}"]`).checked = true || "";
+  rltSample_lung();
+  document.getElementById("rltSgridNo_lung").value = rltSgridNo || "";
+
+  if (ieData.pcS) document.querySelector(`input[name="pcbSample_lung"][value="${ieData.pcS}"]`).checked = true || "";
+  if (ieData.pssvl) document.querySelector(`input[name="pcbV_lung"][value="${ieData.pssvl}"]`).checked = true || "";
+  pcbSample_lung();
+  document.getElementById("pcSgridNo_lung").value = pcSgridNo || "";
+
+  if (ieData.iss) document.querySelector(`input[name="IschemicRadio_lung"][value="${ieData.iss}"]`).checked = true || "";
+
+  if (ieData.nact) document.querySelector(`input[name="NACT_lung"][value="${ieData.nact}"]`).checked = true || "";
+  NactYes_lung();
+  document.getElementById("nactEff_lung").value = ieData.nactEff || "";
+  TreatmentEff_lung();
+  document.getElementById("pRVT_lung").value = ieData.pRVT || "";
+  pRVT_C_lung();
+  document.getElementById("pRVT_Oth_lung").value = ieData.pRVTOth || "";
+  document.getElementById("pN_lung").value = ieData.pN || "";
+  pN_C_lung();
+  document.getElementById("pN_Oth_lung").value = ieData.pNOth || "";
+  document.getElementById("pS_lung").value = ieData.pS || "";
+  pS_C_lung();
+  document.getElementById("pS_Oth_lung").value = ieData.pSOth || "";
+  document.getElementById("inf_lung").value = ieData.inf || "";
+  document.getElementById("NACT_cycle_lung").value = ieData.nactdc || "";
+  document.getElementById("NACT_cycle_D_lung").value = ieData.nactdlc || "";
+  document.getElementById("processedBy_lung").value = ieData.prb || "";
+
+  if (ieData.scpt) document.querySelector(`input[name="processedRadio_lung"][value="${ieData.scpt}"]`).checked = true || "";
+
+  sampleReceive_lung();
+  document.getElementById("BprocessedBy_lung").value = ieData.bspb || "";
+  document.getElementById("SprocessedBy_lung").value = ieData.sspb || "";
+  document.getElementById("OprocessedBy_lung").value = ieData.ospb || "";
+  document.getElementById("RLTprocessedBy_lung").value = ieData.rltpb || "";
+  document.getElementById("PCprocessedBy_lung").value = ieData.psspb || "";
+
+  document.getElementById("sefdataEB_lung").value = ieData.sef_ub || "";
+
+  document.getElementById("sampleReceivedDate_lung").value = srt.date;
+  document.getElementById("sampleReceivedTime_lung").value = srt.time;
+
+  document.getElementById("sampleProcessedDate_lung").value = spt.date;
+  document.getElementById("sampleProcessedTime_lung").value = spt.time;
+
+  document.getElementById("bloodSampleReceivedDate_lung").value = brt.date;
+  document.getElementById("bloodSampleReceivedTime_lung").value = brt.time;
+
+  document.getElementById("bloodSampleProcessedDate_lung").value = bpt.date;
+  document.getElementById("bloodSampleProcessedTime_lung").value = bpt.time;
+
+  document.getElementById("SpecimenSampleReceivedDate_lung").value = sprt.date;
+  document.getElementById("SpecimenSampleReceivedTime_lung").value = sprt.time;
+
+  document.getElementById("SpecimenSampleProcessedDate_lung").value = sppt.date;
+  document.getElementById("SpecimenSampleProcessedTime_lung").value = sppt.time;
+
+  document.getElementById("OtherSampleReceivedDate_lung").value = osrt.date;
+  document.getElementById("OtherSampleReceivedTime_lung").value = osrt.time;
+
+  document.getElementById("OtherSampleProcessedDate_lung").value = ospt.date;
+  document.getElementById("OtherSampleProcessedTime_lung").value = ospt.time;
+
+  document.getElementById("RLTSampleReceivedDate_lung").value = rsrt.date;
+  document.getElementById("RLTSampleReceivedTime_lung").value = rsrt.time;
+
+  document.getElementById("RLTSampleProcessedDate_lung").value = rspt.date;
+  document.getElementById("RLTSampleProcessedTime_lung").value = rspt.time;
+
+  document.getElementById("PCSampleReceivedDate_lung").value = psrt.date;
+  document.getElementById("PCSampleReceivedTime_lung").value = psrt.time;
+
+  document.getElementById("PCSampleProcessedDate_lung").value = pspt.date;
+  document.getElementById("PCSampleProcessedTime_lung").value = pspt.time;
 }
 
 // Head and Neck Cancer
@@ -5824,6 +6269,287 @@ function fillMdForm(mdData) {
     });
   }
   ExistComorbidity();
+}
+
+// Lung Cancer
+function fillMdForm_lung(mdData) {
+  const formElements = [...document.querySelectorAll("input, select, textarea")];
+  let mode = localStorage.getItem("mode");
+  function splitFigo(ajcc) {
+    if (!ajcc) return { ajcc1: "", ajcc2: "" };
+
+    ajcc = ajcc.trim();
+
+    const figoOptionsByStage_lung = {
+      I: ["A", "B"],
+      II: ["A", "B", "C"],
+      III: ["A", "B", "C"],
+    };
+
+    // detect stage (longest first to avoid mismatch)
+    const stages = ["III", "II", "IV", "I"];
+
+    for (let stage of stages) {
+      if (ajcc.startsWith(stage)) {
+        const suffix = ajcc.slice(stage.length);
+
+        // validate suffix
+        if (figoOptionsByStage_lung[stage].includes(suffix)) {
+          return {
+            ajcc1: stage,
+            ajcc2: suffix,
+          };
+        }
+      }
+    }
+
+    // fallback (invalid case)
+    return { ajcc1: ajcc, ajcc2: "" };
+  }
+  try {
+    if (mdData.fhc) document.querySelector(`input[name="RadioFHabit_lung"][value="${mdData.fhc}"]`).checked = true || "";
+    familyHabitToggle_lung();
+    document.getElementById("familyRelation_lung").value = mdData.fhcr || "";
+    document.getElementById("familyCancerType_lung").value = mdData.fhct || "";
+
+    if (mdData.fh) document.querySelector(`input[name="RadioFdHabit_lung"][value="${mdData.fh}"]`).checked = true || "";
+    if (mdData.hac) document.querySelector(`input[name="RadioAlcoholHabit_lung"][value="${mdData.hac}"]`).checked = true || "";
+    if (mdData.hs) document.querySelector(`input[name="RadioSmokeHabit_lung"][value="${mdData.hs}"]`).checked = true || "";
+    if (mdData.ec) document.querySelector(`input[name="ECH_lung"][value="${mdData.ec}"]`).checked = true || "";
+
+    document.getElementById("ffQcComments_lung").value = mdData.ffqc || "";
+    document.getElementById("ffTissueRemarks_lung").value = mdData.ftr || "";
+    document.getElementById("tumorSite_lung").value = mdData.tst || "";
+    document.getElementById("tumorSubSite_lung").value = mdData.tsub || "";
+    if (mdData.tlat) document.querySelector(`input[name="tumorLat_lung"][value="${mdData.tlat}"]`).checked = true || "";
+
+    document.getElementById("tumorPercentage_lung").value = mdData.tp || "";
+    document.getElementById("ageAtDiagnosis_lung").value = mdData.ad || "";
+    document.getElementById("clinicalStage_lung").value = mdData.cs || "";
+
+    if (mdData.ihcm) document.querySelector(`input[name="IHC_Status_lung"][value="${mdData.ihcm}"]`).checked = true || "";
+    IHCMarker_lung();
+
+    document.getElementById("IHC_Description_lung").value = mdData.ihcd || "";
+    if (mdData.gt) document.querySelector(`input[name="GeneticT_lung"][value="${mdData.gt}"]`).checked = true || "";
+    GeneticT_lung();
+    document.getElementById("gtr_lung").value = mdData.gtr || "";
+    document.getElementById("GT_Description_lung").value = mdData.gtd || "";
+
+    document.getElementById("pType_lung").value = mdData.pt || "";
+    document.getElementById("pType_Oth_lung").value = mdData.ptOth || "";
+
+    document.getElementById("pleC_lung").value = mdData.pleC || "";
+    document.getElementById("pleC_specify_lung").value = mdData.pleCOth || "";
+    document.getElementById("pFAC_lung").value = mdData.pFAC || "";
+    document.getElementById("pPMSC_lung").value = mdData.pPMSC || "";
+    document.getElementById("pNCCC_lung").value = mdData.pNCCC || "";
+    document.getElementById("pNCCC_S_lung").value = mdData.pNCCCS || "";
+    document.getElementById("pSC_lung").value = mdData.pSC || "";
+    document.getElementById("pSC_S_lung").value = mdData.pSCS || "";
+    document.getElementById("pPat_lung").value = mdData.pPat || "";
+    document.getElementById("pPat_Oth_lung").value = mdData.pPatOth || "";
+    document.getElementById("grade_lung").value = mdData.grade || "";
+    document.getElementById("grade_Oth_lung").value = mdData.gradeOth || "";
+    document.getElementById("stas_lung").value = mdData.stas || "";
+    document.getElementById("foc_lung").value = mdData.foc || "";
+    document.getElementById("VPI_lung").value = mdData.vpi || "";
+    document.getElementById("VPI_Oth_lung").value = mdData.vpiOth || "";
+    document.getElementById("DIOther_lung").value = mdData.di || "";
+    document.getElementById("DIOther_Oth_lung").value = mdData.diOth || "";
+    document.getElementById("LVI_lung").value = mdData.lvi || "";
+    document.getElementById("LVI_Oth_lung").value = mdData.lviOth || "";
+    document.getElementById("LVI_P_lung").value = mdData.lviP || "";
+    document.getElementById("LVI_P_Oth_lung").value = mdData.lviPOth || "";
+    document.getElementById("smsts_lung").value = mdData.smsts || "";
+    document.getElementById("smsts_text_lung").value = mdData.smstsOth || "";
+    document.getElementById("cmim_lung").value = mdData.cmin || "";
+    document.getElementById("dITCM_lung").value = mdData.dITCM || "";
+    document.getElementById("mInvT_lung").value = mdData.mInvT || "";
+    document.getElementById("smstsN_lung").value = mdData.smstsN || "";
+    document.getElementById("smstsN_text_lung").value = mdData.smstsNOth || "";
+    if (mdData.mC) document.querySelector(`input[name="mC_lung"][value="${mdData.mC}"]`).checked = true || "";
+    document.getElementById("pTNM_lung").value = mdData.pTNM || "";
+    if (mdData.as) {
+      const { ajcc1, ajcc2 } = splitFigo(mdData.as);
+      document.getElementById("FIGO1_lung").value = ajcc1 || "";
+      document.getElementById("FIGO1_lung").dispatchEvent(new Event("change"));
+      document.getElementById("FIGO2_lung").value = ajcc2 || "";
+    }
+    document.getElementById("addF_lung").value = mdData.addF || "";
+    if (mdData.rlnsts) document.querySelector(`input[name="rlnsts_lung"][value="${mdData.rlnsts}"]`).checked = true || "";
+    document.getElementById("rlnsts_oth_lung").value = mdData.rlnstsOth || "";
+
+    document.getElementById("nodesTested_lung").value = mdData.nnt || "";
+    document.getElementById("positiveNodes_lung").value = mdData.npn || "";
+
+    document.getElementById("sizeLNMD_lung").value = mdData.sizeLNMD || "";
+    if (mdData.ene) document.querySelector(`input[name="ENE_lung"][value="${mdData.ene}"]`).checked = true || "";
+    document.getElementById("disM_lung").value = mdData.disM || "";
+    document.getElementById("invTS_lung").value = mdData.invTS || "";
+    document.getElementById("totalTS_lung").value = mdData.tTS || "";
+    document.getElementById("sSC_lung").value = mdData.sSc || "";
+
+    if (mdData.tsz) {
+      const [tL, tW, tH] = mdData.tsz.split(/[xX]/);
+
+      document.getElementById("tumorSizeL_lung").value = tL !== undefined ? tL : "";
+      document.getElementById("tumorSizeW_lung").value = tW !== undefined ? tW : "";
+      document.getElementById("tumorSizeH_lung").value = tH !== undefined ? tH : "";
+    }
+
+    if (mdData.act) document.querySelector(`input[name="ACT_lung"][value="${mdData.act}"]`).checked = true || "";
+    actYes();
+    document.getElementById("actDrugCycles_lung").value = mdData.actdc || "";
+    document.getElementById("actDateLastCycle_lung").value = mdData.actdls || "";
+
+    if (mdData.rd) document.querySelector(`input[name="RadioT_lung"][value="${mdData.rd}"]`).checked = true || "";
+    RadioTYes();
+    document.getElementById("rtDetails1_lung").value = mdData.rdd1 || "";
+    document.getElementById("rtDetails2_lung").value = mdData.rdd2 || "";
+    document.getElementById("rtDetails3_lung").value = mdData.rdd3 || "";
+    document.getElementById("radiotherapyLastCycleDate_lung").value = mdData.rtdls || "";
+
+    if (mdData.hrt) document.querySelector(`input[name="horT_lung"][value="${mdData.hrt}"]`).checked = true || "";
+    document.getElementById("hormone_Cycles_lung").value = mdData.hrtD || "";
+
+    if (mdData.trt) document.querySelector(`input[name="tarT_lung"][value="${mdData.trt}"]`).checked = true || "";
+    document.getElementById("Tar_Cycles_lung").value = mdData.trtD || "";
+
+    if (mdData.ipba) document.querySelector(`input[name="pbT_lung"][value="${mdData.ipba}"]`).checked = true || "";
+    document.getElementById("PBInput_lung").value = mdData.ipbainfo || "";
+
+    document.getElementById("mddataEB_lung").value = mdData.mdu || "";
+
+    if (mdData.cm) {
+      let comMed = mdData.cm;
+      const dropdownContainer = document.getElementById("cvSym_lung");
+      const keys = Object.keys(comMed);
+
+      Object.keys(comMed).forEach((info) => {
+        const data = comMed[info];
+
+        const newDiv = document.createElement("div");
+        const newDiv1 = document.createElement("div");
+        const newDiv2 = document.createElement("div");
+
+        newDiv.classList.add("col-sm-3", "mt-2", "cmd_lung");
+        newDiv1.classList.add("col-sm-8", "mt-2", "cmd_lung");
+        newDiv2.classList.add("col-sm-1", "mt-2", "pr-4", "cmd_lung");
+        const newSelect = document.createElement("select");
+        const inputWrapper = document.createElement("div"); // This holds one or two inputs
+        inputWrapper.classList.add("form-row");
+
+        newSelect.classList.add("form-control");
+
+        const options = [
+          { value: "", text: "" },
+          { value: "Diabetic", text: "Type 2 Diabetic Mellitus" },
+          { value: "Cardiac", text: "Cardiac" },
+          { value: "Hypertension", text: "Hypertension" },
+          { value: "Other", text: "Other" },
+        ];
+
+        options.forEach((optionData) => {
+          const option = document.createElement("option");
+          option.value = optionData.value;
+          option.textContent = optionData.text;
+          if (optionData.value === data.selectedOption) {
+            option.selected = true;
+          }
+          newSelect.appendChild(option);
+        });
+        if (data.selectedOption === "Other") {
+          const otherInput1 = document.createElement("input");
+          const otherInput2 = document.createElement("input");
+
+          otherInput1.classList.add("form-control", "col-sm-6");
+          otherInput2.classList.add("form-control", "col-sm-6");
+
+          otherInput1.type = "text";
+          otherInput2.type = "text";
+
+          otherInput1.placeholder = "Comorbidity";
+          otherInput2.placeholder = "Medicines";
+
+          otherInput1.value = data.textValue.input1 || "";
+          otherInput2.value = data.textValue.input2 || "";
+
+          inputWrapper.appendChild(otherInput1);
+          inputWrapper.appendChild(otherInput2);
+        } else {
+          const defaultInput = document.createElement("input");
+          defaultInput.classList.add("form-control");
+          defaultInput.type = "text";
+          defaultInput.placeholder = "Medicines";
+          defaultInput.value = data.textValue || "";
+          inputWrapper.appendChild(defaultInput);
+        }
+
+        newDiv2.style.display = "flex";
+        newDiv2.style.flexDirection = "row-reverse";
+        const imgGroup = document.createElement("div");
+        imgGroup.classList.add("input-group-append");
+
+        const img1 = document.createElement("img");
+        img1.src = "assets/images/delete-2.svg";
+        img1.id = "cvSymRemBtn_lung";
+        img1.style.height = "36px";
+        img1.style.width = "36px";
+        img1.style.marginTop = "-2px";
+        img1.style.cursor = "pointer";
+        img1.addEventListener("click", function () {
+          dropdownContainer.removeChild(newDiv);
+          dropdownContainer.removeChild(newDiv1);
+          dropdownContainer.removeChild(newDiv2);
+        });
+
+        imgGroup.appendChild(img1);
+
+        newDiv.appendChild(newSelect);
+        newDiv1.appendChild(inputWrapper);
+        newDiv2.appendChild(imgGroup);
+
+        dropdownContainer.appendChild(newDiv);
+        dropdownContainer.appendChild(newDiv1);
+
+        if (mode === "SearchView" || mode === "PendingView" || mode === "EditFollowUps") {
+          const inputs = dropdownContainer.querySelectorAll("input, select");
+          inputs.forEach((input) => (input.disabled = true));
+        }
+
+        if (mode !== "SearchView" && mode !== "PendingView") {
+          dropdownContainer.appendChild(newDiv2);
+        }
+        newSelect.addEventListener("change", function () {
+          inputWrapper.innerHTML = "";
+
+          if (this.value === "Other") {
+            const otherInput1 = document.createElement("input");
+            const otherInput2 = document.createElement("input");
+
+            otherInput1.classList.add("form-control", "col-sm-6");
+            otherInput2.classList.add("form-control", "col-sm-6");
+
+            otherInput1.value = data.input1 || "";
+            otherInput2.value = data.input2 || "";
+
+            inputWrapper.appendChild(otherInput1);
+            inputWrapper.appendChild(otherInput2);
+          } else {
+            const defaultInput = document.createElement("input");
+            defaultInput.classList.add("form-control");
+            defaultInput.type = "text";
+            defaultInput.placeholder = "Medicines";
+            inputWrapper.appendChild(defaultInput);
+          }
+        });
+      });
+    }
+    ExistComorbidity_lung();
+  } catch (e) {
+    console.error("Error in filling radio buttons:", e);
+  }
 }
 
 // Head and Neck Cancer
@@ -7449,6 +8175,20 @@ function fillBrfForm(brfData) {
     console.error("Error in filling brf radio buttons:", e);
   }
 }
+// Lung Cancer
+function fillBrfForm_lung(brfData) {
+  try {
+    if (brfData.h2) document.querySelector(`input[name="HER2Radio_lung"][value="${brfData.h2}"]`).checked = true || "";
+
+    document.getElementById("pcsm_lung").value = brfData.pcsm || "";
+    document.getElementById("pcvm_lung").value = brfData.pcvm || "";
+    document.getElementById("k67_lung").value = brfData.k67 || "";
+    document.getElementById("sps_lung").value = brfData.sps || "";
+    document.getElementById("brfdataEB_lung").value = brfData.lufu || "";
+  } catch (e) {
+    console.error("Error in filling brf radio buttons:", e);
+  }
+}
 
 // Head and Neck Cancer
 function fillBrfForm_hene(brfData) {
@@ -9022,6 +9762,8 @@ function getCancerType(ct) {
       return "Breast Cancer";
     case "hene":
       return "Head and Neck Cancer";
+    case "lung":
+      return "Lung Cancer";
     default:
       return "-";
   }
@@ -9081,7 +9823,9 @@ function fetchPendingEntries() {
                   ? !dataEntry?.md?.hasOwnProperty("pst")
                   : ct === "hene"
                     ? !dataEntry?.md?.hasOwnProperty("pst") && dataEntry?.md?.pt === ""
-                    : false;
+                    : ct === "lung"
+                      ? dataEntry?.md?.pt === ""
+                      : false;
             const res = dataEntry && histResult && differenceInMinutes > sevenDaysInMinutes;
             if (res) {
               tableData.push({
@@ -10640,60 +11384,6 @@ function bloodSample_hene() {
     }
   }
 }
-
-// // Lung Cancer
-// function bloodSample_lung() {
-//   if ($("#bloodSampleY_lung").is(":checked")) {
-//     $("#plasmatubes_lung").show();
-//     $("#serumtubes_lung").show();
-//     $("#bufferCoatTubes_lung").show();
-//   } else if ($("#bloodSampleN_lung").is(":checked")) {
-//     $("#plasmatubes_lung").hide();
-//     $("#serumtubes_lung").hide();
-//     $("#bufferCoatTubes_lung").hide();
-//     $("#PlasmagridNo_lung").val("");
-//     $("#SerumgridNo_lung").val("");
-//     $("#bufferCoatgridNo_lung").val("");
-//     let pGrids = localStorage.getItem("LocalPlasma");
-//     let sGrids = localStorage.getItem("LocalSerum");
-//     let bcGrids = localStorage.getItem("LocalBuffy");
-
-//     if (pGrids !== null) {
-//       let mainGrids = localStorage.getItem("selectedGrid");
-
-//       let mainGridsArray = mainGrids.split(",");
-//       let pGridsArray = pGrids.split(",");
-
-//       mainGridsArray = mainGridsArray.filter((grid) => !pGridsArray.includes(grid));
-
-//       localStorage.setItem("selectedGrid", mainGridsArray.join(","));
-//       localStorage.removeItem("LocalPlasma");
-//     }
-//     if (sGrids !== null) {
-//       let mainGrids = localStorage.getItem("selectedGrid");
-
-//       let mainGridsArray = mainGrids.split(",");
-//       let sGridsArray = sGrids.split(",");
-
-//       mainGridsArray = mainGridsArray.filter((grid) => !sGridsArray.includes(grid));
-
-//       localStorage.setItem("selectedGrid", mainGridsArray.join(","));
-//       localStorage.removeItem("LocalSerum");
-//     }
-//     if (bcGrids !== null) {
-//       let mainGrids = localStorage.getItem("selectedGrid");
-
-//       let mainGridsArray = mainGrids.split(",");
-//       let bcGridsArray = bcGrids.split(",");
-
-//       mainGridsArray = mainGridsArray.filter((grid) => !bcGridsArray.includes(grid));
-
-//       localStorage.setItem("selectedGrid", mainGridsArray.join(","));
-//       localStorage.removeItem("LocalBuffy");
-//     }
-//   }
-// }
-
 // Breast
 function otherSample() {
   if ($("#otherSampleY").is(":checked")) {
@@ -12227,5 +12917,646 @@ function breFd_ovry() {
   } else {
     $("#durFeed_ovry").hide();
     $("#dbf_ovry").val("");
+  }
+}
+
+function familyHabitToggle_lung() {
+  if ($("#familyHistoryCancer1_lung").is(":checked")) {
+    $("#relation_Cancer_lung").show();
+  } else {
+    $("#relation_Cancer_lung").hide();
+    $("#familyRelation_lung").val("");
+    $("#familyCancerType_lung").val("");
+  }
+}
+
+function ExistComorbidity_lung() {
+  if ($("#ECH1_lung").is(":checked")) {
+    $("#cvSym_lung").show();
+  } else {
+    $("#cvSym_lung").hide();
+    const dropdownContainer = document.getElementsByClassName("cmd_lung");
+    Array.from(dropdownContainer).forEach((container) => {
+      container.innerHTML = "";
+    });
+  }
+}
+
+function IHCMarker_lung() {
+  if ($("#IHC_yes_lung").is(":checked")) {
+    $("#ihcDescr_lung").show();
+  } else {
+    $("#ihcDescr_lung").hide();
+    $("#IHC_Description_lung").val("");
+  }
+}
+
+function GeneticT_lung() {
+  if ($("#gt_yes_lung").is(":checked")) {
+    $("#dt_Desc_lung").show();
+    $("#gtrs_lung").show();
+  } else {
+    $("#dt_Desc_lung").hide();
+    $("#gtrs_lung").hide();
+    $("#gtr_lung").val("");
+    $("#GT_Description_lung").val("");
+  }
+}
+
+function pType_lung() {
+  const showType = ["op38", "op36", "op39", "op40", "op41", "op42", "op43"];
+  const option = $("#pType_lung").val();
+  if (showType.includes(option)) {
+    $("#pType_Oth_lung").prop("disabled", false);
+  } else {
+    $("#pType_Oth_lung").prop("disabled", true).val("");
+  }
+  if (option === "op22") {
+    $("#pleC_C_lung").show();
+  } else {
+    $("#pleC_C_lung").hide();
+    $("#pleC_lung").val("");
+  }
+  if (option === "op23") {
+    $("#pFAC_C_lung").show();
+    $("#pPMSC_C_lung").show();
+  } else {
+    $("#pFAC_C_lung").hide();
+    $("#pFAC_lung").val("");
+    $("#pPMSC_C_lung").hide();
+    $("#pPMSC_lung").val("");
+  }
+  if (option === "op24") {
+    $("#pNCCC_C_lung").show();
+    $("#pNCCC_S_C_lung").show();
+    $("#pSC_C_lung").show();
+    $("#pSC_S_C_lung").show();
+  } else {
+    $("#pNCCC_C_lung").hide();
+    $("#pNCCC_lung").val("");
+    $("#pNCCC_S_C_lung").hide();
+    $("#pNCCC_S_lung").val("");
+    $("#pSC_C_lung").hide();
+    $("#pSC_lung").val("");
+    $("#pSC_S_C_lung").hide();
+    $("#pSC_S_lung").val("");
+  }
+}
+
+function pleC_lung() {
+  const option = $("#pleC_lung").val();
+  if (["op1", "op2", "op3", "op4", "op5", "op6"].includes(option)) {
+    $("#pleC_specify_lung").prop("disabled", false);
+  } else {
+    $("#pleC_specify_lung").prop("disabled", true).val("");
+  }
+}
+
+function pGrade_lung() {
+  const option = $("#grade_lung").val();
+  if (["grade6", "grade7", "grade8"].includes(option)) {
+    $("#grade_Oth_lung").prop("disabled", false);
+  } else {
+    $("#grade_Oth_lung").prop("disabled", true).val("");
+  }
+}
+
+function VPI_lung() {
+  const option = $("#VPI_lung").val();
+  if (["op4"].includes(option)) {
+    $("#VPI_Oth_lung").prop("disabled", false);
+  } else {
+    $("#VPI_Oth_lung").prop("disabled", true).val("");
+  }
+}
+
+function DIOther_lung() {
+  const option = $("#DIOther_lung").val();
+  if (["op3"].includes(option)) {
+    $("#DIOther_Oth_lung").prop("disabled", false);
+  } else {
+    $("#DIOther_Oth_lung").prop("disabled", true).val("");
+  }
+}
+
+function LVI_lung() {
+  const option = $("#LVI_lung").val();
+  if (["op3"].includes(option)) {
+    $("#LVI_Oth_lung").prop("disabled", false);
+  } else {
+    $("#LVI_Oth_lung").prop("disabled", true).val("");
+  }
+  if (["op2"].includes(option)) {
+    $("#LVI_P_C_lung").show();
+  } else {
+    $("#LVI_P_C_lung").hide();
+  }
+}
+
+function LVI_P_lung() {
+  const option = $("#LVI_P_lung").val();
+  if (["op4"].includes(option)) {
+    $("#LVI_P_Oth_lung").prop("disabled", false);
+  } else {
+    $("#LVI_P_Oth_lung").prop("disabled", true).val("");
+  }
+}
+
+function smsts_lung() {
+  const option = $("#smsts_lung").val();
+  if (["op3", "op4", "op5"].includes(option)) {
+    $("#smsts_text_lung").prop("disabled", false);
+  } else {
+    $("#smsts_text_lung").prop("disabled", true).val("");
+  }
+  if (["op1"].includes(option)) {
+    $("#cmim_C_lung").show();
+    $("#dITCM_C_lung").show();
+  } else {
+    $("#cmim_C_lung").hide();
+    $("#dITCM_C_lung").hide();
+    $("#dITCM_lung").val("");
+    $("#dITCM_lung").val("");
+  }
+  if (["op2"].includes(option)) {
+    $("#mInvT_C_lung").show();
+  } else {
+    $("#mInvT_C_lung").hide();
+    $("#mInvT_lung").val("");
+  }
+}
+
+function smstsN_lung() {
+  const option = $("#smstsN_lung").val();
+  if (["op2", "op3", "op4", "op5", "op6", "op7"].includes(option)) {
+    $("#smstsN_text_lung").prop("disabled", false);
+  } else {
+    $("#smstsN_text_lung").prop("disabled", true).val("");
+  }
+}
+
+function rlnsts_lung() {
+  if ($("#rlnsts_rlnsts_lung").is(":checked")) {
+    $("#rlnsts_oth_lung").prop("disabled", false);
+  } else {
+    $("#rlnsts_oth_lung").prop("disabled", true).val("");
+  }
+}
+
+function pPatterns_lung() {
+  const option = $("#pPat_lung").val();
+  if (["op2", "op3", "op4", "op5", "op6", "op7", "op8"].includes(option)) {
+    $("#pPat_Oth_lung").prop("disabled", false);
+  } else {
+    $("#pPat_Oth_lung").prop("disabled", true).val("");
+  }
+}
+
+function NactYes_lung() {
+  if ($("#NACTYes_lung").is(":checked")) {
+    $("#nactDC_lung").show();
+    $("#nactDLC_lung").show();
+    $("#nactTE_lung").show();
+  } else {
+    $("#nactDC_lung").hide();
+    $("#nactDLC_lung").hide();
+    $("#nactTE_lung").hide();
+    $("#nactEff_lung").val("");
+    $("#NACT_cycle_lung").val("");
+    $("#NACT_cycle_D_lung").val("");
+  }
+}
+
+function TreatmentEff_lung() {
+  if ($("#nactEff_lung").val() === "op3") {
+    $("#pRVT_C_lung").show();
+    $("#pN_C_lung").show();
+    $("#pS_C_lung").show();
+    $("#inf_C_lung").show();
+  } else {
+    $("#pRVT_C_lung").hide();
+    $("#pN_C_lung").hide();
+    $("#pS_C_lung").hide();
+    $("#inf_C_lung").hide();
+    $("#pRVT_lung").val("");
+    $("#pN_lung").val("");
+    $("#pS_lung").val("");
+    $("#inf_lung").val("");
+  }
+}
+
+function pRVT_C_lung() {
+  const option = $("#pRVT_lung").val();
+  const $input = $("#pRVT_Oth_lung");
+  const isReadOnly = isReadOnlyViewMode(localStorage.getItem("mode"));
+
+  if (!["op1", "op2", "op3"].includes(option)) {
+    $input.prop("disabled", true);
+    $input.val("");
+    $input.attr({
+      placeholder: "",
+      type: "text",
+    });
+    return;
+  }
+
+  $input.prop("disabled", isReadOnly);
+
+  switch (option) {
+    case "op1":
+      $input.attr({
+        placeholder: "Percentage %",
+        type: "number",
+      });
+      break;
+
+    case "op2":
+      $input.attr({
+        placeholder: "Specify",
+        type: "text",
+      });
+      break;
+
+    case "op3":
+      $input.attr({
+        placeholder: "",
+        type: "text",
+      });
+      break;
+  }
+}
+
+function pN_C_lung() {
+  const option = $("#pN_lung").val();
+  const $input = $("#pN_Oth_lung");
+  const isReadOnly = isReadOnlyViewMode(localStorage.getItem("mode"));
+
+  if (["op1", "op2", "op3"].includes(option)) {
+    $input.prop("disabled", isReadOnly);
+
+    if (option === "op1") {
+      $input.attr("placeholder", "Percentage %");
+      $input.attr("type", "number");
+    } else if (option === "op2") {
+      $input.attr("placeholder", "Specify");
+      $input.attr("type", "text");
+    } else if (option === "op3") {
+      $input.attr("placeholder", "");
+      $input.attr("type", "text");
+    } else {
+      $input.prop("disabled", true);
+      $input.val("");
+      $input.attr("placeholder", "");
+      $input.attr("type", "text");
+    }
+  } else {
+    $input.prop("disabled", true);
+    $input.val("");
+    $input.attr("placeholder", "");
+    $input.attr("type", "text");
+  }
+}
+
+function pS_C_lung() {
+  const option = $("#pS_lung").val();
+  const $input = $("#pS_Oth_lung");
+  const isReadOnly = isReadOnlyViewMode(localStorage.getItem("mode"));
+
+  if (["op1", "op2", "op3"].includes(option)) {
+    $input.prop("disabled", isReadOnly);
+
+    if (option === "op1") {
+      $input.attr("placeholder", "Percentage %");
+      $input.attr("type", "number");
+    } else if (option === "op2") {
+      $input.attr("placeholder", "Specify");
+      $input.attr("type", "text");
+    } else if (option === "op3") {
+      $input.attr("placeholder", "");
+      $input.attr("type", "text");
+    } else {
+      $input.prop("disabled", true);
+      $input.val("");
+      $input.attr("placeholder", "");
+      $input.attr("type", "text");
+    }
+  } else {
+    $input.prop("disabled", true);
+    $input.val("");
+    $input.attr("placeholder", "");
+    $input.attr("type", "text");
+  }
+}
+
+function actYes_lung() {
+  if ($("#ACTYes_lung").is(":checked")) {
+    $("#actDC_lung").show();
+    $("#actDLC_lung").show();
+  } else {
+    $("#actDC_lung").hide();
+    $("#actDLC_lung").hide();
+    $("#actDrugCycles_lung").val("");
+    $("#actDateLastCycle_lung").val("");
+  }
+}
+function toggleMetastasisFields_lung() {
+  const isMetastasisSampleYes = $("#MetastasisSampleY_lung").is(":checked");
+  const isDenovoYes = $("#denovoYes_lung").is(":checked");
+  if (isMetastasisSampleYes) {
+    $("#eventinfo_lung").show();
+  } else {
+    $("#eventinfo_lung").hide();
+    $("#eventinfo_lung").val("");
+  }
+
+  if (isMetastasisSampleYes || isDenovoYes) {
+    $("#mptA_lung").show();
+    $("#mptS_lung").show();
+    $("#syncT_C_lung").show();
+  } else {
+    $("#mptA_lung").hide();
+    $("#mptS_lung").hide();
+    $("#syncT_C_lung").hide();
+    $("#mpt_age_lung").val("");
+    $("#mpt_site_lung").val("");
+    $("#syncT_C_lung").val("");
+  }
+}
+function toggle_mptS() {
+  const isSyncPresent = $("#mpt_site_lung").val();
+  if (["op1", "op2", "op3", "op4", "op5", "op6", "op7"].includes(isSyncPresent)) {
+    $("#mpt_site_Oth_lung").prop("disabled", false);
+  } else {
+    $("#mpt_site_Oth_lung").prop("disabled", true || isReadOnlyViewMode(mode));
+    $("#mpt_site_Oth_lung").val("");
+  }
+}
+function toggleSyncT() {
+  const isSyncPresent = $("#syncT_lung").val();
+  if (isSyncPresent === "op2") {
+    $("#priT_C_lung").show();
+    $("#specID_C_lung").show();
+  } else {
+    $("#priT_C_lung").hide();
+    $("#priT_lung").val("");
+    $("#specID_C_lung").hide();
+    $("#specID_lung").val("");
+  }
+}
+function bloodSample_lung() {
+  if ($("#bloodSampleY_lung").is(":checked")) {
+    $("#plasmatubes_lung").show();
+    $("#serumtubes_lung").show();
+    $("#bufferCoatTubes_lung").show();
+  } else if ($("#bloodSampleN_lung").is(":checked")) {
+    $("#plasmatubes_lung").hide();
+    $("#serumtubes_lung").hide();
+    $("#bufferCoatTubes_lung").hide();
+    $("#PlasmagridNo_lung").val("");
+    $("#SerumgridNo_lung").val("");
+    $("#bufferCoatgridNo_lung").val("");
+    let pGrids = localStorage.getItem("LocalPlasma");
+    let sGrids = localStorage.getItem("LocalSerum");
+    let bcGrids = localStorage.getItem("LocalBuffy");
+
+    if (pGrids !== null) {
+      let mainGrids = localStorage.getItem("selectedGrid");
+
+      let mainGridsArray = mainGrids.split(",");
+      let pGridsArray = pGrids.split(",");
+
+      mainGridsArray = mainGridsArray.filter((grid) => !pGridsArray.includes(grid));
+
+      localStorage.setItem("selectedGrid", mainGridsArray.join(","));
+      localStorage.removeItem("LocalPlasma");
+    }
+    if (sGrids !== null) {
+      let mainGrids = localStorage.getItem("selectedGrid");
+
+      let mainGridsArray = mainGrids.split(",");
+      let sGridsArray = sGrids.split(",");
+
+      mainGridsArray = mainGridsArray.filter((grid) => !sGridsArray.includes(grid));
+
+      localStorage.setItem("selectedGrid", mainGridsArray.join(","));
+      localStorage.removeItem("LocalSerum");
+    }
+    if (bcGrids !== null) {
+      let mainGrids = localStorage.getItem("selectedGrid");
+
+      let mainGridsArray = mainGrids.split(",");
+      let bcGridsArray = bcGrids.split(",");
+
+      mainGridsArray = mainGridsArray.filter((grid) => !bcGridsArray.includes(grid));
+
+      localStorage.setItem("selectedGrid", mainGridsArray.join(","));
+      localStorage.removeItem("LocalBuffy");
+    }
+  }
+}
+function otherSample_lung() {
+  if ($("#otherSampleY_lung").is(":checked")) {
+    $("#oSampleTubes_lung").show();
+    $("#oSampleDesc_lung").show();
+  } else if ($("#otherSampleN_lung").is(":checked")) {
+    $("#oSampleTubes_lung").hide();
+    $("#oSampleDesc_lung").hide();
+    $("#OSgridNo_lung").val("");
+    $("#otSampleDesc_lung").val("");
+
+    let osGrids = localStorage.getItem("LocalOther");
+
+    if (osGrids !== null) {
+      let mainGrids = localStorage.getItem("selectedGrid");
+      let mainGridsArray = mainGrids.split(",");
+      let osGridsArray = osGrids.split(",");
+
+      mainGridsArray = mainGridsArray.filter((grid) => !osGridsArray.includes(grid));
+
+      localStorage.setItem("selectedGrid", mainGridsArray.join(","));
+      localStorage.removeItem("LocalOther");
+    }
+  }
+}
+function specimenSample_lung() {
+  if ($("#specimenSampleY_lung").is(":checked")) {
+    $("#countFttubes_lung").show();
+    $("#fttubes_lung").show();
+    $("#countFntubes_lung").show();
+    $("#fntubes_lung").show();
+  } else if ($("#specimenSampleN_lung").is(":checked")) {
+    $("#countFttubes_lung").hide();
+    $("#fttubes_lung").hide();
+    $("#countFntubes_lung").hide();
+    const spgrid = [];
+    localStorage.removeItem("selectedSGrid");
+    localStorage.removeItem("LocalFN");
+    localStorage.removeItem("LocalFT");
+    $("#fntubes_lung").hide();
+    $("#ftgrid_lung").val("");
+    $("#fngrid_lung").val("");
+    $("#ft_tubes_lung").val("0");
+    $("#fn_tubes_lung").val("0");
+  }
+}
+function rltSample_lung() {
+  if ($("#rltSampleY_lung").is(":checked")) {
+    $("#rltSampleTubes_lung").show();
+  } else if ($("#rltSampleN_lung").is(":checked")) {
+    localStorage.removeItem("LocalRltGrid");
+    localStorage.removeItem("rltSelectedGrid");
+    $("#rltSampleTubes_lung").hide();
+    $("#rltSgridNo_lung").val("");
+  }
+}
+
+function pcbSample_lung() {
+  if ($("#pcbSampleY_lung").is(":checked")) {
+    $("#pcbViable_lung").show();
+    if ($("#pcbVY_lung").is(":checked")) {
+      $("#pcbSampleTubes_lung").show();
+    }
+  } else if ($("#pcbSampleN_lung").is(":checked")) {
+    $("#pcbSampleTubes_lung").hide();
+    $('input[name="pcbV_lung"]').prop("checked", false);
+    $("#pcbViable_lung").hide();
+    $("#pcSgridNo_lung").val("");
+    localStorage.removeItem("LocalPC");
+    localStorage.removeItem("pcSelectedGrid");
+  }
+}
+function sampleReceive_lung() {
+  if ($("#radioprocessed1_lung").is(":checked")) {
+    $("#receiveAllSample_lung").show();
+    $("#processAllSample_lung").show();
+    $("#AllSamplesProcess_lung").show();
+    $("#BprocessedBy_lung").val("");
+    $("#bloodSampleReceivedDate_lung").val("");
+    $("#bloodSampleReceivedTime_lung").val("");
+    $("#bloodSampleProcessedDate_lung").val("");
+    $("#bloodSampleProcessedTime_lung").val("");
+    $("#SprocessedBy_lung").val("");
+    $("#SpecimenSampleReceivedDate_lung").val("");
+    $("#SpecimenSampleReceivedTime_lung").val("");
+    $("#SpecimenSampleProcessedDate_lung").val("");
+    $("#SpecimenSampleProcessedTime_lung").val("");
+    $("#OprocessedBy_lung").val("");
+    $("#OtherSampleReceivedDate_lung").val("");
+    $("#OtherSampleReceivedTime_lung").val("");
+    $("#OtherSampleProcessedDate_lung").val("");
+    $("#OtherSampleProcessedTime_lung").val("");
+    $("#RLTprocessedBy_lung").val("");
+    $("#RLTSampleReceivedDate_lung").val("");
+    $("#RLTSampleReceivedTime_lung").val("");
+    $("#RLTSampleProcessedDate_lung").val("");
+    $("#RLTSampleProcessedTime_lung").val("");
+    $("#PCprocessedBy_lung").val("");
+    $("#PCSampleReceivedDate_lung").val("");
+    $("#PCSampleReceivedTime_lung").val("");
+    $("#PCSampleProcessedDate_lung").val("");
+    $("#PCSampleProcessedTime_lung").val("");
+  } else if ($("#radioprocessed2_lung").is(":checked")) {
+    $("#receiveAllSample_lung").hide();
+    $("#processAllSample_lung").hide();
+    $("#AllSamplesProcess_lung").hide();
+    $("#processedBy_lung").val("");
+    $("#sampleReceivedDate_lung").val("");
+    $("#sampleReceivedTime_lung").val("");
+    $("#sampleProcessedDate_lung").val("");
+    $("#sampleProcessedTime_lung").val("");
+  } else if (!$("#radioprocessed1_lung").is(":checked") && !$("#radioprocessed2_lung").is(":checked")) {
+    $("#receiveAllSample_lung").hide();
+    $("#processAllSample_lung").hide();
+    $("#AllSamplesProcess_lung").hide();
+    $("#processedBy_lung").val("");
+    $("#sampleReceivedDate_lung").val("");
+    $("#sampleReceivedTime_lung").val("");
+    $("#sampleProcessedDate_lung").val("");
+    $("#sampleProcessedTime_lung").val("");
+    $("#BprocessedBy_lung").val("");
+    $("#bloodSampleReceivedDate_lung").val("");
+    $("#bloodSampleReceivedTime_lung").val("");
+    $("#bloodSampleProcessedDate_lung").val("");
+    $("#bloodSampleProcessedTime_lung").val("");
+    $("#SprocessedBy_lung").val("");
+    $("#SpecimenSampleReceivedDate_lung").val("");
+    $("#SpecimenSampleReceivedTime_lung").val("");
+    $("#SpecimenSampleProcessedDate_lung").val("");
+    $("#SpecimenSampleProcessedTime_lung").val("");
+    $("#OprocessedBy_lung").val("");
+    $("#OtherSampleReceivedDate_lung").val("");
+    $("#OtherSampleReceivedTime_lung").val("");
+    $("#OtherSampleProcessedDate_lung").val("");
+    $("#OtherSampleProcessedTime_lung").val("");
+  }
+  if ($("#radioprocessed2_lung").is(":checked") && $("#bloodSampleY_lung").is(":checked")) {
+    $("#receiveBloodSample_lung").show();
+    $("#processBloodSample_lung").show();
+    $("#BloodSamplesProcess_lung").show();
+  } else {
+    $("#receiveBloodSample_lung").hide();
+    $("#processBloodSample_lung").hide();
+    $("#BloodSamplesProcess_lung").hide();
+  }
+  if ($("#radioprocessed2_lung").is(":checked") && $("#specimenSampleY_lung").is(":checked")) {
+    $("#receiveSpecimenSample_lung").show();
+    $("#processSpecimenSample_lung").show();
+    $("#SpecimenSamplesProcess_lung").show();
+  } else {
+    $("#receiveSpecimenSample_lung").hide();
+    $("#processSpecimenSample_lung").hide();
+    $("#SpecimenSamplesProcess_lung").hide();
+  }
+  if ($("#radioprocessed2_lung").is(":checked") && $("#otherSampleY_lung").is(":checked")) {
+    $("#receiveOtherSample_lung").show();
+    $("#processOtherSample_lung").show();
+    $("#OtherSamplesProcess_lung").show();
+  } else {
+    $("#receiveOtherSample_lung").hide();
+    $("#processOtherSample_lung").hide();
+    $("#OtherSamplesProcess_lung").hide();
+  }
+  if ($("#radioprocessed2_lung").is(":checked") && $("#rltSampleY_lung").is(":checked")) {
+    $("#receiveRLTSample_lung").show();
+    $("#processRLTSample_lung").show();
+    $("#RLTSamplesProcess_lung").show();
+  } else {
+    $("#receiveRLTSample_lung").hide();
+    $("#processRLTSample_lung").hide();
+    $("#RLTSamplesProcess_lung").hide();
+  }
+  if ($("#radioprocessed2_lung").is(":checked") && $("#pcbSampleY_lung").is(":checked")) {
+    $("#receivePCSample_lung").show();
+    $("#processPCSample_lung").show();
+    $("#PCSamplesProcess_lung").show();
+  } else {
+    $("#receivePCSample_lung").hide();
+    $("#processPCSample_lung").hide();
+    $("#PCSamplesProcess_lung").hide();
+  }
+}
+function RadioTYes_lung() {
+  if ($("#RTYes_lung").is(":checked")) {
+    $("#rtDC1_lung").show();
+    $("#rtDC2_lung").show();
+    $("#rtDC3_lung").show();
+    $("#rtDLC_lung").show();
+  } else {
+    $("#rtDC1_lung").hide();
+    $("#rtDC2_lung").hide();
+    $("#rtDC3_lung").hide();
+    $("#rtDLC_lung").hide();
+    $("#rtDetails1_lung").val("");
+    $("#rtDetails2_lung").val("");
+    $("#rtDetails3_lung").val("");
+    $("#radiotherapyLastCycleDate_lung").val("");
+  }
+}
+function pbYes_lung() {
+  if ($("#pbYes_lung").is(":checked")) {
+    $("#PBN_lung").show();
+  } else {
+    $("#PBN_lung").hide();
+    $("#PBInput_lung").val("");
   }
 }
