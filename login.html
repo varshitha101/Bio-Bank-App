@@ -104,9 +104,10 @@
     <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <!-- Firebase Realtime Database -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-database-compat.js"></script>
 
     <script type="module">
       document.getElementById("togglePassword").addEventListener("click", function (e) {
@@ -125,17 +126,17 @@
     </script>
 
     <!-- Firebase -->
-    <script type="module">
+    <script>
       const firebaseConfig = {
         // bio-bank-dev-internal
-        apiKey: "AIzaSyCcJCAYpAsSnR-gpFvd_lhWFEzy8trecO4",
-        authDomain: "cmc-me.firebaseapp.com",
-        databaseURL: "https://cmc-me-default-rtdb.firebaseio.com",
-        projectId: "cmc-me",
-        storageBucket: "cmc-me.firebasestorage.app",
-        messagingSenderId: "396271698475",
-        appId: "1:396271698475:web:c0dc04eb762be010de606e",
-        measurementId: "G-JRMT69JTJR",
+        // apiKey: "AIzaSyCcJCAYpAsSnR-gpFvd_lhWFEzy8trecO4",
+        // authDomain: "cmc-me.firebaseapp.com",
+        // databaseURL: "https://cmc-me-default-rtdb.firebaseio.com",
+        // projectId: "cmc-me",
+        // storageBucket: "cmc-me.firebasestorage.app",
+        // messagingSenderId: "396271698475",
+        // appId: "1:396271698475:web:c0dc04eb762be010de606e",
+        // measurementId: "G-JRMT69JTJR",
 
         // biobank-development
         // apiKey: "AIzaSyDIFI_4lVb7FJmKgzWMbq6ZfKcBwpj-K4E",
@@ -158,26 +159,22 @@
         // measurementId: "G-MQP97GW8F9",
 
         // testing-python
-        // apiKey: "AIzaSyBC_ehBcCYIraaD5LjlbB_17O3lg0zthWs",
-        // authDomain: "testingpython-696b1.firebaseapp.com",
-        // databaseURL: "https://testingpython-696b1-default-rtdb.firebaseio.com",
-        // projectId: "testingpython-696b1",
-        // storageBucket: "testingpython-696b1.firebasestorage.app",
-        // messagingSenderId: "55140796461",
-        // appId: "1:55140796461:web:ddff904be4adade360d0a4",
-        // measurementId: "G-TQFN0LVYQ9",
+        apiKey: "AIzaSyBC_ehBcCYIraaD5LjlbB_17O3lg0zthWs",
+        authDomain: "testingpython-696b1.firebaseapp.com",
+        databaseURL: "https://testingpython-696b1-default-rtdb.firebaseio.com",
+        projectId: "testingpython-696b1",
+        storageBucket: "testingpython-696b1.firebasestorage.app",
+        messagingSenderId: "55140796461",
+        appId: "1:55140796461:web:ddff904be4adade360d0a4",
+        measurementId: "G-TQFN0LVYQ9",
       };
 
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js";
-      import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-auth.js";
-      import { getDatabase, ref, set, get, update } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-database.js";
-      import { RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-auth.js";
-
-      const app = initializeApp(firebaseConfig);
-      const auth = getAuth(app);
+      const app = firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const db = firebase.database();
 
       function setupRecaptcha() {
-        window.recaptchaVerifier = new RecaptchaVerifier(
+        window.recaptchaVerifier = new auth.RecaptchaVerifier(
           "recaptcha-container",
           {
             size: "invisible",
@@ -197,10 +194,6 @@
             console.error("Error rendering reCAPTCHA: ", error);
           });
       }
-
-      let UUID;
-      let db;
-
       const authCardEl = document.getElementById("authCard");
       let animationRunning = false;
       let pendingRedirect = null;
@@ -243,65 +236,64 @@
             localStorage.removeItem("password");
           }
 
-          signInWithEmailAndPassword(auth, email, password)
+          auth
+            .signInWithEmailAndPassword(email, password)
             .then((userCredential) => {
               const user = userCredential.user;
-              db = getDatabase();
-              const userRef = ref(db, "users/" + user.uid);
+              const UUID = user.uid;
+              db.ref(`users/${UUID}`)
+                .once("value")
+                .then((snapshot) => {
+                  if (snapshot.exists()) {
+                    const userName = snapshot.val().name;
+                    sessionStorage.setItem("userName", userName);
 
-              UUID = user.uid;
+                    const phone = snapshot.val().phone;
 
-              get(userRef).then((snapshot) => {
-                if (snapshot.exists()) {
-                  const userName = snapshot.val().name;
-                  sessionStorage.setItem("userName", userName);
+                    const phoneString = String(phone);
+                    const lastFourDigits = phoneString.slice(-4);
+                    document.getElementById("phoneNum").textContent = lastFourDigits;
 
-                  const phone = snapshot.val().phone;
+                    if (snapshot.val().loginDetails != undefined) {
+                      sessionStorage.setItem("isLoggedIn", true);
+                      const storedPCIdentifier = snapshot.val().loginDetails.pcIdentifier; // Updated to access pcIdentifier from loginDetails
 
-                  const phoneString = String(phone);
-                  const lastFourDigits = phoneString.slice(-4);
-                  document.getElementById("phoneNum").textContent = lastFourDigits;
+                      const currentPCIdentifier = hashString(window.navigator.userAgent);
 
-                  if (snapshot.val().loginDetails != undefined) {
-                    sessionStorage.setItem("isLoggedIn", true);
-                    const storedPCIdentifier = snapshot.val().loginDetails.pcIdentifier; // Updated to access pcIdentifier from loginDetails
+                      const loginTimeS = snapshot.val().loginDetails.loginTime; // Updated to access loginTime from loginDetails
+                      const [datePart, timePart] = loginTimeS.split(", ");
+                      const [day, month, year] = datePart.split("/");
+                      const formattedDate = `${month}/${day}/${year}`;
+                      const dateTime = new Date(`${formattedDate} ${timePart}`);
+                      const loginTime = dateTime.getTime();
 
-                    const currentPCIdentifier = hashString(window.navigator.userAgent);
+                      const currentTime = new Date().getTime();
+                      const thirtyDaysInMillis = 30 * 24 * 60 * 60 * 1000; // 30 days in milliseconds
+                      // FOR TESTING PURPOSE ONLY, REMOVE THIS IN PRODUCTION
+                      empltyAllAct(userName).then(() => {
+                        console.log("Redirecting to statistics page for user:", userName);
+                        window.location.href = "statistics.html";
+                      });
+                      // FOR TESTING PURPOSE ONLY, REMOVE THIS IN PRODUCTION
 
-                    const loginTimeS = snapshot.val().loginDetails.loginTime; // Updated to access loginTime from loginDetails
-                    const [datePart, timePart] = loginTimeS.split(", ");
-                    const [day, month, year] = datePart.split("/");
-                    const formattedDate = `${month}/${day}/${year}`;
-                    const dateTime = new Date(`${formattedDate} ${timePart}`);
-                    const loginTime = dateTime.getTime();
-
-                    const currentTime = new Date().getTime();
-                    const thirtyDaysInMillis = 30 * 24 * 60 * 60 * 1000; // 30 days in milliseconds
-                    // FOR TESTING PURPOSE ONLY, REMOVE THIS IN PRODUCTION
-                    empltyAllAct(userName).then(() => {
-                      console.log("Redirecting to statistics page for user:", userName);
-                      window.location.href = "statistics.html";
-                    });
-                    // FOR TESTING PURPOSE ONLY, REMOVE THIS IN PRODUCTION
-
-                    // Uncomment the  code to enable OTP
-                    // if (storedPCIdentifier !== currentPCIdentifier || currentTime - loginTime > thirtyDaysInMillis) {
-                    //   sendOTP(phone);
-                    //   $("#exampleModalCenter").modal("show");
-                    // } else {
-                    //   empltyAllAct(userName).then(() => {
-                    //     window.location.href = "statistics.html";
-                    //   });
-                    // }
-                    // Uncomment the  code to enable OTP
+                      // Uncomment the  code to enable OTP
+                      // if (storedPCIdentifier !== currentPCIdentifier || currentTime - loginTime > thirtyDaysInMillis) {
+                      //   sendOTP(phone);
+                      //   $("#exampleModalCenter").modal("show");
+                      // } else {
+                      //   empltyAllAct(userName).then(() => {
+                      //     window.location.href = "statistics.html";
+                      //   });
+                      // }
+                      // Uncomment the  code to enable OTP
+                    } else {
+                      console.log("No previous login details found, proceeding to OTP verification.");
+                    }
                   } else {
-                    console.log("No previous login details found, proceeding to OTP verification.");
+                    console.log("No user data found for the given UID.");
+                    alert("No user data found for the given UID.");
                   }
-                } else {
-                  console.log("No user data found for the given UID.");
-                  alert("No user data found for the given UID.");
-                }
-              });
+                });
             })
             .catch((error) => {
               const errorMessage = error.message;
@@ -379,7 +371,6 @@
           .confirm(otp)
           .then((result) => {
             console.log("OTP verification successful");
-            const userRef = ref(db, "users/" + UUID);
             const userName = localStorage.getItem("userName");
             const loginTime = new Intl.DateTimeFormat("en-IN", {
               timeZone: "Asia/Kolkata",
@@ -398,10 +389,11 @@
               .then((data) => {
                 const userIpAddress = data.ip;
                 const pcIdentifier = hashString(window.navigator.userAgent); // Simple PC identifier
-                set(ref(db, "users/" + UUID + "/loginDetails"), {
-                  loginTime: loginTime,
-                  pcIdentifier: pcIdentifier,
-                })
+                db.ref(`users/${UUID}/loginDetails`)
+                  .set({
+                    loginTime: loginTime,
+                    pcIdentifier: pcIdentifier,
+                  })
                   .then(() => {
                     console.log("User  data stored successfully.");
                     empltyAllAct(userName).then(() => {
@@ -444,14 +436,10 @@
 
       function empltyAllAct(userName) {
         console.log("Emptying all act modes for user:", userName);
-        if (!db) {
-          console.log("No DB found, initializing database...");
-          db = getDatabase();
-        }
 
-        const actRef = ref(db, "act/");
-
-        return get(actRef)
+        return db
+          .ref("act/")
+          .once("value")
           .then((snapshot) => {
             if (!snapshot.exists()) {
               return null;
@@ -465,7 +453,7 @@
               Object.keys(bioBankData).forEach((subKey) => {
                 const sectionData = bioBankData[subKey];
                 if (sectionData && sectionData.user === userName && sectionData.mode === "e") {
-                  pathsToSetE.push("act/" + key + "/" + subKey);
+                  pathsToSetE.push(`act/${key}/${subKey}`);
                 }
               });
             });
@@ -479,7 +467,7 @@
               updatesObj[`${path}/mode`] = "";
             });
             console.log("Updating act modes for paths: ", pathsToSetE);
-            return update(ref(db), updatesObj);
+            return db.ref().update(updatesObj);
           })
           .catch((error) => {
             console.error("Error updating act modes: ", error);
