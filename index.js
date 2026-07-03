@@ -8328,8 +8328,6 @@ function submitFollowup() {
         rmks: remarks || "", // If not provided, set it to an empty string
         fw_ub: user, // You can dynamically set the field worker's name here
       };
-
-      const db = firebase.database(); // Initialize Firebase database reference
       const dataPath = `Fw/${bioBankId}/${timestamp}`;
       let mode = localStorage.getItem("mode");
       let dus = sessionStorage.getItem("userName");
@@ -8620,7 +8618,6 @@ function updateSB(info) {
 let followupDataStore = {};
 
 function retrieveFollowup(bioBankId) {
-  const db = firebase.database();
   const dataPath = `Fw/${bioBankId}`;
 
   document.getElementById("followUpCard").style.display = "block";
@@ -8714,7 +8711,7 @@ function popSharedmodal(bioboxName, samples, bioBankId) {
 
   function fetchBoxIdFromBN(boxName, bioId) {
     return new Promise((resolve, reject) => {
-      let dbRef = firebase.database().ref(`bn/${bioId}`);
+      let dbRef = db.ref(`bn/${bioId}`);
       dbRef
         .once("value")
         .then((snapshot) => {
@@ -8743,7 +8740,7 @@ function popSharedmodal(bioboxName, samples, bioBankId) {
   }
   function fetchSeatDataFromDB(nodeName, boxId) {
     return new Promise((resolve, reject) => {
-      let dbRef = firebase.database().ref(`${nodeName}/${boxId}`);
+      let dbRef = db.ref(`${nodeName}/${boxId}`);
       dbRef
         .once("value")
         .then((snapshot) => {
@@ -8840,7 +8837,7 @@ function popSharedBloodmodal(bioboxName, samples, bioId, requestToken) {
     return;
   }
 
-  $("#sharedBloodModal").modal("show");
+  showGridModalLoading("sharedBloodModal", "shared-box", "cursharedBloodBox", "Blood box");
 
   fetchSeatDataFromDB("bb").then((seatData) => {
     if (!isCurrentSharedModalRequest(requestToken)) {
@@ -8852,7 +8849,7 @@ function popSharedBloodmodal(bioboxName, samples, bioId, requestToken) {
 
   function fetchSeatDataFromDB(nodeName) {
     return new Promise((resolve, reject) => {
-      let dbRef = firebase.database().ref(nodeName);
+      let dbRef = db.ref(nodeName);
       dbRef
         .once("value")
         .then((snapshot) => {
@@ -8865,7 +8862,25 @@ function popSharedBloodmodal(bioboxName, samples, bioId, requestToken) {
         });
     });
   }
+  function showGridModalLoading(modalId, containerClass, titleId, loadingLabel) {
+    const title = document.getElementById(titleId);
+    const container = document.querySelector(`#${modalId} .${containerClass}`);
 
+    if (title) {
+      title.textContent = `${loadingLabel} loading...`;
+    }
+
+    if (container) {
+      container.innerHTML = `
+            <div class="grid-loading-state" aria-live="polite">
+              <div class="spinner-border text-primary" role="status" aria-hidden="true"></div>
+              <span>Loading ${loadingLabel.toLowerCase()} layout...</span>
+            </div>
+          `;
+    }
+
+    $(`#${modalId}`).modal("show");
+  }
   function populateBSeats(containerClass, seatData, bioId) {
     let container = document.querySelector(`.${containerClass}`);
     if (!container) {
@@ -9001,8 +9016,7 @@ function popSharedSpecimenmodal(bioboxName, samples, bioId, requestToken) {
     return;
   }
 
-  $("#sharedSpecimenModal").modal("show");
-
+  showGridModalLoading("sharedSpecimenModal", "shared-s-box", "cursharedSpecimenBox", "Specimen box");
   fetchSeatDataFromDB("sb").then((seatData) => {
     if (!isCurrentSharedModalRequest(requestToken)) {
       return;
@@ -9013,7 +9027,7 @@ function popSharedSpecimenmodal(bioboxName, samples, bioId, requestToken) {
 
   function fetchSeatDataFromDB(nodeName) {
     return new Promise((resolve, reject) => {
-      let dbRef = firebase.database().ref(nodeName);
+      let dbRef = db.ref(nodeName);
       dbRef
         .once("value")
         .then((snapshot) => {
@@ -9161,7 +9175,7 @@ function popSharedRLTmodal(bioboxName, samples, bioId, requestToken) {
     return;
   }
 
-  $("#sharedRLTModal").modal("show");
+  showGridModalLoading("sharedRLTModal", "shared-r-box", "cursharedRLTBox", "RLT box");
 
   fetchSeatDataFromDB("rlt").then((seatData) => {
     if (!isCurrentSharedModalRequest(requestToken)) {
@@ -9173,7 +9187,7 @@ function popSharedRLTmodal(bioboxName, samples, bioId, requestToken) {
 
   function fetchSeatDataFromDB(nodeName) {
     return new Promise((resolve, reject) => {
-      let dbRef = firebase.database().ref(nodeName);
+      let dbRef = db.ref(nodeName);
       dbRef
         .once("value")
         .then((snapshot) => {
@@ -9322,7 +9336,7 @@ function popSharedPCmodal(bioboxName, samples, bioId, requestToken) {
     return;
   }
 
-  $("#sharedPCModal").modal("show");
+  showGridModalLoading("sharedPCModal", "shared-p-box", "cursharedPCBox", "PC box");
 
   fetchSeatDataFromDB("pcb").then((seatData) => {
     if (!isCurrentSharedModalRequest(requestToken)) {
@@ -9334,7 +9348,7 @@ function popSharedPCmodal(bioboxName, samples, bioId, requestToken) {
 
   function fetchSeatDataFromDB(nodeName) {
     return new Promise((resolve, reject) => {
-      let dbRef = firebase.database().ref(nodeName);
+      let dbRef = db.ref(nodeName);
       dbRef
         .once("value")
         .then((snapshot) => {

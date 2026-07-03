@@ -11447,7 +11447,7 @@
                 <div class="row ml-1 mb-3">
                   <label class="col-sm-2 col-form-label Bold" for="startInputFollow">Last Follow up Date</label>
                   <div class="col-sm-10 mt-2">
-                    <input type="text" id="startInputFollow" class="form-control" placeholder="Select Date" />
+                    <input type="date" id="startInputFollow" class="form-control" placeholder="Select Date" />
                   </div>
                 </div>
 
@@ -11466,14 +11466,14 @@
                 <div class="row ml-1 mb-3" id="recurID" style="display: none">
                   <label class="col-sm-2 col-form-label Bold" for="recurrenceDate">Recurrence Date</label>
                   <div class="col-sm-10 mt-2">
-                    <input type="text" id="recurrenceDate" class="form-control" placeholder="Select Date" />
+                    <input type="date" id="recurrenceDate" class="form-control" placeholder="Select Date" />
                   </div>
                 </div>
 
                 <div class="row ml-1 mb-3" id="proDisID" style="display: none">
                   <label class="col-sm-2 col-form-label Bold" for="reportedDate">Reported Date for Progressive Disease</label>
                   <div class="col-sm-10 mt-2">
-                    <input type="text" id="reportedDate" class="form-control" placeholder="Select Date" />
+                    <input type="date" id="reportedDate" class="form-control" placeholder="Select Date" />
                   </div>
                 </div>
 
@@ -11501,7 +11501,7 @@
                 <div class="row ml-1 mb-3" id="deathDateContainer" style="display: none">
                   <label class="col-sm-2 col-form-label Bold" for="deathDate">Death Date</label>
                   <div class="col-sm-10 mt-2">
-                    <input type="text" id="deathDate" class="form-control" placeholder="Select Date" />
+                    <input type="date" id="deathDate" class="form-control" placeholder="Select Date" />
                   </div>
                 </div>
 
@@ -11550,7 +11550,7 @@
               <div class="row ml-1 mb-3">
                 <label for="startInput" class="col-sm-2 mb-1 col-form-label col-form-label Bold">Date <span style="color: red; font-weight: bold">*</span></label>
                 <div class="col-sm-10 mt-2">
-                  <input type="text" id="startInputOutsource" class="form-control" placeholder="Select Date" />
+                  <input type="date" id="startInputOutsource" class="form-control" placeholder="Select Date" />
                 </div>
               </div>
               <div class="row ml-1 mb-3">
@@ -11873,7 +11873,7 @@
           &copy; Copyright <strong><span></span></strong>. All Rights Reserved
         </div>
         <div class="credits"></div>
-        <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">Version 1.8.15</div>
+        <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">Version 1.8.16</div>
       </div>
     </footer>
 
@@ -12446,6 +12446,13 @@
           "RLTSampleProcessedDate_lung",
           "PCSampleReceivedDate_lung",
           "PCSampleProcessedDate_lung",
+          // Follow-Up
+          "startInputFollow",
+          "recurrenceDate",
+          "reportedDate",
+          "deathDate",
+          // Shared Form
+          "startInputOutsource",
         ];
         dateFilters.forEach((dateFilter) => {
           const input = document.getElementById(dateFilter);
@@ -12895,10 +12902,28 @@
           btn.textContent = text;
         }
       }
+      function showGridModalLoading(modalId, containerClass, titleId, loadingLabel) {
+        const title = document.getElementById(titleId);
+        const container = document.querySelector(`#${modalId} .${containerClass}`);
 
+        if (title) {
+          title.textContent = `${loadingLabel} loading...`;
+        }
+
+        if (container) {
+          container.innerHTML = `
+            <div class="grid-loading-state" aria-live="polite">
+              <div class="spinner-border text-primary" role="status" aria-hidden="true"></div>
+              <span>Loading ${loadingLabel.toLowerCase()} layout...</span>
+            </div>
+          `;
+        }
+
+        $(`#${modalId}`).modal("show");
+      }
       function popVPlasmaModal() {
         setDoneButtonText("continuePage1", "Cancel");
-        $("#bloodModalCenter").modal("show");
+        showGridModalLoading("bloodModalCenter", "blood-box", "currBloodBoxName", "Blood box");
         const path = getBNpath() + `/bb`;
         console.log("Fetching box name for path:", path);
         fetchSeatDataFromDB(path).then((seatData) => {
@@ -12906,7 +12931,7 @@
         });
 
         async function fetchSeatDataFromDB(path) {
-          const snapshot = await firebase.database().ref(path).once("value");
+          const snapshot = await db.ref(path).once("value");
 
           const seatData = snapshot.val();
 
@@ -13045,7 +13070,7 @@
 
       function popPlasmamodal() {
         setDoneButtonText("continuePage1", "Done");
-        $("#bloodModalCenter").modal("show");
+        showGridModalLoading("bloodModalCenter", "blood-box", "currBloodBoxName", "Blood box");
 
         const path = getBNpath() + `/bb`;
         console.log("Fetching box name for path:", path);
@@ -13054,7 +13079,7 @@
         });
 
         async function fetchSeatDataFromDB(path) {
-          const snapshot = await firebase.database().ref(path).once("value");
+          const snapshot = await db.ref(path).once("value");
 
           const seatData = snapshot.val();
 
@@ -13349,7 +13374,7 @@
 
       function popVSerumModal() {
         setDoneButtonText("continuePage1", "Cancel");
-        $("#bloodModalCenter").modal("show");
+        showGridModalLoading("bloodModalCenter", "blood-box", "currBloodBoxName", "Blood box");
         const path = getBNpath() + `/bb`;
         console.log("Fetching box name for path:", path);
         fetchSeatDataFromDB(path).then((seatData) => {
@@ -13357,7 +13382,7 @@
         });
 
         async function fetchSeatDataFromDB(path) {
-          const snapshot = await firebase.database().ref(path).once("value");
+          const snapshot = await db.ref(path).once("value");
 
           const seatData = snapshot.val();
 
@@ -13496,7 +13521,7 @@
 
       function popSerummodal() {
         setDoneButtonText("continuePage1", "Done");
-        $("#bloodModalCenter").modal("show");
+        showGridModalLoading("bloodModalCenter", "blood-box", "currBloodBoxName", "Blood box");
         const path = getBNpath() + `/bb`;
         console.log("Fetching box name for path:", path);
         fetchSeatDataFromDB(path).then((seatData) => {
@@ -13504,7 +13529,7 @@
         });
 
         async function fetchSeatDataFromDB(path) {
-          const snapshot = await firebase.database().ref(path).once("value");
+          const snapshot = await db.ref(path).once("value");
 
           const seatData = snapshot.val();
 
@@ -13799,7 +13824,7 @@
 
       function popVBufferModal() {
         setDoneButtonText("continuePage1", "Cancel");
-        $("#bloodModalCenter").modal("show");
+        showGridModalLoading("bloodModalCenter", "blood-box", "currBloodBoxName", "Blood box");
 
         const path = getBNpath() + `/bb`;
         console.log("Fetching box name for path:", path);
@@ -13808,7 +13833,7 @@
         });
 
         async function fetchSeatDataFromDB(path) {
-          const snapshot = await firebase.database().ref(path).once("value");
+          const snapshot = await db.ref(path).once("value");
 
           const seatData = snapshot.val();
 
@@ -13946,7 +13971,7 @@
 
       function popBuffermodal() {
         setDoneButtonText("continuePage1", "Done");
-        $("#bloodModalCenter").modal("show");
+        showGridModalLoading("bloodModalCenter", "blood-box", "currBloodBoxName", "Blood box");
         const path = getBNpath() + `/bb`;
         console.log("Fetching box name for path:", path);
         fetchSeatDataFromDB(path).then((seatData) => {
@@ -13954,7 +13979,7 @@
         });
 
         async function fetchSeatDataFromDB(path) {
-          const snapshot = await firebase.database().ref(path).once("value");
+          const snapshot = await db.ref(path).once("value");
 
           const seatData = snapshot.val();
 
@@ -14247,7 +14272,7 @@
 
       function popVOtherSampleModal() {
         setDoneButtonText("continuePage1", "Cancel");
-        $("#bloodModalCenter").modal("show");
+        showGridModalLoading("bloodModalCenter", "blood-box", "currBloodBoxName", "Blood box");
 
         const path = getBNpath() + `/bb`;
         console.log("Fetching box name for path:", path);
@@ -14256,7 +14281,7 @@
         });
 
         async function fetchSeatDataFromDB(path) {
-          const snapshot = await firebase.database().ref(path).once("value");
+          const snapshot = await db.ref(path).once("value");
 
           const seatData = snapshot.val();
 
@@ -14394,7 +14419,7 @@
 
       function popOtherSamplemodal() {
         setDoneButtonText("continuePage1", "Done");
-        $("#bloodModalCenter").modal("show");
+        showGridModalLoading("bloodModalCenter", "blood-box", "currBloodBoxName", "Blood box");
         const path = getBNpath() + `/bb`;
         console.log("Fetching box name for path:", path);
         fetchSeatDataFromDB(path).then((seatData) => {
@@ -14402,7 +14427,7 @@
         });
 
         async function fetchSeatDataFromDB(path) {
-          const snapshot = await firebase.database().ref(path).once("value");
+          const snapshot = await db.ref(path).once("value");
 
           const seatData = snapshot.val();
 
@@ -14830,7 +14855,7 @@
 
       function popVFTmodal() {
         setDoneButtonText("continuePage4", "Cancel");
-        $("#specimenModalCenter").modal("show");
+        showGridModalLoading("specimenModalCenter", "specimen-box", "currSpecimenBoxName", "Specimen box");
         let mode = localStorage.getItem("mode");
 
         const path = getBNpath() + `/sb`;
@@ -14840,7 +14865,7 @@
         });
 
         async function fetchSeatDataFromDB(path) {
-          const snapshot = await firebase.database().ref(path).once("value");
+          const snapshot = await db.ref(path).once("value");
 
           const seatData = snapshot.val();
 
@@ -14987,7 +15012,7 @@
 
       function popFTmodal() {
         setDoneButtonText("continuePage4", "Done");
-        $("#specimenModalCenter").modal("show");
+        showGridModalLoading("specimenModalCenter", "specimen-box", "currSpecimenBoxName", "Specimen box");
         const path = getBNpath() + `/sb`;
         console.log("Fetching box name for path:", path);
         fetchSeatDataFromDB(path).then((seatData) => {
@@ -14995,7 +15020,7 @@
         });
 
         async function fetchSeatDataFromDB(path) {
-          const snapshot = await firebase.database().ref(path).once("value");
+          const snapshot = await db.ref(path).once("value");
 
           const seatData = snapshot.val();
 
@@ -15311,7 +15336,7 @@
 
       function popVFNmodal() {
         setDoneButtonText("continuePage4", "Cancel");
-        $("#specimenModalCenter").modal("show");
+        showGridModalLoading("specimenModalCenter", "specimen-box", "currSpecimenBoxName", "Specimen box");
 
         const path = getBNpath() + `/sb`;
         console.log("Fetching box name for path:", path);
@@ -15320,7 +15345,7 @@
         });
 
         async function fetchSeatDataFromDB(path) {
-          const snapshot = await firebase.database().ref(path).once("value");
+          const snapshot = await db.ref(path).once("value");
 
           const seatData = snapshot.val();
 
@@ -15469,7 +15494,7 @@
 
       function popFNmodal() {
         setDoneButtonText("continuePage4", "Done");
-        $("#specimenModalCenter").modal("show");
+        showGridModalLoading("specimenModalCenter", "specimen-box", "currSpecimenBoxName", "Specimen box");
         const path = getBNpath() + `/sb`;
         console.log("Fetching box name for path:", path);
         fetchSeatDataFromDB(path).then((seatData) => {
@@ -15477,7 +15502,7 @@
         });
 
         async function fetchSeatDataFromDB(path) {
-          const snapshot = await firebase.database().ref(path).once("value");
+          const snapshot = await db.ref(path).once("value");
 
           const seatData = snapshot.val();
 
@@ -15789,7 +15814,7 @@
 
       function popVrltSModal() {
         setDoneButtonText("continuePage2", "Cancel");
-        $("#rltModalCenter").modal("show");
+        showGridModalLoading("rltModalCenter", "RLT-box", "currRLTBoxName", "RLT box");
 
         const path = getBNpath() + `/rlt`;
         console.log("Fetching box name for path:", path);
@@ -15798,7 +15823,7 @@
         });
 
         async function fetchSeatDataFromDB(path) {
-          const snapshot = await firebase.database().ref(path).once("value");
+          const snapshot = await db.ref(path).once("value");
 
           const seatData = snapshot.val();
 
@@ -15937,7 +15962,7 @@
 
       function poprltSModal() {
         setDoneButtonText("continuePage2", "Done");
-        $("#rltModalCenter").modal("show");
+        showGridModalLoading("rltModalCenter", "RLT-box", "currRLTBoxName", "RLT box");
 
         const path = getBNpath() + `/rlt`;
         console.log("Fetching box name for path:", path);
@@ -15946,7 +15971,7 @@
         });
 
         async function fetchSeatDataFromDB(path) {
-          const snapshot = await firebase.database().ref(path).once("value");
+          const snapshot = await db.ref(path).once("value");
 
           const seatData = snapshot.val();
 
@@ -16238,7 +16263,7 @@
 
       function popVpcSModal() {
         setDoneButtonText("continuePage3", "Cancel");
-        $("#pcModalCenter").modal("show");
+        showGridModalLoading("pcModalCenter", "PC-box", "currPcBoxName", "PC box");
 
         const path = getBNpath() + `/pcb`;
         console.log("Fetching box name for path:", path);
@@ -16247,7 +16272,7 @@
         });
 
         async function fetchSeatDataFromDB(path) {
-          const snapshot = await firebase.database().ref(path).once("value");
+          const snapshot = await db.ref(path).once("value");
 
           const seatData = snapshot.val();
 
@@ -16387,7 +16412,7 @@
 
       function poppcSModal() {
         setDoneButtonText("continuePage3", "Done");
-        $("#pcModalCenter").modal("show");
+        showGridModalLoading("pcModalCenter", "PC-box", "currPcBoxName", "PC box");
         const path = getBNpath() + `/pcb`;
         console.log("Fetching box name for path:", path);
         fetchSeatDataFromDB(path).then((seatData) => {
@@ -16395,7 +16420,7 @@
         });
 
         async function fetchSeatDataFromDB(path) {
-          const snapshot = await firebase.database().ref(path).once("value");
+          const snapshot = await db.ref(path).once("value");
 
           const seatData = snapshot.val();
 
@@ -16686,61 +16711,6 @@
     </script>
 
     <script>
-      $(document).ready(function () {
-        let startInput = $("#startInputFollow");
-        let endInput = $("#startInputOutsource");
-        let receivedTime = $("#receivedTime");
-        let processedTime = $("#processedTime");
-        let deathDate = $("#deathDate");
-        let recurrenceDate = $("#recurrenceDate");
-        let reportedDate = $("#reportedDate");
-
-        const today = new Date();
-
-        startInput.datepicker({
-          format: "dd/mm/yyyy ",
-          autoclose: true,
-          todayHighlight: true,
-          maxDate: today,
-        });
-
-        endInput.datepicker({
-          format: "dd/mm/yyyy",
-          autoclose: true,
-          todayHighlight: true,
-          maxDate: today,
-        });
-        receivedTime.datepicker({
-          format: "dd/mm/yyyy",
-          autoclose: true,
-          todayHighlight: true,
-          maxDate: today,
-        });
-        processedTime.datepicker({
-          format: "dd/mm/yyyy",
-          autoclose: true,
-          todayHighlight: true,
-          maxDate: today,
-        });
-        deathDate.datepicker({
-          format: "dd/mm/yyyy",
-          autoclose: true,
-          todayHighlight: true,
-          maxDate: today,
-        });
-        recurrenceDate.datepicker({
-          format: "dd/mm/yyyy",
-          autoclose: true,
-          todayHighlight: true,
-          minDate: today,
-        });
-        reportedDate.datepicker({
-          format: "dd/mm/yyyy",
-          autoclose: true,
-          todayHighlight: true,
-          maxDate: today,
-        });
-      });
       addClickListenersByRepeatedId("nextButton1", function () {
         let cancer_type = document.getElementById("cancer_type").value;
         let requiredFields = null;
@@ -24183,8 +24153,157 @@
                       if (mdDataArr.pcc === "op3") document.getElementById("pcc_op3_Oth_hene").value = mdDataArr?.pccOth;
                     }
                   }
+                  if (cancer_type === "lung") {
+                    if (mdDataArr.sx) document.querySelector(`input[name="customRadio_lung"][value="${ieDataArr.sx}"]`).checked = true || "";
+                    if (mdDataArr.fhc) document.querySelector(`input[name="RadioFHabit_lung"][value="${mdDataArr.fhc}"]`).checked = true;
+
+                    familyHabitToggle();
+                    document.getElementById("familyRelation_lung").value = mdDataArr.fhcr || "";
+                    document.getElementById("familyCancerType_lung").value = mdDataArr.fhct || "";
+
+                    if (mdDataArr.fh) document.querySelector(`input[name="RadioFdHabit_lung"][value="${mdDataArr.fh}"]`).checked = true;
+                    if (mdDataArr.hac) document.querySelector(`input[name="RadioAlcoholHabit_lung"][value="${mdDataArr.hac}"]`).checked = true;
+                    if (mdDataArr.hs) document.querySelector(`input[name="RadioSmokeHabit_lung"][value="${mdDataArr.hs}"]`).checked = true;
+                    if (mdDataArr.ec) document.querySelector(`input[name="ECH_lung"][value="${mdDataArr.ec}"]`).checked = true;
+                    ExistComorbidity_lung();
+                    if (mdDataArr.cm) {
+                      let comMed = mdDataArr.cm;
+                      const dropdownContainer = document.getElementById("cvSym_lung");
+                      const keys = Object.keys(comMed);
+
+                      Object.keys(comMed).forEach((info) => {
+                        const data = comMed[info];
+
+                        const newDiv = document.createElement("div");
+                        const newDiv1 = document.createElement("div");
+                        const newDiv2 = document.createElement("div");
+
+                        newDiv.classList.add("col-sm-3", "mt-2", "cmd_lung");
+                        newDiv1.classList.add("col-sm-8", "mt-2", "cmd_lung");
+                        newDiv2.classList.add("col-sm-1", "mt-2", "pr-4", "cmd_lung");
+                        const newSelect = document.createElement("select");
+                        const inputWrapper = document.createElement("div"); // This holds one or two inputs
+                        inputWrapper.classList.add("form-row");
+
+                        newSelect.classList.add("form-control");
+
+                        const options = [
+                          { value: "", text: "" },
+                          { value: "Diabetic", text: "Type 2 Diabetic Mellitus" },
+                          { value: "Cardiac", text: "Cardiac History" },
+                          { value: "Hypertension", text: "Hypertension" },
+                          { value: "Other", text: "Other" },
+                        ];
+
+                        options.forEach((optionData) => {
+                          const option = document.createElement("option");
+                          option.value = optionData.value;
+                          option.textContent = optionData.text;
+                          if (optionData.value === data.selectedOption) {
+                            option.selected = true;
+                          }
+                          newSelect.appendChild(option);
+                        });
+                        if (data.selectedOption === "Other") {
+                          const otherInput1 = document.createElement("input");
+                          const otherInput2 = document.createElement("input");
+
+                          otherInput1.classList.add("form-control", "col-sm-6");
+                          otherInput2.classList.add("form-control", "col-sm-6");
+
+                          otherInput1.type = "text";
+                          otherInput2.type = "text";
+
+                          otherInput1.placeholder = "Comorbidity";
+                          otherInput2.placeholder = "Medicines";
+
+                          otherInput1.value = data.textValue.input1 || "";
+                          otherInput2.value = data.textValue.input2 || "";
+
+                          inputWrapper.appendChild(otherInput1);
+                          inputWrapper.appendChild(otherInput2);
+                        } else {
+                          const defaultInput = document.createElement("input");
+                          defaultInput.classList.add("form-control");
+                          defaultInput.type = "text";
+                          defaultInput.placeholder = "Medicines";
+                          defaultInput.value = data.textValue || "";
+                          inputWrapper.appendChild(defaultInput);
+                        }
+
+                        newDiv2.style.display = "flex";
+                        newDiv2.style.flexDirection = "row-reverse";
+                        const imgGroup = document.createElement("div");
+                        imgGroup.classList.add("input-group-append");
+
+                        const img1 = document.createElement("img");
+                        img1.src = "assets/images/delete-2.svg";
+                        img1.id = "cvSymRemBtn_lung";
+                        img1.style.height = "36px";
+                        img1.style.width = "36px";
+                        img1.style.marginTop = "-2px";
+                        img1.style.cursor = "pointer";
+                        img1.addEventListener("click", function () {
+                          dropdownContainer.removeChild(newDiv);
+                          dropdownContainer.removeChild(newDiv1);
+                          dropdownContainer.removeChild(newDiv2);
+                        });
+
+                        imgGroup.appendChild(img1);
+
+                        newDiv.appendChild(newSelect);
+                        newDiv1.appendChild(inputWrapper);
+                        newDiv2.appendChild(imgGroup);
+
+                        dropdownContainer.appendChild(newDiv);
+                        dropdownContainer.appendChild(newDiv1);
+
+                        if (mode === "SearchView" || mode === "PendingView" || mode === "EditFollowUps") {
+                          const inputs = dropdownContainer.querySelectorAll("input, select");
+                          inputs.forEach((input) => (input.disabled = true));
+                        }
+
+                        if (mode !== "SearchView" && mode !== "PendingView") {
+                          dropdownContainer.appendChild(newDiv2);
+                        }
+                        newSelect.addEventListener("change", function () {
+                          inputWrapper.innerHTML = "";
+
+                          if (this.value === "Other") {
+                            const otherInput1 = document.createElement("input");
+                            const otherInput2 = document.createElement("input");
+
+                            otherInput1.classList.add("form-control", "col-sm-6");
+                            otherInput2.classList.add("form-control", "col-sm-6");
+
+                            otherInput1.value = data.input1 || "";
+                            otherInput2.value = data.input2 || "";
+
+                            inputWrapper.appendChild(otherInput1);
+                            inputWrapper.appendChild(otherInput2);
+                          } else {
+                            const defaultInput = document.createElement("input");
+                            defaultInput.classList.add("form-control");
+                            defaultInput.type = "text";
+                            defaultInput.placeholder = "Medicines";
+                            inputWrapper.appendChild(defaultInput);
+                          }
+                        });
+                      });
+                    }
+
+                    document.getElementById("tumorSite_lung").value = mdDataArr.tst || "";
+                    document.getElementById("tumorSubSite_lung").value = mdDataArr.tsub || "";
+                    document.getElementById("clinicalStage_lung").value = mdDataArr.cs || "";
+                    document.getElementById("pType_lung").value = mdDataArr.pt || "";
+                    document.getElementById("pType_lung").dispatchEvent(new Event("change"));
+                    document.getElementById("pType_Oth_lung").value = mdDataArr.ptOth || "";
+                    if (brfDataArr.h2) document.querySelector(`input[name="HER2Radio_lung"][value="${brfDataArr.h2}"]`).checked = true;
+
+                    document.getElementById("k67_lung").value = brfDataArr.k67 || "";
+                  }
+                  console.log("Form filled successfully for Biospy to Resection.");
                 }
-                console.log("Form filled successfully for Biospy to Resection.");
               } else {
                 console.log("Data doesn't exists for Biospy to Resection.");
                 return;
@@ -25196,9 +25315,157 @@
                       document.getElementById("ageAtDiagnosis_hene").value = mdDataArr.ad || "";
                       document.getElementById("clinicalStage_hene").value = mdDataArr.cs || "";
                     }
+                    if (cancer_type === "lung") {
+                      if (ieDataArr.sx) document.querySelector(`input[name="customRadio_lung"][value="${ieDataArr.sx}"]`).checked = true;
+                      if (mdDataArr.fhc) document.querySelector(`input[name="RadioFHabit_lung"][value="${mdDataArr.fhc}"]`).checked = true;
+
+                      familyHabitToggle_lung();
+                      document.getElementById("familyRelation_lung").value = mdDataArr.fhcr || "";
+                      document.getElementById("familyCancerType_lung").value = mdDataArr.fhct || "";
+
+                      if (mdDataArr.fh) document.querySelector(`input[name="RadioFdHabit_lung"][value="${mdDataArr.fh}"]`).checked = true;
+                      if (mdDataArr.hac) document.querySelector(`input[name="RadioAlcoholHabit_lung"][value="${mdDataArr.hac}"]`).checked = true;
+                      if (mdDataArr.hs) document.querySelector(`input[name="RadioSmokeHabit_lung"][value="${mdDataArr.hs}"]`).checked = true;
+                      if (mdDataArr.ec) document.querySelector(`input[name="ECH_lung"][value="${mdDataArr.ec}"]`).checked = true;
+                      if (mdDataArr.cm) {
+                        let comMed = mdDataArr.cm;
+                        const dropdownContainer = document.getElementById("cvSym_lung");
+                        const keys = Object.keys(comMed);
+
+                        Object.keys(comMed).forEach((info) => {
+                          const data = comMed[info];
+
+                          const newDiv = document.createElement("div");
+                          const newDiv1 = document.createElement("div");
+                          const newDiv2 = document.createElement("div");
+
+                          newDiv.classList.add("col-sm-3", "mt-2", "cmd_lung");
+                          newDiv1.classList.add("col-sm-8", "mt-2", "cmd_lung");
+                          newDiv2.classList.add("col-sm-1", "mt-2", "pr-4", "cmd_lung");
+                          const newSelect = document.createElement("select");
+                          const inputWrapper = document.createElement("div"); // This holds one or two inputs
+                          inputWrapper.classList.add("form-row");
+
+                          newSelect.classList.add("form-control");
+
+                          const options = [
+                            { value: "", text: "" },
+                            { value: "Diabetic", text: "Type 2 Diabetic Mellitus" },
+                            { value: "Cardiac", text: "Cardiac History" },
+                            { value: "Hypertension", text: "Hypertension" },
+                            { value: "Other", text: "Other" },
+                          ];
+
+                          options.forEach((optionData) => {
+                            const option = document.createElement("option");
+                            option.value = optionData.value;
+                            option.textContent = optionData.text;
+                            if (optionData.value === data.selectedOption) {
+                              option.selected = true;
+                            }
+                            newSelect.appendChild(option);
+                          });
+                          if (data.selectedOption === "Other") {
+                            const otherInput1 = document.createElement("input");
+                            const otherInput2 = document.createElement("input");
+
+                            otherInput1.classList.add("form-control", "col-sm-6");
+                            otherInput2.classList.add("form-control", "col-sm-6");
+
+                            otherInput1.type = "text";
+                            otherInput2.type = "text";
+
+                            otherInput1.placeholder = "Comorbidity";
+                            otherInput2.placeholder = "Medicines";
+
+                            otherInput1.value = data.textValue.input1 || "";
+                            otherInput2.value = data.textValue.input2 || "";
+
+                            inputWrapper.appendChild(otherInput1);
+                            inputWrapper.appendChild(otherInput2);
+                          } else {
+                            const defaultInput = document.createElement("input");
+                            defaultInput.classList.add("form-control");
+                            defaultInput.type = "text";
+                            defaultInput.placeholder = "Medicines";
+                            defaultInput.value = data.textValue || "";
+                            inputWrapper.appendChild(defaultInput);
+                          }
+
+                          newDiv2.style.display = "flex";
+                          newDiv2.style.flexDirection = "row-reverse";
+                          const imgGroup = document.createElement("div");
+                          imgGroup.classList.add("input-group-append");
+
+                          const img1 = document.createElement("img");
+                          img1.src = "assets/images/delete-2.svg";
+                          img1.id = "cvSymRemBtn_lung";
+                          img1.style.height = "36px";
+                          img1.style.width = "36px";
+                          img1.style.marginTop = "-2px";
+                          img1.style.cursor = "pointer";
+                          img1.addEventListener("click", function () {
+                            dropdownContainer.removeChild(newDiv);
+                            dropdownContainer.removeChild(newDiv1);
+                            dropdownContainer.removeChild(newDiv2);
+                          });
+
+                          imgGroup.appendChild(img1);
+
+                          newDiv.appendChild(newSelect);
+                          newDiv1.appendChild(inputWrapper);
+                          newDiv2.appendChild(imgGroup);
+
+                          dropdownContainer.appendChild(newDiv);
+                          dropdownContainer.appendChild(newDiv1);
+
+                          if (mode === "SearchView" || mode === "PendingView" || mode === "EditFollowUps") {
+                            const inputs = dropdownContainer.querySelectorAll("input, select");
+                            inputs.forEach((input) => (input.disabled = true));
+                          }
+
+                          if (mode !== "SearchView" && mode !== "PendingView") {
+                            dropdownContainer.appendChild(newDiv2);
+                          }
+                          newSelect.addEventListener("change", function () {
+                            inputWrapper.innerHTML = "";
+
+                            if (this.value === "Other") {
+                              const otherInput1 = document.createElement("input");
+                              const otherInput2 = document.createElement("input");
+
+                              otherInput1.classList.add("form-control", "col-sm-6");
+                              otherInput2.classList.add("form-control", "col-sm-6");
+
+                              otherInput1.value = data.input1 || "";
+                              otherInput2.value = data.input2 || "";
+
+                              inputWrapper.appendChild(otherInput1);
+                              inputWrapper.appendChild(otherInput2);
+                            } else {
+                              const defaultInput = document.createElement("input");
+                              defaultInput.classList.add("form-control");
+                              defaultInput.type = "text";
+                              defaultInput.placeholder = "Medicines";
+                              inputWrapper.appendChild(defaultInput);
+                            }
+                          });
+                        });
+                      }
+                      ExistComorbidity();
+
+                      document.getElementById("tumorSite_lung").value = mdDataArr.tst || "";
+                      document.getElementById("tumorSubSite_lung").value = mdDataArr.tsub || "";
+                      document.getElementById("ageAtDiagnosis_lung").value = mdDataArr.ad || "";
+                      document.getElementById("clinicalStage_lung").value = mdDataArr.cs || "";
+                      document.getElementById("pType_lung").value = mdDataArr.pt || "";
+                      document.getElementById("pType_lung").dispatchEvent(new Event("change"));
+                      document.getElementById("pType_Oth_lung").value = mdDataArr.ptOth || "";
+                      document.getElementById("k67_lung").value = brfDataArr.k67 || "";
+                    }
+                    console.log("Form filled for Resection to Sample at event.");
                   }
                 }
-                console.log("Form filled for Resection to Sample at event.");
               } else {
                 console.log("Data doesn't exist for Resection to Sample at event.");
                 return;
