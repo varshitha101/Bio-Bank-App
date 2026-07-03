@@ -6146,7 +6146,6 @@ function fillMdForm(mdData) {
   if (mdData.cm) {
     let comMed = mdData.cm;
     const dropdownContainer = document.getElementById("cvSym");
-    const keys = Object.keys(comMed);
 
     Object.keys(comMed).forEach((info) => {
       const data = comMed[info];
@@ -6424,7 +6423,6 @@ function fillMdForm_lung(mdData) {
     if (mdData.cm) {
       let comMed = mdData.cm;
       const dropdownContainer = document.getElementById("cvSym_lung");
-      const keys = Object.keys(comMed);
 
       Object.keys(comMed).forEach((info) => {
         const data = comMed[info];
@@ -6921,7 +6919,6 @@ function fillMdForm_hene(mdData) {
     if (mdData.cm) {
       let comMed = mdData.cm;
       const dropdownContainer = document.getElementById("cvSym_hene");
-      const keys = Object.keys(comMed);
 
       Object.keys(comMed).forEach((info) => {
         const data = comMed[info];

@@ -356,6 +356,12 @@ Following features and changes have been incorporates:
 
 ### Version 1.8.15
 
-- Added Lung Cancer.
+- Added Lung Cancer to form entry and Search Sample.
+
+<hr>
+
+### Version 1.8.15
+
+- Updated the Bootstrap, jQuery, and Firebase imports by removing duplicate versions and standardizing them to a single version for each library.
 
 <hr>

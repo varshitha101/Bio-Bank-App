@@ -13451,7 +13451,6 @@
                     if (snapshot.exists()) {
                       boxName = snapshot.val();
                       document.getElementById("currBloodBoxName").textContent = boxName;
-                    } else {
                     }
                     if (!indexedSeats) {
                       return;
@@ -13901,7 +13900,6 @@
                     if (snapshot.exists()) {
                       boxName = snapshot.val();
                       document.getElementById("currBloodBoxName").textContent = boxName;
-                    } else {
                     }
                     if (!indexedSeats) {
                       return;
@@ -14349,7 +14347,6 @@
                     if (snapshot.exists()) {
                       boxName = snapshot.val();
                       document.getElementById("currBloodBoxName").textContent = boxName;
-                    } else {
                     }
                     if (!indexedSeats) {
                       return;
@@ -14942,7 +14939,6 @@
                     if (snapshot.exists()) {
                       boxName = snapshot.val();
                       document.getElementById("currSpecimenBoxName").textContent = boxName;
-                    } else {
                     }
                     if (!indexedSeats) {
                       return;
@@ -15423,8 +15419,8 @@
                   .then((snapshot) => {
                     if (snapshot.exists()) {
                       boxName = snapshot.val();
+                      console.log("boxName:", boxName);
                       document.getElementById("currSpecimenBoxName").textContent = boxName;
-                    } else {
                     }
                     if (!indexedSeats) {
                       return;
@@ -15626,7 +15622,7 @@
             .then((snapshot) => {
               if (snapshot.exists()) {
                 boxName = snapshot.val();
-                document.getElementById("currBloodBoxName").textContent = boxName;
+                document.getElementById("currSpecimenBoxName").textContent = boxName;
               }
             })
             .catch((error) => {
@@ -15891,7 +15887,6 @@
                     if (snapshot.exists()) {
                       boxName = snapshot.val();
                       document.getElementById("currRLTBoxName").textContent = boxName;
-                    } else {
                     }
                     if (!indexedSeats) {
                       return;
@@ -16341,7 +16336,6 @@
                     if (snapshot.exists()) {
                       boxName = snapshot.val();
                       document.getElementById("currPcBoxName").textContent = boxName;
-                    } else {
                     }
                     if (!indexedSeats) {
                       return;
@@ -27116,3 +27110,4 @@
     </script>
   </body>
 </html>
+z
