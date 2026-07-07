@@ -360,7 +360,7 @@ Following features and changes have been incorporates:
 
 <hr>
 
-### Version 1.8.15
+### Version 1.8.16
 
 - Updated the Bootstrap, jQuery, and Firebase imports by removing duplicate versions and standardizing them to a single version for each library.
 
