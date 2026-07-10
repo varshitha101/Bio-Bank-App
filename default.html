@@ -23172,13 +23172,14 @@
                   if (lastTimestampData.md) {
                     mdDataArr = lastTimestampData.md;
                   }
-                  if (lastTimestampData.brf || lastTimestampData.cvf || lastTimestampData.emf || lastTimestampData.ovf || lastTimestampData.henef) {
+                  if (lastTimestampData.brf || lastTimestampData.cvf || lastTimestampData.emf || lastTimestampData.ovf || lastTimestampData.henef || lastTimestampData.luf) {
                     const formMap = {
                       brst: lastTimestampData.brf,
                       ceix: lastTimestampData.cvf,
                       endm: lastTimestampData.emf,
                       ovry: lastTimestampData.ovf,
                       hene: lastTimestampData.henef,
+                      lung: lastTimestampData.luf,
                     };
 
                     brfDataArr = formMap[cancer_type] || null;
@@ -24166,7 +24167,7 @@
                     }
                   }
                   if (cancer_type === "lung") {
-                    if (mdDataArr.sx) document.querySelector(`input[name="customRadio_lung"][value="${ieDataArr.sx}"]`).checked = true || "";
+                    if (ieDataArr.sx) document.querySelector(`input[name="customRadio_lung"][value="${ieDataArr.sx}"]`).checked = true;
                     if (mdDataArr.fhc) document.querySelector(`input[name="RadioFHabit_lung"][value="${mdDataArr.fhc}"]`).checked = true;
 
                     familyHabitToggle_lung();
@@ -24353,13 +24354,14 @@
                   if (lastTimestampData.md) {
                     mdDataArr = lastTimestampData.md;
                   }
-                  if (lastTimestampData.brf || lastTimestampData.cvf || lastTimestampData.emf || lastTimestampData.ovf || lastTimestampData.henef) {
+                  if (lastTimestampData.brf || lastTimestampData.cvf || lastTimestampData.emf || lastTimestampData.ovf || lastTimestampData.henef || lastTimestampData.luf) {
                     const formMap = {
                       brst: lastTimestampData.brf,
                       ceix: lastTimestampData.cvf,
                       endm: lastTimestampData.emf,
                       ovry: lastTimestampData.ovf,
                       hene: lastTimestampData.henef,
+                      lung: lastTimestampData.luf,
                     };
 
                     brfDataArr = formMap[cancer_type] || null;

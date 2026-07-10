@@ -6283,6 +6283,7 @@ function fillMdForm_lung(mdData) {
       I: ["A", "B"],
       II: ["A", "B", "C"],
       III: ["A", "B", "C"],
+      IV: [],
     };
 
     // detect stage (longest first to avoid mismatch)
