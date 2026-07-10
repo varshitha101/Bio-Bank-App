@@ -3542,7 +3542,7 @@
                     <div class="col-sm-1 mt-2 erase-icon-container-NACT-lung"></div>
                   </div>
                   <div class="row ml-1 mb-3" id="nactTE_lung" style="display: none">
-                    <label for="" class="col-sm-2 mb-1 col-form-label">Treatment effect in Breast</label>
+                    <label for="" class="col-sm-2 mb-1 col-form-label">Treatment effect</label>
                     <div class="col-sm-10">
                       <select id="nactEff_lung" class="form-control">
                         <option value=""></option>
@@ -3595,8 +3595,8 @@
                       <select id="inf_lung" class="form-control">
                         <option value=""></option>
                         <option value="op1">Mild</option>
-                        <option value="op2">Not identified</option>
-                        <option value="op3">Present</option>
+                        <option value="op2">Moderate</option>
+                        <option value="op3">Severe</option>
                         <option value="op4">Cannot be determined</option>
                       </select>
                     </div>
@@ -11873,7 +11873,7 @@
           &copy; Copyright <strong><span></span></strong>. All Rights Reserved
         </div>
         <div class="credits"></div>
-        <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">Version 1.8.16</div>
+        <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">Version 1.8.17</div>
       </div>
     </footer>
 
@@ -17905,7 +17905,7 @@
           const showType = ["op38", "op36", "op39", "op40", "op41", "op42", "op43"];
           const option = $("#pType_lung").val();
           if (showType.includes(option)) {
-            $("#pType_Oth_lung").prop("disabled", false);
+            $("#pType_Oth_lung").prop("disabled", isReadOnlyViewMode(mode));
           } else {
             $("#pType_Oth_lung").prop("disabled", true).val("");
           }
@@ -23073,6 +23073,15 @@
             fillform(proType, mode, biobankID, cancer_type);
           });
         });
+        document.querySelectorAll('input[name="customProcedure_lung"]').forEach(function (radio) {
+          radio.addEventListener("change", function () {
+            const proType = document.querySelector('input[name="customProcedure_lung"]:checked').value;
+            const mode = localStorage.getItem("mode");
+            const biobankID = localStorage.getItem("BioVal");
+            const cancer_type = document.getElementById("cancer_type").value;
+            fillform(proType, mode, biobankID, cancer_type);
+          });
+        });
       });
       document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll('input[name="MetastasisSample"]').forEach(function (radio) {
@@ -23116,6 +23125,15 @@
             const mode = localStorage.getItem("mode");
             const biobankID = localStorage.getItem("BioVal");
             const metastasisS = document.querySelector('input[name="MetastasisSample_ovry"]:checked').value;
+            const cancer_type = document.getElementById("cancer_type").value;
+            fillform2(mode, biobankID, metastasisS, cancer_type);
+          });
+        });
+        document.querySelectorAll('input[name="MetastasisSample_lung"]').forEach(function (radio) {
+          radio.addEventListener("change", function () {
+            const mode = localStorage.getItem("mode");
+            const biobankID = localStorage.getItem("BioVal");
+            const metastasisS = document.querySelector('input[name="MetastasisSample_lung"]:checked').value;
             const cancer_type = document.getElementById("cancer_type").value;
             fillform2(mode, biobankID, metastasisS, cancer_type);
           });
@@ -24151,7 +24169,7 @@
                     if (mdDataArr.sx) document.querySelector(`input[name="customRadio_lung"][value="${ieDataArr.sx}"]`).checked = true || "";
                     if (mdDataArr.fhc) document.querySelector(`input[name="RadioFHabit_lung"][value="${mdDataArr.fhc}"]`).checked = true;
 
-                    familyHabitToggle();
+                    familyHabitToggle_lung();
                     document.getElementById("familyRelation_lung").value = mdDataArr.fhcr || "";
                     document.getElementById("familyCancerType_lung").value = mdDataArr.fhct || "";
 

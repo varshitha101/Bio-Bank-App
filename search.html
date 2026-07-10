@@ -1037,7 +1037,7 @@
           &copy; Copyright <strong><span></span></strong>. All Rights Reserved
         </div>
         <div class="credits"></div>
-        <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">Version 1.8.16</div>
+        <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">Version 1.8.17</div>
       </div>
     </footer>
     <script>
@@ -5648,8 +5648,8 @@
       function decodeinf_lung(option) {
         const mapping = {
           op1: "Mild",
-          op2: "Not identified",
-          op3: "Present",
+          op2: "Moderate",
+          op3: "Severe",
           op4: "Cannot be determined",
         };
         return mapping[option] || "-";
@@ -5959,7 +5959,7 @@
               "Specimen Margin Status for Noninvasive Tumor (High-grade Dysplasia)": decodeSmstsN_lung(row?.sefData?.md?.smstsN) || "-",
               "Specimen Margin Status for Noninvasive Tumor (High-grade Dysplasia) (Other)": row?.sefData?.md?.smstsNOth || "-",
               "Modified Classification (required only if applicable)": mC_hene(row?.sefData?.md?.mC) || "-",
-              pTNM: row?.sefData?.md?.ptpTNMnm || "-",
+              pTNM: row?.sefData?.md?.pTNM || "-",
               "AJCC Staging": row?.sefData?.md?.as || "-",
               "Additional Findings": row?.sefData?.md?.addF || "-",
               "Regional Lymph Node Status": rlnS_hene(row?.sefData?.md?.rlnsts) || "-",
@@ -5970,6 +5970,9 @@
               "Extranodal Extension (ENE)": ene_hene(row?.sefData?.md?.ene) || "-",
               "DISTANT METASTASIS": row?.sefData?.md?.disM || "-",
               "Tumor Size": row?.sefData?.md?.tsz === "xx" || row?.sefData?.md?.tsz === undefined ? "-" : row?.sefData?.md?.tsz,
+              "Invasive Tumor Size": row?.sefData?.md?.invTS || "-",
+              "Total Tumor Size": row?.sefData?.md?.tTS || "-",
+              "Size of In Situ Carcinoma in Centimeters (cm)": row?.sefData?.md?.sSc || "-",
               ACT: decodeProcedureType(row?.sefData?.md?.act) || "-",
               "ACT Drug Cycles": row?.sefData?.md?.actdc || "-",
               "ACT Date of last Cycle": row?.sefData?.md?.actdls || "-",

@@ -365,3 +365,12 @@ Following features and changes have been incorporates:
 - Updated the Bootstrap, jQuery, and Firebase imports by removing duplicate versions and standardizing them to a single version for each library.
 
 <hr>
+
+### Version 1.8.17
+
+- Issue related to Excel is resolved.
+- Resolved an issue related to auto-population between biopsy to resection and resection to event.
+- Resolved an issue related to a mismatch in the option for the "Inflammation" question.
+- Resolved an issue where Histological Type was editable in view mode.
+
+<hr>
