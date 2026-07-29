@@ -96,17 +96,8 @@
         </div>
       </div>
     </nav>
-    <div
-      class="d-flex ms-auto align-items-center justify-content-center"
-      style="position: absolute; top: 8px; right: 8px; z-index: 2000; pointer-events: auto; background-color: rgba(25, 145, 201, 1); width: 50px; height: 50px">
-      <button
-        onclick="logout()"
-        id="logout"
-        type="button"
-        class="btn btn-link p-0 w-100 h-100 d-flex align-items-center justify-content-center"
-        aria-label="Logout"
-        title="Logout"
-        style="line-height: 1">
+    <div class="d-flex ms-auto align-items-center justify-content-center" style="position: absolute; top: 8px; right: 8px; z-index: 2000; pointer-events: auto; background-color: rgba(25, 145, 201, 1); width: 50px; height: 50px">
+      <button onclick="logout()" id="logout" type="button" class="btn btn-link p-0 w-100 h-100 d-flex align-items-center justify-content-center" aria-label="Logout" title="Logout" style="line-height: 1">
         <span class="material-icons text-white" style="font-size: 28px">logout</span>
       </button>
     </div>
@@ -381,6 +372,10 @@
                 let ovryCancer = 0;
                 let heneCancer = 0;
                 let lungCancer = 0;
+                let colorectalCancer = 0;
+                let esophagealCancer = 0;
+                let analCancer = 0;
+                let gastricCancer = 0;
 
                 let biopsy = 0;
                 let resection = 0;
@@ -428,6 +423,10 @@
                           else if (cancer === "ovry") ovryCancer++;
                           else if (cancer === "hene") heneCancer++;
                           else if (cancer === "lung") lungCancer++;
+                          else if (cancer === "esph") esophagealCancer++;
+                          else if (cancer === "colo") colorectalCancer++;
+                          else if (cancer === "anal") analCancer++;
+                          else if (cancer === "gast") gastricCancer++;
 
                           if (procedure === "b") biopsy++;
                           else if (procedure === "r") resection++;
@@ -467,10 +466,22 @@
                     });
                   });
 
+                  const allCancerTypes = [
+                    { value: breastCancer, name: "Breast" },
+                    { value: ceixCancer, name: "Cervix" },
+                    { value: endmCancer, name: "Endometrial" },
+                    { value: ovryCancer, name: "Ovary" },
+                    { value: heneCancer, name: "Head & Neck" },
+                    { value: lungCancer, name: "Lung" },
+                    { value: colorectalCancer, name: "Colorectal" },
+                    { value: esophagealCancer, name: "Esophageal" },
+                    { value: analCancer, name: "Anal" },
+                    { value: gastricCancer, name: "Gastric" },
+                  ];
                   document.getElementById("samples").innerHTML = count;
 
                   ageChart(countUnder30, count30to39, count40to49, count50to59, countAbove60);
-                  cancerChart(breastCancer, ceixCancer, endmCancer, ovryCancer, heneCancer, lungCancer);
+                  cancerChart(allCancerTypes);
                   procedureChart(biopsy, resection);
                   sampleTypeChart(countBS, countSS, countOS, countRLT, countPC, countCombined);
                   hideLoadingModal();
@@ -481,7 +492,7 @@
                 console.log("No seat data available.");
                 document.getElementById("samples").innerHTML = 0;
                 ageChart(0, 0, 0, 0, 0);
-                cancerChart(0, 0, 0, 0, 0, 0);
+                cancerChart([]);
                 procedureChart(0, 0);
                 sampleTypeChart(0, 0, 0, 0, 0, 0);
                 hideLoadingModal();

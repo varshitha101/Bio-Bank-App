@@ -108,17 +108,8 @@
         </div>
       </div>
     </nav>
-    <div
-      class="d-flex ms-auto align-items-center justify-content-center"
-      style="position: absolute; top: 8px; right: 8px; z-index: 2000; pointer-events: auto; background-color: rgba(25, 145, 201, 1); width: 50px; height: 50px">
-      <button
-        onclick="logout()"
-        id="logout"
-        type="button"
-        class="btn btn-link p-0 w-100 h-100 d-flex align-items-center justify-content-center"
-        aria-label="Logout"
-        title="Logout"
-        style="line-height: 1">
+    <div class="d-flex ms-auto align-items-center justify-content-center" style="position: absolute; top: 8px; right: 8px; z-index: 2000; pointer-events: auto; background-color: rgba(25, 145, 201, 1); width: 50px; height: 50px">
+      <button onclick="logout()" id="logout" type="button" class="btn btn-link p-0 w-100 h-100 d-flex align-items-center justify-content-center" aria-label="Logout" title="Logout" style="line-height: 1">
         <span class="material-icons text-white" style="font-size: 28px">logout</span>
       </button>
     </div>
@@ -1041,7 +1032,7 @@
       </div>
     </footer>
     <script>
-      const allowedPrefixes = ["BR", "HN", "LU", "CV", "EM", "OV"];
+      const allowedPrefixes = ["BR", "HN", "LU", "CV", "EM", "OV", "AN", "ET", "GT", "CO"];
 
       function formatBioInput(input) {
         let raw = (input.value || "").replace(/[^a-zA-Z0-9]/g, "").toUpperCase();
@@ -1855,6 +1846,14 @@
             return "Head and Neck Cancer";
           case "lung":
             return "Lung Cancer";
+          case "colo":
+            return "Colorectal Cancer";
+          case "esph":
+            return "Esophageal Cancer";
+          case "anal":
+            return "Anal Cancer";
+          case "gast":
+            return "Gastric Cancer";
           default:
             return "-";
         }
@@ -2266,8 +2265,7 @@
                         const box = snapshot.val();
                         if (box) {
                           const sts = box.status;
-                          const status =
-                            sampleAvailable === "All" || (sampleAvailable === "Shared" && (sts === "s" || sts === "ps")) || (sampleAvailable === "Available" && (sts === null || sts === "o"));
+                          const status = sampleAvailable === "All" || (sampleAvailable === "Shared" && (sts === "s" || sts === "ps")) || (sampleAvailable === "Available" && (sts === null || sts === "o"));
 
                           const storedBnData = JSON.parse(localStorage.getItem("bnData"));
                           const boxEntry = storedBnData.find((entry) => entry.id === boxid);
@@ -2297,8 +2295,7 @@
                         const box1 = snapshot.val();
                         if (box1) {
                           const sts = box1.status;
-                          const status =
-                            sampleAvailable === "All" || (sampleAvailable === "Shared" && (sts === "s" || sts === "ps")) || (sampleAvailable === "Available" && (sts === null || sts === "o"));
+                          const status = sampleAvailable === "All" || (sampleAvailable === "Shared" && (sts === "s" || sts === "ps")) || (sampleAvailable === "Available" && (sts === null || sts === "o"));
 
                           const storedBnData = JSON.parse(localStorage.getItem("bnData"));
                           const boxEntry = storedBnData.find((entry) => entry.id === boxid);
@@ -2327,8 +2324,7 @@
                         const box1 = snapshot.val();
                         if (box1) {
                           const sts = box1.status;
-                          const status =
-                            sampleAvailable === "All" || (sampleAvailable === "Shared" && (sts === "s" || sts === "ps")) || (sampleAvailable === "Available" && (sts === null || sts === "o"));
+                          const status = sampleAvailable === "All" || (sampleAvailable === "Shared" && (sts === "s" || sts === "ps")) || (sampleAvailable === "Available" && (sts === null || sts === "o"));
 
                           const storedBnData = JSON.parse(localStorage.getItem("bnData"));
                           const boxEntry = storedBnData.find((entry) => entry.id === boxid);
@@ -2357,8 +2353,7 @@
                         const box1 = snapshot.val();
                         if (box1) {
                           const sts = box1.status;
-                          const status =
-                            sampleAvailable === "All" || (sampleAvailable === "Shared" && (sts === "s" || sts === "ps")) || (sampleAvailable === "Available" && (sts === null || sts === "o"));
+                          const status = sampleAvailable === "All" || (sampleAvailable === "Shared" && (sts === "s" || sts === "ps")) || (sampleAvailable === "Available" && (sts === null || sts === "o"));
 
                           const storedBnData = JSON.parse(localStorage.getItem("bnData"));
                           const boxEntry = storedBnData.find((entry) => entry.id === boxid);
@@ -2512,9 +2507,7 @@
                 const gridData = row.getAttribute("data-grid");
                 const boxName = row.getAttribute("data-box");
 
-                selectedSerialNumData = selectedSerialNumData.filter(
-                  (data) => !(data.bioBankId === bioBankId && data.seqKey === seqKey && data.timestampKey === timestampKey && data.gridData === gridData && data.boxName === boxName),
-                );
+                selectedSerialNumData = selectedSerialNumData.filter((data) => !(data.bioBankId === bioBankId && data.seqKey === seqKey && data.timestampKey === timestampKey && data.gridData === gridData && data.boxName === boxName));
               }
               updateSelectAllCheckbox();
             });
@@ -2557,9 +2550,7 @@
                 const gridData = row.getAttribute("data-grid");
                 const boxName = row.getAttribute("data-box");
 
-                selectedSerialNumData = selectedSerialNumData.filter(
-                  (data) => !(data.bioBankId === bioBankId && data.seqKey === seqKey && data.timestampKey === timestampKey && data.gridData === gridData && data.boxName === boxName),
-                );
+                selectedSerialNumData = selectedSerialNumData.filter((data) => !(data.bioBankId === bioBankId && data.seqKey === seqKey && data.timestampKey === timestampKey && data.gridData === gridData && data.boxName === boxName));
               }
             });
           });
@@ -2733,8 +2724,7 @@
               document.getElementById("pathSubtype_endm").value = sessionStorage.getItem("pathSubtypeInput_endm") || "All";
               document.getElementById("fh1_endm").value = sessionStorage.getItem("FamilyHInput_endm") || "All";
               document.getElementById("figoInput_endm").value = sessionStorage.getItem("figoInput_endm") || "All";
-              const tempbiobankIdInput =
-                sessionStorage.getItem("biobankIdInput_endm") && sessionStorage.getItem("biobankIdInput_endm") !== "undefined" ? sessionStorage.getItem("biobankIdInput_endm") : "";
+              const tempbiobankIdInput = sessionStorage.getItem("biobankIdInput_endm") && sessionStorage.getItem("biobankIdInput_endm") !== "undefined" ? sessionStorage.getItem("biobankIdInput_endm") : "";
               document.getElementById("biobankIdInput_endm").value = tempbiobankIdInput || "";
 
               searchSample_endm();
@@ -2744,8 +2734,7 @@
               document.getElementById("pathSubtype_ovry").value = sessionStorage.getItem("pathSubtypeInput_ovry") || "All";
               document.getElementById("fh1_ovry").value = sessionStorage.getItem("FamilyHInput_ovry") || "All";
               document.getElementById("figoInput_ovry").value = sessionStorage.getItem("figoInput_ovry") || "All";
-              const tempbiobankIdInput =
-                sessionStorage.getItem("biobankIdInput_ovry") && sessionStorage.getItem("biobankIdInput_ovry") !== "undefined" ? sessionStorage.getItem("biobankIdInput_ovry") : "";
+              const tempbiobankIdInput = sessionStorage.getItem("biobankIdInput_ovry") && sessionStorage.getItem("biobankIdInput_ovry") !== "undefined" ? sessionStorage.getItem("biobankIdInput_ovry") : "";
               document.getElementById("biobankIdInput_ovry").value = tempbiobankIdInput || "";
 
               searchSample_ovry();
@@ -2755,8 +2744,7 @@
               document.getElementById("pathSubtype_ceix").value = sessionStorage.getItem("pathSubtypeInput_ceix") || "All";
               document.getElementById("fh1_ceix").value = sessionStorage.getItem("FamilyHInput_ceix") || "All";
               document.getElementById("figoInput_ceix").value = sessionStorage.getItem("figoInput_ceix") || "All";
-              const tempbiobankIdInput =
-                sessionStorage.getItem("biobankIdInput_ceix") && sessionStorage.getItem("biobankIdInput_ceix") !== "undefined" ? sessionStorage.getItem("biobankIdInput_ceix") : "";
+              const tempbiobankIdInput = sessionStorage.getItem("biobankIdInput_ceix") && sessionStorage.getItem("biobankIdInput_ceix") !== "undefined" ? sessionStorage.getItem("biobankIdInput_ceix") : "";
               document.getElementById("biobankIdInput_ceix").value = tempbiobankIdInput || "";
 
               searchSample_ceix();
@@ -2770,8 +2758,7 @@
                 tumorSite: sessionStorage.getItem("tumorSite_hene") || "All",
               });
               document.getElementById("FamilyHInput_hene").value = sessionStorage.getItem("FamilyHInput_hene") || "All";
-              const tempbiobankIdInput =
-                sessionStorage.getItem("biobankIdInput_hene") && sessionStorage.getItem("biobankIdInput_hene") !== "undefined" ? sessionStorage.getItem("biobankIdInput_hene") : "";
+              const tempbiobankIdInput = sessionStorage.getItem("biobankIdInput_hene") && sessionStorage.getItem("biobankIdInput_hene") !== "undefined" ? sessionStorage.getItem("biobankIdInput_hene") : "";
               document.getElementById("biobankIdInput_hene").value = tempbiobankIdInput || "";
               console.log("Head and Neck Cancer Applying the change");
 
@@ -2782,8 +2769,7 @@
               document.getElementById("pathType_lung").value = sessionStorage.getItem("pathType_lung") || "All";
               document.getElementById("fh1_lung").value = sessionStorage.getItem("fh1_lung") || "All";
               document.getElementById("ajccInput_lung").value = sessionStorage.getItem("ajccInput_lung") || "All";
-              const tempbiobankIdInput =
-                sessionStorage.getItem("biobankIdInput_lung") && sessionStorage.getItem("biobankIdInput_lung") !== "undefined" ? sessionStorage.getItem("biobankIdInput_lung") : "";
+              const tempbiobankIdInput = sessionStorage.getItem("biobankIdInput_lung") && sessionStorage.getItem("biobankIdInput_lung") !== "undefined" ? sessionStorage.getItem("biobankIdInput_lung") : "";
               document.getElementById("biobankIdInput_lung").value = tempbiobankIdInput || "";
 
               searchSample_lung();
@@ -2898,11 +2884,7 @@
                     const gradeMatch = criteria.gradeInput === "All" || !criteria.gradeInput || patientmd.gd.toLowerCase() === criteria.gradeInput.toLowerCase();
                     if (!gradeMatch) continue;
 
-                    const nactMatch =
-                      criteria.nactInput === "All" ||
-                      !criteria.nactInput ||
-                      (criteria.nactInput === "Yes" && patientData.nact === "true") ||
-                      (criteria.nactInput === "No" && patientData.nact === "false");
+                    const nactMatch = criteria.nactInput === "All" || !criteria.nactInput || (criteria.nactInput === "Yes" && patientData.nact === "true") || (criteria.nactInput === "No" && patientData.nact === "false");
                     if (!nactMatch) continue;
 
                     const pathSubtypeMatch = criteria.pathSubtypeInput === "All" || !criteria.pathSubtypeInput || patientmd.pst === criteria.pathSubtypeInput.toLowerCase();
@@ -2959,18 +2941,10 @@
                     sessionStorage.setItem("sampleTypeInput", sampleTypeInput);
                     sessionStorage.setItem("sampleAvailable", sampleAvailable);
 
-                    const metaInputMatch =
-                      criteria.metaInput === "All" ||
-                      !criteria.metaInput ||
-                      (criteria.metaInput === "Yes" && patientData.mts === "true") ||
-                      (criteria.metaInput === "No" && patientData.mts === "false");
+                    const metaInputMatch = criteria.metaInput === "All" || !criteria.metaInput || (criteria.metaInput === "Yes" && patientData.mts === "true") || (criteria.metaInput === "No" && patientData.mts === "false");
                     if (!metaInputMatch) continue;
 
-                    const FamilyHInputMatch =
-                      criteria.FamilyHInput === "All" ||
-                      !criteria.FamilyHInput ||
-                      (criteria.FamilyHInput === "Yes" && patientmd.fhc === "true") ||
-                      (criteria.FamilyHInput === "No" && patientmd.fhc === "false");
+                    const FamilyHInputMatch = criteria.FamilyHInput === "All" || !criteria.FamilyHInput || (criteria.FamilyHInput === "Yes" && patientmd.fhc === "true") || (criteria.FamilyHInput === "No" && patientmd.fhc === "false");
                     if (!FamilyHInputMatch) continue;
 
                     const cSubInputMatch =
@@ -3086,11 +3060,7 @@
                     const cancerTypeMatch = patientData.ct === criteria.cancerTypeInput.toLowerCase();
                     if (!cancerTypeMatch) continue;
 
-                    const nactMatch =
-                      criteria.nactInput === "All" ||
-                      !criteria.nactInput ||
-                      (criteria.nactInput === "Yes" && patientData.nact === "true") ||
-                      (criteria.nactInput === "No" && patientData.nact === "false");
+                    const nactMatch = criteria.nactInput === "All" || !criteria.nactInput || (criteria.nactInput === "Yes" && patientData.nact === "true") || (criteria.nactInput === "No" && patientData.nact === "false");
                     if (!nactMatch) continue;
 
                     const pathTypeMatch = criteria.pathTypeInput === "All" || !criteria.pathTypeInput || patientmd.pt === criteria.pathTypeInput;
@@ -3098,18 +3068,10 @@
                     const ajccInputMatch = criteria.ajccInput === "All" || !criteria.ajccInput || patientmd.as === criteria.ajccInput;
                     if (!ajccInputMatch) continue;
 
-                    const metaInputMatch =
-                      criteria.metaInput === "All" ||
-                      !criteria.metaInput ||
-                      (criteria.metaInput === "Yes" && patientData.mts === "true") ||
-                      (criteria.metaInput === "No" && patientData.mts === "false");
+                    const metaInputMatch = criteria.metaInput === "All" || !criteria.metaInput || (criteria.metaInput === "Yes" && patientData.mts === "true") || (criteria.metaInput === "No" && patientData.mts === "false");
                     if (!metaInputMatch) continue;
 
-                    const FamilyHInputMatch =
-                      criteria.FamilyHInput === "All" ||
-                      !criteria.FamilyHInput ||
-                      (criteria.FamilyHInput === "Yes" && patientmd.fhc === "true") ||
-                      (criteria.FamilyHInput === "No" && patientmd.fhc === "false");
+                    const FamilyHInputMatch = criteria.FamilyHInput === "All" || !criteria.FamilyHInput || (criteria.FamilyHInput === "Yes" && patientmd.fhc === "true") || (criteria.FamilyHInput === "No" && patientmd.fhc === "false");
                     if (!FamilyHInputMatch) continue;
 
                     if (cancerTypeMatch && nactMatch && pathTypeMatch && ajccInputMatch && metaInputMatch && FamilyHInputMatch && biobankIdMatch) {
@@ -3213,18 +3175,10 @@
                     const cancerTypeMatch = patientData.ct.toLowerCase() === criteria.cancerTypeInput.toLowerCase();
                     if (!cancerTypeMatch) continue;
 
-                    const metaInputMatch =
-                      criteria.metaInput === "All" ||
-                      !criteria.metaInput ||
-                      (criteria.metaInput === "Yes" && patientData.mts === "true") ||
-                      (criteria.metaInput === "No" && patientData.mts === "false");
+                    const metaInputMatch = criteria.metaInput === "All" || !criteria.metaInput || (criteria.metaInput === "Yes" && patientData.mts === "true") || (criteria.metaInput === "No" && patientData.mts === "false");
                     if (!metaInputMatch) continue;
 
-                    const nactMatch =
-                      criteria.nactInput === "All" ||
-                      !criteria.nactInput ||
-                      (criteria.nactInput.toLowerCase() === "yes" && patientData.nact === "true") ||
-                      (criteria.nactInput.toLowerCase() === "no" && patientData.nact === "false");
+                    const nactMatch = criteria.nactInput === "All" || !criteria.nactInput || (criteria.nactInput.toLowerCase() === "yes" && patientData.nact === "true") || (criteria.nactInput.toLowerCase() === "no" && patientData.nact === "false");
                     if (!nactMatch) continue;
 
                     const matchpst = patientmd && patientmd.pst && patientmd.pst.find((item) => item.op === criteria.pathSubtypeInput);
@@ -3232,10 +3186,7 @@
                     if (!pathSubtypeMatch) continue;
 
                     const FamilyHInputMatch =
-                      criteria.FamilyHInput === "All" ||
-                      !criteria.FamilyHInput ||
-                      (criteria.FamilyHInput.toLowerCase() === "yes" && patientmd.fhc === "true") ||
-                      (criteria.FamilyHInput.toLowerCase() === "no" && patientmd.fhc === "false");
+                      criteria.FamilyHInput === "All" || !criteria.FamilyHInput || (criteria.FamilyHInput.toLowerCase() === "yes" && patientmd.fhc === "true") || (criteria.FamilyHInput.toLowerCase() === "no" && patientmd.fhc === "false");
                     if (!FamilyHInputMatch) continue;
 
                     const figoInputMatch = criteria.figoInput === "All" || !criteria.figoInput || patientmd.as.toLowerCase() === criteria.figoInput.toLowerCase();
@@ -3342,17 +3293,11 @@
                     if (!cancerTypeMatch) continue;
 
                     const metaInputMatch =
-                      criteria.metaInput.toLowerCase() === "all" ||
-                      !criteria.metaInput ||
-                      (criteria.metaInput.toLowerCase() === "yes" && patientData.mts === "true") ||
-                      (criteria.metaInput.toLowerCase() === "no" && patientData.mts === "false");
+                      criteria.metaInput.toLowerCase() === "all" || !criteria.metaInput || (criteria.metaInput.toLowerCase() === "yes" && patientData.mts === "true") || (criteria.metaInput.toLowerCase() === "no" && patientData.mts === "false");
                     if (!metaInputMatch) continue;
 
                     const nactMatch =
-                      criteria.nactInput.toLowerCase() === "all" ||
-                      !criteria.nactInput ||
-                      (criteria.nactInput.toLowerCase() === "yes" && patientData.nact === "true") ||
-                      (criteria.nactInput.toLowerCase() === "no" && patientData.nact === "false");
+                      criteria.nactInput.toLowerCase() === "all" || !criteria.nactInput || (criteria.nactInput.toLowerCase() === "yes" && patientData.nact === "true") || (criteria.nactInput.toLowerCase() === "no" && patientData.nact === "false");
                     if (!nactMatch) continue;
 
                     const matchpst = patientmd && patientmd.pst && patientmd.pst.find((item) => item.op === criteria.pathSubtypeInput);
@@ -3472,10 +3417,7 @@
                     if (!cancerTypeMatch) continue;
 
                     const metaInputMatch =
-                      criteria.metaInput.toLowerCase() === "all" ||
-                      !criteria.metaInput ||
-                      (criteria.metaInput.toLowerCase() === "yes" && patientData.mts === "true") ||
-                      (criteria.metaInput.toLowerCase() === "no" && patientData.mts === "false");
+                      criteria.metaInput.toLowerCase() === "all" || !criteria.metaInput || (criteria.metaInput.toLowerCase() === "yes" && patientData.mts === "true") || (criteria.metaInput.toLowerCase() === "no" && patientData.mts === "false");
                     if (!metaInputMatch) continue;
 
                     const nactMatch =
@@ -3605,11 +3547,7 @@
                     const cancerTypeMatch = patientData.ct.toLowerCase() === criteria.cancerTypeInput.toLowerCase();
                     if (!cancerTypeMatch) continue;
 
-                    const metaInputMatch =
-                      criteria.metaInput === "All" ||
-                      !criteria.metaInput ||
-                      (criteria.metaInput === "Yes" && patientData.mts === "true") ||
-                      (criteria.metaInput === "No" && patientData.mts === "false");
+                    const metaInputMatch = criteria.metaInput === "All" || !criteria.metaInput || (criteria.metaInput === "Yes" && patientData.mts === "true") || (criteria.metaInput === "No" && patientData.mts === "false");
                     if (!metaInputMatch) continue;
 
                     const nactMatch =
@@ -6511,13 +6449,7 @@
               "Subserosal involvement": row?.sefData?.md?.subInv || "-",
               "Cervical Involvement": ci_endm(row?.sefData?.md?.cer) || "-",
               "Cervical Involvement (Cannot be determined)": row?.sefData?.md?.cerDetail || "-",
-              "Percentage of Cervical Wall Involved": row?.sefData?.md?.pcwi
-                ? row?.sefData?.md?.pcwi === "percentage"
-                  ? "Specify percentage"
-                  : row?.sefData?.md?.pcwi === "explain"
-                    ? "Cannot be determined"
-                    : "-"
-                : "-",
+              "Percentage of Cervical Wall Involved": row?.sefData?.md?.pcwi ? (row?.sefData?.md?.pcwi === "percentage" ? "Specify percentage" : row?.sefData?.md?.pcwi === "explain" ? "Cannot be determined" : "-") : "-",
               "Percentage of Cervical Wall Involved (Other)": row?.sefData?.md?.pcwiOther || "-",
               "Other Tissue / Organ Involvement (select all that apply)": ot_endm(row?.sefData?.md?.ot) || "-",
               "Other Tissue / Organ Involvement (Other organs / tissue)": getData(row?.sefData?.md?.ot, "op14") || "-",

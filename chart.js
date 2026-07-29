@@ -66,14 +66,14 @@ function ageChart(countUnder30, count30to40, count41to50, count51to60, countAbov
   }
 }
 
-function cancerChart(breastCancer, ceixCancer, endmCancer, ovryCancer, heneCancer, lungCancer) {
+function cancerChart(data) {
   var chartDom = document.getElementById("chart2");
 
   var myChart = echarts.init(chartDom);
   myChart.clear();
   var option;
 
-  if (breastCancer === 0 && ceixCancer === 0 && endmCancer === 0 && ovryCancer === 0 && heneCancer === 0 && lungCancer === 0) {
+  if (data.every((item) => item.value === 0)) {
     option = {
       title: {
         text: "No Data Available",
@@ -120,14 +120,7 @@ function cancerChart(breastCancer, ceixCancer, endmCancer, ovryCancer, heneCance
           labelLine: {
             show: false,
           },
-          data: [
-            { value: breastCancer, name: "Breast" },
-            { value: ceixCancer, name: "Cervix" },
-            { value: endmCancer, name: "Endometrial" },
-            { value: ovryCancer, name: "Ovary" },
-            { value: heneCancer, name: "Head & Neck" },
-            { value: lungCancer, name: "Lung" },
-          ],
+          data: data,
         },
       ],
     };
