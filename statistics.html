@@ -466,7 +466,7 @@
                     });
                   });
 
-                  const allCancerTypes = [
+                  let allCancerTypes = [
                     { value: breastCancer, name: "Breast" },
                     { value: ceixCancer, name: "Cervix" },
                     { value: endmCancer, name: "Endometrial" },
@@ -478,6 +478,8 @@
                     { value: analCancer, name: "Anal" },
                     { value: gastricCancer, name: "Gastric" },
                   ];
+                  allCancerTypes = allCancerTypes.filter((cancer) => cancer.value > 0);
+                  allCancerTypes = allCancerTypes.sort((a, b) => b.value - a.value);
                   document.getElementById("samples").innerHTML = count;
 
                   ageChart(countUnder30, count30to39, count40to49, count50to59, countAbove60);
