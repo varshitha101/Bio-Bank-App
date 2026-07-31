@@ -13124,7 +13124,7 @@ function fetchPendingEntries() {
             const ct = patient.ct;
             const differenceInMinutes = (currentTime - timestamp) / (60 * 1000);
             const histResult =
-              ct === "brst" || ct === "endm"
+              ct === "brst" || ct === "endm" || ct === "colo" || ct === "anal" || ct === "esph"
                 ? dataEntry?.md?.pst === ""
                 : ct === "ceix" || ct === "ovry"
                   ? !dataEntry?.md?.hasOwnProperty("pst")
@@ -13132,7 +13132,9 @@ function fetchPendingEntries() {
                     ? !dataEntry?.md?.hasOwnProperty("pst") && dataEntry?.md?.pt === ""
                     : ct === "lung"
                       ? dataEntry?.md?.pt === ""
-                      : false;
+                      : ct === "gast"
+                        ? dataEntry?.md?.pt === "" && dataEntry?.md?.pst === ""
+                        : false;
             const res = dataEntry && histResult && differenceInMinutes > sevenDaysInMinutes;
             if (res) {
               tableData.push({
