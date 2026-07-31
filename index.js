@@ -4974,8 +4974,140 @@ function validateForm2() {
     };
     return form2Data;
   } else if (cancer_type === "gast") {
+    const tumorSize = getTumorSize(cancer_type);
+    const medResults = getCVSYM(cancer_type);
+    const cMIC = document.querySelector('input[name="cMIC_op1_gast"]:checked')?.value || "";
+    let cmICOth = "";
+    if (cMIC === "op1") cmICOth = document.getElementById("cMIC_op1_op1_text_gast")?.value || "";
+    if (cMIC === "op2") cmICOth = document.getElementById("cMIC_op1_op2_text_gast")?.value || "";
+    if (cMIC === "op3") cmICOth = document.getElementById("cMIC_op1_op3_text_gast")?.value || "";
+    if (cMIC === "op4") cmICOth = document.getElementById("cMIC_op1_op4_text_gast")?.value || "";
+    if (cMIC === "op5") cmICOth = document.getElementById("cMIC_op1_op5_text_gast")?.value || "";
+    if (cMIC === "op6") cmICOth = document.getElementById("cMIC_op1_op6_text_gast")?.value || "";
+    if (cMIC === "op7") cmICOth = document.getElementById("cMIC_op1_op7_text_gast")?.value || "";
+
+    const dITCSM = document.querySelector('input[name="dITCSM_op1_gast"]:checked')?.value || "";
+    let dITCSMOth = "";
+    if (dITCSM === "op1") dITCSMOth = document.getElementById("dITCSM_op1_op1_text_gast")?.value || "";
+    if (dITCSM === "op2") dITCSMOth = document.getElementById("dITCSM_op1_op2_text_gast")?.value || "";
+    if (dITCSM === "op4") dITCSMOth = document.getElementById("dITCSM_op1_op4_text_gast")?.value || "";
+    if (dITCSM === "op5") dITCSMOth = document.getElementById("dITCSM_op1_op5_text_gast")?.value || "";
+    if (dITCSM === "op8") dITCSMOth = document.getElementById("dITCSM_op1_op8_text_gast")?.value || "";
+    if (dITCSM === "op9") dITCSMOth = document.getElementById("dITCSM_op1_op9_text_gast")?.value || "";
+
+    const smIIT = document.querySelector('input[name="smIIT_gast"]:checked')?.value || "";
+    let sMIITOth = "";
+    if (smIIT === "op1") sMIITOth = document.getElementById("smIIT_op1_text_gast")?.value || "";
+    if (smIIT === "op2") sMIITOth = document.getElementById("smIIT_op2_text_gast")?.value || "";
+    if (smIIT === "op3") sMIITOth = document.getElementById("smIIT_op3_text_gast")?.value || "";
+    if (smIIT === "op4") sMIITOth = document.getElementById("smIIT_op4_text_gast")?.value || "";
+    if (smIIT === "op5") sMIITOth = document.getElementById("smIIT_op5_text_gast")?.value || "";
+    if (smIIT === "op6") sMIITOth = document.getElementById("smIIT_op6_text_gast")?.value || "";
+    if (smIIT === "op7") sMIITOth = document.getElementById("smIIT_op7_text_gast")?.value || "";
+    const mststDIM = document.getElementById("mststDIM_gast")?.value || "";
+    const mststDIMOth = document.getElementById("mststDIM_text_gast")?.value || "";
+    const mststDIMAdd = [];
+
+    const dimMap = {
+      op2: "mILGSD",
+      op3: "mIHGSD",
+      op4: "mILGGD",
+      op5: "mIHGGD",
+      op6: "mIIM",
+    };
+
+    const prefix = dimMap[mststDIM];
+
+    if (prefix) {
+      document.querySelectorAll(`input[name="${prefix}_gast"]:checked`).forEach((cb) => {
+        const item = {
+          op: cb.value,
+        };
+
+        const otherInput = document.getElementById(`${prefix}_${cb.value}_text_gast`);
+        const val = otherInput?.value.trim();
+
+        if (val) {
+          item.text = val;
+        }
+
+        mststDIMAdd.push(item);
+      });
+    }
+    const tst = document.getElementById("tumor_gast")?.value || "";
+    const tstOth = ["op1", "op5", "op6"].includes(tst) ? document.getElementById("tumor_Oth_gast").value || "" : "";
+    let tsub = "";
+    tsub = ["op2"].includes(tst) ? document.getElementById("tumorSubSite_op2_gast").value || "" : "";
+    tsub = ["op3", "op4"].includes(tst) ? document.getElementById("tumorSubSite_op3_op4_gast").value || "" : "";
     const form2Data = {
-      md: {},
+      md: {
+        fhc: document.querySelector('input[name="RadioFHabit_gast"]:checked')?.value || "",
+        fhcr: document.getElementById("familyRelation_gast").value || "",
+        fhct: document.getElementById("familyCancerType_gast").value || "",
+        fh: document.querySelector('input[name="RadioFdHabit_gast"]:checked')?.value || "",
+        hac: document.querySelector('input[name="RadioAlcoholHabit_gast"]:checked')?.value || "",
+        hs: document.querySelector('input[name="RadioSmokeHabit_gast"]:checked')?.value || "",
+        ec: document.querySelector('input[name="ECH_gast"]:checked')?.value || "",
+        cm: medResults,
+        ffqc: document.getElementById("ffQcComments_gast").value || "",
+        ftr: document.getElementById("ffTissueRemarks_gast").value || "",
+        tst,
+        tstOth,
+        tsub,
+        tp: document.getElementById("tumorPercentage_gast").value || "",
+        ad: document.getElementById("ageAtDiagnosis_gast").value || "",
+        cs: document.getElementById("clinicalStage_gast")?.value || "",
+        ihcm: document.querySelector('input[name="IHC_gast"]:checked')?.value || "",
+        ihcd: document.getElementById("IHC_Description_gast")?.value || "",
+        gt: document.querySelector('input[name="GeneticT_gast"]:checked')?.value || "",
+        gtr: document.getElementById("gtr_gast")?.value || "",
+        gtd: document.getElementById("GT_Description_gast")?.value || "",
+        disTCEJ: document.getElementById("disTCEJ_gast")?.value || "",
+        disTCEJOth: document.getElementById("disTCEJ_Oth_gast")?.value || "",
+        pt: document.getElementById("pType_gast").value || "",
+        pst: document.getElementById("subType_gast").value || "",
+        gd: document.getElementById("sampleGrade_gast")?.value || "",
+        gdOth: document.getElementById("sampleGrade_Oth_gast")?.value || "",
+        tEESPH: document.getElementById("tEESPH_gast")?.value || "",
+        tEESPHOth: document.getElementById("tEESPH_Oth_gast")?.value || "",
+        tEEGAS: document.getElementById("tEEGAS_gast")?.value || "",
+        tEEGASOth: document.getElementById("tEEGAS_Oth_gast")?.value || "",
+
+        lvi: document.querySelector('input[name="LVI_gast"]:checked')?.value || "",
+        lviOth: document.querySelector('input[name="LVI_gast"]:checked')?.value ? (document.querySelector('input[name="LVI_gast"]:checked')?.value === "op3" ? document.getElementById("lviCannot_Oth_gast")?.value || "" : "") : "",
+        pni: document.querySelector('input[name="PNI_gast"]:checked')?.value || "",
+        pniOth: document.querySelector('input[name="PNI_gast"]:checked')?.value ? (document.querySelector('input[name="PNI_gast"]:checked')?.value === "op3" ? document.getElementById("pniCannot_Oth_gast")?.value || "" : "") : "",
+        smsts: document.getElementById("smsts_gast")?.value || "",
+        smstsOth: document.getElementById("smsts_text_gast")?.value || "",
+        cMIC,
+        cmICOth,
+        dITCSM,
+        dITCSMOth,
+        smIIT,
+        sMIITOth,
+        mststDIM,
+        mststDIMOth,
+        mststDIMAdd,
+        ptnm: document.getElementById("pTNM_gast")?.value || "",
+        rlnsts: document.querySelector('input[name="rlnsts_gast"]:checked')?.value || "",
+        nnt: document.getElementById("nodesTested_gast").value || "",
+        npn: document.getElementById("positiveNodes_gast").value || "",
+        af: document.getElementById("af_gast").value || "",
+        tsz: tumorSize,
+        act: document.querySelector('input[name="ACT_gast"]:checked')?.value || "",
+        actdc: document.getElementById("actDrugCycles_gast").value || "",
+        actdls: document.getElementById("actDateLastCycle_gast").value || "",
+        rd: document.querySelector('input[name="RadioT_gast"]:checked')?.value || "",
+        rdd1: document.getElementById("rtDetails1_gast").value || "",
+        rdd2: document.getElementById("rtDetails2_gast").value || "",
+        rdd3: document.getElementById("rtDetails3_gast").value || "",
+        rtdls: document.getElementById("radiotherapyLastCycleDate_gast").value || "",
+        trt: document.querySelector('input[name="tarT_gast"]:checked')?.value || "",
+        trtD: document.getElementById("Tar_Cycles_gast").value || "",
+        mdu: user,
+        ipba: document.querySelector('input[name="pbT_gast"]:checked')?.value || "",
+        ipbainfo: document.getElementById("PBInput_gast")?.value || "",
+      },
     };
     return form2Data;
   } else if (cancer_type === "colo") {
@@ -5315,8 +5447,135 @@ function validateForm2() {
     };
     return form2Data;
   } else if (cancer_type === "esph") {
+    const tumorSize = getTumorSize(cancer_type);
+    const medResults = getCVSYM(cancer_type);
+    const cMIC = document.querySelector('input[name="cMIC_op1_esph"]:checked')?.value || "";
+    let cmICOth = "";
+    if (cMIC === "op1") cmICOth = document.getElementById("cMIC_op1_op1_text_esph")?.value || "";
+    if (cMIC === "op2") cmICOth = document.getElementById("cMIC_op1_op2_text_esph")?.value || "";
+    if (cMIC === "op3") cmICOth = document.getElementById("cMIC_op1_op3_text_esph")?.value || "";
+    if (cMIC === "op4") cmICOth = document.getElementById("cMIC_op1_op4_text_esph")?.value || "";
+    if (cMIC === "op5") cmICOth = document.getElementById("cMIC_op1_op5_text_esph")?.value || "";
+    if (cMIC === "op6") cmICOth = document.getElementById("cMIC_op1_op6_text_esph")?.value || "";
+    if (cMIC === "op7") cmICOth = document.getElementById("cMIC_op1_op7_text_esph")?.value || "";
+
+    const dITCSM = document.querySelector('input[name="dITCSM_op1_esph"]:checked')?.value || "";
+    let dITCSMOth = "";
+    if (dITCSM === "op1") dITCSMOth = document.getElementById("dITCSM_op1_op1_text_esph")?.value || "";
+    if (dITCSM === "op2") dITCSMOth = document.getElementById("dITCSM_op1_op2_text_esph")?.value || "";
+    if (dITCSM === "op4") dITCSMOth = document.getElementById("dITCSM_op1_op4_text_esph")?.value || "";
+    if (dITCSM === "op5") dITCSMOth = document.getElementById("dITCSM_op1_op5_text_esph")?.value || "";
+    if (dITCSM === "op8") dITCSMOth = document.getElementById("dITCSM_op1_op8_text_esph")?.value || "";
+    if (dITCSM === "op9") dITCSMOth = document.getElementById("dITCSM_op1_op9_text_esph")?.value || "";
+
+    const smIIT = document.querySelector('input[name="smIIT_esph"]:checked')?.value || "";
+    let sMIITOth = "";
+    if (smIIT === "op1") sMIITOth = document.getElementById("smIIT_op1_text_esph")?.value || "";
+    if (smIIT === "op2") sMIITOth = document.getElementById("smIIT_op2_text_esph")?.value || "";
+    if (smIIT === "op3") sMIITOth = document.getElementById("smIIT_op3_text_esph")?.value || "";
+    if (smIIT === "op4") sMIITOth = document.getElementById("smIIT_op4_text_esph")?.value || "";
+    if (smIIT === "op5") sMIITOth = document.getElementById("smIIT_op5_text_esph")?.value || "";
+    if (smIIT === "op6") sMIITOth = document.getElementById("smIIT_op6_text_esph")?.value || "";
+    if (smIIT === "op7") sMIITOth = document.getElementById("smIIT_op7_text_esph")?.value || "";
+    const mststDIM = document.getElementById("mststDIM_esph")?.value || "";
+    const mststDIMOth = document.getElementById("mststDIM_text_esph")?.value || "";
+    const mststDIMAdd = [];
+
+    const dimMap = {
+      op2: "mILGSD",
+      op3: "mIHGSD",
+      op4: "mILGGD",
+      op5: "mIHGGD",
+      op6: "mIIM",
+    };
+
+    const prefix = dimMap[mststDIM];
+
+    if (prefix) {
+      document.querySelectorAll(`input[name="${prefix}_esph"]:checked`).forEach((cb) => {
+        const item = {
+          op: cb.value,
+        };
+
+        const otherInput = document.getElementById(`${prefix}_${cb.value}_text_esph`);
+        const val = otherInput?.value.trim();
+
+        if (val) {
+          item.text = val;
+        }
+
+        mststDIMAdd.push(item);
+      });
+    }
+
     const form2Data = {
-      md: {},
+      md: {
+        fhc: document.querySelector('input[name="RadioFHabit_esph"]:checked')?.value || "",
+        fhcr: document.getElementById("familyRelation_esph").value || "",
+        fhct: document.getElementById("familyCancerType_esph").value || "",
+        fh: document.querySelector('input[name="RadioFdHabit_esph"]:checked')?.value || "",
+        hac: document.querySelector('input[name="RadioAlcoholHabit_esph"]:checked')?.value || "",
+        hs: document.querySelector('input[name="RadioSmokeHabit_esph"]:checked')?.value || "",
+        ec: document.querySelector('input[name="ECH_esph"]:checked')?.value || "",
+        cm: medResults,
+        ffqc: document.getElementById("ffQcComments_esph").value || "",
+        ftr: document.getElementById("ffTissueRemarks_esph").value || "",
+        tst: document.getElementById("tumor_esph")?.value || "",
+        tstOth: document.getElementById("tumor_Oth_esph").value || "",
+        tp: document.getElementById("tumorPercentage_esph").value || "",
+        ad: document.getElementById("ageAtDiagnosis_esph").value || "",
+        cs: document.getElementById("clinicalStage_esph")?.value || "",
+        ihcm: document.querySelector('input[name="IHC_esph"]:checked')?.value || "",
+        ihcd: document.getElementById("IHC_Description_esph")?.value || "",
+        gt: document.querySelector('input[name="GeneticT_esph"]:checked')?.value || "",
+        gtr: document.getElementById("gtr_esph")?.value || "",
+        gtd: document.getElementById("GT_Description_esph")?.value || "",
+        disTCEJ: document.getElementById("disTCEJ_esph")?.value || "",
+        disTCEJOth: document.getElementById("disTCEJ_Oth_esph")?.value || "",
+        pst: document.getElementById("subtype_esph").value || "",
+        pstOt: document.getElementById("pstOt_esph").value || "",
+        gd: document.getElementById("sampleGrade_esph")?.value || "",
+        gdOth: document.getElementById("sampleGrade_Oth_esph")?.value || "",
+        tEESPH: document.getElementById("tEESPH_esph")?.value || "",
+        tEESPHOth: document.getElementById("tEESPH_Oth_esph")?.value || "",
+        tEEGAS: document.getElementById("tEEGAS_esph")?.value || "",
+        tEEGASOth: document.getElementById("tEEGAS_Oth_esph")?.value || "",
+
+        lvi: document.querySelector('input[name="LVI_esph"]:checked')?.value || "",
+        lviOth: document.querySelector('input[name="LVI_esph"]:checked')?.value ? (document.querySelector('input[name="LVI_esph"]:checked')?.value === "op3" ? document.getElementById("lviCannot_Oth_esph")?.value || "" : "") : "",
+        pni: document.querySelector('input[name="PNI_esph"]:checked')?.value || "",
+        pniOth: document.querySelector('input[name="PNI_esph"]:checked')?.value ? (document.querySelector('input[name="PNI_esph"]:checked')?.value === "op3" ? document.getElementById("pniCannot_Oth_esph")?.value || "" : "") : "",
+        smsts: document.getElementById("smsts_esph")?.value || "",
+        smstsOth: document.getElementById("smsts_text_esph")?.value || "",
+        cMIC,
+        cmICOth,
+        dITCSM,
+        dITCSMOth,
+        smIIT,
+        sMIITOth,
+        mststDIM,
+        mststDIMOth,
+        mststDIMAdd,
+        ptnm: document.getElementById("pTNM_esph")?.value || "",
+        rlnsts: document.querySelector('input[name="rlnsts_esph"]:checked')?.value || "",
+        nnt: document.getElementById("nodesTested_esph").value || "",
+        npn: document.getElementById("positiveNodes_esph").value || "",
+        af: document.getElementById("af_esph").value || "",
+        tsz: tumorSize,
+        act: document.querySelector('input[name="ACT_esph"]:checked')?.value || "",
+        actdc: document.getElementById("actDrugCycles_esph").value || "",
+        actdls: document.getElementById("actDateLastCycle_esph").value || "",
+        rd: document.querySelector('input[name="RadioT_esph"]:checked')?.value || "",
+        rdd1: document.getElementById("rtDetails1_esph").value || "",
+        rdd2: document.getElementById("rtDetails2_esph").value || "",
+        rdd3: document.getElementById("rtDetails3_esph").value || "",
+        rtdls: document.getElementById("radiotherapyLastCycleDate_esph").value || "",
+        trt: document.querySelector('input[name="tarT_esph"]:checked')?.value || "",
+        trtD: document.getElementById("Tar_Cycles_esph").value || "",
+        mdu: user,
+        ipba: document.querySelector('input[name="pbT_esph"]:checked')?.value || "",
+        ipbainfo: document.getElementById("PBInput_esph")?.value || "",
+      },
     };
     return form2Data;
   }
@@ -5436,22 +5695,60 @@ function validateForm3() {
     return form3Data;
   } else if (cancer_type === "gast") {
     const form3Data = {
-      brf: {},
+      brf: {
+        her2IHC: document.querySelector('input[name="her2IHC_gast"]:checked')?.value || "",
+        herF: document.querySelector('input[name="herF_gast"]:checked')?.value || "",
+        pcsm: document.getElementById("pcsm_gast")?.value || "",
+        pcvm: document.getElementById("pcvm_gast")?.value || "",
+        gtfu: user,
+      },
     };
     return form3Data;
   } else if (cancer_type === "colo") {
+    const res = [];
+    document.querySelectorAll('input[name="msiIHC_colo"]').forEach((cb) => {
+      if (cb.checked) {
+        res.push(cb.value);
+      }
+    });
+    const msiIHC = res.length > 0 ? res.join(",") : "";
     const form3Data = {
-      brf: {},
+      brf: {
+        msiIHC,
+        othM: document.getElementById("othM_colo")?.value || "",
+        pcsm: document.getElementById("pcsm_colo")?.value || "",
+        pcvm: document.getElementById("pcvm_colo")?.value || "",
+        cofu: user,
+      },
     };
     return form3Data;
   } else if (cancer_type === "anal") {
+    const res = [];
+    document.querySelectorAll('input[name="msiIHC_anal"]').forEach((cb) => {
+      if (cb.checked) {
+        res.push(cb.value);
+      }
+    });
+    const msiIHC = res.length > 0 ? res.join(",") : "";
     const form3Data = {
-      brf: {},
+      brf: {
+        msiIHC,
+        othM: document.getElementById("othM_anal")?.value || "",
+        pcsm: document.getElementById("pcsm_anal")?.value || "",
+        pcvm: document.getElementById("pcvm_anal")?.value || "",
+        anfu: user,
+      },
     };
     return form3Data;
   } else if (cancer_type === "esph") {
     const form3Data = {
-      brf: {},
+      brf: {
+        her2IHC: document.querySelector('input[name="her2IHC_esph"]:checked')?.value || "",
+        herF: document.querySelector('input[name="herF_esph"]:checked')?.value || "",
+        pcsm: document.getElementById("pcsm_esph")?.value || "",
+        pcvm: document.getElementById("pcvm_esph")?.value || "",
+        etfu: user,
+      },
     };
     return form3Data;
   }
@@ -5710,13 +6007,13 @@ function saveToFirebase(data, patientInfo) {
         formattedData = {
           ie: data.ie,
           md: data.md,
-          gsf: data.brf,
+          gtf: data.brf,
         };
       } else if (cancer_type === "esph") {
         formattedData = {
           ie: data.ie,
           md: data.md,
-          esf: data.brf,
+          etf: data.brf,
         };
       }
       db.ref(`sef/${cancer_type}/${bioBankId}/${nextSection}/${timestamp}`)
@@ -5843,13 +6140,13 @@ function updateToFirebase(data, patientInfo) {
         formattedData = {
           ie: data.ie,
           md: data.md,
-          gsf: data.brf,
+          gtf: data.brf,
         };
       } else if (cancer_type === "esph") {
         formattedData = {
           ie: data.ie,
           md: data.md,
-          esf: data.brf,
+          etf: data.brf,
         };
       }
 
@@ -8044,7 +8341,564 @@ function fillMdForm(mdData) {
   }
   ExistComorbidity();
 }
+// Espohagus Cancer
+function fillMdForm_esph(mdData) {
+  const formElements = [...document.querySelectorAll("input, select, textarea")];
+  let mode = localStorage.getItem("mode");
 
+  try {
+    if (mdData?.fhc) document.querySelector(`input[name="RadioFHabit_esph"][value="${mdData.fhc}"]`).checked = true || "";
+    familyHabitToggle();
+    document.getElementById("familyRelation_esph").value = mdData?.fhcr || "";
+    document.getElementById("familyCancerType_esph").value = mdData?.fhct || "";
+
+    if (mdData?.fh) document.querySelector(`input[name="RadioFdHabit_esph"][value="${mdData.fh}"]`).checked = true || "";
+    if (mdData?.hac) document.querySelector(`input[name="RadioAlcoholHabit_esph"][value="${mdData.hac}"]`).checked = true || "";
+    if (mdData?.hs) document.querySelector(`input[name="RadioSmokeHabit_esph"][value="${mdData.hs}"]`).checked = true || "";
+    if (mdData?.ec) document.querySelector(`input[name="ECH_esph"][value="${mdData.ec}"]`).checked = true || "";
+
+    document.getElementById("ffQcComments_esph").value = mdData?.ffqc || "";
+    document.getElementById("ffTissueRemarks_esph").value = mdData?.ftr || "";
+    document.getElementById("tumor_esph").value = mdData?.tst || "";
+    document.getElementById("tumor_Oth_esph").value = mdData?.tstOth || "";
+
+    document.getElementById("tumorPercentage_esph").value = mdData?.tp || "";
+    document.getElementById("ageAtDiagnosis_esph").value = mdData?.ad || "";
+    document.getElementById("clinicalStage_esph").value = mdData?.cs || "";
+
+    if (mdData?.ihcm) document.querySelector(`input[name="IHC_esph"][value="${mdData.ihcm}"]`).checked = true || "";
+    IHCMarker_esph();
+    document.getElementById("IHC_Description_esph").value = mdData?.ihcd || "";
+
+    if (mdData?.gt) document.querySelector(`input[name="GeneticT_esph"][value="${mdData.gt}"]`).checked = true || "";
+    GeneticT_esph();
+    document.getElementById("gtr_esph").value = mdData?.gtr || "";
+    document.getElementById("GT_Description_esph").value = mdData?.gtd || "";
+
+    document.getElementById("disTCEJ_esph").value = mdData?.disTCEJ || "";
+    document.getElementById("disTCEJ_Oth_esph").value = mdData?.disTCEJOth || "";
+
+    document.getElementById("subtype_esph").value = mdData?.pst || "";
+    document.getElementById("pstOt_esph").value = mdData?.pstOt || "";
+    document.getElementById("sampleGrade_esph").value = mdData?.gd || "";
+    document.getElementById("sampleGrade_Oth_esph").value = mdData?.gdOth || "";
+    document.getElementById("tEESPH_esph").value = mdData?.tEESPH || "";
+    document.getElementById("tEESPH_Oth_esph").value = mdData?.tEESPHOth || "";
+    document.getElementById("tEEGAS_esph").value = mdData?.tEEGAS || "";
+    document.getElementById("tEEGAS_Oth_esph").value = mdData?.tEEGASOth || "";
+
+    if (mdData?.lvi) document.querySelector(`input[name="LVI_esph"][value="${mdData.lvi}"]`).checked = true || "";
+    if (mdData?.lvi === "op3") document.getElementById("lviCannot_Oth_esph").value = mdData?.lviOth || "";
+
+    if (mdData?.pni) document.querySelector(`input[name="PNI_esph"][value="${mdData.pni}"]`).checked = true || "";
+    if (mdData?.pni === "op3") document.getElementById("pniCannot_Oth_esph").value = mdData?.pniOth || "";
+
+    document.getElementById("smsts_esph").value = mdData?.smsts || "";
+    document.getElementById("smsts_text_esph").value = mdData?.smstsOth || "";
+    //
+    if (mdData?.cMIC) document.querySelector(`input[name="cMIC_op1_esph"][value="${mdData.cMIC}"]`).checked = true || "";
+    if (mdData?.cMIC === "op1") document.getElementById("cMIC_op1_op1_text_esph").value = mdData?.cmICOth || "";
+    if (mdData?.cMIC === "op2") document.getElementById("cMIC_op1_op2_text_esph").value = mdData?.cmICOth || "";
+    if (mdData?.cMIC === "op3") document.getElementById("cMIC_op1_op3_text_esph").value = mdData?.cmICOth || "";
+    if (mdData?.cMIC === "op4") document.getElementById("cMIC_op1_op4_text_esph").value = mdData?.cmICOth || "";
+    if (mdData?.cMIC === "op5") document.getElementById("cMIC_op1_op5_text_esph").value = mdData?.cmICOth || "";
+    if (mdData?.cMIC === "op6") document.getElementById("cMIC_op1_op6_text_esph").value = mdData?.cmICOth || "";
+    if (mdData?.cMIC === "op7") document.getElementById("cMIC_op1_op7_text_esph").value = mdData?.cmICOth || "";
+
+    if (mdData?.dITCSM) document.querySelector(`input[name="dITCSM_op1_esph"][value="${mdData.dITCSM}"]`).checked = true || "";
+    if (mdData?.dITCSM === "op1") document.getElementById("dITCSM_op1_op1_text_esph").value = mdData?.dITCSMOth || "";
+    if (mdData?.dITCSM === "op2") document.getElementById("dITCSM_op1_op2_text_esph").value = mdData?.dITCSMOth || "";
+    if (mdData?.dITCSM === "op4") document.getElementById("dITCSM_op1_op4_text_esph").value = mdData?.dITCSMOth || "";
+    if (mdData?.dITCSM === "op5") document.getElementById("dITCSM_op1_op5_text_esph").value = mdData?.dITCSMOth || "";
+    if (mdData?.dITCSM === "op8") document.getElementById("dITCSM_op1_op8_text_esph").value = mdData?.dITCSMOth || "";
+    if (mdData?.dITCSM === "op9") document.getElementById("dITCSM_op1_op9_text_esph").value = mdData?.dITCSMOth || "";
+
+    if (mdData?.smIIT) document.querySelector(`input[name="smIIT_esph"][value="${mdData.smIIT}"]`).checked = true || "";
+    if (mdData?.smIIT === "op1") document.getElementById("smIIT_op1_text_esph").value = mdData?.sMIITOth || "";
+    if (mdData?.smIIT === "op2") document.getElementById("smIIT_op2_text_esph").value = mdData?.sMIITOth || "";
+    if (mdData?.smIIT === "op3") document.getElementById("smIIT_op3_text_esph").value = mdData?.sMIITOth || "";
+    if (mdData?.smIIT === "op4") document.getElementById("smIIT_op4_text_esph").value = mdData?.sMIITOth || "";
+    if (mdData?.smIIT === "op5") document.getElementById("smIIT_op5_text_esph").value = mdData?.sMIITOth || "";
+    if (mdData?.smIIT === "op6") document.getElementById("smIIT_op6_text_esph").value = mdData?.sMIITOth || "";
+    if (mdData?.smIIT === "op7") document.getElementById("smIIT_op7_text_esph").value = mdData?.sMIITOth || "";
+    document.getElementById("mststDIM_esph").value = mdData?.mststDIM || "";
+    document.getElementById("mststDIM_text_esph").value = mdData?.mststDIMOth || "";
+
+    const dimMap = {
+      op2: "mILGSD",
+      op3: "mIHGSD",
+      op4: "mILGGD",
+      op5: "mIHGGD",
+      op6: "mIIM",
+    };
+    const disMapkeys = Object.keys(dimMap);
+    if (mdData?.mststDIMAdd && disMapkeys.includes(mdData.mststDIM) && Array.isArray(mdData.mststDIMAdd)) {
+      const prefix = dimMap[mdData.mststDIM];
+
+      if (prefix && Array.isArray(mdData.mststDIMAdd)) {
+        mdData.mststDIMAdd.forEach((item) => {
+          // Check the checkbox
+          const checkbox = document.querySelector(`input[name="${prefix}_esph"][value="${item.op}"]`);
+
+          if (checkbox) {
+            checkbox.checked = true;
+            checkbox.dispatchEvent(new Event("change"));
+          }
+
+          // Fill the corresponding textbox (if any)
+          const textInput = document.getElementById(`${prefix}_${item.op}_text_esph`);
+
+          if (textInput && item.text) {
+            textInput.value = item.text;
+          }
+        });
+      }
+    }
+    //
+
+    document.getElementById("pTNM_esph").value = mdData?.ptnm || "";
+    if (mdData?.rlnsts) document.querySelector(`input[name="rlnsts_esph"][value="${mdData.rlnsts}"]`).checked = true || "";
+
+    document.getElementById("nodesTested_esph").value = mdData?.nnt || "";
+    document.getElementById("positiveNodes_esph").value = mdData?.npn || "";
+    document.getElementById("af_esph").value = mdData?.af || "";
+
+    if (mdData?.tsz) {
+      const [tL, tW, tH] = mdData?.tsz.split(/[xX]/);
+
+      document.getElementById("tumorSizeL_esph").value = tL !== undefined ? tL : "";
+      document.getElementById("tumorSizeW_esph").value = tW !== undefined ? tW : "";
+      document.getElementById("tumorSizeH_esph").value = tH !== undefined ? tH : "";
+    }
+
+    if (mdData?.act) document.querySelector(`input[name="ACT_esph"][value="${mdData.act}"]`).checked = true || "";
+    actYes_esph();
+    document.getElementById("actDrugCycles_esph").value = mdData?.actdc || "";
+    document.getElementById("actDateLastCycle_esph").value = mdData?.actdls || "";
+    if (mdData?.rd) document.querySelector(`input[name="RadioT_esph"][value="${mdData.rd}"]`).checked = true || "";
+    RadioTYes_esph();
+    document.getElementById("rtDetails1_esph").value = mdData?.rdd1 || "";
+    document.getElementById("rtDetails2_esph").value = mdData?.rdd2 || "";
+    document.getElementById("rtDetails3_esph").value = mdData?.rdd3 || "";
+    document.getElementById("radiotherapyLastCycleDate_esph").value = mdData?.rtdls || "";
+
+    if (mdData?.trt) document.querySelector(`input[name="tarT_esph"][value="${mdData.trt}"]`).checked = true || "";
+    document.getElementById("Tar_Cycles_esph").value = mdData?.trtD || "";
+
+    if (mdData?.ipba) document.querySelector(`input[name="pbT_esph"][value="${mdData.ipba}"]`).checked = true || "";
+    document.getElementById("PBInput_esph").value = mdData?.ipbainfo || "";
+    document.getElementById("mddataEB_esph").value = mdData?.mdu || "";
+
+    if (mdData?.cm) {
+      let comMed = mdData?.cm;
+      const dropdownContainer = document.getElementById("cvSym_esph");
+
+      Object.keys(comMed).forEach((info) => {
+        const data = comMed[info];
+
+        const newDiv = document.createElement("div");
+        const newDiv1 = document.createElement("div");
+        const newDiv2 = document.createElement("div");
+
+        newDiv.classList.add("col-sm-3", "mt-2", "cmd_esph");
+        newDiv1.classList.add("col-sm-8", "mt-2", "cmd_esph");
+        newDiv2.classList.add("col-sm-1", "mt-2", "pr-4", "cmd_esph");
+        const newSelect = document.createElement("select");
+        const inputWrapper = document.createElement("div"); // This holds one or two inputs
+        inputWrapper.classList.add("form-row");
+
+        newSelect.classList.add("form-control");
+
+        const options = [
+          { value: "", text: "" },
+          { value: "Diabetic", text: "Type 2 Diabetic Mellitus" },
+          { value: "Cardiac", text: "Cardiac" },
+          { value: "Hypertension", text: "Hypertension" },
+          { value: "Other", text: "Other" },
+        ];
+
+        options.forEach((optionData) => {
+          const option = document.createElement("option");
+          option.value = optionData.value;
+          option.textContent = optionData.text;
+          if (optionData.value === data.selectedOption) {
+            option.selected = true;
+          }
+          newSelect.appendChild(option);
+        });
+        if (data.selectedOption === "Other") {
+          const otherInput1 = document.createElement("input");
+          const otherInput2 = document.createElement("input");
+
+          otherInput1.classList.add("form-control", "col-sm-6");
+          otherInput2.classList.add("form-control", "col-sm-6");
+
+          otherInput1.type = "text";
+          otherInput2.type = "text";
+
+          otherInput1.placeholder = "Comorbidity";
+          otherInput2.placeholder = "Medicines";
+
+          otherInput1.value = data.textValue.input1 || "";
+          otherInput2.value = data.textValue.input2 || "";
+
+          inputWrapper.appendChild(otherInput1);
+          inputWrapper.appendChild(otherInput2);
+        } else {
+          const defaultInput = document.createElement("input");
+          defaultInput.classList.add("form-control");
+          defaultInput.type = "text";
+          defaultInput.placeholder = "Medicines";
+          defaultInput.value = data.textValue || "";
+          inputWrapper.appendChild(defaultInput);
+        }
+
+        newDiv2.style.display = "flex";
+        newDiv2.style.flexDirection = "row-reverse";
+        const imgGroup = document.createElement("div");
+        imgGroup.classList.add("input-group-append");
+
+        const img1 = document.createElement("img");
+        img1.src = "assets/images/delete-2.svg";
+        img1.id = "cvSymRemBtn";
+        img1.style.height = "36px";
+        img1.style.width = "36px";
+        img1.style.marginTop = "-2px";
+        img1.style.cursor = "pointer";
+        img1.addEventListener("click", function () {
+          dropdownContainer.removeChild(newDiv);
+          dropdownContainer.removeChild(newDiv1);
+          dropdownContainer.removeChild(newDiv2);
+        });
+
+        imgGroup.appendChild(img1);
+
+        newDiv.appendChild(newSelect);
+        newDiv1.appendChild(inputWrapper);
+        newDiv2.appendChild(imgGroup);
+
+        dropdownContainer.appendChild(newDiv);
+        dropdownContainer.appendChild(newDiv1);
+
+        if (mode === "SearchView" || mode === "PendingView" || mode === "EditFollowUps") {
+          const inputs = dropdownContainer.querySelectorAll("input, select");
+          inputs.forEach((input) => (input.disabled = true));
+        }
+
+        if (mode !== "SearchView" && mode !== "PendingView") {
+          dropdownContainer.appendChild(newDiv2);
+        }
+        newSelect.addEventListener("change", function () {
+          inputWrapper.innerHTML = "";
+
+          if (this.value === "Other") {
+            const otherInput1 = document.createElement("input");
+            const otherInput2 = document.createElement("input");
+
+            otherInput1.classList.add("form-control", "col-sm-6");
+            otherInput2.classList.add("form-control", "col-sm-6");
+
+            otherInput1.value = data.input1 || "";
+            otherInput2.value = data.input2 || "";
+
+            inputWrapper.appendChild(otherInput1);
+            inputWrapper.appendChild(otherInput2);
+          } else {
+            const defaultInput = document.createElement("input");
+            defaultInput.classList.add("form-control");
+            defaultInput.type = "text";
+            defaultInput.placeholder = "Medicines";
+            inputWrapper.appendChild(defaultInput);
+          }
+        });
+      });
+    }
+    ExistComorbidity();
+  } catch (e) {
+    console.error("Error in filling radio buttons:", e);
+  }
+}
+// Gastric Cancer
+function fillMdForm_gast(mdData) {
+  const formElements = [...document.querySelectorAll("input, select, textarea")];
+  let mode = localStorage.getItem("mode");
+
+  try {
+    if (mdData?.fhc) document.querySelector(`input[name="RadioFHabit_gast"][value="${mdData.fhc}"]`).checked = true || "";
+    familyHabitToggle();
+    document.getElementById("familyRelation_gast").value = mdData?.fhcr || "";
+    document.getElementById("familyCancerType_gast").value = mdData?.fhct || "";
+
+    if (mdData?.fh) document.querySelector(`input[name="RadioFdHabit_gast"][value="${mdData.fh}"]`).checked = true || "";
+    if (mdData?.hac) document.querySelector(`input[name="RadioAlcoholHabit_gast"][value="${mdData.hac}"]`).checked = true || "";
+    if (mdData?.hs) document.querySelector(`input[name="RadioSmokeHabit_gast"][value="${mdData.hs}"]`).checked = true || "";
+    if (mdData?.ec) document.querySelector(`input[name="ECH_gast"][value="${mdData.ec}"]`).checked = true || "";
+
+    document.getElementById("ffQcComments_gast").value = mdData?.ffqc || "";
+    document.getElementById("ffTissueRemarks_gast").value = mdData?.ftr || "";
+    document.getElementById("tumor_gast").value = mdData?.tst || "";
+    document.getElementById("tumor_gast").dispatchEvent(new Event("change"));
+    document.getElementById("tumor_Oth_gast").value = mdData?.tstOth || "";
+    document.getElementById("tumorSubSite_op2_gast").value = mdData?.tsub || "";
+    document.getElementById("tumorSubSite_op3_op4_gast").value = mdData?.tsub || "";
+    document.getElementById("tumorPercentage_gast").value = mdData?.tp || "";
+    document.getElementById("ageAtDiagnosis_gast").value = mdData?.ad || "";
+    document.getElementById("clinicalStage_gast").value = mdData?.cs || "";
+
+    if (mdData?.ihcm) document.querySelector(`input[name="IHC_gast"][value="${mdData.ihcm}"]`).checked = true || "";
+    IHCMarker_gast();
+    document.getElementById("IHC_Description_gast").value = mdData?.ihcd || "";
+
+    if (mdData?.gt) document.querySelector(`input[name="GeneticT_gast"][value="${mdData.gt}"]`).checked = true || "";
+    GeneticT_gast();
+    document.getElementById("gtr_gast").value = mdData?.gtr || "";
+    document.getElementById("GT_Description_gast").value = mdData?.gtd || "";
+
+    document.getElementById("disTCEJ_gast").value = mdData?.disTCEJ || "";
+    document.getElementById("disTCEJ_Oth_gast").value = mdData?.disTCEJOth || "";
+
+    document.getElementById("pType_gast").value = mdData?.pt || "";
+    document.getElementById("pType_gast").dispatchEvent(new Event("change"));
+    document.getElementById("subType_gast").value = mdData?.pst || "";
+    document.getElementById("sampleGrade_gast").value = mdData?.gd || "";
+    document.getElementById("sampleGrade_Oth_gast").value = mdData?.gdOth || "";
+    document.getElementById("tEESPH_gast").value = mdData?.tEESPH || "";
+    document.getElementById("tEESPH_Oth_gast").value = mdData?.tEESPHOth || "";
+    document.getElementById("tEEGAS_gast").value = mdData?.tEEGAS || "";
+    document.getElementById("tEEGAS_Oth_gast").value = mdData?.tEEGASOth || "";
+
+    if (mdData?.lvi) document.querySelector(`input[name="LVI_gast"][value="${mdData.lvi}"]`).checked = true || "";
+    if (mdData?.lvi === "op3") document.getElementById("lviCannot_Oth_gast").value = mdData?.lviOth || "";
+
+    if (mdData?.pni) document.querySelector(`input[name="PNI_gast"][value="${mdData.pni}"]`).checked = true || "";
+    if (mdData?.pni === "op3") document.getElementById("pniCannot_Oth_gast").value = mdData?.pniOth || "";
+
+    document.getElementById("smsts_gast").value = mdData?.smsts || "";
+    document.getElementById("smsts_text_gast").value = mdData?.smstsOth || "";
+    //
+    if (mdData?.cMIC) document.querySelector(`input[name="cMIC_op1_gast"][value="${mdData.cMIC}"]`).checked = true || "";
+    if (mdData?.cMIC === "op1") document.getElementById("cMIC_op1_op1_text_gast").value = mdData?.cmICOth || "";
+    if (mdData?.cMIC === "op2") document.getElementById("cMIC_op1_op2_text_gast").value = mdData?.cmICOth || "";
+    if (mdData?.cMIC === "op3") document.getElementById("cMIC_op1_op3_text_gast").value = mdData?.cmICOth || "";
+    if (mdData?.cMIC === "op4") document.getElementById("cMIC_op1_op4_text_gast").value = mdData?.cmICOth || "";
+    if (mdData?.cMIC === "op5") document.getElementById("cMIC_op1_op5_text_gast").value = mdData?.cmICOth || "";
+    if (mdData?.cMIC === "op6") document.getElementById("cMIC_op1_op6_text_gast").value = mdData?.cmICOth || "";
+    if (mdData?.cMIC === "op7") document.getElementById("cMIC_op1_op7_text_gast").value = mdData?.cmICOth || "";
+
+    if (mdData?.dITCSM) document.querySelector(`input[name="dITCSM_op1_gast"][value="${mdData.dITCSM}"]`).checked = true || "";
+    if (mdData?.dITCSM === "op1") document.getElementById("dITCSM_op1_op1_text_gast").value = mdData?.dITCSMOth || "";
+    if (mdData?.dITCSM === "op2") document.getElementById("dITCSM_op1_op2_text_gast").value = mdData?.dITCSMOth || "";
+    if (mdData?.dITCSM === "op4") document.getElementById("dITCSM_op1_op4_text_gast").value = mdData?.dITCSMOth || "";
+    if (mdData?.dITCSM === "op5") document.getElementById("dITCSM_op1_op5_text_gast").value = mdData?.dITCSMOth || "";
+    if (mdData?.dITCSM === "op8") document.getElementById("dITCSM_op1_op8_text_gast").value = mdData?.dITCSMOth || "";
+    if (mdData?.dITCSM === "op9") document.getElementById("dITCSM_op1_op9_text_gast").value = mdData?.dITCSMOth || "";
+
+    if (mdData?.smIIT) document.querySelector(`input[name="smIIT_gast"][value="${mdData.smIIT}"]`).checked = true || "";
+    if (mdData?.smIIT === "op1") document.getElementById("smIIT_op1_text_gast").value = mdData?.sMIITOth || "";
+    if (mdData?.smIIT === "op2") document.getElementById("smIIT_op2_text_gast").value = mdData?.sMIITOth || "";
+    if (mdData?.smIIT === "op3") document.getElementById("smIIT_op3_text_gast").value = mdData?.sMIITOth || "";
+    if (mdData?.smIIT === "op4") document.getElementById("smIIT_op4_text_gast").value = mdData?.sMIITOth || "";
+    if (mdData?.smIIT === "op5") document.getElementById("smIIT_op5_text_gast").value = mdData?.sMIITOth || "";
+    if (mdData?.smIIT === "op6") document.getElementById("smIIT_op6_text_gast").value = mdData?.sMIITOth || "";
+    if (mdData?.smIIT === "op7") document.getElementById("smIIT_op7_text_gast").value = mdData?.sMIITOth || "";
+    document.getElementById("mststDIM_gast").value = mdData?.mststDIM || "";
+    document.getElementById("mststDIM_text_gast").value = mdData?.mststDIMOth || "";
+
+    const dimMap = {
+      op2: "mILGSD",
+      op3: "mIHGSD",
+      op4: "mILGGD",
+      op5: "mIHGGD",
+      op6: "mIIM",
+    };
+    const disMapkeys = Object.keys(dimMap);
+    if (mdData?.mststDIMAdd && disMapkeys.includes(mdData.mststDIM) && Array.isArray(mdData.mststDIMAdd)) {
+      const prefix = dimMap[mdData.mststDIM];
+
+      if (prefix && Array.isArray(mdData.mststDIMAdd)) {
+        mdData.mststDIMAdd.forEach((item) => {
+          // Check the checkbox
+          const checkbox = document.querySelector(`input[name="${prefix}_gast"][value="${item.op}"]`);
+
+          if (checkbox) {
+            checkbox.checked = true;
+            checkbox.dispatchEvent(new Event("change"));
+          }
+
+          // Fill the corresponding textbox (if any)
+          const textInput = document.getElementById(`${prefix}_${item.op}_text_gast`);
+
+          if (textInput && item.text) {
+            textInput.value = item.text;
+          }
+        });
+      }
+    }
+    //
+
+    document.getElementById("pTNM_gast").value = mdData?.ptnm || "";
+    if (mdData.rlnsts) document.querySelector(`input[name="rlnsts_gast"][value="${mdData.rlnsts}"]`).checked = true || "";
+
+    document.getElementById("nodesTested_gast").value = mdData.nnt || "";
+    document.getElementById("positiveNodes_gast").value = mdData.npn || "";
+    document.getElementById("af_gast").value = mdData.af || "";
+
+    if (mdData.tsz) {
+      const [tL, tW, tH] = mdData.tsz.split(/[xX]/);
+
+      document.getElementById("tumorSizeL_gast").value = tL !== undefined ? tL : "";
+      document.getElementById("tumorSizeW_gast").value = tW !== undefined ? tW : "";
+      document.getElementById("tumorSizeH_gast").value = tH !== undefined ? tH : "";
+    }
+
+    if (mdData.act) document.querySelector(`input[name="ACT_gast"][value="${mdData.act}"]`).checked = true || "";
+    actYes_gast();
+    document.getElementById("actDrugCycles_gast").value = mdData.actdc || "";
+    document.getElementById("actDateLastCycle_gast").value = mdData.actdls || "";
+    if (mdData.rd) document.querySelector(`input[name="RadioT_gast"][value="${mdData.rd}"]`).checked = true || "";
+    RadioTYes_gast();
+    document.getElementById("rtDetails1_gast").value = mdData.rdd1 || "";
+    document.getElementById("rtDetails2_gast").value = mdData.rdd2 || "";
+    document.getElementById("rtDetails3_gast").value = mdData.rdd3 || "";
+    document.getElementById("radiotherapyLastCycleDate_gast").value = mdData.rtdls || "";
+
+    if (mdData.trt) document.querySelector(`input[name="tarT_gast"][value="${mdData.trt}"]`).checked = true || "";
+    document.getElementById("Tar_Cycles_gast").value = mdData.trtD || "";
+
+    if (mdData.ipba) document.querySelector(`input[name="pbT_gast"][value="${mdData.ipba}"]`).checked = true || "";
+    document.getElementById("PBInput_gast").value = mdData.ipbainfo || "";
+    document.getElementById("mddataEB_gast").value = mdData.mdu || "";
+
+    if (mdData.cm) {
+      let comMed = mdData.cm;
+      const dropdownContainer = document.getElementById("cvSym_gast");
+
+      Object.keys(comMed).forEach((info) => {
+        const data = comMed[info];
+
+        const newDiv = document.createElement("div");
+        const newDiv1 = document.createElement("div");
+        const newDiv2 = document.createElement("div");
+
+        newDiv.classList.add("col-sm-3", "mt-2", "cmd_gast");
+        newDiv1.classList.add("col-sm-8", "mt-2", "cmd_gast");
+        newDiv2.classList.add("col-sm-1", "mt-2", "pr-4", "cmd_gast");
+        const newSelect = document.createElement("select");
+        const inputWrapper = document.createElement("div"); // This holds one or two inputs
+        inputWrapper.classList.add("form-row");
+
+        newSelect.classList.add("form-control");
+
+        const options = [
+          { value: "", text: "" },
+          { value: "Diabetic", text: "Type 2 Diabetic Mellitus" },
+          { value: "Cardiac", text: "Cardiac" },
+          { value: "Hypertension", text: "Hypertension" },
+          { value: "Other", text: "Other" },
+        ];
+
+        options.forEach((optionData) => {
+          const option = document.createElement("option");
+          option.value = optionData.value;
+          option.textContent = optionData.text;
+          if (optionData.value === data.selectedOption) {
+            option.selected = true;
+          }
+          newSelect.appendChild(option);
+        });
+        if (data.selectedOption === "Other") {
+          const otherInput1 = document.createElement("input");
+          const otherInput2 = document.createElement("input");
+
+          otherInput1.classList.add("form-control", "col-sm-6");
+          otherInput2.classList.add("form-control", "col-sm-6");
+
+          otherInput1.type = "text";
+          otherInput2.type = "text";
+
+          otherInput1.placeholder = "Comorbidity";
+          otherInput2.placeholder = "Medicines";
+
+          otherInput1.value = data.textValue.input1 || "";
+          otherInput2.value = data.textValue.input2 || "";
+
+          inputWrapper.appendChild(otherInput1);
+          inputWrapper.appendChild(otherInput2);
+        } else {
+          const defaultInput = document.createElement("input");
+          defaultInput.classList.add("form-control");
+          defaultInput.type = "text";
+          defaultInput.placeholder = "Medicines";
+          defaultInput.value = data.textValue || "";
+          inputWrapper.appendChild(defaultInput);
+        }
+
+        newDiv2.style.display = "flex";
+        newDiv2.style.flexDirection = "row-reverse";
+        const imgGroup = document.createElement("div");
+        imgGroup.classList.add("input-group-append");
+
+        const img1 = document.createElement("img");
+        img1.src = "assets/images/delete-2.svg";
+        img1.id = "cvSymRemBtn";
+        img1.style.height = "36px";
+        img1.style.width = "36px";
+        img1.style.marginTop = "-2px";
+        img1.style.cursor = "pointer";
+        img1.addEventListener("click", function () {
+          dropdownContainer.removeChild(newDiv);
+          dropdownContainer.removeChild(newDiv1);
+          dropdownContainer.removeChild(newDiv2);
+        });
+
+        imgGroup.appendChild(img1);
+
+        newDiv.appendChild(newSelect);
+        newDiv1.appendChild(inputWrapper);
+        newDiv2.appendChild(imgGroup);
+
+        dropdownContainer.appendChild(newDiv);
+        dropdownContainer.appendChild(newDiv1);
+
+        if (mode === "SearchView" || mode === "PendingView" || mode === "EditFollowUps") {
+          const inputs = dropdownContainer.querySelectorAll("input, select");
+          inputs.forEach((input) => (input.disabled = true));
+        }
+
+        if (mode !== "SearchView" && mode !== "PendingView") {
+          dropdownContainer.appendChild(newDiv2);
+        }
+        newSelect.addEventListener("change", function () {
+          inputWrapper.innerHTML = "";
+
+          if (this.value === "Other") {
+            const otherInput1 = document.createElement("input");
+            const otherInput2 = document.createElement("input");
+
+            otherInput1.classList.add("form-control", "col-sm-6");
+            otherInput2.classList.add("form-control", "col-sm-6");
+
+            otherInput1.value = data.input1 || "";
+            otherInput2.value = data.input2 || "";
+
+            inputWrapper.appendChild(otherInput1);
+            inputWrapper.appendChild(otherInput2);
+          } else {
+            const defaultInput = document.createElement("input");
+            defaultInput.classList.add("form-control");
+            defaultInput.type = "text";
+            defaultInput.placeholder = "Medicines";
+            inputWrapper.appendChild(defaultInput);
+          }
+        });
+      });
+    }
+    ExistComorbidity();
+  } catch (e) {
+    console.error("Error in filling radio buttons:", e);
+  }
+}
+// Anal Cancer
 function fillMdForm_anal(mdData) {
   const formElements = [...document.querySelectorAll("input, select, textarea")];
   let mode = localStorage.getItem("mode");
@@ -8348,6 +9202,7 @@ function fillMdForm_anal(mdData) {
     console.error("Error in filling radio buttons:", e);
   }
 }
+// Colorectal Cancer
 function fillMdForm_colo(mdData) {
   const formElements = [...document.querySelectorAll("input, select, textarea")];
   let mode = localStorage.getItem("mode");
@@ -10551,6 +11406,70 @@ function fillBrfForm(brfData) {
     document.getElementById("HistologicalS").value = brfData.ht || "";
     document.getElementById("sps").value = brfData.sps || "";
     document.getElementById("brfdataEB").value = brfData.brfu || "";
+  } catch (e) {
+    console.error("Error in filling brf radio buttons:", e);
+  }
+}
+function fillBrfForm_gast(brfData) {
+  try {
+    if (brfData?.her2IHC) {
+      document.querySelector(`input[name="her2IHC_gast"][value="${brfData.her2IHC}"]`).checked = true || "";
+    }
+    if (brfData?.herF) {
+      document.querySelector(`input[name="herF_gast"][value="${brfData.herF}"]`).checked = true || "";
+    }
+    document.getElementById("pcsm_gast").value = brfData.pcsm || "";
+    document.getElementById("pcvm_gast").value = brfData.pcvm || "";
+    document.getElementById("brfdataEB_gast").value = brfData.gtfu || "";
+  } catch (e) {
+    console.error("Error in filling brf radio buttons:", e);
+  }
+}
+function fillBrfForm_esph(brfData) {
+  try {
+    if (brfData?.her2IHC) {
+      document.querySelector(`input[name="her2IHC_esph"][value="${brfData.her2IHC}"]`).checked = true || "";
+    }
+    if (brfData?.herF) {
+      document.querySelector(`input[name="herF_esph"][value="${brfData.herF}"]`).checked = true || "";
+    }
+    document.getElementById("pcsm_esph").value = brfData.pcsm || "";
+    document.getElementById("pcvm_esph").value = brfData.pcvm || "";
+    document.getElementById("brfdataEB_esph").value = brfData.etfu || "";
+  } catch (e) {
+    console.error("Error in filling brf radio buttons:", e);
+  }
+}
+function fillBrfForm_anal(brfData) {
+  try {
+    if (brfData?.msiIHC) {
+      const data = brfData.msiIHC.split(",");
+      data.forEach((value) => {
+        document.querySelector(`input[name="msiIHC_anal"][value="${value}"]`).checked = true || "";
+      });
+    }
+    document.getElementById("othM_anal").value = brfData.othM || "";
+
+    document.getElementById("pcsm_anal").value = brfData.pcsm || "";
+    document.getElementById("pcvm_anal").value = brfData.pcvm || "";
+    document.getElementById("brfdataEB_anal").value = brfData.anfu || "";
+  } catch (e) {
+    console.error("Error in filling brf radio buttons:", e);
+  }
+}
+function fillBrfForm_colo(brfData) {
+  try {
+    if (brfData?.msiIHC) {
+      const data = brfData.msiIHC.split(",");
+      data.forEach((value) => {
+        document.querySelector(`input[name="msiIHC_colo"][value="${value}"]`).checked = true || "";
+      });
+    }
+    document.getElementById("othM_colo").value = brfData.othM || "";
+
+    document.getElementById("pcsm_colo").value = brfData.pcsm || "";
+    document.getElementById("pcvm_colo").value = brfData.pcvm || "";
+    document.getElementById("brfdataEB_colo").value = brfData.cofu || "";
   } catch (e) {
     console.error("Error in filling brf radio buttons:", e);
   }
@@ -17044,5 +17963,99 @@ function ExistComorbidity_colo() {
     Array.from(dropdownContainer).forEach((container) => {
       container.innerHTML = "";
     });
+  }
+}
+function IHCMarker_esph() {
+  if ($("#IHC_yes_esph").is(":checked")) {
+    $("#ihcDescr_esph").show();
+  } else {
+    $("#ihcDescr_esph").hide();
+    $("#IHC_Description_esph").val("");
+  }
+}
+function GeneticT_esph() {
+  if ($("#gt_yes_esph").is(":checked")) {
+    $("#dt_Desc_esph").show();
+    $("#gtrs_esph").show();
+  } else {
+    $("#dt_Desc_esph").hide();
+    $("#gtrs_esph").hide();
+    $("#gtr_esph").val("");
+    $("#GT_Description_esph").val("");
+  }
+}
+function actYes_esph() {
+  if ($("#ACTYes_esph").is(":checked")) {
+    $("#actDC_esph").show();
+    $("#actDLC_esph").show();
+  } else {
+    $("#actDC_esph").hide();
+    $("#actDLC_esph").hide();
+    $("#actDrugCycles_esph").val("");
+    $("#actDateLastCycle_esph").val("");
+  }
+}
+function RadioTYes_esph() {
+  if ($("#RTYes_esph").is(":checked")) {
+    $("#rtDC1_esph").show();
+    $("#rtDC2_esph").show();
+    $("#rtDC3_esph").show();
+    $("#rtDLC_esph").show();
+  } else {
+    $("#rtDC1_esph").hide();
+    $("#rtDC2_esph").hide();
+    $("#rtDC3_esph").hide();
+    $("#rtDLC_esph").hide();
+    $("#rtDetails1_esph").val("");
+    $("#rtDetails2_esph").val("");
+    $("#rtDetails3_esph").val("");
+    $("#rtDateOfLastCycle_esph").val("");
+  }
+}
+function IHCMarker_gast() {
+  if ($("#IHC_yes_gast").is(":checked")) {
+    $("#ihcDescr_gast").show();
+  } else {
+    $("#ihcDescr_gast").hide();
+    $("#IHC_Description_gast").val("");
+  }
+}
+function GeneticT_gast() {
+  if ($("#gt_yes_gast").is(":checked")) {
+    $("#dt_Desc_gast").show();
+    $("#gtrs_gast").show();
+  } else {
+    $("#dt_Desc_gast").hide();
+    $("#gtrs_gast").hide();
+    $("#gtr_gast").val("");
+    $("#GT_Description_gast").val("");
+  }
+}
+function actYes_gast() {
+  if ($("#ACTYes_gast").is(":checked")) {
+    $("#actDC_gast").show();
+    $("#actDLC_gast").show();
+  } else {
+    $("#actDC_gast").hide();
+    $("#actDLC_gast").hide();
+    $("#actDrugCycles_gast").val("");
+    $("#actDateLastCycle_gast").val("");
+  }
+}
+function RadioTYes_gast() {
+  if ($("#RTYes_gast").is(":checked")) {
+    $("#rtDC1_gast").show();
+    $("#rtDC2_gast").show();
+    $("#rtDC3_gast").show();
+    $("#rtDLC_gast").show();
+  } else {
+    $("#rtDC1_gast").hide();
+    $("#rtDC2_gast").hide();
+    $("#rtDC3_gast").hide();
+    $("#rtDLC_gast").hide();
+    $("#rtDetails1_gast").val("");
+    $("#rtDetails2_gast").val("");
+    $("#rtDetails3_gast").val("");
+    $("#rtDateOfLastCycle_gast").val("");
   }
 }
