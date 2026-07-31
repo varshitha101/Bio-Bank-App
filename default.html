@@ -4629,7 +4629,7 @@
                         <option value="op3">Cannot be determined</option>
                         <option value="op4">Not applicable</option>
                       </select>
-                      <input type="text" class="form-control mt-2" id="disT_Oth_esph" placeholder="" />
+                      <input type="text" class="form-control mt-2" id="disT_Oth_esph" placeholder="" disabled />
                     </div>
                   </div>
 
@@ -15333,6 +15333,1787 @@
                   </div>
                 </div>
                 <!-- Meta-Data Colorectal End -->
+
+                <!-- Meta-Data Esophagus Start -->
+                <div id="metaData_entry_esph">
+                  <div class="row ml-1 mb-3">
+                    <h3 class="col-sm-10 col-form-label">Metadata</h3>
+                    <div class="col-sm-2 mt-2 pl-5"></div>
+                  </div>
+                  <div id="mdCurrentUser_esph" style="display: none">
+                    <div class="row ml-1 mb-3">
+                      <label for="mddataEB_esph" class="col-sm-3 mb-1 col-form-label">Data Entry By </label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" id="mddataEB_esph" placeholder="" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="RadioFHabit_esph" class="col-sm-3 mb-1 col-form-label">Family History of Cancer</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="familyHistoryCancer1_esph" name="RadioFHabit_esph" class="custom-control-input" value="true" />
+                        <label class="custom-control-label" for="familyHistoryCancer1_esph">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="familyHistoryCancer2_esph" name="RadioFHabit_esph" class="custom-control-input" value="false" />
+                        <label class="custom-control-label" for="familyHistoryCancer2_esph">No</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-RadioFHabit">
+                      <!-- The icon will be dynamically inserted here -->
+                    </div>
+                  </div>
+
+                  <div class="row ml-1 mb-3" id="relation_Cancer_esph" style="display: none">
+                    <label for="familyRelation_esph" class="col-sm-3 mb-1 col-form-label">Relation and Cancer type</label>
+                    <div class="col-sm-9">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <input type="text" class="form-control" id="familyRelation_esph" placeholder="Relation" />
+                        </div>
+                        <div class="col-sm-6">
+                          <input type="text" class="form-control" id="familyCancerType_esph" placeholder="Cancer Type" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="foodHabit_esph" class="col-sm-3 mb-1 col-form-label">Food Habits</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="foodH1_esph" name="RadioFdHabit_esph" class="custom-control-input" value="true" />
+                        <label class="custom-control-label" for="foodH1_esph">Veg</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="foodH2_esph" name="RadioFdHabit_esph" class="custom-control-input" value="false" />
+                        <label class="custom-control-label" for="foodH2_esph">Non Veg</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-RadioFdHabit_esph"></div>
+                  </div>
+
+                  <div class="row ml-1 mb-3">
+                    <label for="alcoholHabit_esph" class="col-sm-3 mb-1 col-form-label">History of Alcohol Consumption</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="AlcoholH1_esph" name="RadioAlcoholHabit_esph" class="custom-control-input" value="true" />
+                        <label class="custom-control-label" for="AlcoholH1_esph">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="AlcoholH2_esph" name="RadioAlcoholHabit_esph" class="custom-control-input" value="false" />
+                        <label class="custom-control-label" for="AlcoholH2_esph">No</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-RadioAlcoholHabit_esph"></div>
+                  </div>
+
+                  <div class="row ml-1 mb-3">
+                    <label for="smokingHabit_esph" class="col-sm-3 mb-1 col-form-label">History of Smoking</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="smokeH1_esph" name="RadioSmokeHabit_esph" class="custom-control-input" value="true" />
+                        <label class="custom-control-label" for="smokeH1_esph">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="smokeH2_esph" name="RadioSmokeHabit_esph" class="custom-control-input" value="false" />
+                        <label class="custom-control-label" for="smokeH2_esph">No</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-RadioSmokeHabit_esph"></div>
+                  </div>
+
+                  <div class="row ml-1 mb-3">
+                    <label for="EComorb_esph" class="col-sm-3 mb-1 col-form-label">Existing Comorbidities</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="ECH1_esph" name="ECH_esph" class="custom-control-input" value="true" />
+                        <label class="custom-control-label" for="ECH1_esph">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="ECH2_esph" name="ECH_esph" class="custom-control-input" value="false" />
+                        <label class="custom-control-label" for="ECH2_esph">No</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-ECH_esph"></div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="cvSym_esph" style="display: none">
+                    <label for="" class="col-sm-11 mb-1 col-form-label">Comorbidities Details</label>
+                    <div class="col-sm-1 mt-2 pr-4" style="display: flex; flex-direction: row-reverse">
+                      <div class="input-group-append">
+                        <img src="assets/images/add-med-1.svg" alt="" id="cvSymAddBtn_esph" style="height: 28px; width: 28px; cursor: pointer" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="FF_QC" class="col-sm-3 mb-1 col-form-label">FF_QC comments</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="ffQcComments_esph" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="FF_ti" class="col-sm-3 mb-1 col-form-label">FF_tissue Remarks</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="ffTissueRemarks_esph" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="tumor_esph" class="col-sm-3 mb-1 col-form-label">Tumor Site</label>
+                    <div class="col-sm-9 mt-2">
+                      <select id="tumor_esph" class="form-control">
+                        <option value="">Select</option>
+                        <option value="op1">Cervical (proximal) esophagus</option>
+                        <option value="op2">Mid esophagus, upper thoracic esophagus</option>
+                        <option value="op3">Mid esophagus, middle thoracic esophagus</option>
+                        <option value="op4">Mid esophagus, not otherwise specified</option>
+                        <option value="op5">Distal esophagus (low thoracic esophagus)</option>
+                        <option value="op6">Esophagogastric junction (EGJ)</option>
+                        <option value="op7">Proximal stomach / cardia</option>
+                        <option value="op8">Other</option>
+                        <option value="op9">Esophagus, not otherwise specified</option>
+                      </select>
+                      <input type="text" class="form-control mt-2" id="tumor_Oth_esph" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="tumorPercentage_esph" class="col-sm-3 mb-1 col-form-label">Tumor %</label>
+                    <div class="col-sm-9">
+                      <input type="number" class="form-control" id="tumorPercentage_esph" placeholder="Percentage %" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="ageAtDiagnosis_esph" class="col-sm-3 mb-1 col-form-label">Age at Diagnosis</label>
+                    <div class="col-sm-9">
+                      <input type="number" class="form-control" id="ageAtDiagnosis_esph" placeholder="yrs" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="clinicalStage_esph" class="col-sm-3 mb-1 col-form-label">Clinical Stage</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="clinicalStage_esph" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="IHC_esph" class="col-sm-3 mb-1 col-form-label">IHC Marker status</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="IHC_yes_esph" name="IHC_esph" class="custom-control-input" value="true" />
+                        <label class="custom-control-label" for="IHC_yes_esph">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="IHC_no_esph" name="IHC_esph" class="custom-control-input" value="false" />
+                        <label class="custom-control-label" for="IHC_no_esph">No</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-IHC"></div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="ihcDescr_esph" style="display: none">
+                    <label for="IHC_Description_esph" class="col-sm-3 mb-1 col-form-label">IHC Marker Description</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="IHC_Description_esph" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="GeneticT_esph" class="col-sm-3 mb-1 col-form-label">Genetic Testing</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="gt_yes_esph" name="GeneticT_esph" class="custom-control-input" value="true" />
+                        <label class="custom-control-label" for="gt_yes_esph">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="gt_no_esph" name="GeneticT_esph" class="custom-control-input" value="false" />
+                        <label class="custom-control-label" for="gt_no_esph">No</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-GeneticT"></div>
+                  </div>
+
+                  <div class="row ml-1 mb-3" id="gtrs_esph" style="display: none">
+                    <label for="gtr_esph" class="col-sm-3 mb-1 col-form-label">Genetic Testing Results</label>
+                    <div class="col-sm-9 mt-2">
+                      <select id="gtr_esph" class="form-control">
+                        <option value="">Select</option>
+                        <option value="pos">Positive</option>
+                        <option value="nev">Negative</option>
+                        <option value="vus">Variant of Uncertain Significance</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="dt_Desc_esph" style="display: none">
+                    <label for="GT_Description_esph" class="col-sm-3 mb-1 col-form-label">Genetic Testing Description</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="GT_Description_esph" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="disTCEJ_esph" class="col-sm-3 mb-1 col-form-label">Distance of Tumor Center from Esophagogastric Junction</label>
+                    <div class="col-sm-9 mt-2">
+                      <select id="disTCEJ_esph" class="form-control">
+                        <option value="">Select</option>
+                        <option value="op1">Specify in Centimeters (cm)</option>
+                        <option value="op2">Other</option>
+                        <option value="op3">Cannot be determined</option>
+                        <option value="op4">Not applicable</option>
+                      </select>
+                      <input type="text" class="form-control mt-2" id="disTCEJ_Oth_esph" placeholder="" />
+                    </div>
+                  </div>
+
+                  <div class="row ml-1 mb-3">
+                    <label for="subtype_esph" class="col-sm-3 mb-1 col-form-label">Histological Subtype</label>
+                    <div class="col-sm-9">
+                      <select id="subtype_esph" class="form-control">
+                        <option value="">Select</option>
+                        <option value="op1">Adenocarcinoma</option>
+                        <option value="op2">Adenoid cystic carcinoma</option>
+                        <option value="op3">Mucoepidermoid carcinoma</option>
+                        <option value="op4">Adenosquamous carcinoma</option>
+                        <option value="op5">Squamous cell carcinoma</option>
+                        <option value="op6">Basaloid squamous cell carcinoma</option>
+                        <option value="op7">Spindle cell squamous cell carcinoma</option>
+                        <option value="op8">Verrucous squamous cell carcinoma</option>
+                        <option value="op9">Undifferentiated carcinoma</option>
+                        <option value="op10">Lymphoepithelioma-like carcinoma</option>
+                        <option value="op11">Large cell neuroendocrine carcinoma</option>
+                        <option value="op12">Small cell neuroendocrine carcinoma</option>
+                        <option value="op13">Neuroendocrine carcinoma (poorly differentiated)</option>
+                        <option value="op14">Mixed squamous cell carcinoma-neuroendocrine carcinoma</option>
+                        <option value="op15">Mixed adenocarcinoma-neuroendocrine carcinoma</option>
+                        <option value="op16">Mixed adenocarcinoma-neuroendocrine tumor</option>
+                        <option value="op17">G1, well-differentiated neuroendocrine tumor</option>
+                        <option value="op18">G2, well-differentiated neuroendocrine tumor</option>
+                        <option value="op19">G3, well-differentiated neuroendocrine tumor</option>
+                        <option value="op20">Other histologic type not listed</option>
+                        <option value="op21">Carcinoma, type cannot be determined</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div id="pSubtypeOther_esph" style="display: none">
+                    <div class="row ml-1 mb-3">
+                      <div class="col-sm-3 mb-1">
+                        <label for="pSubtypeOther_esph" class="col-form-label">Other Subtype</label>
+                      </div>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" id="pstOt_esph" placeholder="" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="sampleGrade_esph" class="col-sm-3 mb-1 col-form-label">Grade</label>
+                    <div class="col-sm-9">
+                      <select id="sampleGrade_esph" class="form-control">
+                        <option value="">Select</option>
+                        <option value="op1">G1, well differentiated</option>
+                        <option value="op2">G2, moderately differentiated</option>
+                        <option value="op3">G3, poorly differentiated, undifferentiated</option>
+                        <option value="op4">Other</option>
+                        <option value="op5">GX, cannot be assessed</option>
+                        <option value="op6">Not applicable</option>
+                      </select>
+                      <input type="text" class="form-control mt-2" id="sampleGrade_Oth_esph" placeholder="" disabled />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="tEESPH_esph" class="col-sm-3 mb-1 col-form-label">Tumor Extent Esophagus</label>
+                    <div class="col-sm-9">
+                      <select id="tEESPH_esph" class="form-control">
+                        <option value="">Select</option>
+                        <option value="op1">High-grade dysplasia / carcinoma in situ</option>
+                        <option value="op2">Invades lamina propria</option>
+                        <option value="op3">Invades muscularis mucosae</option>
+                        <option value="op4">Invades submucosa</option>
+                        <option value="op5">Invades muscularis propria</option>
+                        <option value="op6">Invades adventitia</option>
+                        <option value="op7">Invades adjacent structure(s) or organ(s)</option>
+                        <option value="op8">Pleura</option>
+                        <option value="op9">Pericardium</option>
+                        <option value="op10">Azygos vein</option>
+                        <option value="op11">Diaphragm</option>
+                        <option value="op12">Peritoneum</option>
+                        <option value="op13">Aorta</option>
+                        <option value="op14">Vertebral body</option>
+                        <option value="op15">Airway</option>
+                        <option value="op16">Other</option>
+                        <option value="op17">Cannot be determined</option>
+                        <option value="op18">No evidence of primary tumor</option>
+                      </select>
+                      <input type="text" class="form-control mt-2" id="tEESPH_Oth_esph" placeholder="" disabled />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="tEEGAS_esph" class="col-sm-3 mb-1 col-form-label">Tumor Extent Gastric</label>
+                    <div class="col-sm-9">
+                      <select id="tEEGAS_esph" class="form-control">
+                        <option value="">Select</option>
+                        <option value="op1">Carcinoma in situ (intraepithelial tumor without invasion of the lamina propria, high-grade dysplasia)</option>
+                        <option value="op2">Invades lamina propria</option>
+                        <option value="op3">Invades muscularis mucosae</option>
+                        <option value="op4">Invades submucosa</option>
+                        <option value="op5">Invades muscularis propria</option>
+                        <option value="op6">Penetrates subserosal connective tissue without invasion of visceral peritoneum or adjacent structures</option>
+                        <option value="op7">Invades serosa (visceral peritoneum)</option>
+                        <option value="op8">Directly invades adjacent structure(s) or organ(s)</option>
+                        <option value="op9">Spleen</option>
+                        <option value="op10">Transverse colon</option>
+                        <option value="op11">Liver</option>
+                        <option value="op12">Diaphragm</option>
+                        <option value="op13">Pancreas</option>
+                        <option value="op14">Abdominal wall</option>
+                        <option value="op15">Adrenal gland</option>
+                        <option value="op16">Kidney</option>
+                        <option value="op17">Small Intestine</option>
+                        <option value="op18">Retroperitoneum</option>
+                        <option value="op19">Other</option>
+                        <option value="op20">Cannot be determined</option>
+                        <option value="op21">No evidence of primary tumor</option>
+                      </select>
+                      <input type="text" class="form-control mt-2" id="tEEGAS_Oth_esph" placeholder="" disabled />
+                    </div>
+                  </div>
+
+                  <div class="row ml-1 mb-3">
+                    <label for="LVI_esph" class="col-sm-3 mb-1 col-form-label">LVI for anal</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="lviYes_esph" name="LVI_esph" class="custom-control-input" value="op1" />
+                        <label class="custom-control-label" for="lviYes_esph">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="lviNo_esph" name="LVI_esph" class="custom-control-input" value="op2" />
+                        <label class="custom-control-label" for="lviNo_esph">No</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="lviCannot_esph" name="LVI_esph" class="custom-control-input" value="op3" />
+                        <label class="custom-control-label" for="lviCannot_esph">Cannot be determined</label>
+                        <input type="text" class="form-control mt-2" id="lviCannot_Oth_esph" placeholder="specify" disabled />
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-LVI-esph"></div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="PNI_esph" class="col-sm-3 mb-1 col-form-label">PNI</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="PNIYes_esph" name="PNI_esph" class="custom-control-input" value="op1" />
+                        <label class="custom-control-label" for="PNIYes_esph">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="PNINo_esph" name="PNI_esph" class="custom-control-input" value="op2" />
+                        <label class="custom-control-label" for="PNINo_esph">No</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="PNICannot_esph" name="PNI_esph" class="custom-control-input" value="op3" />
+                        <label class="custom-control-label" for="PNICannot_esph">Cannot be determined</label>
+                        <input type="text" class="form-control mt-2" id="PNICannot_Oth_esph" placeholder="specify" disabled />
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-PNI-esph"></div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="smsts_esph" class="col-sm-3 mb-1 col-form-label">Specimen Margin Status for Invasive Tumor</label>
+                    <div class="col-sm">
+                      <div class="row">
+                        <div class="col-sm">
+                          <select id="smsts_esph" class="form-control">
+                            <option value="">Select</option>
+                            <option value="op1">All margins negative for invasive carcinoma</option>
+                            <option value="op2">Invasive carcinoma present at margin</option>
+                            <option value="op3">Other</option>
+                            <option value="op4">Cannot be determined</option>
+                            <option value="op5">Not applicable</option>
+                          </select>
+                          <input type="text" class="form-control mt-2" id="smsts_text_esph" placeholder="specify" disabled />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="smsts_op1_1_esph" style="display: none">
+                    <label for="cMIC_op1_esph" class="col-sm-3 mb-1 col-form-label">Closest Specimen Margin(s) to Invasive Tumor</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="cMIC_op1_op1_esph" name="cMIC_op1_esph" class="custom-control-input" value="op1" />
+                        <label class="custom-control-label" for="cMIC_op1_op1_esph">Proximal</label>
+                        <input type="text" class="form-control" id="cMIC_op1_op1_text_esph" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="cMIC_op1_op2_esph" name="cMIC_op1_esph" class="custom-control-input" value="op2" />
+                        <label class="custom-control-label" for="cMIC_op1_op2_esph">Distal</label>
+                        <input type="text" class="form-control" id="cMIC_op1_op2_text_esph" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="cMIC_op1_op3_esph" name="cMIC_op1_esph" class="custom-control-input" value="op3" />
+                        <label class="custom-control-label" for="cMIC_op1_op3_esph">Radial</label>
+                        <input type="text" class="form-control" id="cMIC_op1_op3_text_esph" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="cMIC_op1_op4_esph" name="cMIC_op1_esph" class="custom-control-input" value="op4" />
+                        <label class="custom-control-label" for="cMIC_op1_op4_esph">Mucosal</label>
+                        <input type="text" class="form-control" id="cMIC_op1_op4_text_esph" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="cMIC_op1_op5_esph" name="cMIC_op1_esph" class="custom-control-input" value="op5" />
+                        <label class="custom-control-label" for="cMIC_op1_op5_esph">Deep</label>
+                        <input type="text" class="form-control" id="cMIC_op1_op5_text_esph" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="cMIC_op1_op6_esph" name="cMIC_op1_esph" class="custom-control-input" value="op6" />
+                        <label class="custom-control-label" for="cMIC_op1_op6_esph">Other</label>
+                        <input type="text" class="form-control" id="cMIC_op1_op6_text_esph" placeholder="specify" disabled />
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="cMIC_op1_op7_esph" name="cMIC_op1_esph" class="custom-control-input" value="op7" />
+                        <label class="custom-control-label" for="cMIC_op1_op7_esph">Cannot be determined</label>
+                        <input type="text" class="form-control" id="cMIC_op1_op7_text_esph" placeholder="" disabled />
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-cMIC_op1_esph"></div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="smsts_op1_2_esph" style="display: none">
+                    <label for="dITCSM_op1_esph" class="col-sm-3 mb-1 col-form-label">Distance from Invasive Tumor to Closest Specimen Margin</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="dITCSM_op1_op1_esph" name="dITCSM_op1_esph" class="custom-control-input" value="op1" />
+                        <label class="custom-control-label" for="dITCSM_op1_op1_esph">Specify in Centimeters (cm)</label>
+                        <input type="number" class="form-control" id="dITCSM_op1_op1_text_esph" placeholder="cm" disabled />
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="dITCSM_op1_op2_esph" name="dITCSM_op1_esph" class="custom-control-input" value="op2" />
+                        <label class="custom-control-label" for="dITCSM_op1_op2_esph">Exact distance</label>
+                        <input type="number" class="form-control" id="dITCSM_op1_op2_text_esph" placeholder="cm" disabled />
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="dITCSM_op1_op3_esph" name="dITCSM_op1_esph" class="custom-control-input" value="op3" />
+                        <label class="custom-control-label" for="dITCSM_op1_op3_esph">Greater than 1 cm</label>
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="dITCSM_op1_op4_esph" name="dITCSM_op1_esph" class="custom-control-input" value="op4" />
+                        <label class="custom-control-label" for="dITCSM_op1_op4_esph">Specify in Millimeters (mm)</label>
+                        <input type="number" class="form-control" id="dITCSM_op1_op4_text_esph" placeholder="mm" disabled />
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="dITCSM_op1_op5_esph" name="dITCSM_op1_esph" class="custom-control-input" value="op5" />
+                        <label class="custom-control-label" for="dITCSM_op1_op5_esph">Exact distance</label>
+                        <input type="number" class="form-control" id="dITCSM_op1_op5_text_esph" placeholder="mm" disabled />
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="dITCSM_op1_op6_esph" name="dITCSM_op1_esph" class="custom-control-input" value="op6" />
+                        <label class="custom-control-label" for="dITCSM_op1_op6_esph">Greater than 10 mm</label>
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="dITCSM_op1_op7_esph" name="dITCSM_op1_esph" class="custom-control-input" value="op7" />
+                        <label class="custom-control-label" for="dITCSM_op1_op7_esph">Other</label>
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="dITCSM_op1_op8_esph" name="dITCSM_op1_esph" class="custom-control-input" value="op8" />
+                        <label class="custom-control-label" for="dITCSM_op1_op8_esph">Other</label>
+                        <input type="text" class="form-control" id="dITCSM_op1_op8_text_esph" placeholder="specify" disabled />
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="dITCSM_op1_op9_esph" name="dITCSM_op1_esph" class="custom-control-input" value="op9" />
+                        <label class="custom-control-label" for="dITCSM_op1_op9_esph">Cannot be determined</label>
+                        <input type="text" class="form-control" id="dITCSM_op1_op9_text_esph" placeholder="" disabled />
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-dITCSM_op1_esph"></div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="smsts_op2_1_esph" style="display: none">
+                    <label for="smIIT_esph" class="col-sm-3 mb-1 col-form-label">Specimen Margin(s) Involved by Invasive Tumor (per orientation)</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="smIIT_op1_esph" name="smIIT_esph" class="custom-control-input" value="op1" />
+                        <label class="custom-control-label" for="smIIT_op1_esph">Proximal</label>
+                        <input type="text" class="form-control" id="smIIT_op1_text_esph" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="smIIT_op2_esph" name="smIIT_esph" class="custom-control-input" value="op2" />
+                        <label class="custom-control-label" for="smIIT_op2_esph">Distal</label>
+                        <input type="text" class="form-control" id="smIIT_op2_text_esph" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="smIIT_op3_esph" name="smIIT_esph" class="custom-control-input" value="op3" />
+                        <label class="custom-control-label" for="smIIT_op3_esph">Radial</label>
+                        <input type="text" class="form-control" id="smIIT_op3_text_esph" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="smIIT_op4_esph" name="smIIT_esph" class="custom-control-input" value="op4" />
+                        <label class="custom-control-label" for="smIIT_op4_esph">Mucosal</label>
+                        <input type="text" class="form-control" id="smIIT_op4_text_esph" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="smIIT_op5_esph" name="smIIT_esph" class="custom-control-input" value="op5" />
+                        <label class="custom-control-label" for="smIIT_op5_esph">Deep</label>
+                        <input type="text" class="form-control" id="smIIT_op5_text_esph" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="smIIT_op6_esph" name="smIIT_esph" class="custom-control-input" value="op6" />
+                        <label class="custom-control-label" for="smIIT_op6_esph">Other</label>
+                        <input type="text" class="form-control" id="smIIT_op6_text_esph" placeholder="specify" disabled />
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="smIIT_op7_esph" name="smIIT_esph" class="custom-control-input" value="op7" />
+                        <label class="custom-control-label" for="smIIT_op7_esph">Cannot be determined</label>
+                        <input type="text" class="form-control" id="smIIT_op7_text_esph" placeholder="" disabled />
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-smIIT_esph"></div>
+                  </div>
+
+                  <!--  -->
+                  <div class="row ml-1 mb-3">
+                    <label for="mststDIM_esph" class="col-sm-3 mb-1 col-form-label">Margin Status for Dysplasia and Intestinal Metaplasia</label>
+                    <div class="col-sm">
+                      <div class="row">
+                        <div class="col-sm">
+                          <select id="mststDIM_esph" class="form-control">
+                            <option value="">Select</option>
+                            <option value="op1">All margins negative for dysplasia</option>
+                            <option value="op2">Low-grade squamous dysplasia present at margin</option>
+                            <option value="op3">High-grade squamous dysplasia present at margin</option>
+                            <option value="op4">Low-grade glandular dysplasia present at margin</option>
+                            <option value="op5">High-grade glandular dysplasia present at margin</option>
+                            <option value="op6">Intestinal metaplasia (Barrett esophagus) without dysplasia present at margin</option>
+                            <option value="op7">Other</option>
+                            <option value="op8">Cannot be determined</option>
+                            <option value="op9">Not applicable</option>
+                          </select>
+                          <input type="text" class="form-control mt-2" id="mststDIM_text_esph" placeholder="specify" disabled />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="mststDIM_op2_1_esph" style="display: none">
+                    <label for="mILGSD_esph" class="col-sm-3 mb-1 col-form-label">Margin(s) Involved by Low-Grade Squamous Dysplasia</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mILGSD_op1_esph" name="mILGSD_esph" class="custom-control-input" value="op1" />
+                        <label class="custom-control-label" for="mILGSD_op1_esph">Proximal</label>
+                        <input type="text" class="form-control" id="mILGSD_op1_text_esph" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mILGSD_op2_esph" name="mILGSD_esph" class="custom-control-input" value="op2" />
+                        <label class="custom-control-label" for="mILGSD_op2_esph">Distal</label>
+                        <input type="text" class="form-control" id="mILGSD_op2_text_esph" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mILGSD_op3_esph" name="mILGSD_esph" class="custom-control-input" value="op3" />
+                        <label class="custom-control-label" for="mILGSD_op3_esph">Mucosal</label>
+                        <input type="text" class="form-control" id="mILGSD_op3_text_esph" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mILGSD_op4_esph" name="mILGSD_esph" class="custom-control-input" value="op4" />
+                        <label class="custom-control-label" for="mILGSD_op4_esph">Other</label>
+                        <input type="text" class="form-control" id="mILGSD_op4_text_esph" placeholder="specify" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mILGSD_op5_esph" name="mILGSD_esph" class="custom-control-input" value="op5" />
+                        <label class="custom-control-label" for="mILGSD_op5_esph">Cannot be determined</label>
+                        <input type="text" class="form-control" id="mILGSD_op5_text_esph" placeholder="" disabled />
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-mILGSD_esph"></div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="mststDIM_op3_1_esph" style="display: none">
+                    <label for="mIHGSD_esph" class="col-sm-3 mb-1 col-form-label">Margin(s) Involved by High-Grade Squamous Dysplasia</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mIHGSD_op1_esph" name="mIHGSD_esph" class="custom-control-input" value="op1" />
+                        <label class="custom-control-label" for="mIHGSD_op1_esph">Proximal</label>
+                        <input type="text" class="form-control" id="mIHGSD_op1_text_esph" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mIHGSD_op2_esph" name="mIHGSD_esph" class="custom-control-input" value="op2" />
+                        <label class="custom-control-label" for="mIHGSD_op2_esph">Distal</label>
+                        <input type="text" class="form-control" id="mIHGSD_op2_text_esph" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mIHGSD_op3_esph" name="mIHGSD_esph" class="custom-control-input" value="op3" />
+                        <label class="custom-control-label" for="mIHGSD_op3_esph">Mucosal</label>
+                        <input type="text" class="form-control" id="mIHGSD_op3_text_esph" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mIHGSD_op4_esph" name="mIHGSD_esph" class="custom-control-input" value="op4" />
+                        <label class="custom-control-label" for="mIHGSD_op4_esph">Other</label>
+                        <input type="text" class="form-control" id="mIHGSD_op4_text_esph" placeholder="specify" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mIHGSD_op5_esph" name="mIHGSD_esph" class="custom-control-input" value="op5" />
+                        <label class="custom-control-label" for="mIHGSD_op5_esph">Cannot be determined</label>
+                        <input type="text" class="form-control" id="mIHGSD_op5_text_esph" placeholder="" disabled />
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-mIHGSD_esph"></div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="mststDIM_op4_1_esph" style="display: none">
+                    <label for="mILGGD_esph" class="col-sm-3 mb-1 col-form-label">Margin(s) Involved by Low-Grade Glandular Dysplasia</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mILGGD_op1_esph" name="mILGGD_esph" class="custom-control-input" value="op1" />
+                        <label class="custom-control-label" for="mILGGD_op1_esph">Proximal</label>
+                        <input type="text" class="form-control" id="mILGGD_op1_text_esph" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mILGGD_op2_esph" name="mILGGD_esph" class="custom-control-input" value="op2" />
+                        <label class="custom-control-label" for="mILGGD_op2_esph">Distal</label>
+                        <input type="text" class="form-control" id="mILGGD_op2_text_esph" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mILGGD_op3_esph" name="mILGGD_esph" class="custom-control-input" value="op3" />
+                        <label class="custom-control-label" for="mILGGD_op3_esph">Mucosal</label>
+                        <input type="text" class="form-control" id="mILGGD_op3_text_esph" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mILGGD_op4_esph" name="mILGGD_esph" class="custom-control-input" value="op4" />
+                        <label class="custom-control-label" for="mILGGD_op4_esph">Other</label>
+                        <input type="text" class="form-control" id="mILGGD_op4_text_esph" placeholder="specify" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mILGGD_op5_esph" name="mILGGD_esph" class="custom-control-input" value="op5" />
+                        <label class="custom-control-label" for="mILGGD_op5_esph">Cannot be determined</label>
+                        <input type="text" class="form-control" id="mILGGD_op5_text_esph" placeholder="" disabled />
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-mILGGD_esph"></div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="mststDIM_op5_1_esph" style="display: none">
+                    <label for="mIHGGD_esph" class="col-sm-3 mb-1 col-form-label">Margin(s) Involved by High-Grade Glandular Dysplasia</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mIHGGD_op1_esph" name="mIHGGD_esph" class="custom-control-input" value="op1" />
+                        <label class="custom-control-label" for="mIHGGD_op1_esph">Proximal</label>
+                        <input type="text" class="form-control" id="mIHGGD_op1_text_esph" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mIHGGD_op2_esph" name="mIHGGD_esph" class="custom-control-input" value="op2" />
+                        <label class="custom-control-label" for="mIHGGD_op2_esph">Distal</label>
+                        <input type="text" class="form-control" id="mIHGGD_op2_text_esph" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mIHGGD_op3_esph" name="mIHGGD_esph" class="custom-control-input" value="op3" />
+                        <label class="custom-control-label" for="mIHGGD_op3_esph">Mucosal</label>
+                        <input type="text" class="form-control" id="mIHGGD_op3_text_esph" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mIHGGD_op4_esph" name="mIHGGD_esph" class="custom-control-input" value="op4" />
+                        <label class="custom-control-label" for="mIHGGD_op4_esph">Other</label>
+                        <input type="text" class="form-control" id="mIHGGD_op4_text_esph" placeholder="specify" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mIHGGD_op5_esph" name="mIHGGD_esph" class="custom-control-input" value="op5" />
+                        <label class="custom-control-label" for="mIHGGD_op5_esph">Cannot be determined</label>
+                        <input type="text" class="form-control" id="mIHGGD_op5_text_esph" placeholder="" disabled />
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-mIHGGD_esph"></div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="mststDIM_op6_1_esph" style="display: none">
+                    <label for="mIIM_esph" class="col-sm-3 mb-1 col-form-label">Margin(s) Involved by Intestinal Metaplasia</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mIIM_op1_esph" name="mIIM_esph" class="custom-control-input" value="op1" />
+                        <label class="custom-control-label" for="mIIM_op1_esph">Proximal</label>
+                        <input type="text" class="form-control" id="mIIM_op1_text_esph" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mIIM_op2_esph" name="mIIM_esph" class="custom-control-input" value="op2" />
+                        <label class="custom-control-label" for="mIIM_op2_esph">Distal</label>
+                        <input type="text" class="form-control" id="mIIM_op2_text_esph" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mIIM_op3_esph" name="mIIM_esph" class="custom-control-input" value="op3" />
+                        <label class="custom-control-label" for="mIIM_op3_esph">Mucosal</label>
+                        <input type="text" class="form-control" id="mIIM_op3_text_esph" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mIIM_op4_esph" name="mIIM_esph" class="custom-control-input" value="op4" />
+                        <label class="custom-control-label" for="mIIM_op4_esph">Other</label>
+                        <input type="text" class="form-control" id="mIIM_op4_text_esph" placeholder="specify" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mIIM_op5_esph" name="mIIM_esph" class="custom-control-input" value="op5" />
+                        <label class="custom-control-label" for="mIIM_op5_esph">Cannot be determined</label>
+                        <input type="text" class="form-control" id="mIIM_op5_text_esph" placeholder="" disabled />
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-mIIM_esph"></div>
+                  </div>
+                  <!--  -->
+                  <div class="row ml-1 mb-3">
+                    <label for="pTNM_esph" class="col-sm-3 mb-1 col-form-label">pTNM</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="pTNM_esph" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="rlnsts_esph" class="col-sm-3 mb-1 col-form-label">Regional Lymph Node Status</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="rlnsts_na_esph" name="rlnsts_esph" class="custom-control-input" value="na" />
+                        <label class="custom-control-label" for="rlnsts_na_esph">Not applicable (no regional lymph nodes submitted or found)</label>
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="rlnsts_rlnsts_esph" name="rlnsts_esph" class="custom-control-input" value="rlnsts" />
+                        <label class="custom-control-label" for="rlnsts_rlnsts_esph">Regional lymph nodes present</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-rlnsts-esph"></div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="nodesTested_esph" class="col-sm-3 mb-1 col-form-label">Number of Nodes tested</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="nodesTested_esph" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="positiveNodes_esph" class="col-sm-3 mb-1 col-form-label">Number of Positive Nodes</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="positiveNodes_esph" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="af_esph" class="col-sm-3 mb-1 col-form-label">Additional Findings</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="af_esph" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="tumor_Size_esph" class="col-sm-3 mb-1 col-form-label">Tumor Size</label>
+                    <div class="col-sm-9">
+                      <div class="row">
+                        <div class="col-4">
+                          <input type="text" class="form-control" id="tumorSizeL_esph" placeholder="cm" />
+                        </div>
+                        <div class="col-4">
+                          <input type="text" class="form-control" id="tumorSizeW_esph" placeholder="cm" />
+                        </div>
+                        <div class="col-4">
+                          <input type="text" class="form-control" id="tumorSizeH_esph" placeholder="cm" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row ml-1 mb-3">
+                    <label for="ACT_esph" class="col-sm-3 mb-1 col-form-label">ACT</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="ACTYes_esph" name="ACT_esph" class="custom-control-input" value="true" />
+                        <label class="custom-control-label" for="ACTYes_esph">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="ACTNo_esph" name="ACT_esph" class="custom-control-input" value="false" />
+                        <label class="custom-control-label" for="ACTNo_esph">No</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-ACT_esph"></div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="actDC_esph" style="display: none">
+                    <label for="actDrugCycles_esph" class="col-sm-3 mb-1 col-form-label">ACT Drug Cycles</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="actDrugCycles_esph" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="actDLC_esph" style="display: none">
+                    <label for="actDateLastCycle_esph" class="col-sm-3 mb-1 col-form-label">ACT Date of last Cycle</label>
+                    <div class="col-sm-9">
+                      <input type="date" class="form-control" id="actDateLastCycle_esph" placeholder="Select Date" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="RadioT_esph" class="col-sm-3 mb-1 col-form-label">Radio Therapy</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="RTYes_esph" name="RadioT_esph" class="custom-control-input" value="true" />
+                        <label class="custom-control-label" for="RTYes_esph">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="RTNo_esph" name="RadioT_esph" class="custom-control-input" value="false" />
+                        <label class="custom-control-label" for="RTNo_esph">No</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-RadioT_esph"></div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="rtDC1_esph" style="display: none">
+                    <label for="rtDetails1_esph" class="col-sm-3 mb-1 col-form-label">Dosage & Fractions</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="rtDetails1_esph" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="rtDC2_esph" style="display: none">
+                    <label for="rtDetails2_esph" class="col-sm-3 mb-1 col-form-label">Technique</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="rtDetails2_esph" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="rtDC3_esph" style="display: none">
+                    <label for="rtDetails3_esph" class="col-sm-3 mb-1 col-form-label">Quadrant</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="rtDetails3_esph" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="rtDLC_esph" style="display: none">
+                    <label for="radiotherapyLastCycleDate_esph" class="col-sm-3 mb-1 col-form-label">Radiotherapy Date of last Cycle</label>
+                    <div class="col-sm-9">
+                      <input type="date" class="form-control" id="radiotherapyLastCycleDate_esph" placeholder="Select Date" />
+                    </div>
+                  </div>
+
+                  <div class="row ml-1 mb-3">
+                    <label for="tarT_esph" class="col-sm-3 mb-1 col-form-label">Targeted Therapy</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="tarTYes_esph" name="tarT_esph" class="custom-control-input" value="true" />
+                        <label class="custom-control-label" for="tarTYes_esph">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="tarTNo_esph" name="tarT_esph" class="custom-control-input" value="false" />
+                        <label class="custom-control-label" for="tarTNo_esph">No</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-TT_esph"></div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="tarTD_esph" style="display: none">
+                    <label for="Tar_Cycles_esph" class="col-sm-3 mb-1 col-form-label">Targeted Therapy Details</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="Tar_Cycles_esph" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="pbT_esph" class="col-sm-3 mb-1 col-form-label">Is paraffin Block Available</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="pbYes_esph" name="pbT_esph" class="custom-control-input" value="true" />
+                        <label class="custom-control-label" for="pbYes_esph">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="pbNo_esph" name="pbT_esph" class="custom-control-input" value="false" />
+                        <label class="custom-control-label" for="pbNo_esph">No</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-pbT_esph"></div>
+                  </div>
+
+                  <div class="row ml-1 mb-3" id="PBN_esph" style="display: none">
+                    <label for="PBInput_esph" class="col-sm-3 mb-1 col-form-label">Paraffin Block Number</label>
+                    <div class="col-sm-9">
+                      <input type="text" id="PBInput_esph" class="form-control" placeholder="YY-S-1111" maxlength="9" oninput="formatPBInput1(this)" />
+                    </div>
+                  </div>
+
+                  <div class="col-12">
+                    <div class="row" style="justify-content: space-around">
+                      <div class="col-4 mt-2" style="text-align: center">
+                        <button type="button" class="btn btn-primary btn-xs btn-prev" id="backButton1">Back</button>
+                      </div>
+                      <div class="col-4 mt-2" style="text-align: center">
+                        <button type="button" class="btn btn-success btn-xs" id="sampleEntry2">Save & Exit</button>
+                      </div>
+                      <div class="col-4 mt-2" style="text-align: center">
+                        <button type="button" class="btn btn-success btn-xs btn-next" id="nextButton2">Next</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Meta-Data Esophagus End -->
+
+                <!-- Meta-Data Gastric Start -->
+                <div id="metaData_entry_gast">
+                  <div class="row ml-1 mb-3">
+                    <h3 class="col-sm-10 col-form-label">Metadata</h3>
+                    <div class="col-sm-2 mt-2 pl-5"></div>
+                  </div>
+                  <div id="mdCurrentUser_gast" style="display: none">
+                    <div class="row ml-1 mb-3">
+                      <label for="mddataEB_gast" class="col-sm-3 mb-1 col-form-label">Data Entry By </label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" id="mddataEB_gast" placeholder="" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="RadioFHabit_gast" class="col-sm-3 mb-1 col-form-label">Family History of Cancer</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="familyHistoryCancer1_gast" name="RadioFHabit_gast" class="custom-control-input" value="true" />
+                        <label class="custom-control-label" for="familyHistoryCancer1_gast">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="familyHistoryCancer2_gast" name="RadioFHabit_gast" class="custom-control-input" value="false" />
+                        <label class="custom-control-label" for="familyHistoryCancer2_gast">No</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-RadioFHabit">
+                      <!-- The icon will be dynamically inserted here -->
+                    </div>
+                  </div>
+
+                  <div class="row ml-1 mb-3" id="relation_Cancer_gast" style="display: none">
+                    <label for="familyRelation_gast" class="col-sm-3 mb-1 col-form-label">Relation and Cancer type</label>
+                    <div class="col-sm-9">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <input type="text" class="form-control" id="familyRelation_gast" placeholder="Relation" />
+                        </div>
+                        <div class="col-sm-6">
+                          <input type="text" class="form-control" id="familyCancerType_gast" placeholder="Cancer Type" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="foodHabit_gast" class="col-sm-3 mb-1 col-form-label">Food Habits</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="foodH1_gast" name="RadioFdHabit_gast" class="custom-control-input" value="true" />
+                        <label class="custom-control-label" for="foodH1_gast">Veg</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="foodH2_gast" name="RadioFdHabit_gast" class="custom-control-input" value="false" />
+                        <label class="custom-control-label" for="foodH2_gast">Non Veg</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-RadioFdHabit_gast"></div>
+                  </div>
+
+                  <div class="row ml-1 mb-3">
+                    <label for="alcoholHabit_gast" class="col-sm-3 mb-1 col-form-label">History of Alcohol Consumption</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="AlcoholH1_gast" name="RadioAlcoholHabit_gast" class="custom-control-input" value="true" />
+                        <label class="custom-control-label" for="AlcoholH1_gast">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="AlcoholH2_gast" name="RadioAlcoholHabit_gast" class="custom-control-input" value="false" />
+                        <label class="custom-control-label" for="AlcoholH2_gast">No</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-RadioAlcoholHabit_gast"></div>
+                  </div>
+
+                  <div class="row ml-1 mb-3">
+                    <label for="smokingHabit_gast" class="col-sm-3 mb-1 col-form-label">History of Smoking</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="smokeH1_gast" name="RadioSmokeHabit_gast" class="custom-control-input" value="true" />
+                        <label class="custom-control-label" for="smokeH1_gast">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="smokeH2_gast" name="RadioSmokeHabit_gast" class="custom-control-input" value="false" />
+                        <label class="custom-control-label" for="smokeH2_gast">No</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-RadioSmokeHabit_gast"></div>
+                  </div>
+
+                  <div class="row ml-1 mb-3">
+                    <label for="EComorb_gast" class="col-sm-3 mb-1 col-form-label">Existing Comorbidities</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="ECH1_gast" name="ECH_gast" class="custom-control-input" value="true" />
+                        <label class="custom-control-label" for="ECH1_gast">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="ECH2_gast" name="ECH_gast" class="custom-control-input" value="false" />
+                        <label class="custom-control-label" for="ECH2_gast">No</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-ECH_gast"></div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="cvSym_gast" style="display: none">
+                    <label for="" class="col-sm-11 mb-1 col-form-label">Comorbidities Details</label>
+                    <div class="col-sm-1 mt-2 pr-4" style="display: flex; flex-direction: row-reverse">
+                      <div class="input-group-append">
+                        <img src="assets/images/add-med-1.svg" alt="" id="cvSymAddBtn_gast" style="height: 28px; width: 28px; cursor: pointer" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="FF_QC" class="col-sm-3 mb-1 col-form-label">FF_QC comments</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="ffQcComments_gast" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="FF_ti" class="col-sm-3 mb-1 col-form-label">FF_tissue Remarks</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="ffTissueRemarks_gast" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="tumor_gast" class="col-sm-3 mb-1 col-form-label">Tumor Site</label>
+                    <div class="col-sm-9 mt-2">
+                      <select id="tumor_gast" class="form-control">
+                        <option value="">Select</option>
+                        <option value="op1">Cardia</option>
+                        <option value="op2">Fundus</option>
+                        <option value="op3">Body</option>
+                        <option value="op4">Antrum</option>
+                        <option value="op5">Pylorus</option>
+                        <option value="op6">Other</option>
+                        <option value="op7">Not specified</option>
+                      </select>
+                      <input type="text" class="form-control mt-2" id="tumor_Oth_gast" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="tumorSubsite_op2_container_gast" style="display: none">
+                    <label for="tumorSubSite_op2_gast" class="col-sm-3 mb-1 col-form-label">Tumor Subsite</label>
+                    <div class="col-sm-9 mt-2">
+                      <select id="tumorSubSite_op2_gast" class="form-control">
+                        <option value="">Select</option>
+                        <option value="op1">Anterior wall</option>
+                        <option value="op2">Posterior wall</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="tumorSubsite_op3_op4_container_gast" style="display: none">
+                    <label for="tumorSubSite_op3_op4_gast" class="col-sm-3 mb-1 col-form-label">Tumor Subsite</label>
+                    <div class="col-sm-9 mt-2">
+                      <select id="tumorSubSite_op3_op4_gast" class="form-control">
+                        <option value="">Select</option>
+                        <option value="op1">Anterior wall</option>
+                        <option value="op2">Posterior wall</option>
+                        <option value="op3">Lesser curvature</option>
+                        <option value="op4">Greater curvature</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="row ml-1 mb-3">
+                    <label for="tumorPercentage_gast" class="col-sm-3 mb-1 col-form-label">Tumor %</label>
+                    <div class="col-sm-9">
+                      <input type="number" class="form-control" id="tumorPercentage_gast" placeholder="Percentage %" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="ageAtDiagnosis_gast" class="col-sm-3 mb-1 col-form-label">Age at Diagnosis</label>
+                    <div class="col-sm-9">
+                      <input type="number" class="form-control" id="ageAtDiagnosis_gast" placeholder="yrs" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="clinicalStage_gast" class="col-sm-3 mb-1 col-form-label">Clinical Stage</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="clinicalStage_gast" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="IHC_gast" class="col-sm-3 mb-1 col-form-label">IHC Marker status</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="IHC_yes_gast" name="IHC_gast" class="custom-control-input" value="true" />
+                        <label class="custom-control-label" for="IHC_yes_gast">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="IHC_no_gast" name="IHC_gast" class="custom-control-input" value="false" />
+                        <label class="custom-control-label" for="IHC_no_gast">No</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-IHC"></div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="ihcDescr_gast" style="display: none">
+                    <label for="IHC_Description_gast" class="col-sm-3 mb-1 col-form-label">IHC Marker Description</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="IHC_Description_gast" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="GeneticT_gast" class="col-sm-3 mb-1 col-form-label">Genetic Testing</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="gt_yes_gast" name="GeneticT_gast" class="custom-control-input" value="true" />
+                        <label class="custom-control-label" for="gt_yes_gast">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="gt_no_gast" name="GeneticT_gast" class="custom-control-input" value="false" />
+                        <label class="custom-control-label" for="gt_no_gast">No</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-GeneticT"></div>
+                  </div>
+
+                  <div class="row ml-1 mb-3" id="gtrs_gast" style="display: none">
+                    <label for="gtr_gast" class="col-sm-3 mb-1 col-form-label">Genetic Testing Results</label>
+                    <div class="col-sm-9 mt-2">
+                      <select id="gtr_gast" class="form-control">
+                        <option value="">Select</option>
+                        <option value="pos">Positive</option>
+                        <option value="nev">Negative</option>
+                        <option value="vus">Variant of Uncertain Significance</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="dt_Desc_gast" style="display: none">
+                    <label for="GT_Description_gast" class="col-sm-3 mb-1 col-form-label">Genetic Testing Description</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="GT_Description_gast" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="disTCEJ_gast" class="col-sm-3 mb-1 col-form-label">Distance of Tumor Center from Esophagogastric Junction</label>
+                    <div class="col-sm-9 mt-2">
+                      <select id="disTCEJ_gast" class="form-control">
+                        <option value="">Select</option>
+                        <option value="op1">Specify in Centimeters (cm)</option>
+                        <option value="op2">Other</option>
+                        <option value="op3">Cannot be determined</option>
+                        <option value="op4">Not applicable</option>
+                      </select>
+                      <input type="text" class="form-control mt-2" id="disTCEJ_Oth_gast" placeholder="" />
+                    </div>
+                  </div>
+
+                  <div class="row ml-1 mb-3">
+                    <label for="pType_gast" class="col-sm-3 mb-1 col-form-label">Histological Type</label>
+                    <div class="col-sm-9">
+                      <select id="pType_gast" class="form-control">
+                        <option value="">Select</option>
+                        <option value="op1">Adenocarcinoma</option>
+                        <option value="op2">Hepatoid adenocarcinomaa</option>
+                        <option value="op3">(Adeno)carcinoma with lymphoid stroma</option>
+                        <option value="op4">Micropapillary adenocarcinoma</option>
+                        <option value="op5">Adenocarcinoma of fundic-gland type</option>
+                        <option value="op6">Squamous cell carcinoma</option>
+                        <option value="op7">Adenosquamous carcinoma</option>
+                        <option value="op8">Undifferentiated (anaplastic) carcinoma</option>
+                        <option value="op9">Gastroblastoma</option>
+                        <option value="op10">Large cell neuroendocrine carcinoma</option>
+                        <option value="op12">Small cell neuroendocrine carcinoma</option>
+                        <option value="op13">Neuroendocrine carcinoma (poorly differentiated)</option>
+                        <option value="op14">Mixed adenocarcinoma-neuroendocrine carcinoma (small cell or large cell neuroendocrine carcinoma)</option>
+                        <option value="op15">Mixed adenocarcinoma-neuroendocrine tumor</option>
+                        <option value="op20">Other histologic type not listed</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="subType_container_gast" style="display: none">
+                    <label for="subType_gast" class="col-sm-3 mb-1 col-form-label">Histological Subtype</label>
+                    <div class="col-sm-9">
+                      <select id="subType_gast" class="form-control">
+                        <option value="">Select</option>
+                        <option value="op1">Tubular adenocarcinoma</option>
+                        <option value="op2">Poorly cohesive carcinoma (includes signet-ring cell carcinoma and other variants)</option>
+                        <option value="op3">Mucinous adenocarcinoma (greater than 50% mucinous)</option>
+                        <option value="op4">Papillary adenocarcinoma</option>
+                        <option value="op5">Mixed carcinoma</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="row ml-1 mb-3">
+                    <label for="sampleGrade_gast" class="col-sm-3 mb-1 col-form-label">Grade</label>
+                    <div class="col-sm-9">
+                      <select id="sampleGrade_gast" class="form-control">
+                        <option value="">Select</option>
+                        <option value="op1">G1, well differentiated</option>
+                        <option value="op2">G2, moderately differentiated</option>
+                        <option value="op3">G3, poorly differentiated, undifferentiated</option>
+                        <option value="op4">Other</option>
+                        <option value="op5">GX, cannot be assessed</option>
+                        <option value="op6">Not applicable</option>
+                      </select>
+                      <input type="text" class="form-control mt-2" id="sampleGrade_Oth_gast" placeholder="" disabled />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="tEESPH_gast" class="col-sm-3 mb-1 col-form-label">Tumor Extent Esophagus</label>
+                    <div class="col-sm-9">
+                      <select id="tEESPH_gast" class="form-control">
+                        <option value="">Select</option>
+                        <option value="op1">High-grade dysplasia / carcinoma in situ</option>
+                        <option value="op2">Invades lamina propria</option>
+                        <option value="op3">Invades muscularis mucosae</option>
+                        <option value="op4">Invades submucosa</option>
+                        <option value="op5">Invades muscularis propria</option>
+                        <option value="op6">Invades adventitia</option>
+                        <option value="op7">Invades adjacent structure(s) or organ(s)</option>
+                        <option value="op8">Pleura</option>
+                        <option value="op9">Pericardium</option>
+                        <option value="op10">Azygos vein</option>
+                        <option value="op11">Diaphragm</option>
+                        <option value="op12">Peritoneum</option>
+                        <option value="op13">Aorta</option>
+                        <option value="op14">Vertebral body</option>
+                        <option value="op15">Airway</option>
+                        <option value="op16">Other</option>
+                        <option value="op17">Cannot be determined</option>
+                        <option value="op18">No evidence of primary tumor</option>
+                      </select>
+                      <input type="text" class="form-control mt-2" id="tEESPH_Oth_gast" placeholder="" disabled />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="tEEGAS_gast" class="col-sm-3 mb-1 col-form-label">Tumor Extent Gastric</label>
+                    <div class="col-sm-9">
+                      <select id="tEEGAS_gast" class="form-control">
+                        <option value="">Select</option>
+                        <option value="op1">Carcinoma in situ (intraepithelial tumor without invasion of the lamina propria, high-grade dysplasia)</option>
+                        <option value="op2">Invades lamina propria</option>
+                        <option value="op3">Invades muscularis mucosae</option>
+                        <option value="op4">Invades submucosa</option>
+                        <option value="op5">Invades muscularis propria</option>
+                        <option value="op6">Penetrates subserosal connective tissue without invasion of visceral peritoneum or adjacent structures</option>
+                        <option value="op7">Invades serosa (visceral peritoneum)</option>
+                        <option value="op8">Directly invades adjacent structure(s) or organ(s)</option>
+                        <option value="op9">Spleen</option>
+                        <option value="op10">Transverse colon</option>
+                        <option value="op11">Liver</option>
+                        <option value="op12">Diaphragm</option>
+                        <option value="op13">Pancreas</option>
+                        <option value="op14">Abdominal wall</option>
+                        <option value="op15">Adrenal gland</option>
+                        <option value="op16">Kidney</option>
+                        <option value="op17">Small Intestine</option>
+                        <option value="op18">Retroperitoneum</option>
+                        <option value="op19">Other</option>
+                        <option value="op20">Cannot be determined</option>
+                        <option value="op21">No evidence of primary tumor</option>
+                      </select>
+                      <input type="text" class="form-control mt-2" id="tEEGAS_Oth_gast" placeholder="" disabled />
+                    </div>
+                  </div>
+
+                  <div class="row ml-1 mb-3">
+                    <label for="LVI_gast" class="col-sm-3 mb-1 col-form-label">LVI for anal</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="lviYes_gast" name="LVI_gast" class="custom-control-input" value="op1" />
+                        <label class="custom-control-label" for="lviYes_gast">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="lviNo_gast" name="LVI_gast" class="custom-control-input" value="op2" />
+                        <label class="custom-control-label" for="lviNo_gast">No</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="lviCannot_gast" name="LVI_gast" class="custom-control-input" value="op3" />
+                        <label class="custom-control-label" for="lviCannot_gast">Cannot be determined</label>
+                        <input type="text" class="form-control mt-2" id="lviCannot_Oth_gast" placeholder="specify" disabled />
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-LVI-esph"></div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="PNI_gast" class="col-sm-3 mb-1 col-form-label">PNI</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="PNIYes_gast" name="PNI_gast" class="custom-control-input" value="op1" />
+                        <label class="custom-control-label" for="PNIYes_gast">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="PNINo_gast" name="PNI_gast" class="custom-control-input" value="op2" />
+                        <label class="custom-control-label" for="PNINo_gast">No</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="PNICannot_gast" name="PNI_gast" class="custom-control-input" value="op3" />
+                        <label class="custom-control-label" for="PNICannot_gast">Cannot be determined</label>
+                        <input type="text" class="form-control mt-2" id="PNICannot_Oth_gast" placeholder="specify" disabled />
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-PNI-esph"></div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="smsts_gast" class="col-sm-3 mb-1 col-form-label">Specimen Margin Status for Invasive Tumor</label>
+                    <div class="col-sm">
+                      <div class="row">
+                        <div class="col-sm">
+                          <select id="smsts_gast" class="form-control">
+                            <option value="">Select</option>
+                            <option value="op1">All margins negative for invasive carcinoma</option>
+                            <option value="op2">Invasive carcinoma present at margin</option>
+                            <option value="op3">Other</option>
+                            <option value="op4">Cannot be determined</option>
+                            <option value="op5">Not applicable</option>
+                          </select>
+                          <input type="text" class="form-control mt-2" id="smsts_text_gast" placeholder="specify" disabled />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="smsts_op1_1_gast" style="display: none">
+                    <label for="cMIC_op1_gast" class="col-sm-3 mb-1 col-form-label">Closest Specimen Margin(s) to Invasive Tumor</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="cMIC_op1_op1_gast" name="cMIC_op1_gast" class="custom-control-input" value="op1" />
+                        <label class="custom-control-label" for="cMIC_op1_op1_gast">Proximal</label>
+                        <input type="text" class="form-control" id="cMIC_op1_op1_text_gast" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="cMIC_op1_op2_gast" name="cMIC_op1_gast" class="custom-control-input" value="op2" />
+                        <label class="custom-control-label" for="cMIC_op1_op2_gast">Distal</label>
+                        <input type="text" class="form-control" id="cMIC_op1_op2_text_gast" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="cMIC_op1_op3_gast" name="cMIC_op1_gast" class="custom-control-input" value="op3" />
+                        <label class="custom-control-label" for="cMIC_op1_op3_gast">Radial</label>
+                        <input type="text" class="form-control" id="cMIC_op1_op3_text_gast" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="cMIC_op1_op4_gast" name="cMIC_op1_gast" class="custom-control-input" value="op4" />
+                        <label class="custom-control-label" for="cMIC_op1_op4_gast">Mucosal</label>
+                        <input type="text" class="form-control" id="cMIC_op1_op4_text_gast" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="cMIC_op1_op5_gast" name="cMIC_op1_gast" class="custom-control-input" value="op5" />
+                        <label class="custom-control-label" for="cMIC_op1_op5_gast">Deep</label>
+                        <input type="text" class="form-control" id="cMIC_op1_op5_text_gast" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="cMIC_op1_op6_gast" name="cMIC_op1_gast" class="custom-control-input" value="op6" />
+                        <label class="custom-control-label" for="cMIC_op1_op6_gast">Other</label>
+                        <input type="text" class="form-control" id="cMIC_op1_op6_text_gast" placeholder="specify" disabled />
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="cMIC_op1_op7_gast" name="cMIC_op1_gast" class="custom-control-input" value="op7" />
+                        <label class="custom-control-label" for="cMIC_op1_op7_gast">Cannot be determined</label>
+                        <input type="text" class="form-control" id="cMIC_op1_op7_text_gast" placeholder="" disabled />
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-cMIC_op1_gast"></div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="smsts_op1_2_gast" style="display: none">
+                    <label for="dITCSM_op1_gast" class="col-sm-3 mb-1 col-form-label">Distance from Invasive Tumor to Closest Specimen Margin</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="dITCSM_op1_op1_gast" name="dITCSM_op1_gast" class="custom-control-input" value="op1" />
+                        <label class="custom-control-label" for="dITCSM_op1_op1_gast">Specify in Centimeters (cm)</label>
+                        <input type="number" class="form-control" id="dITCSM_op1_op1_text_gast" placeholder="cm" disabled />
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="dITCSM_op1_op2_gast" name="dITCSM_op1_gast" class="custom-control-input" value="op2" />
+                        <label class="custom-control-label" for="dITCSM_op1_op2_gast">Exact distance</label>
+                        <input type="number" class="form-control" id="dITCSM_op1_op2_text_gast" placeholder="cm" disabled />
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="dITCSM_op1_op3_gast" name="dITCSM_op1_gast" class="custom-control-input" value="op3" />
+                        <label class="custom-control-label" for="dITCSM_op1_op3_gast">Greater than 1 cm</label>
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="dITCSM_op1_op4_gast" name="dITCSM_op1_gast" class="custom-control-input" value="op4" />
+                        <label class="custom-control-label" for="dITCSM_op1_op4_gast">Specify in Millimeters (mm)</label>
+                        <input type="number" class="form-control" id="dITCSM_op1_op4_text_gast" placeholder="mm" disabled />
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="dITCSM_op1_op5_gast" name="dITCSM_op1_gast" class="custom-control-input" value="op5" />
+                        <label class="custom-control-label" for="dITCSM_op1_op5_gast">Exact distance</label>
+                        <input type="number" class="form-control" id="dITCSM_op1_op5_text_gast" placeholder="mm" disabled />
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="dITCSM_op1_op6_gast" name="dITCSM_op1_gast" class="custom-control-input" value="op6" />
+                        <label class="custom-control-label" for="dITCSM_op1_op6_gast">Greater than 10 mm</label>
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="dITCSM_op1_op7_gast" name="dITCSM_op1_gast" class="custom-control-input" value="op7" />
+                        <label class="custom-control-label" for="dITCSM_op1_op7_gast">Other</label>
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="dITCSM_op1_op8_gast" name="dITCSM_op1_gast" class="custom-control-input" value="op8" />
+                        <label class="custom-control-label" for="dITCSM_op1_op8_gast">Other</label>
+                        <input type="text" class="form-control" id="dITCSM_op1_op8_text_gast" placeholder="specify" disabled />
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="dITCSM_op1_op9_gast" name="dITCSM_op1_gast" class="custom-control-input" value="op9" />
+                        <label class="custom-control-label" for="dITCSM_op1_op9_gast">Cannot be determined</label>
+                        <input type="text" class="form-control" id="dITCSM_op1_op9_text_gast" placeholder="" disabled />
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-dITCSM_op1_gast"></div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="smsts_op2_1_gast" style="display: none">
+                    <label for="smIIT_gast" class="col-sm-3 mb-1 col-form-label">Specimen Margin(s) Involved by Invasive Tumor (per orientation)</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="smIIT_op1_gast" name="smIIT_gast" class="custom-control-input" value="op1" />
+                        <label class="custom-control-label" for="smIIT_op1_gast">Proximal</label>
+                        <input type="text" class="form-control" id="smIIT_op1_text_gast" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="smIIT_op2_gast" name="smIIT_gast" class="custom-control-input" value="op2" />
+                        <label class="custom-control-label" for="smIIT_op2_gast">Distal</label>
+                        <input type="text" class="form-control" id="smIIT_op2_text_gast" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="smIIT_op3_gast" name="smIIT_gast" class="custom-control-input" value="op3" />
+                        <label class="custom-control-label" for="smIIT_op3_gast">Radial</label>
+                        <input type="text" class="form-control" id="smIIT_op3_text_gast" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="smIIT_op4_gast" name="smIIT_gast" class="custom-control-input" value="op4" />
+                        <label class="custom-control-label" for="smIIT_op4_gast">Mucosal</label>
+                        <input type="text" class="form-control" id="smIIT_op4_text_gast" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="smIIT_op5_gast" name="smIIT_gast" class="custom-control-input" value="op5" />
+                        <label class="custom-control-label" for="smIIT_op5_gast">Deep</label>
+                        <input type="text" class="form-control" id="smIIT_op5_text_gast" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="smIIT_op6_gast" name="smIIT_gast" class="custom-control-input" value="op6" />
+                        <label class="custom-control-label" for="smIIT_op6_gast">Other</label>
+                        <input type="text" class="form-control" id="smIIT_op6_text_gast" placeholder="specify" disabled />
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="smIIT_op7_gast" name="smIIT_gast" class="custom-control-input" value="op7" />
+                        <label class="custom-control-label" for="smIIT_op7_gast">Cannot be determined</label>
+                        <input type="text" class="form-control" id="smIIT_op7_text_gast" placeholder="" disabled />
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-smIIT_gast"></div>
+                  </div>
+
+                  <!--  -->
+                  <div class="row ml-1 mb-3">
+                    <label for="mststDIM_gast" class="col-sm-3 mb-1 col-form-label">Margin Status for Dysplasia and Intestinal Metaplasia</label>
+                    <div class="col-sm">
+                      <div class="row">
+                        <div class="col-sm">
+                          <select id="mststDIM_gast" class="form-control">
+                            <option value="">Select</option>
+                            <option value="op1">All margins negative for dysplasia</option>
+                            <option value="op2">Low-grade squamous dysplasia present at margin</option>
+                            <option value="op3">High-grade squamous dysplasia present at margin</option>
+                            <option value="op4">Low-grade glandular dysplasia present at margin</option>
+                            <option value="op5">High-grade glandular dysplasia present at margin</option>
+                            <option value="op6">Intestinal metaplasia (Barrett esophagus) without dysplasia present at margin</option>
+                            <option value="op7">Other</option>
+                            <option value="op8">Cannot be determined</option>
+                            <option value="op9">Not applicable</option>
+                          </select>
+                          <input type="text" class="form-control mt-2" id="mststDIM_text_gast" placeholder="specify" disabled />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="mststDIM_op2_1_gast" style="display: none">
+                    <label for="mILGSD_gast" class="col-sm-3 mb-1 col-form-label">Margin(s) Involved by Low-Grade Squamous Dysplasia</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mILGSD_op1_gast" name="mILGSD_gast" class="custom-control-input" value="op1" />
+                        <label class="custom-control-label" for="mILGSD_op1_gast">Proximal</label>
+                        <input type="text" class="form-control" id="mILGSD_op1_text_gast" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mILGSD_op2_gast" name="mILGSD_gast" class="custom-control-input" value="op2" />
+                        <label class="custom-control-label" for="mILGSD_op2_gast">Distal</label>
+                        <input type="text" class="form-control" id="mILGSD_op2_text_gast" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mILGSD_op3_gast" name="mILGSD_gast" class="custom-control-input" value="op3" />
+                        <label class="custom-control-label" for="mILGSD_op3_gast">Mucosal</label>
+                        <input type="text" class="form-control" id="mILGSD_op3_text_gast" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mILGSD_op4_gast" name="mILGSD_gast" class="custom-control-input" value="op4" />
+                        <label class="custom-control-label" for="mILGSD_op4_gast">Other</label>
+                        <input type="text" class="form-control" id="mILGSD_op4_text_gast" placeholder="specify" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mILGSD_op5_gast" name="mILGSD_gast" class="custom-control-input" value="op5" />
+                        <label class="custom-control-label" for="mILGSD_op5_gast">Cannot be determined</label>
+                        <input type="text" class="form-control" id="mILGSD_op5_text_gast" placeholder="" disabled />
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-mILGSD_gast"></div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="mststDIM_op3_1_gast" style="display: none">
+                    <label for="mIHGSD_gast" class="col-sm-3 mb-1 col-form-label">Margin(s) Involved by High-Grade Squamous Dysplasia</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mIHGSD_op1_gast" name="mIHGSD_gast" class="custom-control-input" value="op1" />
+                        <label class="custom-control-label" for="mIHGSD_op1_gast">Proximal</label>
+                        <input type="text" class="form-control" id="mIHGSD_op1_text_gast" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mIHGSD_op2_gast" name="mIHGSD_gast" class="custom-control-input" value="op2" />
+                        <label class="custom-control-label" for="mIHGSD_op2_gast">Distal</label>
+                        <input type="text" class="form-control" id="mIHGSD_op2_text_gast" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mIHGSD_op3_gast" name="mIHGSD_gast" class="custom-control-input" value="op3" />
+                        <label class="custom-control-label" for="mIHGSD_op3_gast">Mucosal</label>
+                        <input type="text" class="form-control" id="mIHGSD_op3_text_gast" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mIHGSD_op4_gast" name="mIHGSD_gast" class="custom-control-input" value="op4" />
+                        <label class="custom-control-label" for="mIHGSD_op4_gast">Other</label>
+                        <input type="text" class="form-control" id="mIHGSD_op4_text_gast" placeholder="specify" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mIHGSD_op5_gast" name="mIHGSD_gast" class="custom-control-input" value="op5" />
+                        <label class="custom-control-label" for="mIHGSD_op5_gast">Cannot be determined</label>
+                        <input type="text" class="form-control" id="mIHGSD_op5_text_gast" placeholder="" disabled />
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-mIHGSD_gast"></div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="mststDIM_op4_1_gast" style="display: none">
+                    <label for="mILGGD_gast" class="col-sm-3 mb-1 col-form-label">Margin(s) Involved by Low-Grade Glandular Dysplasia</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mILGGD_op1_gast" name="mILGGD_gast" class="custom-control-input" value="op1" />
+                        <label class="custom-control-label" for="mILGGD_op1_gast">Proximal</label>
+                        <input type="text" class="form-control" id="mILGGD_op1_text_gast" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mILGGD_op2_gast" name="mILGGD_gast" class="custom-control-input" value="op2" />
+                        <label class="custom-control-label" for="mILGGD_op2_gast">Distal</label>
+                        <input type="text" class="form-control" id="mILGGD_op2_text_gast" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mILGGD_op3_gast" name="mILGGD_gast" class="custom-control-input" value="op3" />
+                        <label class="custom-control-label" for="mILGGD_op3_gast">Mucosal</label>
+                        <input type="text" class="form-control" id="mILGGD_op3_text_gast" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mILGGD_op4_gast" name="mILGGD_gast" class="custom-control-input" value="op4" />
+                        <label class="custom-control-label" for="mILGGD_op4_gast">Other</label>
+                        <input type="text" class="form-control" id="mILGGD_op4_text_gast" placeholder="specify" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mILGGD_op5_gast" name="mILGGD_gast" class="custom-control-input" value="op5" />
+                        <label class="custom-control-label" for="mILGGD_op5_gast">Cannot be determined</label>
+                        <input type="text" class="form-control" id="mILGGD_op5_text_gast" placeholder="" disabled />
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-mILGGD_gast"></div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="mststDIM_op5_1_gast" style="display: none">
+                    <label for="mIHGGD_gast" class="col-sm-3 mb-1 col-form-label">Margin(s) Involved by High-Grade Glandular Dysplasia</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mIHGGD_op1_gast" name="mIHGGD_gast" class="custom-control-input" value="op1" />
+                        <label class="custom-control-label" for="mIHGGD_op1_gast">Proximal</label>
+                        <input type="text" class="form-control" id="mIHGGD_op1_text_gast" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mIHGGD_op2_gast" name="mIHGGD_gast" class="custom-control-input" value="op2" />
+                        <label class="custom-control-label" for="mIHGGD_op2_gast">Distal</label>
+                        <input type="text" class="form-control" id="mIHGGD_op2_text_gast" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mIHGGD_op3_gast" name="mIHGGD_gast" class="custom-control-input" value="op3" />
+                        <label class="custom-control-label" for="mIHGGD_op3_gast">Mucosal</label>
+                        <input type="text" class="form-control" id="mIHGGD_op3_text_gast" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mIHGGD_op4_gast" name="mIHGGD_gast" class="custom-control-input" value="op4" />
+                        <label class="custom-control-label" for="mIHGGD_op4_gast">Other</label>
+                        <input type="text" class="form-control" id="mIHGGD_op4_text_gast" placeholder="specify" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mIHGGD_op5_gast" name="mIHGGD_gast" class="custom-control-input" value="op5" />
+                        <label class="custom-control-label" for="mIHGGD_op5_gast">Cannot be determined</label>
+                        <input type="text" class="form-control" id="mIHGGD_op5_text_gast" placeholder="" disabled />
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-mIHGGD_gast"></div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="mststDIM_op6_1_gast" style="display: none">
+                    <label for="mIIM_gast" class="col-sm-3 mb-1 col-form-label">Margin(s) Involved by Intestinal Metaplasia</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mIIM_op1_gast" name="mIIM_gast" class="custom-control-input" value="op1" />
+                        <label class="custom-control-label" for="mIIM_op1_gast">Proximal</label>
+                        <input type="text" class="form-control" id="mIIM_op1_text_gast" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mIIM_op2_gast" name="mIIM_gast" class="custom-control-input" value="op2" />
+                        <label class="custom-control-label" for="mIIM_op2_gast">Distal</label>
+                        <input type="text" class="form-control" id="mIIM_op2_text_gast" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mIIM_op3_gast" name="mIIM_gast" class="custom-control-input" value="op3" />
+                        <label class="custom-control-label" for="mIIM_op3_gast">Mucosal</label>
+                        <input type="text" class="form-control" id="mIIM_op3_text_gast" placeholder="" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mIIM_op4_gast" name="mIIM_gast" class="custom-control-input" value="op4" />
+                        <label class="custom-control-label" for="mIIM_op4_gast">Other</label>
+                        <input type="text" class="form-control" id="mIIM_op4_text_gast" placeholder="specify" disabled />
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="mIIM_op5_gast" name="mIIM_gast" class="custom-control-input" value="op5" />
+                        <label class="custom-control-label" for="mIIM_op5_gast">Cannot be determined</label>
+                        <input type="text" class="form-control" id="mIIM_op5_text_gast" placeholder="" disabled />
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-mIIM_gast"></div>
+                  </div>
+                  <!--  -->
+                  <div class="row ml-1 mb-3">
+                    <label for="pTNM_gast" class="col-sm-3 mb-1 col-form-label">pTNM</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="pTNM_gast" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="rlnsts_gast" class="col-sm-3 mb-1 col-form-label">Regional Lymph Node Status</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="rlnsts_na_gast" name="rlnsts_gast" class="custom-control-input" value="na" />
+                        <label class="custom-control-label" for="rlnsts_na_gast">Not applicable (no regional lymph nodes submitted or found)</label>
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="rlnsts_rlnsts_gast" name="rlnsts_gast" class="custom-control-input" value="rlnsts" />
+                        <label class="custom-control-label" for="rlnsts_rlnsts_gast">Regional lymph nodes present</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-rlnsts-esph"></div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="nodesTested_gast" class="col-sm-3 mb-1 col-form-label">Number of Nodes tested</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="nodesTested_gast" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="positiveNodes_gast" class="col-sm-3 mb-1 col-form-label">Number of Positive Nodes</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="positiveNodes_gast" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="af_gast" class="col-sm-3 mb-1 col-form-label">Additional Findings</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="af_gast" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="tumor_Size_gast" class="col-sm-3 mb-1 col-form-label">Tumor Size</label>
+                    <div class="col-sm-9">
+                      <div class="row">
+                        <div class="col-4">
+                          <input type="text" class="form-control" id="tumorSizeL_gast" placeholder="cm" />
+                        </div>
+                        <div class="col-4">
+                          <input type="text" class="form-control" id="tumorSizeW_gast" placeholder="cm" />
+                        </div>
+                        <div class="col-4">
+                          <input type="text" class="form-control" id="tumorSizeH_gast" placeholder="cm" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row ml-1 mb-3">
+                    <label for="ACT_gast" class="col-sm-3 mb-1 col-form-label">ACT</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="ACTYes_gast" name="ACT_gast" class="custom-control-input" value="true" />
+                        <label class="custom-control-label" for="ACTYes_gast">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="ACTNo_gast" name="ACT_gast" class="custom-control-input" value="false" />
+                        <label class="custom-control-label" for="ACTNo_gast">No</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-ACT_gast"></div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="actDC_gast" style="display: none">
+                    <label for="actDrugCycles_gast" class="col-sm-3 mb-1 col-form-label">ACT Drug Cycles</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="actDrugCycles_gast" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="actDLC_gast" style="display: none">
+                    <label for="actDateLastCycle_gast" class="col-sm-3 mb-1 col-form-label">ACT Date of last Cycle</label>
+                    <div class="col-sm-9">
+                      <input type="date" class="form-control" id="actDateLastCycle_gast" placeholder="Select Date" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="RadioT_gast" class="col-sm-3 mb-1 col-form-label">Radio Therapy</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="RTYes_gast" name="RadioT_gast" class="custom-control-input" value="true" />
+                        <label class="custom-control-label" for="RTYes_gast">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="RTNo_gast" name="RadioT_gast" class="custom-control-input" value="false" />
+                        <label class="custom-control-label" for="RTNo_gast">No</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-RadioT_gast"></div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="rtDC1_gast" style="display: none">
+                    <label for="rtDetails1_gast" class="col-sm-3 mb-1 col-form-label">Dosage & Fractions</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="rtDetails1_gast" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="rtDC2_gast" style="display: none">
+                    <label for="rtDetails2_gast" class="col-sm-3 mb-1 col-form-label">Technique</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="rtDetails2_gast" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="rtDC3_gast" style="display: none">
+                    <label for="rtDetails3_gast" class="col-sm-3 mb-1 col-form-label">Quadrant</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="rtDetails3_gast" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="rtDLC_gast" style="display: none">
+                    <label for="radiotherapyLastCycleDate_gast" class="col-sm-3 mb-1 col-form-label">Radiotherapy Date of last Cycle</label>
+                    <div class="col-sm-9">
+                      <input type="date" class="form-control" id="radiotherapyLastCycleDate_gast" placeholder="Select Date" />
+                    </div>
+                  </div>
+
+                  <div class="row ml-1 mb-3">
+                    <label for="tarT_gast" class="col-sm-3 mb-1 col-form-label">Targeted Therapy</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="tarTYes_gast" name="tarT_gast" class="custom-control-input" value="true" />
+                        <label class="custom-control-label" for="tarTYes_gast">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="tarTNo_gast" name="tarT_gast" class="custom-control-input" value="false" />
+                        <label class="custom-control-label" for="tarTNo_gast">No</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-TT_gast"></div>
+                  </div>
+                  <div class="row ml-1 mb-3" id="tarTD_gast" style="display: none">
+                    <label for="Tar_Cycles_gast" class="col-sm-3 mb-1 col-form-label">Targeted Therapy Details</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="Tar_Cycles_gast" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="pbT_gast" class="col-sm-3 mb-1 col-form-label">Is paraffin Block Available</label>
+                    <div class="col-sm-8">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="pbYes_gast" name="pbT_gast" class="custom-control-input" value="true" />
+                        <label class="custom-control-label" for="pbYes_gast">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="pbNo_gast" name="pbT_gast" class="custom-control-input" value="false" />
+                        <label class="custom-control-label" for="pbNo_gast">No</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-pbT_gast"></div>
+                  </div>
+
+                  <div class="row ml-1 mb-3" id="PBN_gast" style="display: none">
+                    <label for="PBInput_gast" class="col-sm-3 mb-1 col-form-label">Paraffin Block Number</label>
+                    <div class="col-sm-9">
+                      <input type="text" id="PBInput_gast" class="form-control" placeholder="YY-S-1111" maxlength="9" oninput="formatPBInput1(this)" />
+                    </div>
+                  </div>
+
+                  <div class="col-12">
+                    <div class="row" style="justify-content: space-around">
+                      <div class="col-4 mt-2" style="text-align: center">
+                        <button type="button" class="btn btn-primary btn-xs btn-prev" id="backButton1">Back</button>
+                      </div>
+                      <div class="col-4 mt-2" style="text-align: center">
+                        <button type="button" class="btn btn-success btn-xs" id="sampleEntry2">Save & Exit</button>
+                      </div>
+                      <div class="col-4 mt-2" style="text-align: center">
+                        <button type="button" class="btn btn-success btn-xs btn-next" id="nextButton2">Next</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Meta-Data Gastric End -->
               </form>
 
               <form class="form-group mt-3 form-step" id="form3" style="display: none">
@@ -21664,6 +23445,17 @@
           otherSubtypeDiv.style.display = "none";
         }
       });
+      document.getElementById("subtype_esph").addEventListener("change", function () {
+        var selectedValue = this.value;
+        var otherSubtypeDiv = document.getElementById("pSubtypeOther_esph");
+
+        if (selectedValue === "op19" || selectedValue === "op20" || selectedValue === "op21") {
+          otherSubtypeDiv.style.display = "block";
+        } else {
+          otherSubtypeDiv.style.display = "none";
+        }
+      });
+
       function handleTubeChange(selectId, gridId, storageKey) {
         const selectEl = document.getElementById(selectId);
         if (!selectEl) return;
@@ -22116,20 +23908,20 @@
           familyHabitToggle_colo();
         });
         function dSubMI_anal() {
-          toggleAnalRadioLinkedInputs("dSubMI_anal");
+          toggleRadioLinkedInputs("dSubMI_anal");
         }
         dSubMI_anal();
         $('input[name="dSubMI_anal"]').on("change", function () {
           dSubMI_anal();
         });
         function dSubMI_colo() {
-          toggleAnalRadioLinkedInputs("dSubMI_colo");
+          toggleRadioLinkedInputs("dSubMI_colo");
         }
         dSubMI_colo();
         $('input[name="dSubMI_colo"]').on("change", function () {
           dSubMI_colo();
         });
-        function toggleAnalRadioLinkedInputs(groupName) {
+        function toggleRadioLinkedInputs(groupName) {
           $(`input[name="${groupName}"]`).each(function () {
             const linkedInput = $(this).siblings('input[type="text"], input[type="number"]');
 
@@ -22146,42 +23938,42 @@
           });
         }
         function toggleCMIC_op1_anal() {
-          toggleAnalRadioLinkedInputs("cMIC_op1_anal");
+          toggleRadioLinkedInputs("cMIC_op1_anal");
         }
         toggleCMIC_op1_anal();
         $('input[name="cMIC_op1_anal"]').on("change", function () {
           toggleCMIC_op1_anal();
         });
         function toggleDITCSM_op1_anal() {
-          toggleAnalRadioLinkedInputs("dITCSM_op1_anal");
+          toggleRadioLinkedInputs("dITCSM_op1_anal");
         }
         toggleDITCSM_op1_anal();
         $('input[name="dITCSM_op1_anal"]').on("change", function () {
           toggleDITCSM_op1_anal();
         });
         function toggleSMSITMarginInputs_anal() {
-          toggleAnalRadioLinkedInputs("sMSIT_anal");
+          toggleRadioLinkedInputs("sMSIT_anal");
         }
         toggleSMSITMarginInputs_anal();
         $('input[name="sMSIT_anal"]').on("change", function () {
           toggleSMSITMarginInputs_anal();
         });
         function toggleCMIC_op1_colo() {
-          toggleAnalRadioLinkedInputs("cMIC_op1_colo");
+          toggleRadioLinkedInputs("cMIC_op1_colo");
         }
         toggleCMIC_op1_colo();
         $('input[name="cMIC_op1_colo"]').on("change", function () {
           toggleCMIC_op1_colo();
         });
         function toggleDITCSM_op1_colo() {
-          toggleAnalRadioLinkedInputs("dITCSM_op1_colo");
+          toggleRadioLinkedInputs("dITCSM_op1_colo");
         }
         toggleDITCSM_op1_colo();
         $('input[name="dITCSM_op1_colo"]').on("change", function () {
           toggleDITCSM_op1_colo();
         });
         function toggleSMSITMarginInputs_colo() {
-          toggleAnalRadioLinkedInputs("sMSIT_colo");
+          toggleRadioLinkedInputs("sMSIT_colo");
         }
         toggleSMSITMarginInputs_colo();
         $('input[name="sMSIT_colo"]').on("change", function () {
@@ -22200,6 +23992,44 @@
         familyHabitToggle_lung();
         $('input[name="RadioFHabit_lung"]').change(function () {
           familyHabitToggle_lung();
+        });
+        function familyHabitToggle_esph() {
+          if ($("#familyHistoryCancer1_esph").is(":checked")) {
+            $("#relation_Cancer_esph").show();
+          } else {
+            $("#relation_Cancer_esph").hide();
+            $("#familyRelation_esph").val("");
+            $("#familyCancerType_esph").val("");
+          }
+        }
+        familyHabitToggle_esph();
+        $('input[name="RadioFHabit_esph"]').change(function () {
+          familyHabitToggle_esph();
+        });
+        function familyHabitToggle_gast() {
+          if ($("#familyHistoryCancer1_gast").is(":checked")) {
+            $("#relation_Cancer_gast").show();
+          } else {
+            $("#relation_Cancer_gast").hide();
+            $("#familyRelation_gast").val("");
+            $("#familyCancerType_gast").val("");
+          }
+        }
+        familyHabitToggle_gast();
+        $('input[name="RadioFHabit_gast"]').change(function () {
+          familyHabitToggle_gast();
+        });
+        function pType_gast() {
+          if ($("#pType_gast").val() === "op1") {
+            $("#subType_container_gast").show();
+          } else {
+            $("#subType_container_gast").hide();
+            $("#subType_gast").val("");
+          }
+        }
+        pType_gast();
+        $("#pType_gast").change(function () {
+          pType_gast();
         });
         // Head and Neck
         function familyHabitToggle_hene() {
@@ -22398,6 +24228,36 @@
         $('input[name="ECH_ovry"]').change(function () {
           ExistComorbidity_ovry();
         });
+        function ExistComorbidity_esph() {
+          if ($("#ECH1_esph").is(":checked")) {
+            $("#cvSym_esph").show();
+          } else {
+            $("#cvSym_esph").hide();
+            const dropdownContainer = document.getElementsByClassName("cmd_esph");
+            Array.from(dropdownContainer).forEach((container) => {
+              container.innerHTML = "";
+            });
+          }
+        }
+        ExistComorbidity_esph();
+        $('input[name="ECH_esph"]').change(function () {
+          ExistComorbidity_esph();
+        });
+        function ExistComorbidity_gast() {
+          if ($("#ECH1_gast").is(":checked")) {
+            $("#cvSym_gast").show();
+          } else {
+            $("#cvSym_gast").hide();
+            const dropdownContainer = document.getElementsByClassName("cmd_gast");
+            Array.from(dropdownContainer).forEach((container) => {
+              container.innerHTML = "";
+            });
+          }
+        }
+        ExistComorbidity_gast();
+        $('input[name="ECH_gast"]').change(function () {
+          ExistComorbidity_gast();
+        });
 
         // Breast
         function IHCMarker() {
@@ -22454,6 +24314,42 @@
         TumorSite_colo();
         $("#tumor_colo").change(function () {
           TumorSite_colo();
+        });
+        function TumorSite_esph() {
+          const option = $("#tumor_esph").val();
+          if (["op2", "op3", "op4", "op5", "op6", "op7", "op8", "op9", "op1"].includes(option)) {
+            $("#tumor_Oth_esph").prop("disabled", isReadOnlyViewMode(mode));
+          } else {
+            $("#tumor_Oth_esph").prop("disabled", true).val("");
+          }
+        }
+        TumorSite_esph();
+        $("#tumor_esph").change(function () {
+          TumorSite_esph();
+        });
+        function TumorSite_gast() {
+          const option = $("#tumor_gast").val();
+          if (["op5", "op6", "op1"].includes(option)) {
+            $("#tumor_Oth_gast").prop("disabled", isReadOnlyViewMode(mode));
+          } else {
+            $("#tumor_Oth_gast").prop("disabled", true).val("");
+          }
+          if (["op2"].includes(option)) {
+            $("#tumorSubsite_op2_container_gast").show();
+          } else {
+            $("#tumorSubsite_op2_container_gast").hide();
+            $("#tumorSubSite_op2_gast").val();
+          }
+          if (["op3", "op4"].includes(option)) {
+            $("#tumorSubsite_op3_op4_container_gast").show();
+          } else {
+            $("#tumorSubsite_op3_op4_container_gast").hide();
+            $("#tumorSubSite_op3_op4_gast").val();
+          }
+        }
+        TumorSite_gast();
+        $("#tumor_gast").change(function () {
+          TumorSite_gast();
         });
         function togglemem_anal() {
           const option = $("#mem_anal").val();
@@ -22618,6 +24514,78 @@
         togglesampleGrade_anal();
         $("#sampleGrade_anal").change(function () {
           togglesampleGrade_anal();
+        });
+        function togglesampleGrade_esph() {
+          const option = $("#sampleGrade_esph").val();
+          if (["op4", "op5", "op6"].includes(option)) {
+            $("#sampleGrade_Oth_esph").prop("disabled", isReadOnlyViewMode(mode));
+          } else {
+            $("#sampleGrade_Oth_esph").prop("disabled", true).val("");
+          }
+        }
+        togglesampleGrade_esph();
+        $("#sampleGrade_esph").change(function () {
+          togglesampleGrade_esph();
+        });
+        function toggletEESPH_esph() {
+          const option = $("#tEESPH_esph").val();
+          if (["op8", "op9", "op10", "op11", "op12", "op13", "op14", "op15", "op16", "op17"].includes(option)) {
+            $("#tEESPH_Oth_esph").prop("disabled", isReadOnlyViewMode(mode));
+          } else {
+            $("#tEESPH_Oth_esph").prop("disabled", true).val("");
+          }
+        }
+        toggletEESPH_esph();
+        $("#tEESPH_esph").change(function () {
+          toggletEESPH_esph();
+        });
+        function toggletEEGAS_esph() {
+          const option = $("#tEEGAS_esph").val();
+          if (["op19", "op20"].includes(option)) {
+            $("#tEEGAS_Oth_esph").prop("disabled", isReadOnlyViewMode(mode));
+          } else {
+            $("#tEEGAS_Oth_esph").prop("disabled", true).val("");
+          }
+        }
+        toggletEEGAS_esph();
+        $("#tEEGAS_esph").change(function () {
+          toggletEEGAS_esph();
+        });
+        function togglesampleGrade_gast() {
+          const option = $("#sampleGrade_gast").val();
+          if (["op4", "op5", "op6"].includes(option)) {
+            $("#sampleGrade_Oth_gast").prop("disabled", isReadOnlyViewMode(mode));
+          } else {
+            $("#sampleGrade_Oth_gast").prop("disabled", true).val("");
+          }
+        }
+        togglesampleGrade_gast();
+        $("#sampleGrade_gast").change(function () {
+          togglesampleGrade_gast();
+        });
+        function toggletEESPH_gast() {
+          const option = $("#tEESPH_gast").val();
+          if (["op8", "op9", "op10", "op11", "op12", "op13", "op14", "op15", "op16", "op17"].includes(option)) {
+            $("#tEESPH_Oth_gast").prop("disabled", isReadOnlyViewMode(mode));
+          } else {
+            $("#tEESPH_Oth_gast").prop("disabled", true).val("");
+          }
+        }
+        toggletEESPH_gast();
+        $("#tEESPH_gast").change(function () {
+          toggletEESPH_gast();
+        });
+        function toggletEEGAS_gast() {
+          const option = $("#tEEGAS_gast").val();
+          if (["op19", "op20"].includes(option)) {
+            $("#tEEGAS_Oth_gast").prop("disabled", isReadOnlyViewMode(mode));
+          } else {
+            $("#tEEGAS_Oth_gast").prop("disabled", true).val("");
+          }
+        }
+        toggletEEGAS_gast();
+        $("#tEEGAS_gast").change(function () {
+          toggletEEGAS_gast();
         });
         function togglesampleGrade_colo() {
           const option = $("#sampleGrade_colo").val();
@@ -22853,26 +24821,140 @@
           smstsN_anal();
         });
         function toggledITCSM1_op1_anal() {
-          toggleAnalRadioLinkedInputs("dITCSM1_op1_anal");
+          toggleRadioLinkedInputs("dITCSM1_op1_anal");
         }
         toggledITCSM1_op1_anal();
         $('input[name="dITCSM1_op1_anal"]').on("change", function () {
           toggledITCSM1_op1_anal();
         });
         function togglecMIC1_op1_anal() {
-          toggleAnalRadioLinkedInputs("cMIC1_op1_anal");
+          toggleRadioLinkedInputs("cMIC1_op1_anal");
         }
         togglecMIC1_op1_anal();
         $('input[name="cMIC1_op1_anal"]').on("change", function () {
           togglecMIC1_op1_anal();
         });
         function togglesMIIT_op1_anal() {
-          toggleAnalRadioLinkedInputs("sMIIT_op1_anal");
+          toggleRadioLinkedInputs("sMIIT_op1_anal");
         }
         togglesMIIT_op1_anal();
         $('input[name="sMIIT_op1_anal"]').on("change", function () {
           togglesMIIT_op1_anal();
         });
+        //
+        function togglecMIC_op1_esph() {
+          toggleRadioLinkedInputs("cMIC_op1_esph");
+        }
+        togglecMIC_op1_esph();
+        $('input[name="cMIC_op1_esph"]').on("change", function () {
+          togglecMIC_op1_esph();
+        });
+        function toggledITCSM_op1_esph() {
+          toggleRadioLinkedInputs("dITCSM_op1_esph");
+        }
+        toggledITCSM_op1_esph();
+        $('input[name="dITCSM_op1_esph"]').on("change", function () {
+          toggledITCSM_op1_esph();
+        });
+        function togglesmIIT_esph() {
+          toggleRadioLinkedInputs("smIIT_esph");
+        }
+        togglesmIIT_esph();
+        $('input[name="smIIT_esph"]').on("change", function () {
+          togglesmIIT_esph();
+        });
+        function togglemILGSD_esph() {
+          toggleRadioLinkedInputs("mILGSD_esph");
+        }
+        togglemILGSD_esph();
+        $('input[name="mILGSD_esph"]').on("change", function () {
+          togglemILGSD_esph();
+        });
+        function togglemIHGSD_esph() {
+          toggleRadioLinkedInputs("mIHGSD_esph");
+        }
+        togglemIHGSD_esph();
+        $('input[name="mIHGSD_esph"]').on("change", function () {
+          togglemIHGSD_esph();
+        });
+        function togglemILGGD_esph() {
+          toggleRadioLinkedInputs("mILGGD_esph");
+        }
+        togglemILGGD_esph();
+        $('input[name="mILGGD_esph"]').on("change", function () {
+          togglemILGGD_esph();
+        });
+        function togglemIHGGD_esph() {
+          toggleRadioLinkedInputs("mIHGGD_esph");
+        }
+        togglemIHGGD_esph();
+        $('input[name="mIHGGD_esph"]').on("change", function () {
+          togglemIHGGD_esph();
+        });
+        function togglemIIM_esph() {
+          toggleRadioLinkedInputs("mIIM_esph");
+        }
+        togglemIIM_esph();
+        $('input[name="mIIM_esph"]').on("change", function () {
+          togglemIIM_esph();
+        });
+        function togglecMIC_op1_gast() {
+          toggleRadioLinkedInputs("cMIC_op1_gast");
+        }
+        togglecMIC_op1_gast();
+        $('input[name="cMIC_op1_gast"]').on("change", function () {
+          togglecMIC_op1_gast();
+        });
+        function toggledITCSM_op1_gast() {
+          toggleRadioLinkedInputs("dITCSM_op1_gast");
+        }
+        toggledITCSM_op1_gast();
+        $('input[name="dITCSM_op1_gast"]').on("change", function () {
+          toggledITCSM_op1_gast();
+        });
+        function togglesmIIT_gast() {
+          toggleRadioLinkedInputs("smIIT_gast");
+        }
+        togglesmIIT_gast();
+        $('input[name="smIIT_gast"]').on("change", function () {
+          togglesmIIT_gast();
+        });
+        function togglemILGSD_gast() {
+          toggleRadioLinkedInputs("mILGSD_gast");
+        }
+        togglemILGSD_gast();
+        $('input[name="mILGSD_gast"]').on("change", function () {
+          togglemILGSD_gast();
+        });
+        function togglemIHGSD_gast() {
+          toggleRadioLinkedInputs("mIHGSD_gast");
+        }
+        togglemIHGSD_gast();
+        $('input[name="mIHGSD_gast"]').on("change", function () {
+          togglemIHGSD_gast();
+        });
+        function togglemILGGD_gast() {
+          toggleRadioLinkedInputs("mILGGD_gast");
+        }
+        togglemILGGD_gast();
+        $('input[name="mILGGD_gast"]').on("change", function () {
+          togglemILGGD_gast();
+        });
+        function togglemIHGGD_gast() {
+          toggleRadioLinkedInputs("mIHGGD_gast");
+        }
+        togglemIHGGD_gast();
+        $('input[name="mIHGGD_gast"]').on("change", function () {
+          togglemIHGGD_gast();
+        });
+        function togglemIIM_gast() {
+          toggleRadioLinkedInputs("mIIM_gast");
+        }
+        togglemIIM_gast();
+        $('input[name="mIIM_gast"]').on("change", function () {
+          togglemIIM_gast();
+        });
+        //
         function PNI_anal() {
           if ($("#PNICannot_anal").is(":checked")) {
             $("#PNICannot_Oth_anal").prop("disabled", isReadOnlyViewMode(mode));
@@ -22906,6 +24988,28 @@
         LVI_colo();
         $('input[name="LVI_colo"]').change(function () {
           LVI_colo();
+        });
+        function LVI_esph() {
+          if ($("#lviCannot_esph").is(":checked")) {
+            $("#lviCannot_Oth_esph").prop("disabled", isReadOnlyViewMode(mode));
+          } else {
+            $("#lviCannot_Oth_esph").prop("disabled", true).val("");
+          }
+        }
+        LVI_esph();
+        $('input[name="LVI_esph"]').change(function () {
+          LVI_esph();
+        });
+        function LVI_gast() {
+          if ($("#lviCannot_gast").is(":checked")) {
+            $("#lviCannot_Oth_gast").prop("disabled", isReadOnlyViewMode(mode));
+          } else {
+            $("#lviCannot_Oth_gast").prop("disabled", true).val("");
+          }
+        }
+        LVI_gast();
+        $('input[name="LVI_gast"]').change(function () {
+          LVI_gast();
         });
         function tBS_colo() {
           if ($("#tBS_colo").val() === "op6") {
@@ -22967,6 +25071,146 @@
         mststNIT_colo();
         $("#mststNIT_colo").change(function () {
           mststNIT_colo();
+        });
+        function smsts_esph() {
+          const option = $("#smsts_esph").val();
+          if (option === "op4" || option === "op3") {
+            $("#smsts_text_esph").prop("disabled", isReadOnlyViewMode(mode));
+          } else {
+            $("#smsts_text_esph").prop("disabled", true).val("");
+          }
+          if (option === "op1") {
+            $("#smsts_op1_1_esph").show();
+            $("#smsts_op1_2_esph").show();
+          } else {
+            $("#smsts_op1_1_esph").hide();
+            $('input[name="cMIC_op1_esph"]').prop("checked", false);
+            $("#smsts_op1_2_esph").hide();
+            $('input[name="dITCSM_op1_esph"]').prop("checked", false);
+          }
+          if (option === "op2") {
+            $("#smsts_op2_1_esph").show();
+          } else {
+            $("#smsts_op2_1_esph").hide();
+            $('input[name="smIIT_esph"]').prop("checked", false);
+          }
+        }
+        smsts_esph();
+        $("#smsts_esph").change(function () {
+          smsts_esph();
+        });
+        function mststDIM_esph() {
+          const option = $("#mststDIM_esph").val();
+          if (option === "op7" || option === "op8") {
+            $("#mststDIM_text_esph").prop("disabled", isReadOnlyViewMode(mode));
+          } else {
+            $("#mststDIM_text_esph").prop("disabled", true).val("");
+          }
+
+          if (option === "op2") {
+            $("#mststDIM_op2_1_esph").show();
+          } else {
+            $("#mststDIM_op2_1_esph").hide();
+            $('input[name="mILGSD_esph"]').prop("checked", false);
+          }
+          if (option === "op3") {
+            $("#mststDIM_op3_1_esph").show();
+          } else {
+            $("#mststDIM_op3_1_esph").hide();
+            $('input[name="mIHGSD_esph"]').prop("checked", false);
+          }
+          if (option === "op4") {
+            $("#mststDIM_op4_1_esph").show();
+          } else {
+            $("#mststDIM_op4_1_esph").hide();
+            $('input[name="mILGGD_esph"]').prop("checked", false);
+          }
+          if (option === "op5") {
+            $("#mststDIM_op5_1_esph").show();
+          } else {
+            $("#mststDIM_op5_1_esph").hide();
+            $('input[name="mIHGGD_esph"]').prop("checked", false);
+          }
+          if (option === "op6") {
+            $("#mststDIM_op6_1_esph").show();
+          } else {
+            $("#mststDIM_op6_1_esph").hide();
+            $('input[name="mIIM_esph"]').prop("checked", false);
+          }
+        }
+        mststDIM_esph();
+        $("#mststDIM_esph").change(function () {
+          mststDIM_esph();
+        });
+        function smsts_gast() {
+          const option = $("#smsts_gast").val();
+          if (option === "op4" || option === "op3") {
+            $("#smsts_text_gast").prop("disabled", isReadOnlyViewMode(mode));
+          } else {
+            $("#smsts_text_gast").prop("disabled", true).val("");
+          }
+          if (option === "op1") {
+            $("#smsts_op1_1_gast").show();
+            $("#smsts_op1_2_gast").show();
+          } else {
+            $("#smsts_op1_1_gast").hide();
+            $('input[name="cMIC_op1_gast"]').prop("checked", false);
+            $("#smsts_op1_2_gast").hide();
+            $('input[name="dITCSM_op1_gast"]').prop("checked", false);
+          }
+          if (option === "op2") {
+            $("#smsts_op2_1_gast").show();
+          } else {
+            $("#smsts_op2_1_gast").hide();
+            $('input[name="smIIT_gast"]').prop("checked", false);
+          }
+        }
+        smsts_gast();
+        $("#smsts_gast").change(function () {
+          smsts_gast();
+        });
+        function mststDIM_gast() {
+          const option = $("#mststDIM_gast").val();
+          if (option === "op7" || option === "op8") {
+            $("#mststDIM_text_gast").prop("disabled", isReadOnlyViewMode(mode));
+          } else {
+            $("#mststDIM_text_gast").prop("disabled", true).val("");
+          }
+
+          if (option === "op2") {
+            $("#mststDIM_op2_1_gast").show();
+          } else {
+            $("#mststDIM_op2_1_gast").hide();
+            $('input[name="mILGSD_gast"]').prop("checked", false);
+          }
+          if (option === "op3") {
+            $("#mststDIM_op3_1_gast").show();
+          } else {
+            $("#mststDIM_op3_1_gast").hide();
+            $('input[name="mIHGSD_gast"]').prop("checked", false);
+          }
+          if (option === "op4") {
+            $("#mststDIM_op4_1_gast").show();
+          } else {
+            $("#mststDIM_op4_1_gast").hide();
+            $('input[name="mILGGD_gast"]').prop("checked", false);
+          }
+          if (option === "op5") {
+            $("#mststDIM_op5_1_gast").show();
+          } else {
+            $("#mststDIM_op5_1_gast").hide();
+            $('input[name="mIHGGD_gast"]').prop("checked", false);
+          }
+          if (option === "op6") {
+            $("#mststDIM_op6_1_gast").show();
+          } else {
+            $("#mststDIM_op6_1_gast").hide();
+            $('input[name="mIIM_gast"]').prop("checked", false);
+          }
+        }
+        mststDIM_gast();
+        $("#mststDIM_gast").change(function () {
+          mststDIM_gast();
         });
         function mstsHGTN_colo() {
           const option = $("#mstsHGTN_colo").val();
@@ -23036,21 +25280,21 @@
           smstsN_colo();
         });
         function toggledITCSM1_op1_colo() {
-          toggleAnalRadioLinkedInputs("dITCSM1_op1_colo");
+          toggleRadioLinkedInputs("dITCSM1_op1_colo");
         }
         toggledITCSM1_op1_colo();
         $('input[name="dITCSM1_op1_colo"]').on("change", function () {
           toggledITCSM1_op1_colo();
         });
         function togglecMIC1_op1_colo() {
-          toggleAnalRadioLinkedInputs("cMIC1_op1_colo");
+          toggleRadioLinkedInputs("cMIC1_op1_colo");
         }
         togglecMIC1_op1_colo();
         $('input[name="cMIC1_op1_colo"]').on("change", function () {
           togglecMIC1_op1_colo();
         });
         function togglesMIIT_op1_colo() {
-          toggleAnalRadioLinkedInputs("sMIIT_op1_colo");
+          toggleRadioLinkedInputs("sMIIT_op1_colo");
         }
         togglesMIIT_op1_colo();
         $('input[name="sMIIT_op1_colo"]').on("change", function () {
@@ -23067,6 +25311,28 @@
         $('input[name="PNI_colo"]').change(function () {
           PNI_colo();
         });
+        function PNI_esph() {
+          if ($("#PNICannot_esph").is(":checked")) {
+            $("#PNICannot_Oth_esph").prop("disabled", isReadOnlyViewMode(mode));
+          } else {
+            $("#PNICannot_Oth_esph").prop("disabled", true).val("");
+          }
+        }
+        PNI_esph();
+        $('input[name="PNI_esph"]').change(function () {
+          PNI_esph();
+        });
+        function PNI_gast() {
+          if ($("#PNICannot_gast").is(":checked")) {
+            $("#PNICannot_Oth_gast").prop("disabled", isReadOnlyViewMode(mode));
+          } else {
+            $("#PNICannot_Oth_gast").prop("disabled", true).val("");
+          }
+        }
+        PNI_gast();
+        $('input[name="PNI_gast"]').change(function () {
+          PNI_gast();
+        });
         function IHCMarker_colo() {
           if ($("#IHC_yes_colo").is(":checked")) {
             $("#ihcDescr_colo").show();
@@ -23078,6 +25344,30 @@
         IHCMarker_colo();
         $('input[name="IHC_colo"]').change(function () {
           IHCMarker_colo();
+        });
+        function IHCMarker_esph() {
+          if ($("#IHC_yes_esph").is(":checked")) {
+            $("#ihcDescr_esph").show();
+          } else {
+            $("#ihcDescr_esph").hide();
+            $("#IHC_Description_esph").val("");
+          }
+        }
+        IHCMarker_esph();
+        $('input[name="IHC_esph"]').change(function () {
+          IHCMarker_esph();
+        });
+        function IHCMarker_gast() {
+          if ($("#IHC_yes_gast").is(":checked")) {
+            $("#ihcDescr_gast").show();
+          } else {
+            $("#ihcDescr_gast").hide();
+            $("#IHC_Description_gast").val("");
+          }
+        }
+        IHCMarker_gast();
+        $('input[name="IHC_gast"]').change(function () {
+          IHCMarker_gast();
         });
         // Head and Neck
         function IHCMarker_hene() {
@@ -23164,6 +25454,36 @@
         GeneticT_lung();
         $('input[name="GeneticT_lung"]').change(function () {
           GeneticT_lung();
+        });
+        function GeneticT_esph() {
+          if ($("#gt_yes_esph").is(":checked")) {
+            $("#dt_Desc_esph").show();
+            $("#gtrs_esph").show();
+          } else {
+            $("#dt_Desc_esph").hide();
+            $("#gtrs_esph").hide();
+            $("#gtr_esph").val("");
+            $("#GT_Description_esph").val("");
+          }
+        }
+        GeneticT_esph();
+        $('input[name="GeneticT_esph"]').change(function () {
+          GeneticT_esph();
+        });
+        function GeneticT_gast() {
+          if ($("#gt_yes_gast").is(":checked")) {
+            $("#dt_Desc_gast").show();
+            $("#gtrs_gast").show();
+          } else {
+            $("#dt_Desc_gast").hide();
+            $("#gtrs_gast").hide();
+            $("#gtr_gast").val("");
+            $("#GT_Description_gast").val("");
+          }
+        }
+        GeneticT_gast();
+        $('input[name="GeneticT_gast"]').change(function () {
+          GeneticT_gast();
         });
         function GeneticT_anal() {
           if ($("#gt_yes_anal").is(":checked")) {
@@ -23912,7 +26232,36 @@
         $('input[name="ACT_colo"]').change(function () {
           actYes_colo();
         });
-
+        function actYes_esph() {
+          if ($("#ACTYes_esph").is(":checked")) {
+            $("#actDC_esph").show();
+            $("#actDLC_esph").show();
+          } else {
+            $("#actDC_esph").hide();
+            $("#actDLC_esph").hide();
+            $("#actDrugCycles_esph").val("");
+            $("#actDateLastCycle_esph").val("");
+          }
+        }
+        actYes_esph();
+        $('input[name="ACT_esph"]').change(function () {
+          actYes_esph();
+        });
+        function actYes_gast() {
+          if ($("#ACTYes_gast").is(":checked")) {
+            $("#actDC_gast").show();
+            $("#actDLC_gast").show();
+          } else {
+            $("#actDC_gast").hide();
+            $("#actDLC_gast").hide();
+            $("#actDrugCycles_gast").val("");
+            $("#actDateLastCycle_gast").val("");
+          }
+        }
+        actYes_gast();
+        $('input[name="ACT_gast"]').change(function () {
+          actYes_gast();
+        });
         // Ovary
         function actYes_ovry() {
           if ($("#ACTYes_ovry").is(":checked")) {
@@ -24534,6 +26883,30 @@
         toggledisT_esph();
         $("#disT_esph").change(function () {
           toggledisT_esph();
+        });
+        function toggledisTCEJ_esph() {
+          const option = $("#disTCEJ_esph").val();
+          if (option === "op1" || option === "op2" || option === "op3") {
+            $("#disTCEJ_Oth_esph").prop("disabled", isReadOnlyViewMode(mode));
+          } else {
+            $("#disTCEJ_Oth_esph").prop("disabled", true).val("");
+          }
+        }
+        toggledisTCEJ_esph();
+        $("#disTCEJ_esph").change(function () {
+          toggledisTCEJ_esph();
+        });
+        function toggledisTCEJ_gast() {
+          const option = $("#disTCEJ_gast").val();
+          if (option === "op1" || option === "op2" || option === "op3") {
+            $("#disTCEJ_Oth_gast").prop("disabled", isReadOnlyViewMode(mode));
+          } else {
+            $("#disTCEJ_Oth_gast").prop("disabled", true).val("");
+          }
+        }
+        toggledisTCEJ_gast();
+        $("#disTCEJ_gast").change(function () {
+          toggledisTCEJ_gast();
         });
         // Breast
         function bloodSample() {
@@ -27433,6 +29806,48 @@
         $('input[name="RadioT_anal"]').change(function () {
           RadioTYes_anal();
         });
+        function RadioTYes_esph() {
+          if ($("#RTYes_esph").is(":checked")) {
+            $("#rtDC1_esph").show();
+            $("#rtDC2_esph").show();
+            $("#rtDC3_esph").show();
+            $("#rtDLC_esph").show();
+          } else {
+            $("#rtDC1_esph").hide();
+            $("#rtDC2_esph").hide();
+            $("#rtDC3_esph").hide();
+            $("#rtDLC_esph").hide();
+            $("#rtDetails1_esph").val("");
+            $("#rtDetails2_esph").val("");
+            $("#rtDetails3_esph").val("");
+            $("#rtDateOfLastCycle_esph").val("");
+          }
+        }
+        RadioTYes_esph();
+        $('input[name="RadioT_esph"]').change(function () {
+          RadioTYes_esph();
+        });
+        function RadioTYes_gast() {
+          if ($("#RTYes_gast").is(":checked")) {
+            $("#rtDC1_gast").show();
+            $("#rtDC2_gast").show();
+            $("#rtDC3_gast").show();
+            $("#rtDLC_gast").show();
+          } else {
+            $("#rtDC1_gast").hide();
+            $("#rtDC2_gast").hide();
+            $("#rtDC3_gast").hide();
+            $("#rtDLC_gast").hide();
+            $("#rtDetails1_gast").val("");
+            $("#rtDetails2_gast").val("");
+            $("#rtDetails3_gast").val("");
+            $("#rtDateOfLastCycle_gast").val("");
+          }
+        }
+        RadioTYes_gast();
+        $('input[name="RadioT_gast"]').change(function () {
+          RadioTYes_gast();
+        });
         function RadioTYes_colo() {
           if ($("#RTYes_colo").is(":checked")) {
             $("#rtDC1_colo").show();
@@ -27650,6 +30065,30 @@
         $('input[name="tarT_colo"]').change(function () {
           tarTYes_colo();
         });
+        function tarTYes_esph() {
+          if ($("#tarTYes_esph").is(":checked")) {
+            $("#tarTD_esph").show();
+          } else {
+            $("#tarTD_esph").hide();
+            $("#Tar_Cycles_esph").val("");
+          }
+        }
+        tarTYes_esph();
+        $('input[name="tarT_esph"]').change(function () {
+          tarTYes_esph();
+        });
+        function tarTYes_gast() {
+          if ($("#tarTYes_gast").is(":checked")) {
+            $("#tarTD_gast").show();
+          } else {
+            $("#tarTD_gast").hide();
+            $("#Tar_Cycles_gast").val("");
+          }
+        }
+        tarTYes_gast();
+        $('input[name="tarT_gast"]').change(function () {
+          tarTYes_gast();
+        });
         // Ovary
         function tarTYes_ovry() {
           if ($("#tarTYes_ovry").is(":checked")) {
@@ -27752,6 +30191,30 @@
         pbYes_colo();
         $('input[name="pbT_colo"]').change(function () {
           pbYes_colo();
+        });
+        function pbYes_esph() {
+          if ($("#pbYes_esph").is(":checked")) {
+            $("#PBN_esph").show();
+          } else {
+            $("#PBN_esph").hide();
+            $("#PBInput_esph").val("");
+          }
+        }
+        pbYes_esph();
+        $('input[name="pbT_esph"]').change(function () {
+          pbYes_esph();
+        });
+        function pbYes_gast() {
+          if ($("#pbYes_gast").is(":checked")) {
+            $("#PBN_gast").show();
+          } else {
+            $("#PBN_gast").hide();
+            $("#PBInput_gast").val("");
+          }
+        }
+        pbYes_gast();
+        $('input[name="pbT_gast"]').change(function () {
+          pbYes_gast();
         });
         // Cervix
         function pbYes_ceix() {
@@ -27988,6 +30451,8 @@
           ["positiveNodes", "nodesTested", "Please enter a valid number lesser than Number of Pelvic Nodes Tested"],
           ["positiveNodes_anal", "nodesTested_anal", "Please enter a valid number lesser than Number of Pelvic Nodes Tested"],
           ["positiveNodes_colo", "nodesTested_colo", "Please enter a valid number lesser than Number of Pelvic Nodes Tested"],
+          ["positiveNodes_esph", "nodesTested_colo", "Please enter a valid number lesser than Number of Pelvic Nodes Tested"],
+          ["positiveNodes_gast", "nodesTested_colo", "Please enter a valid number lesser than Number of Pelvic Nodes Tested"],
           ["positiveNodes_ceix", "nodesTested_ceix", "Please enter a valid number lesser than Number of Pelvic Nodes Tested"],
           ["positiveNodes_pa_ceix", "nodesTested_pa_ceix", "Please enter a valid number lesser than Number Of Para-aortic Nodes Tested"],
           ["positiveNodes_ovry", "nodesTested_ovry", "Please enter a valid number lesser than Number of Pelvic Nodes Tested"],
@@ -32854,6 +35319,32 @@
                 cvSymAddBtn: "cvSymAddBtn_colo",
                 cvSym: "cvSym_colo",
                 commandClass: "cmd_colo",
+                options: [
+                  { value: "", text: "Select" },
+                  { value: "Diabetic", text: "Type 2 Diabetic Mellitus" },
+                  { value: "Cardiac", text: "Cardiac History" },
+                  { value: "Hypertension", text: "Hypertension" },
+                  { value: "Other", text: "Other" },
+                ],
+              };
+            } else if (ct === "esph") {
+              return {
+                cvSymAddBtn: "cvSymAddBtn_esph",
+                cvSym: "cvSym_esph",
+                commandClass: "cmd_esph",
+                options: [
+                  { value: "", text: "Select" },
+                  { value: "Diabetic", text: "Type 2 Diabetic Mellitus" },
+                  { value: "Cardiac", text: "Cardiac History" },
+                  { value: "Hypertension", text: "Hypertension" },
+                  { value: "Other", text: "Other" },
+                ],
+              };
+            } else if (ct === "gast") {
+              return {
+                cvSymAddBtn: "cvSymAddBtn_gast",
+                cvSym: "cvSym_gast",
+                commandClass: "cmd_gast",
                 options: [
                   { value: "", text: "Select" },
                   { value: "Diabetic", text: "Type 2 Diabetic Mellitus" },
