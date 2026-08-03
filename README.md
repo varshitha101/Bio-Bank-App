@@ -24,12 +24,11 @@ Bio-Bank-App/
 ├── assets/
 │   ├── css/
 │   ├── images/
-│   ├── scss/
-│   └── vendor/
-├── chart.js
+│   ├── js/
+         ├── chart.js
+         ├── index.js
 ├── default.html
 ├── home.html
-├── index.js
 ├── login.html
 ├── README.md
 ├── search.html
@@ -372,5 +371,11 @@ Following features and changes have been incorporates:
 - Resolved an issue related to auto-population between biopsy to resection and resection to event.
 - Resolved an issue related to a mismatch in the option for the "Inflammation" question.
 - Resolved an issue where Histological Type was editable in view mode.
+
+<hr>
+
+### Version 1.9.0
+
+- Added Anal, Colorectal, Esophageal, and Gastric Cancer types to form entry and Search Sample.
 
 <hr>

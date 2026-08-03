@@ -52,7 +52,7 @@
     <!-- Your Scripts -->
     <link rel="stylesheet" href="assets/css/style.css" />
     <link rel="stylesheet" href="assets/css/default.css" />
-    <script src="index.js"></script>
+    <script src="./assets/js/index.js"></script>
   </head>
 
   <body>
@@ -4200,7 +4200,7 @@
                         <label class="custom-control-label" for="NACTNo_colo">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-NACT_colo"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-NACT-colo"></div>
                   </div>
                   <div class="row ml-1 mb-3" id="nactTE_colo" style="display: none">
                     <label for="" class="col-sm-2 mb-1 col-form-label">Treatment effect</label>
@@ -5227,14 +5227,14 @@
                   <div class="row ml-1 mb-3" id="MPS_anal" style="display: none">
                     <label for="mps_anal" class="col-sm-2 mb-1 col-form-label">Multiple Primary Sites</label>
                     <div class="col-sm-9">
-                      <div class="custom-control custom-radio custom-control-inline">
+                      <div class="custom-control custom-radio">
                         <input type="radio" id="mps_op1_anal" name="mps_anal" class="custom-control-input" value="op1" />
                         <label class="custom-control-label" for="mps_op1_anal">Not applicable (no additional primary site(s) present)</label>
                       </div>
-                      <div class="custom-control custom-radio custom-control-inline">
+                      <div class="custom-control custom-radio">
                         <input type="radio" id="mps_op2_anal" name="mps_anal" class="custom-control-input" value="op2" />
                         <label class="custom-control-label" for="mps_op2_anal">Present</label>
-                        <input type="text" class="form-control ml-2" id="mps_op2_Oth_anal" placeholder="" disabled />
+                        <input type="text" class="form-control" id="mps_op2_Oth_anal" placeholder="" disabled />
                       </div>
                     </div>
                     <div class="col-sm-1 mt-2 erase-icon-container-mps-anal"></div>
@@ -5461,7 +5461,7 @@
                         <label class="custom-control-label" for="NACTNo_anal">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-NACT_anal"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-NACT-anal"></div>
                   </div>
                   <div class="row ml-1 mb-3" id="nactTE_anal" style="display: none">
                     <label for="" class="col-sm-2 mb-1 col-form-label">Treatment effect</label>
@@ -5837,7 +5837,7 @@
                         <label class="custom-control-label" for="denovoNo_gast">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-denovo_gast"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-denovo-gast"></div>
                   </div>
 
                   <div class="row ml-1 mb-3" id="mptA_gast" style="display: none">
@@ -6084,12 +6084,12 @@
                         <label class="custom-control-label" for="radioIschemic2_gast  ">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container_gast"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-gast"></div>
                   </div>
 
                   <div class="row ml-1 mb-3">
                     <label for="NACT_gast" class="col-sm-2 mb-1 col-form-label">NACT</label>
-                    <div class="col-sm-9">
+                    <div class="col-sm-9 mt-2">
                       <div class="custom-control custom-radio custom-control-inline">
                         <input type="radio" id="NACTYes_gast" name="NACT_gast" class="custom-control-input" value="true" />
                         <label class="custom-control-label" for="NACTYes_gast">Yes</label>
@@ -6100,7 +6100,7 @@
                         <label class="custom-control-label" for="NACTNo_gast">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container_gast"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-NACT-gast"></div>
                   </div>
                   <div class="row ml-1 mb-3" id="nactTE_gast" style="display: none">
                     <label for="" class="col-sm-2 mb-1 col-form-label">Treatment effect</label>
@@ -6143,7 +6143,7 @@
                         <label class="custom-control-label" for="radioprocessed2_gast">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-samRev"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-samRev-gast"></div>
                   </div>
 
                   <div class="row ml-1 mb-3" id="AllSamplesProcess_gast" style="display: none">
@@ -6907,7 +6907,7 @@
                   <div class="row ml-1 mb-3" id="PBN" style="display: none">
                     <label for="PBNum" class="col-sm-3 mb-1 col-form-label">Paraffin Block Number</label>
                     <div class="col-sm-9">
-                      <input type="text" id="PBInput" class="form-control" placeholder="YY-S-1111" maxlength="9" oninput="formatPBInput1(this)" />
+                      <input type="text" id="PBInput" class="form-control" placeholder="YY-S-1111" maxlength="9" oninput="formatPBInput(this)" />
                     </div>
                   </div>
 
@@ -13202,7 +13202,7 @@
                         <label class="custom-control-label" for="familyHistoryCancer2_anal">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-RadioFHabit_anal">
+                    <div class="col-sm-1 mt-2 erase-icon-container-RadioFHabit-anal">
                       <!-- The icon will be dynamically inserted here -->
                     </div>
                   </div>
@@ -13232,7 +13232,7 @@
                         <label class="custom-control-label" for="foodH2_anal">Non Veg</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-RadioFdHabit_anal"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-RadioFdHabit-anal"></div>
                   </div>
 
                   <div class="row ml-1 mb-3">
@@ -13247,7 +13247,7 @@
                         <label class="custom-control-label" for="AlcoholH2_anal">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-RadioAlcoholHabit_anal"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-RadioAlcoholHabit-anal"></div>
                   </div>
 
                   <div class="row ml-1 mb-3">
@@ -13262,7 +13262,7 @@
                         <label class="custom-control-label" for="smokeH2_anal">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-RadioSmokeHabit_anal"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-RadioSmokeHabit-anal"></div>
                   </div>
 
                   <div class="row ml-1 mb-3">
@@ -13277,7 +13277,7 @@
                         <label class="custom-control-label" for="ECH2_anal">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-ECH_anal"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-ECH-anal"></div>
                   </div>
                   <div class="row ml-1 mb-3" id="cvSym_anal" style="display: none">
                     <label for="" class="col-sm-11 mb-1 col-form-label">Comorbidities Details</label>
@@ -13343,7 +13343,7 @@
                         <label class="custom-control-label" for="IHC_no_anal">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-IHC_anal"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-IHC-anal"></div>
                   </div>
                   <div class="row ml-1 mb-3" id="ihcDescr_anal" style="display: none">
                     <label for="IHC_Description_anal" class="col-sm-3 mb-1 col-form-label">IHC Marker Description</label>
@@ -13363,7 +13363,7 @@
                         <label class="custom-control-label" for="gt_no_anal">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-GeneticT_anal"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-GeneticT-anal"></div>
                   </div>
 
                   <div class="row ml-1 mb-3" id="gtrs_anal" style="display: none">
@@ -13643,7 +13643,7 @@
                         <input type="text" class="form-control mt-2" id="PNICannot_Oth_anal" placeholder="specify" disabled />
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-PNI"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-PNI-anal"></div>
                   </div>
                   <div class="row ml-1 mb-3">
                     <label for="tBS_anal" class="col-sm-3 mb-1 col-form-label">Tumor Budding Score</label>
@@ -13736,7 +13736,7 @@
                         <input type="text" class="form-control" id="cMIC_op1_op8_text_anal" placeholder="" disabled />
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-cMIC_op1_anal"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-cMIC_op1-anal"></div>
                   </div>
 
                   <div class="row ml-1 mb-3" id="sMSIT_op1_2_anal" style="display: none">
@@ -13785,7 +13785,7 @@
                         <input type="text" class="form-control" id="dITCSM_op1_op9_text_anal" placeholder="" disabled />
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-dITCSM_op1_anal"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-dITCSM_op1-anal"></div>
                   </div>
 
                   <div class="row ml-1 mb-3" id="sMSIT_op2_1_anal" style="display: none">
@@ -13832,7 +13832,7 @@
                         <input type="text" class="form-control" id="sMSIT_op2_op8_text_anal" placeholder="" disabled />
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-sMSIT_op2_anal"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-sMSIT_op2-anal"></div>
                   </div>
 
                   <div class="row ml-1 mb-3">
@@ -13895,7 +13895,7 @@
                         <input type="text" class="form-control mt-2" id="cMIC1_op1_op5_text_anal" placeholder="" disabled />
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-cMIC1_op1_anal"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-cMIC1_op1-anal"></div>
                   </div>
 
                   <div class="row ml-1 mb-3" id="smstsN_op1_2_anal" style="display: none">
@@ -13949,7 +13949,7 @@
                         <input type="text" class="form-control mt-2" id="dITCSM1_op1_op10_text_anal" placeholder="" disabled />
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-dITCSM1_op1_anal"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-dITCSM1_op1-anal"></div>
                   </div>
                   <div class="row ml-1 mb-3" id="smstsN_op2_1_anal" style="display: none">
                     <label for="sMIIT_op1_anal" class="col-sm-3 mb-1 col-form-label">Specimen Margin(s) Involved by Invasive Tumor </label>
@@ -13995,7 +13995,7 @@
                         <input type="text" class="form-control mt-2" id="sMIIT_op1_op8_text_anal" placeholder="" disabled />
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-sMIIT_op1_anal"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-sMIIT_op1-anal"></div>
                   </div>
                   <div class="row ml-1 mb-3">
                     <label for="mstsHGTN_anal" class="col-sm-3 mb-1 col-form-label">Margin Status for High-Grade Intraepithelial Neoplasia</label>
@@ -14097,7 +14097,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="row ml-1 mb-3">
+                  <div class="row ml-1 mb-3" id="tDepP_anal_1" style="display: none">
                     <label for="tDepP_anal" class="col-sm-3 mb-1 col-form-label">If Tumor Deposits present</label>
                     <div class="col-sm">
                       <div class="row">
@@ -14132,7 +14132,7 @@
                         <label class="custom-control-label" for="ACTNo_anal">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-ACT_anal"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-ACT-anal"></div>
                   </div>
                   <div class="row ml-1 mb-3" id="actDC_anal" style="display: none">
                     <label for="actDrugCycles_anal" class="col-sm-3 mb-1 col-form-label">ACT Drug Cycles</label>
@@ -14158,7 +14158,7 @@
                         <label class="custom-control-label" for="RTNo_anal">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-RadioT_anal"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-RadioT-anal"></div>
                   </div>
                   <div class="row ml-1 mb-3" id="rtDC1_anal" style="display: none">
                     <label for="rtDetails1_anal" class="col-sm-3 mb-1 col-form-label">Dosage & Fractions</label>
@@ -14197,7 +14197,7 @@
                         <label class="custom-control-label" for="tarTNo_anal">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-TT_anal"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-TT-anal"></div>
                   </div>
                   <div class="row ml-1 mb-3" id="tarTD_anal" style="display: none">
                     <label for="tarTDetails_anal" class="col-sm-3 mb-1 col-form-label">Targeted Therapy Details</label>
@@ -14217,13 +14217,13 @@
                         <label class="custom-control-label" for="pbNo_anal">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-pbT_anal"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-pbT-anal"></div>
                   </div>
 
                   <div class="row ml-1 mb-3" id="PBN_anal" style="display: none">
                     <label for="PBInput_anal" class="col-sm-3 mb-1 col-form-label">Paraffin Block Number</label>
                     <div class="col-sm-9">
-                      <input type="text" id="PBInput_anal" class="form-control" placeholder="YY-S-1111" maxlength="9" oninput="formatPBInput(this)" />
+                      <input type="text" id="PBInput_anal" class="form-control" placeholder="YY-S-11111" maxlength="10" oninput="formatPBInput1(this)" />
                     </div>
                   </div>
 
@@ -14269,7 +14269,7 @@
                         <label class="custom-control-label" for="familyHistoryCancer2_colo">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-RadioFHabit_colo">
+                    <div class="col-sm-1 mt-2 erase-icon-container-RadioFHabit-colo">
                       <!-- The icon will be dynamically inserted here -->
                     </div>
                   </div>
@@ -14299,7 +14299,7 @@
                         <label class="custom-control-label" for="foodH2_colo">Non Veg</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-RadioFdHabit_colo"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-RadioFdHabit-colo"></div>
                   </div>
 
                   <div class="row ml-1 mb-3">
@@ -14314,7 +14314,7 @@
                         <label class="custom-control-label" for="AlcoholH2_colo">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-RadioAlcoholHabit_colo"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-RadioAlcoholHabit-colo"></div>
                   </div>
 
                   <div class="row ml-1 mb-3">
@@ -14329,7 +14329,7 @@
                         <label class="custom-control-label" for="smokeH2_colo">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-RadioSmokeHabit_colo"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-RadioSmokeHabit-colo"></div>
                   </div>
 
                   <div class="row ml-1 mb-3">
@@ -14344,7 +14344,7 @@
                         <label class="custom-control-label" for="ECH2_colo">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-ECH_colo"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-ECH-colo"></div>
                   </div>
                   <div class="row ml-1 mb-3" id="cvSym_colo" style="display: none">
                     <label for="" class="col-sm-11 mb-1 col-form-label">Comorbidities Details</label>
@@ -14431,7 +14431,7 @@
                         <label class="custom-control-label" for="IHC_no_colo">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-IHC_colo"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-IHC-colo"></div>
                   </div>
                   <div class="row ml-1 mb-3" id="ihcDescr_colo" style="display: none">
                     <label for="IHC_Description_colo" class="col-sm-3 mb-1 col-form-label">IHC Marker Description</label>
@@ -14451,7 +14451,7 @@
                         <label class="custom-control-label" for="gt_no_colo">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-GeneticT_colo"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-GeneticT-colo"></div>
                   </div>
 
                   <div class="row ml-1 mb-3" id="gtrs_colo" style="display: none">
@@ -14668,7 +14668,7 @@
                         <input type="text" class="form-control mt-2" id="dSubMI_op5_text_colo" placeholder="specify" disabled />
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-dSubMI-anal"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-dSubMI-colo"></div>
                   </div>
                   <div class="row ml-1 mb-3" id="eSubMI_container_colo" style="display: none">
                     <label for="eSubMIE_colo" class="col-sm-3 mb-1 col-form-label">Extent of Sub-mucosal Invasion (Note E)</label>
@@ -14715,7 +14715,7 @@
                         <input type="text" class="form-control mt-2" id="lviCannot_Oth_colo" placeholder="specify" disabled />
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-LVI-anal"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-LVI-colo"></div>
                   </div>
                   <div class="row ml-1 mb-3">
                     <label for="PNI_colo" class="col-sm-3 mb-1 col-form-label">PNI</label>
@@ -14734,7 +14734,7 @@
                         <input type="text" class="form-control mt-2" id="PNICannot_Oth_colo" placeholder="specify" disabled />
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-PNI"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-PNI-colo"></div>
                   </div>
                   <div class="row ml-1 mb-3">
                     <label for="tBS_colo" class="col-sm-3 mb-1 col-form-label">Tumor Budding Score</label>
@@ -14827,7 +14827,7 @@
                         <input type="text" class="form-control" id="cMIC_op1_op8_text_colo" placeholder="" disabled />
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-cMIC_op1_colo"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-cMIC_op1-colo"></div>
                   </div>
 
                   <div class="row ml-1 mb-3" id="sMSIT_op1_2_colo" style="display: none">
@@ -14876,7 +14876,7 @@
                         <input type="text" class="form-control" id="dITCSM_op1_op9_text_colo" placeholder="" disabled />
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-dITCSM_op1_colo"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-dITCSM_op1-colo"></div>
                   </div>
 
                   <div class="row ml-1 mb-3" id="sMSIT_op2_1_colo" style="display: none">
@@ -14923,7 +14923,7 @@
                         <input type="text" class="form-control" id="sMSIT_op2_op8_text_colo" placeholder="" disabled />
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-sMSIT_op2_colo"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-sMSIT_op2-colo"></div>
                   </div>
 
                   <div class="row ml-1 mb-3">
@@ -14986,7 +14986,7 @@
                         <input type="text" class="form-control mt-2" id="cMIC1_op1_op8_text_colo" placeholder="" disabled />
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-cMIC1_op1_colo"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-cMIC1_op1-colo"></div>
                   </div>
 
                   <div class="row ml-1 mb-3" id="smstsN_op1_2_colo" style="display: none">
@@ -15040,7 +15040,7 @@
                         <input type="text" class="form-control mt-2" id="dITCSM1_op1_op10_text_colo" placeholder="" disabled />
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-dITCSM1_op1_colo"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-dITCSM1_op1-colo"></div>
                   </div>
                   <div class="row ml-1 mb-3" id="smstsN_op2_1_colo" style="display: none">
                     <label for="sMIIT_op1_colo" class="col-sm-3 mb-1 col-form-label">Specimen Margin(s) Involved by Invasive Tumor </label>
@@ -15086,7 +15086,7 @@
                         <input type="text" class="form-control mt-2" id="sMIIT_op1_op8_text_colo" placeholder="" disabled />
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-sMIIT_op1_colo"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-sMIIT_op1-colo"></div>
                   </div>
                   <div class="row ml-1 mb-3">
                     <label for="mstsHGTN_colo" class="col-sm-3 mb-1 col-form-label">Margin Status for High-Grade Intraepithelial Neoplasia</label>
@@ -15141,7 +15141,7 @@
                         <label class="custom-control-label" for="rlnsts_rlnsts_colo">Regional lymph nodes present</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-rlnsts-anal"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-rlnsts-colo"></div>
                   </div>
 
                   <div class="row ml-1 mb-3">
@@ -15188,7 +15188,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="row ml-1 mb-3">
+                  <div class="row ml-1 mb-3" id="tDep_colo_1" style="display: none">
                     <label for="tDepP_colo" class="col-sm-3 mb-1 col-form-label">If Tumor Deposits present</label>
                     <div class="col-sm">
                       <div class="row">
@@ -15223,7 +15223,7 @@
                         <label class="custom-control-label" for="ACTNo_colo">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-ACT_colo"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-ACT-colo"></div>
                   </div>
                   <div class="row ml-1 mb-3" id="actDC_colo" style="display: none">
                     <label for="actDrugCycles_colo" class="col-sm-3 mb-1 col-form-label">ACT Drug Cycles</label>
@@ -15249,7 +15249,7 @@
                         <label class="custom-control-label" for="RTNo_colo">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-RadioT_colo"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-RadioT-colo"></div>
                   </div>
                   <div class="row ml-1 mb-3" id="rtDC1_colo" style="display: none">
                     <label for="rtDetails1_colo" class="col-sm-3 mb-1 col-form-label">Dosage & Fractions</label>
@@ -15288,7 +15288,7 @@
                         <label class="custom-control-label" for="tarTNo_colo">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-TT_colo"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-TT-colo"></div>
                   </div>
                   <div class="row ml-1 mb-3" id="tarTD_colo" style="display: none">
                     <label for="tarTDetails_colo" class="col-sm-3 mb-1 col-form-label">Targeted Therapy Details</label>
@@ -15308,13 +15308,13 @@
                         <label class="custom-control-label" for="pbNo_colo">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-pbT_colo"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-pbT-colo"></div>
                   </div>
 
                   <div class="row ml-1 mb-3" id="PBN_colo" style="display: none">
                     <label for="PBInput_colo" class="col-sm-3 mb-1 col-form-label">Paraffin Block Number</label>
                     <div class="col-sm-9">
-                      <input type="text" id="PBInput_colo" class="form-control" placeholder="YY-S-1111" maxlength="9" oninput="formatPBInput1(this)" />
+                      <input type="text" id="PBInput_colo" class="form-control" placeholder="YY-S-11111" maxlength="10" oninput="formatPBInput1(this)" />
                     </div>
                   </div>
 
@@ -15360,7 +15360,7 @@
                         <label class="custom-control-label" for="familyHistoryCancer2_esph">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-RadioFHabit">
+                    <div class="col-sm-1 mt-2 erase-icon-container-RadioFHabit-esph">
                       <!-- The icon will be dynamically inserted here -->
                     </div>
                   </div>
@@ -15390,7 +15390,7 @@
                         <label class="custom-control-label" for="foodH2_esph">Non Veg</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-RadioFdHabit_esph"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-RadioFdHabit-esph"></div>
                   </div>
 
                   <div class="row ml-1 mb-3">
@@ -15405,7 +15405,7 @@
                         <label class="custom-control-label" for="AlcoholH2_esph">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-RadioAlcoholHabit_esph"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-RadioAlcoholHabit-esph"></div>
                   </div>
 
                   <div class="row ml-1 mb-3">
@@ -15420,7 +15420,7 @@
                         <label class="custom-control-label" for="smokeH2_esph">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-RadioSmokeHabit_esph"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-RadioSmokeHabit-esph"></div>
                   </div>
 
                   <div class="row ml-1 mb-3">
@@ -15435,7 +15435,7 @@
                         <label class="custom-control-label" for="ECH2_esph">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-ECH_esph"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-ECH-esph"></div>
                   </div>
                   <div class="row ml-1 mb-3" id="cvSym_esph" style="display: none">
                     <label for="" class="col-sm-11 mb-1 col-form-label">Comorbidities Details</label>
@@ -15505,7 +15505,7 @@
                         <label class="custom-control-label" for="IHC_no_esph">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-IHC"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-IHC-esph"></div>
                   </div>
                   <div class="row ml-1 mb-3" id="ihcDescr_esph" style="display: none">
                     <label for="IHC_Description_esph" class="col-sm-3 mb-1 col-form-label">IHC Marker Description</label>
@@ -15525,7 +15525,7 @@
                         <label class="custom-control-label" for="gt_no_esph">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-GeneticT"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-GeneticT-esph"></div>
                   </div>
 
                   <div class="row ml-1 mb-3" id="gtrs_esph" style="display: none">
@@ -15766,7 +15766,7 @@
                         <input type="text" class="form-control" id="cMIC_op1_op7_text_esph" placeholder="" disabled />
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-cMIC_op1_esph"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-cMIC_op1-esph"></div>
                   </div>
                   <div class="row ml-1 mb-3" id="smsts_op1_2_esph" style="display: none">
                     <label for="dITCSM_op1_esph" class="col-sm-3 mb-1 col-form-label">Distance from Invasive Tumor to Closest Specimen Margin</label>
@@ -15814,7 +15814,7 @@
                         <input type="text" class="form-control" id="dITCSM_op1_op9_text_esph" placeholder="" disabled />
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-dITCSM_op1_esph"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-dITCSM_op1-esph"></div>
                   </div>
                   <div class="row ml-1 mb-3" id="smsts_op2_1_esph" style="display: none">
                     <label for="smIIT_esph" class="col-sm-3 mb-1 col-form-label">Specimen Margin(s) Involved by Invasive Tumor (per orientation)</label>
@@ -15855,7 +15855,7 @@
                         <input type="text" class="form-control" id="smIIT_op7_text_esph" placeholder="" disabled />
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-smIIT_esph"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-smIIT-esph"></div>
                   </div>
 
                   <!--  -->
@@ -15910,7 +15910,7 @@
                         <input type="text" class="form-control" id="mILGSD_op5_text_esph" placeholder="" disabled />
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-mILGSD_esph"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-mILGSD-esph"></div>
                   </div>
                   <div class="row ml-1 mb-3" id="mststDIM_op3_1_esph" style="display: none">
                     <label for="mIHGSD_esph" class="col-sm-3 mb-1 col-form-label">Margin(s) Involved by High-Grade Squamous Dysplasia</label>
@@ -15941,7 +15941,7 @@
                         <input type="text" class="form-control" id="mIHGSD_op5_text_esph" placeholder="" disabled />
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-mIHGSD_esph"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-mIHGSD-esph"></div>
                   </div>
                   <div class="row ml-1 mb-3" id="mststDIM_op4_1_esph" style="display: none">
                     <label for="mILGGD_esph" class="col-sm-3 mb-1 col-form-label">Margin(s) Involved by Low-Grade Glandular Dysplasia</label>
@@ -15972,7 +15972,7 @@
                         <input type="text" class="form-control" id="mILGGD_op5_text_esph" placeholder="" disabled />
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-mILGGD_esph"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-mILGGD-esph"></div>
                   </div>
                   <div class="row ml-1 mb-3" id="mststDIM_op5_1_esph" style="display: none">
                     <label for="mIHGGD_esph" class="col-sm-3 mb-1 col-form-label">Margin(s) Involved by High-Grade Glandular Dysplasia</label>
@@ -16003,7 +16003,7 @@
                         <input type="text" class="form-control" id="mIHGGD_op5_text_esph" placeholder="" disabled />
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-mIHGGD_esph"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-mIHGGD-esph"></div>
                   </div>
                   <div class="row ml-1 mb-3" id="mststDIM_op6_1_esph" style="display: none">
                     <label for="mIIM_esph" class="col-sm-3 mb-1 col-form-label">Margin(s) Involved by Intestinal Metaplasia</label>
@@ -16034,7 +16034,7 @@
                         <input type="text" class="form-control" id="mIIM_op5_text_esph" placeholder="" disabled />
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-mIIM_esph"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-mIIM-esph"></div>
                   </div>
                   <!--  -->
                   <div class="row ml-1 mb-3">
@@ -16104,7 +16104,7 @@
                         <label class="custom-control-label" for="ACTNo_esph">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-ACT_esph"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-ACT-esph"></div>
                   </div>
                   <div class="row ml-1 mb-3" id="actDC_esph" style="display: none">
                     <label for="actDrugCycles_esph" class="col-sm-3 mb-1 col-form-label">ACT Drug Cycles</label>
@@ -16130,7 +16130,7 @@
                         <label class="custom-control-label" for="RTNo_esph">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-RadioT_esph"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-RadioT-esph"></div>
                   </div>
                   <div class="row ml-1 mb-3" id="rtDC1_esph" style="display: none">
                     <label for="rtDetails1_esph" class="col-sm-3 mb-1 col-form-label">Dosage & Fractions</label>
@@ -16169,7 +16169,7 @@
                         <label class="custom-control-label" for="tarTNo_esph">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-TT_esph"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-TT-esph"></div>
                   </div>
                   <div class="row ml-1 mb-3" id="tarTD_esph" style="display: none">
                     <label for="Tar_Cycles_esph" class="col-sm-3 mb-1 col-form-label">Targeted Therapy Details</label>
@@ -16189,13 +16189,13 @@
                         <label class="custom-control-label" for="pbNo_esph">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-pbT_esph"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-pbT-esph"></div>
                   </div>
 
                   <div class="row ml-1 mb-3" id="PBN_esph" style="display: none">
                     <label for="PBInput_esph" class="col-sm-3 mb-1 col-form-label">Paraffin Block Number</label>
                     <div class="col-sm-9">
-                      <input type="text" id="PBInput_esph" class="form-control" placeholder="YY-S-1111" maxlength="9" oninput="formatPBInput1(this)" />
+                      <input type="text" id="PBInput_esph" class="form-control" placeholder="YY-S-11111" maxlength="10" oninput="formatPBInput1(this)" />
                     </div>
                   </div>
 
@@ -17095,7 +17095,7 @@
                   <div class="row ml-1 mb-3" id="PBN_gast" style="display: none">
                     <label for="PBInput_gast" class="col-sm-3 mb-1 col-form-label">Paraffin Block Number</label>
                     <div class="col-sm-9">
-                      <input type="text" id="PBInput_gast" class="form-control" placeholder="YY-S-1111" maxlength="9" oninput="formatPBInput1(this)" />
+                      <input type="text" id="PBInput_gast" class="form-control" placeholder="YY-S-11111" maxlength="10" oninput="formatPBInput1(this)" />
                     </div>
                   </div>
 
@@ -17857,7 +17857,7 @@
                         <label class="custom-control-label" for="msiIHC_MSH6_anal">MSH6</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-msiIHC_anal"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-msiIHC-anal"></div>
                   </div>
                   <div class="row ml-1 mb-3">
                     <label for="othM_anal" class="col-sm-2 mb-1 col-form-label">Other markers</label>
@@ -17925,7 +17925,7 @@
                         <label class="custom-control-label" for="msiIHC_MSH6_colo">MSH6</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-msiIHC_colo"></div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-msiIHC-colo"></div>
                   </div>
                   <div class="row ml-1 mb-3">
                     <label for="othM_colo" class="col-sm-2 mb-1 col-form-label">Other markers</label>
@@ -18573,7 +18573,7 @@
           &copy; Copyright <strong><span></span></strong>. All Rights Reserved
         </div>
         <div class="credits"></div>
-        <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">Version 1.8.17</div>
+        <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">Version 1.9.0</div>
       </div>
     </footer>
 
@@ -19146,6 +19146,70 @@
           "RLTSampleProcessedDate_lung",
           "PCSampleReceivedDate_lung",
           "PCSampleProcessedDate_lung",
+          // Anal
+          "NACT_cycle_D_anal",
+          "actDateLastCycle_anal",
+          "rtDateOfLastCycle_anal",
+          "sampleReceivedDate_anal",
+          "sampleProcessedDate_anal",
+          "bloodSampleProcessedDate_anal",
+          "SpecimenSampleReceivedDate_anal",
+          "bloodSampleReceivedDate_anal",
+          "SpecimenSampleProcessedDate_anal",
+          "OtherSampleReceivedDate_anal",
+          "OtherSampleProcessedDate_anal",
+          "RLTSampleReceivedDate_anal",
+          "RLTSampleProcessedDate_anal",
+          "PCSampleReceivedDate_anal",
+          "PCSampleProcessedDate_anal",
+          // Colorectal
+          "NACT_cycle_D_colo",
+          "actDateLastCycle_colo",
+          "radiotherapyLastCycleDate_colo",
+          "sampleReceivedDate_colo",
+          "sampleProcessedDate_colo",
+          "bloodSampleProcessedDate_colo",
+          "SpecimenSampleReceivedDate_colo",
+          "bloodSampleReceivedDate_colo",
+          "SpecimenSampleProcessedDate_colo",
+          "OtherSampleReceivedDate_colo",
+          "OtherSampleProcessedDate_colo",
+          "RLTSampleReceivedDate_colo",
+          "RLTSampleProcessedDate_colo",
+          "PCSampleReceivedDate_colo",
+          "PCSampleProcessedDate_colo",
+          // Gastric
+          "NACT_cycle_D_gast",
+          "actDateLastCycle_gast",
+          "radiotherapyLastCycleDate_gast",
+          "sampleReceivedDate_gast",
+          "sampleProcessedDate_gast",
+          "bloodSampleProcessedDate_gast",
+          "SpecimenSampleReceivedDate_gast",
+          "bloodSampleReceivedDate_gast",
+          "SpecimenSampleProcessedDate_gast",
+          "OtherSampleReceivedDate_gast",
+          "OtherSampleProcessedDate_gast",
+          "RLTSampleReceivedDate_gast",
+          "RLTSampleProcessedDate_gast",
+          "PCSampleReceivedDate_gast",
+          "PCSampleProcessedDate_gast",
+          // Espohagus
+          "NACT_cycle_D_esph",
+          "actDateLastCycle_esph",
+          "radiotherapyLastCycleDate_esph",
+          "sampleReceivedDate_esph",
+          "sampleProcessedDate_esph",
+          "bloodSampleProcessedDate_esph",
+          "SpecimenSampleReceivedDate_esph",
+          "bloodSampleReceivedDate_esph",
+          "SpecimenSampleProcessedDate_esph",
+          "OtherSampleReceivedDate_esph",
+          "OtherSampleProcessedDate_esph",
+          "RLTSampleReceivedDate_esph",
+          "RLTSampleProcessedDate_esph",
+          "PCSampleReceivedDate_esph",
+          "PCSampleProcessedDate_esph",
           // Follow-Up
           "startInputFollow",
           "recurrenceDate",
@@ -25074,6 +25138,11 @@
           } else {
             $("#tDep_text_anal").prop("disabled", true).val("");
           }
+          if (option === "op2") {
+            $("#tDepP_anal_1").show();
+          } else {
+            $("#tDepP_anal_1").hide();
+          }
         }
         tDep_anal();
         $("#tDep_anal").change(function () {
@@ -25532,6 +25601,11 @@
             $("#tDep_text_colo").prop("disabled", isReadOnlyViewMode(mode));
           } else {
             $("#tDep_text_colo").prop("disabled", true).val("");
+          }
+          if (option === "op2") {
+            $("#tDep_colo_1").show();
+          } else {
+            $("#tDep_colo_1").hide();
           }
         }
         tDep_colo();
@@ -32850,6 +32924,135 @@
           { groupName: "pbT_lung", containerClass: "erase-icon-container-pbT-lung" },
           // Form 3
           { groupName: "HER2Radio_lung", containerClass: "erase-icon-container-HER2Radio-lung" },
+
+          // Anal
+          { groupName: "denovo_anal", containerClass: "erase-icon-container-denovo-anal" },
+          { groupName: "mps_anal", containerClass: "erase-icon-container-mps-anal" },
+          { groupName: "IschemicRadio_anal", containerClass: "erase-icon-container-anal" },
+          { groupName: "NACT_anal", containerClass: "erase-icon-container-NACT-anal" },
+          { groupName: "processedRadio_anal", containerClass: "erase-icon-container-samRev-anal" },
+          // form 2
+          { groupName: "RadioFHabit_anal", containerClass: "erase-icon-container-RadioFHabit-anal" },
+          { groupName: "RadioFdHabit_anal", containerClass: "erase-icon-container-RadioFdHabit-anal" },
+          { groupName: "RadioAlcoholHabit_anal", containerClass: "erase-icon-container-RadioAlcoholHabit-anal" },
+          { groupName: "RadioSmokeHabit_anal", containerClass: "erase-icon-container-RadioSmokeHabit-anal" },
+          { groupName: "ECH_anal", containerClass: "erase-icon-container-ECH-anal" },
+          { groupName: "tumorSite_anal", containerClass: "erase-icon-container-tumorSite-anal" },
+          { groupName: "IHC_anal", containerClass: "erase-icon-container-IHC-anal" },
+          { groupName: "GeneticT_anal", containerClass: "erase-icon-container-GeneticT-anal" },
+          { groupName: "focal_anal", containerClass: "erase-icon-container-focal-anal" },
+          { groupName: "dcis_anal", containerClass: "erase-icon-container-dcis-anal" },
+          { groupName: "LVI_anal", containerClass: "erase-icon-container-LVI-anal" },
+          { groupName: "PNI_anal", containerClass: "erase-icon-container-PNI-anal" },
+          { groupName: "dSubMI_anal", containerClass: "erase-icon-container-dSubMI-anal" },
+          { groupName: "rlnsts_anal", containerClass: "erase-icon-container-rlnsts-anal" },
+          { groupName: "cMIC_op1_anal", containerClass: "erase-icon-container-cMIC_op1-anal" },
+          { groupName: "dITCSM_op1_anal", containerClass: "erase-icon-container-dITCSM_op1-anal" },
+          { groupName: "sMSIT_anal", containerClass: "erase-icon-container-sMSIT_op2-anal" },
+          { groupName: "cMIC1_op1_anal", containerClass: "erase-icon-container-cMIC1_op1-anal" },
+          { groupName: "dITCSM1_op1_anal", containerClass: "erase-icon-container-dITCSM1_op1-anal" },
+          { groupName: "sMIIT_op1_anal", containerClass: "erase-icon-container-sMIIT_op1-anal" },
+          { groupName: "ACT_anal", containerClass: "erase-icon-container-ACT-anal" },
+          { groupName: "RadioT_anal", containerClass: "erase-icon-container-RadioT-anal" },
+          { groupName: "horT_anal", containerClass: "erase-icon-container-HT-anal" },
+          { groupName: "tarT_anal", containerClass: "erase-icon-container-TT-anal" },
+          { groupName: "pbT_anal", containerClass: "erase-icon-container-pbT-anal" },
+          // form 3
+          { groupName: "msiIHC_anal", containerClass: "erase-icon-container-msiIHC-anal" },
+
+          // Colorectal
+          { groupName: "denovo_colo", containerClass: "erase-icon-container-denovo-colo" },
+          { groupName: "mps_colo", containerClass: "erase-icon-container-mps-colo" },
+          { groupName: "IschemicRadio_colo", containerClass: "erase-icon-container-colo" },
+          { groupName: "NACT_colo", containerClass: "erase-icon-container-NACT-colo" },
+          { groupName: "processedRadio_colo", containerClass: "erase-icon-container-samRev-colo" },
+          // form 2
+          { groupName: "RadioFHabit_colo", containerClass: "erase-icon-container-RadioFHabit-colo" },
+          { groupName: "RadioFdHabit_colo", containerClass: "erase-icon-container-RadioFdHabit-colo" },
+          { groupName: "RadioAlcoholHabit_colo", containerClass: "erase-icon-container-RadioAlcoholHabit-colo" },
+          { groupName: "RadioSmokeHabit_colo", containerClass: "erase-icon-container-RadioSmokeHabit-colo" },
+          { groupName: "ECH_colo", containerClass: "erase-icon-container-ECH-colo" },
+          { groupName: "tumorSite_colo", containerClass: "erase-icon-container-tumorSite-colo" },
+          { groupName: "IHC_colo", containerClass: "erase-icon-container-IHC-colo" },
+          { groupName: "GeneticT_colo", containerClass: "erase-icon-container-GeneticT-colo" },
+          { groupName: "focal_colo", containerClass: "erase-icon-container-focal-colo" },
+          { groupName: "dcis_colo", containerClass: "erase-icon-container-dcis-colo" },
+          { groupName: "LVI_colo", containerClass: "erase-icon-container-LVI-colo" },
+          { groupName: "PNI_colo", containerClass: "erase-icon-container-PNI-colo" },
+          { groupName: "dSubMI_colo", containerClass: "erase-icon-container-dSubMI-colo" },
+          { groupName: "rlnsts_colo", containerClass: "erase-icon-container-rlnsts-colo" },
+          { groupName: "cMIC_op1_colo", containerClass: "erase-icon-container-cMIC_op1-colo" },
+          { groupName: "dITCSM_op1_colo", containerClass: "erase-icon-container-dITCSM_op1-colo" },
+          { groupName: "sMSIT_colo", containerClass: "erase-icon-container-sMSIT_op2-colo" },
+          { groupName: "cMIC1_op1_colo", containerClass: "erase-icon-container-cMIC1_op1-colo" },
+          { groupName: "dITCSM1_op1_colo", containerClass: "erase-icon-container-dITCSM1_op1-colo" },
+          { groupName: "sMIIT_op1_colo", containerClass: "erase-icon-container-sMIIT_op1-colo" },
+          { groupName: "ACT_colo", containerClass: "erase-icon-container-ACT-colo" },
+          { groupName: "RadioT_colo", containerClass: "erase-icon-container-RadioT-colo" },
+          { groupName: "horT_colo", containerClass: "erase-icon-container-HT-colo" },
+          { groupName: "tarT_colo", containerClass: "erase-icon-container-TT-colo" },
+          { groupName: "pbT_colo", containerClass: "erase-icon-container-pbT-colo" },
+          // form 3
+          { groupName: "msiIHC_colo", containerClass: "erase-icon-container-msiIHC-colo" },
+
+          // Gastric
+          { groupName: "denovo_gast", containerClass: "erase-icon-container-denovo-gast" },
+          { groupName: "IschemicRadio_gast", containerClass: "erase-icon-container-gast" },
+          { groupName: "NACT_gast", containerClass: "erase-icon-container-NACT-gast" },
+          { groupName: "processedRadio_gast", containerClass: "erase-icon-container-samRev-gast" },
+          // form 2
+          { groupName: "RadioFHabit_gast", containerClass: "erase-icon-container-RadioFHabit-gast" },
+          { groupName: "RadioFdHabit_gast", containerClass: "erase-icon-container-RadioFdHabit-gast" },
+          { groupName: "RadioAlcoholHabit_gast", containerClass: "erase-icon-container-RadioAlcoholHabit-gast" },
+          { groupName: "RadioSmokeHabit_gast", containerClass: "erase-icon-container-RadioSmokeHabit-gast" },
+          { groupName: "ECH_gast", containerClass: "erase-icon-container-ECH-gast" },
+          { groupName: "tumorSite_gast", containerClass: "erase-icon-container-tumorSite-gast" },
+          { groupName: "IHC_gast", containerClass: "erase-icon-container-IHC-gast" },
+          { groupName: "GeneticT_gast", containerClass: "erase-icon-container-GeneticT-gast" },
+          { groupName: "focal_gast", containerClass: "erase-icon-container-focal-gast" },
+          { groupName: "dcis_gast", containerClass: "erase-icon-container-dcis-gast" },
+          { groupName: "LVI_gast", containerClass: "erase-icon-container-LVI-gast" },
+          { groupName: "PNI_gast", containerClass: "erase-icon-container-PNI-gast" },
+          { groupName: "ACT_gast", containerClass: "erase-icon-container-ACT-gast" },
+          { groupName: "RadioT_gast", containerClass: "erase-icon-container-RadioT-gast" },
+          { groupName: "horT_gast", containerClass: "erase-icon-container-HT-gast" },
+          { groupName: "tarT_gast", containerClass: "erase-icon-container-TT-gast" },
+          { groupName: "pbT_gast", containerClass: "erase-icon-container-pbT-gast" },
+          // form 3
+          { groupName: "MetaPT_gast", containerClass: "erase-icon-container-MPT-gast" },
+          { groupName: "ERRadio_gast", containerClass: "erase-icon-container-ERRadio-gast" },
+          { groupName: "PRRadio_gast", containerClass: "erase-icon-container-PRRadio-gast" },
+          { groupName: "HER2Radio_gast", containerClass: "erase-icon-container-HER2Radio-gast" },
+          { groupName: "mStatus_gast", containerClass: "erase-icon-container-mStatus-gast" },
+          // Esophagus
+          { groupName: "denovo_esph", containerClass: "erase-icon-container-denovo-esph" },
+          { groupName: "IschemicRadio_esph", containerClass: "erase-icon-container-esph" },
+          { groupName: "NACT_esph", containerClass: "erase-icon-container-NACT-esph" },
+          { groupName: "processedRadio_esph", containerClass: "erase-icon-container-samRev-esph" },
+          // form 2
+          { groupName: "RadioFHabit_esph", containerClass: "erase-icon-container-RadioFHabit-esph" },
+          { groupName: "RadioFdHabit_esph", containerClass: "erase-icon-container-RadioFdHabit-esph" },
+          { groupName: "RadioAlcoholHabit_esph", containerClass: "erase-icon-container-RadioAlcoholHabit-esph" },
+          { groupName: "RadioSmokeHabit_esph", containerClass: "erase-icon-container-RadioSmokeHabit-esph" },
+          { groupName: "ECH_esph", containerClass: "erase-icon-container-ECH-esph" },
+          { groupName: "tumorSite_esph", containerClass: "erase-icon-container-tumorSite-esph" },
+          { groupName: "IHC_esph", containerClass: "erase-icon-container-IHC-esph" },
+          { groupName: "GeneticT_esph", containerClass: "erase-icon-container-GeneticT-esph" },
+          { groupName: "focal_esph", containerClass: "erase-icon-container-focal-esph" },
+          { groupName: "dcis_esph", containerClass: "erase-icon-container-dcis-esph" },
+          { groupName: "LVI_esph", containerClass: "erase-icon-container-LVI-esph" },
+          { groupName: "PNI_esph", containerClass: "erase-icon-container-PNI-esph" },
+          { groupName: "ACT_esph", containerClass: "erase-icon-container-ACT-esph" },
+          { groupName: "RadioT_esph", containerClass: "erase-icon-container-RadioT-esph" },
+          { groupName: "horT_esph", containerClass: "erase-icon-container-HT-esph" },
+          { groupName: "tarT_esph", containerClass: "erase-icon-container-TT-esph" },
+          { groupName: "pbT_esph", containerClass: "erase-icon-container-pbT-esph" },
+          // form 3
+          { groupName: "MetaPT_esph", containerClass: "erase-icon-container-MPT-esph" },
+          { groupName: "ERRadio_esph", containerClass: "erase-icon-container-ERRadio-esph" },
+          { groupName: "PRRadio_esph", containerClass: "erase-icon-container-PRRadio-esph" },
+          { groupName: "HER2Radio_esph", containerClass: "erase-icon-container-HER2Radio-esph" },
+          { groupName: "mStatus_esph", containerClass: "erase-icon-container-mStatus-esph" },
         ];
 
         radioGroups.forEach((group) => {
