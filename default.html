@@ -33241,115 +33241,54 @@
     </script>
 
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll('input[name="customProcedure"]').forEach(function (radio) {
-          radio.addEventListener("change", function () {
-            const proType = document.querySelector('input[name="customProcedure"]:checked').value;
-            const mode = localStorage.getItem("mode");
-            const biobankID = localStorage.getItem("BioVal");
-            const cancer_type = document.getElementById("cancer_type").value;
-            fillform(proType, mode, biobankID, cancer_type);
+      document.addEventListener("DOMContentLoaded", () => {
+        const mode = () => localStorage.getItem("mode");
+        const biobankID = () => localStorage.getItem("BioVal");
+        const cancerType = () => document.getElementById("cancer_type").value;
+
+        // customProcedure radio groups
+        [
+          "customProcedure",
+          "customProcedure_anal",
+          "customProcedure_colo",
+          "customProcedure_gast",
+          "customProcedure_esph",
+          "customProcedure_ceix",
+          "customProcedure_endm",
+          "customProcedure_ovry",
+          "customProcedure_hene",
+          "customProcedure_lung",
+        ].forEach((group) => {
+          document.querySelectorAll(`input[name="${group}"]`).forEach((radio) => {
+            radio.addEventListener("change", () => {
+              const proType = document.querySelector(`input[name="${group}"]:checked`)?.value;
+              if (proType) {
+                fillform(proType, mode(), biobankID(), cancerType());
+              }
+            });
           });
         });
-        document.querySelectorAll('input[name="customProcedure_ceix"]').forEach(function (radio) {
-          radio.addEventListener("change", function () {
-            const proType = document.querySelector('input[name="customProcedure_ceix"]:checked').value;
-            const mode = localStorage.getItem("mode");
-            const biobankID = localStorage.getItem("BioVal");
-            const cancer_type = document.getElementById("cancer_type").value;
-            fillform(proType, mode, biobankID, cancer_type);
-          });
-        });
-        document.querySelectorAll('input[name="customProcedure_endm"]').forEach(function (radio) {
-          radio.addEventListener("change", function () {
-            const proType = document.querySelector('input[name="customProcedure_endm"]:checked').value;
-            const mode = localStorage.getItem("mode");
-            const biobankID = localStorage.getItem("BioVal");
-            const cancer_type = document.getElementById("cancer_type").value;
-            fillform(proType, mode, biobankID, cancer_type);
-          });
-        });
-        document.querySelectorAll('input[name="customProcedure_ovry"]').forEach(function (radio) {
-          radio.addEventListener("change", function () {
-            const proType = document.querySelector('input[name="customProcedure_ovry"]:checked').value;
-            const mode = localStorage.getItem("mode");
-            const biobankID = localStorage.getItem("BioVal");
-            const cancer_type = document.getElementById("cancer_type").value;
-            fillform(proType, mode, biobankID, cancer_type);
-          });
-        });
-        document.querySelectorAll('input[name="customProcedure_hene"]').forEach(function (radio) {
-          radio.addEventListener("change", function () {
-            const proType = document.querySelector('input[name="customProcedure_hene"]:checked').value;
-            const mode = localStorage.getItem("mode");
-            const biobankID = localStorage.getItem("BioVal");
-            const cancer_type = document.getElementById("cancer_type").value;
-            fillform(proType, mode, biobankID, cancer_type);
-          });
-        });
-        document.querySelectorAll('input[name="customProcedure_lung"]').forEach(function (radio) {
-          radio.addEventListener("change", function () {
-            const proType = document.querySelector('input[name="customProcedure_lung"]:checked').value;
-            const mode = localStorage.getItem("mode");
-            const biobankID = localStorage.getItem("BioVal");
-            const cancer_type = document.getElementById("cancer_type").value;
-            fillform(proType, mode, biobankID, cancer_type);
-          });
-        });
-      });
-      document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll('input[name="MetastasisSample"]').forEach(function (radio) {
-          radio.addEventListener("change", function () {
-            const mode = localStorage.getItem("mode");
-            const biobankID = localStorage.getItem("BioVal");
-            const metastasisS = document.querySelector('input[name="MetastasisSample"]:checked').value;
-            const cancer_type = document.getElementById("cancer_type").value;
-            fillform2(mode, biobankID, metastasisS, cancer_type);
-          });
-        });
-        document.querySelectorAll('input[name="MetastasisSample_hene"]').forEach(function (radio) {
-          radio.addEventListener("change", function () {
-            const mode = localStorage.getItem("mode");
-            const biobankID = localStorage.getItem("BioVal");
-            const metastasisS = document.querySelector('input[name="MetastasisSample_hene"]:checked').value;
-            const cancer_type = document.getElementById("cancer_type").value;
-            fillform2(mode, biobankID, metastasisS, cancer_type);
-          });
-        });
-        document.querySelectorAll('input[name="MetastasisSample_endm"]').forEach(function (radio) {
-          radio.addEventListener("change", function () {
-            const mode = localStorage.getItem("mode");
-            const biobankID = localStorage.getItem("BioVal");
-            const metastasisS = document.querySelector('input[name="MetastasisSample_endm"]:checked').value;
-            const cancer_type = document.getElementById("cancer_type").value;
-            fillform2(mode, biobankID, metastasisS, cancer_type);
-          });
-        });
-        document.querySelectorAll('input[name="MetastasisSample_ceix"]').forEach(function (radio) {
-          radio.addEventListener("change", function () {
-            const mode = localStorage.getItem("mode");
-            const biobankID = localStorage.getItem("BioVal");
-            const metastasisS = document.querySelector('input[name="MetastasisSample_ceix"]:checked').value;
-            const cancer_type = document.getElementById("cancer_type").value;
-            fillform2(mode, biobankID, metastasisS, cancer_type);
-          });
-        });
-        document.querySelectorAll('input[name="MetastasisSample_ovry"]').forEach(function (radio) {
-          radio.addEventListener("change", function () {
-            const mode = localStorage.getItem("mode");
-            const biobankID = localStorage.getItem("BioVal");
-            const metastasisS = document.querySelector('input[name="MetastasisSample_ovry"]:checked').value;
-            const cancer_type = document.getElementById("cancer_type").value;
-            fillform2(mode, biobankID, metastasisS, cancer_type);
-          });
-        });
-        document.querySelectorAll('input[name="MetastasisSample_lung"]').forEach(function (radio) {
-          radio.addEventListener("change", function () {
-            const mode = localStorage.getItem("mode");
-            const biobankID = localStorage.getItem("BioVal");
-            const metastasisS = document.querySelector('input[name="MetastasisSample_lung"]:checked').value;
-            const cancer_type = document.getElementById("cancer_type").value;
-            fillform2(mode, biobankID, metastasisS, cancer_type);
+
+        // MetastasisSample radio groups
+        [
+          "MetastasisSample",
+          "MetastasisSample_anal",
+          "MetastasisSample_colo",
+          "MetastasisSample_gast",
+          "MetastasisSample_esph",
+          "MetastasisSample_hene",
+          "MetastasisSample_endm",
+          "MetastasisSample_ceix",
+          "MetastasisSample_ovry",
+          "MetastasisSample_lung",
+        ].forEach((group) => {
+          document.querySelectorAll(`input[name="${group}"]`).forEach((radio) => {
+            radio.addEventListener("change", () => {
+              const metastasisS = document.querySelector(`input[name="${group}"]:checked`)?.value;
+              if (metastasisS) {
+                fillform2(mode(), biobankID(), metastasisS, cancerType());
+              }
+            });
           });
         });
       });
@@ -33366,7 +33305,6 @@
               if (snapshot && snapshot.exists()) {
                 const data = snapshot.val();
                 const seqKeys = Object.keys(data);
-                console.log("seqKeys in fillform", seqKeys);
                 seqKeys.sort();
                 const lastSeqKey = seqKeys[seqKeys.length - 1];
 
@@ -33386,7 +33324,18 @@
                   if (lastTimestampData.md) {
                     mdDataArr = lastTimestampData.md;
                   }
-                  if (lastTimestampData.brf || lastTimestampData.cvf || lastTimestampData.emf || lastTimestampData.ovf || lastTimestampData.henef || lastTimestampData.luf) {
+                  if (
+                    lastTimestampData.brf ||
+                    lastTimestampData.cvf ||
+                    lastTimestampData.emf ||
+                    lastTimestampData.ovf ||
+                    lastTimestampData.henef ||
+                    lastTimestampData.luf ||
+                    lastTimestampData.anf ||
+                    lastTimestampData.gtf ||
+                    lastTimestampData.etf ||
+                    lastTimestampData.cof
+                  ) {
                     const formMap = {
                       brst: lastTimestampData.brf,
                       ceix: lastTimestampData.cvf,
@@ -33394,6 +33343,10 @@
                       ovry: lastTimestampData.ovf,
                       hene: lastTimestampData.henef,
                       lung: lastTimestampData.luf,
+                      anal: lastTimestampData.anf,
+                      colo: lastTimestampData.cof,
+                      gast: lastTimestampData.gtf,
+                      esph: lastTimestampData.etf,
                     };
 
                     brfDataArr = formMap[cancer_type] || null;
@@ -33404,7 +33357,7 @@
                   document.getElementById("bioBankId").value = biobankID || "";
                   document.getElementById("cancer_type").value = ieDataArr.ct || "";
                   if (cancer_type === "brst") {
-                    if (mdDataArr.sx) document.querySelector(`input[name="customRadio"][value="${ieDataArr.sx}"]`).checked = true || "";
+                    if (ieDataArr.sx) document.querySelector(`input[name="customRadio"][value="${ieDataArr.sx}"]`).checked = true || "";
                     if (mdDataArr.fhc) document.querySelector(`input[name="RadioFHabit"][value="${mdDataArr.fhc}"]`).checked = true;
 
                     familyHabitToggle();
@@ -33560,6 +33513,296 @@
                     document.getElementById("sbt").value = brfDataArr.sbt || "";
                     document.getElementById("k67").value = brfDataArr.k67 || "";
                     document.getElementById("HistologicalS").value = brfDataArr.ht || "";
+                  }
+                  if (cancer_type === "anal") {
+                    if (ieDataArr.sx) document.querySelector(`input[name="customRadio_anal"][value="${ieDataArr.sx}"]`).checked = true || "";
+                    if (mdDataArr.fhc) document.querySelector(`input[name="RadioFHabit_anal"][value="${mdDataArr.fhc}"]`).checked = true;
+
+                    familyHabitToggle_anal();
+                    document.getElementById("familyRelation_anal").value = mdDataArr.fhcr || "";
+                    document.getElementById("familyCancerType_anal").value = mdDataArr.fhct || "";
+
+                    if (mdDataArr.fh) document.querySelector(`input[name="RadioFdHabit_anal"][value="${mdDataArr.fh}"]`).checked = true;
+                    if (mdDataArr.hac) document.querySelector(`input[name="RadioAlcoholHabit_anal"][value="${mdDataArr.hac}"]`).checked = true;
+                    if (mdDataArr.hs) document.querySelector(`input[name="RadioSmokeHabit_anal"][value="${mdDataArr.hs}"]`).checked = true;
+                    if (mdDataArr.ec) document.querySelector(`input[name="ECH_anal"][value="${mdDataArr.ec}"]`).checked = true;
+                    ExistComorbidity_anal();
+                    if (mdDataArr.cm) {
+                      let comMed = mdDataArr.cm;
+                      const dropdownContainer = document.getElementById("cvSym_anal");
+                      const keys = Object.keys(comMed);
+
+                      Object.keys(comMed).forEach((info) => {
+                        const data = comMed[info];
+
+                        const newDiv = document.createElement("div");
+                        const newDiv1 = document.createElement("div");
+                        const newDiv2 = document.createElement("div");
+
+                        newDiv.classList.add("col-sm-3", "mt-2", "cmd_anal");
+                        newDiv1.classList.add("col-sm-8", "mt-2", "cmd_anal");
+                        newDiv2.classList.add("col-sm-1", "mt-2", "pr-4", "cmd_anal");
+                        const newSelect = document.createElement("select");
+                        const inputWrapper = document.createElement("div"); // This holds one or two inputs
+                        inputWrapper.classList.add("form-row");
+
+                        newSelect.classList.add("form-control");
+
+                        const options = [
+                          { value: "", text: "" },
+                          { value: "Diabetic", text: "Type 2 Diabetic Mellitus" },
+                          { value: "Cardiac", text: "Cardiac History" },
+                          { value: "Hypertension", text: "Hypertension" },
+                          { value: "Other", text: "Other" },
+                        ];
+
+                        options.forEach((optionData) => {
+                          const option = document.createElement("option");
+                          option.value = optionData.value;
+                          option.textContent = optionData.text;
+                          if (optionData.value === data.selectedOption) {
+                            option.selected = true;
+                          }
+                          newSelect.appendChild(option);
+                        });
+                        if (data.selectedOption === "Other") {
+                          const otherInput1 = document.createElement("input");
+                          const otherInput2 = document.createElement("input");
+
+                          otherInput1.classList.add("form-control", "col-sm-6");
+                          otherInput2.classList.add("form-control", "col-sm-6");
+
+                          otherInput1.type = "text";
+                          otherInput2.type = "text";
+
+                          otherInput1.placeholder = "Comorbidity";
+                          otherInput2.placeholder = "Medicines";
+
+                          otherInput1.value = data.textValue.input1 || "";
+                          otherInput2.value = data.textValue.input2 || "";
+
+                          inputWrapper.appendChild(otherInput1);
+                          inputWrapper.appendChild(otherInput2);
+                        } else {
+                          const defaultInput = document.createElement("input");
+                          defaultInput.classList.add("form-control");
+                          defaultInput.type = "text";
+                          defaultInput.placeholder = "Medicines";
+                          defaultInput.value = data.textValue || "";
+                          inputWrapper.appendChild(defaultInput);
+                        }
+
+                        newDiv2.style.display = "flex";
+                        newDiv2.style.flexDirection = "row-reverse";
+                        const imgGroup = document.createElement("div");
+                        imgGroup.classList.add("input-group-append");
+
+                        const img1 = document.createElement("img");
+                        img1.src = "assets/images/delete-2.svg";
+                        img1.id = "cvSymRemBtn";
+                        img1.style.height = "36px";
+                        img1.style.width = "36px";
+                        img1.style.marginTop = "-2px";
+                        img1.style.cursor = "pointer";
+                        img1.addEventListener("click", function () {
+                          dropdownContainer.removeChild(newDiv);
+                          dropdownContainer.removeChild(newDiv1);
+                          dropdownContainer.removeChild(newDiv2);
+                        });
+
+                        imgGroup.appendChild(img1);
+
+                        newDiv.appendChild(newSelect);
+                        newDiv1.appendChild(inputWrapper);
+                        newDiv2.appendChild(imgGroup);
+
+                        dropdownContainer.appendChild(newDiv);
+                        dropdownContainer.appendChild(newDiv1);
+
+                        if (mode === "SearchView" || mode === "PendingView" || mode === "EditFollowUps") {
+                          const inputs = dropdownContainer.querySelectorAll("input, select");
+                          inputs.forEach((input) => (input.disabled = true));
+                        }
+
+                        if (mode !== "SearchView" && mode !== "PendingView") {
+                          dropdownContainer.appendChild(newDiv2);
+                        }
+                        newSelect.addEventListener("change", function () {
+                          inputWrapper.innerHTML = "";
+
+                          if (this.value === "Other") {
+                            const otherInput1 = document.createElement("input");
+                            const otherInput2 = document.createElement("input");
+
+                            otherInput1.classList.add("form-control", "col-sm-6");
+                            otherInput2.classList.add("form-control", "col-sm-6");
+
+                            otherInput1.value = data.input1 || "";
+                            otherInput2.value = data.input2 || "";
+
+                            inputWrapper.appendChild(otherInput1);
+                            inputWrapper.appendChild(otherInput2);
+                          } else {
+                            const defaultInput = document.createElement("input");
+                            defaultInput.classList.add("form-control");
+                            defaultInput.type = "text";
+                            defaultInput.placeholder = "Medicines";
+                            inputWrapper.appendChild(defaultInput);
+                          }
+                        });
+                      });
+                    }
+
+                    document.getElementById(`tumor_anal`).value = mdDataArr.tst || "";
+                    document.getElementById(`tumor_Oth_anal`).value = mdDataArr.tstOth || "";
+                    document.getElementById("clinicalStage_anal").value = mdDataArr.cs || "";
+                    document.getElementById("subtype_anal").value = mdDataArr.pst || "";
+                    document.getElementById("pstOt_anal").value = mdDataArr.pstOt || "";
+                  }
+                  if (cancer_type === "colo") {
+                    if (ieDataArr.sx) document.querySelector(`input[name="customRadio_colo"][value="${ieDataArr.sx}"]`).checked = true || "";
+                    if (mdDataArr.fhc) document.querySelector(`input[name="RadioFHabit_colo"][value="${mdDataArr.fhc}"]`).checked = true;
+
+                    familyHabitToggle_colo();
+                    document.getElementById("familyRelation_colo").value = mdDataArr.fhcr || "";
+                    document.getElementById("familyCancerType_colo").value = mdDataArr.fhct || "";
+
+                    if (mdDataArr.fh) document.querySelector(`input[name="RadioFdHabit_colo"][value="${mdDataArr.fh}"]`).checked = true;
+                    if (mdDataArr.hac) document.querySelector(`input[name="RadioAlcoholHabit_colo"][value="${mdDataArr.hac}"]`).checked = true;
+                    if (mdDataArr.hs) document.querySelector(`input[name="RadioSmokeHabit_colo"][value="${mdDataArr.hs}"]`).checked = true;
+                    if (mdDataArr.ec) document.querySelector(`input[name="ECH_colo"][value="${mdDataArr.ec}"]`).checked = true;
+                    ExistComorbidity_colo();
+                    if (mdDataArr.cm) {
+                      let comMed = mdDataArr.cm;
+                      const dropdownContainer = document.getElementById("cvSym_colo");
+                      const keys = Object.keys(comMed);
+
+                      Object.keys(comMed).forEach((info) => {
+                        const data = comMed[info];
+
+                        const newDiv = document.createElement("div");
+                        const newDiv1 = document.createElement("div");
+                        const newDiv2 = document.createElement("div");
+
+                        newDiv.classList.add("col-sm-3", "mt-2", "cmd_colo");
+                        newDiv1.classList.add("col-sm-8", "mt-2", "cmd_colo");
+                        newDiv2.classList.add("col-sm-1", "mt-2", "pr-4", "cmd_colo");
+                        const newSelect = document.createElement("select");
+                        const inputWrapper = document.createElement("div"); // This holds one or two inputs
+                        inputWrapper.classList.add("form-row");
+
+                        newSelect.classList.add("form-control");
+
+                        const options = [
+                          { value: "", text: "" },
+                          { value: "Diabetic", text: "Type 2 Diabetic Mellitus" },
+                          { value: "Cardiac", text: "Cardiac History" },
+                          { value: "Hypertension", text: "Hypertension" },
+                          { value: "Other", text: "Other" },
+                        ];
+
+                        options.forEach((optionData) => {
+                          const option = document.createElement("option");
+                          option.value = optionData.value;
+                          option.textContent = optionData.text;
+                          if (optionData.value === data.selectedOption) {
+                            option.selected = true;
+                          }
+                          newSelect.appendChild(option);
+                        });
+                        if (data.selectedOption === "Other") {
+                          const otherInput1 = document.createElement("input");
+                          const otherInput2 = document.createElement("input");
+
+                          otherInput1.classList.add("form-control", "col-sm-6");
+                          otherInput2.classList.add("form-control", "col-sm-6");
+
+                          otherInput1.type = "text";
+                          otherInput2.type = "text";
+
+                          otherInput1.placeholder = "Comorbidity";
+                          otherInput2.placeholder = "Medicines";
+
+                          otherInput1.value = data.textValue.input1 || "";
+                          otherInput2.value = data.textValue.input2 || "";
+
+                          inputWrapper.appendChild(otherInput1);
+                          inputWrapper.appendChild(otherInput2);
+                        } else {
+                          const defaultInput = document.createElement("input");
+                          defaultInput.classList.add("form-control");
+                          defaultInput.type = "text";
+                          defaultInput.placeholder = "Medicines";
+                          defaultInput.value = data.textValue || "";
+                          inputWrapper.appendChild(defaultInput);
+                        }
+
+                        newDiv2.style.display = "flex";
+                        newDiv2.style.flexDirection = "row-reverse";
+                        const imgGroup = document.createElement("div");
+                        imgGroup.classList.add("input-group-append");
+
+                        const img1 = document.createElement("img");
+                        img1.src = "assets/images/delete-2.svg";
+                        img1.id = "cvSymRemBtn";
+                        img1.style.height = "36px";
+                        img1.style.width = "36px";
+                        img1.style.marginTop = "-2px";
+                        img1.style.cursor = "pointer";
+                        img1.addEventListener("click", function () {
+                          dropdownContainer.removeChild(newDiv);
+                          dropdownContainer.removeChild(newDiv1);
+                          dropdownContainer.removeChild(newDiv2);
+                        });
+
+                        imgGroup.appendChild(img1);
+
+                        newDiv.appendChild(newSelect);
+                        newDiv1.appendChild(inputWrapper);
+                        newDiv2.appendChild(imgGroup);
+
+                        dropdownContainer.appendChild(newDiv);
+                        dropdownContainer.appendChild(newDiv1);
+
+                        if (mode === "SearchView" || mode === "PendingView" || mode === "EditFollowUps") {
+                          const inputs = dropdownContainer.querySelectorAll("input, select");
+                          inputs.forEach((input) => (input.disabled = true));
+                        }
+
+                        if (mode !== "SearchView" && mode !== "PendingView") {
+                          dropdownContainer.appendChild(newDiv2);
+                        }
+                        newSelect.addEventListener("change", function () {
+                          inputWrapper.innerHTML = "";
+
+                          if (this.value === "Other") {
+                            const otherInput1 = document.createElement("input");
+                            const otherInput2 = document.createElement("input");
+
+                            otherInput1.classList.add("form-control", "col-sm-6");
+                            otherInput2.classList.add("form-control", "col-sm-6");
+
+                            otherInput1.value = data.input1 || "";
+                            otherInput2.value = data.input2 || "";
+
+                            inputWrapper.appendChild(otherInput1);
+                            inputWrapper.appendChild(otherInput2);
+                          } else {
+                            const defaultInput = document.createElement("input");
+                            defaultInput.classList.add("form-control");
+                            defaultInput.type = "text";
+                            defaultInput.placeholder = "Medicines";
+                            inputWrapper.appendChild(defaultInput);
+                          }
+                        });
+                      });
+                    }
+
+                    document.getElementById(`tumor_colo`).value = mdDataArr.tst || "";
+                    document.getElementById(`tumor_Oth_colo`).value = mdDataArr.tstOth || "";
+                    document.getElementById("clinicalStage_colo").value = mdDataArr.cs || "";
+                    document.getElementById("subtype_colo").value = mdDataArr.pst || "";
+                    document.getElementById("pstOt_colo").value = mdDataArr.pstOt || "";
                   }
                   if (cancer_type === "ceix") {
                     if (ieDataArr.sx) document.querySelector(`input[name="customRadio_ceix"][value="${ieDataArr.sx}"]`).checked = true || "";
@@ -34126,7 +34369,7 @@
                     document.getElementById("k67_ovry").value = brfDataArr.k67 || "";
                   }
                   if (cancer_type === "hene") {
-                    if (mdDataArr.sx) document.querySelector(`input[name="customRadio_hene"][value="${ieDataArr.sx}"]`).checked = true || "";
+                    if (ieDataArr.sx) document.querySelector(`input[name="customRadio_hene"][value="${ieDataArr.sx}"]`).checked = true || "";
                     if (mdDataArr.fhc) document.querySelector(`input[name="RadioFHabit_hene"][value="${mdDataArr.fhc}"]`).checked = true;
 
                     familyHabitToggle_hene();
@@ -34529,6 +34772,300 @@
 
                     document.getElementById("k67_lung").value = brfDataArr.k67 || "";
                   }
+                  if (cancer_type === "esph") {
+                    if (ieDataArr.sx) document.querySelector(`input[name="customRadio_esph"][value="${ieDataArr.sx}"]`).checked = true || "";
+                    if (mdDataArr.fhc) document.querySelector(`input[name="RadioFHabit_esph"][value="${mdDataArr.fhc}"]`).checked = true;
+
+                    familyHabitToggle_esph();
+                    document.getElementById("familyRelation_esph").value = mdDataArr.fhcr || "";
+                    document.getElementById("familyCancerType_esph").value = mdDataArr.fhct || "";
+
+                    if (mdDataArr.fh) document.querySelector(`input[name="RadioFdHabit_esph"][value="${mdDataArr.fh}"]`).checked = true;
+                    if (mdDataArr.hac) document.querySelector(`input[name="RadioAlcoholHabit_esph"][value="${mdDataArr.hac}"]`).checked = true;
+                    if (mdDataArr.hs) document.querySelector(`input[name="RadioSmokeHabit_esph"][value="${mdDataArr.hs}"]`).checked = true;
+                    if (mdDataArr.ec) document.querySelector(`input[name="ECH_esph"][value="${mdDataArr.ec}"]`).checked = true;
+                    ExistComorbidity_esph();
+                    if (mdDataArr.cm) {
+                      let comMed = mdDataArr.cm;
+                      const dropdownContainer = document.getElementById("cvSym_esph");
+                      const keys = Object.keys(comMed);
+
+                      Object.keys(comMed).forEach((info) => {
+                        const data = comMed[info];
+
+                        const newDiv = document.createElement("div");
+                        const newDiv1 = document.createElement("div");
+                        const newDiv2 = document.createElement("div");
+
+                        newDiv.classList.add("col-sm-3", "mt-2", "cmd_esph");
+                        newDiv1.classList.add("col-sm-8", "mt-2", "cmd_esph");
+                        newDiv2.classList.add("col-sm-1", "mt-2", "pr-4", "cmd_esph");
+                        const newSelect = document.createElement("select");
+                        const inputWrapper = document.createElement("div"); // This holds one or two inputs
+                        inputWrapper.classList.add("form-row");
+
+                        newSelect.classList.add("form-control");
+
+                        const options = [
+                          { value: "", text: "" },
+                          { value: "Diabetic", text: "Type 2 Diabetic Mellitus" },
+                          { value: "Cardiac", text: "Cardiac History" },
+                          { value: "Hypertension", text: "Hypertension" },
+                          { value: "Other", text: "Other" },
+                        ];
+
+                        options.forEach((optionData) => {
+                          const option = document.createElement("option");
+                          option.value = optionData.value;
+                          option.textContent = optionData.text;
+                          if (optionData.value === data.selectedOption) {
+                            option.selected = true;
+                          }
+                          newSelect.appendChild(option);
+                        });
+                        if (data.selectedOption === "Other") {
+                          const otherInput1 = document.createElement("input");
+                          const otherInput2 = document.createElement("input");
+
+                          otherInput1.classList.add("form-control", "col-sm-6");
+                          otherInput2.classList.add("form-control", "col-sm-6");
+
+                          otherInput1.type = "text";
+                          otherInput2.type = "text";
+
+                          otherInput1.placeholder = "Comorbidity";
+                          otherInput2.placeholder = "Medicines";
+
+                          otherInput1.value = data.textValue.input1 || "";
+                          otherInput2.value = data.textValue.input2 || "";
+
+                          inputWrapper.appendChild(otherInput1);
+                          inputWrapper.appendChild(otherInput2);
+                        } else {
+                          const defaultInput = document.createElement("input");
+                          defaultInput.classList.add("form-control");
+                          defaultInput.type = "text";
+                          defaultInput.placeholder = "Medicines";
+                          defaultInput.value = data.textValue || "";
+                          inputWrapper.appendChild(defaultInput);
+                        }
+
+                        newDiv2.style.display = "flex";
+                        newDiv2.style.flexDirection = "row-reverse";
+                        const imgGroup = document.createElement("div");
+                        imgGroup.classList.add("input-group-append");
+
+                        const img1 = document.createElement("img");
+                        img1.src = "assets/images/delete-2.svg";
+                        img1.id = "cvSymRemBtn";
+                        img1.style.height = "36px";
+                        img1.style.width = "36px";
+                        img1.style.marginTop = "-2px";
+                        img1.style.cursor = "pointer";
+                        img1.addEventListener("click", function () {
+                          dropdownContainer.removeChild(newDiv);
+                          dropdownContainer.removeChild(newDiv1);
+                          dropdownContainer.removeChild(newDiv2);
+                        });
+
+                        imgGroup.appendChild(img1);
+
+                        newDiv.appendChild(newSelect);
+                        newDiv1.appendChild(inputWrapper);
+                        newDiv2.appendChild(imgGroup);
+
+                        dropdownContainer.appendChild(newDiv);
+                        dropdownContainer.appendChild(newDiv1);
+
+                        if (mode === "SearchView" || mode === "PendingView" || mode === "EditFollowUps") {
+                          const inputs = dropdownContainer.querySelectorAll("input, select");
+                          inputs.forEach((input) => (input.disabled = true));
+                        }
+
+                        if (mode !== "SearchView" && mode !== "PendingView") {
+                          dropdownContainer.appendChild(newDiv2);
+                        }
+                        newSelect.addEventListener("change", function () {
+                          inputWrapper.innerHTML = "";
+
+                          if (this.value === "Other") {
+                            const otherInput1 = document.createElement("input");
+                            const otherInput2 = document.createElement("input");
+
+                            otherInput1.classList.add("form-control", "col-sm-6");
+                            otherInput2.classList.add("form-control", "col-sm-6");
+
+                            otherInput1.value = data.input1 || "";
+                            otherInput2.value = data.input2 || "";
+
+                            inputWrapper.appendChild(otherInput1);
+                            inputWrapper.appendChild(otherInput2);
+                          } else {
+                            const defaultInput = document.createElement("input");
+                            defaultInput.classList.add("form-control");
+                            defaultInput.type = "text";
+                            defaultInput.placeholder = "Medicines";
+                            inputWrapper.appendChild(defaultInput);
+                          }
+                        });
+                      });
+                    }
+
+                    document.getElementById("tumor_esph").value = mdDataArr?.tst || "";
+                    document.getElementById("tumor_Oth_esph").value = mdDataArr?.tstOth || "";
+                    document.getElementById("clinicalStage_esph").value = mdDataArr?.cs || "";
+                    document.getElementById("subtype_esph").value = mdDataArr?.pst || "";
+                    document.getElementById("pstOt_esph").value = mdDataArr?.pstOt || "";
+                  }
+                  if (cancer_type === "gast") {
+                    if (ieDataArr.sx) document.querySelector(`input[name="customRadio_gast"][value="${ieDataArr.sx}"]`).checked = true || "";
+                    if (mdDataArr.fhc) document.querySelector(`input[name="RadioFHabit_gast"][value="${mdDataArr.fhc}"]`).checked = true;
+
+                    familyHabitToggle_gast();
+                    document.getElementById("familyRelation_gast").value = mdDataArr.fhcr || "";
+                    document.getElementById("familyCancerType_gast").value = mdDataArr.fhct || "";
+
+                    if (mdDataArr.fh) document.querySelector(`input[name="RadioFdHabit_gast"][value="${mdDataArr.fh}"]`).checked = true;
+                    if (mdDataArr.hac) document.querySelector(`input[name="RadioAlcoholHabit_gast"][value="${mdDataArr.hac}"]`).checked = true;
+                    if (mdDataArr.hs) document.querySelector(`input[name="RadioSmokeHabit_gast"][value="${mdDataArr.hs}"]`).checked = true;
+                    if (mdDataArr.ec) document.querySelector(`input[name="ECH_gast"][value="${mdDataArr.ec}"]`).checked = true;
+                    ExistComorbidity_gast();
+                    if (mdDataArr.cm) {
+                      let comMed = mdDataArr.cm;
+                      const dropdownContainer = document.getElementById("cvSym_gast");
+                      const keys = Object.keys(comMed);
+
+                      Object.keys(comMed).forEach((info) => {
+                        const data = comMed[info];
+
+                        const newDiv = document.createElement("div");
+                        const newDiv1 = document.createElement("div");
+                        const newDiv2 = document.createElement("div");
+
+                        newDiv.classList.add("col-sm-3", "mt-2", "cmd_gast");
+                        newDiv1.classList.add("col-sm-8", "mt-2", "cmd_gast");
+                        newDiv2.classList.add("col-sm-1", "mt-2", "pr-4", "cmd_gast");
+                        const newSelect = document.createElement("select");
+                        const inputWrapper = document.createElement("div"); // This holds one or two inputs
+                        inputWrapper.classList.add("form-row");
+
+                        newSelect.classList.add("form-control");
+
+                        const options = [
+                          { value: "", text: "" },
+                          { value: "Diabetic", text: "Type 2 Diabetic Mellitus" },
+                          { value: "Cardiac", text: "Cardiac History" },
+                          { value: "Hypertension", text: "Hypertension" },
+                          { value: "Other", text: "Other" },
+                        ];
+
+                        options.forEach((optionData) => {
+                          const option = document.createElement("option");
+                          option.value = optionData.value;
+                          option.textContent = optionData.text;
+                          if (optionData.value === data.selectedOption) {
+                            option.selected = true;
+                          }
+                          newSelect.appendChild(option);
+                        });
+                        if (data.selectedOption === "Other") {
+                          const otherInput1 = document.createElement("input");
+                          const otherInput2 = document.createElement("input");
+
+                          otherInput1.classList.add("form-control", "col-sm-6");
+                          otherInput2.classList.add("form-control", "col-sm-6");
+
+                          otherInput1.type = "text";
+                          otherInput2.type = "text";
+
+                          otherInput1.placeholder = "Comorbidity";
+                          otherInput2.placeholder = "Medicines";
+
+                          otherInput1.value = data.textValue.input1 || "";
+                          otherInput2.value = data.textValue.input2 || "";
+
+                          inputWrapper.appendChild(otherInput1);
+                          inputWrapper.appendChild(otherInput2);
+                        } else {
+                          const defaultInput = document.createElement("input");
+                          defaultInput.classList.add("form-control");
+                          defaultInput.type = "text";
+                          defaultInput.placeholder = "Medicines";
+                          defaultInput.value = data.textValue || "";
+                          inputWrapper.appendChild(defaultInput);
+                        }
+
+                        newDiv2.style.display = "flex";
+                        newDiv2.style.flexDirection = "row-reverse";
+                        const imgGroup = document.createElement("div");
+                        imgGroup.classList.add("input-group-append");
+
+                        const img1 = document.createElement("img");
+                        img1.src = "assets/images/delete-2.svg";
+                        img1.id = "cvSymRemBtn";
+                        img1.style.height = "36px";
+                        img1.style.width = "36px";
+                        img1.style.marginTop = "-2px";
+                        img1.style.cursor = "pointer";
+                        img1.addEventListener("click", function () {
+                          dropdownContainer.removeChild(newDiv);
+                          dropdownContainer.removeChild(newDiv1);
+                          dropdownContainer.removeChild(newDiv2);
+                        });
+
+                        imgGroup.appendChild(img1);
+
+                        newDiv.appendChild(newSelect);
+                        newDiv1.appendChild(inputWrapper);
+                        newDiv2.appendChild(imgGroup);
+
+                        dropdownContainer.appendChild(newDiv);
+                        dropdownContainer.appendChild(newDiv1);
+
+                        if (mode === "SearchView" || mode === "PendingView" || mode === "EditFollowUps") {
+                          const inputs = dropdownContainer.querySelectorAll("input, select");
+                          inputs.forEach((input) => (input.disabled = true));
+                        }
+
+                        if (mode !== "SearchView" && mode !== "PendingView") {
+                          dropdownContainer.appendChild(newDiv2);
+                        }
+                        newSelect.addEventListener("change", function () {
+                          inputWrapper.innerHTML = "";
+
+                          if (this.value === "Other") {
+                            const otherInput1 = document.createElement("input");
+                            const otherInput2 = document.createElement("input");
+
+                            otherInput1.classList.add("form-control", "col-sm-6");
+                            otherInput2.classList.add("form-control", "col-sm-6");
+
+                            otherInput1.value = data.input1 || "";
+                            otherInput2.value = data.input2 || "";
+
+                            inputWrapper.appendChild(otherInput1);
+                            inputWrapper.appendChild(otherInput2);
+                          } else {
+                            const defaultInput = document.createElement("input");
+                            defaultInput.classList.add("form-control");
+                            defaultInput.type = "text";
+                            defaultInput.placeholder = "Medicines";
+                            inputWrapper.appendChild(defaultInput);
+                          }
+                        });
+                      });
+                    }
+
+                          document.getElementById("tumor_gast").value = mdDataArr?.tst || "";
+    document.getElementById("tumor_gast").dispatchEvent(new Event("change"));
+    document.getElementById("tumor_Oth_gast").value = mdDataArr?.tstOth || "";
+    document.getElementById("tumorSubSite_op2_gast").value = mdDataArr?.tsub || "";
+    document.getElementById("tumorSubSite_op3_op4_gast").value = mdDataArr?.tsub || "";
+                    document.getElementById("clinicalStage_gast").value = mdDataArr?.cs || "";
+                    document.getElementById("pType_gast").value = mdDataArr?.pt || "";
+                    document.getElementById("pType_gast").dispatchEvent(new Event("change"));
+                    document.getElementById("subType_gast").value = mdDataArr?.pst || "";
+                  }
                   console.log("Form filled successfully for Biospy to Resection.");
                 }
               } else {
@@ -34568,7 +35105,18 @@
                   if (lastTimestampData.md) {
                     mdDataArr = lastTimestampData.md;
                   }
-                  if (lastTimestampData.brf || lastTimestampData.cvf || lastTimestampData.emf || lastTimestampData.ovf || lastTimestampData.henef || lastTimestampData.luf) {
+                  if (
+                    lastTimestampData.brf ||
+                    lastTimestampData.cvf ||
+                    lastTimestampData.emf ||
+                    lastTimestampData.ovf ||
+                    lastTimestampData.henef ||
+                    lastTimestampData.luf ||
+                    lastTimestampData.anf ||
+                    lastTimestampData.gtf ||
+                    lastTimestampData.etf ||
+                    lastTimestampData.cof
+                  ) {
                     const formMap = {
                       brst: lastTimestampData.brf,
                       ceix: lastTimestampData.cvf,
@@ -34576,6 +35124,10 @@
                       ovry: lastTimestampData.ovf,
                       hene: lastTimestampData.henef,
                       lung: lastTimestampData.luf,
+                      anal: lastTimestampData.anf,
+                      colo: lastTimestampData.cof,
+                      gast: lastTimestampData.gtf,
+                      esph: lastTimestampData.etf,
                     };
 
                     brfDataArr = formMap[cancer_type] || null;
@@ -34586,10 +35138,10 @@
                     document.getElementById("bioBankId").value = biobankID || "";
                     document.getElementById("cancer_type").value = ieDataArr.ct || "";
                     if (cancer_type === "brst") {
-                      document.querySelector(`input[name="customRadio"][value="${ieDataArr.sx}"]`).checked = true || "";
-                      if (mdDataArr.fhc !== "") {
+                      if(ieDataArr.sx)document.querySelector(`input[name="customRadio"][value="${ieDataArr.sx}"]`).checked = true || "";
+                      if (mdDataArr.fhc !== "") 
                         document.querySelector(`input[name="RadioFHabit"][value="${mdDataArr.fhc}"]`).checked = true;
-                      }
+                      
                       familyHabitToggle();
                       document.getElementById("familyRelation").value = mdDataArr.fhcr || "";
                       document.getElementById("familyCancerType").value = mdDataArr.fhct || "";
@@ -34735,7 +35287,7 @@
                       document.getElementById("HistologicalS").value = brfDataArr.ht || "";
                     }
                     if (cancer_type === "endm") {
-                      document.querySelector(`input[name="customRadio_endm"][value="${ieDataArr.sx}"]`).checked = true || "";
+                      if(ieDataArr.sx)document.querySelector(`input[name="customRadio_endm"][value="${ieDataArr.sx}"]`).checked = true || "";
                       if (mdDataArr.fhc !== "") document.querySelector(`input[name="RadioFHabit_endm"][value="${mdDataArr.fhc}"]`).checked = true;
 
                       familyHabitToggle_endm();
@@ -34882,7 +35434,7 @@
                       document.getElementById("k67_endm").value = brfDataArr?.k67 || "";
                     }
                     if (cancer_type === "ceix") {
-                      document.querySelector(`input[name="customRadio_ceix"][value="${ieDataArr.sx}"]`).checked = true || "";
+                      if(ieDataArr.sx) document.querySelector(`input[name="customRadio_ceix"][value="${ieDataArr.sx}"]`).checked = true || "";
                       if (mdDataArr.fhc !== "") document.querySelector(`input[name="RadioFHabit_ceix"][value="${mdDataArr.fhc}"]`).checked = true;
 
                       familyHabitToggle_ceix();
@@ -35088,7 +35640,7 @@
                       document.getElementById("k67_ceix").value = brfDataArr.k67 || "";
                     }
                     if (cancer_type === "ovry") {
-                      document.querySelector(`input[name="customRadio_ovry"][value="${ieDataArr.sx}"]`).checked = true || "";
+                     if(ieDataArr.sx)  document.querySelector(`input[name="customRadio_ovry"][value="${ieDataArr.sx}"]`).checked = true || "";
                       if (mdDataArr.fhc !== "") document.querySelector(`input[name="RadioFHabit_ovry"][value="${mdDataArr.fhc}"]`).checked = true;
 
                       familyHabitToggle_ovry();
@@ -35284,7 +35836,7 @@
                       document.getElementById("k67_ovry").value = brfDataArr.k67 || "";
                     }
                     if (cancer_type === "hene") {
-                      document.querySelector(`input[name="customRadio_hene"][value="${ieDataArr.sx}"]`).checked = true || "";
+                      if(ieDataArr.sx) document.querySelector(`input[name="customRadio_hene"][value="${ieDataArr.sx}"]`).checked = true || "";
                       if (mdDataArr.fhc !== "") {
                         document.querySelector(`input[name="RadioFHabit_hene"][value="${mdDataArr.fhc}"]`).checked = true;
                       }
@@ -35688,6 +36240,596 @@
                       document.getElementById("pType_lung").dispatchEvent(new Event("change"));
                       document.getElementById("pType_Oth_lung").value = mdDataArr.ptOth || "";
                       document.getElementById("k67_lung").value = brfDataArr.k67 || "";
+                    }
+                    if (cancer_type === "anal") {
+                      if(ieDataArr.sx)  document.querySelector(`input[name="customRadio_anal"][value="${ieDataArr.sx}"]`).checked = true || "";
+                      if (mdDataArr.fhc !== "") {
+                        document.querySelector(`input[name="RadioFHabit_anal"][value="${mdDataArr.fhc}"]`).checked = true;
+                      }
+                      familyHabitToggle_anal();
+                      document.getElementById("familyRelation_anal").value = mdDataArr.fhcr || "";
+                      document.getElementById("familyCancerType_anal").value = mdDataArr.fhct || "";
+
+                      if (mdDataArr.fh) document.querySelector(`input[name="RadioFdHabit_anal"][value="${mdDataArr.fh}"]`).checked = true;
+                      if (mdDataArr.hac) document.querySelector(`input[name="RadioAlcoholHabit_anal"][value="${mdDataArr.hac}"]`).checked = true;
+                      if (mdDataArr.hs) document.querySelector(`input[name="RadioSmokeHabit_anal"][value="${mdDataArr.hs}"]`).checked = true;
+                      if (mdDataArr.ec) document.querySelector(`input[name="ECH_anal"][value="${mdDataArr.ec}"]`).checked = true;
+                      if (mdDataArr.cm) {
+                        let comMed = mdDataArr.cm;
+                        const dropdownContainer = document.getElementById("cvSym_anal");
+                        const keys = Object.keys(comMed);
+
+                        Object.keys(comMed).forEach((info) => {
+                          const data = comMed[info];
+
+                          const newDiv = document.createElement("div");
+                          const newDiv1 = document.createElement("div");
+                          const newDiv2 = document.createElement("div");
+
+                          newDiv.classList.add("col-sm-3", "mt-2", "cmd_anal");
+                          newDiv1.classList.add("col-sm-8", "mt-2", "cmd_anal");
+                          newDiv2.classList.add("col-sm-1", "mt-2", "pr-4", "cmd_anal");
+                          const newSelect = document.createElement("select");
+                          const inputWrapper = document.createElement("div"); // This holds one or two inputs
+                          inputWrapper.classList.add("form-row");
+
+                          newSelect.classList.add("form-control");
+
+                          const options = [
+                            { value: "", text: "" },
+                            { value: "Diabetic", text: "Type 2 Diabetic Mellitus" },
+                            { value: "Cardiac", text: "Cardiac History" },
+                            { value: "Hypertension", text: "Hypertension" },
+                            { value: "Other", text: "Other" },
+                          ];
+
+                          options.forEach((optionData) => {
+                            const option = document.createElement("option");
+                            option.value = optionData.value;
+                            option.textContent = optionData.text;
+                            if (optionData.value === data.selectedOption) {
+                              option.selected = true;
+                            }
+                            newSelect.appendChild(option);
+                          });
+                          if (data.selectedOption === "Other") {
+                            const otherInput1 = document.createElement("input");
+                            const otherInput2 = document.createElement("input");
+
+                            otherInput1.classList.add("form-control", "col-sm-6");
+                            otherInput2.classList.add("form-control", "col-sm-6");
+
+                            otherInput1.type = "text";
+                            otherInput2.type = "text";
+
+                            otherInput1.placeholder = "Comorbidity";
+                            otherInput2.placeholder = "Medicines";
+
+                            otherInput1.value = data.textValue.input1 || "";
+                            otherInput2.value = data.textValue.input2 || "";
+
+                            inputWrapper.appendChild(otherInput1);
+                            inputWrapper.appendChild(otherInput2);
+                          } else {
+                            const defaultInput = document.createElement("input");
+                            defaultInput.classList.add("form-control");
+                            defaultInput.type = "text";
+                            defaultInput.placeholder = "Medicines";
+                            defaultInput.value = data.textValue || "";
+                            inputWrapper.appendChild(defaultInput);
+                          }
+
+                          newDiv2.style.display = "flex";
+                          newDiv2.style.flexDirection = "row-reverse";
+                          const imgGroup = document.createElement("div");
+                          imgGroup.classList.add("input-group-append");
+
+                          const img1 = document.createElement("img");
+                          img1.src = "assets/images/delete-2.svg";
+                          img1.id = "cvSymRemBtn";
+                          img1.style.height = "36px";
+                          img1.style.width = "36px";
+                          img1.style.marginTop = "-2px";
+                          img1.style.cursor = "pointer";
+                          img1.addEventListener("click", function () {
+                            dropdownContainer.removeChild(newDiv);
+                            dropdownContainer.removeChild(newDiv1);
+                            dropdownContainer.removeChild(newDiv2);
+                          });
+
+                          imgGroup.appendChild(img1);
+
+                          newDiv.appendChild(newSelect);
+                          newDiv1.appendChild(inputWrapper);
+                          newDiv2.appendChild(imgGroup);
+
+                          dropdownContainer.appendChild(newDiv);
+                          dropdownContainer.appendChild(newDiv1);
+
+                          if (mode === "SearchView" || mode === "PendingView" || mode === "EditFollowUps") {
+                            const inputs = dropdownContainer.querySelectorAll("input, select");
+                            inputs.forEach((input) => (input.disabled = true));
+                          }
+
+                          if (mode !== "SearchView" && mode !== "PendingView") {
+                            dropdownContainer.appendChild(newDiv2);
+                          }
+                          newSelect.addEventListener("change", function () {
+                            inputWrapper.innerHTML = "";
+
+                            if (this.value === "Other") {
+                              const otherInput1 = document.createElement("input");
+                              const otherInput2 = document.createElement("input");
+
+                              otherInput1.classList.add("form-control", "col-sm-6");
+                              otherInput2.classList.add("form-control", "col-sm-6");
+
+                              otherInput1.value = data.input1 || "";
+                              otherInput2.value = data.input2 || "";
+
+                              inputWrapper.appendChild(otherInput1);
+                              inputWrapper.appendChild(otherInput2);
+                            } else {
+                              const defaultInput = document.createElement("input");
+                              defaultInput.classList.add("form-control");
+                              defaultInput.type = "text";
+                              defaultInput.placeholder = "Medicines";
+                              inputWrapper.appendChild(defaultInput);
+                            }
+                          });
+                        });
+                      }
+                      ExistComorbidity_anal();
+
+                      document.getElementById(`tumor_anal`).value = mdDataArr.tst || "";
+                      document.getElementById(`tumor_Oth_anal`).value = mdDataArr.tstOth || "";
+                      document.getElementById("ageAtDiagnosis_anal").value = mdDataArr.ad || "";
+                      document.getElementById("clinicalStage_anal").value = mdDataArr.cs || "";
+                      document.getElementById("subtype_anal").value = mdDataArr.pst || "";
+                    }
+                    if (cancer_type === "colo") {
+                      if(ieDataArr.sx) document.querySelector(`input[name="customRadio_colo"][value="${ieDataArr.sx}"]`).checked = true || "";
+                      if (mdDataArr.fhc !== "") {
+                        document.querySelector(`input[name="RadioFHabit_colo"][value="${mdDataArr.fhc}"]`).checked = true;
+                      }
+                      familyHabitToggle_colo();
+                      document.getElementById("familyRelation_colo").value = mdDataArr.fhcr || "";
+                      document.getElementById("familyCancerType_colo").value = mdDataArr.fhct || "";
+
+                      if (mdDataArr.fh) document.querySelector(`input[name="RadioFdHabit_colo"][value="${mdDataArr.fh}"]`).checked = true;
+                      if (mdDataArr.hac) document.querySelector(`input[name="RadioAlcoholHabit_colo"][value="${mdDataArr.hac}"]`).checked = true;
+                      if (mdDataArr.hs) document.querySelector(`input[name="RadioSmokeHabit_colo"][value="${mdDataArr.hs}"]`).checked = true;
+                      if (mdDataArr.ec) document.querySelector(`input[name="ECH_colo"][value="${mdDataArr.ec}"]`).checked = true;
+                      if (mdDataArr.cm) {
+                        let comMed = mdDataArr.cm;
+                        const dropdownContainer = document.getElementById("cvSym_colo");
+                        const keys = Object.keys(comMed);
+
+                        Object.keys(comMed).forEach((info) => {
+                          const data = comMed[info];
+
+                          const newDiv = document.createElement("div");
+                          const newDiv1 = document.createElement("div");
+                          const newDiv2 = document.createElement("div");
+
+                          newDiv.classList.add("col-sm-3", "mt-2", "cmd_colo");
+                          newDiv1.classList.add("col-sm-8", "mt-2", "cmd_colo");
+                          newDiv2.classList.add("col-sm-1", "mt-2", "pr-4", "cmd_colo");
+                          const newSelect = document.createElement("select");
+                          const inputWrapper = document.createElement("div"); // This holds one or two inputs
+                          inputWrapper.classList.add("form-row");
+
+                          newSelect.classList.add("form-control");
+
+                          const options = [
+                            { value: "", text: "" },
+                            { value: "Diabetic", text: "Type 2 Diabetic Mellitus" },
+                            { value: "Cardiac", text: "Cardiac History" },
+                            { value: "Hypertension", text: "Hypertension" },
+                            { value: "Other", text: "Other" },
+                          ];
+
+                          options.forEach((optionData) => {
+                            const option = document.createElement("option");
+                            option.value = optionData.value;
+                            option.textContent = optionData.text;
+                            if (optionData.value === data.selectedOption) {
+                              option.selected = true;
+                            }
+                            newSelect.appendChild(option);
+                          });
+                          if (data.selectedOption === "Other") {
+                            const otherInput1 = document.createElement("input");
+                            const otherInput2 = document.createElement("input");
+
+                            otherInput1.classList.add("form-control", "col-sm-6");
+                            otherInput2.classList.add("form-control", "col-sm-6");
+
+                            otherInput1.type = "text";
+                            otherInput2.type = "text";
+
+                            otherInput1.placeholder = "Comorbidity";
+                            otherInput2.placeholder = "Medicines";
+
+                            otherInput1.value = data.textValue.input1 || "";
+                            otherInput2.value = data.textValue.input2 || "";
+
+                            inputWrapper.appendChild(otherInput1);
+                            inputWrapper.appendChild(otherInput2);
+                          } else {
+                            const defaultInput = document.createElement("input");
+                            defaultInput.classList.add("form-control");
+                            defaultInput.type = "text";
+                            defaultInput.placeholder = "Medicines";
+                            defaultInput.value = data.textValue || "";
+                            inputWrapper.appendChild(defaultInput);
+                          }
+
+                          newDiv2.style.display = "flex";
+                          newDiv2.style.flexDirection = "row-reverse";
+                          const imgGroup = document.createElement("div");
+                          imgGroup.classList.add("input-group-append");
+
+                          const img1 = document.createElement("img");
+                          img1.src = "assets/images/delete-2.svg";
+                          img1.id = "cvSymRemBtn";
+                          img1.style.height = "36px";
+                          img1.style.width = "36px";
+                          img1.style.marginTop = "-2px";
+                          img1.style.cursor = "pointer";
+                          img1.addEventListener("click", function () {
+                            dropdownContainer.removeChild(newDiv);
+                            dropdownContainer.removeChild(newDiv1);
+                            dropdownContainer.removeChild(newDiv2);
+                          });
+
+                          imgGroup.appendChild(img1);
+
+                          newDiv.appendChild(newSelect);
+                          newDiv1.appendChild(inputWrapper);
+                          newDiv2.appendChild(imgGroup);
+
+                          dropdownContainer.appendChild(newDiv);
+                          dropdownContainer.appendChild(newDiv1);
+
+                          if (mode === "SearchView" || mode === "PendingView" || mode === "EditFollowUps") {
+                            const inputs = dropdownContainer.querySelectorAll("input, select");
+                            inputs.forEach((input) => (input.disabled = true));
+                          }
+
+                          if (mode !== "SearchView" && mode !== "PendingView") {
+                            dropdownContainer.appendChild(newDiv2);
+                          }
+                          newSelect.addEventListener("change", function () {
+                            inputWrapper.innerHTML = "";
+
+                            if (this.value === "Other") {
+                              const otherInput1 = document.createElement("input");
+                              const otherInput2 = document.createElement("input");
+
+                              otherInput1.classList.add("form-control", "col-sm-6");
+                              otherInput2.classList.add("form-control", "col-sm-6");
+
+                              otherInput1.value = data.input1 || "";
+                              otherInput2.value = data.input2 || "";
+
+                              inputWrapper.appendChild(otherInput1);
+                              inputWrapper.appendChild(otherInput2);
+                            } else {
+                              const defaultInput = document.createElement("input");
+                              defaultInput.classList.add("form-control");
+                              defaultInput.type = "text";
+                              defaultInput.placeholder = "Medicines";
+                              inputWrapper.appendChild(defaultInput);
+                            }
+                          });
+                        });
+                      }
+                      ExistComorbidity_colo();
+
+                      document.getElementById(`tumor_colo`).value = mdDataArr.tst || "";
+                      document.getElementById(`tumor_Oth_colo`).value = mdDataArr.tstOth || "";
+                      document.getElementById("ageAtDiagnosis_colo").value = mdDataArr.ad || "";
+                      document.getElementById("clinicalStage_colo").value = mdDataArr.cs || "";
+                      document.getElementById("subtype_colo").value = mdDataArr.pst || "";
+                    }
+                    if (cancer_type === "esph") {
+                     if(ieDataArr.sx)  document.querySelector(`input[name="customRadio_esph"][value="${ieDataArr.sx}"]`).checked = true || "";
+                      if (mdDataArr.fhc !== "") {
+                        document.querySelector(`input[name="RadioFHabit_esph"][value="${mdDataArr.fhc}"]`).checked = true;
+                      }
+                      familyHabitToggle_esph();
+                      document.getElementById("familyRelation_esph").value = mdDataArr.fhcr || "";
+                      document.getElementById("familyCancerType_esph").value = mdDataArr.fhct || "";
+
+                      if (mdDataArr.fh) document.querySelector(`input[name="RadioFdHabit_esph"][value="${mdDataArr.fh}"]`).checked = true;
+                      if (mdDataArr.hac) document.querySelector(`input[name="RadioAlcoholHabit_esph"][value="${mdDataArr.hac}"]`).checked = true;
+                      if (mdDataArr.hs) document.querySelector(`input[name="RadioSmokeHabit_esph"][value="${mdDataArr.hs}"]`).checked = true;
+                      if (mdDataArr.ec) document.querySelector(`input[name="ECH_esph"][value="${mdDataArr.ec}"]`).checked = true;
+                      if (mdDataArr.cm) {
+                        let comMed = mdDataArr.cm;
+                        const dropdownContainer = document.getElementById("cvSym_esph");
+                        const keys = Object.keys(comMed);
+
+                        Object.keys(comMed).forEach((info) => {
+                          const data = comMed[info];
+
+                          const newDiv = document.createElement("div");
+                          const newDiv1 = document.createElement("div");
+                          const newDiv2 = document.createElement("div");
+
+                          newDiv.classList.add("col-sm-3", "mt-2", "cmd_esph");
+                          newDiv1.classList.add("col-sm-8", "mt-2", "cmd_esph");
+                          newDiv2.classList.add("col-sm-1", "mt-2", "pr-4", "cmd_esph");
+                          const newSelect = document.createElement("select");
+                          const inputWrapper = document.createElement("div"); // This holds one or two inputs
+                          inputWrapper.classList.add("form-row");
+
+                          newSelect.classList.add("form-control");
+
+                          const options = [
+                            { value: "", text: "" },
+                            { value: "Diabetic", text: "Type 2 Diabetic Mellitus" },
+                            { value: "Cardiac", text: "Cardiac History" },
+                            { value: "Hypertension", text: "Hypertension" },
+                            { value: "Other", text: "Other" },
+                          ];
+
+                          options.forEach((optionData) => {
+                            const option = document.createElement("option");
+                            option.value = optionData.value;
+                            option.textContent = optionData.text;
+                            if (optionData.value === data.selectedOption) {
+                              option.selected = true;
+                            }
+                            newSelect.appendChild(option);
+                          });
+                          if (data.selectedOption === "Other") {
+                            const otherInput1 = document.createElement("input");
+                            const otherInput2 = document.createElement("input");
+
+                            otherInput1.classList.add("form-control", "col-sm-6");
+                            otherInput2.classList.add("form-control", "col-sm-6");
+
+                            otherInput1.type = "text";
+                            otherInput2.type = "text";
+
+                            otherInput1.placeholder = "Comorbidity";
+                            otherInput2.placeholder = "Medicines";
+
+                            otherInput1.value = data.textValue.input1 || "";
+                            otherInput2.value = data.textValue.input2 || "";
+
+                            inputWrapper.appendChild(otherInput1);
+                            inputWrapper.appendChild(otherInput2);
+                          } else {
+                            const defaultInput = document.createElement("input");
+                            defaultInput.classList.add("form-control");
+                            defaultInput.type = "text";
+                            defaultInput.placeholder = "Medicines";
+                            defaultInput.value = data.textValue || "";
+                            inputWrapper.appendChild(defaultInput);
+                          }
+
+                          newDiv2.style.display = "flex";
+                          newDiv2.style.flexDirection = "row-reverse";
+                          const imgGroup = document.createElement("div");
+                          imgGroup.classList.add("input-group-append");
+
+                          const img1 = document.createElement("img");
+                          img1.src = "assets/images/delete-2.svg";
+                          img1.id = "cvSymRemBtn";
+                          img1.style.height = "36px";
+                          img1.style.width = "36px";
+                          img1.style.marginTop = "-2px";
+                          img1.style.cursor = "pointer";
+                          img1.addEventListener("click", function () {
+                            dropdownContainer.removeChild(newDiv);
+                            dropdownContainer.removeChild(newDiv1);
+                            dropdownContainer.removeChild(newDiv2);
+                          });
+
+                          imgGroup.appendChild(img1);
+
+                          newDiv.appendChild(newSelect);
+                          newDiv1.appendChild(inputWrapper);
+                          newDiv2.appendChild(imgGroup);
+
+                          dropdownContainer.appendChild(newDiv);
+                          dropdownContainer.appendChild(newDiv1);
+
+                          if (mode === "SearchView" || mode === "PendingView" || mode === "EditFollowUps") {
+                            const inputs = dropdownContainer.querySelectorAll("input, select");
+                            inputs.forEach((input) => (input.disabled = true));
+                          }
+
+                          if (mode !== "SearchView" && mode !== "PendingView") {
+                            dropdownContainer.appendChild(newDiv2);
+                          }
+                          newSelect.addEventListener("change", function () {
+                            inputWrapper.innerHTML = "";
+
+                            if (this.value === "Other") {
+                              const otherInput1 = document.createElement("input");
+                              const otherInput2 = document.createElement("input");
+
+                              otherInput1.classList.add("form-control", "col-sm-6");
+                              otherInput2.classList.add("form-control", "col-sm-6");
+
+                              otherInput1.value = data.input1 || "";
+                              otherInput2.value = data.input2 || "";
+
+                              inputWrapper.appendChild(otherInput1);
+                              inputWrapper.appendChild(otherInput2);
+                            } else {
+                              const defaultInput = document.createElement("input");
+                              defaultInput.classList.add("form-control");
+                              defaultInput.type = "text";
+                              defaultInput.placeholder = "Medicines";
+                              inputWrapper.appendChild(defaultInput);
+                            }
+                          });
+                        });
+                      }
+                      ExistComorbidity_esph();
+
+                      document.getElementById("tumor_esph").value = mdDataArr?.tst || "";
+                      document.getElementById("tumor_Oth_esph").value = mdDataArr?.tstOth || "";
+                      document.getElementById("ageAtDiagnosis_esph").value = mdDataArr.ad || "";
+                      document.getElementById("clinicalStage_esph").value = mdDataArr.cs || "";
+                      document.getElementById("subtype_esph").value = mdDataArr?.pst || "";
+                      document.getElementById("pstOt_esph").value = mdDataArr?.pstOt || "";
+                    }
+                    if (cancer_type === "gast") {
+                      if(ieDataArr.sx) document.querySelector(`input[name="customRadio_gast"][value="${ieDataArr.sx}"]`).checked = true || "";
+                      if (mdDataArr.fhc !== "") {
+                        document.querySelector(`input[name="RadioFHabit_gast"][value="${mdDataArr.fhc}"]`).checked = true;
+                      }
+                      familyHabitToggle_gast();
+                      document.getElementById("familyRelation_gast").value = mdDataArr.fhcr || "";
+                      document.getElementById("familyCancerType_gast").value = mdDataArr.fhct || "";
+
+                      if (mdDataArr.fh) document.querySelector(`input[name="RadioFdHabit_gast"][value="${mdDataArr.fh}"]`).checked = true;
+                      if (mdDataArr.hac) document.querySelector(`input[name="RadioAlcoholHabit_gast"][value="${mdDataArr.hac}"]`).checked = true;
+                      if (mdDataArr.hs) document.querySelector(`input[name="RadioSmokeHabit_gast"][value="${mdDataArr.hs}"]`).checked = true;
+                      if (mdDataArr.ec) document.querySelector(`input[name="ECH_gast"][value="${mdDataArr.ec}"]`).checked = true;
+                      if (mdDataArr.cm) {
+                        let comMed = mdDataArr.cm;
+                        const dropdownContainer = document.getElementById("cvSym_gast");
+                        const keys = Object.keys(comMed);
+
+                        Object.keys(comMed).forEach((info) => {
+                          const data = comMed[info];
+
+                          const newDiv = document.createElement("div");
+                          const newDiv1 = document.createElement("div");
+                          const newDiv2 = document.createElement("div");
+
+                          newDiv.classList.add("col-sm-3", "mt-2", "cmd_gast");
+                          newDiv1.classList.add("col-sm-8", "mt-2", "cmd_gast");
+                          newDiv2.classList.add("col-sm-1", "mt-2", "pr-4", "cmd_gast");
+                          const newSelect = document.createElement("select");
+                          const inputWrapper = document.createElement("div"); // This holds one or two inputs
+                          inputWrapper.classList.add("form-row");
+
+                          newSelect.classList.add("form-control");
+
+                          const options = [
+                            { value: "", text: "" },
+                            { value: "Diabetic", text: "Type 2 Diabetic Mellitus" },
+                            { value: "Cardiac", text: "Cardiac History" },
+                            { value: "Hypertension", text: "Hypertension" },
+                            { value: "Other", text: "Other" },
+                          ];
+
+                          options.forEach((optionData) => {
+                            const option = document.createElement("option");
+                            option.value = optionData.value;
+                            option.textContent = optionData.text;
+                            if (optionData.value === data.selectedOption) {
+                              option.selected = true;
+                            }
+                            newSelect.appendChild(option);
+                          });
+                          if (data.selectedOption === "Other") {
+                            const otherInput1 = document.createElement("input");
+                            const otherInput2 = document.createElement("input");
+
+                            otherInput1.classList.add("form-control", "col-sm-6");
+                            otherInput2.classList.add("form-control", "col-sm-6");
+
+                            otherInput1.type = "text";
+                            otherInput2.type = "text";
+
+                            otherInput1.placeholder = "Comorbidity";
+                            otherInput2.placeholder = "Medicines";
+
+                            otherInput1.value = data.textValue.input1 || "";
+                            otherInput2.value = data.textValue.input2 || "";
+
+                            inputWrapper.appendChild(otherInput1);
+                            inputWrapper.appendChild(otherInput2);
+                          } else {
+                            const defaultInput = document.createElement("input");
+                            defaultInput.classList.add("form-control");
+                            defaultInput.type = "text";
+                            defaultInput.placeholder = "Medicines";
+                            defaultInput.value = data.textValue || "";
+                            inputWrapper.appendChild(defaultInput);
+                          }
+
+                          newDiv2.style.display = "flex";
+                          newDiv2.style.flexDirection = "row-reverse";
+                          const imgGroup = document.createElement("div");
+                          imgGroup.classList.add("input-group-append");
+
+                          const img1 = document.createElement("img");
+                          img1.src = "assets/images/delete-2.svg";
+                          img1.id = "cvSymRemBtn";
+                          img1.style.height = "36px";
+                          img1.style.width = "36px";
+                          img1.style.marginTop = "-2px";
+                          img1.style.cursor = "pointer";
+                          img1.addEventListener("click", function () {
+                            dropdownContainer.removeChild(newDiv);
+                            dropdownContainer.removeChild(newDiv1);
+                            dropdownContainer.removeChild(newDiv2);
+                          });
+
+                          imgGroup.appendChild(img1);
+
+                          newDiv.appendChild(newSelect);
+                          newDiv1.appendChild(inputWrapper);
+                          newDiv2.appendChild(imgGroup);
+
+                          dropdownContainer.appendChild(newDiv);
+                          dropdownContainer.appendChild(newDiv1);
+
+                          if (mode === "SearchView" || mode === "PendingView" || mode === "EditFollowUps") {
+                            const inputs = dropdownContainer.querySelectorAll("input, select");
+                            inputs.forEach((input) => (input.disabled = true));
+                          }
+
+                          if (mode !== "SearchView" && mode !== "PendingView") {
+                            dropdownContainer.appendChild(newDiv2);
+                          }
+                          newSelect.addEventListener("change", function () {
+                            inputWrapper.innerHTML = "";
+
+                            if (this.value === "Other") {
+                              const otherInput1 = document.createElement("input");
+                              const otherInput2 = document.createElement("input");
+
+                              otherInput1.classList.add("form-control", "col-sm-6");
+                              otherInput2.classList.add("form-control", "col-sm-6");
+
+                              otherInput1.value = data.input1 || "";
+                              otherInput2.value = data.input2 || "";
+
+                              inputWrapper.appendChild(otherInput1);
+                              inputWrapper.appendChild(otherInput2);
+                            } else {
+                              const defaultInput = document.createElement("input");
+                              defaultInput.classList.add("form-control");
+                              defaultInput.type = "text";
+                              defaultInput.placeholder = "Medicines";
+                              inputWrapper.appendChild(defaultInput);
+                            }
+                          });
+                        });
+                      }
+                      ExistComorbidity_gast();
+
+                          document.getElementById("tumor_gast").value = mdDataArr?.tst || "";
+    document.getElementById("tumor_gast").dispatchEvent(new Event("change"));
+    document.getElementById("tumor_Oth_gast").value = mdDataArr?.tstOth || "";
+    document.getElementById("tumorSubSite_op2_gast").value = mdDataArr?.tsub || "";
+    document.getElementById("tumorSubSite_op3_op4_gast").value = mdDataArr?.tsub || "";
+                      document.getElementById("ageAtDiagnosis_gast").value = mdDataArr.ad || "";
+                      document.getElementById("clinicalStage_gast").value = mdDataArr.cs || "";
+                          document.getElementById("pType_gast").value = mdDataArr?.pt || "";
+    document.getElementById("pType_gast").dispatchEvent(new Event("change"));
+    document.getElementById("subType_gast").value = mdDataArr?.pst || "";
                     }
                     console.log("Form filled for Resection to Sample at event.");
                   }

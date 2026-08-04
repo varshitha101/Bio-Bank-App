@@ -377,5 +377,6 @@ Following features and changes have been incorporates:
 ### Version 1.9.0
 
 - Added Anal, Colorectal, Esophageal, and Gastric Cancer types to form entry and Search Sample.
+- Removed Unused Images, Files, and Scripts from the project to reduce the size of the repository.
 
 <hr>
