@@ -6092,7 +6092,7 @@ function updateToFirebase(data, patientInfo) {
             };
 
             if (mode === "SearchEdit" || mode === "PendingEdit") {
-              db.ref(`act/${bioBankId}/${lastSection}`)
+              db.ref(`act/${cancer_type}/${bioBankId}/${lastSection}`)
                 .set(act)
                 .then(() => {
                   patients(bioBankId, cancer_type, lastSection, patientInfo);
@@ -6146,6 +6146,7 @@ const update = upUrlParams.get("update");
 function pages_display(mode, cancer_type, bioBankId, seq, timestampKey) {
   localStorage.setItem("bioBankId", bioBankId);
   localStorage.setItem("lastSection", seq);
+  localStorage.setItem("cancer_type", cancer_type);
   if (seq != "") {
     var dataPath = `sef/${cancer_type}/${bioBankId}/${seq}/${timestampKey}`;
   } else {
@@ -11537,7 +11538,9 @@ function submitFollowup() {
         user: dus,
       };
       let lastSection = localStorage.getItem("lastSection");
-      db.ref(`act/${bioBankId}/${lastSection}`)
+      let cancer_type = localStorage.getItem("cancer_type");
+
+      db.ref(`act/${cancer_type}/${bioBankId}/${lastSection}`)
         .set(act)
         .then(() => {
           console.log("New act set, proceeding with pages_display.");
@@ -13256,7 +13259,7 @@ function handleEditPatientData(cancer_type, bioBankId, seq, timestampKey) {
       user: user,
     };
 
-    let refPath = `act/${bioBankId}/${seq}`;
+    let refPath = `act/${cancer_type}/${bioBankId}/${seq}`;
 
     db.ref(refPath)
       .once("value")

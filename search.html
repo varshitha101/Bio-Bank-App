@@ -2332,7 +2332,7 @@
           user: user,
         };
 
-        let refPath = `act/${bioBankId}/${seq}`;
+        let refPath = `act/${cancer_type}/${bioBankId}/${seq}`;
 
         db.ref(refPath)
           .once("value")
