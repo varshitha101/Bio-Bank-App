@@ -78,25 +78,6 @@ body {
   height: 50vh;
   background: #fff; /* White background */
 }
-.navbar-image-logo2 {
-  position: fixed; /* pin to viewport */
-  top: 0.4167vw;
-  left: 0.4167vw;
-  width: 5.208vw;
-  z-index: 10000;
-  height: 5vw;
-  background-color: #ffffff00; /* White background */
-}
-.todo-badge {
-  position: absolute;
-  top: 0;
-  right: 0;
-  transform: translate(60%, -40%);
-  font-size: 0.65rem;
-  line-height: 1;
-  padding: 0.25em 0.45em;
-  display: none;
-}
 .ceix-subtype-list .custom-control-inline {
   display: block;
   margin-right: 0;

@@ -8,6 +8,51 @@ body {
         #5ba3c294 ,
         rgb(89, 181, 224)    );     */
 }
+.app-navbar {
+  width: 500px;
+  margin: 0 auto;
+  background-color: #1991c9 !important;
+}
+
+.app-navbar .nav-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  color: #ffffff;
+}
+
+.app-navbar .nav-link:hover,
+.app-navbar .nav-link:focus {
+  color: #ffffff;
+}
+
+.app-navbar .nav-pills .nav-link.active,
+.app-navbar .nav-pills .show > .nav-link {
+  color: #ffffff;
+  background-color: rgba(0, 255, 161, 0.28);
+}
+
+.app-navbar .todo-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(50%, -35%);
+  font-size: 0.65rem;
+  line-height: 1;
+  padding: 0.25em 0.45em;
+  display: none;
+}
+
+.navbar-image-logo2 {
+  position: fixed;
+  top: 0.4167vw;
+  left: 0.4167vw;
+  width: 5.208vw;
+  height: 5vw;
+  z-index: 10000;
+  background-color: transparent;
+}
+
 .wrapper {
   min-height: 83vh;
   display: flex;
