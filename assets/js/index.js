@@ -90,7 +90,6 @@ async function populateAllBoxData(activeCancerType) {
   try {
     showLoadingModal();
     await Promise.all([populateBBData(activeCancerType), populateSBData(activeCancerType), populateRLTData(activeCancerType), populatePCBData(activeCancerType), fetchBnData()]);
-    console.log("All box data populated");
   } catch (error) {
     console.error("Error populating box data:", error);
   } finally {
@@ -247,10 +246,6 @@ function populateBBLabels(activeCancerType, data, boxVal) {
   const bioBankIds = Object.keys(data).map((key) => data[key].bioBankId);
   const sts = Object.keys(data).map((key) => data[key].status);
   const sample = Object.keys(data).map((key) => data[key].sampleType);
-
-  // if (bioBankIds.length < 100) {
-  //   console.warn("Not enough bioBankIds available for the matrix.");
-  // }
 
   for (let row = 0; row < rows.length; row++) {
     for (let col = 1; col <= cols; col++) {
@@ -773,10 +768,6 @@ function populateSBLabels(activeCancerType, data) {
   const sts = Object.keys(data).map((key) => data[key].status);
   const sample = Object.keys(data).map((key) => data[key].sampleType);
 
-  // if (bioBankIds.length < 100) {
-  //   console.warn("Not enough bioBankIds available for the matrix.");
-  // }
-
   for (let row = 0; row < rows.length; row++) {
     for (let col = 1; col <= cols; col++) {
       const labelName = `label_S${rows[row]}${col}`;
@@ -1131,10 +1122,6 @@ function populateRLTLabels(activeCancerType, data, boxVal) {
   const sts = Object.keys(data).map((key) => data[key].status);
   const sample = Object.keys(data).map((key) => data[key].sampleType);
 
-  // if (bioBankIds.length < 100) {
-  //   console.warn("Not enough bioBankIds available for the matrix.");
-  // }
-
   for (let row = 0; row < rows.length; row++) {
     for (let col = 1; col <= cols; col++) {
       const labelName = `label_R${rows[row]}${col}`;
@@ -1440,10 +1427,6 @@ function populatePCBLabels(activeCancerType, data, boxVal) {
   const sts = Object.keys(data).map((key) => data[key].status);
   const sample = Object.keys(data).map((key) => data[key].sampleType);
 
-  // if (bioBankIds.length < 100) {
-  //   console.warn("Not enough bioBankIds available for the matrix.");
-  // }
-
   for (let row = 0; row < rows.length; row++) {
     for (let col = 1; col <= cols; col++) {
       const labelName = `label_P${rows[row]}${col}`;
@@ -1467,7 +1450,7 @@ function populatePCBLabels(activeCancerType, data, boxVal) {
           newLabelElement.addEventListener("click", async function () {
             const bioBankId = bioBankIds[index];
             const sampleType = sample[index];
-            console.log(`sef/${activeCancerType}/${bioBankId}`);
+
             const dbRef = db.ref(`sef/${activeCancerType}/${bioBankId}`);
             const snapshot = await dbRef.get();
 
@@ -1730,14 +1713,11 @@ function openModal() {
           // Check if all the promises resolved to true
           const allTrue = results.every((result) => result === true) && results.length === 4;
           if (allTrue) {
-            console.log("All promises are true");
             $("#exampleModalCenter").modal("show");
           } else {
-            console.log("Not all promises are true");
             alert(`Please add boxes before adding samples`);
           }
         } else {
-          console.log("Not all promises are true");
           alert(`Please add boxes before adding samples`);
         }
       });
@@ -1800,7 +1780,6 @@ function AppendRLTBox(boxName, newBoxId, cancer_type) {
       db.ref("rlt/" + newBoxId + "/")
         .set(newBoxData)
         .then(() => {
-          console.log("New box added successfully with ID: " + newBoxId);
           window.location.reload();
           localStorage.setItem("lastActiveCancerType", cancer_type);
         })
@@ -1814,7 +1793,6 @@ function AppendRLTBox(boxName, newBoxId, cancer_type) {
   db.ref("bn/" + cancer_type + "/rlt/" + newBoxId)
     .set(boxName)
     .then(() => {
-      console.log("Box name added successfully to the 'bn' node.");
       fetchBnData();
     })
     .catch((error) => {
@@ -1876,7 +1854,6 @@ function AppendPCBox(boxName, newBoxId, cancer_type) {
       db.ref("pcb/" + newBoxId + "/")
         .set(newBoxData)
         .then(() => {
-          console.log("New box added successfully with ID: " + newBoxId);
           window.location.reload();
           localStorage.setItem("lastActiveCancerType", cancer_type);
         })
@@ -1890,7 +1867,6 @@ function AppendPCBox(boxName, newBoxId, cancer_type) {
   db.ref("bn/" + cancer_type + "/pcb/" + newBoxId)
     .set(boxName)
     .then(() => {
-      console.log("Box name added successfully to the 'bn' node.");
       fetchBnData();
     })
     .catch((error) => {
@@ -1952,7 +1928,6 @@ function AppendBloodBox(boxName, newBoxId, cancer_type) {
       db.ref("bb/" + newBoxId + "/")
         .set(newBoxData)
         .then(() => {
-          console.log("New box added successfully with ID: " + newBoxId);
           window.location.reload();
           localStorage.setItem("lastActiveCancerType", cancer_type);
         })
@@ -1966,7 +1941,6 @@ function AppendBloodBox(boxName, newBoxId, cancer_type) {
   db.ref(`bn/${cancer_type}/bb/${newBoxId}`)
     .set(boxName)
     .then(() => {
-      console.log("Box name added successfully to the 'bn' node.");
       fetchBnData();
     })
     .catch((error) => {
@@ -2029,7 +2003,6 @@ function AppendSpecimenBox(boxName, newBoxId, cancer_type) {
       db.ref("sb/" + newBoxId + "/")
         .set(newBoxData)
         .then(() => {
-          console.log("New box added successfully to Firebase.");
           window.location.reload();
           localStorage.setItem("lastActiveCancerType", cancer_type);
         })
@@ -2044,7 +2017,6 @@ function AppendSpecimenBox(boxName, newBoxId, cancer_type) {
   db.ref("bn/" + cancer_type + "/sb/" + newBoxId)
     .set(boxName)
     .then(() => {
-      console.log("Box name added successfully to the 'bn' node.");
       fetchBnData();
     })
     .catch((error) => {
@@ -2081,91 +2053,47 @@ function validateAndCollectData() {
         let rltS = localStorage.getItem("rltVStatus");
         let pcV = localStorage.getItem("pcVVStatus");
 
+        const promises = [];
         if (mode !== "SearchEdit" && mode !== "PendingEdit") {
-          const promises = [];
-          if (form1Data.ie.bpg) {
-            promises.push(updateBB(form1Data.ie.bpg, "Plasma"));
-          }
-          if (form1Data.ie.bsg) {
-            promises.push(updateBB(form1Data.ie.bsg, "Serum"));
-          }
-          if (form1Data.ie.bbcg) {
-            promises.push(updateBB(form1Data.ie.bbcg, "Buffy Coat"));
-          }
-          if (form1Data.ie.osg) {
-            promises.push(updateBB(form1Data.ie.osg, "Other"));
-          }
-          if (form1Data.ie.rlt) {
-            promises.push(updateRLT(form1Data.ie.rlt, "form entry"));
-          }
-          if (form1Data.ie.pc) {
-            promises.push(updatePC(form1Data.ie.pc, "PC"));
-          }
-          if (form1Data.ie.ftg !== "" && form1Data.ie.ftg !== null) {
-            promises.push(updateSB(form1Data.ie.ftg, "FT-1"));
-          }
-          if (form1Data.ie.fng !== "" && form1Data.ie.fng !== null) {
-            promises.push(updateSB(form1Data.ie.fng, "FN-1"));
-          }
-          Promise.all(promises)
-            .then(() => {
-              console.log("All updates completed successfully.");
-            })
-            .catch((error) => {
-              console.error("Error updating data: ", error);
-            });
+          if (form1Data.ie.bpg) promises.push(updateBB(form1Data.ie.bpg, "Plasma"));
+          if (form1Data.ie.bsg) promises.push(updateBB(form1Data.ie.bsg, "Serum"));
+          if (form1Data.ie.bbcg) promises.push(updateBB(form1Data.ie.bbcg, "Buffy Coat"));
+          if (form1Data.ie.osg) promises.push(updateBB(form1Data.ie.osg, "Other"));
+          if (form1Data.ie.rlt) promises.push(updateRLT(form1Data.ie.rlt, "form entry"));
+          if (form1Data.ie.pc) promises.push(updatePC(form1Data.ie.pc, "PC"));
+          if (form1Data.ie.ftg !== "" && form1Data.ie.ftg !== null) promises.push(updateSB(form1Data.ie.ftg, "FT-1"));
+          if (form1Data.ie.fng !== "" && form1Data.ie.fng !== null) promises.push(updateSB(form1Data.ie.fng, "FN-1"));
         } else if (mode === "SearchEdit" || mode === "PendingEdit") {
-          const promises = [];
-          if (form1Data.ie.bpg && bS === "false" && form1Data.ie.bs === "true") {
-            promises.push(updateBB(form1Data.ie.bpg, "Plasma"));
-          }
-          if (form1Data.ie.bsg && bS === "false" && form1Data.ie.bs === "true") {
-            promises.push(updateBB(form1Data.ie.bsg, "Serum"));
-          }
-          if (form1Data.ie.bbcg && bS === "false" && form1Data.ie.bs === "true") {
-            promises.push(updateBB(form1Data.ie.bbcg, "Buffy Coat"));
-          }
-          if (form1Data.ie.osg && oS === "false" && form1Data.ie.osmp === "true") {
-            promises.push(updateBB(form1Data.ie.osg, "Other"));
-          }
-          if (form1Data.ie.rlt && rltS === "false" && form1Data.ie.rltS === "true") {
-            promises.push(updateRLT(form1Data.ie.rlt, "Search update RLT"));
-          }
-          if (form1Data.ie.pc && (pcV === "No" || pcV === "Inprogress") && form1Data.ie.pcS === "true" && form1Data.ie.pssvl === "Yes") {
-            promises.push(updatePC(form1Data.ie.pc, "PC"));
-          }
-
-          if (form1Data.ie.ftg !== "" && form1Data.ie.ftg !== null && tS === "false" && form1Data.ie.ss === "true") {
-            promises.push(updateSB(form1Data.ie.ftg, "FT-1"));
-          }
-          if (form1Data.ie.fng !== "" && form1Data.ie.fng !== null && tS === "false" && form1Data.ie.ss === "true") {
-            promises.push(updateSB(form1Data.ie.fng, "FN-1"));
-          }
-          Promise.all(promises)
-            .then(() => {
-              console.log("All updates completed successfully.");
-            })
-            .catch((error) => {
-              console.error("Error updating data: ", error);
-            });
+          if (form1Data.ie.bpg && bS === "false" && form1Data.ie.bs === "true") promises.push(updateBB(form1Data.ie.bpg, "Plasma"));
+          if (form1Data.ie.bsg && bS === "false" && form1Data.ie.bs === "true") promises.push(updateBB(form1Data.ie.bsg, "Serum"));
+          if (form1Data.ie.bbcg && bS === "false" && form1Data.ie.bs === "true") promises.push(updateBB(form1Data.ie.bbcg, "Buffy Coat"));
+          if (form1Data.ie.osg && oS === "false" && form1Data.ie.osmp === "true") promises.push(updateBB(form1Data.ie.osg, "Other"));
+          if (form1Data.ie.rlt && rltS === "false" && form1Data.ie.rltS === "true") promises.push(updateRLT(form1Data.ie.rlt, "Search update RLT"));
+          if (form1Data.ie.pc && (pcV === "No" || pcV === "Inprogress") && form1Data.ie.pcS === "true" && form1Data.ie.pssvl === "Yes") promises.push(updatePC(form1Data.ie.pc, "PC"));
+          if (form1Data.ie.ftg !== "" && form1Data.ie.ftg !== null && tS === "false" && form1Data.ie.ss === "true") promises.push(updateSB(form1Data.ie.ftg, "FT-1"));
+          if (form1Data.ie.fng !== "" && form1Data.ie.fng !== null && tS === "false" && form1Data.ie.ss === "true") promises.push(updateSB(form1Data.ie.fng, "FN-1"));
         }
-        const bioBankId = document.getElementById("bioBankId").value;
-        const mrnData = document.getElementById("mrnNo").value;
-
-        if (bioBankId && mrnData && bioBankId !== "" && mrnData !== "") {
-          if (updateMode === "true") {
-            console.log("Updating data to Firebase:", data);
-            updateToFirebase(data, patientInfo);
-          } else {
-            console.log("Saving data to Firebase:", data);
-            saveToFirebase(data, patientInfo);
-          }
-        } else if (!bioBankId || bioBankId === "") {
-          alert("Biobank ID is missing");
-        } else if (!mrnData || mrnData === "") {
-          alert("MRN Number is missing");
-        }
-        return data;
+        Promise.all(promises)
+          .then(() => {
+            const bioBankId = document.getElementById("bioBankId").value;
+            const mrnData = document.getElementById("mrnNo").value;
+            if (bioBankId && mrnData && bioBankId !== "" && mrnData !== "") {
+              if (updateMode === "true") {
+                updateToFirebase(data, patientInfo);
+              } else {
+                saveToFirebase(data, patientInfo);
+              }
+            } else if (!bioBankId || bioBankId === "") {
+              alert("Biobank ID is missing");
+            } else if (!mrnData || mrnData === "") {
+              alert("MRN Number is missing");
+            }
+            return data;
+          })
+          .catch((error) => {
+            console.error("Error updating data: ", error);
+            return data;
+          });
       } else {
         console.warn("Form validation failed. Data not collected.");
       }
@@ -2981,7 +2909,7 @@ function validateForm1() {
               nactdc: document.getElementById("NACT_cycle_ceix").value || "",
               nactdlc: document.getElementById("NACT_cycle_D_ceix").value || "",
               nart: document.querySelector('input[name="NART_ceix"]:checked')?.value || "",
-              // nartc: document.getElementById("NART_cycle_ceix").value || "",
+
               nartdc: document.getElementById("NART_cycle_D_ceix").value || "",
               narttc: document.getElementById("NART_cycle_T_ceix").value || "",
               nartdcc: document.getElementById("NART_cycle_DC_ceix").value || "",
@@ -3484,7 +3412,7 @@ function validateForm1() {
               nactEff: document.getElementById("nactEff_anal")?.value || "",
               nactEffOth: document.getElementById("nactEff_Oth_anal")?.value || "",
               nactdc: document.getElementById("NACT_cycle_anal").value || "",
-              //
+
               nactdlc: document.getElementById("NACT_cycle_D_anal").value || "",
               prb: document.getElementById("processedBy_anal").value,
               scpt: document.querySelector('input[name="processedRadio_anal"]:checked')?.value || "",
@@ -3610,7 +3538,7 @@ function validateForm1() {
               nactEff: document.getElementById("nactEff_colo")?.value || "",
               nactEffOth: document.getElementById("nactEff_Oth_colo")?.value || "",
               nactdc: document.getElementById("NACT_cycle_colo").value || "",
-              //
+
               nactdlc: document.getElementById("NACT_cycle_D_colo").value || "",
               prb: document.getElementById("processedBy_colo").value,
               scpt: document.querySelector('input[name="processedRadio_colo"]:checked')?.value || "",
@@ -3717,7 +3645,6 @@ function validateForm1() {
               relTOth: document.getElementById("relT_Oth_esph").value || "",
               disT: document.getElementById("disT_esph").value || "",
               disTOth: document.getElementById("disT_Oth_esph").value || "",
-              //
               ss: document.querySelector('input[name="specimenSample_esph"]:checked').value,
               nft: document.getElementById("ft_tubes_esph").value,
               ftg: ftSgrid,
@@ -3740,7 +3667,6 @@ function validateForm1() {
               nactEff: document.getElementById("nactEff_esph")?.value || "",
               nactEffOth: document.getElementById("nactEff_Oth_esph")?.value || "",
               nactdc: document.getElementById("NACT_cycle_esph").value || "",
-              //
               nactdlc: document.getElementById("NACT_cycle_D_esph").value || "",
               prb: document.getElementById("processedBy_esph").value,
               scpt: document.querySelector('input[name="processedRadio_esph"]:checked')?.value || "",
@@ -3846,7 +3772,6 @@ function validateForm1() {
               relTOth: document.getElementById("relT_Oth_gast").value || "",
               disT: document.getElementById("disT_gast").value || "",
               disTOth: document.getElementById("disT_Oth_gast").value || "",
-              //
               ss: document.querySelector('input[name="specimenSample_gast"]:checked').value,
               nft: document.getElementById("ft_tubes_gast").value,
               ftg: ftSgrid,
@@ -3869,7 +3794,6 @@ function validateForm1() {
               nactEff: document.getElementById("nactEff_gast")?.value || "",
               nactEffOth: document.getElementById("nactEff_Oth_gast")?.value || "",
               nactdc: document.getElementById("NACT_cycle_gast").value || "",
-              //
               nactdlc: document.getElementById("NACT_cycle_D_gast").value || "",
               prb: document.getElementById("processedBy_gast").value,
               scpt: document.querySelector('input[name="processedRadio_gast"]:checked')?.value || "",
@@ -3897,8 +3821,6 @@ function validateForm1() {
         },
       );
     }
-
-    console.log("Valid Form 1");
   } catch (error) {
     console.error(error);
   }
@@ -4587,7 +4509,7 @@ function validateForm2() {
         pci: document.getElementById("pciScore_ovry")?.value || "",
 
         rd: document.querySelector('input[name="RadioT_ovry"]:checked')?.value || "",
-        // rdd1: document.getElementById("rtDetails1_ovry")?.value || "",
+
         rdd2: document.getElementById("rtDetails2_ovry")?.value || "",
         rdd3: document.getElementById("rtDetails3_ovry")?.value || "",
         rtdls: document.getElementById("radiotherapyLastCycleDate_ovry")?.value || "",
@@ -4610,7 +4532,7 @@ function validateForm2() {
   } else if (cancer_type === "hene") {
     const tumorSize = getTumorSize(cancer_type);
     const medResults = getCVSYM(cancer_type);
-    // Specimen Margin Status for Invasive Tumor
+
     const smsts = document.getElementById("smsts_hene")?.value || "";
     const smstsOth = smsts === "op4" || smsts === "op3" ? document.getElementById("smsts_text_hene")?.value || "" : "";
     let smsts1 = "";
@@ -4638,7 +4560,7 @@ function validateForm2() {
       smsts3 = document.querySelector('input[name="smsts_op2_1_hene"]:checked')?.value || "";
       smsts3Oth = smsts3 === "op2" ? document.getElementById("smsts_op2_1_op2_text_hene")?.value || "" : "";
     }
-    // Margin Status for Noninvasive Tumor (High-grade Dysplasia)
+
     const msts = document.getElementById("msts_hene")?.value || "";
     const mstsOth = msts === "op4" || msts === "op5" ? document.getElementById("msts_text_hene")?.value || "" : "";
     let msts1 = "";
@@ -4661,7 +4583,6 @@ function validateForm2() {
       msts2 = document.querySelector('input[name="msts_op3_hene"]:checked')?.value || "";
       msts2Oth = msts2 === "op1" ? document.getElementById("msts_op3_1_op1_text_hene")?.value || "" : msts2 === "op2" ? document.getElementById("msts_op3_1_op2_text_hene")?.value || "" : "";
     }
-    // Tumor Bed Margin Status for Invasive Tumor
 
     const tbsts = document.getElementById("tbmsts_hene")?.value || "";
     const tbstsOth = tbsts === "op4" || tbsts === "op3" ? document.getElementById("tbmsts_text_hene")?.value || "" : "";
@@ -5242,7 +5163,6 @@ function validateForm2() {
         mststNIT: document.getElementById("mststNIT_colo")?.value || "",
         mststNITOth: document.getElementById("mststNIT_Oth_colo")?.value || "",
         smstsN: document.getElementById("smstsN_colo")?.value || "",
-        //
         cMIC1,
         cMIC1Oth,
         dITCSM1,
@@ -5407,11 +5327,11 @@ function validateForm2() {
         dITCSMOth,
         sMSIT,
         sMSITOth,
-        cMIC1,
-        cMIC1Oth,
         mststNIT: document.getElementById("mststNIT_anal")?.value || "",
         mststNITOth: document.getElementById("mststNIT_Oth_anal")?.value || "",
         smstsN: document.getElementById("smstsN_anal")?.value || "",
+        cMIC1,
+        cMIC1Oth,
         dITCSM1,
         dITCSM1Oth,
         sMIIT,
@@ -5619,7 +5539,7 @@ function validateForm3() {
         p16Other: document.getElementById("other_ihc_ceix").value || "",
         pcsm: document.getElementById("pcsm_ceix").value || "",
         pcvm: document.getElementById("pcvm_ceix").value || "",
-        // sps: document.getElementById("sps_ceix").value || "",
+
         cvfu: user,
       },
     };
@@ -6194,7 +6114,6 @@ function updateToFirebase(data, patientInfo) {
           .set(formattedData)
           .then(() => {
             patients(bioBankId, cancer_type, firstSection, patientInfo);
-            console.log(`Form updated successfully `);
           })
           .catch((error) => {
             console.error("Error writing to Firebase", error);
@@ -6215,7 +6134,6 @@ function patients(biobankId, cancer_type, section, patientInfo) {
     .set(patientInfo)
     .then(() => {
       localStorage.setItem("BioVal", "");
-      console.log("Patient info saved successfully.");
     })
     .catch((error) => {
       console.error("Error writing to Firebase", error);
@@ -6245,14 +6163,7 @@ function pages_display(mode, cancer_type, bioBankId, seq, timestampKey) {
       .then((snapshot) => {
         if (snapshot.exists()) {
           const data = snapshot.val();
-
           sessionStorage.setItem("formData", JSON.stringify(data));
-          const storedData = sessionStorage.getItem("formData");
-          if (storedData) {
-            const parsedData = JSON.parse(storedData); // Convert it back to an object
-          } else {
-            console.log("No formData found in sessionStorage");
-          }
           switch (mode) {
             case "SearchView":
             case "PendingView":
@@ -8072,7 +7983,7 @@ async function fillIeForm_ceix(ieData) {
     // NART
     if (ieData.nart) document.querySelector(`input[name="NART_ceix"][value="${ieData.nart}"]`).checked = true || "";
     NartYes_ceix();
-    // document.getElementById("NART_cycle_ceix").value = ieData.nartc || "";
+
     document.getElementById("NART_cycle_D_ceix").value = ieData.nartdc || "";
     document.getElementById("NART_cycle_T_ceix").value = ieData.narttc || "";
     document.getElementById("NART_cycle_DC_ceix").value = ieData.nartdcc || "";
@@ -8395,7 +8306,7 @@ function fillMdForm_esph(mdData) {
 
     document.getElementById("smsts_esph").value = mdData?.smsts || "";
     document.getElementById("smsts_text_esph").value = mdData?.smstsOth || "";
-    //
+
     if (mdData?.cMIC) document.querySelector(`input[name="cMIC_op1_esph"][value="${mdData.cMIC}"]`).checked = true || "";
     if (mdData?.cMIC === "op1") document.getElementById("cMIC_op1_op1_text_esph").value = mdData?.cmICOth || "";
     if (mdData?.cMIC === "op2") document.getElementById("cMIC_op1_op2_text_esph").value = mdData?.cmICOth || "";
@@ -8454,7 +8365,6 @@ function fillMdForm_esph(mdData) {
         });
       }
     }
-    //
 
     document.getElementById("pTNM_esph").value = mdData?.ptnm || "";
     if (mdData?.rlnsts) document.querySelector(`input[name="rlnsts_esph"][value="${mdData.rlnsts}"]`).checked = true || "";
@@ -8675,7 +8585,7 @@ function fillMdForm_gast(mdData) {
 
     document.getElementById("smsts_gast").value = mdData?.smsts || "";
     document.getElementById("smsts_text_gast").value = mdData?.smstsOth || "";
-    //
+
     if (mdData?.cMIC) document.querySelector(`input[name="cMIC_op1_gast"][value="${mdData.cMIC}"]`).checked = true || "";
     if (mdData?.cMIC === "op1") document.getElementById("cMIC_op1_op1_text_gast").value = mdData?.cmICOth || "";
     if (mdData?.cMIC === "op2") document.getElementById("cMIC_op1_op2_text_gast").value = mdData?.cmICOth || "";
@@ -8734,7 +8644,6 @@ function fillMdForm_gast(mdData) {
         });
       }
     }
-    //
 
     document.getElementById("pTNM_gast").value = mdData?.ptnm || "";
     if (mdData.rlnsts) document.querySelector(`input[name="rlnsts_gast"][value="${mdData.rlnsts}"]`).checked = true || "";
@@ -8976,7 +8885,7 @@ function fillMdForm_anal(mdData) {
     document.getElementById("mstsHGTN_text_anal").value = mdData?.mstsHGTNOth || "";
     document.getElementById("hGINPM_anal").value = mdData?.hGINPM || "";
     document.getElementById("hGINPM_text_anal").value = mdData?.hGINPMOth || "";
-    //
+
     if (mdData?.cMIC) {
       document.querySelector(`input[name="cMIC_op1_anal"][value="${mdData?.cMIC}"]`).checked = true || "";
       if (mdData?.cMIC === "op1") document.getElementById("cMIC_op1_op1_text_anal").value = mdData?.cmICOth || "";
@@ -9038,7 +8947,6 @@ function fillMdForm_anal(mdData) {
       if (mdData.sMIIT === "op7") document.getElementById("sMIIT_op1_op7_text_anal").value = mdData.sMIITOth || "";
       if (mdData.sMIIT === "op8") document.getElementById("sMIIT_op1_op8_text_anal").value = mdData.sMIITOth || "";
     }
-    //
 
     document.getElementById("pTNM_anal").value = mdData.ptnm || "";
     if (mdData.rlnsts) document.querySelector(`input[name="rlnsts_anal"][value="${mdData.rlnsts}"]`).checked = true || "";
@@ -9281,7 +9189,7 @@ function fillMdForm_colo(mdData) {
     document.getElementById("mstsHGTN_text_colo").value = mdData?.mstsHGTNOth || "";
     document.getElementById("hGINPM_colo").value = mdData?.hGINPM || "";
     document.getElementById("hGINPM_text_colo").value = mdData?.hGINPMOth || "";
-    //
+
     if (mdData?.cMIC) {
       document.querySelector(`input[name="cMIC_op1_colo"][value="${mdData?.cMIC}"]`).checked = true || "";
       if (mdData?.cMIC === "op1") document.getElementById("cMIC_op1_op1_text_colo").value = mdData?.cmICOth || "";
@@ -9343,7 +9251,6 @@ function fillMdForm_colo(mdData) {
       if (mdData.sMIIT === "op7") document.getElementById("sMIIT_op1_op7_text_colo").value = mdData?.sMIITOth || "";
       if (mdData.sMIIT === "op8") document.getElementById("sMIIT_op1_op8_text_colo").value = mdData?.sMIITOth || "";
     }
-    //
 
     document.getElementById("pTNM_colo").value = mdData.ptnm || "";
     if (mdData.rlnsts) document.querySelector(`input[name="rlnsts_colo"][value="${mdData.rlnsts}"]`).checked = true || "";
@@ -9829,7 +9736,6 @@ function fillMdForm_hene(mdData) {
         }
 
         checkbox.checked = true;
-        // checkbox.dispatchEvent(new Event("change"));
 
         if (item?.text) {
           const otherInput = document.getElementById(`tumorSubType_${subtypeValue}_Oth_hene`);
@@ -9877,7 +9783,6 @@ function fillMdForm_hene(mdData) {
         }
 
         checkbox.checked = true;
-        // checkbox.dispatchEvent(new Event("change"));
 
         if (item?.text) {
           const otherInput = document.getElementById(`pSubType_${subtypeValue}_Oth_hene`);
@@ -10858,7 +10763,6 @@ function fillMdForm_ovry(mdData) {
     document.getElementById("actDrugCycles_ovry").value = mdData.actdc || "";
     document.getElementById("actDateLastCycle_ovry").value = mdData.actdls || "";
 
-    // need to add
     if (mdData.lc) {
       for (let i = 0; i < mdData.lc.length; i++) {
         document.querySelector(`input[name="LC_ovry"][value="${mdData.lc[i]}"]`).checked = true || "";
@@ -10875,7 +10779,7 @@ function fillMdForm_ovry(mdData) {
 
     if (mdData.rd) document.querySelector(`input[name="RadioT_ovry"][value="${mdData.rd}"]`).checked = true || "";
     RadioTYes_ovry();
-    // document.getElementById("rtDetails1_ovry").value = mdData.rdd1 || "";
+
     document.getElementById("rtDetails2_ovry").value = mdData.rdd2 || "";
     document.getElementById("rtDetails3_ovry").value = mdData.rdd3 || "";
     document.getElementById("radiotherapyLastCycleDate_ovry").value = mdData.rtdls || "";
@@ -11051,7 +10955,6 @@ function fillMdForm_ceix(mdData) {
     if (otherInput) {
       otherInput.value = "";
       otherInput.disabled = true;
-      // otherInput.style.display = "none";
     }
 
     // 2. Apply values
@@ -11065,7 +10968,6 @@ function fillMdForm_ceix(mdData) {
       // Handle "Other"
       if (item.op === "op21") {
         if (otherInput) {
-          // otherInput.style.display = "block";
           otherInput.disabled = isReadOnlyViewMode(mode);
 
           if (item.text) {
@@ -11477,9 +11379,7 @@ function fillBrfForm_colo(brfData) {
 // Lung Cancer
 function fillBrfForm_lung(brfData) {
   try {
-    console.log(brfData.h2);
     if (brfData.h2) document.querySelector(`input[name="HER2Radio_lung"][value="${brfData.h2}"]`).checked = true || "";
-
     document.getElementById("pcsm_lung").value = brfData.pcsm || "";
     document.getElementById("pcvm_lung").value = brfData.pcvm || "";
     document.getElementById("k67_lung").value = brfData.k67 || "";
@@ -11575,7 +11475,7 @@ function fillBrfForm_ceix(cmfData) {
     document.getElementById("other_ihc_ceix").value = cmfData.p16Other || "";
     document.getElementById("pcsm_ceix").value = cmfData.pcsm || "";
     document.getElementById("pcvm_ceix").value = cmfData.pcvm || "";
-    // document.getElementById("sps_ceix").value = cmfData.sps || "";
+
     document.getElementById("brfdataEB_ceix").value = cmfData.cvfu || "";
   } catch (e) {
     console.error("Error in filling brf radio buttons:", e);
@@ -11648,7 +11548,6 @@ function submitFollowup() {
       db.ref(dataPath)
         .set(followupData)
         .then(() => {
-          console.log("Followup data saved successfully");
           const timePFW = new Date();
 
           // const threeMonthInMinutes = 3 * 30 * 24 * 60; // Approximation of 3 months in minutes
@@ -11663,7 +11562,6 @@ function submitFollowup() {
               .remove()
               .then(() => {
                 redirectAfterSampleEntry(mode);
-                console.log("Data removed from pfw because Vital Status is Dead");
               })
               .catch((error) => {
                 console.error("Error removing data from pfw:", error);
@@ -11673,7 +11571,6 @@ function submitFollowup() {
               .set(timePFW.getTime())
               .then(() => {
                 redirectAfterSampleEntry(mode);
-                console.log("Stored in pfw");
               })
               .catch((error) => {
                 console.error("Error storing in pfw:", error);
@@ -11786,9 +11683,7 @@ function updateRLT(info, field) {
 
 function updatePC(info, field) {
   const parts = info.split("/");
-
   const bioBankId = document.getElementById("bioBankId").value;
-  console.log("Updating PC with bioBankId:", bioBankId);
   const boxName = parts[0].trim();
   const seatList = parts[1].split(",").map((seat) => seat.trim());
   const sampleType = parts[2].trim();
@@ -11818,7 +11713,6 @@ function updatePC(info, field) {
         db.ref(`pcb/${boxName}/${seatIndex}`)
           .update(seatUpdate)
           .then(() => {
-            console.log("Updating PC with seatUpdate:", seatUpdate);
             console.log(`Seat ${seatID} updated successfully to "occupied".`);
           })
           .catch((error) => {
@@ -12239,7 +12133,6 @@ function popSharedBloodmodal(bioboxName, samples, bioId, requestToken) {
 
               if (snapshot.exists()) {
                 boxName = snapshot.val();
-
                 document.getElementById("cursharedBloodBox").textContent = boxName;
               } else {
                 console.log("No box found with ID " + boxid);
@@ -12395,7 +12288,6 @@ function popSharedSpecimenmodal(bioboxName, samples, bioId, requestToken) {
 
               if (snapshot.exists()) {
                 boxName = snapshot.val();
-
                 document.getElementById("cursharedSpecimenBox").textContent = boxName;
               } else {
                 console.log("No box found with ID " + boxid);
@@ -12553,7 +12445,6 @@ function popSharedRLTmodal(bioboxName, samples, bioId, requestToken) {
 
               if (snapshot.exists()) {
                 boxName = snapshot.val();
-
                 document.getElementById("cursharedRLTBox").textContent = boxName;
               } else {
                 console.log("No box found with ID " + boxid);
@@ -12711,7 +12602,6 @@ function popSharedPCmodal(bioboxName, samples, bioId, requestToken) {
 
               if (snapshot.exists()) {
                 boxName = snapshot.val();
-
                 document.getElementById("cursharedPCBox").textContent = boxName;
               } else {
                 console.log("No box found with ID " + boxid);
@@ -12863,14 +12753,7 @@ function shared_pages_display(mode, bioBankId, seq, boxName, timestampKey) {
       .then((snapshot) => {
         if (snapshot.exists()) {
           const data = snapshot.val();
-
           sessionStorage.setItem("sharedData", JSON.stringify(data));
-          const storedData = sessionStorage.getItem("sharedData");
-          if (storedData) {
-            const parsedData = JSON.parse(storedData);
-          } else {
-            console.log("No formData found in sessionStorage");
-          }
           switch (mode) {
             case "sharedView":
               localStorage.setItem("selectedGrid", "");
@@ -13007,7 +12890,7 @@ function searchLoadingModal() {
 function updateTodoBadge(elementId) {
   const badge = document.getElementById(elementId);
   if (!badge) {
-    console.log("Badge element not found");
+    console.log("Badge element not found for id:", elementId);
     return;
   }
   let total = 0,
@@ -13387,7 +13270,6 @@ function handleEditPatientData(cancer_type, bioBankId, seq, timestampKey) {
             db.ref(refPath)
               .set(act)
               .then(() => {
-                console.log("New act set, proceeding with pages_display.");
                 pages_display(editT, cancer_type, bioBankId, seq, timestampKey);
               })
               .catch((error) => {
@@ -13398,7 +13280,6 @@ function handleEditPatientData(cancer_type, bioBankId, seq, timestampKey) {
           db.ref(refPath)
             .set(act)
             .then(() => {
-              console.log("Path not found, new act set. Proceeding with pages_display.");
               pages_display(editT, cancer_type, bioBankId, seq, timestampKey);
             })
             .catch((error) => {
@@ -13682,7 +13563,6 @@ function fetchPendingFollowUps() {
       }
 
       if (!hasDueFollowUps) {
-        console.log("No due follow-ups found");
         totalFPages = 0;
         localStorage.setItem("pendingFollowUpsCount", 0);
         updateTodoBadge("pendingFollowUpsBadge");
@@ -14117,7 +13997,7 @@ function NartYes_ceix() {
 
     $("#NART_cycle_D_ceix").val("");
     $("#NART_cycle_T_ceix").val("");
-    // $("#NART_cycle_ceix").val("");
+
     $("#NART_cycle_DC_ceix").val("");
   }
 }
@@ -14127,11 +14007,10 @@ function NactYes_hene() {
   if ($("#NACTYes_hene").is(":checked")) {
     $("#nactDC_hene").show();
     $("#nactDLC_hene").show();
-    // $("#nactTE_hene").show();
   } else {
     $("#nactDC_hene").hide();
     $("#nactDLC_hene").hide();
-    // $("#nactTE_hene").hide();
+
     $("#NACT_cycle_hene").val("");
     $("#NACT_cycle_D_hene").val("");
   }
@@ -14423,14 +14302,12 @@ function toggleMetastasisFields_lung() {
   if (isMetastasisSampleYes || isDenovoYes) {
     $("#mptA_lung").show();
     $("#mptS_lung").show();
-    // $("#mptRS_lung").show();
   } else {
     $("#mptA_lung").hide();
     $("#mptS_lung").hide();
-    // $("#mptRS_lung").hide();
+
     $("#mpt_age_lung").val("");
     $("#mpt_site_lung").val("");
-    // $("#mpt_rs_lung").val("");
   }
 }
 
@@ -15958,16 +15835,13 @@ function RadioTYes_endm() {
 // Ovary
 function RadioTYes_ovry() {
   if ($("#RTYes_ovry").is(":checked")) {
-    // $("#rtDC1_ovry").show();
     $("#rtDC2_ovry").show();
     $("#rtDC3_ovry").show();
     $("#rtDLC_ovry").show();
   } else {
-    // $("#rtDC1_ovry").hide();
     $("#rtDC2_ovry").hide();
     $("#rtDC3_ovry").hide();
     $("#rtDLC_ovry").hide();
-    // $("#rtDetails1_ovry").val("");
     $("#rtDetails2_ovry").val("");
     $("#rtDetails3_ovry").val("");
     $("#radiotherapyLastCycleDate_ovry").val("");

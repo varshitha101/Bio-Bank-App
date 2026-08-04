@@ -207,13 +207,16 @@
                   <option value="endm">Endometrial Cancer</option>
                   <option value="hene">Head and Neck Cancer</option>
                   <option value="lung">Lung Cancer</option>
+                  <option value="colo">Colorectal Cancer</option>
+                  <option value="anal">Anal Cancer</option>
+                  <option value="esph">Esophagus Cancer</option>
+                  <option value="gast">Gastric Cancer</option>
                   <option value="5" disabled>Pancreas</option>
                   <option value="6" disabled>Uterus</option>
                   <option value="7" disabled>Omentum</option>
                   <option value="8" disabled>Vulva</option>
                   <option value="9" disabled>Rectum</option>
                   <option value="10" disabled>Colon</option>
-                  <option value="11" disabled>Esophagus</option>
                   <option value="12" disabled>Stomach</option>
                   <option value="13" disabled>Liver</option>
                   <option value="15" disabled>Urinary Bladder</option>
@@ -882,6 +885,340 @@
                 </div>
               </div>
             </form>
+            <!-- Anal Cancer -->
+            <form id="sampleSearchForm_anal">
+              <div class="row" style="justify-content: space-evenly">
+                <div class="form-group col-xs-2 mr-2">
+                  <label for="metaInput_anal">Event</label>
+                  <select id="metaInput_anal" class="form-control">
+                    <option value="All" selected>All</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+                <div class="form-group col-xs-2 mr-2">
+                  <label for="nactInput_anal">NACT</label>
+                  <select id="nactInput_anal" class="form-control">
+                    <option value="All" selected>All</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+                <div class="form-group col-xs-2 mr-2">
+                  <label for="pathSubtype_anal">Histological Subtype</label>
+                  <select id="pathSubtype_anal" class="form-control">
+                    <option value="All" selected>All</option>
+                    <option value="op1">Squamous cell carcinoma</option>
+                    <option value="op2">Basaloid squamous cell carcinoma</option>
+                    <option value="op3">Basal cell carcinoma</option>
+                    <option value="op4">Verrucous squamous cell carcinoma</option>
+                    <option value="op5">Adenocarcinoma</option>
+                    <option value="op6">Adenocarcinoma of the anal glands</option>
+                    <option value="op7">Neuroendocrine carcinoma</option>
+                    <option value="op8">Large cell neuroendocrine carcinoma</option>
+                    <option value="op9">Small cell neuroendocrine carcinoma</option>
+                    <option value="op10">Mixed adenoneuroendocrine carcinoma (MANEC)</option>
+                    <option value="op11">Undifferentiated carcinoma</option>
+                    <option value="op12">Other histologic type not listed</option>
+                    <option value="op13">Carcinoma, type cannot be determined</option>
+                  </select>
+                </div>
+                <div class="form-group col-xs-2 mr-2">
+                  <label for="gradeInput_anal">Grade</label>
+                  <select id="gradeInput_anal" class="form-control">
+                    <option value="All" selected>All</option>
+                    <option value="grd1">G1, well-differentiated</option>
+                    <option value="grd2">G2, moderately differentiated</option>
+                    <option value="grd3">G3, poorly differentiated</option>
+                    <option value="grd4">G4, undifferentiated</option>
+                    <option value="grd5">Other</option>
+                    <option value="grd6">GX, cannot be assessed</option>
+                    <option value="grd7">Not applicable</option>
+                  </select>
+                </div>
+
+                <div class="form-group col-xs-2 mr-2">
+                  <label for="fh1_anal">Family History</label>
+                  <select id="fh1_anal" class="form-control">
+                    <option value="All" selected>All</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+
+                <div class="form-group col-xs-2 mr-2">
+                  <label for="biobankIdInput_anal">Bio Bank ID </label>
+                  <input type="text" id="biobankIdInput_anal" class="form-control" placeholder="Enter Bio Bank ID" onblur="validateBioId(this)" oninput="formatBioInput(this)" />
+                </div>
+              </div>
+              <div class="row mb-1" style="justify-content: space-around">
+                <div class="row">
+                  <div style="justify-content: space-around">
+                    <button type="submit" class="btn btn-primary" id="sampleSubmit" onclick="searchSample_anal(event)">Submit</button>
+                  </div>
+                  &emsp; &emsp;
+                  <div style="justify-content: space-around">
+                    <button type="reset" class="btn btn-warning" id="sampleReset" onclick="resetSample()">Reset</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <!-- Colorectal Cancer -->
+            <form id="sampleSearchForm_colo">
+              <div class="row" style="justify-content: space-evenly">
+                <div class="form-group col-xs-2 mr-2">
+                  <label for="metaInput_colo">Event</label>
+                  <select id="metaInput_colo" class="form-control">
+                    <option value="All" selected>All</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+                <div class="form-group col-xs-2 mr-2">
+                  <label for="nactInput_colo">NACT</label>
+                  <select id="nactInput_colo" class="form-control">
+                    <option value="All" selected>All</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+
+                <div class="form-group col-xs-2 mr-2">
+                  <label for="pathSubtype_colo">Histological Subtype</label>
+                  <select id="pathSubtype_colo" class="form-control">
+                    <option value="All" selected>All</option>
+                    <option value="op1">Adenocarcinoma</option>
+                    <option value="op2">Mucinous adenocarcinoma</option>
+                    <option value="op3">Poorly cohesive carcinoma</option>
+                    <option value="op4">Signet-ring cell carcinoma</option>
+                    <option value="op5">Medullary carcinoma</option>
+                    <option value="op6">Serrated adenocarcinoma</option>
+                    <option value="op7">Micropapillary adenocarcinoma</option>
+                    <option value="op8">Adenoma-like adenocarcinoma</option>
+                    <option value="op9">Adenosquamous carcinoma</option>
+                    <option value="op10">Undifferentiated carcinoma, NOS</option>
+                    <option value="op11">Carcinoma with sarcomatoid component</option>
+                    <option value="op12">Large cell neuroendocrine carcinoma</option>
+                    <option value="op13">Small cell neuroendocrine carcinoma</option>
+                    <option value="op14">Mixed neuroendocrine-non-neuroendocrine neoplasm (MiNEN)</option>
+                    <option value="op15">Other histologic type not listed</option>
+                    <option value="op16">Carcinoma, type cannot be determined</option>
+                  </select>
+                </div>
+                <div class="form-group col-xs-2 mr-2">
+                  <label for="gradeInput_colo">Grade</label>
+                  <select id="gradeInput_colo" class="form-control">
+                    <option value="All" selected>All</option>
+                    <option value="grd1">G1, well-differentiated</option>
+                    <option value="grd2">G2, moderately differentiated</option>
+                    <option value="grd3">G3, poorly differentiated</option>
+                    <option value="grd4">G4, undifferentiated</option>
+                    <option value="grd5">Other</option>
+                    <option value="grd6">GX, cannot be assessed</option>
+                    <option value="grd7">Not applicable</option>
+                  </select>
+                </div>
+
+                <div class="form-group col-xs-2 mr-2">
+                  <label for="fh1_colo">Family History</label>
+                  <select id="fh1_colo" class="form-control">
+                    <option value="All" selected>All</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+
+                <div class="form-group col-xs-2 mr-2">
+                  <label for="biobankIdInput">Bio Bank ID </label>
+                  <input type="text" id="biobankIdInput_colo" class="form-control" placeholder="Enter Bio Bank ID" onblur="validateBioId(this)" oninput="formatBioInput(this)" />
+                </div>
+              </div>
+              <div class="row mb-1" style="justify-content: space-around">
+                <div class="row">
+                  <div style="justify-content: space-around">
+                    <button type="submit" class="btn btn-primary" id="sampleSubmit" onclick="searchSample_colo(event)">Submit</button>
+                  </div>
+                  &emsp; &emsp;
+                  <div style="justify-content: space-around">
+                    <button type="reset" class="btn btn-warning" id="sampleReset" onclick="resetSample()">Reset</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <!-- Esphogeal Cancer -->
+            <form id="sampleSearchForm_esph">
+              <div class="row" style="justify-content: space-evenly">
+                <div class="form-group col-xs-2 mr-2">
+                  <label for="metaInput_esph">Event</label>
+                  <select id="metaInput_esph" class="form-control">
+                    <option value="All" selected>All</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+                <div class="form-group col-xs-2 mr-2">
+                  <label for="nactInput_esph">NACT</label>
+                  <select id="nactInput_esph" class="form-control">
+                    <option value="All" selected>All</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+                <div class="form-group col-xs-2 mr-2">
+                  <label for="pathSubtype_esph">Histological Subtype</label>
+                  <select id="pathSubtype_esph" class="form-control">
+                    <option value="All" selected>All</option>
+                    <option value="op1">Adenocarcinoma</option>
+                    <option value="op2">Adenoid cystic carcinoma</option>
+                    <option value="op3">Mucoepidermoid carcinoma</option>
+                    <option value="op4">Adenosquamous carcinoma</option>
+                    <option value="op5">Squamous cell carcinoma</option>
+                    <option value="op6">Basaloid squamous cell carcinoma</option>
+                    <option value="op7">Spindle cell squamous cell carcinoma</option>
+                    <option value="op8">Verrucous squamous cell carcinoma</option>
+                    <option value="op9">Undifferentiated carcinoma</option>
+                    <option value="op10">Lymphoepithelioma-like carcinoma</option>
+                    <option value="op11">Large cell neuroendocrine carcinoma</option>
+                    <option value="op12">Small cell neuroendocrine carcinoma</option>
+                    <option value="op13">Neuroendocrine carcinoma (poorly differentiated)</option>
+                    <option value="op14">Mixed squamous cell carcinoma-neuroendocrine carcinoma</option>
+                    <option value="op15">Mixed adenocarcinoma-neuroendocrine carcinoma</option>
+                    <option value="op16">Mixed adenocarcinoma-neuroendocrine tumor</option>
+                    <option value="op17">G1, well-differentiated neuroendocrine tumor</option>
+                    <option value="op18">G2, well-differentiated neuroendocrine tumor</option>
+                    <option value="op19">G3, well-differentiated neuroendocrine tumor</option>
+                    <option value="op20">Other histologic type not listed</option>
+                    <option value="op21">Carcinoma, type cannot be determined</option>
+                  </select>
+                </div>
+                <div class="form-group col-xs-2 mr-2">
+                  <label for="gradeInput_esph">Grade</label>
+                  <select id="gradeInput_esph" class="form-control">
+                    <option value="All" selected>All</option>
+                    <option value="op1">G1, well differentiated</option>
+                    <option value="op2">G2, moderately differentiated</option>
+                    <option value="op3">G3, poorly differentiated, undifferentiated</option>
+                    <option value="op4">Other</option>
+                    <option value="op5">GX, cannot be assessed</option>
+                    <option value="op6">Not applicable</option>
+                  </select>
+                </div>
+
+                <div class="form-group col-xs-2 mr-2">
+                  <label for="fh1_esph">Family History</label>
+                  <select id="fh1_esph" class="form-control">
+                    <option value="All" selected>All</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+                <div class="form-group col-xs-2 mr-2">
+                  <label for="biobankIdInput_esph">Bio Bank ID </label>
+                  <input type="text" id="biobankIdInput_esph" class="form-control" placeholder="Enter Bio Bank ID" onblur="validateBioId(this)" oninput="formatBioInput(this)" />
+                </div>
+              </div>
+              <div class="row mb-1" style="justify-content: space-around">
+                <div class="row">
+                  <div style="justify-content: space-around">
+                    <button type="submit" class="btn btn-primary" id="sampleSubmit" onclick="searchSample_esph(event)">Submit</button>
+                  </div>
+                  &emsp; &emsp;
+                  <div style="justify-content: space-around">
+                    <button type="reset" class="btn btn-warning" id="sampleReset" onclick="resetSample()">Reset</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <!-- Gastric Cancer -->
+            <form id="sampleSearchForm_gast">
+              <div class="row" style="justify-content: space-evenly">
+                <div class="form-group col-xs-2 mr-2">
+                  <label for="metaInput_gast">Event</label>
+                  <select id="metaInput_gast" class="form-control">
+                    <option value="All" selected>All</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+                <div class="form-group col-xs-2 mr-2">
+                  <label for="nactInput_gast">NACT</label>
+                  <select id="nactInput_gast" class="form-control">
+                    <option value="All" selected>All</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+                <div class="form-group col-xs-2 mr-2">
+                  <label for="pathType_gast">Histological Subtype</label>
+                  <select id="pathType_gast" class="form-control">
+                    <option value="All" selected>All</option>
+                    <option value="op1">Adenocarcinoma</option>
+                    <option value="op2">Hepatoid adenocarcinomaa</option>
+                    <option value="op3">(Adeno)carcinoma with lymphoid stroma</option>
+                    <option value="op4">Micropapillary adenocarcinoma</option>
+                    <option value="op5">Adenocarcinoma of fundic-gland type</option>
+                    <option value="op6">Squamous cell carcinoma</option>
+                    <option value="op7">Adenosquamous carcinoma</option>
+                    <option value="op8">Undifferentiated (anaplastic) carcinoma</option>
+                    <option value="op9">Gastroblastoma</option>
+                    <option value="op10">Large cell neuroendocrine carcinoma</option>
+                    <option value="op12">Small cell neuroendocrine carcinoma</option>
+                    <option value="op13">Neuroendocrine carcinoma (poorly differentiated)</option>
+                    <option value="op14">Mixed adenocarcinoma-neuroendocrine carcinoma (small cell or large cell neuroendocrine carcinoma)</option>
+                    <option value="op15">Mixed adenocarcinoma-neuroendocrine tumor</option>
+                    <option value="op20">Other histologic type not listed</option>
+                  </select>
+                </div>
+                <div class="form-group col-xs-2 mr-2">
+                  <label for="pathSubtype_gast">Histological Subtype</label>
+                  <select id="pathSubtype_gast" class="form-control">
+                    <option value="All" selected>All</option>
+                    <option value="op1">Tubular adenocarcinoma</option>
+                    <option value="op2">Poorly cohesive carcinoma (includes signet-ring cell carcinoma and other variants)</option>
+                    <option value="op3">Mucinous adenocarcinoma (greater than 50% mucinous)</option>
+                    <option value="op4">Papillary adenocarcinoma</option>
+                    <option value="op5">Mixed carcinoma</option>
+                  </select>
+                </div>
+                <div class="form-group col-xs-2 mr-2">
+                  <label for="gradeInput_gast">Grade</label>
+                  <select id="gradeInput_gast" class="form-control">
+                    <option value="All" selected>All</option>
+                    <option value="op1">G1, well differentiated</option>
+                    <option value="op2">G2, moderately differentiated</option>
+                    <option value="op3">G3, poorly differentiated, undifferentiated</option>
+                    <option value="op4">Other</option>
+                    <option value="op5">GX, cannot be assessed</option>
+                    <option value="op6">Not applicable</option>
+                  </select>
+                </div>
+
+                <div class="form-group col-xs-2 mr-2">
+                  <label for="fh1_gast">Family History</label>
+                  <select id="fh1_gast" class="form-control">
+                    <option value="All" selected>All</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+
+                <div class="form-group col-xs-2 mr-2">
+                  <label for="biobankIdInput_gast">Bio Bank ID </label>
+                  <input type="text" id="biobankIdInput_gast" class="form-control" placeholder="Enter Bio Bank ID" onblur="validateBioId(this)" oninput="formatBioInput(this)" />
+                </div>
+              </div>
+              <div class="row mb-1" style="justify-content: space-around">
+                <div class="row">
+                  <div style="justify-content: space-around">
+                    <button type="submit" class="btn btn-primary" id="sampleSubmit" onclick="searchSample_gast(event)">Submit</button>
+                  </div>
+                  &emsp; &emsp;
+                  <div style="justify-content: space-around">
+                    <button type="reset" class="btn btn-warning" id="sampleReset" onclick="resetSample()">Reset</button>
+                  </div>
+                </div>
+              </div>
+            </form>
           </div>
           <div class="container mt-2">
             <div style="display: flex; align-items: center; justify-content: space-between">
@@ -1103,6 +1440,10 @@
           $("#sampleSearchForm_endm").toggle(cancerType === "endm");
           $("#sampleSearchForm_ovry").toggle(cancerType === "ovry");
           $("#sampleSearchForm_hene").toggle(cancerType === "hene");
+          $("#sampleSearchForm_gast").toggle(cancerType === "gast");
+          $("#sampleSearchForm_colo").toggle(cancerType === "colo");
+          $("#sampleSearchForm_anal").toggle(cancerType === "anal");
+          $("#sampleSearchForm_esph").toggle(cancerType === "esph");
 
           document.getElementById("AllCheck").checked = false;
           clearSampleSearchResults();
@@ -1299,9 +1640,29 @@
               op29: "Cervical esophagus",
             },
           };
+
+          const histologicalType_gast = {
+            All: { All: "All" },
+
+            op1: {
+              All: "All",
+              op1: "Tubular adenocarcinoma",
+              op2: "Poorly cohesive carcinoma (includes signet-ring cell carcinoma and other variants)",
+              op3: "Mucinous adenocarcinoma (greater than 50% mucinous)",
+              op4: "Papillary adenocarcinoma",
+              op5: "Mixed carcinoma",
+            },
+          };
+
+          for (let i = 2; i <= 20; i++) {
+            histologicalType_gast[`op${i}`] = { All: "All" };
+          }
+
           let mainOption;
           if (primaryId === "tumorType_hene") {
             mainOption = tumorType_hene;
+          } else if (primaryId === "pathType_gast") {
+            mainOption = histologicalType_gast;
           }
           const options = mainOption[primarySelect.value] || [""];
           const optionEntries = Array.isArray(options)
@@ -1323,9 +1684,10 @@
           const hasAllOption = optionEntries.some(function (entry) {
             return entry.value === "All";
           });
-          const shouldDisableSecondary = primarySelect.value === "All";
+          const shouldDisableSecondary = primarySelect.value === "All" || (primaryId === "pathType_gast" && primarySelect.value !== "op1");
 
           secondarySelect.disabled = shouldDisableSecondary;
+          secondarySelect.value = shouldDisableSecondary ? "All" : currentValue;
 
           if (shouldDisableSecondary && hasAllOption) {
             secondarySelect.value = "All";
@@ -1518,6 +1880,7 @@
         });
       });
       document.addEventListener("DOMContentLoaded", function () {
+        initializeDoubleOption("pathType_gast", "pathSubtype_gast");
         initializeDoubleOption("tumorType_hene", "tumorSite_hene");
         syncHeadAndNeckFilters({
           tumorType: "All",
@@ -2639,6 +3002,35 @@
         document.getElementById("ajccInput_lung").value = "All";
         document.getElementById("biobankIdInput_lung").value = "";
 
+        // Esphagus Cancer
+        document.getElementById("gradeInput_esph").value = "All";
+        document.getElementById("nactInput_esph").value = "All";
+        document.getElementById("pathSubtypeInput_esph").value = "All";
+        document.getElementById("metaInput_esph").value = "All";
+        document.getElementById("FamilyHInput_esph").value = "All";
+        document.getElementById("biobankIdInput_esph").value = "";
+        // Gastric Cancer
+        document.getElementById("gradeInput_gast").value = "All";
+        document.getElementById("nactInput_gast").value = "All";
+        document.getElementById("pathSubtypeInput_gast").value = "All";
+        document.getElementById("pathType_gast").value = "All";
+        document.getElementById("metaInput_gast").value = "All";
+        document.getElementById("FamilyHInput_gast").value = "All";
+        document.getElementById("biobankIdInput_gast").value = "";
+        // Anal Cancer
+        document.getElementById("gradeInput_anal").value = "All";
+        document.getElementById("nactInput_anal").value = "All";
+        document.getElementById("pathSubtypeInput_anal").value = "All";
+        document.getElementById("metaInput_anal").value = "All";
+        document.getElementById("FamilyHInput_anal").value = "All";
+        document.getElementById("biobankIdInput_anal").value = "";
+        // Colorectal Cancer
+        document.getElementById("gradeInput_colo").value = "All";
+        document.getElementById("nactInput_colo").value = "All";
+        document.getElementById("pathSubtypeInput_colo").value = "All";
+        document.getElementById("metaInput_colo").value = "All";
+        document.getElementById("FamilyHInput_colo").value = "All";
+        document.getElementById("biobankIdInput_colo").value = "";
         const localStorageNames = [
           { name: "cancerTypeInput", value: "" },
           { name: "ageCriterion", value: "All" },
@@ -2689,6 +3081,35 @@
           { name: "fh1_lung", value: "All" },
           { name: "ajccInput_lung", value: "All" },
           { name: "biobankIdInput_lung", value: "" },
+          // Esphagus Cancer
+          { name: "gradeInput_esph", value: "All" },
+          { name: "nactInput_esph", value: "All" },
+          { name: "pathSubtypeInput_esph", value: "All" },
+          { name: "metaInput_esph", value: "All" },
+          { name: "FamilyHInput_esph", value: "All" },
+          { name: "biobankIdInput_esph", value: "" },
+          // Gastric Cancer
+          { name: "gradeInput_gast", value: "All" },
+          { name: "nactInput_gast", value: "All" },
+          { name: "pathSubtypeInput_gast", value: "All" },
+          { name: "pathType_gast", value: "All" },
+          { name: "metaInput_gast", value: "All" },
+          { name: "FamilyHInput_gast", value: "All" },
+          { name: "biobankIdInput_gast", value: "" },
+          // Anal Cancer
+          { name: "gradeInput_anal", value: "All" },
+          { name: "nactInput_anal", value: "All" },
+          { name: "pathSubtypeInput_anal", value: "All" },
+          { name: "metaInput_anal", value: "All" },
+          { name: "FamilyHInput_anal", value: "All" },
+          { name: "biobankIdInput_anal", value: "" },
+          // Colorectal Cancer
+          { name: "gradeInput_colo", value: "All" },
+          { name: "nactInput_colo", value: "All" },
+          { name: "pathSubtypeInput_colo", value: "All" },
+          { name: "metaInput_colo", value: "All" },
+          { name: "FamilyHInput_colo", value: "All" },
+          { name: "biobankIdInput_colo", value: "" },
         ];
         localStorageNames.forEach((item) => {
           sessionStorage.setItem(item.name, item.value);
@@ -2773,6 +3194,47 @@
               document.getElementById("biobankIdInput_lung").value = tempbiobankIdInput || "";
 
               searchSample_lung();
+            } else if (cancerTypeInput === "colo") {
+              document.getElementById("gradeInput_colo").value = sessionStorage.getItem("gradeInput_colo") || "All";
+              document.getElementById("nactInput_colo").value = sessionStorage.getItem("nactInput_colo") || "All";
+              document.getElementById("pathSubtype_colo").value = sessionStorage.getItem("pathSubtypeInput_colo") || "All";
+              document.getElementById("metaInput_colo").value = sessionStorage.getItem("metaInput_colo") || "All";
+              document.getElementById("fh1_colo").value = sessionStorage.getItem("FamilyHInput_colo") || "All";
+              const tempbiobankIdInput = sessionStorage.getItem("biobankIdInput_colo") && sessionStorage.getItem("biobankIdInput_colo") !== "undefined" ? sessionStorage.getItem("biobankIdInput_colo") : "";
+              document.getElementById("biobankIdInput_colo").value = tempbiobankIdInput || "";
+
+              searchSample_colo();
+            } else if (cancerTypeInput === "anal") {
+              document.getElementById("gradeInput_anal").value = sessionStorage.getItem("gradeInput_anal") || "All";
+              document.getElementById("nactInput_anal").value = sessionStorage.getItem("nactInput_anal") || "All";
+              document.getElementById("pathSubtype_anal").value = sessionStorage.getItem("pathSubtypeInput_anal") || "All";
+              document.getElementById("metaInput_anal").value = sessionStorage.getItem("metaInput_anal") || "All";
+              document.getElementById("fh1_anal").value = sessionStorage.getItem("FamilyHInput_anal") || "All";
+              const tempbiobankIdInput = sessionStorage.getItem("biobankIdInput_anal") && sessionStorage.getItem("biobankIdInput_anal") !== "undefined" ? sessionStorage.getItem("biobankIdInput_anal") : "";
+              document.getElementById("biobankIdInput_anal").value = tempbiobankIdInput || "";
+
+              searchSample_anal();
+            } else if (cancerTypeInput === "gast") {
+              document.getElementById("gradeInput_gast").value = sessionStorage.getItem("gradeInput_gast") || "All";
+              document.getElementById("nactInput_gast").value = sessionStorage.getItem("nactInput_gast") || "All";
+              document.getElementById("pathType_gast").value = sessionStorage.getItem("pathType_gast") || "All";
+              document.getElementById("pathSubtype_gast").value = sessionStorage.getItem("pathSubtypeInput_gast") || "All";
+              document.getElementById("metaInput_gast").value = sessionStorage.getItem("metaInput_gast") || "All";
+              document.getElementById("fh1_gast").value = sessionStorage.getItem("FamilyHInput_gast") || "All";
+              const tempbiobankIdInput = sessionStorage.getItem("biobankIdInput_gast") && sessionStorage.getItem("biobankIdInput_gast") !== "undefined" ? sessionStorage.getItem("biobankIdInput_gast") : "";
+              document.getElementById("biobankIdInput_gast").value = tempbiobankIdInput || "";
+
+              searchSample_gast();
+            } else if (cancerTypeInput === "esph") {
+              document.getElementById("gradeInput_esph").value = sessionStorage.getItem("gradeInput_esph") || "All";
+              document.getElementById("nactInput_esph").value = sessionStorage.getItem("nactInput_esph") || "All";
+              document.getElementById("pathSubtype_esph").value = sessionStorage.getItem("pathSubtypeInput_esph") || "All";
+              document.getElementById("metaInput_esph").value = sessionStorage.getItem("metaInput_esph") || "All";
+              document.getElementById("fh1_esph").value = sessionStorage.getItem("FamilyHInput_esph") || "All";
+              const tempbiobankIdInput = sessionStorage.getItem("biobankIdInput_esph") && sessionStorage.getItem("biobankIdInput_esph") !== "undefined" ? sessionStorage.getItem("biobankIdInput_esph") : "";
+              document.getElementById("biobankIdInput_esph").value = tempbiobankIdInput || "";
+
+              searchSample_esph();
             }
           } catch (error) {
             console.error("Error applying changes for Head and Neck Cancer:", error);
@@ -2990,6 +3452,465 @@
             }
           });
       }
+
+      // Anal Cancer
+      async function searchSample_anal(event) {
+        if (event) {
+          event.preventDefault();
+        }
+        const cancerTypeInput = document.getElementById("cancerTypeInput").value;
+        const gradeInput = document.getElementById("gradeInput_anal").value;
+        const nactInput = document.getElementById("nactInput_anal").value;
+        const pathSubtypeInput = document.getElementById("pathSubtype_anal").value;
+        const metaInput = document.getElementById("metaInput_anal").value;
+        const FamilyHInput = document.getElementById("fh1_anal").value;
+        const tempBiobankIdInput = document.getElementById("biobankIdInput_anal").value ? document.getElementById("biobankIdInput_anal").value : "";
+        const biobankIdInput = tempBiobankIdInput && tempBiobankIdInput.length === 6 ? tempBiobankIdInput : "";
+
+        sessionStorage.setItem("cancerTypeInput", cancerTypeInput);
+        sessionStorage.setItem("gradeInput_anal", gradeInput);
+        sessionStorage.setItem("nactInput_anal", nactInput);
+        sessionStorage.setItem("pathSubtypeInput_anal", pathSubtypeInput);
+        sessionStorage.setItem("metaInput_anal", metaInput);
+        sessionStorage.setItem("FamilyHInput_anal", FamilyHInput);
+        sessionStorage.setItem("biobankIdInput_anal", biobankIdInput);
+
+        db.ref(`sef/${cancerTypeInput}`)
+          .once("value")
+          .then((snapshot) => {
+            // Handle the snapshot data here
+            if (snapshot && snapshot.exists()) {
+              const criteria = {
+                cancerTypeInput,
+                gradeInput,
+                nactInput,
+                pathSubtypeInput,
+                metaInput,
+                FamilyHInput,
+                biobankIdInput,
+              };
+
+              const filteredPatientData = {};
+              const patientData = snapshot.val();
+              window.sefData = patientData;
+              for (const bioBankId of Object.keys(patientData)) {
+                const patientEntries = patientData[bioBankId];
+                const seqNumbers = Object.keys(patientEntries);
+
+                if (seqNumbers.length === 0) continue;
+
+                filteredPatientData[bioBankId] = {};
+                let countDownData = 0;
+
+                for (const seqNumber of seqNumbers) {
+                  const entryData = patientEntries[seqNumber];
+                  const nestedKeys = Object.keys(entryData);
+                  const maxTimestamp = nestedKeys && nestedKeys.length > 0 ? Math.max(...nestedKeys.map((key) => parseInt(key))) : null;
+                  if (maxTimestamp) {
+                    const patientData = entryData[maxTimestamp]?.ie;
+                    const patientmd = entryData[maxTimestamp]?.md;
+
+                    if (!patientData) continue;
+
+                    const biobankIdMatch = !criteria.biobankIdInput || bioBankId === criteria.biobankIdInput;
+                    if (!biobankIdMatch) continue;
+
+                    const cancerTypeMatch = patientData.ct === criteria.cancerTypeInput.toLowerCase();
+                    if (!cancerTypeMatch) continue;
+
+                    const gradeMatch = criteria.gradeInput === "All" || !criteria.gradeInput || patientmd.gd.toLowerCase() === criteria.gradeInput.toLowerCase();
+                    if (!gradeMatch) continue;
+
+                    const nactMatch = criteria.nactInput === "All" || !criteria.nactInput || (criteria.nactInput === "Yes" && patientData.nact === "true") || (criteria.nactInput === "No" && patientData.nact === "false");
+                    if (!nactMatch) continue;
+
+                    const pathSubtypeMatch = criteria.pathSubtypeInput === "All" || !criteria.pathSubtypeInput || patientmd.pst === criteria.pathSubtypeInput.toLowerCase();
+                    if (!pathSubtypeMatch) continue;
+
+                    const metaInputMatch = criteria.metaInput === "All" || !criteria.metaInput || (criteria.metaInput === "Yes" && patientData.mts === "true") || (criteria.metaInput === "No" && patientData.mts === "false");
+                    if (!metaInputMatch) continue;
+
+                    const FamilyHInputMatch = criteria.FamilyHInput === "All" || !criteria.FamilyHInput || (criteria.FamilyHInput === "Yes" && patientmd.fhc === "true") || (criteria.FamilyHInput === "No" && patientmd.fhc === "false");
+                    if (!FamilyHInputMatch) continue;
+
+                    if (cancerTypeMatch && gradeMatch && nactMatch && pathSubtypeMatch && metaInputMatch && FamilyHInputMatch && biobankIdMatch) {
+                      if (!filteredPatientData[bioBankId][seqNumber]) {
+                        filteredPatientData[bioBankId][seqNumber] = {};
+                      }
+                      function capitalizeFirstLetter(string) {
+                        if (!string) return string;
+                        return string.charAt(0).toUpperCase() + string.slice(1);
+                      }
+                      filteredPatientData[bioBankId][seqNumber][maxTimestamp] = { ...patientData };
+                    }
+                  }
+                }
+
+                if (Object.keys(filteredPatientData[bioBankId]).length === 0) {
+                  delete filteredPatientData[bioBankId];
+                }
+              }
+
+              selectedSerialNumbers = [];
+
+              currentPage = 1;
+
+              if (filteredPatientData && Object.keys(filteredPatientData).length > 0) {
+                searchLoadingModal();
+              }
+              displaySamPatients(filteredPatientData);
+            } else {
+              alert("No data to download.");
+            }
+          });
+      }
+
+      // Colorectal Cancer
+      async function searchSample_colo(event) {
+        if (event) {
+          event.preventDefault();
+        }
+
+        const cancerTypeInput = document.getElementById("cancerTypeInput").value;
+        const gradeInput = document.getElementById("gradeInput_colo").value;
+        const nactInput = document.getElementById("nactInput_colo").value;
+        const pathSubtypeInput = document.getElementById("pathSubtype_colo").value;
+        const metaInput = document.getElementById("metaInput_colo").value;
+        const FamilyHInput = document.getElementById("fh1_colo").value;
+        const tempBiobankIdInput = document.getElementById("biobankIdInput_colo").value ? document.getElementById("biobankIdInput_colo").value : "";
+        const biobankIdInput = tempBiobankIdInput && tempBiobankIdInput.length === 6 ? tempBiobankIdInput : "";
+
+        sessionStorage.setItem("cancerTypeInput", cancerTypeInput);
+        sessionStorage.setItem("gradeInput_colo", gradeInput);
+        sessionStorage.setItem("nactInput_colo", nactInput);
+        sessionStorage.setItem("pathSubtypeInput_colo", pathSubtypeInput);
+        sessionStorage.setItem("metaInput_colo", metaInput);
+        sessionStorage.setItem("FamilyHInput_colo", FamilyHInput);
+        sessionStorage.setItem("biobankIdInput_colo", biobankIdInput);
+
+        db.ref(`sef/${cancerTypeInput}`)
+          .once("value")
+          .then((snapshot) => {
+            // Handle the snapshot data here
+            if (snapshot && snapshot.exists()) {
+              const criteria = {
+                cancerTypeInput,
+                gradeInput,
+                nactInput,
+                pathSubtypeInput,
+                metaInput,
+                FamilyHInput,
+                biobankIdInput,
+              };
+
+              const filteredPatientData = {};
+              const patientData = snapshot.val();
+              window.sefData = patientData;
+              for (const bioBankId of Object.keys(patientData)) {
+                const patientEntries = patientData[bioBankId];
+                const seqNumbers = Object.keys(patientEntries);
+
+                if (seqNumbers.length === 0) continue;
+
+                filteredPatientData[bioBankId] = {};
+                let countDownData = 0;
+
+                for (const seqNumber of seqNumbers) {
+                  const entryData = patientEntries[seqNumber];
+                  const nestedKeys = Object.keys(entryData);
+                  const maxTimestamp = nestedKeys && nestedKeys.length > 0 ? Math.max(...nestedKeys.map((key) => parseInt(key))) : null;
+                  if (maxTimestamp) {
+                    const patientData = entryData[maxTimestamp]?.ie;
+                    const patientmd = entryData[maxTimestamp]?.md;
+
+                    if (!patientData) continue;
+
+                    const biobankIdMatch = !criteria.biobankIdInput || bioBankId === criteria.biobankIdInput;
+                    if (!biobankIdMatch) continue;
+
+                    const cancerTypeMatch = patientData.ct === criteria.cancerTypeInput.toLowerCase();
+                    if (!cancerTypeMatch) continue;
+
+                    const gradeMatch = criteria.gradeInput === "All" || !criteria.gradeInput || patientmd.gd.toLowerCase() === criteria.gradeInput.toLowerCase();
+                    if (!gradeMatch) continue;
+
+                    const nactMatch = criteria.nactInput === "All" || !criteria.nactInput || (criteria.nactInput === "Yes" && patientData.nact === "true") || (criteria.nactInput === "No" && patientData.nact === "false");
+                    if (!nactMatch) continue;
+
+                    const pathSubtypeMatch = criteria.pathSubtypeInput === "All" || !criteria.pathSubtypeInput || patientmd.pst === criteria.pathSubtypeInput.toLowerCase();
+                    if (!pathSubtypeMatch) continue;
+
+                    const metaInputMatch = criteria.metaInput === "All" || !criteria.metaInput || (criteria.metaInput === "Yes" && patientData.mts === "true") || (criteria.metaInput === "No" && patientData.mts === "false");
+                    if (!metaInputMatch) continue;
+
+                    const FamilyHInputMatch = criteria.FamilyHInput === "All" || !criteria.FamilyHInput || (criteria.FamilyHInput === "Yes" && patientmd.fhc === "true") || (criteria.FamilyHInput === "No" && patientmd.fhc === "false");
+                    if (!FamilyHInputMatch) continue;
+
+                    if (cancerTypeMatch && gradeMatch && nactMatch && pathSubtypeMatch && metaInputMatch && FamilyHInputMatch && biobankIdMatch) {
+                      if (!filteredPatientData[bioBankId][seqNumber]) {
+                        filteredPatientData[bioBankId][seqNumber] = {};
+                      }
+                      function capitalizeFirstLetter(string) {
+                        if (!string) return string;
+                        return string.charAt(0).toUpperCase() + string.slice(1);
+                      }
+                      filteredPatientData[bioBankId][seqNumber][maxTimestamp] = { ...patientData };
+                    }
+                  }
+                }
+
+                if (Object.keys(filteredPatientData[bioBankId]).length === 0) {
+                  delete filteredPatientData[bioBankId];
+                }
+              }
+
+              selectedSerialNumbers = [];
+
+              currentPage = 1;
+
+              if (filteredPatientData && Object.keys(filteredPatientData).length > 0) {
+                searchLoadingModal();
+              }
+              displaySamPatients(filteredPatientData);
+            } else {
+              alert("No data to download.");
+            }
+          });
+      }
+
+      // Gastric Cancer
+      async function searchSample_gast(event) {
+        if (event) {
+          event.preventDefault();
+        }
+
+        const cancerTypeInput = document.getElementById("cancerTypeInput").value;
+        const gradeInput = document.getElementById("gradeInput_gast").value;
+        const pathType = document.getElementById("pathType_gast").value;
+        const pathSubtypeInput = document.getElementById("pathSubtype_gast").value;
+        const nactInput = document.getElementById("nactInput_gast").value;
+        const metaInput = document.getElementById("metaInput_gast").value;
+        const FamilyHInput = document.getElementById("fh1_gast").value;
+        const tempBiobankIdInput = document.getElementById("biobankIdInput_gast").value ? document.getElementById("biobankIdInput_gast").value : "";
+        const biobankIdInput = tempBiobankIdInput && tempBiobankIdInput.length === 6 ? tempBiobankIdInput : "";
+
+        sessionStorage.setItem("cancerTypeInput", cancerTypeInput);
+        sessionStorage.setItem("gradeInput_gast", gradeInput);
+        sessionStorage.setItem("nactInput_gast", nactInput);
+        sessionStorage.setItem("pathSubtypeInput_gast", pathSubtypeInput);
+        sessionStorage.setItem("pathType_gast", pathType);
+        sessionStorage.setItem("metaInput_gast", metaInput);
+        sessionStorage.setItem("FamilyHInput_gast", FamilyHInput);
+        sessionStorage.setItem("biobankIdInput_gast", biobankIdInput);
+
+        db.ref(`sef/${cancerTypeInput}`)
+          .once("value")
+          .then((snapshot) => {
+            // Handle the snapshot data here
+            if (snapshot && snapshot.exists()) {
+              const criteria = {
+                cancerTypeInput,
+                gradeInput,
+                nactInput,
+                pathType,
+                pathSubtypeInput,
+                metaInput,
+                FamilyHInput,
+                biobankIdInput,
+              };
+
+              const filteredPatientData = {};
+              const patientData = snapshot.val();
+              window.sefData = patientData;
+              for (const bioBankId of Object.keys(patientData)) {
+                const patientEntries = patientData[bioBankId];
+                const seqNumbers = Object.keys(patientEntries);
+
+                if (seqNumbers.length === 0) continue;
+
+                filteredPatientData[bioBankId] = {};
+                let countDownData = 0;
+
+                for (const seqNumber of seqNumbers) {
+                  const entryData = patientEntries[seqNumber];
+                  const nestedKeys = Object.keys(entryData);
+                  const maxTimestamp = nestedKeys && nestedKeys.length > 0 ? Math.max(...nestedKeys.map((key) => parseInt(key))) : null;
+                  if (maxTimestamp) {
+                    const patientData = entryData[maxTimestamp]?.ie;
+                    const patientmd = entryData[maxTimestamp]?.md;
+
+                    if (!patientData) continue;
+
+                    const biobankIdMatch = !criteria.biobankIdInput || bioBankId === criteria.biobankIdInput;
+                    if (!biobankIdMatch) continue;
+
+                    const cancerTypeMatch = patientData.ct === criteria.cancerTypeInput.toLowerCase();
+                    if (!cancerTypeMatch) continue;
+
+                    const gradeMatch = criteria.gradeInput === "All" || !criteria.gradeInput || patientmd.gd.toLowerCase() === criteria.gradeInput.toLowerCase();
+                    if (!gradeMatch) continue;
+
+                    const nactMatch = criteria.nactInput === "All" || !criteria.nactInput || (criteria.nactInput === "Yes" && patientData.nact === "true") || (criteria.nactInput === "No" && patientData.nact === "false");
+                    if (!nactMatch) continue;
+
+                    const pathTypeMatch = criteria.pathType === "All" || !criteria.pathType || patientmd.pt === criteria.pathType.toLowerCase();
+                    if (!pathTypeMatch) continue;
+
+                    const pathSubtypeMatch = criteria.pathSubtypeInput === "All" || !criteria.pathSubtypeInput || patientmd.pst === criteria.pathSubtypeInput.toLowerCase();
+                    if (!pathSubtypeMatch) continue;
+
+                    const metaInputMatch = criteria.metaInput === "All" || !criteria.metaInput || (criteria.metaInput === "Yes" && patientData.mts === "true") || (criteria.metaInput === "No" && patientData.mts === "false");
+                    if (!metaInputMatch) continue;
+
+                    const FamilyHInputMatch = criteria.FamilyHInput === "All" || !criteria.FamilyHInput || (criteria.FamilyHInput === "Yes" && patientmd.fhc === "true") || (criteria.FamilyHInput === "No" && patientmd.fhc === "false");
+                    if (!FamilyHInputMatch) continue;
+
+                    if (cancerTypeMatch && gradeMatch && nactMatch && pathTypeMatch && pathSubtypeMatch && metaInputMatch && FamilyHInputMatch && biobankIdMatch) {
+                      if (!filteredPatientData[bioBankId][seqNumber]) {
+                        filteredPatientData[bioBankId][seqNumber] = {};
+                      }
+                      function capitalizeFirstLetter(string) {
+                        if (!string) return string;
+                        return string.charAt(0).toUpperCase() + string.slice(1);
+                      }
+                      filteredPatientData[bioBankId][seqNumber][maxTimestamp] = { ...patientData };
+                    }
+                  }
+                }
+
+                if (Object.keys(filteredPatientData[bioBankId]).length === 0) {
+                  delete filteredPatientData[bioBankId];
+                }
+              }
+
+              selectedSerialNumbers = [];
+
+              currentPage = 1;
+
+              if (filteredPatientData && Object.keys(filteredPatientData).length > 0) {
+                searchLoadingModal();
+              }
+              displaySamPatients(filteredPatientData);
+            } else {
+              alert("No data to download.");
+            }
+          });
+      }
+
+      // Esphageal Cancer
+
+      async function searchSample_esph(event) {
+        if (event) {
+          event.preventDefault();
+        }
+
+        const cancerTypeInput = document.getElementById("cancerTypeInput").value;
+        const gradeInput = document.getElementById("gradeInput_esph").value;
+        const nactInput = document.getElementById("nactInput_esph").value;
+        const pathSubtypeInput = document.getElementById("pathSubtype_esph").value;
+        const metaInput = document.getElementById("metaInput_esph").value;
+        const FamilyHInput = document.getElementById("fh1_esph").value;
+        const tempBiobankIdInput = document.getElementById("biobankIdInput_esph").value ? document.getElementById("biobankIdInput_esph").value : "";
+        const biobankIdInput = tempBiobankIdInput && tempBiobankIdInput.length === 6 ? tempBiobankIdInput : "";
+
+        sessionStorage.setItem("cancerTypeInput", cancerTypeInput);
+        sessionStorage.setItem("gradeInput_esph", gradeInput);
+        sessionStorage.setItem("nactInput_esph", nactInput);
+        sessionStorage.setItem("pathSubtypeInput_esph", pathSubtypeInput);
+        sessionStorage.setItem("metaInput_esph", metaInput);
+        sessionStorage.setItem("FamilyHInput_esph", FamilyHInput);
+        sessionStorage.setItem("biobankIdInput_esph", biobankIdInput);
+
+        db.ref(`sef/${cancerTypeInput}`)
+          .once("value")
+          .then((snapshot) => {
+            // Handle the snapshot data here
+            if (snapshot && snapshot.exists()) {
+              const criteria = {
+                cancerTypeInput,
+                gradeInput,
+                nactInput,
+                pathSubtypeInput,
+                metaInput,
+                FamilyHInput,
+                biobankIdInput,
+              };
+
+              const filteredPatientData = {};
+              const patientData = snapshot.val();
+              window.sefData = patientData;
+              for (const bioBankId of Object.keys(patientData)) {
+                const patientEntries = patientData[bioBankId];
+                const seqNumbers = Object.keys(patientEntries);
+
+                if (seqNumbers.length === 0) continue;
+
+                filteredPatientData[bioBankId] = {};
+                let countDownData = 0;
+
+                for (const seqNumber of seqNumbers) {
+                  const entryData = patientEntries[seqNumber];
+                  const nestedKeys = Object.keys(entryData);
+                  const maxTimestamp = nestedKeys && nestedKeys.length > 0 ? Math.max(...nestedKeys.map((key) => parseInt(key))) : null;
+                  if (maxTimestamp) {
+                    const patientData = entryData[maxTimestamp]?.ie;
+                    const patientmd = entryData[maxTimestamp]?.md;
+
+                    if (!patientData) continue;
+
+                    const biobankIdMatch = !criteria.biobankIdInput || bioBankId === criteria.biobankIdInput;
+                    if (!biobankIdMatch) continue;
+
+                    const cancerTypeMatch = patientData.ct === criteria.cancerTypeInput.toLowerCase();
+                    if (!cancerTypeMatch) continue;
+
+                    const gradeMatch = criteria.gradeInput === "All" || !criteria.gradeInput || patientmd.gd.toLowerCase() === criteria.gradeInput.toLowerCase();
+                    if (!gradeMatch) continue;
+
+                    const nactMatch = criteria.nactInput === "All" || !criteria.nactInput || (criteria.nactInput === "Yes" && patientData.nact === "true") || (criteria.nactInput === "No" && patientData.nact === "false");
+                    if (!nactMatch) continue;
+
+                    const pathSubtypeMatch = criteria.pathSubtypeInput === "All" || !criteria.pathSubtypeInput || patientmd.pst === criteria.pathSubtypeInput.toLowerCase();
+                    if (!pathSubtypeMatch) continue;
+
+                    const metaInputMatch = criteria.metaInput === "All" || !criteria.metaInput || (criteria.metaInput === "Yes" && patientData.mts === "true") || (criteria.metaInput === "No" && patientData.mts === "false");
+                    if (!metaInputMatch) continue;
+
+                    const FamilyHInputMatch = criteria.FamilyHInput === "All" || !criteria.FamilyHInput || (criteria.FamilyHInput === "Yes" && patientmd.fhc === "true") || (criteria.FamilyHInput === "No" && patientmd.fhc === "false");
+                    if (!FamilyHInputMatch) continue;
+
+                    if (cancerTypeMatch && gradeMatch && nactMatch && pathSubtypeMatch && metaInputMatch && FamilyHInputMatch && biobankIdMatch) {
+                      if (!filteredPatientData[bioBankId][seqNumber]) {
+                        filteredPatientData[bioBankId][seqNumber] = {};
+                      }
+                      function capitalizeFirstLetter(string) {
+                        if (!string) return string;
+                        return string.charAt(0).toUpperCase() + string.slice(1);
+                      }
+                      filteredPatientData[bioBankId][seqNumber][maxTimestamp] = { ...patientData };
+                    }
+                  }
+                }
+
+                if (Object.keys(filteredPatientData[bioBankId]).length === 0) {
+                  delete filteredPatientData[bioBankId];
+                }
+              }
+
+              selectedSerialNumbers = [];
+
+              currentPage = 1;
+
+              if (filteredPatientData && Object.keys(filteredPatientData).length > 0) {
+                searchLoadingModal();
+              }
+              displaySamPatients(filteredPatientData);
+            } else {
+              alert("No data to download.");
+            }
+          });
+      }
+
       // Lung Cancer
       async function searchSample_lung(event) {
         if (event) {
@@ -3881,6 +4802,10 @@
           ovry: "Ovarian Cancer",
           hene: "Head and Neck Cancer",
           lung: "Lung Cancer",
+          colo: "Colorectal Cancer",
+          anal: "Anal Cancer",
+          esph: "Esophagus Cancer",
+          gast: "Gastric Cancer",
           F: "Female",
           M: "Male",
           BL: "Bilateral",
@@ -5600,8 +6525,1470 @@
         };
         return mapping[option] || "-";
       }
+      function decode_mps_gast(option) {
+        const mapping = {
+          op1: "Not applicable (no additional primary site(s) present)",
+          op2: "Present",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_natEff_gast(option) {
+        const mapping = {
+          op1: "No known presurgical therapy",
+          op2: "Present, with no viable cancer cells (complete response, score 0)",
+          op3: "Present, with single cells or rare small groups of cancer cells (near complete response, score 1)",
+          op4: "Present, with residual cancer showing evident tumor regression, but more than single cells or rare small groups of cancer cells (partial response, score 2)",
+          op5: "Present (not otherwise specified)",
+          op6: "Absent, with extensive residual cancer and no evident tumor regression (poor or no response, score 3)",
+          op7: "Cannot be determined",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_tst_anal(option) {
+        const mapping = {
+          op1: "Anal canal",
+          op2: "Perianal region",
+          op3: "Anus, not otherwise specified",
+          op4: "Other",
+          op5: "Not known",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_mem_anal(option) {
+        const mapping = {
+          op1: "Not applicable",
+          op2: "Complete",
+          op3: "Near complete",
+          op4: "Incomplete",
+          op5: "Cannot be determined",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_tec_anal(option) {
+        const mapping = {
+          op1: "No invasion (high-grade dysplasia)",
+          op2: "Invades lamina propria / muscularis mucosae (intramucosal carcinoma)",
+          op3: "Invades submucosa",
+          op4: "Invades into muscularis propria",
+          op5: "Invades through muscularis propria into the pericolic or perirectal tissue",
+          op6: "Invades visceral peritoneum",
+          op7: "Directly invades or adheres to adjacent structure(s)",
+          op8: "Cannot be determined",
+          op9: "No evidence of primary tumor",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_tea_anal(option) {
+        const mapping = {
+          op1: "Carcinoma in situ",
+          op2: "Invades lamina propria",
+          op3: "Invades muscularis mucosae",
+          op4: "Invades submucosa",
+          op5: "Invades into but not through sphincter muscle",
+          op6: "Invades into but not through muscularis propria of rectum",
+          op7: "Invades through sphincter muscle into perianal or perirectal soft tissue without involvement of adjacent structures",
+          op8: "Directly invades adjacent structure(s)",
+          op9: "Invades perianal skin",
+          op10: "Cannot be determined",
+          op11: "No evidence of primary tumor",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_submI_anal(option) {
+        const mapping = {
+          op1: "Not applicable (not a pT1 tumor)",
+          op2: "Not identified",
+          op3: "Present",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_mTP_anal(option) {
+        const mapping = {
+          op1: "Not identified",
+          op2: "Present",
+          op3: "Cannot be determined",
+        };
+        return mapping[option] || "-";
+      }
+      function pst_anal(option) {
+        const mapping = {
+          op1: "Squamous cell carcinoma",
+          op2: "Basaloid squamous cell carcinoma",
+          op3: "Basal cell carcinoma",
+          op4: "Verrucous squamous cell carcinoma",
+          op5: "Adenocarcinoma",
+          op6: "Adenocarcinoma of the anal glands",
+          op7: "Neuroendocrine carcinoma",
+          op8: "Large cell neuroendocrine carcinoma",
+          op9: "Small cell neuroendocrine carcinoma",
+          op10: "Mixed adenoneuroendocrine carcinoma (MANEC)",
+          op11: "Undifferentiated carcinoma",
+          op12: "Other histologic type not listed",
+          op13: "Carcinoma, type cannot be determined",
+        };
+        return mapping[option] || "-";
+      }
+      function decodeGrade_anal(option) {
+        const mapping = {
+          grd1: "G1, well-differentiated",
+          grd2: "G2, moderately differentiated",
+          grd3: "G3, poorly differentiated",
+          grd4: "G4, undifferentiated",
+          grd5: "Other",
+          grd6: "GX, cannot be assessed",
+          grd7: "Not applicable",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_tec1_anal(option) {
+        const mapping = {
+          op1: "No invasion (high-grade dysplasia)",
+          op2: "Invades lamina propria / muscularis mucosae (intramucosal carcinoma)",
+          op3: "Invades submucosa",
+          op4: "Invades into muscularis propria",
+          op5: "Invades through muscularis propria into the pericolic or perirectal tissue",
+          op6: "Invades visceral peritoneum",
+          op7: "Directly invades or adheres to adjacent structure(s)",
+          op8: "Cannot be determined",
+          op9: "No evidence of primary tumor",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_submI1_anal(option) {
+        const mapping = {
+          op1: "Not applicable (not a pT1 tumor)",
+          op2: "Not identified",
+          op3: "Present",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_dSubMI_anal(option) {
+        const mapping = {
+          op1: "Less than 1 mm",
+          op2: "Greater than or equal to 1 mm and less than 2 mm",
+          op3: "Greater than 2 mm",
+          op4: "Exact depth in Millimeters (mm)",
+          op5: "Cannot be determined",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_eSubI_anal(option) {
+        const mapping = {
+          op1: "Tumor invades into upper one third of submucosa",
+          op2: "Tumor invades into middle one third of submucosa",
+          op3: "Tumor invades into lower one third of submucosa",
+          op4: "Cannot be determined",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_lviColon(option) {
+        const mapping = {
+          op1: "Not identified",
+          op2: "Small vessel",
+          op3: "Large vessel (venous), intramural",
+          op4: "Large vessel (venous), extramural",
+          op5: "Present, NOS",
+          op6: "Cannot be determined",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_lvi_pni_anal(option) {
+        const mapping = {
+          op1: "Yes",
+          op2: "No",
+          op3: "Cannot be determined",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_tBS_anal(option) {
+        const mapping = {
+          op1: "Not applicable",
+          op2: "Low (0-4)",
+          op3: "Intermediate (5-9)",
+          op4: "High (10 or more)",
+          op5: "Present, NOS",
+          op6: "Cannot be determined",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_typICA_anal(option) {
+        const mapping = {
+          op1: "Not identified",
+          op2: "Tubular adenoma",
+          op3: "Villous adenoma",
+          op4: "Tubulovillous adenoma",
+          op5: "Traditional serrated adenoma",
+          op6: "Sessile serrated adenoma / sessile serrated polyp",
+          op7: "Hamartomatous polyp",
+          op8: "Other",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_sMStsIT_anal(option) {
+        const mapping = {
+          op1: "All margins negative for invasive carcinoma",
+          op2: "Invasive carcinoma present at margin",
+          op3: "Other",
+          op4: "Cannot be determined",
+          op5: "Not applicable",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_cMIC_anal(option) {
+        const mapping = {
+          op1: "Proximal",
+          op2: "Distal",
+          op3: "Radial",
+          op4: "Mesenteric",
+          op5: "Deep",
+          op6: "Mucosal",
+          op7: "Other",
+          op8: "Cannot be determined",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_cMIC1_anal(option) {
+        const mapping = {
+          op1: "Proximal",
+          op2: "Distal",
+          op3: "Radial",
+          op4: "Other",
+          op5: "Cannot be determined",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_dITCSM_anal(option) {
+        const mapping = {
+          op1: "Specify in Centimeters (cm)",
+          op2: "Exact distance",
+          op3: "Greater than 1 cm",
+          op4: "Specify in Millimeters (mm)",
+          op5: "Exact distance",
+          op6: "Greater than 10 mm",
+          op8: "Other",
+          op9: "Cannot be determined",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_dITCSM1_anal(option) {
+        const mapping = {
+          op1: "Specify in Centimeters (cm)",
+          op2: "Exact distance",
+          op3: "Greater than 1 cm",
+          op4: "Specify in Millimeters (mm)",
+          op5: "Exact distance",
+          op6: "Greater than 10 mm",
+          op8: "Other",
+          op9: "Cannot be determined",
+          op10: "Not applicable",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_sMSIT_anal(option) {
+        const mapping = {
+          op1: "Proximal",
+          op2: "Distal",
+          op3: "Radial",
+          op4: "Mesenteric",
+          op5: "Deep",
+          op6: "Mucosal (specify location, if possible)",
+          op7: "Other",
+          op8: "Cannot be determined",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_sMIIT_anal(option) {
+        const mapping = {
+          op1: "Proximal",
+          op2: "Distal",
+          op3: "Radial",
+          op4: "Mesenteric",
+          op5: "Deep",
+          op6: "Mucosal",
+          op7: "Other",
+          op8: "Cannot be determined",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_mststNIT_anal(option) {
+        const mapping = {
+          op1: "All margins negative for high-grade dysplasia / intramucosal carcinoma and low-grade dysplasia",
+          op2: "High-grade dysplasia / intramucosal carcinoma present at margin",
+          op3: "Low-grade dysplasia present at margin",
+          op4: "Other",
+          op5: "Cannot be determined",
+          op6: "Not applicable",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_smstsN_anal(option) {
+        const mapping = {
+          op1: "All specimen margins negative for invasive tumour",
+          op2: "Invasive tumor present at margin",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_hGINPM_anal(option) {
+        const mapping = {
+          op1: "All margins negative for high-grade intraepithelial neoplasia",
+          op2: "High-grade intraepithelial neoplasia present at margin",
+          op3: "Other",
+          op4: "Cannot be determined",
+          op5: "Not applicable",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_mstsHGTN_anal(option) {
+        const mapping = {
+          op1: "Proximal",
+          op2: "Distal",
+          op3: "Other",
+          op4: "Cannot be determined",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_site_anal(option) {
+        const mapping = {
+          op1: "Anal canal",
+          op2: "Perianal region",
+          op3: "Anus, not otherwise specified",
+          op4: "Other",
+          op5: "Not known",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_tDep_anal(option) {
+        const mapping = {
+          op1: "Not identified",
+          op2: "Present",
+          op3: "Cannot be determined",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_tDepP_anal(option) {
+        const mapping = {
+          op1: "Specify number",
+          op2: "Other",
+          op3: "Cannot be determined",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_tst_colo(option) {
+        const mapping = {
+          op1: "Cecum",
+          op2: "Ileocecal valve",
+          op3: "Ascending colon",
+          op4: "Hepatic flexure",
+          op5: "Transverse colon",
+          op6: "Splenic flexure",
+          op7: "Descending colon",
+          op8: "Sigmoid colon",
+          op9: "Rectosigmoid",
+          op10: "Rectum",
+          op11: "Colon, NOS",
+          op12: "Cannot be determined",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_tsub_colo(option) {
+        const mapping = {
+          op1: "Not applicable",
+          op2: "Entirely above anterior peritoneal reflection",
+          op3: "Entirely below anterior peritoneal reflection",
+          op4: "Straddles anterior peritoneal reflection",
+          op5: "Not specified",
+        };
+        return mapping[option] || "-";
+      }
+      function pst_colo(option) {
+        const mapping = {
+          op1: "Adenocarcinoma",
+          op2: "Mucinous adenocarcinoma",
+          op3: "Poorly cohesive carcinoma",
+          op4: "Signet-ring cell carcinoma",
+          op5: "Medullary carcinoma",
+          op6: "Serrated adenocarcinoma",
+          op7: "Micropapillary adenocarcinoma",
+          op8: "Adenoma-like adenocarcinoma",
+          op9: "Adenosquamous carcinoma",
+          op10: "Undifferentiated carcinoma, NOS",
+          op11: "Carcinoma with sarcomatoid component",
+          op12: "Large cell neuroendocrine carcinoma",
+          op13: "Small cell neuroendocrine carcinoma",
+          op14: "Mixed neuroendocrine-non-neuroendocrine neoplasm (MiNEN)",
+          op15: "Other histologic type not listed",
+          op16: "Carcinoma, type cannot be determined",
+        };
+      }
+      function decode_site_esph(option) {
+        const mapping = {
+          op1: "Cervical (proximal) esophagus",
+          op2: "Mid esophagus, upper thoracic esophagus",
+          op3: "Mid esophagus, middle thoracic esophagus",
+          op4: "Mid esophagus, not otherwise specified",
+          op5: "Distal esophagus (low thoracic esophagus)",
+          op6: "Esophagogastric junction (EGJ)",
+          op7: "Proximal stomach / cardia",
+          op8: "Other",
+          op9: "Esophagus, not otherwise specified",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_relT_esph(option) {
+        const mapping = {
+          op1: "Tumor is entirely located within the tubular esophagus and does not involve the esophagogastric junction",
+          op2: "Tumor midpoint lies in the distal esophagus AND tumor involves the esophagogastric junction",
+          op3: "Tumor midpoint is located at the esophagogastric junction",
+          op4: "Tumor midpoint is 2 cm or less into the proximal stomach or cardia and tumor involves the esophagogastric junction",
+          op5: "Not specified",
+          op6: "Cannot be determined",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_disT_esph(option) {
+        const mapping = {
+          op1: "Specify in Centimeters (cm)",
+          op2: "Other",
+          op3: "Cannot be determined",
+          op4: "Not applicable",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_tst_esph(option) {
+        const mapping = {
+          op1: "Cervical (proximal) esophagus",
+          op2: "Mid esophagus, upper thoracic esophagus",
+          op3: "Mid esophagus, middle thoracic esophagus",
+          op4: "Mid esophagus, not otherwise specified",
+          op5: "Distal esophagus (low thoracic esophagus)",
+          op6: "Esophagogastric junction (EGJ)",
+          op7: "Proximal stomach / cardia",
+          op8: "Other",
+          op9: "Esophagus, not otherwise specified",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_disTCEJ_esph(option) {
+        const mapping = {
+          op1: "Specify in Centimeters (cm)",
+          op2: "Other",
+          op3: "Cannot be determined",
+          op4: "Not applicable",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_pst_esph(option) {
+        const mapping = {
+          op1: "Adenocarcinoma",
+          op2: "Adenoid cystic carcinoma",
+          op3: "Mucoepidermoid carcinoma",
+          op4: "Adenosquamous carcinoma",
+          op5: "Squamous cell carcinoma",
+          op6: "Basaloid squamous cell carcinoma",
+          op7: "Spindle cell squamous cell carcinoma",
+          op8: "Verrucous squamous cell carcinoma",
+          op9: "Undifferentiated carcinoma",
+          op10: "Lymphoepithelioma-like carcinoma",
+          op11: "Large cell neuroendocrine carcinoma",
+          op12: "Small cell neuroendocrine carcinoma",
+          op13: "Neuroendocrine carcinoma (poorly differentiated)",
+          op14: "Mixed squamous cell carcinoma-neuroendocrine carcinoma",
+          op15: "Mixed adenocarcinoma-neuroendocrine carcinoma",
+          op16: "Mixed adenocarcinoma-neuroendocrine tumor",
+          op17: "G1, well-differentiated neuroendocrine tumor",
+          op18: "G2, well-differentiated neuroendocrine tumor",
+          op19: "G3, well-differentiated neuroendocrine tumor",
+          op20: "Other histologic type not listed",
+          op21: "Carcinoma, type cannot be determined",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_gd_esph(option) {
+        const mapping = {
+          op1: "G1, well differentiated",
+          op2: "G2, moderately differentiated",
+          op3: "G3, poorly differentiated, undifferentiated",
+          op4: "Other",
+          op5: "GX, cannot be assessed",
+          op6: "Not applicable",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_tEESPH_gast(option) {
+        const mapping = {
+          op1: "High-grade dysplasia / carcinoma in situ",
+          op2: "Invades lamina propria",
+          op3: "Invades muscularis mucosae",
+          op4: "Invades submucosa",
+          op5: "Invades muscularis propria",
+          op6: "Invades adventitia",
+          op7: "Invades adjacent structure(s) or organ(s)",
+          op8: "Pleura",
+          op9: "Pericardium",
+          op10: "Azygos vein",
+          op11: "Diaphragm",
+          op12: "Peritoneum",
+          op13: "Aorta",
+          op14: "Vertebral body",
+          op15: "Airway",
+          op16: "Other",
+          op17: "Cannot be determined",
+          op18: "No evidence of primary tumor",
+        };
+      }
+      function decode_tEEGAS_esph(option) {
+        const mapping = {
+          op1: "Carcinoma in situ (intraepithelial tumor without invasion of the lamina propria, high-grade dysplasia)",
+          op2: "Invades lamina propria",
+          op3: "Invades muscularis mucosae",
+          op4: "Invades submucosa",
+          op5: "Invades muscularis propria",
+          op6: "Penetrates subserosal connective tissue without invasion of visceral peritoneum or adjacent structures",
+          op7: "Invades serosa (visceral peritoneum)",
+          op8: "Directly invades adjacent structure(s) or organ(s)",
+          op9: "Spleen",
+          op10: "Transverse colon",
+          op11: "Liver",
+          op12: "Diaphragm",
+          op13: "Pancreas",
+          op14: "Abdominal wall",
+          op15: "Adrenal gland",
+          op16: "Kidney",
+          op17: "Small Intestine",
+          op18: "Retroperitoneum",
+          op19: "Other",
+          op20: "Cannot be determined",
+          op21: "No evidence of primary tumor",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_smsts_esph(option) {
+        const mapping = {
+          op1: "All margins negative for invasive carcinoma",
+          op2: "Invasive carcinoma present at margin",
+          op3: "Other",
+          op4: "Cannot be determined",
+          op5: "Not applicable",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_smIIT_esph(option) {
+        const mapping = {
+          op1: "Proximal",
+          op2: "Distal",
+          op3: "Radial",
+          op4: "Mucosal",
+          op5: "Deep",
+          op6: "Other",
+          op7: "Cannot be determined",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_dITCSM_esph(option) {
+        const mapping = {
+          op1: "Specify in Centimeters (cm)",
+          op2: "Exact distance",
+          op3: "Greater than 1 cm",
+          op4: "Specify in Millimeters (mm)",
+          op5: "Exact distance",
+          op6: "Greater than 10 mm",
+          op8: "Other",
+          op9: "Cannot be determined",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_cMIC_esph(option) {
+        const mapping = {
+          op1: "Proximal",
+          op2: "Distal",
+          op3: "Radial",
+          op4: "Mucosal",
+          op5: "Deep",
+          op6: "Other",
+          op7: "Cannot be determined",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_mststDIM_esph(option) {
+        const mapping = {
+          op1: "All margins negative for dysplasia",
+          op2: "Low-grade squamous dysplasia present at margin",
+          op3: "High-grade squamous dysplasia present at margin",
+          op4: "Low-grade glandular dysplasia present at margin",
+          op5: "High-grade glandular dysplasia present at margin",
+          op6: "Intestinal metaplasia (Barrett esophagus) without dysplasia present at margin",
+          op7: "Other",
+          op8: "Cannot be determined",
+          op9: "Not applicable",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_mststDIMAdd_esph(mainOption, data, option, type) {
+        if (mainOption !== option) return "-";
+        const mainMapping = {
+          op2: {
+            op1: "Proximal",
+            op2: "Distal",
+            op3: "Mucosal",
+            op4: "Other",
+            op5: "Cannot be determined",
+          },
+          op3: {
+            op1: "Proximal",
+            op2: "Distal",
+            op3: "Mucosal",
+            op4: "Other",
+            op5: "Cannot be determined",
+          },
+          op4: {
+            op1: "Proximal",
+            op2: "Distal",
+            op3: "Mucosal",
+            op4: "Other",
+            op5: "Cannot be determined",
+          },
+          op5: {
+            op1: "Proximal",
+            op2: "Distal",
+            op3: "Mucosal",
+            op4: "Other",
+            op5: "Cannot be determined",
+          },
+          op6: {
+            op1: "Proximal",
+            op2: "Distal",
+            op3: "Mucosal",
+            op4: "Other",
+            op5: "Cannot be determined",
+          },
+        };
+        const result = [];
+        const mapping = mainMapping[mainOption];
+        if (type === "data") {
+          data.forEach((item) => {
+            const encodeValue = mapping[item.op] || "";
+            if (encodeValue) result.push(encodeValue);
+          });
+        } else {
+          data.forEach((item) => {
+            if (item.text) result.push(item.text);
+          });
+        }
+        return result && result.length > 0 ? result.join(", ") : "-";
+      }
+      function decode_tst_gast(option) {
+        const mapping = {
+          op1: "Cardia",
+          op2: "Fundus",
+          op3: "Body",
+          op4: "Antrum",
+          op5: "Pylorus",
+          op6: "Other",
+          op7: "Not specified",
+        };
+        return mapping[option] || "-";
+      }
+
+      function decode_tsub_gast(option) {
+        const mapping = {
+          op1: "Anterior wall",
+          op2: "Posterior wall",
+          op3: "Lesser curvature",
+          op4: "Greater curvature",
+        };
+        return mapping[option] || "-";
+      }
+      function decode_pt_gast(option) {
+        const mapping = {
+          op1: "Adenocarcinoma",
+          op2: "Hepatoid adenocarcinomaa",
+          op3: "Adenocarcinoma with lymphoid stroma",
+          op4: "Micropapillary adenocarcinoma",
+          op5: "Adenocarcinoma of fundic-gland type",
+          op6: "Squamous cell carcinoma",
+          op7: "Adenosquamous carcinoma",
+          op8: "Undifferentiated (anaplastic) carcinoma",
+          op9: "Gastroblastoma",
+          op10: "Large cell neuroendocrine carcinoma",
+          op12: "Small cell neuroendocrine carcinoma",
+          op13: "Neuroendocrine carcinoma (poorly differentiated)",
+          op14: "Mixed adenocarcinoma-neuroendocrine carcinoma (small cell or large cell neuroendocrine carcinoma)",
+          op15: "Mixed adenocarcinoma-neuroendocrine tumor",
+          op20: "Other histologic type not listed",
+        };
+        return mapping[option] || "-";
+      }
+
+      function decode_pst_gast(option) {
+        const mapping = {
+          op1: "Tubular adenocarcinoma",
+          op2: "Poorly cohesive carcinoma (includes signet-ring cell carcinoma and other variants)",
+          op3: "Mucinous adenocarcinoma (greater than 50% mucinous)",
+          op4: "Papillary adenocarcinoma",
+          op5: "Mixed carcinoma",
+        };
+        return mapping[option] || "-";
+      }
       function getExcelData(rowsData) {
         return rowsData.map((row) => {
+          if (row.sefData.ie.ct === "gast")
+            return {
+              Timestamp: formatTimestamp(row?.timestampKey),
+              Consent: decodeProcedureType(row?.sefData?.ie?.cnst) || "-",
+              "Cancer Type": decodeProcedureType(row?.sefData?.ie?.ct) || "-",
+              "Bio Bank ID": row?.bioBankId,
+              Age: row?.sefData?.ie?.ag || "-",
+              Gender: decodeProcedureType(row?.sefData?.ie?.sx) || "-",
+              "Procedure Types": decodeProcedureType(row?.sefData?.ie?.tpr),
+              "Details of Procedure": row?.sefData?.ie?.dpr || "-",
+              "Surgeon Name": row?.sefData?.ie?.srn || "-",
+              "Event Sample": decodeProcedureType(row?.sefData?.ie?.mts) || "-",
+              "Event Info": decodeProcedureType(row?.sefData?.ie?.es) || "-",
+              "Denovo Event": decodeProcedureType(row?.sefData?.ie?.dm) || "-",
+              "Age at Event": row?.sefData?.ie?.ag_ms || "-",
+              Site: decode_site_esph(row?.sefData?.ie?.site) || "-",
+              "Site (Other)": row?.sefData?.ie?.siteOth || "-",
+              "Relationship of Tumor to Esophagogastric Junction": decode_relT_esph(row?.sefData?.ie?.relT) || "-",
+              "Relationship of Tumor to Esophagogastric Junction (Other)": row?.sefData?.ie?.relTOth || "-",
+              "Distance of Tumor Center from Esophagogastric Junction": decode_disT_esph(row?.sefData?.ie?.disT) || "-",
+              "Distance of Tumor Center from Esophagogastric Junction (Other)": row?.sefData?.ie?.disTOth || "-",
+              "Tissue Sample": decodeProcedureType(row?.sefData?.ie?.ss) || "-",
+              "No of FT Tubes": row?.sefData?.ie?.nft ? (row?.sefData?.ie?.nft.toString() === "0" ? "None" : row?.sefData?.ie?.nft) : "-",
+              "FT Tissue Box Name": row?.ftgGrid && typeof row?.ftgGrid === "string" ? row?.ftgGrid.split("/")[0] : "-",
+              "FT Tube Grids": row?.ftgGrid && typeof row?.ftgGrid === "string" ? row?.ftgGrid.split("/")[1] : "-",
+              "No of FN Tubes": row?.sefData?.ie?.nfn ? (row?.sefData?.ie?.nfn.toString() === "0" ? "None" : row?.sefData?.ie?.nfn) : "-",
+              "FN Tissue Box Name": row?.fngGrid && typeof row?.fngGrid === "string" ? row?.fngGrid.split("/")[0] : "-",
+              "FN Tube Grids": row?.fngGrid && typeof row?.fngGrid === "string" ? row?.fngGrid.split("/")[1] : "-",
+              "Blood Sample": decodeProcedureType(row?.sefData?.ie?.bs) || "-",
+              "Blood box name(Serum)": row?.serumGrid && typeof row?.serumGrid === "string" ? row?.serumGrid.split("/")[0] : "-",
+              "Serum Grid": row?.serumGrid && typeof row?.serumGrid === "string" ? row?.serumGrid.split("/")[1] : "-",
+              "Blood box name(Plasma)": row?.plasmaGrid && typeof row?.plasmaGrid === "string" ? row?.plasmaGrid.split("/")[0] : "-",
+              "Plasma Grid": row?.plasmaGrid && typeof row?.plasmaGrid === "string" ? row?.plasmaGrid.split("/")[1] : "-",
+              "Blood box name(Buffy coat)": row?.buffyCoatGrid && typeof row?.buffyCoatGrid === "string" ? row?.buffyCoatGrid.split("/")[0] : "-",
+              "Buffy Coat Grid": row?.buffyCoatGrid && typeof row?.buffyCoatGrid === "string" ? row?.buffyCoatGrid.split("/")[1] : "-",
+              "Other Sample": decodeProcedureType(row?.sefData?.ie?.osmp) || "-",
+              "Other Sample box name": row?.otherGrid && typeof row?.otherGrid === "string" ? row?.otherGrid.split("/")[0] : "-",
+              "Other Sample Grid": row?.otherGrid && typeof row?.otherGrid === "string" ? row?.otherGrid.split("/")[1] : "-",
+              "Other Sample description": row?.sefData?.ie?.osdsc || "-",
+              "RLT Sample": decodeProcedureType(row?.sefData?.ie?.rltS) || "-",
+              "RLT Sample Box name": row?.rltGrid && typeof row?.rltGrid === "string" ? row?.rltGrid.split("/")[0] : "-",
+              "RLT Sample Grid": row?.rltGrid && typeof row?.rltGrid === "string" ? row?.rltGrid.split("/")[1] : "-",
+              "Primary Culture Sample": decodeProcedureType(row?.sefData?.ie?.pcS) || "-",
+              "Is Primary Culture Viable": row?.sefData?.ie?.pssvl || "-",
+              "Primary Culture Sample Box name": row?.pcGrid && typeof row?.pcGrid === "string" ? row?.pcGrid.split("/")[0] : "-",
+              "Primary Culture Sample Grids": row?.pcGrid && typeof row?.pcGrid === "string" ? row?.pcGrid.split("/")[1] : "-",
+              "Ischemic Sample": decodeProcedureType(row?.sefData?.ie?.iss) || "-",
+              NACT: decodeProcedureType(row?.sefData?.ie?.nact) || "-",
+              "Treatment effect": decode_natEff_gast(row?.sefData?.ie?.nactEff) || "-",
+              "Treatment effect (Other)": decode_natEff_gast(row?.sefData?.ie?.nactEffOth) || "-",
+              "NACT Drug Cycles": row?.sefData?.ie?.nactdc || "-",
+              "NACT date of last cycle": row?.sefData?.ie?.nactdlc || "-",
+              "All sample Received together?": decodeProcedureType(row?.sefData?.ie?.scpt) || "-",
+              "Processed By": row?.sefData?.ie?.prb || "-",
+              "Received Time": formatTimestamp(row?.sefData?.ie?.srt) || "-",
+              "Processed Time": formatTimestamp(row?.sefData?.ie?.spt) || "-",
+              "Blood Sample Processed By": row?.sefData?.ie?.bspb || "-",
+              "Blood Sample Received Time": formatTimestamp(row?.sefData?.ie?.brt) || "-",
+              "Blood Sample Processed Time": formatTimestamp(row?.sefData?.ie?.bpt) || "-",
+              "Tissue Sample Processed by": row?.sefData?.ie?.sspb || "-",
+              "Tissue Sample Received Time": formatTimestamp(row?.sefData?.ie?.sprt) || "-",
+              "Tissue Sample Processed Time": formatTimestamp(row?.sefData?.ie?.sppt) || "-",
+              "Other Sample Processed by": row?.sefData?.ie?.ospb || "-",
+              "Other Sample Received Time": formatTimestamp(row?.sefData?.ie?.osrt) || "-",
+              "Other Sample Processed Time": formatTimestamp(row?.sefData?.ie?.ospt) || "-",
+              "RLT Sample processed by": row?.sefData?.ie?.rltpb || "-",
+              "RLT Sample Received Time": formatTimestamp(row?.sefData?.ie?.rsrt) || "-",
+              "RLT Sample processed Time": formatTimestamp(row?.sefData?.ie?.rspt) || "-",
+              "Primary Culture Sample processed by": row?.sefData?.ie?.psspb || "-",
+              "Primary Culture Sample Received Time": formatTimestamp(row?.sefData?.ie?.psrt) || "-",
+              "Primary Culture Sample processed Time": formatTimestamp(row?.sefData?.ie?.pspt) || "-",
+              "Data Entry By": row?.sefData?.ie?.sef_ub || "-",
+              "Family History Cancer": decodeProcedureType(row?.sefData?.md?.fhc),
+              "Family Relation": row?.sefData?.md?.fhcr || "-",
+              "Family Cancer Type": row?.sefData?.md?.fhct || "-",
+              "Food Habbits": row?.sefData?.md?.fh === "true" ? "Veg" : row?.sefData?.md?.fh === "false" ? "Non Veg" : "-",
+              "History Of Alcohol Consumption": decodeProcedureType(row?.sefData?.md?.hac) || "-",
+              "History Of Smoking": decodeProcedureType(row?.sefData?.md?.hs) || "-",
+              "Existing Comorbidities": decodeProcedureType(row?.sefData?.md?.ec) || "-",
+              "Type 2 Diabetic Mellitus": findComorb("diabetic", row?.sefData?.md?.cm),
+              "Cardiac History": findComorb("cardiac", row?.sefData?.md?.cm),
+              Hypertension: findComorb("hypertension", row?.sefData?.md?.cm),
+              "Other Comorbidities": findComorb("other1", row?.sefData?.md?.cm),
+              "Other medications": findComorb("other2", row?.sefData?.md?.cm),
+              "FF QC comments": row?.sefData?.md?.ffqc || "-",
+              "FF Tissue Remarks": row?.sefData?.md?.ftr || "-",
+              "Tumor Site": decode_tst_gast(row?.sefData?.md?.tst) || "-",
+              "Tumor Site (Other)": row?.sefData?.md?.tstOth || "-",
+              "Tumor Subsite": decode_tsub_gast(row?.sefData?.md?.tst) || "-",
+              "Tumor Percentage": row?.sefData?.md?.tp || "-",
+              "Age At Diagnosis": row?.sefData?.md?.ad || "-",
+              "Clinical Stage ": row?.sefData?.md?.cs || "-",
+              "IHC Marker status": decodeProcedureType(row?.sefData?.md?.ihcm) || "-",
+              "IHC marker description": row?.sefData?.md?.ihcd || "-",
+              "Genetic Testing": decodeProcedureType(row?.sefData?.md?.gt) || "-",
+              "Genetic Testing Results": decodeProcedureType(row?.sefData?.md?.gtr) || "-",
+              "Genetic Testing Description": row?.sefData?.md?.gtd || "-",
+              "Distance of Tumor Center from Esophagogastric Junction": decode_disTCEJ_esph(row?.sefData?.md?.disTCEJ) || "-",
+              "Distance of Tumor Center from Esophagogastric Junction (Other)": row?.sefData?.md?.disTCEJOth || "-",
+              "Histological Type": decode_pt_gast(row?.sefData?.md?.pt) || "-",
+              "Histological Subtype": decode_pst_gast(row?.sefData?.md?.pst) || "-",
+              Grade: decode_gd_esph(row?.sefData?.md?.gd) || "-",
+              "Grade (Other)": row?.sefData?.md?.gdOth || "-",
+              "Tumor Extent Esophagus": decode_tEESPH_gast(row?.sefData?.md?.tEESPH) || "-",
+              "Tumor Extent Esophagus (Other)": row?.sefData?.md?.tEESPHOth || "-",
+              "Tumor Extent Gastric": decode_tEEGAS_esph(row?.sefData?.md?.tEEGAS) || "-",
+              "Tumor Extent Gastric (Other)": row?.sefData?.md?.tEEGASOth || "-",
+              LVI: decode_lvi_pni_anal(row?.sefData?.md?.lvi) || "-",
+              "LVI (Other)": row?.sefData?.md?.lviOth || "-",
+              PNI: decode_lvi_pni_anal(row?.sefData?.md?.pni) || "-",
+              "PNI (Other)": row?.sefData?.md?.pniOth || "-",
+              "Specimen Margin Status for Invasive Tumor": decode_smsts_esph(row?.sefData?.md?.smsts) || "-",
+              "Specimen Margin Status for Invasive Tumor (Other)": row?.sefData?.md?.smstsOth || "-",
+              "Closest Specimen Margin(s) to Invasive Tumor": decode_cMIC_esph(row?.sefData?.md?.cMIC) || "-",
+              "Closest Specimen Margin(s) to Invasive Tumor (Other)": row?.sefData?.md?.cMICOth || "-",
+              "Distance from Invasive Tumor to Closest Specimen Margin": decode_dITCSM_esph(row?.sefData?.md?.dITCSM) || "-",
+              "Distance from Invasive Tumor to Closest Specimen Margin (Other)": row?.sefData?.md?.dITCSMOth || "-",
+              "Specimen Margin(s) Involved by Invasive Tumor (per orientation)": decode_smIIT_esph(row?.sefData?.md?.smIIT) || "-",
+              "Specimen Margin(s) Involved by Invasive Tumor (per orientation) (Other)": row?.sefData?.md?.smIITOth || "-",
+              "Margin Status for Dysplasia and Intestinal Metaplasia": decode_mststDIM_esph(row?.sefData?.md?.mststDIM) || "-",
+              "Margin Status for Dysplasia and Intestinal Metaplasia (Other)": row?.sefData?.md?.mststDIMOth || "-",
+              "Margin(s) Involved by Low-Grade Squamous Dysplasia": decode_mststDIMAdd_esph(row?.sefData?.md?.mststDIM, row?.sefData?.md?.mststDIMAdd, "op2", "data") || "-",
+              "Margin(s) Involved by Low-Grade Squamous Dysplasia (Other)": decode_mststDIMAdd_esph(row?.sefData?.md?.mststDIM, row?.sefData?.md?.mststDIMAdd, "op2", "Other") || "-",
+              "Margin(s) Involved by High-Grade Squamous Dysplasia": decode_mststDIMAdd_esph(row?.sefData?.md?.mststDIM, row?.sefData?.md?.mststDIMAdd, "op3", "data") || "-",
+              "Margin(s) Involved by High-Grade Squamous Dysplasia (Other)": decode_mststDIMAdd_esph(row?.sefData?.md?.mststDIM, row?.sefData?.md?.mststDIMAdd, "op3", "Other") || "-",
+              "Margin(s) Involved by Low-Grade Glandular Dysplasia": decode_mststDIMAdd_esph(row?.sefData?.md?.mststDIM, row?.sefData?.md?.mststDIMAdd, "op4", "data") || "-",
+              "Margin(s) Involved by Low-Grade Glandular Dysplasia (Other)": decode_mststDIMAdd_esph(row?.sefData?.md?.mststDIM, row?.sefData?.md?.mststDIMAdd, "op4", "Other") || "-",
+              "Margin(s) Involved by High-Grade Glandular Dysplasia": decode_mststDIMAdd_esph(row?.sefData?.md?.mststDIM, row?.sefData?.md?.mststDIMAdd, "op5", "data") || "-",
+              "Margin(s) Involved by High-Grade Glandular Dysplasia (Other)": decode_mststDIMAdd_esph(row?.sefData?.md?.mststDIM, row?.sefData?.md?.mststDIMAdd, "op5", "Other") || "-",
+              "Margin(s) Involved by Intestinal Metaplasia": decode_mststDIMAdd_esph(row?.sefData?.md?.mststDIM, row?.sefData?.md?.mststDIMAdd, "op6", "data") || "-",
+              "Margin(s) Involved by Intestinal Metaplasia (Other)": decode_mststDIMAdd_esph(row?.sefData?.md?.mststDIM, row?.sefData?.md?.mststDIMAdd, "op6", "Other") || "-",
+
+              pTNM: row?.sefData?.md?.ptnm || "-",
+              "Regional Lymph Node Status": rlnS_hene(row?.sefData?.md?.rlnsts) || "-",
+              "Number Of Nodes Tested": row?.sefData?.md?.nnt || "-",
+              "Number Of Positive Nodes": row?.sefData?.md?.npn || "-",
+              "Additional findings": row?.sefData?.md?.af || "-",
+              "Tumor Size": row?.sefData?.md?.tsz === "xx" || row?.sefData?.md?.tsz === undefined ? "-" : row?.sefData?.md?.tsz,
+              ACT: decodeProcedureType(row?.sefData?.md?.act) || "-",
+              "ACT Drug Cycles": row?.sefData?.md?.actdc || "-",
+              "ACT Date of last Cycle": row?.sefData?.md?.actdls || "-",
+              Radiotherapy: decodeProcedureType(row?.sefData?.md?.rd) || "-",
+              "Dosage & Fractions": row?.sefData?.md?.rdd1 || "-",
+              Technique: row?.sefData?.md?.rdd2 || "-",
+              Quadrant: row?.sefData?.md?.rdd3 || "-",
+              "Radiotherapy Date of last Cycle": row?.sefData?.md?.rtdls || "-",
+              "Targeted Therapy": decodeProcedureType(row?.sefData?.md?.trt) || "-",
+              "Targeted Therapy Details": row?.sefData?.md?.trtD || "-",
+              "Is paraffin Block Available ": decodeProcedureType(row?.sefData?.md?.ipba) || "-",
+              "Paraffin Block Number": row?.sefData?.md?.ipbainfo || "-",
+              "Metadata updated by": row?.sefData?.md?.mdu || "-",
+              "HER2 IHC": row?.sefData?.gtf?.her2IHC || "-",
+              "HER FISH": decodeProcedureType(row?.sefData?.gtf?.herF) || "-",
+              "PET CT Volume": row?.sefData?.gtf?.pcvm || "-",
+              "GT Specific form updated by": row?.sefData?.gtf?.gtfu || "-",
+              "follow Up Time": formatTimestamp(Math.floor(row?.fwData?.timestamp) / 1000) || "-",
+              "Last Followup status": decodeFollowUpType(row?.fwData?.fwlastTimestamp?.lfs) || "-",
+              "Other reason": row?.fwData?.fwlastTimestamp?.othrs || "-",
+              "Last Follow up Date": row?.fwData?.fwlastTimestamp?.lfd || "-",
+              "Reason For lost to follow up": row?.fwData?.fwlastTimestamp?.rlfw || "-",
+              "Recurrence Date": row?.fwData?.fwlastTimestamp?.rd || "-",
+              "Reported Date for Progressive Disease": row?.fwData?.fwlastTimestamp?.rdpd || "-",
+              "Progression metastasis remark": row?.fwData?.fwlastTimestamp?.pet || "-",
+              "Vital Status": row?.fwData?.fwlastTimestamp?.vs || "-",
+              "Death Date": row?.fwData?.fwlastTimestamp?.dd || "-",
+              Remarks: row?.fwData?.fwlastTimestamp?.rmks || "-",
+              "Treatment Completed": row?.fwData?.fwlastTimestamp?.tc || "-",
+              "followUp updated by": row?.fwData?.fwlastTimestamp?.fw_ub || "-",
+
+              "Shared Form Date - Time": formatTimestamp(row?.osData?.lastKey) || "-",
+              "Shared Date": row?.osData?.oslastTimestamp?.doe || "-",
+              "Shared Grid": row?.oSgrid,
+              "Institute or Department": row?.osData?.oslastTimestamp?.dpt || "-",
+              Project: row?.osData?.oslastTimestamp?.prj || "-",
+              "PI of the Project": row?.osData?.oslastTimestamp?.pip || "-",
+              "Shared status": decodeFollowUpType(row?.osData?.oslastTimestamp?.ossts) || "-",
+              "Partial shared remark": row?.osData?.oslastTimestamp?.psr || "-",
+              "Shared form updated by": row?.osData?.oslastTimestamp?.os_ub || "-",
+            };
+          if (row.sefData.ie.ct === "esph")
+            return {
+              Timestamp: formatTimestamp(row?.timestampKey),
+              Consent: decodeProcedureType(row?.sefData?.ie?.cnst) || "-",
+              "Cancer Type": decodeProcedureType(row?.sefData?.ie?.ct) || "-",
+              "Bio Bank ID": row?.bioBankId,
+              Age: row?.sefData?.ie?.ag || "-",
+              Gender: decodeProcedureType(row?.sefData?.ie?.sx) || "-",
+              "Procedure Types": decodeProcedureType(row?.sefData?.ie?.tpr),
+              "Details of Procedure": row?.sefData?.ie?.dpr || "-",
+              "Surgeon Name": row?.sefData?.ie?.srn || "-",
+              "Event Sample": decodeProcedureType(row?.sefData?.ie?.mts) || "-",
+              "Event Info": decodeProcedureType(row?.sefData?.ie?.es) || "-",
+              "Denovo Event": decodeProcedureType(row?.sefData?.ie?.dm) || "-",
+              "Age at Event": row?.sefData?.ie?.ag_ms || "-",
+              Site: decode_site_esph(row?.sefData?.ie?.site) || "-",
+              "Site (Other)": row?.sefData?.ie?.siteOth || "-",
+              "Relationship of Tumor to Esophagogastric Junction": decode_relT_esph(row?.sefData?.ie?.relT) || "-",
+              "Relationship of Tumor to Esophagogastric Junction (Other)": row?.sefData?.ie?.relTOth || "-",
+              "Distance of Tumor Center from Esophagogastric Junction": decode_disT_esph(row?.sefData?.ie?.disT) || "-",
+              "Distance of Tumor Center from Esophagogastric Junction (Other)": row?.sefData?.ie?.disTOth || "-",
+              "Tissue Sample": decodeProcedureType(row?.sefData?.ie?.ss) || "-",
+              "No of FT Tubes": row?.sefData?.ie?.nft ? (row?.sefData?.ie?.nft.toString() === "0" ? "None" : row?.sefData?.ie?.nft) : "-",
+              "FT Tissue Box Name": row?.ftgGrid && typeof row?.ftgGrid === "string" ? row?.ftgGrid.split("/")[0] : "-",
+              "FT Tube Grids": row?.ftgGrid && typeof row?.ftgGrid === "string" ? row?.ftgGrid.split("/")[1] : "-",
+              "No of FN Tubes": row?.sefData?.ie?.nfn ? (row?.sefData?.ie?.nfn.toString() === "0" ? "None" : row?.sefData?.ie?.nfn) : "-",
+              "FN Tissue Box Name": row?.fngGrid && typeof row?.fngGrid === "string" ? row?.fngGrid.split("/")[0] : "-",
+              "FN Tube Grids": row?.fngGrid && typeof row?.fngGrid === "string" ? row?.fngGrid.split("/")[1] : "-",
+              "Blood Sample": decodeProcedureType(row?.sefData?.ie?.bs) || "-",
+              "Blood box name(Serum)": row?.serumGrid && typeof row?.serumGrid === "string" ? row?.serumGrid.split("/")[0] : "-",
+              "Serum Grid": row?.serumGrid && typeof row?.serumGrid === "string" ? row?.serumGrid.split("/")[1] : "-",
+              "Blood box name(Plasma)": row?.plasmaGrid && typeof row?.plasmaGrid === "string" ? row?.plasmaGrid.split("/")[0] : "-",
+              "Plasma Grid": row?.plasmaGrid && typeof row?.plasmaGrid === "string" ? row?.plasmaGrid.split("/")[1] : "-",
+              "Blood box name(Buffy coat)": row?.buffyCoatGrid && typeof row?.buffyCoatGrid === "string" ? row?.buffyCoatGrid.split("/")[0] : "-",
+              "Buffy Coat Grid": row?.buffyCoatGrid && typeof row?.buffyCoatGrid === "string" ? row?.buffyCoatGrid.split("/")[1] : "-",
+              "Other Sample": decodeProcedureType(row?.sefData?.ie?.osmp) || "-",
+              "Other Sample box name": row?.otherGrid && typeof row?.otherGrid === "string" ? row?.otherGrid.split("/")[0] : "-",
+              "Other Sample Grid": row?.otherGrid && typeof row?.otherGrid === "string" ? row?.otherGrid.split("/")[1] : "-",
+              "Other Sample description": row?.sefData?.ie?.osdsc || "-",
+              "RLT Sample": decodeProcedureType(row?.sefData?.ie?.rltS) || "-",
+              "RLT Sample Box name": row?.rltGrid && typeof row?.rltGrid === "string" ? row?.rltGrid.split("/")[0] : "-",
+              "RLT Sample Grid": row?.rltGrid && typeof row?.rltGrid === "string" ? row?.rltGrid.split("/")[1] : "-",
+              "Primary Culture Sample": decodeProcedureType(row?.sefData?.ie?.pcS) || "-",
+              "Is Primary Culture Viable": row?.sefData?.ie?.pssvl || "-",
+              "Primary Culture Sample Box name": row?.pcGrid && typeof row?.pcGrid === "string" ? row?.pcGrid.split("/")[0] : "-",
+              "Primary Culture Sample Grids": row?.pcGrid && typeof row?.pcGrid === "string" ? row?.pcGrid.split("/")[1] : "-",
+              "Ischemic Sample": decodeProcedureType(row?.sefData?.ie?.iss) || "-",
+              NACT: decodeProcedureType(row?.sefData?.ie?.nact) || "-",
+              "Treatment effect": decode_natEff_gast(row?.sefData?.ie?.nactEff) || "-",
+              "Treatment effect (Other)": decode_natEff_gast(row?.sefData?.ie?.nactEffOth) || "-",
+              "NACT Drug Cycles": row?.sefData?.ie?.nactdc || "-",
+              "NACT date of last cycle": row?.sefData?.ie?.nactdlc || "-",
+              "All sample Received together?": decodeProcedureType(row?.sefData?.ie?.scpt) || "-",
+              "Processed By": row?.sefData?.ie?.prb || "-",
+              "Received Time": formatTimestamp(row?.sefData?.ie?.srt) || "-",
+              "Processed Time": formatTimestamp(row?.sefData?.ie?.spt) || "-",
+              "Blood Sample Processed By": row?.sefData?.ie?.bspb || "-",
+              "Blood Sample Received Time": formatTimestamp(row?.sefData?.ie?.brt) || "-",
+              "Blood Sample Processed Time": formatTimestamp(row?.sefData?.ie?.bpt) || "-",
+              "Tissue Sample Processed by": row?.sefData?.ie?.sspb || "-",
+              "Tissue Sample Received Time": formatTimestamp(row?.sefData?.ie?.sprt) || "-",
+              "Tissue Sample Processed Time": formatTimestamp(row?.sefData?.ie?.sppt) || "-",
+              "Other Sample Processed by": row?.sefData?.ie?.ospb || "-",
+              "Other Sample Received Time": formatTimestamp(row?.sefData?.ie?.osrt) || "-",
+              "Other Sample Processed Time": formatTimestamp(row?.sefData?.ie?.ospt) || "-",
+              "RLT Sample processed by": row?.sefData?.ie?.rltpb || "-",
+              "RLT Sample Received Time": formatTimestamp(row?.sefData?.ie?.rsrt) || "-",
+              "RLT Sample processed Time": formatTimestamp(row?.sefData?.ie?.rspt) || "-",
+              "Primary Culture Sample processed by": row?.sefData?.ie?.psspb || "-",
+              "Primary Culture Sample Received Time": formatTimestamp(row?.sefData?.ie?.psrt) || "-",
+              "Primary Culture Sample processed Time": formatTimestamp(row?.sefData?.ie?.pspt) || "-",
+              "Data Entry By": row?.sefData?.ie?.sef_ub || "-",
+              "Family History Cancer": decodeProcedureType(row?.sefData?.md?.fhc),
+              "Family Relation": row?.sefData?.md?.fhcr || "-",
+              "Family Cancer Type": row?.sefData?.md?.fhct || "-",
+              "Food Habbits": row?.sefData?.md?.fh === "true" ? "Veg" : row?.sefData?.md?.fh === "false" ? "Non Veg" : "-",
+              "History Of Alcohol Consumption": decodeProcedureType(row?.sefData?.md?.hac) || "-",
+              "History Of Smoking": decodeProcedureType(row?.sefData?.md?.hs) || "-",
+              "Existing Comorbidities": decodeProcedureType(row?.sefData?.md?.ec) || "-",
+              "Type 2 Diabetic Mellitus": findComorb("diabetic", row?.sefData?.md?.cm),
+              "Cardiac History": findComorb("cardiac", row?.sefData?.md?.cm),
+              Hypertension: findComorb("hypertension", row?.sefData?.md?.cm),
+              "Other Comorbidities": findComorb("other1", row?.sefData?.md?.cm),
+              "Other medications": findComorb("other2", row?.sefData?.md?.cm),
+              "FF QC comments": row?.sefData?.md?.ffqc || "-",
+              "FF Tissue Remarks": row?.sefData?.md?.ftr || "-",
+              "Tumor Site": decode_tst_esph(row?.sefData?.md?.tst) || "-",
+              "Tumor Site (Other)": row?.sefData?.md?.tstOth || "-",
+              "Tumor Percentage": row?.sefData?.md?.tp || "-",
+              "Age At Diagnosis": row?.sefData?.md?.ad || "-",
+              "Clinical Stage ": row?.sefData?.md?.cs || "-",
+              "IHC Marker status": decodeProcedureType(row?.sefData?.md?.ihcm) || "-",
+              "IHC marker description": row?.sefData?.md?.ihcd || "-",
+              "Genetic Testing": decodeProcedureType(row?.sefData?.md?.gt) || "-",
+              "Genetic Testing Results": decodeProcedureType(row?.sefData?.md?.gtr) || "-",
+              "Genetic Testing Description": row?.sefData?.md?.gtd || "-",
+              "Distance of Tumor Center from Esophagogastric Junction": decode_disTCEJ_esph(row?.sefData?.md?.disTCEJ) || "-",
+              "Distance of Tumor Center from Esophagogastric Junction (Other)": row?.sefData?.md?.disTCEJOth || "-",
+              "Histological Subtype": decode_pst_esph(row?.sefData?.md?.pst) || "-",
+              "Other Subtype": row?.sefData?.md?.pstOt || "-",
+              Grade: decode_gd_esph(row?.sefData?.md?.gd) || "-",
+              "Grade (Other)": row?.sefData?.md?.gdOth || "-",
+              "Tumor Extent Esophagus": decode_tEESPH_gast(row?.sefData?.md?.tEESPH) || "-",
+              "Tumor Extent Esophagus (Other)": row?.sefData?.md?.tEESPHOth || "-",
+              "Tumor Extent Gastric": decode_tEEGAS_esph(row?.sefData?.md?.tEEGAS) || "-",
+              "Tumor Extent Gastric (Other)": row?.sefData?.md?.tEEGASOth || "-",
+              LVI: decode_lvi_pni_anal(row?.sefData?.md?.lvi) || "-",
+              "LVI (Other)": row?.sefData?.md?.lviOth || "-",
+              PNI: decode_lvi_pni_anal(row?.sefData?.md?.pni) || "-",
+              "PNI (Other)": row?.sefData?.md?.pniOth || "-",
+              "Specimen Margin Status for Invasive Tumor": decode_smsts_esph(row?.sefData?.md?.smsts) || "-",
+              "Specimen Margin Status for Invasive Tumor (Other)": row?.sefData?.md?.smstsOth || "-",
+              "Closest Specimen Margin(s) to Invasive Tumor": decode_cMIC_esph(row?.sefData?.md?.cMIC) || "-",
+              "Closest Specimen Margin(s) to Invasive Tumor (Other)": row?.sefData?.md?.cMICOth || "-",
+              "Distance from Invasive Tumor to Closest Specimen Margin": decode_dITCSM_esph(row?.sefData?.md?.dITCSM) || "-",
+              "Distance from Invasive Tumor to Closest Specimen Margin (Other)": row?.sefData?.md?.dITCSMOth || "-",
+              "Specimen Margin(s) Involved by Invasive Tumor (per orientation)": decode_smIIT_esph(row?.sefData?.md?.smIIT) || "-",
+              "Specimen Margin(s) Involved by Invasive Tumor (per orientation) (Other)": row?.sefData?.md?.smIITOth || "-",
+              "Margin Status for Dysplasia and Intestinal Metaplasia": decode_mststDIM_esph(row?.sefData?.md?.mststDIM) || "-",
+              "Margin Status for Dysplasia and Intestinal Metaplasia (Other)": row?.sefData?.md?.mststDIMOth || "-",
+              "Margin(s) Involved by Low-Grade Squamous Dysplasia": decode_mststDIMAdd_esph(row?.sefData?.md?.mststDIM, row?.sefData?.md?.mststDIMAdd, "op2", "data") || "-",
+              "Margin(s) Involved by Low-Grade Squamous Dysplasia (Other)": decode_mststDIMAdd_esph(row?.sefData?.md?.mststDIM, row?.sefData?.md?.mststDIMAdd, "op2", "Other") || "-",
+              "Margin(s) Involved by High-Grade Squamous Dysplasia": decode_mststDIMAdd_esph(row?.sefData?.md?.mststDIM, row?.sefData?.md?.mststDIMAdd, "op3", "data") || "-",
+              "Margin(s) Involved by High-Grade Squamous Dysplasia (Other)": decode_mststDIMAdd_esph(row?.sefData?.md?.mststDIM, row?.sefData?.md?.mststDIMAdd, "op3", "Other") || "-",
+              "Margin(s) Involved by Low-Grade Glandular Dysplasia": decode_mststDIMAdd_esph(row?.sefData?.md?.mststDIM, row?.sefData?.md?.mststDIMAdd, "op4", "data") || "-",
+              "Margin(s) Involved by Low-Grade Glandular Dysplasia (Other)": decode_mststDIMAdd_esph(row?.sefData?.md?.mststDIM, row?.sefData?.md?.mststDIMAdd, "op4", "Other") || "-",
+              "Margin(s) Involved by High-Grade Glandular Dysplasia": decode_mststDIMAdd_esph(row?.sefData?.md?.mststDIM, row?.sefData?.md?.mststDIMAdd, "op5", "data") || "-",
+              "Margin(s) Involved by High-Grade Glandular Dysplasia (Other)": decode_mststDIMAdd_esph(row?.sefData?.md?.mststDIM, row?.sefData?.md?.mststDIMAdd, "op5", "Other") || "-",
+              "Margin(s) Involved by Intestinal Metaplasia": decode_mststDIMAdd_esph(row?.sefData?.md?.mststDIM, row?.sefData?.md?.mststDIMAdd, "op6", "data") || "-",
+              "Margin(s) Involved by Intestinal Metaplasia (Other)": decode_mststDIMAdd_esph(row?.sefData?.md?.mststDIM, row?.sefData?.md?.mststDIMAdd, "op6", "Other") || "-",
+
+              pTNM: row?.sefData?.md?.ptnm || "-",
+              "Regional Lymph Node Status": rlnS_hene(row?.sefData?.md?.rlnsts) || "-",
+              "Number Of Nodes Tested": row?.sefData?.md?.nnt || "-",
+              "Number Of Positive Nodes": row?.sefData?.md?.npn || "-",
+              "Additional findings": row?.sefData?.md?.af || "-",
+              "Tumor Size": row?.sefData?.md?.tsz === "xx" || row?.sefData?.md?.tsz === undefined ? "-" : row?.sefData?.md?.tsz,
+              ACT: decodeProcedureType(row?.sefData?.md?.act) || "-",
+              "ACT Drug Cycles": row?.sefData?.md?.actdc || "-",
+              "ACT Date of last Cycle": row?.sefData?.md?.actdls || "-",
+              Radiotherapy: decodeProcedureType(row?.sefData?.md?.rd) || "-",
+              "Dosage & Fractions": row?.sefData?.md?.rdd1 || "-",
+              Technique: row?.sefData?.md?.rdd2 || "-",
+              Quadrant: row?.sefData?.md?.rdd3 || "-",
+              "Radiotherapy Date of last Cycle": row?.sefData?.md?.rtdls || "-",
+              "Targeted Therapy": decodeProcedureType(row?.sefData?.md?.trt) || "-",
+              "Targeted Therapy Details": row?.sefData?.md?.trtD || "-",
+              "Is paraffin Block Available ": decodeProcedureType(row?.sefData?.md?.ipba) || "-",
+              "Paraffin Block Number": row?.sefData?.md?.ipbainfo || "-",
+              "Metadata updated by": row?.sefData?.md?.mdu || "-",
+              "HER2 IHC": row?.sefData?.etf?.her2IHC || "-",
+              "HER FISH": decodeProcedureType(row?.sefData?.etf?.herF) || "-",
+              "PET CT Volume": row?.sefData?.etf?.pcvm || "-",
+              "GT Specific form updated by": row?.sefData?.etf?.etfu || "-",
+              "follow Up Time": formatTimestamp(Math.floor(row?.fwData?.timestamp) / 1000) || "-",
+              "Last Followup status": decodeFollowUpType(row?.fwData?.fwlastTimestamp?.lfs) || "-",
+              "Other reason": row?.fwData?.fwlastTimestamp?.othrs || "-",
+              "Last Follow up Date": row?.fwData?.fwlastTimestamp?.lfd || "-",
+              "Reason For lost to follow up": row?.fwData?.fwlastTimestamp?.rlfw || "-",
+              "Recurrence Date": row?.fwData?.fwlastTimestamp?.rd || "-",
+              "Reported Date for Progressive Disease": row?.fwData?.fwlastTimestamp?.rdpd || "-",
+              "Progression metastasis remark": row?.fwData?.fwlastTimestamp?.pet || "-",
+              "Vital Status": row?.fwData?.fwlastTimestamp?.vs || "-",
+              "Death Date": row?.fwData?.fwlastTimestamp?.dd || "-",
+              Remarks: row?.fwData?.fwlastTimestamp?.rmks || "-",
+              "Treatment Completed": row?.fwData?.fwlastTimestamp?.tc || "-",
+              "followUp updated by": row?.fwData?.fwlastTimestamp?.fw_ub || "-",
+
+              "Shared Form Date - Time": formatTimestamp(row?.osData?.lastKey) || "-",
+              "Shared Date": row?.osData?.oslastTimestamp?.doe || "-",
+              "Shared Grid": row?.oSgrid,
+              "Institute or Department": row?.osData?.oslastTimestamp?.dpt || "-",
+              Project: row?.osData?.oslastTimestamp?.prj || "-",
+              "PI of the Project": row?.osData?.oslastTimestamp?.pip || "-",
+              "Shared status": decodeFollowUpType(row?.osData?.oslastTimestamp?.ossts) || "-",
+              "Partial shared remark": row?.osData?.oslastTimestamp?.psr || "-",
+              "Shared form updated by": row?.osData?.oslastTimestamp?.os_ub || "-",
+            };
+
+          if (row.sefData.ie.ct === "colo")
+            return {
+              Timestamp: formatTimestamp(row?.timestampKey),
+              Consent: decodeProcedureType(row?.sefData?.ie?.cnst) || "-",
+              "Cancer Type": decodeProcedureType(row?.sefData?.ie?.ct) || "-",
+              "Bio Bank ID": row?.bioBankId,
+              Age: row?.sefData?.ie?.ag || "-",
+              Gender: decodeProcedureType(row?.sefData?.ie?.sx) || "-",
+              "Procedure Types": decodeProcedureType(row?.sefData?.ie?.tpr),
+              "Details of Procedure": row?.sefData?.ie?.dpr || "-",
+              "Surgeon Name": row?.sefData?.ie?.srn || "-",
+              "Event Sample": decodeProcedureType(row?.sefData?.ie?.mts) || "-",
+              "Event Info": decodeProcedureType(row?.sefData?.ie?.es) || "-",
+              "Denovo Event": decodeProcedureType(row?.sefData?.ie?.dm) || "-",
+              "Age at Event": row?.sefData?.ie?.ag_ms || "-",
+              "Multiple Primary Sites": decode_mps_gast(row?.sefData?.ie?.mps) || "-",
+              "Multiple Primary Sites (Present)": row?.sefData?.ie?.mpsOth || "-",
+              Site: decode_site_anal(row?.sefData?.ie?.site) || "-",
+              "Site (Other)": row?.sefData?.ie?.siteOth || "-",
+              "Tissue Sample": decodeProcedureType(row?.sefData?.ie?.ss) || "-",
+              "No of FT Tubes": row?.sefData?.ie?.nft ? (row?.sefData?.ie?.nft.toString() === "0" ? "None" : row?.sefData?.ie?.nft) : "-",
+              "FT Tissue Box Name": row?.ftgGrid && typeof row?.ftgGrid === "string" ? row?.ftgGrid.split("/")[0] : "-",
+              "FT Tube Grids": row?.ftgGrid && typeof row?.ftgGrid === "string" ? row?.ftgGrid.split("/")[1] : "-",
+              "No of FN Tubes": row?.sefData?.ie?.nfn ? (row?.sefData?.ie?.nfn.toString() === "0" ? "None" : row?.sefData?.ie?.nfn) : "-",
+              "FN Tissue Box Name": row?.fngGrid && typeof row?.fngGrid === "string" ? row?.fngGrid.split("/")[0] : "-",
+              "FN Tube Grids": row?.fngGrid && typeof row?.fngGrid === "string" ? row?.fngGrid.split("/")[1] : "-",
+              "Blood Sample": decodeProcedureType(row?.sefData?.ie?.bs) || "-",
+              "Blood box name(Serum)": row?.serumGrid && typeof row?.serumGrid === "string" ? row?.serumGrid.split("/")[0] : "-",
+              "Serum Grid": row?.serumGrid && typeof row?.serumGrid === "string" ? row?.serumGrid.split("/")[1] : "-",
+              "Blood box name(Plasma)": row?.plasmaGrid && typeof row?.plasmaGrid === "string" ? row?.plasmaGrid.split("/")[0] : "-",
+              "Plasma Grid": row?.plasmaGrid && typeof row?.plasmaGrid === "string" ? row?.plasmaGrid.split("/")[1] : "-",
+              "Blood box name(Buffy coat)": row?.buffyCoatGrid && typeof row?.buffyCoatGrid === "string" ? row?.buffyCoatGrid.split("/")[0] : "-",
+              "Buffy Coat Grid": row?.buffyCoatGrid && typeof row?.buffyCoatGrid === "string" ? row?.buffyCoatGrid.split("/")[1] : "-",
+              "Other Sample": decodeProcedureType(row?.sefData?.ie?.osmp) || "-",
+              "Other Sample box name": row?.otherGrid && typeof row?.otherGrid === "string" ? row?.otherGrid.split("/")[0] : "-",
+              "Other Sample Grid": row?.otherGrid && typeof row?.otherGrid === "string" ? row?.otherGrid.split("/")[1] : "-",
+              "Other Sample description": row?.sefData?.ie?.osdsc || "-",
+              "RLT Sample": decodeProcedureType(row?.sefData?.ie?.rltS) || "-",
+              "RLT Sample Box name": row?.rltGrid && typeof row?.rltGrid === "string" ? row?.rltGrid.split("/")[0] : "-",
+              "RLT Sample Grid": row?.rltGrid && typeof row?.rltGrid === "string" ? row?.rltGrid.split("/")[1] : "-",
+              "Primary Culture Sample": decodeProcedureType(row?.sefData?.ie?.pcS) || "-",
+              "Is Primary Culture Viable": row?.sefData?.ie?.pssvl || "-",
+              "Primary Culture Sample Box name": row?.pcGrid && typeof row?.pcGrid === "string" ? row?.pcGrid.split("/")[0] : "-",
+              "Primary Culture Sample Grids": row?.pcGrid && typeof row?.pcGrid === "string" ? row?.pcGrid.split("/")[1] : "-",
+              "Ischemic Sample": decodeProcedureType(row?.sefData?.ie?.iss) || "-",
+              NACT: decodeProcedureType(row?.sefData?.ie?.nact) || "-",
+              "Treatment effect": decode_natEff_gast(row?.sefData?.ie?.nactEff) || "-",
+              "Treatment effect (Other)": decode_natEff_gast(row?.sefData?.ie?.nactEffOth) || "-",
+              "NACT Drug Cycles": row?.sefData?.ie?.nactdc || "-",
+              "NACT date of last cycle": row?.sefData?.ie?.nactdlc || "-",
+              "All sample Received together?": decodeProcedureType(row?.sefData?.ie?.scpt) || "-",
+              "Processed By": row?.sefData?.ie?.prb || "-",
+              "Received Time": formatTimestamp(row?.sefData?.ie?.srt) || "-",
+              "Processed Time": formatTimestamp(row?.sefData?.ie?.spt) || "-",
+              "Blood Sample Processed By": row?.sefData?.ie?.bspb || "-",
+              "Blood Sample Received Time": formatTimestamp(row?.sefData?.ie?.brt) || "-",
+              "Blood Sample Processed Time": formatTimestamp(row?.sefData?.ie?.bpt) || "-",
+              "Tissue Sample Processed by": row?.sefData?.ie?.sspb || "-",
+              "Tissue Sample Received Time": formatTimestamp(row?.sefData?.ie?.sprt) || "-",
+              "Tissue Sample Processed Time": formatTimestamp(row?.sefData?.ie?.sppt) || "-",
+              "Other Sample Processed by": row?.sefData?.ie?.ospb || "-",
+              "Other Sample Received Time": formatTimestamp(row?.sefData?.ie?.osrt) || "-",
+              "Other Sample Processed Time": formatTimestamp(row?.sefData?.ie?.ospt) || "-",
+              "RLT Sample processed by": row?.sefData?.ie?.rltpb || "-",
+              "RLT Sample Received Time": formatTimestamp(row?.sefData?.ie?.rsrt) || "-",
+              "RLT Sample processed Time": formatTimestamp(row?.sefData?.ie?.rspt) || "-",
+              "Primary Culture Sample processed by": row?.sefData?.ie?.psspb || "-",
+              "Primary Culture Sample Received Time": formatTimestamp(row?.sefData?.ie?.psrt) || "-",
+              "Primary Culture Sample processed Time": formatTimestamp(row?.sefData?.ie?.pspt) || "-",
+              "Data Entry By": row?.sefData?.ie?.sef_ub || "-",
+              "Family History Cancer": decodeProcedureType(row?.sefData?.md?.fhc),
+              "Family Relation": row?.sefData?.md?.fhcr || "-",
+              "Family Cancer Type": row?.sefData?.md?.fhct || "-",
+              "Food Habbits": row?.sefData?.md?.fh === "true" ? "Veg" : row?.sefData?.md?.fh === "false" ? "Non Veg" : "-",
+              "History Of Alcohol Consumption": decodeProcedureType(row?.sefData?.md?.hac) || "-",
+              "History Of Smoking": decodeProcedureType(row?.sefData?.md?.hs) || "-",
+              "Existing Comorbidities": decodeProcedureType(row?.sefData?.md?.ec) || "-",
+              "Type 2 Diabetic Mellitus": findComorb("diabetic", row?.sefData?.md?.cm),
+              "Cardiac History": findComorb("cardiac", row?.sefData?.md?.cm),
+              Hypertension: findComorb("hypertension", row?.sefData?.md?.cm),
+              "Other Comorbidities": findComorb("other1", row?.sefData?.md?.cm),
+              "Other medications": findComorb("other2", row?.sefData?.md?.cm),
+              "FF QC comments": row?.sefData?.md?.ffqc || "-",
+              "FF Tissue Remarks": row?.sefData?.md?.ftr || "-",
+              "Tumor Site": decode_tst_colo(row?.sefData?.md?.tst) || "-",
+              "Tumor Site (Other)": row?.sefData?.md?.tstOth || "-",
+              "Tumor Subsite": decode_tsub_colo(row?.sefData?.md?.tst) || "-",
+              "Tumor Percentage": row?.sefData?.md?.tp || "-",
+              "Age At Diagnosis": row?.sefData?.md?.ad || "-",
+              "Clinical Stage ": row?.sefData?.md?.cs || "-",
+              "IHC Marker status": decodeProcedureType(row?.sefData?.md?.ihcm) || "-",
+              "IHC marker description": row?.sefData?.md?.ihcd || "-",
+              "Genetic Testing": decodeProcedureType(row?.sefData?.md?.gt) || "-",
+              "Genetic Testing Results": decodeProcedureType(row?.sefData?.md?.gtr) || "-",
+              "Genetic Testing Description": row?.sefData?.md?.gtd || "-",
+              "Macroscopic Evaluation of Mesorectum": decode_mem_anal(row?.sefData?.md?.mem) || "-",
+              "Macroscopic Evaluation of Mesorectum (Other)": row?.sefData?.md?.memoth || "-",
+              "Tumor Extent Colorectal": decode_tec_anal(row?.sefData?.md?.tec) || "-",
+              "Tumor Extent Colorectal (Other)": row?.sefData?.md?.tecOth || "-",
+              "Tumor Extent Anal": decode_tea_anal(row?.sefData?.md?.tea) || "-",
+              "Tumor Extent Anal (Other)": row?.sefData?.md?.teaOth || "-",
+              "Sub-mucosal Invasion": decode_submI_anal(row?.sefData?.md?.submI) || "-",
+              "Depth of Sub-mucosal Invasion": row?.sefData?.md?.dSubI || "-",
+              "Extent of Sub-mucosal Invasion": row?.sefData?.md?.eSubI || "-",
+              "Macroscopic Tumor Perforation": decode_mTP_anal(row?.sefData?.md?.mTP) || "-",
+              "Macroscopic Tumor Perforation (Other)": row?.sefData?.md?.mTPOth || "-",
+              "Histological Subtype": pst_colo(row?.sefData?.md?.pst) || "-",
+              "Other Subtype": row?.sefData?.md?.pstOt || "-",
+              Grade: decodeGrade_anal(row?.sefData?.md?.gd) || "-",
+              "Grade (Other)": row?.sefData?.md?.gdOth || "-",
+              "Tumor Extent Colorectal ": decode_tec1_anal(row?.sefData?.md?.tec1) || "-",
+              "Tumor Extent Colorectal (Other) ": row?.sefData?.md?.tec1Oth || "-",
+              "Sub-mucosal Invasion ": decode_submI1_anal(row?.sefData?.md?.submI1) || "-",
+              "Depth of Sub-mucosal Invasion ": decode_dSubMI_anal(row?.sefData?.md?.dSubMI) || "-",
+              "Depth of Sub-mucosal Invasion (Other)": row?.sefData?.md?.dSubMIOth || "-",
+              "Extent of Sub-mucosal Invasion (Note E)": decode_eSubI_anal(row?.sefData?.md?.eSubI) || "-",
+              "Extent of Sub-mucosal Invasion (Note E) (Other)": row?.sefData?.md?.eSubIOth || "-",
+              "LVI For colon only": decode_lviColon(row?.sefData?.md?.lviColo) || "-",
+              "LVI For colon only (Other)": row?.sefData?.md?.lviColoOth || "-",
+              "LVI for anal": decode_lvi_pni_anal(row?.sefData?.md?.lvi) || "-",
+              "LVI for anal (Other)": row?.sefData?.md?.lviOth || "-",
+              PNI: decode_lvi_pni_anal(row?.sefData?.md?.pni) || "-",
+              "PNI (Other)": row?.sefData?.md?.pniOth || "-",
+              "Tumor Budding Score": decode_tBS_anal(row?.sefData?.md?.tBS) || "-",
+              "Tumor Budding Score (Other)": row?.sefData?.md?.tBSOth || "-",
+              "Type of Polyp in which Invasive Carcinoma Arose": decode_typICA_anal(row?.OthsefData?.md?.typICA) || "-",
+              "Type of Polyp in which Invasive Carcinoma Arose (Other)": row?.OthsefData?.md?.typICAOth || "-",
+              "Specimen Margin Status for Invasive Tumor": decode_sMStsIT_anal(row?.sefData?.md?.sMStsIT) || "-",
+              "Specimen Margin Status for Invasive Tumor (Other)": row?.sefData?.md?.sMStsITOth || "-",
+              "Closest Margin(s) to Invasive Carcinoma": decode_cMIC_anal(row?.sefData?.md?.cMIC) || "-",
+              "Closest Margin(s) to Invasive Carcinoma (Other)": row?.sefData?.md?.cMICOth || "-",
+              "Distance from Invasive Tumor to Closest Specimen Margin": decode_dITCSM_anal(row?.OthsefData?.md?.dITCSM) || "-",
+              "Distance from Invasive Tumor to Closest Specimen Margin (Other)": row?.OthsefData?.md?.dITCSMOth || "-",
+              "Specimen Margin(s) Involved by Invasive Tumor": decode_sMSIT_anal(row?.sefData?.md?.sMSIT) || "-",
+              "Specimen Margin(s) Involved by Invasive Tumor (Other)": row?.sefData?.md?.sMSITOth || "-",
+              "Margin Status for Non-Invasive Tumor": decode_mststNIT_anal(row?.sefData?.md?.mststNIT) || "-",
+              "Margin Status for Non-Invasive Tumor (Other)": row?.sefData?.md?.mststNITOth || "-",
+              "Specimen Margin Status for Invasive Tumor": decode_smstsN_anal(row?.sefData?.md?.smstsN) || "-",
+              "Closest Margin(s) to Invasive Carcinoma": decode_cMIC1_anal(row?.sefData?.md?.cMIC1) || "-",
+              "Closest Margin(s) to Invasive Carcinoma (Other)": row?.sefData?.md?.cMIC1Oth || "-",
+              "Distance from Invasive Tumor to Closest Specimen Margin": decode_dITCSM1_anal(row?.OthsefData?.md?.dITCSM1) || "-",
+              "Distance from Invasive Tumor to Closest Specimen Margin (Other)": row?.OthsefData?.md?.dITCSM1Oth || "-",
+              "Specimen Margin(s) Involved by Invasive Tumor": decode_sMIIT_anal(row?.sefData?.md?.sMIIT) || "-",
+              "Specimen Margin(s) Involved by Invasive Tumor (Other)": row?.sefData?.md?.sMIITOth || "-",
+              "Margin Status for High-Grade Intraepithelial Neoplasia": decode_mstsHGTN_anal(row?.OthsefData?.md?.mstsHGTN) || "-",
+              "Margin Status for High-Grade Intraepithelial Neoplasia (Other)": row?.OthsefData?.md?.mstsHGTNOth || "-",
+              "High-grade intraepithelial neoplasia present at margin": decode_hGINPM_anal(row?.OthsefData?.md?.hGINPM) || "-",
+              "High-grade intraepithelial neoplasia present at margin (Other)": row?.OthsefData?.md?.hGINPMOth || "-",
+              pTNM: row?.OthsefData?.md?.ptnm || "-",
+              "Regional Lymph Node Status": rlnS_hene(row?.sefData?.md?.rlnsts) || "-",
+              "Number Of Nodes Tested": row?.sefData?.md?.nnt || "-",
+              "Number Of Positive Nodes": row?.sefData?.md?.npn || "-",
+              "Tumor Size": row?.sefData?.md?.tsz === "xx" || row?.sefData?.md?.tsz === undefined ? "-" : row?.sefData?.md?.tsz,
+              "Tumor Deposits": decode_tDep_anal(row?.sefData?.md?.tDep) || "-",
+              "Tumor Deposits (Other)": row?.sefData?.md?.tDepOth || "-",
+              "If Tumor Deposits present": decode_tDepP_anal(row?.sefData?.md?.tDepP) || "-",
+              "If Tumor Deposits present (Other)": row?.sefData?.md?.tDepPOth || "-",
+              "Additional findings": row?.sefData?.md?.af || "-",
+              ACT: decodeProcedureType(row?.sefData?.md?.act) || "-",
+              "ACT Drug Cycles": row?.sefData?.md?.actdc || "-",
+              "ACT Date of last Cycle": row?.sefData?.md?.actdls || "-",
+              Radiotherapy: decodeProcedureType(row?.sefData?.md?.rd) || "-",
+              "Dosage & Fractions": row?.sefData?.md?.rdd1 || "-",
+              Technique: row?.sefData?.md?.rdd2 || "-",
+              Quadrant: row?.sefData?.md?.rdd3 || "-",
+              "Radiotherapy Date of last Cycle": row?.sefData?.md?.rtdls || "-",
+              "Targeted Therapy": decodeProcedureType(row?.sefData?.md?.trt) || "-",
+              "Targeted Therapy Details": row?.sefData?.md?.trtD || "-",
+              "Is paraffin Block Available ": decodeProcedureType(row?.sefData?.md?.ipba) || "-",
+              "Paraffin Block Number": row?.sefData?.md?.ipbainfo || "-",
+              "Metadata updated by": row?.sefData?.md?.mdu || "-",
+              "MSI IHC": row?.sefData?.cof?.msiIHC || "-",
+              "Other markers": row?.sefData?.cof?.othM || "-",
+              "PET CT SUV Max": row?.sefData?.cof?.pcsm || "-",
+              "PET CT Volume": row?.sefData?.cof?.pcvm || "-",
+              "AN Specific form updated by": row?.sefData?.cof?.cofu || "-",
+              "follow Up Time": formatTimestamp(Math.floor(row?.fwData?.timestamp) / 1000) || "-",
+              "Last Followup status": decodeFollowUpType(row?.fwData?.fwlastTimestamp?.lfs) || "-",
+              "Other reason": row?.fwData?.fwlastTimestamp?.othrs || "-",
+              "Last Follow up Date": row?.fwData?.fwlastTimestamp?.lfd || "-",
+              "Reason For lost to follow up": row?.fwData?.fwlastTimestamp?.rlfw || "-",
+              "Recurrence Date": row?.fwData?.fwlastTimestamp?.rd || "-",
+              "Reported Date for Progressive Disease": row?.fwData?.fwlastTimestamp?.rdpd || "-",
+              "Progression metastasis remark": row?.fwData?.fwlastTimestamp?.pet || "-",
+              "Vital Status": row?.fwData?.fwlastTimestamp?.vs || "-",
+              "Death Date": row?.fwData?.fwlastTimestamp?.dd || "-",
+              Remarks: row?.fwData?.fwlastTimestamp?.rmks || "-",
+              "Treatment Completed": row?.fwData?.fwlastTimestamp?.tc || "-",
+              "followUp updated by": row?.fwData?.fwlastTimestamp?.fw_ub || "-",
+
+              "Shared Form Date - Time": formatTimestamp(row?.osData?.lastKey) || "-",
+              "Shared Date": row?.osData?.oslastTimestamp?.doe || "-",
+              "Shared Grid": row?.oSgrid,
+              "Institute or Department": row?.osData?.oslastTimestamp?.dpt || "-",
+              Project: row?.osData?.oslastTimestamp?.prj || "-",
+              "PI of the Project": row?.osData?.oslastTimestamp?.pip || "-",
+              "Shared status": decodeFollowUpType(row?.osData?.oslastTimestamp?.ossts) || "-",
+              "Partial shared remark": row?.osData?.oslastTimestamp?.psr || "-",
+              "Shared form updated by": row?.osData?.oslastTimestamp?.os_ub || "-",
+            };
+          if (row.sefData.ie.ct === "anal")
+            return {
+              Timestamp: formatTimestamp(row?.timestampKey),
+              Consent: decodeProcedureType(row?.sefData?.ie?.cnst) || "-",
+              "Cancer Type": decodeProcedureType(row?.sefData?.ie?.ct) || "-",
+              "Bio Bank ID": row?.bioBankId,
+              Age: row?.sefData?.ie?.ag || "-",
+              Gender: decodeProcedureType(row?.sefData?.ie?.sx) || "-",
+              "Procedure Types": decodeProcedureType(row?.sefData?.ie?.tpr),
+              "Details of Procedure": row?.sefData?.ie?.dpr || "-",
+              "Surgeon Name": row?.sefData?.ie?.srn || "-",
+              "Event Sample": decodeProcedureType(row?.sefData?.ie?.mts) || "-",
+              "Event Info": decodeProcedureType(row?.sefData?.ie?.es) || "-",
+              "Denovo Event": decodeProcedureType(row?.sefData?.ie?.dm) || "-",
+              "Age at Event": row?.sefData?.ie?.ag_ms || "-",
+              "Multiple Primary Sites": decode_mps_gast(row?.sefData?.ie?.mps) || "-",
+              "Multiple Primary Sites (Present)": row?.sefData?.ie?.mpsOth || "-",
+              Site: decode_site_anal(row?.sefData?.ie?.site) || "-",
+              "Site (Other)": row?.sefData?.ie?.siteOth || "-",
+              "Tissue Sample": decodeProcedureType(row?.sefData?.ie?.ss) || "-",
+              "No of FT Tubes": row?.sefData?.ie?.nft ? (row?.sefData?.ie?.nft.toString() === "0" ? "None" : row?.sefData?.ie?.nft) : "-",
+              "FT Tissue Box Name": row?.ftgGrid && typeof row?.ftgGrid === "string" ? row?.ftgGrid.split("/")[0] : "-",
+              "FT Tube Grids": row?.ftgGrid && typeof row?.ftgGrid === "string" ? row?.ftgGrid.split("/")[1] : "-",
+              "No of FN Tubes": row?.sefData?.ie?.nfn ? (row?.sefData?.ie?.nfn.toString() === "0" ? "None" : row?.sefData?.ie?.nfn) : "-",
+              "FN Tissue Box Name": row?.fngGrid && typeof row?.fngGrid === "string" ? row?.fngGrid.split("/")[0] : "-",
+              "FN Tube Grids": row?.fngGrid && typeof row?.fngGrid === "string" ? row?.fngGrid.split("/")[1] : "-",
+              "Blood Sample": decodeProcedureType(row?.sefData?.ie?.bs) || "-",
+              "Blood box name(Serum)": row?.serumGrid && typeof row?.serumGrid === "string" ? row?.serumGrid.split("/")[0] : "-",
+              "Serum Grid": row?.serumGrid && typeof row?.serumGrid === "string" ? row?.serumGrid.split("/")[1] : "-",
+              "Blood box name(Plasma)": row?.plasmaGrid && typeof row?.plasmaGrid === "string" ? row?.plasmaGrid.split("/")[0] : "-",
+              "Plasma Grid": row?.plasmaGrid && typeof row?.plasmaGrid === "string" ? row?.plasmaGrid.split("/")[1] : "-",
+              "Blood box name(Buffy coat)": row?.buffyCoatGrid && typeof row?.buffyCoatGrid === "string" ? row?.buffyCoatGrid.split("/")[0] : "-",
+              "Buffy Coat Grid": row?.buffyCoatGrid && typeof row?.buffyCoatGrid === "string" ? row?.buffyCoatGrid.split("/")[1] : "-",
+              "Other Sample": decodeProcedureType(row?.sefData?.ie?.osmp) || "-",
+              "Other Sample box name": row?.otherGrid && typeof row?.otherGrid === "string" ? row?.otherGrid.split("/")[0] : "-",
+              "Other Sample Grid": row?.otherGrid && typeof row?.otherGrid === "string" ? row?.otherGrid.split("/")[1] : "-",
+              "Other Sample description": row?.sefData?.ie?.osdsc || "-",
+              "RLT Sample": decodeProcedureType(row?.sefData?.ie?.rltS) || "-",
+              "RLT Sample Box name": row?.rltGrid && typeof row?.rltGrid === "string" ? row?.rltGrid.split("/")[0] : "-",
+              "RLT Sample Grid": row?.rltGrid && typeof row?.rltGrid === "string" ? row?.rltGrid.split("/")[1] : "-",
+              "Primary Culture Sample": decodeProcedureType(row?.sefData?.ie?.pcS) || "-",
+              "Is Primary Culture Viable": row?.sefData?.ie?.pssvl || "-",
+              "Primary Culture Sample Box name": row?.pcGrid && typeof row?.pcGrid === "string" ? row?.pcGrid.split("/")[0] : "-",
+              "Primary Culture Sample Grids": row?.pcGrid && typeof row?.pcGrid === "string" ? row?.pcGrid.split("/")[1] : "-",
+              "Ischemic Sample": decodeProcedureType(row?.sefData?.ie?.iss) || "-",
+              NACT: decodeProcedureType(row?.sefData?.ie?.nact) || "-",
+              "Treatment effect": decode_natEff_gast(row?.sefData?.ie?.nactEff) || "-",
+              "Treatment effect (Other)": decode_natEff_gast(row?.sefData?.ie?.nactEffOth) || "-",
+              "NACT Drug Cycles": row?.sefData?.ie?.nactdc || "-",
+              "NACT date of last cycle": row?.sefData?.ie?.nactdlc || "-",
+              "All sample Received together?": decodeProcedureType(row?.sefData?.ie?.scpt) || "-",
+              "Processed By": row?.sefData?.ie?.prb || "-",
+              "Received Time": formatTimestamp(row?.sefData?.ie?.srt) || "-",
+              "Processed Time": formatTimestamp(row?.sefData?.ie?.spt) || "-",
+              "Blood Sample Processed By": row?.sefData?.ie?.bspb || "-",
+              "Blood Sample Received Time": formatTimestamp(row?.sefData?.ie?.brt) || "-",
+              "Blood Sample Processed Time": formatTimestamp(row?.sefData?.ie?.bpt) || "-",
+              "Tissue Sample Processed by": row?.sefData?.ie?.sspb || "-",
+              "Tissue Sample Received Time": formatTimestamp(row?.sefData?.ie?.sprt) || "-",
+              "Tissue Sample Processed Time": formatTimestamp(row?.sefData?.ie?.sppt) || "-",
+              "Other Sample Processed by": row?.sefData?.ie?.ospb || "-",
+              "Other Sample Received Time": formatTimestamp(row?.sefData?.ie?.osrt) || "-",
+              "Other Sample Processed Time": formatTimestamp(row?.sefData?.ie?.ospt) || "-",
+              "RLT Sample processed by": row?.sefData?.ie?.rltpb || "-",
+              "RLT Sample Received Time": formatTimestamp(row?.sefData?.ie?.rsrt) || "-",
+              "RLT Sample processed Time": formatTimestamp(row?.sefData?.ie?.rspt) || "-",
+              "Primary Culture Sample processed by": row?.sefData?.ie?.psspb || "-",
+              "Primary Culture Sample Received Time": formatTimestamp(row?.sefData?.ie?.psrt) || "-",
+              "Primary Culture Sample processed Time": formatTimestamp(row?.sefData?.ie?.pspt) || "-",
+              "Data Entry By": row?.sefData?.ie?.sef_ub || "-",
+              "Family History Cancer": decodeProcedureType(row?.sefData?.md?.fhc),
+              "Family Relation": row?.sefData?.md?.fhcr || "-",
+              "Family Cancer Type": row?.sefData?.md?.fhct || "-",
+              "Food Habbits": row?.sefData?.md?.fh === "true" ? "Veg" : row?.sefData?.md?.fh === "false" ? "Non Veg" : "-",
+              "History Of Alcohol Consumption": decodeProcedureType(row?.sefData?.md?.hac) || "-",
+              "History Of Smoking": decodeProcedureType(row?.sefData?.md?.hs) || "-",
+              "Existing Comorbidities": decodeProcedureType(row?.sefData?.md?.ec) || "-",
+              "Type 2 Diabetic Mellitus": findComorb("diabetic", row?.sefData?.md?.cm),
+              "Cardiac History": findComorb("cardiac", row?.sefData?.md?.cm),
+              Hypertension: findComorb("hypertension", row?.sefData?.md?.cm),
+              "Other Comorbidities": findComorb("other1", row?.sefData?.md?.cm),
+              "Other medications": findComorb("other2", row?.sefData?.md?.cm),
+              "FF QC comments": row?.sefData?.md?.ffqc || "-",
+              "FF Tissue Remarks": row?.sefData?.md?.ftr || "-",
+              "Tumor Site": decode_tst_anal(row?.sefData?.md?.tst) || "-",
+              "Tumor Site (Other)": row?.sefData?.md?.tstOth || "-",
+              "Tumor Percentage": row?.sefData?.md?.tp || "-",
+              "Age At Diagnosis": row?.sefData?.md?.ad || "-",
+              "Clinical Stage ": row?.sefData?.md?.cs || "-",
+              "IHC Marker status": decodeProcedureType(row?.sefData?.md?.ihcm) || "-",
+              "IHC marker description": row?.sefData?.md?.ihcd || "-",
+              "Genetic Testing": decodeProcedureType(row?.sefData?.md?.gt) || "-",
+              "Genetic Testing Results": decodeProcedureType(row?.sefData?.md?.gtr) || "-",
+              "Genetic Testing Description": row?.sefData?.md?.gtd || "-",
+              "Macroscopic Evaluation of Mesorectum": decode_mem_anal(row?.sefData?.md?.mem) || "-",
+              "Macroscopic Evaluation of Mesorectum (Other)": row?.sefData?.md?.memoth || "-",
+              "Tumor Extent Colorectal": decode_tec_anal(row?.sefData?.md?.tec) || "-",
+              "Tumor Extent Colorectal (Other)": row?.sefData?.md?.tecOth || "-",
+              "Tumor Extent Anal": decode_tea_anal(row?.sefData?.md?.tea) || "-",
+              "Tumor Extent Anal (Other)": row?.sefData?.md?.teaOth || "-",
+              "Sub-mucosal Invasion": decode_submI_anal(row?.sefData?.md?.submI) || "-",
+              "Depth of Sub-mucosal Invasion": row?.sefData?.md?.dSubI || "-",
+              "Extent of Sub-mucosal Invasion": row?.sefData?.md?.eSubI || "-",
+              "Macroscopic Tumor Perforation": decode_mTP_anal(row?.sefData?.md?.mTP) || "-",
+              "Macroscopic Tumor Perforation (Other)": row?.sefData?.md?.mTPOth || "-",
+              "Histological Subtype": pst_anal(row?.sefData?.md?.pst) || "-",
+              "Other Subtype": row?.sefData?.md?.pstOt || "-",
+              Grade: decodeGrade_anal(row?.sefData?.md?.gd) || "-",
+              "Grade (Other)": row?.sefData?.md?.gdOth || "-",
+              "Tumor Extent Colorectal ": decode_tec1_anal(row?.sefData?.md?.tec1) || "-",
+              "Tumor Extent Colorectal (Other) ": row?.sefData?.md?.tec1Oth || "-",
+              "Sub-mucosal Invasion ": decode_submI1_anal(row?.sefData?.md?.submI1) || "-",
+              "Depth of Sub-mucosal Invasion ": decode_dSubMI_anal(row?.sefData?.md?.dSubMI) || "-",
+              "Depth of Sub-mucosal Invasion (Other)": row?.sefData?.md?.dSubMIOth || "-",
+              "Extent of Sub-mucosal Invasion (Note E)": decode_eSubI_anal(row?.sefData?.md?.eSubI) || "-",
+              "Extent of Sub-mucosal Invasion (Note E) (Other)": row?.sefData?.md?.eSubIOth || "-",
+              "LVI For colon only": decode_lviColon(row?.sefData?.md?.lviColo) || "-",
+              "LVI For colon only (Other)": row?.sefData?.md?.lviColoOth || "-",
+              "LVI for anal": decode_lvi_pni_anal(row?.sefData?.md?.lvi) || "-",
+              "LVI for anal (Other)": row?.sefData?.md?.lviOth || "-",
+              PNI: decode_lvi_pni_anal(row?.sefData?.md?.pni) || "-",
+              "PNI (Other)": row?.sefData?.md?.pniOth || "-",
+              "Tumor Budding Score": decode_tBS_anal(row?.sefData?.md?.tBS) || "-",
+              "Tumor Budding Score (Other)": row?.sefData?.md?.tBSOth || "-",
+              "Type of Polyp in which Invasive Carcinoma Arose": decode_typICA_anal(row?.OthsefData?.md?.typICA) || "-",
+              "Type of Polyp in which Invasive Carcinoma Arose (Other)": row?.OthsefData?.md?.typICAOth || "-",
+              "Specimen Margin Status for Invasive Tumor": decode_sMStsIT_anal(row?.sefData?.md?.sMStsIT) || "-",
+              "Specimen Margin Status for Invasive Tumor (Other)": row?.sefData?.md?.sMStsITOth || "-",
+              "Closest Margin(s) to Invasive Carcinoma": decode_cMIC_anal(row?.sefData?.md?.cMIC) || "-",
+              "Closest Margin(s) to Invasive Carcinoma (Other)": row?.sefData?.md?.cMICOth || "-",
+              "Distance from Invasive Tumor to Closest Specimen Margin": decode_dITCSM_anal(row?.OthsefData?.md?.dITCSM) || "-",
+              "Distance from Invasive Tumor to Closest Specimen Margin (Other)": row?.OthsefData?.md?.dITCSMOth || "-",
+              "Specimen Margin(s) Involved by Invasive Tumor": decode_sMSIT_anal(row?.sefData?.md?.sMSIT) || "-",
+              "Specimen Margin(s) Involved by Invasive Tumor (Other)": row?.sefData?.md?.sMSITOth || "-",
+              "Margin Status for Non-Invasive Tumor": decode_mststNIT_anal(row?.sefData?.md?.mststNIT) || "-",
+              "Margin Status for Non-Invasive Tumor (Other)": row?.sefData?.md?.mststNITOth || "-",
+              "Specimen Margin Status for Invasive Tumor": decode_smstsN_anal(row?.sefData?.md?.smstsN) || "-",
+              "Closest Margin(s) to Invasive Carcinoma": decode_cMIC1_anal(row?.sefData?.md?.cMIC1) || "-",
+              "Closest Margin(s) to Invasive Carcinoma (Other)": row?.sefData?.md?.cMIC1Oth || "-",
+              "Distance from Invasive Tumor to Closest Specimen Margin": decode_dITCSM1_anal(row?.OthsefData?.md?.dITCSM1) || "-",
+              "Distance from Invasive Tumor to Closest Specimen Margin (Other)": row?.OthsefData?.md?.dITCSM1Oth || "-",
+              "Specimen Margin(s) Involved by Invasive Tumor": decode_sMIIT_anal(row?.sefData?.md?.sMIIT) || "-",
+              "Specimen Margin(s) Involved by Invasive Tumor (Other)": row?.sefData?.md?.sMIITOth || "-",
+              "Margin Status for High-Grade Intraepithelial Neoplasia": decode_mstsHGTN_anal(row?.OthsefData?.md?.mstsHGTN) || "-",
+              "Margin Status for High-Grade Intraepithelial Neoplasia (Other)": row?.OthsefData?.md?.mstsHGTNOth || "-",
+              "High-grade intraepithelial neoplasia present at margin": decode_hGINPM_anal(row?.OthsefData?.md?.hGINPM) || "-",
+              "High-grade intraepithelial neoplasia present at margin (Other)": row?.OthsefData?.md?.hGINPMOth || "-",
+              pTNM: row?.OthsefData?.md?.ptnm || "-",
+              "Regional Lymph Node Status": rlnS_hene(row?.sefData?.md?.rlnsts) || "-",
+              "Number Of Nodes Tested": row?.sefData?.md?.nnt || "-",
+              "Number Of Positive Nodes": row?.sefData?.md?.npn || "-",
+              "Tumor Size": row?.sefData?.md?.tsz === "xx" || row?.sefData?.md?.tsz === undefined ? "-" : row?.sefData?.md?.tsz,
+              "Tumor Deposits": decode_tDep_anal(row?.sefData?.md?.tDep) || "-",
+              "Tumor Deposits (Other)": row?.sefData?.md?.tDepOth || "-",
+              "If Tumor Deposits present": decode_tDepP_anal(row?.sefData?.md?.tDepP) || "-",
+              "If Tumor Deposits present (Other)": row?.sefData?.md?.tDepPOth || "-",
+              "Additional findings": row?.sefData?.md?.af || "-",
+              ACT: decodeProcedureType(row?.sefData?.md?.act) || "-",
+              "ACT Drug Cycles": row?.sefData?.md?.actdc || "-",
+              "ACT Date of last Cycle": row?.sefData?.md?.actdls || "-",
+              Radiotherapy: decodeProcedureType(row?.sefData?.md?.rd) || "-",
+              "Dosage & Fractions": row?.sefData?.md?.rdd1 || "-",
+              Technique: row?.sefData?.md?.rdd2 || "-",
+              Quadrant: row?.sefData?.md?.rdd3 || "-",
+              "Radiotherapy Date of last Cycle": row?.sefData?.md?.rtdls || "-",
+              "Targeted Therapy": decodeProcedureType(row?.sefData?.md?.trt) || "-",
+              "Targeted Therapy Details": row?.sefData?.md?.trtD || "-",
+              "Is paraffin Block Available ": decodeProcedureType(row?.sefData?.md?.ipba) || "-",
+              "Paraffin Block Number": row?.sefData?.md?.ipbainfo || "-",
+              "Metadata updated by": row?.sefData?.md?.mdu || "-",
+              "MSI IHC": row?.sefData?.anf?.msiIHC || "-",
+              "Other markers": row?.sefData?.anf?.othM || "-",
+              "PET CT SUV Max": row?.sefData?.anf?.pcsm || "-",
+              "PET CT Volume": row?.sefData?.anf?.pcvm || "-",
+              "AN Specific form updated by": row?.sefData?.anf?.anfu || "-",
+              "follow Up Time": formatTimestamp(Math.floor(row?.fwData?.timestamp) / 1000) || "-",
+              "Last Followup status": decodeFollowUpType(row?.fwData?.fwlastTimestamp?.lfs) || "-",
+              "Other reason": row?.fwData?.fwlastTimestamp?.othrs || "-",
+              "Last Follow up Date": row?.fwData?.fwlastTimestamp?.lfd || "-",
+              "Reason For lost to follow up": row?.fwData?.fwlastTimestamp?.rlfw || "-",
+              "Recurrence Date": row?.fwData?.fwlastTimestamp?.rd || "-",
+              "Reported Date for Progressive Disease": row?.fwData?.fwlastTimestamp?.rdpd || "-",
+              "Progression metastasis remark": row?.fwData?.fwlastTimestamp?.pet || "-",
+              "Vital Status": row?.fwData?.fwlastTimestamp?.vs || "-",
+              "Death Date": row?.fwData?.fwlastTimestamp?.dd || "-",
+              Remarks: row?.fwData?.fwlastTimestamp?.rmks || "-",
+              "Treatment Completed": row?.fwData?.fwlastTimestamp?.tc || "-",
+              "followUp updated by": row?.fwData?.fwlastTimestamp?.fw_ub || "-",
+
+              "Shared Form Date - Time": formatTimestamp(row?.osData?.lastKey) || "-",
+              "Shared Date": row?.osData?.oslastTimestamp?.doe || "-",
+              "Shared Grid": row?.oSgrid,
+              "Institute or Department": row?.osData?.oslastTimestamp?.dpt || "-",
+              Project: row?.osData?.oslastTimestamp?.prj || "-",
+              "PI of the Project": row?.osData?.oslastTimestamp?.pip || "-",
+              "Shared status": decodeFollowUpType(row?.osData?.oslastTimestamp?.ossts) || "-",
+              "Partial shared remark": row?.osData?.oslastTimestamp?.psr || "-",
+              "Shared form updated by": row?.osData?.oslastTimestamp?.os_ub || "-",
+            };
+
           if (row.sefData.ie.ct === "brst")
             return {
               Timestamp: formatTimestamp(row?.timestampKey),
@@ -5763,6 +8150,7 @@
               "Partial shared remark": row?.osData?.oslastTimestamp?.psr || "-",
               "Shared form updated by": row?.osData?.oslastTimestamp?.os_ub || "-",
             };
+
           if (row.sefData.ie.ct === "lung")
             return {
               Timestamp: formatTimestamp(row?.timestampKey),
@@ -6170,7 +8558,6 @@
               "Partial shared remark": row?.osData?.oslastTimestamp?.psr || "-",
               "Shared form updated by": row?.osData?.oslastTimestamp?.os_ub || "-",
             };
-
           if (row.sefData.ie.ct === "ceix")
             return {
               Timestamp: formatTimestamp(row?.timestampKey),
