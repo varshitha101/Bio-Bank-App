@@ -268,6 +268,9 @@ function populateBBLabels(activeCancerType, data, boxVal) {
           newLabelElement.style.background = "rgb(129, 129, 192)";
           const matchedData = [];
           newLabelElement.addEventListener("click", async function () {
+            localStorage.removeItem("BioVal");
+            localStorage.removeItem("bioBankId");
+            localStorage.removeItem("bioid");
             const bioBankId = bioBankIds[index];
             const sampleType = sample[index];
 
@@ -370,6 +373,9 @@ function populateBBLabels(activeCancerType, data, boxVal) {
           const matchedData = [];
 
           newLabelElement.addEventListener("click", async function () {
+            localStorage.removeItem("BioVal");
+            localStorage.removeItem("bioBankId");
+            localStorage.removeItem("bioid");
             const bioBankId = bioBankIds[index];
             const sampleType = sample[index];
 
@@ -475,6 +481,9 @@ function populateBBLabels(activeCancerType, data, boxVal) {
           const matchedData = [];
 
           newLabelElement.addEventListener("click", async function () {
+            localStorage.removeItem("BioVal");
+            localStorage.removeItem("bioBankId");
+            localStorage.removeItem("bioid");
             const bioBankId = bioBankIds[index];
             const sampleType = sample[index];
 
@@ -789,6 +798,9 @@ function populateSBLabels(activeCancerType, data) {
           newLabelElement.style.background = "rgb(129, 129, 192)";
           const matchedData = [];
           newLabelElement.addEventListener("click", async function () {
+            localStorage.removeItem("BioVal");
+            localStorage.removeItem("bioBankId");
+            localStorage.removeItem("bioid");
             const bioBankId = bioBankIds[index];
             const sampleType = sample[index];
 
@@ -858,6 +870,9 @@ function populateSBLabels(activeCancerType, data) {
           const matchedData = [];
 
           newLabelElement.addEventListener("click", async function () {
+            localStorage.removeItem("BioVal");
+            localStorage.removeItem("bioBankId");
+            localStorage.removeItem("bioid");
             const bioBankId = bioBankIds[index];
             const sampleType = sample[index];
 
@@ -930,6 +945,9 @@ function populateSBLabels(activeCancerType, data) {
           const matchedData = [];
 
           newLabelElement.addEventListener("click", async function () {
+            localStorage.removeItem("BioVal");
+            localStorage.removeItem("bioBankId");
+            localStorage.removeItem("bioid");
             const bioBankId = bioBankIds[index];
             const sampleType = sample[index];
 
@@ -1143,6 +1161,9 @@ function populateRLTLabels(activeCancerType, data, boxVal) {
           newLabelElement.style.background = "rgb(129, 129, 192)";
           const matchedData = [];
           newLabelElement.addEventListener("click", async function () {
+            localStorage.removeItem("BioVal");
+            localStorage.removeItem("bioBankId");
+            localStorage.removeItem("bioid");
             const bioBankId = bioBankIds[index];
             const sampleType = sample[index];
 
@@ -1196,6 +1217,9 @@ function populateRLTLabels(activeCancerType, data, boxVal) {
           const matchedData = [];
 
           newLabelElement.addEventListener("click", async function () {
+            localStorage.removeItem("BioVal");
+            localStorage.removeItem("bioBankId");
+            localStorage.removeItem("bioid");
             const bioBankId = bioBankIds[index];
             const sampleType = sample[index];
 
@@ -1251,6 +1275,9 @@ function populateRLTLabels(activeCancerType, data, boxVal) {
           newLabelElement.style.background = "rgb(193, 154, 107)";
           const matchedData = [];
           newLabelElement.addEventListener("click", async function () {
+            localStorage.removeItem("BioVal");
+            localStorage.removeItem("bioBankId");
+            localStorage.removeItem("bioid");
             const bioBankId = bioBankIds[index];
             const sampleType = sample[index];
 
@@ -1448,6 +1475,9 @@ function populatePCBLabels(activeCancerType, data, boxVal) {
           newLabelElement.style.background = "rgb(129, 129, 192)";
           const matchedData = [];
           newLabelElement.addEventListener("click", async function () {
+            localStorage.removeItem("BioVal");
+            localStorage.removeItem("bioBankId");
+            localStorage.removeItem("bioid");
             const bioBankId = bioBankIds[index];
             const sampleType = sample[index];
 
@@ -1500,6 +1530,9 @@ function populatePCBLabels(activeCancerType, data, boxVal) {
           newLabelElement.style.background = "rgb(180, 180, 180)";
           const matchedData = [];
           newLabelElement.addEventListener("click", async function () {
+            localStorage.removeItem("BioVal");
+            localStorage.removeItem("bioBankId");
+            localStorage.removeItem("bioid");
             const bioBankId = bioBankIds[index];
             const sampleType = sample[index];
 
@@ -1555,6 +1588,9 @@ function populatePCBLabels(activeCancerType, data, boxVal) {
           newLabelElement.style.background = "rgb(193, 154, 107)";
           const matchedData = [];
           newLabelElement.addEventListener("click", async function () {
+            localStorage.removeItem("BioVal");
+            localStorage.removeItem("bioBankId");
+            localStorage.removeItem("bioid");
             const bioBankId = bioBankIds[index];
             const sampleType = sample[index];
 

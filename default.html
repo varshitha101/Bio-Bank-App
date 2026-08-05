@@ -33109,6 +33109,9 @@
           } else {
             redirectAfterSampleEntry(mode);
           }
+          localStorage.removeItem("BioVal");
+          localStorage.removeItem("bioBankId");
+          localStorage.removeItem("bioid");
         } catch (err) {
           console.error("Error in cancelFunc: ", err);
         }
