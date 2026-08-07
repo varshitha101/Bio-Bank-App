@@ -380,3 +380,10 @@ Following features and changes have been incorporates:
 - Removed Unused Images, Files, and Scripts from the project to reduce the size of the repository.
 
 <hr>
+
+### Version 1.9.1
+
+- Resolved an issue related to the "Sub-mucosal Invasion" question in the Anal and Colorectal Cancer form.
+- Question are made specific to the selected cancer type in the Sample Entry form.
+
+<hr>

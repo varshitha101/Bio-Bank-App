@@ -3424,8 +3424,8 @@ function validateForm1() {
               ag_ms: document.getElementById("mpt_age_anal").value || "",
               mps: document.querySelector('input[name="mps_anal"]:checked')?.value || "",
               mpsOth: document.getElementById("mps_op2_Oth_anal").value || "",
-              site: document.getElementById("mpt_site_anal").value || "",
-              siteOth: document.getElementById("mpt_site_Oth_anal").value || "",
+              // site: document.getElementById("mpt_site_anal").value || "",
+              // siteOth: document.getElementById("mpt_site_Oth_anal").value || "",
               ss: document.querySelector('input[name="specimenSample_anal"]:checked').value,
               nft: document.getElementById("ft_tubes_anal").value,
               ftg: ftSgrid,
@@ -3550,8 +3550,8 @@ function validateForm1() {
               ag_ms: document.getElementById("mpt_age_colo").value || "",
               mps: document.querySelector('input[name="mps_colo"]:checked')?.value || "",
               mpsOth: document.getElementById("mps_op2_Oth_colo").value || "",
-              site: document.getElementById("mpt_site_colo").value || "",
-              siteOth: document.getElementById("mpt_site_Oth_colo").value || "",
+              // site: document.getElementById("mpt_site_colo").value || "",
+              // siteOth: document.getElementById("mpt_site_Oth_colo").value || "",
               ss: document.querySelector('input[name="specimenSample_colo"]:checked').value,
               nft: document.getElementById("ft_tubes_colo").value,
               ftg: ftSgrid,
@@ -3675,8 +3675,8 @@ function validateForm1() {
               mspt: proType,
               dm: document.querySelector('input[name="denovo_esph"]:checked')?.value || "",
               ag_ms: document.getElementById("mpt_age_esph").value || "",
-              site: document.getElementById("mpt_site_esph").value || "",
-              siteOth: document.getElementById("mpt_site_Oth_esph").value || "",
+              // site: document.getElementById("mpt_site_esph").value || "",
+              // siteOth: document.getElementById("mpt_site_Oth_esph").value || "",
               relT: document.getElementById("relT_esph").value || "",
               relTOth: document.getElementById("relT_Oth_esph").value || "",
               disT: document.getElementById("disT_esph").value || "",
@@ -3802,8 +3802,8 @@ function validateForm1() {
               mspt: proType,
               dm: document.querySelector('input[name="denovo_gast"]:checked')?.value || "",
               ag_ms: document.getElementById("mpt_age_gast").value || "",
-              site: document.getElementById("mpt_site_gast").value || "",
-              siteOth: document.getElementById("mpt_site_Oth_gast").value || "",
+              // site: document.getElementById("mpt_site_gast").value || "",
+              // siteOth: document.getElementById("mpt_site_Oth_gast").value || "",
               relT: document.getElementById("relT_gast").value || "",
               relTOth: document.getElementById("relT_Oth_gast").value || "",
               disT: document.getElementById("disT_gast").value || "",
@@ -5025,8 +5025,8 @@ function validateForm2() {
         pst: document.getElementById("subType_gast").value || "",
         gd: document.getElementById("sampleGrade_gast")?.value || "",
         gdOth: document.getElementById("sampleGrade_Oth_gast")?.value || "",
-        tEESPH: document.getElementById("tEESPH_gast")?.value || "",
-        tEESPHOth: document.getElementById("tEESPH_Oth_gast")?.value || "",
+        // tEESPH: document.getElementById("tEESPH_gast")?.value || "",
+        // tEESPHOth: document.getElementById("tEESPH_Oth_gast")?.value || "",
         tEEGAS: document.getElementById("tEEGAS_gast")?.value || "",
         tEEGASOth: document.getElementById("tEEGAS_Oth_gast")?.value || "",
 
@@ -5154,8 +5154,8 @@ function validateForm2() {
         memOth: document.getElementById("mem_Oth_colo")?.value || "",
         tec: document.getElementById("tec_colo")?.value || "",
         tecOth: document.getElementById("tec_Oth_colo")?.value || "",
-        tea: document.getElementById("tea_colo")?.value || "",
-        teaOth: document.getElementById("tea_Oth_colo")?.value || "",
+        // tea: document.getElementById("tea_colo")?.value || "",
+        // teaOth: document.getElementById("tea_Oth_colo")?.value || "",
         submI: document.getElementById("submI_colo")?.value || "",
         dSubI: document.getElementById("dSubI_colo")?.value || "",
         eSubI: document.getElementById("eSubI_colo")?.value || "",
@@ -5165,8 +5165,8 @@ function validateForm2() {
         pstOt: document.getElementById("pstOt_colo").value || "",
         gd: document.getElementById("sampleGrade_colo")?.value || "",
         gdOth: document.getElementById("sampleGrade_Oth_colo")?.value || "",
-        tec1: document.getElementById("tec1_colo")?.value || "",
-        tec1Oth: document.getElementById("tec1_Oth_colo")?.value || "",
+        // tec1: document.getElementById("tec1_colo")?.value || "",
+        // tec1Oth: document.getElementById("tec1_Oth_colo")?.value || "",
         submI1: document.getElementById("submI1_colo")?.value || "",
         dSubMI: document.querySelector('input[name="dSubMI_colo"]:checked')?.value || "",
         dSubMIOth: document.querySelector('input[name="dSubMI_colo"]:checked')?.value
@@ -5180,8 +5180,8 @@ function validateForm2() {
         eSubMIEOth: document.getElementById("eSubMI_op4_text_colo")?.value || "",
         lviColo: document.getElementById("lviColon_colo")?.value || "",
         lviColoOth: document.getElementById("lviColon_Oth_colo")?.value || "",
-        lvi: document.querySelector('input[name="LVI_colo"]:checked')?.value || "",
-        lviOth: document.querySelector('input[name="LVI_colo"]:checked')?.value ? (document.querySelector('input[name="LVI_colo"]:checked')?.value === "op3" ? document.getElementById("lviCannot_Oth_colo")?.value || "" : "") : "",
+        // lvi: document.querySelector('input[name="LVI_colo"]:checked')?.value || "",
+        // lviOth: document.querySelector('input[name="LVI_colo"]:checked')?.value ? (document.querySelector('input[name="LVI_colo"]:checked')?.value === "op3" ? document.getElementById("lviCannot_Oth_colo")?.value || "" : "") : "",
         pni: document.querySelector('input[name="PNI_colo"]:checked')?.value || "",
         pniOth: document.querySelector('input[name="PNI_colo"]:checked')?.value ? (document.querySelector('input[name="PNI_colo"]:checked')?.value === "op3" ? document.getElementById("PNICannot_Oth_colo")?.value || "" : "") : "",
         tBS: document.getElementById("tBS_colo")?.value || "",
@@ -5319,8 +5319,8 @@ function validateForm2() {
         gtd: document.getElementById("GT_Description_anal")?.value || "",
         mem: document.getElementById("mem_anal")?.value || "",
         memOth: document.getElementById("mem_Oth_anal")?.value || "",
-        tec: document.getElementById("tec_anal")?.value || "",
-        tecOth: document.getElementById("tec_Oth_anal")?.value || "",
+        // tec: document.getElementById("tec_anal")?.value || "",
+        // tecOth: document.getElementById("tec_Oth_anal")?.value || "",
         tea: document.getElementById("tea_anal")?.value || "",
         teaOth: document.getElementById("tea_Oth_anal")?.value || "",
         submI: document.getElementById("submI_anal")?.value || "",
@@ -5332,8 +5332,8 @@ function validateForm2() {
         pstOt: document.getElementById("pstOt_anal").value || "",
         gd: document.getElementById("sampleGrade_anal")?.value || "",
         gdOth: document.getElementById("sampleGrade_Oth_anal")?.value || "",
-        tec1: document.getElementById("tec1_anal")?.value || "",
-        tec1Oth: document.getElementById("tec1_Oth_anal")?.value || "",
+        // tec1: document.getElementById("tec1_anal")?.value || "",
+        // tec1Oth: document.getElementById("tec1_Oth_anal")?.value || "",
         submI1: document.getElementById("submI1_anal")?.value || "",
         dSubMI: document.querySelector('input[name="dSubMI_anal"]:checked')?.value || "",
         dSubMIOth: document.querySelector('input[name="dSubMI_anal"]:checked')?.value
@@ -5345,8 +5345,8 @@ function validateForm2() {
           : "",
         eSubMIE: document.getElementById("eSubMIE_anal")?.value || "",
         eSubMIEOth: document.getElementById("eSubMI_op4_text_anal")?.value || "",
-        lviColo: document.getElementById("lviColon_anal")?.value || "",
-        lviColoOth: document.getElementById("lviColon_Oth_anal")?.value || "",
+        // lviColo: document.getElementById("lviColon_anal")?.value || "",
+        // lviColoOth: document.getElementById("lviColon_Oth_anal")?.value || "",
         lvi: document.querySelector('input[name="LVI_anal"]:checked')?.value || "",
         lviOth: document.querySelector('input[name="LVI_anal"]:checked')?.value ? (document.querySelector('input[name="LVI_anal"]:checked')?.value === "op3" ? document.getElementById("lviCannot_Oth_anal")?.value || "" : "") : "",
         pni: document.querySelector('input[name="PNI_anal"]:checked')?.value || "",
@@ -5494,8 +5494,8 @@ function validateForm2() {
         gdOth: document.getElementById("sampleGrade_Oth_esph")?.value || "",
         tEESPH: document.getElementById("tEESPH_esph")?.value || "",
         tEESPHOth: document.getElementById("tEESPH_Oth_esph")?.value || "",
-        tEEGAS: document.getElementById("tEEGAS_esph")?.value || "",
-        tEEGASOth: document.getElementById("tEEGAS_Oth_esph")?.value || "",
+        // tEEGAS: document.getElementById("tEEGAS_esph")?.value || "",
+        // tEEGASOth: document.getElementById("tEEGAS_Oth_esph")?.value || "",
 
         lvi: document.querySelector('input[name="LVI_esph"]:checked')?.value || "",
         lviOth: document.querySelector('input[name="LVI_esph"]:checked')?.value ? (document.querySelector('input[name="LVI_esph"]:checked')?.value === "op3" ? document.getElementById("lviCannot_Oth_esph")?.value || "" : "") : "",
@@ -6483,8 +6483,8 @@ async function fillIeForm_gast(ieData) {
   document.getElementById("eventSelection_gast").value = ieData.es;
   if (ieData.dm) document.querySelector(`input[name="denovo_gast"][value="${ieData.dm}"]`).checked = true || "";
   document.getElementById("mpt_age_gast").value = ieData.ag_ms || "";
-  document.getElementById("mpt_site_gast").value = ieData.site || "";
-  document.getElementById("mpt_site_Oth_gast").value = ieData.siteOth || "";
+  // document.getElementById("mpt_site_gast").value = ieData.site || "";
+  // document.getElementById("mpt_site_Oth_gast").value = ieData.siteOth || "";
   document.getElementById("relT_gast").value = ieData.relT || "";
   document.getElementById("relT_Oth_gast").value = ieData.relTOth || "";
   document.getElementById("disT_gast").value = ieData.disT || "";
@@ -6666,8 +6666,8 @@ async function fillIeForm_esph(ieData) {
   document.getElementById("eventSelection_esph").value = ieData.es;
   if (ieData.dm) document.querySelector(`input[name="denovo_esph"][value="${ieData.dm}"]`).checked = true || "";
   document.getElementById("mpt_age_esph").value = ieData.ag_ms || "";
-  document.getElementById("mpt_site_esph").value = ieData.site || "";
-  document.getElementById("mpt_site_Oth_esph").value = ieData.siteOth || "";
+  // document.getElementById("mpt_site_esph").value = ieData.site || "";
+  // document.getElementById("mpt_site_Oth_esph").value = ieData.siteOth || "";
   document.getElementById("relT_esph").value = ieData.relT || "";
   document.getElementById("relT_Oth_esph").value = ieData.relTOth || "";
   document.getElementById("disT_esph").value = ieData.disT || "";
@@ -6850,8 +6850,8 @@ async function fillIeForm_anal(ieData) {
   document.getElementById("eventSelection_anal").value = ieData.es;
   if (ieData.dm) document.querySelector(`input[name="denovo_anal"][value="${ieData.dm}"]`).checked = true || "";
   document.getElementById("mpt_age_anal").value = ieData.ag_ms || "";
-  document.getElementById("mpt_site_anal").value = ieData.site || "";
-  document.getElementById("mpt_site_Oth_anal").value = ieData.siteOth || "";
+  // document.getElementById("mpt_site_anal").value = ieData.site || "";
+  // document.getElementById("mpt_site_Oth_anal").value = ieData.siteOth || "";
 
   if (ieData.mps) document.querySelector(`input[name="mps_anal"][value="${ieData.mps}"]`).checked = true || "";
   document.getElementById("mps_op2_Oth_anal").value = ieData.mpsOth || "";
@@ -6912,6 +6912,7 @@ async function fillIeForm_anal(ieData) {
   if (ieData.nact) document.querySelector(`input[name="NACT_anal"][value="${ieData.nact}"]`).checked = true || "";
   NactYes_anal();
   document.getElementById("nactEff_anal").value = ieData.nactEff || "";
+  toggleNACTEff_anal();
   document.getElementById("nactEff_Oth_anal").value = ieData.nactEffOth || "";
   document.getElementById("NACT_cycle_anal").value = ieData.nactdc || "";
   document.getElementById("NACT_cycle_D_anal").value = ieData.nactdlc || "";
@@ -7033,8 +7034,8 @@ async function fillIeForm_colo(ieData) {
   document.getElementById("eventSelection_colo").value = ieData.es;
   if (ieData.dm) document.querySelector(`input[name="denovo_colo"][value="${ieData.dm}"]`).checked = true || "";
   document.getElementById("mpt_age_colo").value = ieData.ag_ms || "";
-  document.getElementById("mpt_site_colo").value = ieData.site || "";
-  document.getElementById("mpt_site_Oth_colo").value = ieData.siteOth || "";
+  // document.getElementById("mpt_site_colo").value = ieData.site || "";
+  // document.getElementById("mpt_site_Oth_colo").value = ieData.siteOth || "";
   if (ieData.mps) document.querySelector(`input[name="mps_colo"][value="${ieData.mps}"]`).checked = true || "";
   document.getElementById("mps_op2_Oth_colo").value = ieData.mpsOth || "";
 
@@ -7094,6 +7095,7 @@ async function fillIeForm_colo(ieData) {
   if (ieData.nact) document.querySelector(`input[name="NACT_colo"][value="${ieData.nact}"]`).checked = true || "";
   NactYes_colo();
   document.getElementById("nactEff_colo").value = ieData.nactEff || "";
+  toggleNACTEff_colo();
   document.getElementById("nactEff_Oth_colo").value = ieData.nactEffOth || "";
   document.getElementById("NACT_cycle_colo").value = ieData.nactdc || "";
   document.getElementById("NACT_cycle_D_colo").value = ieData.nactdlc || "";
@@ -8332,8 +8334,8 @@ function fillMdForm_esph(mdData) {
     document.getElementById("sampleGrade_Oth_esph").value = mdData?.gdOth || "";
     document.getElementById("tEESPH_esph").value = mdData?.tEESPH || "";
     document.getElementById("tEESPH_Oth_esph").value = mdData?.tEESPHOth || "";
-    document.getElementById("tEEGAS_esph").value = mdData?.tEEGAS || "";
-    document.getElementById("tEEGAS_Oth_esph").value = mdData?.tEEGASOth || "";
+    // document.getElementById("tEEGAS_esph").value = mdData?.tEEGAS || "";
+    // document.getElementById("tEEGAS_Oth_esph").value = mdData?.tEEGASOth || "";
 
     if (mdData?.lvi) document.querySelector(`input[name="LVI_esph"][value="${mdData.lvi}"]`).checked = true || "";
     if (mdData?.lvi === "op3") document.getElementById("lviCannot_Oth_esph").value = mdData?.lviOth || "";
@@ -8609,8 +8611,8 @@ function fillMdForm_gast(mdData) {
     document.getElementById("subType_gast").value = mdData?.pst || "";
     document.getElementById("sampleGrade_gast").value = mdData?.gd || "";
     document.getElementById("sampleGrade_Oth_gast").value = mdData?.gdOth || "";
-    document.getElementById("tEESPH_gast").value = mdData?.tEESPH || "";
-    document.getElementById("tEESPH_Oth_gast").value = mdData?.tEESPHOth || "";
+    // document.getElementById("tEESPH_gast").value = mdData?.tEESPH || "";
+    // document.getElementById("tEESPH_Oth_gast").value = mdData?.tEESPHOth || "";
     document.getElementById("tEEGAS_gast").value = mdData?.tEEGAS || "";
     document.getElementById("tEEGAS_Oth_gast").value = mdData?.tEEGASOth || "";
 
@@ -8878,8 +8880,8 @@ function fillMdForm_anal(mdData) {
     document.getElementById("GT_Description_anal").value = mdData.gtd || "";
     document.getElementById("mem_anal").value = mdData?.mem || "";
     document.getElementById("mem_Oth_anal").value = mdData?.memOth || "";
-    document.getElementById("tec_anal").value = mdData?.tec || "";
-    document.getElementById("tec_Oth_anal").value = mdData?.tecOth || "";
+    // document.getElementById("tec_anal").value = mdData?.tec || "";
+    // document.getElementById("tec_Oth_anal").value = mdData?.tecOth || "";
     document.getElementById("tea_anal").value = mdData?.tea || "";
     document.getElementById("tea_Oth_anal").value = mdData?.teaOth || "";
     document.getElementById("submI_anal").value = mdData?.submI || "";
@@ -8892,8 +8894,8 @@ function fillMdForm_anal(mdData) {
     document.getElementById("pstOt_anal").value = mdData.pstOt || "";
     document.getElementById("sampleGrade_anal").value = mdData.gd || "";
     document.getElementById("sampleGrade_Oth_anal").value = mdData.gdOth || "";
-    document.getElementById("tec1_anal").value = mdData?.tec1 || "";
-    document.getElementById("tec1_Oth_anal").value = mdData?.tec1Oth || "";
+    // document.getElementById("tec1_anal").value = mdData?.tec1 || "";
+    // document.getElementById("tec1_Oth_anal").value = mdData?.tec1Oth || "";
     document.getElementById("submI1_anal").value = mdData?.submI1 || "";
     if (mdData.dSubMI) {
       document.querySelector(`input[name="dSubMI_anal"][value="${mdData.dSubMI}"]`).checked = true || "";
@@ -8902,8 +8904,8 @@ function fillMdForm_anal(mdData) {
     }
     document.getElementById("eSubMIE_anal").value = mdData?.eSubMIE || "";
     document.getElementById("eSubMI_op4_text_anal").value = mdData?.eSubMIEOth || "";
-    document.getElementById("lviColon_anal").value = mdData?.lviColo || "";
-    document.getElementById("lviColon_Oth_anal").value = mdData?.lviColoOth || "";
+    // document.getElementById("lviColon_anal").value = mdData?.lviColo || "";
+    // document.getElementById("lviColon_Oth_anal").value = mdData?.lviColoOth || "";
     if (mdData.lvi) document.querySelector(`input[name="LVI_anal"][value="${mdData.lvi}"]`).checked = true || "";
     if (mdData.lvi === "op3") document.getElementById("lviCannot_Oth_anal").value = mdData.lviOth || "";
     if (mdData.pni) document.querySelector(`input[name="PNI_anal"][value="${mdData.pni}"]`).checked = true || "";
@@ -9184,8 +9186,8 @@ function fillMdForm_colo(mdData) {
     document.getElementById("mem_Oth_colo").value = mdData?.memOth || "";
     document.getElementById("tec_colo").value = mdData?.tec || "";
     document.getElementById("tec_Oth_colo").value = mdData?.tecOth || "";
-    document.getElementById("tea_colo").value = mdData?.tea || "";
-    document.getElementById("tea_Oth_colo").value = mdData?.teaOth || "";
+    // document.getElementById("tea_colo").value = mdData?.tea || "";
+    // document.getElementById("tea_Oth_colo").value = mdData?.teaOth || "";
     document.getElementById("submI_colo").value = mdData?.submI || "";
     document.getElementById("dSubI_colo").value = mdData?.dSubI || "";
     document.getElementById("eSubI_colo").value = mdData?.eSubI || "";
@@ -9196,8 +9198,8 @@ function fillMdForm_colo(mdData) {
     document.getElementById("pstOt_colo").value = mdData.pstOt || "";
     document.getElementById("sampleGrade_colo").value = mdData.gd || "";
     document.getElementById("sampleGrade_Oth_colo").value = mdData.gdOth || "";
-    document.getElementById("tec1_colo").value = mdData?.tec1 || "";
-    document.getElementById("tec1_Oth_colo").value = mdData?.tec1Oth || "";
+    // document.getElementById("tec1_colo").value = mdData?.tec1 || "";
+    // document.getElementById("tec1_Oth_colo").value = mdData?.tec1Oth || "";
     document.getElementById("submI1_colo").value = mdData?.submI1 || "";
     if (mdData.dSubMI) {
       document.querySelector(`input[name="dSubMI_colo"][value="${mdData.dSubMI}"]`).checked = true || "";
@@ -9208,8 +9210,8 @@ function fillMdForm_colo(mdData) {
     document.getElementById("eSubMI_op4_text_colo").value = mdData?.eSubMIEOth || "";
     document.getElementById("lviColon_colo").value = mdData?.lviColo || "";
     document.getElementById("lviColon_Oth_colo").value = mdData?.lviColoOth || "";
-    if (mdData.lvi) document.querySelector(`input[name="LVI_colo"][value="${mdData.lvi}"]`).checked = true || "";
-    if (mdData.lvi === "op3") document.getElementById("lviCannot_Oth_colo").value = mdData.lviOth || "";
+    // if (mdData.lvi) document.querySelector(`input[name="LVI_colo"][value="${mdData.lvi}"]`).checked = true || "";
+    // if (mdData.lvi === "op3") document.getElementById("lviCannot_Oth_colo").value = mdData.lviOth || "";
     if (mdData.pni) document.querySelector(`input[name="PNI_colo"][value="${mdData.pni}"]`).checked = true || "";
     if (mdData.pni === "op3") document.getElementById("PNICannot_Oth_colo").value = mdData.pniOth || "";
     document.getElementById("tBS_colo").value = mdData?.tBS || "";
@@ -10226,6 +10228,9 @@ function fillMdForm_hene(mdData) {
   }
 }
 
+function isReadOnlyViewMode(mode) {
+  return ["SearchView", "PendingView", "pendingView", "EditFollowUps", "ViewFollowUp", "SharedView", "sharedView", "share", "view"].includes(mode);
+}
 // Endometrium Cancer
 function fillMdForm_endm(mdData) {
   function isReadOnlyViewMode(mode) {
@@ -17974,3 +17979,27 @@ function RadioTYes_gast() {
     $("#rtDateOfLastCycle_gast").val("");
   }
 }
+function toggleNACTEff_colo() {
+  const option = $("#nactEff_colo").val();
+  if (option === "op7") {
+    $("#nactEff_Oth_colo").prop("disabled", isReadOnlyViewMode(localStorage.getItem("mode")));
+  } else {
+    $("#nactEff_Oth_colo").prop("disabled", true).val("");
+  }
+}
+toggleNACTEff_colo();
+$("#nactEff_colo").change(function () {
+  toggleNACTEff_colo();
+});
+function toggleNACTEff_anal() {
+  const option = $("#nactEff_anal").val();
+  if (option === "op7") {
+    $("#nactEff_Oth_anal").prop("disabled", isReadOnlyViewMode(localStorage.getItem("mode")));
+  } else {
+    $("#nactEff_Oth_anal").prop("disabled", true).val("");
+  }
+}
+toggleNACTEff_anal();
+$("#nactEff_anal").change(function () {
+  toggleNACTEff_anal();
+});
