@@ -4992,10 +4992,16 @@ function validateForm2() {
       });
     }
     const tst = document.getElementById("tumor_gast")?.value || "";
-    const tstOth = ["op1", "op5", "op6"].includes(tst) ? document.getElementById("tumor_Oth_gast").value || "" : "";
+    let tstOth = "";
     let tsub = "";
-    tsub = ["op2"].includes(tst) ? document.getElementById("tumorSubSite_op2_gast").value || "" : "";
-    tsub = ["op3", "op4"].includes(tst) ? document.getElementById("tumorSubSite_op3_op4_gast").value || "" : "";
+    if (["op1", "op5", "op6"].includes(tst)) {
+      tstOth = document.getElementById("tumor_Oth_gast").value || "";
+    } else if (["op3", "op4"].includes(tst)) {
+      tsub = document.getElementById("tumorSubSite_op3_op4_gast").value || "";
+    } else if (["op2"].includes(tst)) {
+      tsub = document.getElementById("tumorSubSite_op2_gast").value || "";
+    }
+
     const form2Data = {
       md: {
         fhc: document.querySelector('input[name="RadioFHabit_gast"]:checked')?.value || "",
@@ -5033,7 +5039,7 @@ function validateForm2() {
         lvi: document.querySelector('input[name="LVI_gast"]:checked')?.value || "",
         lviOth: document.querySelector('input[name="LVI_gast"]:checked')?.value ? (document.querySelector('input[name="LVI_gast"]:checked')?.value === "op3" ? document.getElementById("lviCannot_Oth_gast")?.value || "" : "") : "",
         pni: document.querySelector('input[name="PNI_gast"]:checked')?.value || "",
-        pniOth: document.querySelector('input[name="PNI_gast"]:checked')?.value ? (document.querySelector('input[name="PNI_gast"]:checked')?.value === "op3" ? document.getElementById("pniCannot_Oth_gast")?.value || "" : "") : "",
+        pniOth: document.querySelector('input[name="PNI_gast"]:checked')?.value ? (document.querySelector('input[name="PNI_gast"]:checked')?.value === "op3" ? document.getElementById("PNICannot_Oth_gast")?.value || "" : "") : "",
         smsts: document.getElementById("smsts_gast")?.value || "",
         smstsOth: document.getElementById("smsts_text_gast")?.value || "",
         cMIC,
@@ -5099,34 +5105,34 @@ function validateForm2() {
     if (sMSIT === "op7") sMSITOth = document.getElementById("sMSIT_op2_op7_text_colo")?.value || "";
     if (sMSIT === "op8") sMSITOth = document.getElementById("sMSIT_op2_op8_text_colo")?.value || "";
 
-    const cMIC1 = document.querySelector('input[name="cMIC1_op1_colo"]:checked')?.value || "";
-    let cMIC1Oth = "";
-    if (cMIC1 === "op1") cMIC1Oth = document.getElementById("cMIC1_op1_op1_text_colo")?.value || "";
-    if (cMIC1 === "op2") cMIC1Oth = document.getElementById("cMIC1_op1_op2_text_colo")?.value || "";
-    if (cMIC1 === "op3") cMIC1Oth = document.getElementById("cMIC1_op1_op3_text_colo")?.value || "";
-    if (cMIC1 === "op4") cMIC1Oth = document.getElementById("cMIC1_op1_op4_text_colo")?.value || "";
-    if (cMIC1 === "op5") cMIC1Oth = document.getElementById("cMIC1_op1_op5_text_colo")?.value || "";
+    // const cMIC1 = document.querySelector('input[name="cMIC1_op1_colo"]:checked')?.value || "";
+    // let cMIC1Oth = "";
+    // if (cMIC1 === "op1") cMIC1Oth = document.getElementById("cMIC1_op1_op1_text_colo")?.value || "";
+    // if (cMIC1 === "op2") cMIC1Oth = document.getElementById("cMIC1_op1_op2_text_colo")?.value || "";
+    // if (cMIC1 === "op3") cMIC1Oth = document.getElementById("cMIC1_op1_op3_text_colo")?.value || "";
+    // if (cMIC1 === "op4") cMIC1Oth = document.getElementById("cMIC1_op1_op4_text_colo")?.value || "";
+    // if (cMIC1 === "op5") cMIC1Oth = document.getElementById("cMIC1_op1_op5_text_colo")?.value || "";
 
-    const dITCSM1 = document.querySelector('input[name="dITCSM1_op1_colo"]:checked')?.value || "";
-    let dITCSM1Oth = "";
-    if (dITCSM1 === "op1") dITCSM1Oth = document.getElementById("dITCSM1_op1_op1_text_colo")?.value || "";
-    if (dITCSM1 === "op2") dITCSM1Oth = document.getElementById("dITCSM1_op1_op2_text_colo")?.value || "";
-    if (dITCSM1 === "op4") dITCSM1Oth = document.getElementById("dITCSM1_op1_op4_text_colo")?.value || "";
-    if (dITCSM1 === "op5") dITCSM1Oth = document.getElementById("dITCSM1_op1_op5_text_colo")?.value || "";
-    if (dITCSM1 === "op8") dITCSM1Oth = document.getElementById("dITCSM1_op1_op8_text_colo")?.value || "";
-    if (dITCSM1 === "op9") dITCSM1Oth = document.getElementById("dITCSM1_op1_op9_text_colo")?.value || "";
-    if (dITCSM1 === "op10") dITCSM1Oth = document.getElementById("dITCSM1_op1_op10_text_colo")?.value || "";
+    // const dITCSM1 = document.querySelector('input[name="dITCSM1_op1_colo"]:checked')?.value || "";
+    // let dITCSM1Oth = "";
+    // if (dITCSM1 === "op1") dITCSM1Oth = document.getElementById("dITCSM1_op1_op1_text_colo")?.value || "";
+    // if (dITCSM1 === "op2") dITCSM1Oth = document.getElementById("dITCSM1_op1_op2_text_colo")?.value || "";
+    // if (dITCSM1 === "op4") dITCSM1Oth = document.getElementById("dITCSM1_op1_op4_text_colo")?.value || "";
+    // if (dITCSM1 === "op5") dITCSM1Oth = document.getElementById("dITCSM1_op1_op5_text_colo")?.value || "";
+    // if (dITCSM1 === "op8") dITCSM1Oth = document.getElementById("dITCSM1_op1_op8_text_colo")?.value || "";
+    // if (dITCSM1 === "op9") dITCSM1Oth = document.getElementById("dITCSM1_op1_op9_text_colo")?.value || "";
+    // if (dITCSM1 === "op10") dITCSM1Oth = document.getElementById("dITCSM1_op1_op10_text_colo")?.value || "";
 
-    const sMIIT = document.querySelector('input[name="sMIIT_op1_colo"]:checked')?.value || "";
-    let sMIITOth = "";
-    if (sMIIT === "op1") sMIITOth = document.getElementById("sMIIT_op1_op1_text_colo")?.value || "";
-    if (sMIIT === "op2") sMIITOth = document.getElementById("sMIIT_op1_op2_text_colo")?.value || "";
-    if (sMIIT === "op3") sMIITOth = document.getElementById("sMIIT_op1_op3_text_colo")?.value || "";
-    if (sMIIT === "op4") sMIITOth = document.getElementById("sMIIT_op1_op4_text_colo")?.value || "";
-    if (sMIIT === "op5") sMIITOth = document.getElementById("sMIIT_op1_op5_text_colo")?.value || "";
-    if (sMIIT === "op6") sMIITOth = document.getElementById("sMIIT_op1_op6_text_colo")?.value || "";
-    if (sMIIT === "op7") sMIITOth = document.getElementById("sMIIT_op1_op7_text_colo")?.value || "";
-    if (sMIIT === "op8") sMIITOth = document.getElementById("sMIIT_op1_op8_text_colo")?.value || "";
+    // const sMIIT = document.querySelector('input[name="sMIIT_op1_colo"]:checked')?.value || "";
+    // let sMIITOth = "";
+    // if (sMIIT === "op1") sMIITOth = document.getElementById("sMIIT_op1_op1_text_colo")?.value || "";
+    // if (sMIIT === "op2") sMIITOth = document.getElementById("sMIIT_op1_op2_text_colo")?.value || "";
+    // if (sMIIT === "op3") sMIITOth = document.getElementById("sMIIT_op1_op3_text_colo")?.value || "";
+    // if (sMIIT === "op4") sMIITOth = document.getElementById("sMIIT_op1_op4_text_colo")?.value || "";
+    // if (sMIIT === "op5") sMIITOth = document.getElementById("sMIIT_op1_op5_text_colo")?.value || "";
+    // if (sMIIT === "op6") sMIITOth = document.getElementById("sMIIT_op1_op6_text_colo")?.value || "";
+    // if (sMIIT === "op7") sMIITOth = document.getElementById("sMIIT_op1_op7_text_colo")?.value || "";
+    // if (sMIIT === "op8") sMIITOth = document.getElementById("sMIIT_op1_op8_text_colo")?.value || "";
     const form2Data = {
       md: {
         fhc: document.querySelector('input[name="RadioFHabit_colo"]:checked')?.value || "",
@@ -5198,17 +5204,17 @@ function validateForm2() {
         sMSITOth,
         mststNIT: document.getElementById("mststNIT_colo")?.value || "",
         mststNITOth: document.getElementById("mststNIT_Oth_colo")?.value || "",
-        smstsN: document.getElementById("smstsN_colo")?.value || "",
-        cMIC1,
-        cMIC1Oth,
-        dITCSM1,
-        dITCSM1Oth,
-        sMIIT,
-        sMIITOth,
-        mstsHGTN: document.getElementById("mstsHGTN_colo")?.value || "",
-        mstsHGTNOth: document.getElementById("mstsHGTN_text_colo")?.value || "",
-        hGINPM: document.getElementById("hGINPM_colo")?.value || "",
-        hGINPMOth: document.getElementById("hGINPM_text_colo")?.value || "",
+        // smstsN: document.getElementById("smstsN_colo")?.value || "",
+        // cMIC1,
+        // cMIC1Oth,
+        // dITCSM1,
+        // dITCSM1Oth,
+        // sMIIT,
+        // sMIITOth,
+        // mstsHGTN: document.getElementById("mstsHGTN_colo")?.value || "",
+        // mstsHGTNOth: document.getElementById("mstsHGTN_text_colo")?.value || "",
+        // hGINPM: document.getElementById("hGINPM_colo")?.value || "",
+        // hGINPMOth: document.getElementById("hGINPM_text_colo")?.value || "",
         ptnm: document.getElementById("pTNM_colo")?.value || "",
         rlnsts: document.querySelector('input[name="rlnsts_colo"]:checked')?.value || "",
         nnt: document.getElementById("nodesTested_colo").value || "",
@@ -5238,34 +5244,34 @@ function validateForm2() {
   } else if (cancer_type === "anal") {
     const tumorSize = getTumorSize(cancer_type);
     const medResults = getCVSYM(cancer_type);
-    const cMIC = document.querySelector('input[name="cMIC_op1_anal"]:checked')?.value || "";
-    let cmICOth = "";
-    if (cMIC === "op1") cmICOth = document.getElementById("cMIC_op1_op1_text_anal")?.value || "";
-    if (cMIC === "op2") cmICOth = document.getElementById("cMIC_op1_op2_text_anal")?.value || "";
-    if (cMIC === "op3") cmICOth = document.getElementById("cMIC_op1_op3_text_anal")?.value || "";
-    if (cMIC === "op4") cmICOth = document.getElementById("cMIC_op1_op4_text_anal")?.value || "";
-    if (cMIC === "op5") cmICOth = document.getElementById("cMIC_op1_op5_text_anal")?.value || "";
-    if (cMIC === "op6") cmICOth = document.getElementById("cMIC_op1_op6_text_anal")?.value || "";
-    if (cMIC === "op7") cmICOth = document.getElementById("cMIC_op1_op7_text_anal")?.value || "";
-    if (cMIC === "op8") cmICOth = document.getElementById("cMIC_op1_op8_text_anal")?.value || "";
-    const dITCSM = document.querySelector('input[name="dITCSM_op1_anal"]:checked')?.value || "";
-    let dITCSMOth = "";
-    if (dITCSM === "op1") dITCSMOth = document.getElementById("dITCSM_op1_op1_text_anal")?.value || "";
-    if (dITCSM === "op2") dITCSMOth = document.getElementById("dITCSM_op1_op2_text_anal")?.value || "";
-    if (dITCSM === "op4") dITCSMOth = document.getElementById("dITCSM_op1_op4_text_anal")?.value || "";
-    if (dITCSM === "op5") dITCSMOth = document.getElementById("dITCSM_op1_op5_text_anal")?.value || "";
-    if (dITCSM === "op8") dITCSMOth = document.getElementById("dITCSM_op1_op8_text_anal")?.value || "";
-    if (dITCSM === "op9") dITCSMOth = document.getElementById("dITCSM_op1_op9_text_anal")?.value || "";
-    const sMSIT = document.querySelector('input[name="sMSIT_anal"]:checked')?.value || "";
-    let sMSITOth = "";
-    if (sMSIT === "op1") sMSITOth = document.getElementById("sMSIT_op2_op1_text_anal")?.value || "";
-    if (sMSIT === "op2") sMSITOth = document.getElementById("sMSIT_op2_op2_text_anal")?.value || "";
-    if (sMSIT === "op3") sMSITOth = document.getElementById("sMSIT_op2_op3_text_anal")?.value || "";
-    if (sMSIT === "op4") sMSITOth = document.getElementById("sMSIT_op2_op4_text_anal")?.value || "";
-    if (sMSIT === "op5") sMSITOth = document.getElementById("sMSIT_op2_op5_text_anal")?.value || "";
-    if (sMSIT === "op6") sMSITOth = document.getElementById("sMSIT_op2_op6_text_anal")?.value || "";
-    if (sMSIT === "op7") sMSITOth = document.getElementById("sMSIT_op2_op7_text_anal")?.value || "";
-    if (sMSIT === "op8") sMSITOth = document.getElementById("sMSIT_op2_op8_text_anal")?.value || "";
+    // const cMIC = document.querySelector('input[name="cMIC_op1_anal"]:checked')?.value || "";
+    // let cmICOth = "";
+    // if (cMIC === "op1") cmICOth = document.getElementById("cMIC_op1_op1_text_anal")?.value || "";
+    // if (cMIC === "op2") cmICOth = document.getElementById("cMIC_op1_op2_text_anal")?.value || "";
+    // if (cMIC === "op3") cmICOth = document.getElementById("cMIC_op1_op3_text_anal")?.value || "";
+    // if (cMIC === "op4") cmICOth = document.getElementById("cMIC_op1_op4_text_anal")?.value || "";
+    // if (cMIC === "op5") cmICOth = document.getElementById("cMIC_op1_op5_text_anal")?.value || "";
+    // if (cMIC === "op6") cmICOth = document.getElementById("cMIC_op1_op6_text_anal")?.value || "";
+    // if (cMIC === "op7") cmICOth = document.getElementById("cMIC_op1_op7_text_anal")?.value || "";
+    // if (cMIC === "op8") cmICOth = document.getElementById("cMIC_op1_op8_text_anal")?.value || "";
+    // const dITCSM = document.querySelector('input[name="dITCSM_op1_anal"]:checked')?.value || "";
+    // let dITCSMOth = "";
+    // if (dITCSM === "op1") dITCSMOth = document.getElementById("dITCSM_op1_op1_text_anal")?.value || "";
+    // if (dITCSM === "op2") dITCSMOth = document.getElementById("dITCSM_op1_op2_text_anal")?.value || "";
+    // if (dITCSM === "op4") dITCSMOth = document.getElementById("dITCSM_op1_op4_text_anal")?.value || "";
+    // if (dITCSM === "op5") dITCSMOth = document.getElementById("dITCSM_op1_op5_text_anal")?.value || "";
+    // if (dITCSM === "op8") dITCSMOth = document.getElementById("dITCSM_op1_op8_text_anal")?.value || "";
+    // if (dITCSM === "op9") dITCSMOth = document.getElementById("dITCSM_op1_op9_text_anal")?.value || "";
+    // const sMSIT = document.querySelector('input[name="sMSIT_anal"]:checked')?.value || "";
+    // let sMSITOth = "";
+    // if (sMSIT === "op1") sMSITOth = document.getElementById("sMSIT_op2_op1_text_anal")?.value || "";
+    // if (sMSIT === "op2") sMSITOth = document.getElementById("sMSIT_op2_op2_text_anal")?.value || "";
+    // if (sMSIT === "op3") sMSITOth = document.getElementById("sMSIT_op2_op3_text_anal")?.value || "";
+    // if (sMSIT === "op4") sMSITOth = document.getElementById("sMSIT_op2_op4_text_anal")?.value || "";
+    // if (sMSIT === "op5") sMSITOth = document.getElementById("sMSIT_op2_op5_text_anal")?.value || "";
+    // if (sMSIT === "op6") sMSITOth = document.getElementById("sMSIT_op2_op6_text_anal")?.value || "";
+    // if (sMSIT === "op7") sMSITOth = document.getElementById("sMSIT_op2_op7_text_anal")?.value || "";
+    // if (sMSIT === "op8") sMSITOth = document.getElementById("sMSIT_op2_op8_text_anal")?.value || "";
 
     const cMIC1 = document.querySelector('input[name="cMIC1_op1_anal"]:checked')?.value || "";
     let cMIC1Oth = "";
@@ -5357,15 +5363,15 @@ function validateForm2() {
         typICAOth: document.getElementById("typICA_Oth_anal")?.value || "",
         sMStsIT: document.getElementById("sMStsIT_anal")?.value || "",
         sMStsITOth: document.getElementById("sMSIT_Oth_anal")?.value || "",
-        cMIC,
-        cmICOth,
-        dITCSM,
-        dITCSMOth,
-        sMSIT,
-        sMSITOth,
-        mststNIT: document.getElementById("mststNIT_anal")?.value || "",
-        mststNITOth: document.getElementById("mststNIT_Oth_anal")?.value || "",
-        smstsN: document.getElementById("smstsN_anal")?.value || "",
+        // cMIC,
+        // cmICOth,
+        // dITCSM,
+        // dITCSMOth,
+        // sMSIT,
+        // sMSITOth,
+        // mststNIT: document.getElementById("mststNIT_anal")?.value || "",
+        // mststNITOth: document.getElementById("mststNIT_Oth_anal")?.value || "",
+        // smstsN: document.getElementById("smstsN_anal")?.value || "",
         cMIC1,
         cMIC1Oth,
         dITCSM1,
@@ -5500,7 +5506,7 @@ function validateForm2() {
         lvi: document.querySelector('input[name="LVI_esph"]:checked')?.value || "",
         lviOth: document.querySelector('input[name="LVI_esph"]:checked')?.value ? (document.querySelector('input[name="LVI_esph"]:checked')?.value === "op3" ? document.getElementById("lviCannot_Oth_esph")?.value || "" : "") : "",
         pni: document.querySelector('input[name="PNI_esph"]:checked')?.value || "",
-        pniOth: document.querySelector('input[name="PNI_esph"]:checked')?.value ? (document.querySelector('input[name="PNI_esph"]:checked')?.value === "op3" ? document.getElementById("pniCannot_Oth_esph")?.value || "" : "") : "",
+        pniOth: document.querySelector('input[name="PNI_esph"]:checked')?.value ? (document.querySelector('input[name="PNI_esph"]:checked')?.value === "op3" ? document.getElementById("PNICannot_Oth_esph")?.value || "" : "") : "",
         smsts: document.getElementById("smsts_esph")?.value || "",
         smstsOth: document.getElementById("smsts_text_esph")?.value || "",
         cMIC,
@@ -6607,7 +6613,7 @@ async function fillIeForm_esph(ieData) {
       if (gridVal) {
         let parts = gridVal.split("/");
         let boxID = parts[0];
-        db.ref(`bn/GT/${type}`)
+        db.ref(`bn/ET/${type}`)
           .once("value")
           .then((snapshot) => {
             let boxIDs = snapshot.val();
@@ -8080,7 +8086,7 @@ async function fillIeForm_ceix(ieData) {
 
 // Breast Cancer
 function fillMdForm(mdData) {
-  const formElements = [...document.querySelectorAll("input, select, textarea")];
+  // const formElements = [...document.querySelectorAll("input, select, textarea")];
   let mode = localStorage.getItem("mode");
 
   try {
@@ -8341,7 +8347,7 @@ function fillMdForm_esph(mdData) {
     if (mdData?.lvi === "op3") document.getElementById("lviCannot_Oth_esph").value = mdData?.lviOth || "";
 
     if (mdData?.pni) document.querySelector(`input[name="PNI_esph"][value="${mdData.pni}"]`).checked = true || "";
-    if (mdData?.pni === "op3") document.getElementById("pniCannot_Oth_esph").value = mdData?.pniOth || "";
+    if (mdData?.pni === "op3") document.getElementById("PNICannot_Oth_esph").value = mdData?.pniOth || "";
 
     document.getElementById("smsts_esph").value = mdData?.smsts || "";
     document.getElementById("smsts_text_esph").value = mdData?.smstsOth || "";
@@ -8588,8 +8594,8 @@ function fillMdForm_gast(mdData) {
     document.getElementById("tumor_gast").value = mdData?.tst || "";
     document.getElementById("tumor_gast").dispatchEvent(new Event("change"));
     document.getElementById("tumor_Oth_gast").value = mdData?.tstOth || "";
-    document.getElementById("tumorSubSite_op2_gast").value = mdData?.tsub || "";
-    document.getElementById("tumorSubSite_op3_op4_gast").value = mdData?.tsub || "";
+    if (mdData?.tst === "op2") document.getElementById("tumorSubSite_op2_gast").value = mdData?.tsub || "";
+    if (mdData?.tst === "op3" || mdData?.tst === "op4") document.getElementById("tumorSubSite_op3_op4_gast").value = mdData?.tsub || "";
     document.getElementById("tumorPercentage_gast").value = mdData?.tp || "";
     document.getElementById("ageAtDiagnosis_gast").value = mdData?.ad || "";
     document.getElementById("clinicalStage_gast").value = mdData?.cs || "";
@@ -8620,7 +8626,7 @@ function fillMdForm_gast(mdData) {
     if (mdData?.lvi === "op3") document.getElementById("lviCannot_Oth_gast").value = mdData?.lviOth || "";
 
     if (mdData?.pni) document.querySelector(`input[name="PNI_gast"][value="${mdData.pni}"]`).checked = true || "";
-    if (mdData?.pni === "op3") document.getElementById("pniCannot_Oth_gast").value = mdData?.pniOth || "";
+    if (mdData?.pni === "op3") document.getElementById("PNICannot_Oth_gast").value = mdData?.pniOth || "";
 
     document.getElementById("smsts_gast").value = mdData?.smsts || "";
     document.getElementById("smsts_text_gast").value = mdData?.smstsOth || "";
@@ -8891,6 +8897,7 @@ function fillMdForm_anal(mdData) {
     document.getElementById("mTP_Oth_anal").value = mdData?.mTPOth || "";
 
     document.getElementById("subtype_anal").value = mdData.pst || "";
+    document.getElementById("subtype_anal").dispatchEvent(new Event("change"));
     document.getElementById("pstOt_anal").value = mdData.pstOt || "";
     document.getElementById("sampleGrade_anal").value = mdData.gd || "";
     document.getElementById("sampleGrade_Oth_anal").value = mdData.gdOth || "";
@@ -8916,46 +8923,46 @@ function fillMdForm_anal(mdData) {
     document.getElementById("typICA_Oth_anal").value = mdData?.typICAOth || "";
     document.getElementById("sMStsIT_anal").value = mdData?.sMStsIT || "";
     document.getElementById("sMSIT_Oth_anal").value = mdData?.sMStsITOth || "";
-    document.getElementById("mststNIT_anal").value = mdData?.mststNIT || "";
-    document.getElementById("mststNIT_Oth_anal").value = mdData?.mststNITOth || "";
-    document.getElementById("smstsN_anal").value = mdData?.smstsN || "";
+    // document.getElementById("mststNIT_anal").value = mdData?.mststNIT || "";
+    // document.getElementById("mststNIT_Oth_anal").value = mdData?.mststNITOth || "";
+    // document.getElementById("smstsN_anal").value = mdData?.smstsN || "";
 
     document.getElementById("mstsHGTN_anal").value = mdData?.mstsHGTN || "";
     document.getElementById("mstsHGTN_text_anal").value = mdData?.mstsHGTNOth || "";
     document.getElementById("hGINPM_anal").value = mdData?.hGINPM || "";
     document.getElementById("hGINPM_text_anal").value = mdData?.hGINPMOth || "";
 
-    if (mdData?.cMIC) {
-      document.querySelector(`input[name="cMIC_op1_anal"][value="${mdData?.cMIC}"]`).checked = true || "";
-      if (mdData?.cMIC === "op1") document.getElementById("cMIC_op1_op1_text_anal").value = mdData?.cmICOth || "";
-      if (mdData?.cMIC === "op2") document.getElementById("cMIC_op1_op2_text_anal").value = mdData?.cmICOth || "";
-      if (mdData?.cMIC === "op3") document.getElementById("cMIC_op1_op3_text_anal").value = mdData?.cmICOth || "";
-      if (mdData?.cMIC === "op4") document.getElementById("cMIC_op1_op4_text_anal").value = mdData?.cmICOth || "";
-      if (mdData?.cMIC === "op5") document.getElementById("cMIC_op1_op5_text_anal").value = mdData?.cmICOth || "";
-      if (mdData?.cMIC === "op6") document.getElementById("cMIC_op1_op6_text_anal").value = mdData?.cmICOth || "";
-      if (mdData?.cMIC === "op7") document.getElementById("cMIC_op1_op7_text_anal").value = mdData?.cmICOth || "";
-      if (mdData?.cMIC === "op8") document.getElementById("cMIC_op1_op8_text_anal").value = mdData?.cmICOth || "";
-    }
-    if (mdData?.dITCSM) {
-      document.querySelector(`input[name="dITCSM_op1_anal"][value="${mdData?.dITCSM}"]`).checked = true || "";
-      if (mdData?.dITCSM === "op1") document.getElementById("dITCSM_op1_op1_text_anal").value = mdData?.dITCSMOth || "";
-      if (mdData?.dITCSM === "op2") document.getElementById("dITCSM_op1_op2_text_anal").value = mdData?.dITCSMOth || "";
-      if (mdData?.dITCSM === "op4") document.getElementById("dITCSM_op1_op4_text_anal").value = mdData?.dITCSMOth || "";
-      if (mdData?.dITCSM === "op5") document.getElementById("dITCSM_op1_op5_text_anal").value = mdData?.dITCSMOth || "";
-      if (mdData?.dITCSM === "op8") document.getElementById("dITCSM_op1_op8_text_anal").value = mdData?.dITCSMOth || "";
-      if (mdData?.dITCSM === "op9") document.getElementById("dITCSM_op1_op9_text_anal").value = mdData?.dITCSMOth || "";
-    }
-    if (mdData?.sMSIT) {
-      document.querySelector(`input[name="sMSIT_anal"][value="${mdData?.sMSIT}"]`).checked = true || "";
-      if (mdData?.sMSIT === "op1") document.getElementById("sMSIT_op2_op1_text_anal").value = mdData?.sMSITOth || "";
-      if (mdData?.sMSIT === "op2") document.getElementById("sMSIT_op2_op2_text_anal").value = mdData?.sMSITOth || "";
-      if (mdData?.sMSIT === "op3") document.getElementById("sMSIT_op2_op3_text_anal").value = mdData?.sMSITOth || "";
-      if (mdData?.sMSIT === "op4") document.getElementById("sMSIT_op2_op4_text_anal").value = mdData?.sMSITOth || "";
-      if (mdData?.sMSIT === "op5") document.getElementById("sMSIT_op2_op5_text_anal").value = mdData?.sMSITOth || "";
-      if (mdData?.sMSIT === "op6") document.getElementById("sMSIT_op2_op6_text_anal").value = mdData?.sMSITOth || "";
-      if (mdData?.sMSIT === "op7") document.getElementById("sMSIT_op2_op7_text_anal").value = mdData?.sMSITOth || "";
-      if (mdData?.sMSIT === "op8") document.getElementById("sMSIT_op2_op8_text_anal").value = mdData?.sMSITOth || "";
-    }
+    // if (mdData?.cMIC) {
+    //   document.querySelector(`input[name="cMIC_op1_anal"][value="${mdData?.cMIC}"]`).checked = true || "";
+    //   if (mdData?.cMIC === "op1") document.getElementById("cMIC_op1_op1_text_anal").value = mdData?.cmICOth || "";
+    //   if (mdData?.cMIC === "op2") document.getElementById("cMIC_op1_op2_text_anal").value = mdData?.cmICOth || "";
+    //   if (mdData?.cMIC === "op3") document.getElementById("cMIC_op1_op3_text_anal").value = mdData?.cmICOth || "";
+    //   if (mdData?.cMIC === "op4") document.getElementById("cMIC_op1_op4_text_anal").value = mdData?.cmICOth || "";
+    //   if (mdData?.cMIC === "op5") document.getElementById("cMIC_op1_op5_text_anal").value = mdData?.cmICOth || "";
+    //   if (mdData?.cMIC === "op6") document.getElementById("cMIC_op1_op6_text_anal").value = mdData?.cmICOth || "";
+    //   if (mdData?.cMIC === "op7") document.getElementById("cMIC_op1_op7_text_anal").value = mdData?.cmICOth || "";
+    //   if (mdData?.cMIC === "op8") document.getElementById("cMIC_op1_op8_text_anal").value = mdData?.cmICOth || "";
+    // }
+    // if (mdData?.dITCSM) {
+    //   document.querySelector(`input[name="dITCSM_op1_anal"][value="${mdData?.dITCSM}"]`).checked = true || "";
+    //   if (mdData?.dITCSM === "op1") document.getElementById("dITCSM_op1_op1_text_anal").value = mdData?.dITCSMOth || "";
+    //   if (mdData?.dITCSM === "op2") document.getElementById("dITCSM_op1_op2_text_anal").value = mdData?.dITCSMOth || "";
+    //   if (mdData?.dITCSM === "op4") document.getElementById("dITCSM_op1_op4_text_anal").value = mdData?.dITCSMOth || "";
+    //   if (mdData?.dITCSM === "op5") document.getElementById("dITCSM_op1_op5_text_anal").value = mdData?.dITCSMOth || "";
+    //   if (mdData?.dITCSM === "op8") document.getElementById("dITCSM_op1_op8_text_anal").value = mdData?.dITCSMOth || "";
+    //   if (mdData?.dITCSM === "op9") document.getElementById("dITCSM_op1_op9_text_anal").value = mdData?.dITCSMOth || "";
+    // }
+    // if (mdData?.sMSIT) {
+    //   document.querySelector(`input[name="sMSIT_anal"][value="${mdData?.sMSIT}"]`).checked = true || "";
+    //   if (mdData?.sMSIT === "op1") document.getElementById("sMSIT_op2_op1_text_anal").value = mdData?.sMSITOth || "";
+    //   if (mdData?.sMSIT === "op2") document.getElementById("sMSIT_op2_op2_text_anal").value = mdData?.sMSITOth || "";
+    //   if (mdData?.sMSIT === "op3") document.getElementById("sMSIT_op2_op3_text_anal").value = mdData?.sMSITOth || "";
+    //   if (mdData?.sMSIT === "op4") document.getElementById("sMSIT_op2_op4_text_anal").value = mdData?.sMSITOth || "";
+    //   if (mdData?.sMSIT === "op5") document.getElementById("sMSIT_op2_op5_text_anal").value = mdData?.sMSITOth || "";
+    //   if (mdData?.sMSIT === "op6") document.getElementById("sMSIT_op2_op6_text_anal").value = mdData?.sMSITOth || "";
+    //   if (mdData?.sMSIT === "op7") document.getElementById("sMSIT_op2_op7_text_anal").value = mdData?.sMSITOth || "";
+    //   if (mdData?.sMSIT === "op8") document.getElementById("sMSIT_op2_op8_text_anal").value = mdData?.sMSITOth || "";
+    // }
     if (mdData?.cMIC1) {
       document.querySelector(`input[name="cMIC1_op1_anal"][value="${mdData?.cMIC1}"]`).checked = true || "";
       if (mdData?.cMIC1 === "op1") document.getElementById("cMIC1_op1_op1_text_anal").value = mdData?.cMIC1Oth || "";
@@ -9195,6 +9202,7 @@ function fillMdForm_colo(mdData) {
     document.getElementById("mTP_Oth_colo").value = mdData?.mTPOth || "";
 
     document.getElementById("subtype_colo").value = mdData.pst || "";
+    document.getElementById("subtype_colo").dispatchEvent(new Event("change")); // Trigger change event to update dependent fields
     document.getElementById("pstOt_colo").value = mdData.pstOt || "";
     document.getElementById("sampleGrade_colo").value = mdData.gd || "";
     document.getElementById("sampleGrade_Oth_colo").value = mdData.gdOth || "";
@@ -9222,12 +9230,12 @@ function fillMdForm_colo(mdData) {
     document.getElementById("sMSIT_Oth_colo").value = mdData?.sMStsITOth || "";
     document.getElementById("mststNIT_colo").value = mdData?.mststNIT || "";
     document.getElementById("mststNIT_Oth_colo").value = mdData?.mststNITOth || "";
-    document.getElementById("smstsN_colo").value = mdData?.smstsN || "";
+    // document.getElementById("smstsN_colo").value = mdData?.smstsN || "";
 
-    document.getElementById("mstsHGTN_colo").value = mdData?.mstsHGTN || "";
-    document.getElementById("mstsHGTN_text_colo").value = mdData?.mstsHGTNOth || "";
-    document.getElementById("hGINPM_colo").value = mdData?.hGINPM || "";
-    document.getElementById("hGINPM_text_colo").value = mdData?.hGINPMOth || "";
+    // document.getElementById("mstsHGTN_colo").value = mdData?.mstsHGTN || "";
+    // document.getElementById("mstsHGTN_text_colo").value = mdData?.mstsHGTNOth || "";
+    // document.getElementById("hGINPM_colo").value = mdData?.hGINPM || "";
+    // document.getElementById("hGINPM_text_colo").value = mdData?.hGINPMOth || "";
 
     if (mdData?.cMIC) {
       document.querySelector(`input[name="cMIC_op1_colo"][value="${mdData?.cMIC}"]`).checked = true || "";
@@ -9260,36 +9268,36 @@ function fillMdForm_colo(mdData) {
       if (mdData?.sMSIT === "op7") document.getElementById("sMSIT_op2_op7_text_colo").value = mdData?.sMSITOth || "";
       if (mdData?.sMSIT === "op8") document.getElementById("sMSIT_op2_op8_text_colo").value = mdData?.sMSITOth || "";
     }
-    if (mdData?.cMIC1) {
-      document.querySelector(`input[name="cMIC1_op1_colo"][value="${mdData?.cMIC1}"]`).checked = true || "";
-      if (mdData?.cMIC1 === "op1") document.getElementById("cMIC1_op1_op1_text_colo").value = mdData?.cMIC1Oth || "";
-      if (mdData?.cMIC1 === "op2") document.getElementById("cMIC1_op1_op2_text_colo").value = mdData?.cMIC1Oth || "";
-      if (mdData?.cMIC1 === "op3") document.getElementById("cMIC1_op1_op3_text_colo").value = mdData?.cMIC1Oth || "";
-      if (mdData?.cMIC1 === "op4") document.getElementById("cMIC1_op1_op4_text_colo").value = mdData?.cMIC1Oth || "";
-      if (mdData?.cMIC1 === "op5") document.getElementById("cMIC1_op1_op5_text_colo").value = mdData?.cMIC1Oth || "";
-    }
+    // if (mdData?.cMIC1) {
+    //   document.querySelector(`input[name="cMIC1_op1_colo"][value="${mdData?.cMIC1}"]`).checked = true || "";
+    //   if (mdData?.cMIC1 === "op1") document.getElementById("cMIC1_op1_op1_text_colo").value = mdData?.cMIC1Oth || "";
+    //   if (mdData?.cMIC1 === "op2") document.getElementById("cMIC1_op1_op2_text_colo").value = mdData?.cMIC1Oth || "";
+    //   if (mdData?.cMIC1 === "op3") document.getElementById("cMIC1_op1_op3_text_colo").value = mdData?.cMIC1Oth || "";
+    //   if (mdData?.cMIC1 === "op4") document.getElementById("cMIC1_op1_op4_text_colo").value = mdData?.cMIC1Oth || "";
+    //   if (mdData?.cMIC1 === "op5") document.getElementById("cMIC1_op1_op5_text_colo").value = mdData?.cMIC1Oth || "";
+    // }
 
-    if (mdData?.dITCSM1) {
-      document.querySelector(`input[name="dITCSM1_op1_colo"][value="${mdData?.dITCSM1}"]`).checked = true || "";
-      if (mdData?.dITCSM1 === "op1") document.getElementById("dITCSM1_op1_op1_text_colo").value = mdData?.dITCSM1Oth || "";
-      if (mdData?.dITCSM1 === "op2") document.getElementById("dITCSM1_op1_op2_text_colo").value = mdData?.dITCSM1Oth || "";
-      if (mdData?.dITCSM1 === "op4") document.getElementById("dITCSM1_op1_op4_text_colo").value = mdData?.dITCSM1Oth || "";
-      if (mdData?.dITCSM1 === "op5") document.getElementById("dITCSM1_op1_op5_text_colo").value = mdData?.dITCSM1Oth || "";
-      if (mdData?.dITCSM1 === "op8") document.getElementById("dITCSM1_op1_op8_text_colo").value = mdData?.dITCSM1Oth || "";
-      if (mdData?.dITCSM1 === "op9") document.getElementById("dITCSM1_op1_op9_text_colo").value = mdData?.dITCSM1Oth || "";
-      if (mdData?.dITCSM1 === "op10") document.getElementById("dITCSM1_op1_op10_text_colo").value = mdData?.dITCSM1Oth || "";
-    }
-    if (mdData.sMIIT) {
-      document.querySelector(`input[name="sMIIT_op1_colo"][value="${mdData.sMIIT}"]`).checked = true || "";
-      if (mdData.sMIIT === "op1") document.getElementById("sMIIT_op1_op1_text_colo").value = mdData?.sMIITOth || "";
-      if (mdData.sMIIT === "op2") document.getElementById("sMIIT_op1_op2_text_colo").value = mdData?.sMIITOth || "";
-      if (mdData.sMIIT === "op3") document.getElementById("sMIIT_op1_op3_text_colo").value = mdData?.sMIITOth || "";
-      if (mdData.sMIIT === "op4") document.getElementById("sMIIT_op1_op4_text_colo").value = mdData?.sMIITOth || "";
-      if (mdData.sMIIT === "op5") document.getElementById("sMIIT_op1_op5_text_colo").value = mdData?.sMIITOth || "";
-      if (mdData.sMIIT === "op6") document.getElementById("sMIIT_op1_op6_text_colo").value = mdData?.sMIITOth || "";
-      if (mdData.sMIIT === "op7") document.getElementById("sMIIT_op1_op7_text_colo").value = mdData?.sMIITOth || "";
-      if (mdData.sMIIT === "op8") document.getElementById("sMIIT_op1_op8_text_colo").value = mdData?.sMIITOth || "";
-    }
+    // if (mdData?.dITCSM1) {
+    //   document.querySelector(`input[name="dITCSM1_op1_colo"][value="${mdData?.dITCSM1}"]`).checked = true || "";
+    //   if (mdData?.dITCSM1 === "op1") document.getElementById("dITCSM1_op1_op1_text_colo").value = mdData?.dITCSM1Oth || "";
+    //   if (mdData?.dITCSM1 === "op2") document.getElementById("dITCSM1_op1_op2_text_colo").value = mdData?.dITCSM1Oth || "";
+    //   if (mdData?.dITCSM1 === "op4") document.getElementById("dITCSM1_op1_op4_text_colo").value = mdData?.dITCSM1Oth || "";
+    //   if (mdData?.dITCSM1 === "op5") document.getElementById("dITCSM1_op1_op5_text_colo").value = mdData?.dITCSM1Oth || "";
+    //   if (mdData?.dITCSM1 === "op8") document.getElementById("dITCSM1_op1_op8_text_colo").value = mdData?.dITCSM1Oth || "";
+    //   if (mdData?.dITCSM1 === "op9") document.getElementById("dITCSM1_op1_op9_text_colo").value = mdData?.dITCSM1Oth || "";
+    //   if (mdData?.dITCSM1 === "op10") document.getElementById("dITCSM1_op1_op10_text_colo").value = mdData?.dITCSM1Oth || "";
+    // }
+    // if (mdData.sMIIT) {
+    //   document.querySelector(`input[name="sMIIT_op1_colo"][value="${mdData.sMIIT}"]`).checked = true || "";
+    //   if (mdData.sMIIT === "op1") document.getElementById("sMIIT_op1_op1_text_colo").value = mdData?.sMIITOth || "";
+    //   if (mdData.sMIIT === "op2") document.getElementById("sMIIT_op1_op2_text_colo").value = mdData?.sMIITOth || "";
+    //   if (mdData.sMIIT === "op3") document.getElementById("sMIIT_op1_op3_text_colo").value = mdData?.sMIITOth || "";
+    //   if (mdData.sMIIT === "op4") document.getElementById("sMIIT_op1_op4_text_colo").value = mdData?.sMIITOth || "";
+    //   if (mdData.sMIIT === "op5") document.getElementById("sMIIT_op1_op5_text_colo").value = mdData?.sMIITOth || "";
+    //   if (mdData.sMIIT === "op6") document.getElementById("sMIIT_op1_op6_text_colo").value = mdData?.sMIITOth || "";
+    //   if (mdData.sMIIT === "op7") document.getElementById("sMIIT_op1_op7_text_colo").value = mdData?.sMIITOth || "";
+    //   if (mdData.sMIIT === "op8") document.getElementById("sMIIT_op1_op8_text_colo").value = mdData?.sMIITOth || "";
+    // }
 
     document.getElementById("pTNM_colo").value = mdData.ptnm || "";
     if (mdData.rlnsts) document.querySelector(`input[name="rlnsts_colo"][value="${mdData.rlnsts}"]`).checked = true || "";

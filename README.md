@@ -387,3 +387,13 @@ Following features and changes have been incorporates:
 - Question are made specific to the selected cancer type in the Sample Entry form.
 
 <hr>
+
+### Version 1.9.2
+
+- Question are made specific to the selected cancer type in the Sample Entry form.
+- Resolved an issue related to UI in the Anal and Colorectal Cancer form.
+- Resolved Blocker in Esophageal Cancer form.
+- Added logic to disable scroll and hide scroll option in Sample Entry form for input fields with type number.
+- Resolved issue related to the "PNI" question in the gastric and esophageal cancer form.
+
+<hr>

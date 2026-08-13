@@ -43,7 +43,17 @@ body {
   background-color: #dcdcdc;
   z-index: -1;
 }
+/* Chrome, Edge, Safari */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
 .progress {
   background-color: var(--primary-color);
   width: 0%;
