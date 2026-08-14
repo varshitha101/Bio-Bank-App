@@ -1474,7 +1474,7 @@
 
         // Endm
         if (document.getElementById("nactInput_endm")) document.getElementById("nactInput_endm").value = "All";
-        if (document.getElementById("pathType_endm")) document.getElementById("pathType_endm").value = "All";
+        if (document.getElementById("pathSubtype_endm")) document.getElementById("pathSubtype_endm").value = "All";
         if (document.getElementById("fh1_endm")) document.getElementById("fh1_endm").value = "All";
         if (document.getElementById("figoInput_endm")) document.getElementById("figoInput_endm").value = "All";
         if (document.getElementById("biobankIdInput_endm")) document.getElementById("biobankIdInput_endm").value = "";
@@ -2967,7 +2967,7 @@
         // Endm
         document.getElementById("metaInput_endm").value = "All";
         document.getElementById("nactInput_endm").value = "All";
-        document.getElementById("pathType_endm").value = "All";
+        document.getElementById("pathSubtype_endm").value = "All";
         document.getElementById("fh1_endm").value = "All";
         document.getElementById("figoInput_endm").value = "All";
         document.getElementById("biobankIdInput_endm").value = "";
@@ -7114,6 +7114,7 @@
         return mapping[option] || "-";
       }
       function decode_mststDIMAdd_esph(mainOption, data, option, type) {
+        if (!data) return "-";
         if (mainOption !== option) return "-";
         const mainMapping = {
           op2: {
@@ -7270,7 +7271,7 @@
               "Ischemic Sample": decodeProcedureType(row?.sefData?.ie?.iss) || "-",
               NACT: decodeProcedureType(row?.sefData?.ie?.nact) || "-",
               "Treatment effect": decode_natEff_gast(row?.sefData?.ie?.nactEff) || "-",
-              "Treatment effect (Other)": decode_natEff_gast(row?.sefData?.ie?.nactEffOth) || "-",
+              "Treatment effect (Other)": row?.sefData?.ie?.nactEffOth || "-",
               "NACT Drug Cycles": row?.sefData?.ie?.nactdc || "-",
               "NACT date of last cycle": row?.sefData?.ie?.nactdlc || "-",
               "All sample Received together?": decodeProcedureType(row?.sefData?.ie?.scpt) || "-",
@@ -7449,7 +7450,7 @@
               "Ischemic Sample": decodeProcedureType(row?.sefData?.ie?.iss) || "-",
               NACT: decodeProcedureType(row?.sefData?.ie?.nact) || "-",
               "Treatment effect": decode_natEff_gast(row?.sefData?.ie?.nactEff) || "-",
-              "Treatment effect (Other)": decode_natEff_gast(row?.sefData?.ie?.nactEffOth) || "-",
+              "Treatment effect (Other)": row?.sefData?.ie?.nactEffOth || "-",
               "NACT Drug Cycles": row?.sefData?.ie?.nactdc || "-",
               "NACT date of last cycle": row?.sefData?.ie?.nactdlc || "-",
               "All sample Received together?": decodeProcedureType(row?.sefData?.ie?.scpt) || "-",
@@ -7578,7 +7579,6 @@
               "Partial shared remark": row?.osData?.oslastTimestamp?.psr || "-",
               "Shared form updated by": row?.osData?.oslastTimestamp?.os_ub || "-",
             };
-
           if (row.sefData.ie.ct === "colo")
             return {
               Timestamp: formatTimestamp(row?.timestampKey),
@@ -7626,7 +7626,7 @@
               "Ischemic Sample": decodeProcedureType(row?.sefData?.ie?.iss) || "-",
               NACT: decodeProcedureType(row?.sefData?.ie?.nact) || "-",
               "Treatment effect": decode_natEff_gast(row?.sefData?.ie?.nactEff) || "-",
-              "Treatment effect (Other)": decode_natEff_gast(row?.sefData?.ie?.nactEffOth) || "-",
+              "Treatment effect (Other)": row?.sefData?.ie?.nactEffOth || "-",
               "NACT Drug Cycles": row?.sefData?.ie?.nactdc || "-",
               "NACT date of last cycle": row?.sefData?.ie?.nactdlc || "-",
               "All sample Received together?": decodeProcedureType(row?.sefData?.ie?.scpt) || "-",
@@ -7826,7 +7826,7 @@
               "Ischemic Sample": decodeProcedureType(row?.sefData?.ie?.iss) || "-",
               NACT: decodeProcedureType(row?.sefData?.ie?.nact) || "-",
               "Treatment effect": decode_natEff_gast(row?.sefData?.ie?.nactEff) || "-",
-              "Treatment effect (Other)": decode_natEff_gast(row?.sefData?.ie?.nactEffOth) || "-",
+              "Treatment effect (Other)": row?.sefData?.ie?.nactEffOth || "-",
               "NACT Drug Cycles": row?.sefData?.ie?.nactdc || "-",
               "NACT date of last cycle": row?.sefData?.ie?.nactdlc || "-",
               "All sample Received together?": decodeProcedureType(row?.sefData?.ie?.scpt) || "-",
@@ -7978,7 +7978,6 @@
               "Partial shared remark": row?.osData?.oslastTimestamp?.psr || "-",
               "Shared form updated by": row?.osData?.oslastTimestamp?.os_ub || "-",
             };
-
           if (row.sefData.ie.ct === "brst")
             return {
               Timestamp: formatTimestamp(row?.timestampKey),
@@ -8140,7 +8139,6 @@
               "Partial shared remark": row?.osData?.oslastTimestamp?.psr || "-",
               "Shared form updated by": row?.osData?.oslastTimestamp?.os_ub || "-",
             };
-
           if (row.sefData.ie.ct === "lung")
             return {
               Timestamp: formatTimestamp(row?.timestampKey),
