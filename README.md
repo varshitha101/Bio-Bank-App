@@ -397,3 +397,11 @@ Following features and changes have been incorporates:
 - Resolved issue related to the "PNI" question in the gastric and esophageal cancer form.
 
 <hr>
+
+### Version 1.9.3
+
+- Resolved issue related Excel download in the Anal, Colorectal, Esophageal, and Gastric Cancer types.
+- Renamed "AN Specific" to "CO Specific" in the Colorectal Cancer Sample Entry form.
+- Resolved an issue where the "Other Subtype" question was not displayed in the Esophageal Cancer Sample Entry form.
+
+<hr>

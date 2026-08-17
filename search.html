@@ -1355,7 +1355,7 @@
           &copy; Copyright <strong><span></span></strong>. All Rights Reserved
         </div>
         <div class="credits"></div>
-        <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">Version 1.9.2</div>
+        <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">Version 1.9.3</div>
       </div>
     </footer>
     <script>
@@ -6682,7 +6682,7 @@
       }
       function decode_submI1_anal(option) {
         const mapping = {
-          op1: "Not applicable (not a pT1 tumor)",
+          op1: "Not applicable",
           op2: "Not identified",
           op3: "Present",
         };
@@ -6945,6 +6945,7 @@
           op15: "Other histologic type not listed",
           op16: "Carcinoma, type cannot be determined",
         };
+        return mapping[option] || "-";
       }
       function decode_site_esph(option) {
         const mapping = {
@@ -7061,6 +7062,7 @@
           op17: "Cannot be determined",
           op18: "No evidence of primary tumor",
         };
+        return mapping[option] || "-";
       }
       function decode_tEEGAS_esph(option) {
         const mapping = {
@@ -7346,7 +7348,7 @@
               "FF Tissue Remarks": row?.sefData?.md?.ftr || "-",
               "Tumor Site": decode_tst_gast(row?.sefData?.md?.tst) || "-",
               "Tumor Site (Other)": row?.sefData?.md?.tstOth || "-",
-              "Tumor Subsite": decode_tsub_gast(row?.sefData?.md?.tst) || "-",
+              "Tumor Subsite": decode_tsub_gast(row?.sefData?.md?.tsub) || "-",
               "Tumor Percentage": row?.sefData?.md?.tp || "-",
               "Age At Diagnosis": row?.sefData?.md?.ad || "-",
               "Clinical Stage ": row?.sefData?.md?.cs || "-",
@@ -7355,8 +7357,8 @@
               "Genetic Testing": decodeProcedureType(row?.sefData?.md?.gt) || "-",
               "Genetic Testing Results": decodeProcedureType(row?.sefData?.md?.gtr) || "-",
               "Genetic Testing Description": row?.sefData?.md?.gtd || "-",
-              "Distance of Tumor Center from Esophagogastric Junction": decode_disTCEJ_esph(row?.sefData?.md?.disTCEJ) || "-",
-              "Distance of Tumor Center from Esophagogastric Junction (Other)": row?.sefData?.md?.disTCEJOth || "-",
+              "Distance of Tumor Center from Esophagogastric Junction ": decode_disTCEJ_esph(row?.sefData?.md?.disTCEJ) || "-",
+              "Distance of Tumor Center from Esophagogastric Junction (Other) ": row?.sefData?.md?.disTCEJOth || "-",
               "Histological Type": decode_pt_gast(row?.sefData?.md?.pt) || "-",
               "Histological Subtype": decode_pst_gast(row?.sefData?.md?.pst) || "-",
               Grade: decode_gd_esph(row?.sefData?.md?.gd) || "-",
@@ -7372,11 +7374,11 @@
               "Specimen Margin Status for Invasive Tumor": decode_smsts_esph(row?.sefData?.md?.smsts) || "-",
               "Specimen Margin Status for Invasive Tumor (Other)": row?.sefData?.md?.smstsOth || "-",
               "Closest Specimen Margin(s) to Invasive Tumor": decode_cMIC_esph(row?.sefData?.md?.cMIC) || "-",
-              "Closest Specimen Margin(s) to Invasive Tumor (Other)": row?.sefData?.md?.cMICOth || "-",
+              "Closest Specimen Margin(s) to Invasive Tumor (Other)": row?.sefData?.md?.cmICOth || "-",
               "Distance from Invasive Tumor to Closest Specimen Margin": decode_dITCSM_esph(row?.sefData?.md?.dITCSM) || "-",
               "Distance from Invasive Tumor to Closest Specimen Margin (Other)": row?.sefData?.md?.dITCSMOth || "-",
               "Specimen Margin(s) Involved by Invasive Tumor (per orientation)": decode_smIIT_esph(row?.sefData?.md?.smIIT) || "-",
-              "Specimen Margin(s) Involved by Invasive Tumor (per orientation) (Other)": row?.sefData?.md?.smIITOth || "-",
+              "Specimen Margin(s) Involved by Invasive Tumor (per orientation) (Other)": row?.sefData?.md?.sMIITOth || "-",
               "Margin Status for Dysplasia and Intestinal Metaplasia": decode_mststDIM_esph(row?.sefData?.md?.mststDIM) || "-",
               "Margin Status for Dysplasia and Intestinal Metaplasia (Other)": row?.sefData?.md?.mststDIMOth || "-",
               "Margin(s) Involved by Low-Grade Squamous Dysplasia": decode_mststDIMAdd_esph(row?.sefData?.md?.mststDIM, row?.sefData?.md?.mststDIMAdd, "op2", "data") || "-",
@@ -7389,7 +7391,6 @@
               "Margin(s) Involved by High-Grade Glandular Dysplasia (Other)": decode_mststDIMAdd_esph(row?.sefData?.md?.mststDIM, row?.sefData?.md?.mststDIMAdd, "op5", "Other") || "-",
               "Margin(s) Involved by Intestinal Metaplasia": decode_mststDIMAdd_esph(row?.sefData?.md?.mststDIM, row?.sefData?.md?.mststDIMAdd, "op6", "data") || "-",
               "Margin(s) Involved by Intestinal Metaplasia (Other)": decode_mststDIMAdd_esph(row?.sefData?.md?.mststDIM, row?.sefData?.md?.mststDIMAdd, "op6", "Other") || "-",
-
               pTNM: row?.sefData?.md?.ptnm || "-",
               "Regional Lymph Node Status": rlnS_hene(row?.sefData?.md?.rlnsts) || "-",
               "Number Of Nodes Tested": row?.sefData?.md?.nnt || "-",
@@ -7411,6 +7412,7 @@
               "Metadata updated by": row?.sefData?.md?.mdu || "-",
               "HER2 IHC": row?.sefData?.gtf?.her2IHC || "-",
               "HER FISH": decodeProcedureType(row?.sefData?.gtf?.herF) || "-",
+              "PET CT SUV Max": row?.sefData?.gtf?.pcsm || "-",
               "PET CT Volume": row?.sefData?.gtf?.pcvm || "-",
               "GT Specific form updated by": row?.sefData?.gtf?.gtfu || "-",
               "follow Up Time": formatTimestamp(Math.floor(row?.fwData?.timestamp) / 1000) || "-",
@@ -7533,8 +7535,8 @@
               "Genetic Testing": decodeProcedureType(row?.sefData?.md?.gt) || "-",
               "Genetic Testing Results": decodeProcedureType(row?.sefData?.md?.gtr) || "-",
               "Genetic Testing Description": row?.sefData?.md?.gtd || "-",
-              "Distance of Tumor Center from Esophagogastric Junction": decode_disTCEJ_esph(row?.sefData?.md?.disTCEJ) || "-",
-              "Distance of Tumor Center from Esophagogastric Junction (Other)": row?.sefData?.md?.disTCEJOth || "-",
+              "Distance of Tumor Center from Esophagogastric Junction ": decode_disTCEJ_esph(row?.sefData?.md?.disTCEJ) || "-",
+              "Distance of Tumor Center from Esophagogastric Junction (Other) ": row?.sefData?.md?.disTCEJOth || "-",
               "Histological Subtype": decode_pst_esph(row?.sefData?.md?.pst) || "-",
               "Other Subtype": row?.sefData?.md?.pstOt || "-",
               Grade: decode_gd_esph(row?.sefData?.md?.gd) || "-",
@@ -7550,11 +7552,11 @@
               "Specimen Margin Status for Invasive Tumor": decode_smsts_esph(row?.sefData?.md?.smsts) || "-",
               "Specimen Margin Status for Invasive Tumor (Other)": row?.sefData?.md?.smstsOth || "-",
               "Closest Specimen Margin(s) to Invasive Tumor": decode_cMIC_esph(row?.sefData?.md?.cMIC) || "-",
-              "Closest Specimen Margin(s) to Invasive Tumor (Other)": row?.sefData?.md?.cMICOth || "-",
+              "Closest Specimen Margin(s) to Invasive Tumor (Other)": row?.sefData?.md?.cmICOth || "-",
               "Distance from Invasive Tumor to Closest Specimen Margin": decode_dITCSM_esph(row?.sefData?.md?.dITCSM) || "-",
               "Distance from Invasive Tumor to Closest Specimen Margin (Other)": row?.sefData?.md?.dITCSMOth || "-",
               "Specimen Margin(s) Involved by Invasive Tumor (per orientation)": decode_smIIT_esph(row?.sefData?.md?.smIIT) || "-",
-              "Specimen Margin(s) Involved by Invasive Tumor (per orientation) (Other)": row?.sefData?.md?.smIITOth || "-",
+              "Specimen Margin(s) Involved by Invasive Tumor (per orientation) (Other)": row?.sefData?.md?.sMIITOth || "-",
               "Margin Status for Dysplasia and Intestinal Metaplasia": decode_mststDIM_esph(row?.sefData?.md?.mststDIM) || "-",
               "Margin Status for Dysplasia and Intestinal Metaplasia (Other)": row?.sefData?.md?.mststDIMOth || "-",
               "Margin(s) Involved by Low-Grade Squamous Dysplasia": decode_mststDIMAdd_esph(row?.sefData?.md?.mststDIM, row?.sefData?.md?.mststDIMAdd, "op2", "data") || "-",
@@ -7589,8 +7591,9 @@
               "Metadata updated by": row?.sefData?.md?.mdu || "-",
               "HER2 IHC": row?.sefData?.etf?.her2IHC || "-",
               "HER FISH": decodeProcedureType(row?.sefData?.etf?.herF) || "-",
+              "PET CT SUV Max": row?.sefData?.etf?.pcsm || "-",
               "PET CT Volume": row?.sefData?.etf?.pcvm || "-",
-              "GT Specific form updated by": row?.sefData?.etf?.etfu || "-",
+              "ET Specific form updated by": row?.sefData?.etf?.etfu || "-",
               "follow Up Time": formatTimestamp(Math.floor(row?.fwData?.timestamp) / 1000) || "-",
               "Last Followup status": decodeFollowUpType(row?.fwData?.fwlastTimestamp?.lfs) || "-",
               "Other reason": row?.fwData?.fwlastTimestamp?.othrs || "-",
@@ -7711,7 +7714,7 @@
               "Genetic Testing Results": decodeProcedureType(row?.sefData?.md?.gtr) || "-",
               "Genetic Testing Description": row?.sefData?.md?.gtd || "-",
               "Macroscopic Evaluation of Mesorectum": decode_mem_anal(row?.sefData?.md?.mem) || "-",
-              "Macroscopic Evaluation of Mesorectum (Other)": row?.sefData?.md?.memoth || "-",
+              "Macroscopic Evaluation of Mesorectum (Other)": row?.sefData?.md?.memOth || "-",
               "Tumor Extent Colorectal": decode_tec_anal(row?.sefData?.md?.tec) || "-",
               "Tumor Extent Colorectal (Other)": row?.sefData?.md?.tecOth || "-",
               // "Tumor Extent Anal": decode_tea_anal(row?.sefData?.md?.tea) || "-",
@@ -7740,14 +7743,14 @@
               "PNI (Other)": row?.sefData?.md?.pniOth || "-",
               "Tumor Budding Score": decode_tBS_anal(row?.sefData?.md?.tBS) || "-",
               "Tumor Budding Score (Other)": row?.sefData?.md?.tBSOth || "-",
-              "Type of Polyp in which Invasive Carcinoma Arose": decode_typICA_anal(row?.OthsefData?.md?.typICA) || "-",
-              "Type of Polyp in which Invasive Carcinoma Arose (Other)": row?.OthsefData?.md?.typICAOth || "-",
+              "Type of Polyp in which Invasive Carcinoma Arose": decode_typICA_anal(row?.sefData?.md?.typICA) || "-",
+              "Type of Polyp in which Invasive Carcinoma Arose (Other)": row?.sefData?.md?.typICAOth || "-",
               "Specimen Margin Status for Invasive Tumor": decode_sMStsIT_anal(row?.sefData?.md?.sMStsIT) || "-",
               "Specimen Margin Status for Invasive Tumor (Other)": row?.sefData?.md?.sMStsITOth || "-",
               "Closest Margin(s) to Invasive Carcinoma": decode_cMIC_anal(row?.sefData?.md?.cMIC) || "-",
-              "Closest Margin(s) to Invasive Carcinoma (Other)": row?.sefData?.md?.cMICOth || "-",
-              "Distance from Invasive Tumor to Closest Specimen Margin": decode_dITCSM_anal(row?.OthsefData?.md?.dITCSM) || "-",
-              "Distance from Invasive Tumor to Closest Specimen Margin (Other)": row?.OthsefData?.md?.dITCSMOth || "-",
+              "Closest Margin(s) to Invasive Carcinoma (Other)": row?.sefData?.md?.cmICOth || "-",
+              "Distance from Invasive Tumor to Closest Specimen Margin": decode_dITCSM_anal(row?.sefData?.md?.dITCSM) || "-",
+              "Distance from Invasive Tumor to Closest Specimen Margin (Other)": row?.sefData?.md?.dITCSMOth || "-",
               "Specimen Margin(s) Involved by Invasive Tumor": decode_sMSIT_anal(row?.sefData?.md?.sMSIT) || "-",
               "Specimen Margin(s) Involved by Invasive Tumor (Other)": row?.sefData?.md?.sMSITOth || "-",
               "Margin Status for Non-Invasive Tumor": decode_mststNIT_anal(row?.sefData?.md?.mststNIT) || "-",
@@ -7763,7 +7766,7 @@
               // "Margin Status for High-Grade Intraepithelial Neoplasia (Other)": row?.OthsefData?.md?.mstsHGTNOth || "-",
               // "High-grade intraepithelial neoplasia present at margin": decode_hGINPM_anal(row?.OthsefData?.md?.hGINPM) || "-",
               // "High-grade intraepithelial neoplasia present at margin (Other)": row?.OthsefData?.md?.hGINPMOth || "-",
-              pTNM: row?.OthsefData?.md?.ptnm || "-",
+              pTNM: row?.sefData?.md?.ptnm || "-",
               "Regional Lymph Node Status": rlnS_hene(row?.sefData?.md?.rlnsts) || "-",
               "Number Of Nodes Tested": row?.sefData?.md?.nnt || "-",
               "Number Of Positive Nodes": row?.sefData?.md?.npn || "-",
@@ -7790,7 +7793,7 @@
               "Other markers": row?.sefData?.cof?.othM || "-",
               "PET CT SUV Max": row?.sefData?.cof?.pcsm || "-",
               "PET CT Volume": row?.sefData?.cof?.pcvm || "-",
-              "AN Specific form updated by": row?.sefData?.cof?.cofu || "-",
+              "CO Specific form updated by": row?.sefData?.cof?.cofu || "-",
               "follow Up Time": formatTimestamp(Math.floor(row?.fwData?.timestamp) / 1000) || "-",
               "Last Followup status": decodeFollowUpType(row?.fwData?.fwlastTimestamp?.lfs) || "-",
               "Other reason": row?.fwData?.fwlastTimestamp?.othrs || "-",
@@ -7910,7 +7913,7 @@
               "Genetic Testing Results": decodeProcedureType(row?.sefData?.md?.gtr) || "-",
               "Genetic Testing Description": row?.sefData?.md?.gtd || "-",
               "Macroscopic Evaluation of Mesorectum": decode_mem_anal(row?.sefData?.md?.mem) || "-",
-              "Macroscopic Evaluation of Mesorectum (Other)": row?.sefData?.md?.memoth || "-",
+              "Macroscopic Evaluation of Mesorectum (Other)": row?.sefData?.md?.memOth || "-",
               // "Tumor Extent Colorectal": decode_tec_anal(row?.sefData?.md?.tec) || "-",
               // "Tumor Extent Colorectal (Other)": row?.sefData?.md?.tecOth || "-",
               "Tumor Extent Anal": decode_tea_anal(row?.sefData?.md?.tea) || "-",
@@ -7939,8 +7942,8 @@
               "PNI (Other)": row?.sefData?.md?.pniOth || "-",
               "Tumor Budding Score": decode_tBS_anal(row?.sefData?.md?.tBS) || "-",
               "Tumor Budding Score (Other)": row?.sefData?.md?.tBSOth || "-",
-              "Type of Polyp in which Invasive Carcinoma Arose": decode_typICA_anal(row?.OthsefData?.md?.typICA) || "-",
-              "Type of Polyp in which Invasive Carcinoma Arose (Other)": row?.OthsefData?.md?.typICAOth || "-",
+              "Type of Polyp in which Invasive Carcinoma Arose": decode_typICA_anal(row?.sefData?.md?.typICA) || "-",
+              "Type of Polyp in which Invasive Carcinoma Arose (Other)": row?.sefData?.md?.typICAOth || "-",
               "Specimen Margin Status for Invasive Tumor": decode_sMStsIT_anal(row?.sefData?.md?.sMStsIT) || "-",
               "Specimen Margin Status for Invasive Tumor (Other)": row?.sefData?.md?.sMStsITOth || "-",
               // "Closest Margin(s) to Invasive Carcinoma": decode_cMIC_anal(row?.sefData?.md?.cMIC) || "-",
@@ -7954,15 +7957,15 @@
               // "Specimen Margin Status for Invasive Tumor": decode_smstsN_anal(row?.sefData?.md?.smstsN) || "-",
               "Closest Margin(s) to Invasive Carcinoma": decode_cMIC1_anal(row?.sefData?.md?.cMIC1) || "-",
               "Closest Margin(s) to Invasive Carcinoma (Other)": row?.sefData?.md?.cMIC1Oth || "-",
-              "Distance from Invasive Tumor to Closest Specimen Margin": decode_dITCSM1_anal(row?.OthsefData?.md?.dITCSM1) || "-",
-              "Distance from Invasive Tumor to Closest Specimen Margin (Other)": row?.OthsefData?.md?.dITCSM1Oth || "-",
+              "Distance from Invasive Tumor to Closest Specimen Margin": decode_dITCSM1_anal(row?.sefData?.md?.dITCSM1) || "-",
+              "Distance from Invasive Tumor to Closest Specimen Margin (Other)": row?.sefData?.md?.dITCSM1Oth || "-",
               "Specimen Margin(s) Involved by Invasive Tumor": decode_sMIIT_anal(row?.sefData?.md?.sMIIT) || "-",
               "Specimen Margin(s) Involved by Invasive Tumor (Other)": row?.sefData?.md?.sMIITOth || "-",
-              "Margin Status for High-Grade Intraepithelial Neoplasia": decode_mstsHGTN_anal(row?.OthsefData?.md?.mstsHGTN) || "-",
-              "Margin Status for High-Grade Intraepithelial Neoplasia (Other)": row?.OthsefData?.md?.mstsHGTNOth || "-",
-              "High-grade intraepithelial neoplasia present at margin": decode_hGINPM_anal(row?.OthsefData?.md?.hGINPM) || "-",
-              "High-grade intraepithelial neoplasia present at margin (Other)": row?.OthsefData?.md?.hGINPMOth || "-",
-              pTNM: row?.OthsefData?.md?.ptnm || "-",
+              "Margin Status for High-Grade Intraepithelial Neoplasia": decode_mstsHGTN_anal(row?.sefData?.md?.mstsHGTN) || "-",
+              "Margin Status for High-Grade Intraepithelial Neoplasia (Other)": row?.sefData?.md?.mstsHGTNOth || "-",
+              "High-grade intraepithelial neoplasia present at margin": decode_hGINPM_anal(row?.sefData?.md?.hGINPM) || "-",
+              "High-grade intraepithelial neoplasia present at margin (Other)": row?.sefData?.md?.hGINPMOth || "-",
+              pTNM: row?.sefData?.md?.ptnm || "-",
               "Regional Lymph Node Status": rlnS_hene(row?.sefData?.md?.rlnsts) || "-",
               "Number Of Nodes Tested": row?.sefData?.md?.nnt || "-",
               "Number Of Positive Nodes": row?.sefData?.md?.npn || "-",

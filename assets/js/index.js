@@ -8335,6 +8335,7 @@ function fillMdForm_esph(mdData) {
     document.getElementById("disTCEJ_Oth_esph").value = mdData?.disTCEJOth || "";
 
     document.getElementById("subtype_esph").value = mdData?.pst || "";
+    document.getElementById("subtype_esph").dispatchEvent(new Event("change"));
     document.getElementById("pstOt_esph").value = mdData?.pstOt || "";
     document.getElementById("sampleGrade_esph").value = mdData?.gd || "";
     document.getElementById("sampleGrade_Oth_esph").value = mdData?.gdOth || "";
