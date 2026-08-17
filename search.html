@@ -6856,20 +6856,20 @@
       }
       function decode_hGINPM_anal(option) {
         const mapping = {
-          op1: "All margins negative for high-grade intraepithelial neoplasia",
-          op2: "High-grade intraepithelial neoplasia present at margin",
+          op1: "Proximal",
+          op2: "Distal",
           op3: "Other",
           op4: "Cannot be determined",
-          op5: "Not applicable",
         };
         return mapping[option] || "-";
       }
       function decode_mstsHGTN_anal(option) {
         const mapping = {
-          op1: "Proximal",
-          op2: "Distal",
+          op1: "All margins negative for high-grade intraepithelial neoplasia",
+          op2: "High-grade intraepithelial neoplasia present at margin",
           op3: "Other",
           op4: "Cannot be determined",
+          op5: "Not applicable",
         };
         return mapping[option] || "-";
       }
@@ -7733,8 +7733,8 @@
               "Sub-mucosal Invasion ": decode_submI1_anal(row?.sefData?.md?.submI1) || "-",
               "Depth of Sub-mucosal Invasion ": decode_dSubMI_anal(row?.sefData?.md?.dSubMI) || "-",
               "Depth of Sub-mucosal Invasion (Other)": row?.sefData?.md?.dSubMIOth || "-",
-              "Extent of Sub-mucosal Invasion (Note E)": decode_eSubI_anal(row?.sefData?.md?.eSubI) || "-",
-              "Extent of Sub-mucosal Invasion (Note E) (Other)": row?.sefData?.md?.eSubIOth || "-",
+              "Extent of Sub-mucosal Invasion (Note E)": decode_eSubI_anal(row?.sefData?.md?.eSubMIE) || "-",
+              "Extent of Sub-mucosal Invasion (Note E) (Other)": row?.sefData?.md?.eSubMIEOth || "-",
               LVI: decode_lviColon(row?.sefData?.md?.lviColo) || "-",
               "LVI (Other)": row?.sefData?.md?.lviColoOth || "-",
               // "LVI for anal": decode_lvi_pni_anal(row?.sefData?.md?.lvi) || "-",
@@ -7932,8 +7932,8 @@
               "Sub-mucosal Invasion ": decode_submI1_anal(row?.sefData?.md?.submI1) || "-",
               "Depth of Sub-mucosal Invasion ": decode_dSubMI_anal(row?.sefData?.md?.dSubMI) || "-",
               "Depth of Sub-mucosal Invasion (Other)": row?.sefData?.md?.dSubMIOth || "-",
-              "Extent of Sub-mucosal Invasion (Note E)": decode_eSubI_anal(row?.sefData?.md?.eSubI) || "-",
-              "Extent of Sub-mucosal Invasion (Note E) (Other)": row?.sefData?.md?.eSubIOth || "-",
+              "Extent of Sub-mucosal Invasion (Note E)": decode_eSubI_anal(row?.sefData?.md?.eSubMIE) || "-",
+              "Extent of Sub-mucosal Invasion (Note E) (Other)": row?.sefData?.md?.eSubMIEOth || "-",
               // "LVI For colon only": decode_lviColon(row?.sefData?.md?.lviColo) || "-",
               // "LVI For colon only (Other)": row?.sefData?.md?.lviColoOth || "-",
               LVI: decode_lvi_pni_anal(row?.sefData?.md?.lvi) || "-",
