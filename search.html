@@ -1355,7 +1355,7 @@
           &copy; Copyright <strong><span></span></strong>. All Rights Reserved
         </div>
         <div class="credits"></div>
-        <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">Version 1.9.3</div>
+        <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">Version 1.9.4</div>
       </div>
     </footer>
     <script>
@@ -7396,7 +7396,7 @@
               "Number Of Nodes Tested": row?.sefData?.md?.nnt || "-",
               "Number Of Positive Nodes": row?.sefData?.md?.npn || "-",
               "Additional findings": row?.sefData?.md?.af || "-",
-              "Tumor Size": row?.sefData?.md?.tsz === "xx" || row?.sefData?.md?.tsz === undefined ? "-" : row?.sefData?.md?.tsz,
+              "Tumor Size": !row?.sefData?.md?.tsz || row?.sefData?.md?.tsz === "xx" ? "-" : row.sefData.md.tsz,
               ACT: decodeProcedureType(row?.sefData?.md?.act) || "-",
               "ACT Drug Cycles": row?.sefData?.md?.actdc || "-",
               "ACT Date of last Cycle": row?.sefData?.md?.actdls || "-",
@@ -7575,7 +7575,7 @@
               "Number Of Nodes Tested": row?.sefData?.md?.nnt || "-",
               "Number Of Positive Nodes": row?.sefData?.md?.npn || "-",
               "Additional findings": row?.sefData?.md?.af || "-",
-              "Tumor Size": row?.sefData?.md?.tsz === "xx" || row?.sefData?.md?.tsz === undefined ? "-" : row?.sefData?.md?.tsz,
+              "Tumor Size": !row?.sefData?.md?.tsz || row?.sefData?.md?.tsz === "xx" ? "-" : row.sefData.md.tsz,
               ACT: decodeProcedureType(row?.sefData?.md?.act) || "-",
               "ACT Drug Cycles": row?.sefData?.md?.actdc || "-",
               "ACT Date of last Cycle": row?.sefData?.md?.actdls || "-",
@@ -7770,7 +7770,7 @@
               "Regional Lymph Node Status": rlnS_hene(row?.sefData?.md?.rlnsts) || "-",
               "Number Of Nodes Tested": row?.sefData?.md?.nnt || "-",
               "Number Of Positive Nodes": row?.sefData?.md?.npn || "-",
-              "Tumor Size": row?.sefData?.md?.tsz === "xx" || row?.sefData?.md?.tsz === undefined ? "-" : row?.sefData?.md?.tsz,
+              "Tumor Size": !row?.sefData?.md?.tsz || row?.sefData?.md?.tsz === "xx" ? "-" : row.sefData.md.tsz,
               "Tumor Deposits": decode_tDep_anal(row?.sefData?.md?.tDep) || "-",
               "Tumor Deposits (Other)": row?.sefData?.md?.tDepOth || "-",
               "If Tumor Deposits present": decode_tDepP_anal(row?.sefData?.md?.tDepP) || "-",
@@ -7969,7 +7969,7 @@
               "Regional Lymph Node Status": rlnS_hene(row?.sefData?.md?.rlnsts) || "-",
               "Number Of Nodes Tested": row?.sefData?.md?.nnt || "-",
               "Number Of Positive Nodes": row?.sefData?.md?.npn || "-",
-              "Tumor Size": row?.sefData?.md?.tsz === "xx" || row?.sefData?.md?.tsz === undefined ? "-" : row?.sefData?.md?.tsz,
+              "Tumor Size": !row?.sefData?.md?.tsz || row?.sefData?.md?.tsz === "xx" ? "-" : row.sefData.md.tsz,
               "Tumor Deposits": decode_tDep_anal(row?.sefData?.md?.tDep) || "-",
               "Tumor Deposits (Other)": row?.sefData?.md?.tDepOth || "-",
               "If Tumor Deposits present": decode_tDepP_anal(row?.sefData?.md?.tDepP) || "-",
@@ -8119,7 +8119,7 @@
               "AJCC Staging": row?.sefData?.md?.as || "-",
               "Number Of Nodes Tested": row?.sefData?.md?.nnt || "-",
               "Number Of Positive Nodes": row?.sefData?.md?.npn || "-",
-              "Tumor Size": row?.sefData?.md?.tsz === "xx" || row?.sefData?.md?.tsz === undefined ? "-" : row?.sefData?.md?.tsz,
+              "Tumor Size": !row?.sefData?.md?.tsz || row?.sefData?.md?.tsz === "xx" ? "-" : row.sefData.md.tsz,
               "RCB Score": row?.sefData?.md?.rcbs || "-",
               "RCB Class": row?.sefData?.md?.rcbc || "-",
               ACT: decodeProcedureType(row?.sefData?.md?.act) || "-",
@@ -8322,7 +8322,7 @@
               "Size of Largest Nodal Metastatic Deposit (cm)": row?.sefData?.md?.sizeLNMD,
               "Extranodal Extension (ENE)": ene_hene(row?.sefData?.md?.ene) || "-",
               "DISTANT METASTASIS": row?.sefData?.md?.disM || "-",
-              "Tumor Size": row?.sefData?.md?.tsz === "xx" || row?.sefData?.md?.tsz === undefined ? "-" : row?.sefData?.md?.tsz,
+              "Tumor Size": !row?.sefData?.md?.tsz || row?.sefData?.md?.tsz === "xx" ? "-" : row.sefData.md.tsz,
               "Invasive Tumor Size": row?.sefData?.md?.invTS || "-",
               "Total Tumor Size": row?.sefData?.md?.tTS || "-",
               "Size of In Situ Carcinoma in Centimeters (cm)": row?.sefData?.md?.sSc || "-",
@@ -8543,7 +8543,7 @@
               "Size of Largest Nodal Metastatic Deposit (cm)": row?.sefData?.md?.slnT || "-",
               "Extranodal Extension (ENE)": ene_hene(row?.sefData?.md?.ene) || "-",
               "DISTANT METASTASIS": row?.sefData?.md?.disM || "-",
-              "Tumor Size": row?.sefData?.md?.tsz === "xx" || row?.sefData?.md?.tsz === undefined ? "-" : row?.sefData?.md?.tsz,
+              "Tumor Size": !row?.sefData?.md?.tsz || row?.sefData?.md?.tsz === "xx" ? "-" : row.sefData.md.tsz,
               ACT: decodeProcedureType(row?.sefData?.md?.act) || "-",
               "ACT Drug Cycles": row?.sefData?.md?.actdc || "-",
               "ACT Date of last Cycle": row?.sefData?.md?.actdls || "-",
@@ -8707,7 +8707,7 @@
               "Number Of Positive Pelvic Nodes": row?.sefData?.md?.npn || "-",
               "Number Of Para-aortic Nodes Tested": row?.sefData?.md?.pant || "-",
               "Number Of Positive Para-aortic Nodes": row?.sefData?.md?.ppan || "-",
-              "Tumor Size": row?.sefData?.md?.tsz === "xx" || row?.sefData?.md?.tsz === undefined ? "-" : row?.sefData?.md?.tsz,
+              "Tumor Size": !row?.sefData?.md?.tsz || row?.sefData?.md?.tsz === "xx" ? "-" : row.sefData.md.tsz,
               ACT: decodeProcedureType(row?.sefData?.md?.act) || "-",
               "ACT Drug Cycles": row?.sefData?.md?.actdc || "-",
               "ACT Date of last Cycle": row?.sefData?.md?.actdls || "-",
@@ -8884,7 +8884,7 @@
               "Number Of Positive Pelvic Nodes": row?.sefData?.md?.npn || "-",
               "Number Of Para-aortic Nodes Tested": row?.sefData?.md?.pant || "-",
               "Number Of Positive Para-aortic Nodes": row?.sefData?.md?.ppan || "-",
-              "Tumor Size": row?.sefData?.md?.tsz === "xx" || row?.sefData?.md?.tsz === undefined ? "-" : row?.sefData?.md?.tsz,
+              "Tumor Size": !row?.sefData?.md?.tsz || row?.sefData?.md?.tsz === "xx" ? "-" : row.sefData.md.tsz,
               // "RCB Score": row?.sefData?.md?.rcbs || "-",
               // "RCB Class": row?.sefData?.md?.rcbc || "-",
               ACT: decodeProcedureType(row?.sefData?.md?.act) || "-",
@@ -9102,7 +9102,7 @@
               "Number Of Para-aortic Nodes Tested": row?.sefData?.md?.pant || "-",
               "Number Of Positive Para-aortic Nodes": row?.sefData?.md?.ppan || "-",
               "Size of the largest deposit": row?.sefData?.md?.sld || "-",
-              "Tumor Size": row?.sefData?.md?.tsz === "xx" || row?.sefData?.md?.tsz === undefined ? "-" : row?.sefData?.md?.tsz,
+              "Tumor Size": !row?.sefData?.md?.tsz || row?.sefData?.md?.tsz === "xx" ? "-" : row.sefData.md.tsz,
               // "RCB Score": row?.sefData?.md?.rcbs || "-",
               // "RCB Class": row?.sefData?.md?.rcbc || "-",
               ACT: decodeProcedureType(row?.sefData?.md?.act) || "-",

@@ -672,7 +672,7 @@ async function populateBBDataForCurrentBox(activeCancerType) {
 
     const dataSnapshot = await db.ref(`bb/${boxVal}/`).once("value");
     if (dataSnapshot.exists()) {
-      populateBBLabels(dataSnapshot.val(), boxVal, "call from populateBBDataForCurrentBox");
+      populateBBLabels(getMappedCancerTypeFromHome(activeCancerType), dataSnapshot.val(), boxVal);
       return;
     }
 
@@ -758,7 +758,7 @@ async function populateSBData(activeCancerType) {
 
     const dataSnapshot = await db.ref(`sb/${boxVal}/`).once("value");
     if (dataSnapshot.exists()) {
-      populateSBLabels(getMappedCancerTypeFromHome(activeCancerType), dataSnapshot.val());
+      populateSBLabels(getMappedCancerTypeFromHome(activeCancerType), dataSnapshot.val(), boxVal);
       return;
     }
 
@@ -769,7 +769,7 @@ async function populateSBData(activeCancerType) {
   }
 }
 
-function populateSBLabels(activeCancerType, data) {
+function populateSBLabels(activeCancerType, data, boxVal) {
   const rows = "ABCDEFGHIJ";
   const cols = 10;
 
@@ -1082,7 +1082,7 @@ async function populateSBDataForCurrentBox(activeCancerType) {
 
     const dataSnapshot = await db.ref(`sb/${boxVal}/`).once("value");
     if (dataSnapshot.exists()) {
-      populateSBLabels(dataSnapshot.val());
+      populateSBLabels(getMappedCancerTypeFromHome(activeCancerType), dataSnapshot.val(), boxVal);
       return;
     }
 
@@ -1396,7 +1396,7 @@ async function populateRLTDataForCurrentBox(activeCancerType) {
 
     const dataSnapshot = await db.ref(`rlt/${boxVal}/`).once("value");
     if (dataSnapshot.exists()) {
-      populateRLTLabels(dataSnapshot.val(), boxVal, "call from populateBBDataForCurrentBox");
+      populateRLTLabels(getMappedCancerTypeFromHome(activeCancerType), dataSnapshot.val(), boxVal);
       return;
     }
 
@@ -1710,7 +1710,7 @@ async function populatePCDataForCurrentBox(activeCancerType) {
 
     const dataSnapshot = await db.ref(`pcb/${boxVal}/`).once("value");
     if (dataSnapshot.exists()) {
-      populatePCBLabels(dataSnapshot.val(), boxVal, "call from populateBBDataForCurrentBox");
+      populatePCBLabels(getMappedCancerTypeFromHome(activeCancerType), dataSnapshot.val(), boxVal);
       return;
     }
 
