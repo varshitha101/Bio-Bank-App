@@ -5673,7 +5673,7 @@ function validateForm3() {
         res.push(cb.value);
       }
     });
-    const msiIHC = res.length > 0 ? res.join(",") : "";
+    const msiIHC = res.length > 0 ? res.join("; ") : "";
     const form3Data = {
       brf: {
         msiIHC,
@@ -5691,7 +5691,7 @@ function validateForm3() {
         res.push(cb.value);
       }
     });
-    const msiIHC = res.length > 0 ? res.join(",") : "";
+    const msiIHC = res.length > 0 ? res.join("; ") : "";
     const form3Data = {
       brf: {
         msiIHC,
@@ -11396,8 +11396,9 @@ function fillBrfForm_esph(brfData) {
 function fillBrfForm_anal(brfData) {
   try {
     if (brfData?.msiIHC) {
-      const data = brfData.msiIHC.split(",");
+      const data = brfData.msiIHC.split(";");
       data.forEach((value) => {
+        value = value.trim();
         document.querySelector(`input[name="msiIHC_anal"][value="${value}"]`).checked = true || "";
       });
     }
@@ -11413,8 +11414,9 @@ function fillBrfForm_anal(brfData) {
 function fillBrfForm_colo(brfData) {
   try {
     if (brfData?.msiIHC) {
-      const data = brfData.msiIHC.split(",");
+      const data = brfData.msiIHC.split(";");
       data.forEach((value) => {
+        value = value.trim();
         document.querySelector(`input[name="msiIHC_colo"][value="${value}"]`).checked = true || "";
       });
     }
