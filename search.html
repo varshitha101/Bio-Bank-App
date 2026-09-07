@@ -647,7 +647,6 @@
                     <option value="option23">Adenosarcoma with sarcomatous overgrowth</option>
                     <option value="option24">Rhabdomyosarcoma</option>
                     <option value="option25">Malignant perivascular epithelioid cell tumor</option>
-                    <!-- <option value="option26">Other histologic type not listed</option> -->
                   </select>
                 </div>
                 <div class="form-group col-xs-2 mr-2">
@@ -5146,25 +5145,25 @@
         if (!data || data.length === 0) return "-";
 
         const mapping = {
-          "op1" : "Not applicable (no other tissues / organs submitted)",
-          "op2" : "Not identified (other tissues / organs submitted and not involved)",
-          "op3" : "Right ovary",
-          "op4" : "Left ovary",
-          "op5" : "Ovary (side not specified)",
-          "op6" : "Right fallopian tube",
-          "op7" : "Left fallopian tube",
-          "op8" : "Fallopian tube (side not specified)",
-          "op9" : "Vagina",
-          "op10" : "Right parametrium",
-          "op11" : "Left parametrium",
-          "op12" : "Parametrium (side not specified)",
-          "op13" : "Pelvic wall",
-          "op14" : "Bladder wall without mucosal involvement",
-          "op15" : "Bladder wall with mucosal involvement",
-          "op16" : "Bowel wall without mucosal involvement",
-          "op17" : "Bowel wall with mucosal involvement",
-          "op18" : "Other organs / tissue",
-          "op19" : "Cannot be determined",
+          op1: "Not applicable (no other tissues / organs submitted)",
+          op2: "Not identified (other tissues / organs submitted and not involved)",
+          op3: "Right ovary",
+          op4: "Left ovary",
+          op5: "Ovary (side not specified)",
+          op6: "Right fallopian tube",
+          op7: "Left fallopian tube",
+          op8: "Fallopian tube (side not specified)",
+          op9: "Vagina",
+          op10: "Right parametrium",
+          op11: "Left parametrium",
+          op12: "Parametrium (side not specified)",
+          op13: "Pelvic wall",
+          op14: "Bladder wall without mucosal involvement",
+          op15: "Bladder wall with mucosal involvement",
+          op16: "Bowel wall without mucosal involvement",
+          op17: "Bowel wall with mucosal involvement",
+          op18: "Other organs / tissue",
+          op19: "Cannot be determined",
         };
         const result = [];
         for (let i = 0; i < data.length; i++) {

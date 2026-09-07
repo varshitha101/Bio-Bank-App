@@ -124,7 +124,10 @@ body {
   border-radius: 26px; /* rounded corners */
   position: relative;
   box-shadow: 0 10px 34px -10px rgba(0, 0, 0, 0.45);
-  transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s,
+    background 0.3s;
   pointer-events: auto; /* re-enable interactions inside */
 }
 .auth-card img {
@@ -171,7 +174,9 @@ body {
   color: #516078;
   cursor: pointer;
   border-radius: 6px;
-  transition: background 0.2s, color 0.2s;
+  transition:
+    background 0.2s,
+    color 0.2s;
 }
 .toggle-password-btn:hover {
   background: rgba(0, 0, 0, 0.05);
@@ -198,9 +203,13 @@ body {
 .auth-card.animated-border {
   --angle: 0deg;
   border: 3px solid transparent;
-  background: linear-gradient(#fff, #fff) padding-box, conic-gradient(from var(--angle), #ff4545, #00ff99, #006aff, #ff0095, #ff4545) border-box;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    conic-gradient(from var(--angle), #ff4545, #00ff99, #006aff, #ff0095, #ff4545) border-box;
   animation: spin 2.5s linear infinite;
-  box-shadow: 0 0 12px -2px rgba(0, 0, 0, 0.15), 0 0 18px -4px rgba(0, 128, 255, 0.35);
+  box-shadow:
+    0 0 12px -2px rgba(0, 0, 0, 0.15),
+    0 0 18px -4px rgba(0, 128, 255, 0.35);
 }
 @property --angle {
   syntax: "<angle>";
@@ -249,7 +258,11 @@ body {
   color: #516078;
   background: var(--card-bg, rgba(255, 255, 255, 0));
   pointer-events: none;
-  transition: transform 0.16s ease, color 0.16s ease, top 0.16s ease, font-size 0.16s ease;
+  transition:
+    transform 0.16s ease,
+    color 0.16s ease,
+    top 0.16s ease,
+    font-size 0.16s ease;
 }
 
 /* Use placeholder-shown to detect empty state */

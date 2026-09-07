@@ -405,3 +405,9 @@ Following features and changes have been incorporates:
 - Resolved an issue where the "Other Subtype" question was not displayed in the Esophageal Cancer Sample Entry form.
 
 <hr>
+
+### Version 1.9.4
+
+- Resolved issue related box not getting updated when clicked on previous button.
+
+<hr>
