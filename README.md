@@ -411,3 +411,9 @@ Following features and changes have been incorporates:
 - Resolved issue related box not getting updated when clicked on previous button.
 
 <hr>
+### Version 1.9.5
+
+- Updated Web Application based on the changes from BioBank team.
+- Additionally, Number of Tested Nodes and Number of Positive Nodes have been made number input fields.
+
+<hr>

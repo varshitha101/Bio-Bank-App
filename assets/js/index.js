@@ -3192,6 +3192,11 @@ function validateForm1() {
               nact: document.querySelector('input[name="NACT_hene"]:checked')?.value || "",
               nactdc: document.getElementById("NACT_cycle_hene").value || "",
               nactdlc: document.getElementById("NACT_cycle_D_hene").value || "",
+              nart: document.querySelector('input[name="NART_hene"]:checked')?.value || "",
+
+              nartdc: document.getElementById("NART_cycle_D_hene").value || "",
+              narttc: document.getElementById("NART_cycle_T_hene").value || "",
+              nartdcc: document.getElementById("NART_cycle_DC_hene").value || "",
               prb: document.getElementById("processedBy_hene").value,
               scpt: document.querySelector('input[name="processedRadio_hene"]:checked')?.value || "",
               srt: aRtimestamp, // These will now either be valid timestamps or null
@@ -4591,10 +4596,10 @@ function validateForm2() {
                 : "";
 
       smsts2 = document.querySelector('input[name="smsts_op1_2_hene"]:checked')?.value || "";
-      smsts2Oth = smsts2 === "op2" ? document.getElementById("smsts_op1_2_op2_text_hene")?.value || "" : "";
+      smsts2Oth = smsts2 === "op1" ? document.getElementById("smsts_op1_2_op1_text_hene")?.value || "" : smsts2 === "op2" ? document.getElementById("smsts_op1_2_op2_text_hene")?.value || "" : "";
     } else if (smsts === "op2") {
       smsts3 = document.querySelector('input[name="smsts_op2_1_hene"]:checked')?.value || "";
-      smsts3Oth = smsts3 === "op2" ? document.getElementById("smsts_op2_1_op2_text_hene")?.value || "" : "";
+      smsts3Oth = smsts3 === "op1" ? document.getElementById("smsts_op2_1_op1_text_hene")?.value || "" : smsts3 === "op2" ? document.getElementById("smsts_op2_1_op2_text_hene")?.value || "" : "";
     }
 
     const msts = document.getElementById("msts_hene")?.value || "";
@@ -4770,6 +4775,7 @@ function validateForm2() {
               ? document.getElementById("tdoi_cbd_text_hene")?.value || ""
               : "",
         te: document.getElementById("tE_hene")?.value || "",
+        pTNM: document.getElementById("pTNM_hene")?.value || "",
         mte1: document.getElementById("mte1_hene")?.value || "",
 
         mte2: document.getElementById("mte2_hene")?.value || "",
@@ -7479,6 +7485,14 @@ async function fillIeForm_hene(ieData) {
     NactYes_hene();
     document.getElementById("NACT_cycle_hene").value = ieData.nactdc || "";
     document.getElementById("NACT_cycle_D_hene").value = ieData.nactdlc || "";
+
+    // NART
+    if (ieData.nart) document.querySelector(`input[name="NART_hene"][value="${ieData.nart}"]`).checked = true || "";
+    NartYes_hene();
+
+    document.getElementById("NART_cycle_D_hene").value = ieData.nartdc || "";
+    document.getElementById("NART_cycle_T_hene").value = ieData.narttc || "";
+    document.getElementById("NART_cycle_DC_hene").value = ieData.nartdcc || "";
     document.getElementById("processedBy_hene").value = ieData.prb || "";
 
     if (ieData.scpt) document.querySelector(`input[name="processedRadio_hene"][value="${ieData.scpt}"]`).checked = true || "";
@@ -9983,6 +9997,7 @@ function fillMdForm_hene(mdData) {
       if (mdData.tdoi === "cbd") document.getElementById("tdoi_cbd_text_hene").value = mdData?.tdoiOth || "";
     }
     document.getElementById("tE_hene").value = mdData?.te || "";
+    document.getElementById("pTNM_hene").value = mdData?.pTNM || "";
     document.getElementById("mte1_hene").value = mdData?.mte1 || "";
     document.getElementById("mte1_hene").dispatchEvent(new Event("change"));
     document.getElementById("mte2_hene").value = mdData?.mte2 || "";
@@ -10015,10 +10030,12 @@ function fillMdForm_hene(mdData) {
 
     if (mdData?.smsts2) document.querySelector(`input[name="smsts_op1_2_hene"][value="${mdData.smsts2}"]`).checked = true || "";
     if (mdData?.smsts2) {
+      if (mdData.smsts2 === "op1") document.getElementById("smsts_op1_2_op1_text_hene").value = mdData?.smsts2Oth || "";
       if (mdData.smsts2 === "op2") document.getElementById("smsts_op1_2_op2_text_hene").value = mdData?.smsts2Oth || "";
     }
     if (mdData?.smsts3) document.querySelector(`input[name="smsts_op2_1_hene"][value="${mdData.smsts3}"]`).checked = true || "";
     if (mdData?.smsts3) {
+      if (mdData.smsts3 === "op1") document.getElementById("smsts_op2_1_op1_text_hene").value = mdData?.smsts3Oth || "";
       if (mdData.smsts3 === "op2") document.getElementById("smsts_op2_1_op2_text_hene").value = mdData?.smsts3Oth || "";
     }
 
@@ -14036,8 +14053,29 @@ function NactYes_endm() {
     $("#NACT_cycle_D_endm").val("");
   }
 }
+function NartYes_hene() {
+  if ($("#NARTYes_hene").is(":checked")) {
+    $("#nartDC_hene").show();
+    $("#nartDF_hene").show();
+    $("#nartDT_hene").show();
+    $("#nartDLC_hene").show();
+  } else {
+    $("#nartDC_hene").hide();
+    $("#nartDF_hene").hide();
+    $("#nartDT_hene").hide();
+    $("#nartDLC_hene").hide();
 
-// Ovary Cancer - NART
+    $("#NART_cycle_D_hene").val("");
+    $("#NART_cycle_T_hene").val("");
+    // $("#NART_cycle_hene").val("");
+    $("#NART_cycle_DC_hene").val("");
+  }
+}
+NartYes_hene();
+$('input[name="NART_hene"]').change(function () {
+  NartYes_hene();
+});
+// Ceix Cancer - NART
 function NartYes_ceix() {
   if ($("#NARTYes_ceix").is(":checked")) {
     $("#nartDC_ceix").show();
