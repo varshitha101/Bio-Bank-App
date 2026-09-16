@@ -411,9 +411,21 @@ Following features and changes have been incorporates:
 - Resolved issue related box not getting updated when clicked on previous button.
 
 <hr>
+
 ### Version 1.9.5
 
-- Updated Web Application based on the changes from BioBank team.
-- Additionally, Number of Tested Nodes and Number of Positive Nodes have been made number input fields.
+- "Head & Neck Cancer type" should be changed to 'Head & Neck location'
+- "Head & Neck location", "Tumour site", "Tumour subsite" will appear first in the second page
+- "HPV status" options - "Others" is changed to "NA".
+- In "Tumour subsite", sub entry is only for option 'Others' options.
+- "HPV status" and "p16 IHC" should appear only if "Tumour site" is 'Oropharynx'.
+- The options for "HPV independent Histological subtype" are mapped to "Equivocal", "Unknown" and "NA".
+- "Closest Specimen Margin(s) to Invasive Tumor" and "Specimen Margin(s) Involved by Invasive Tumor (per orientation)": If specify location is selected, the text box to specify is enabled.
+- Similar to Cervical Cancer NART and its related fields, are included in the first page for Head & Neck Cancer type.
+- The "Macroscopic tumour extent" option will appear only when salivary gland is selected in "Head & Neck location". For all other types  separate field for "pTNM" will be included after "Tumor Extent".
+- Number of Tested Nodes and Number of Positive Nodes have been made number input fields.
+- In "Regional Lymph Node Status", option "Regional lymph nodes present" is removed.
+- In "Regional Lymph Node Status," if the option "Not applicable (no regional lymph nodes submitted or found)" is selected, the following fields will not be shown: "Number of Nodes tested," "Number of Positive Nodes," "Nodal site with tumour," "Laterality of Lymph Node(s) with Tumour," "Size of Largest Nodal Metastatic Deposit (cm)," and "Extranodal Extension (ENE)".
+- If "Number of Positive Nodes" is entered as 0, the following fields will not be shown: "Nodal site with tumour", "Laterality of Lymph Node(s) with Tumor", "Size of Largest Nodal Metastatic Deposit (cm)" and "Extranodal Extension (ENE)".
 
 <hr>

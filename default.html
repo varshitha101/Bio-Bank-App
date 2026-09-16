@@ -23945,21 +23945,39 @@
 
         document.getElementById("form1").style.display = "none";
         document.getElementById("form2").style.display = "block";
+        scrollToTopOnFormChange();
       });
+
+      function scrollToTopOnFormChange() {
+        window.requestAnimationFrame(function () {
+          const scrollContainer = document.querySelector(".wrapper");
+
+          if (scrollContainer && typeof scrollContainer.scrollTo === "function") {
+            scrollContainer.scrollTo({ top: 0, behavior: "smooth" });
+            return;
+          }
+
+          document.documentElement.scrollTop = 0;
+          document.body.scrollTop = 0;
+        });
+      }
 
       addClickListenersByRepeatedId("nextButton2", function () {
         document.getElementById("form2").style.display = "none";
         document.getElementById("form3").style.display = "block";
+        scrollToTopOnFormChange();
       });
 
       addClickListenersByRepeatedId("backButton1", function () {
         document.getElementById("form2").style.display = "none";
         document.getElementById("form1").style.display = "block";
+        scrollToTopOnFormChange();
       });
 
       addClickListenersByRepeatedId("backButton2", function () {
         document.getElementById("form3").style.display = "none";
         document.getElementById("form2").style.display = "block";
+        scrollToTopOnFormChange();
       });
     </script>
 
