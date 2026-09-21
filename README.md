@@ -414,18 +414,28 @@ Following features and changes have been incorporates:
 
 ### Version 1.9.5
 
-- "Head & Neck Cancer type" should be changed to 'Head & Neck location'
-- "Head & Neck location", "Tumour site", "Tumour subsite" will appear first in the second page
-- "HPV status" options - "Others" is changed to "NA".
-- In "Tumour subsite", sub entry is only for option 'Others' options.
-- "HPV status" and "p16 IHC" should appear only if "Tumour site" is 'Oropharynx'.
-- The options for "HPV independent Histological subtype" are mapped to "Equivocal", "Unknown" and "NA".
-- "Closest Specimen Margin(s) to Invasive Tumor" and "Specimen Margin(s) Involved by Invasive Tumor (per orientation)": If specify location is selected, the text box to specify is enabled.
-- Similar to Cervical Cancer NART and its related fields, are included in the first page for Head & Neck Cancer type.
-- The "Macroscopic tumour extent" option will appear only when salivary gland is selected in "Head & Neck location". For all other types  separate field for "pTNM" will be included after "Tumor Extent".
-- Number of Tested Nodes and Number of Positive Nodes have been made number input fields.
-- In "Regional Lymph Node Status", option "Regional lymph nodes present" is removed.
-- In "Regional Lymph Node Status," if the option "Not applicable (no regional lymph nodes submitted or found)" is selected, the following fields will not be shown: "Number of Nodes tested," "Number of Positive Nodes," "Nodal site with tumour," "Laterality of Lymph Node(s) with Tumour," "Size of Largest Nodal Metastatic Deposit (cm)," and "Extranodal Extension (ENE)".
-- If "Number of Positive Nodes" is entered as 0, the following fields will not be shown: "Nodal site with tumour", "Laterality of Lymph Node(s) with Tumor", "Size of Largest Nodal Metastatic Deposit (cm)" and "Extranodal Extension (ENE)".
+Head & Neck Cancer Sample Entry Form Updates:
+
+  - Changed "Head & Neck Cancer type" to "Head & Neck location".
+  - Reordered fields on the second page so that "Head & Neck location", "Tumour site", and "Tumour subsite" appear first.
+  - Updated the "HPV status" option "Others" to "NA".
+  - Updated "Tumour subsite" so that textbox-entry is only available for the "Others" option.
+  - Configured "HPV status" and "p16 IHC" to appear only when "Tumour site" is set to "Oropharynx".
+  - Mapped options for "HPV independent Histological subtype" to "Equivocal", "Unknown", and "NA" alongside "Negative".
+  - Enabled the text box for "Closest Specimen Margin(s) to Invasive Tumor" and "Specimen Margin(s) Involved by Invasive Tumor (per orientation)" when "Specify location(s) of closest specimen margin" is selected.
+  - Added fields similar to Cervical Cancer NART (and its related fields) to the first page.
+  - Updated "Macroscopic Tumor Extent" to appear only when "Major and minor Salivary Gland" is selected in "Head & Neck location". For all other types, a separate "pTNM" field is included after "Tumor Extent".
+  - Changed "Number of Tested Nodes" and "Number of Positive Nodes" to numeric input fields.
+  - Removed the "Regional lymph nodes present" option under "Regional Lymph Node Status".
+  - Conditional logic updates for "Regional Lymph Node Status":
+      - Selecting "Not applicable (no regional lymph nodes submitted or found)" hides: "Number of Nodes tested", "Number of Positive Nodes", "Nodal site with tumour", "Laterality of Lymph Node(s) with Tumour", "Size of Largest Nodal Metastatic Deposit (cm)", and "Extranodal Extension (ENE)".
+      - Entering 0 for "Number of Positive Nodes" hides: "Nodal site with tumour", "Laterality of Lymph Node(s) with Tumor", "Size of Largest Nodal Metastatic Deposit (cm)", and "Extranodal Extension (ENE)".
+  - Added a text box to the "Other" option in "Histological Type", and removed the text box entry from the related "Histological Subtype" options.
+  - Added "Minor Salivary Gland" to the "Tumour Site" options.
+
+General Form Updates:
+
+  - Moved the "sTILs Percent Scores" field to the Metadata form (updated across Head and Neck, Breast, and Lung Cancer Sample Entry forms).
+
 
 <hr>

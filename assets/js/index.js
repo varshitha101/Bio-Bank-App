@@ -4246,6 +4246,7 @@ function validateForm2() {
         nnt: document.getElementById("nodesTested").value || "",
         npn: document.getElementById("positiveNodes").value || "",
         tsz: tumorSize,
+        sps: document.getElementById("sps").value || "",
         rcbs: document.getElementById("rcbScores").value || "",
         rcbc: document.getElementById("rcbClass").value || "",
         act: document.querySelector('input[name="ACT"]:checked')?.value || "",
@@ -4717,8 +4718,15 @@ function validateForm2() {
       pcc = document.querySelector('input[name="pcc_hene"]:checked')?.value || "";
       pccOth = pcc === "op1" ? document.getElementById("pcc_op1_Oth_hene")?.value || "" : pcc === "op2" ? document.getElementById("pcc_op2_Oth_hene")?.value || "" : pcc === "op3" ? document.getElementById("pcc_op3_Oth_hene")?.value || "" : "";
     }
+    const ttyp = document.getElementById("tumorType_hene")?.value || "";
+    const tst = document.getElementById("tumorSite_hene")?.value || "";
+    const tsub = tst === "op30" ? document.getElementById("tumorSite_minor_hene")?.value || "" : ["op17", "op18", "op19", "op27", "op28", "op29"].includes(tst) ? document.getElementById("tumorType_Oth_hene")?.value || "" : getTumorSubType_hene();
+
     const form2Data = {
       md: {
+        ttyp,
+        tst,
+        tsub,
         hpv: document.querySelector('input[name="HPV_sts_hene"]:checked')?.value || "",
         fhc: document.querySelector('input[name="RadioFHabit_hene"]:checked')?.value || "",
         fhcr: document.getElementById("familyRelation_hene").value || "",
@@ -4731,12 +4739,6 @@ function validateForm2() {
         cm: medResults,
         ffqc: document.getElementById("ffQcComments_hene").value || "",
         ftr: document.getElementById("ffTissueRemarks_hene").value || "",
-
-        ttyp: document.getElementById("tumorType_hene")?.value || "",
-        tst: document.getElementById("tumorSite_hene")?.value || "",
-        tstOth: document.getElementById("tumorType_Oth_hene")?.value || "",
-        tsub: getTumorSubType_hene(),
-
         tlt: document.querySelector('input[name="tumorLat_hene"]:checked')?.value || "",
         tp: document.getElementById("tumorPercentage_hene").value || "",
         ad: document.getElementById("ageAtDiagnosis_hene").value || "",
@@ -4828,6 +4830,7 @@ function validateForm2() {
         ene: document.querySelector('input[name="ENE_hene"]:checked')?.value || "",
         disM: document.getElementById("disM_hene").value || "",
         tsz: tumorSize,
+        sps: document.getElementById("sps_hene").value || "",
         act: document.querySelector('input[name="ACT_hene"]:checked')?.value || "",
         actdc: document.getElementById("actDrugCycles_hene").value || "",
         actdls: document.getElementById("actDateLastCycle_hene").value || "",
@@ -4918,6 +4921,7 @@ function validateForm2() {
         tTS: document.getElementById("totalTS_lung").value || "",
         sSc: document.getElementById("sSC_lung").value || "",
         tsz: tumorSize,
+        sps: document.getElementById("sps_lung").value || "",
         act: document.querySelector('input[name="ACT_lung"]:checked')?.value || "",
         actdc: document.getElementById("actDrugCycles_lung").value || "",
         actdls: document.getElementById("actDateLastCycle_lung").value || "",
@@ -5570,7 +5574,6 @@ function validateForm3() {
         pcvm: document.getElementById("pcvm").value || "",
         k67: document.getElementById("k67").value || "",
         ht: document.getElementById("HistologicalS").value || "",
-        sps: document.getElementById("sps").value || "",
         brfu: user,
       },
     };
@@ -5642,7 +5645,6 @@ function validateForm3() {
       brf: {
         pcsm: document.getElementById("pcsm_hene").value || "",
         pcvm: document.getElementById("pcvm_hene").value || "",
-        sps: document.getElementById("sps_hene").value || "",
         henefu: user,
       },
     };
@@ -5655,7 +5657,6 @@ function validateForm3() {
         k67: document.getElementById("k67_lung").value || "",
         pcsm: document.getElementById("pcsm_lung").value || "",
         pcvm: document.getElementById("pcvm_lung").value || "",
-        sps: document.getElementById("sps_lung").value || "",
         lufu: user,
       },
     };
@@ -8169,6 +8170,8 @@ function fillMdForm(mdData) {
     document.getElementById("tumorSizeW").value = tW !== undefined ? tW : "";
     document.getElementById("tumorSizeH").value = tH !== undefined ? tH : "";
   }
+  document.getElementById("sps").value = mdData?.sps || "";
+
   document.getElementById("rcbScores").value = mdData.rcbs || "";
   document.getElementById("rcbClass").value = mdData.rcbc || "";
 
@@ -9603,6 +9606,7 @@ function fillMdForm_lung(mdData) {
       document.getElementById("tumorSizeW_lung").value = tW !== undefined ? tW : "";
       document.getElementById("tumorSizeH_lung").value = tH !== undefined ? tH : "";
     }
+    document.getElementById("sps_lung").value = mdData?.sps || "";
 
     if (mdData.act) document.querySelector(`input[name="ACT_lung"][value="${mdData.act}"]`).checked = true || "";
     actYes();
@@ -9784,30 +9788,35 @@ function fillMdForm_hene(mdData) {
     document.getElementById("tumorType_hene").value = mdData?.ttyp || "";
     document.getElementById("tumorType_hene").dispatchEvent(new Event("change"));
     document.getElementById("tumorSite_hene").value = mdData?.tst || "";
-    document.getElementById("tumorType_Oth_hene").value = mdData?.tstOth || "";
     document.getElementById("tumorSite_hene").dispatchEvent(new Event("change"));
     if (mdData.tsub) {
-      const data = Array.isArray(mdData.tsub) ? mdData.tsub : [mdData.tsub];
+      if (mdData?.tst === "op30") {
+        document.getElementById("tumorSite_minor_hene").value = mdData?.tsub || "";
+      } else if (["op17", "op18", "op19", "op27", "op28", "op29"].includes(mdData?.tst)) {
+        document.getElementById("tumorType_Oth_hene").value = mdData?.tsub || "";
+      } else {
+        const data = Array.isArray(mdData.tsub) ? mdData.tsub : [mdData.tsub];
 
-      data.forEach((item) => {
-        const subtypeValue = item?.op;
-        const checkbox = document.querySelector(`input[name="tumorSubType_hene"][value="${subtypeValue}"]`);
+        data.forEach((item) => {
+          const subtypeValue = item?.op;
+          const checkbox = document.querySelector(`input[name="tumorSubType_hene"][value="${subtypeValue}"]`);
 
-        if (!checkbox) {
-          return;
-        }
-
-        checkbox.checked = true;
-
-        if (item?.text) {
-          const otherInput = document.getElementById(`tumorSubType_${subtypeValue}_Oth_hene`);
-
-          if (otherInput) {
-            otherInput.value = item.text || "";
-            otherInput.disabled = isReadOnlyViewMode(mode);
+          if (!checkbox) {
+            return;
           }
-        }
-      });
+
+          checkbox.checked = true;
+
+          if (item?.text) {
+            const otherInput = document.getElementById(`tumorSubType_${subtypeValue}_Oth_hene`);
+
+            if (otherInput) {
+              otherInput.value = item.text || "";
+              otherInput.disabled = isReadOnlyViewMode(mode);
+            }
+          }
+        });
+      }
     }
 
     if (mdData.tlt) document.querySelector(`input[name="tumorLat_hene"][value="${mdData.tlt}"]`).checked = true || "";
@@ -10106,6 +10115,8 @@ function fillMdForm_hene(mdData) {
       document.getElementById("tumorSizeW_hene").value = tW !== undefined ? tW : "";
       document.getElementById("tumorSizeH_hene").value = tH !== undefined ? tH : "";
     }
+    document.getElementById("sps_hene").value = mdData?.sps || "";
+
     if (mdData?.act) document.querySelector(`input[name="ACT_hene"][value="${mdData.act}"]`).checked = true || "";
     actYes_hene();
     document.getElementById("actDrugCycles_hene").value = mdData?.actdc || "";
@@ -11374,7 +11385,6 @@ function fillBrfForm(brfData) {
     document.getElementById("pcvm").value = brfData.pcvm || "";
     document.getElementById("k67").value = brfData.k67 || "";
     document.getElementById("HistologicalS").value = brfData.ht || "";
-    document.getElementById("sps").value = brfData.sps || "";
     document.getElementById("brfdataEB").value = brfData.brfu || "";
   } catch (e) {
     console.error("Error in filling brf radio buttons:", e);
@@ -11453,7 +11463,6 @@ function fillBrfForm_lung(brfData) {
     document.getElementById("pcsm_lung").value = brfData.pcsm || "";
     document.getElementById("pcvm_lung").value = brfData.pcvm || "";
     document.getElementById("k67_lung").value = brfData.k67 || "";
-    document.getElementById("sps_lung").value = brfData.sps || "";
     document.getElementById("brfdataEB_lung").value = brfData.lufu || "";
   } catch (e) {
     console.error("Error in filling brf radio buttons:", e);
@@ -11465,7 +11474,6 @@ function fillBrfForm_hene(brfData) {
   try {
     document.getElementById("pcsm_hene").value = brfData.pcsm || "";
     document.getElementById("pcvm_hene").value = brfData.pcvm || "";
-    document.getElementById("sps_hene").value = brfData.sps || "";
     document.getElementById("brfdataEB_hene").value = brfData.henefu || "";
   } catch (e) {
     console.error("Error in filling hene radio buttons:", e);

@@ -93,6 +93,43 @@ input[type="number"] {
   margin-right: 0;
   margin-bottom: 0.5rem;
 }
+
+#tumorSubType_opContainer_hene {
+  padding-top: 0.25rem;
+}
+
+.tumor-subtype-options-layout-hene {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.tumor-subtype-options-list-hene {
+  flex: 1;
+  min-width: 0;
+}
+
+.tumor-subtype-erase-hene {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 0.1rem;
+}
+
+.tumor-subtype-erase-hene img {
+  display: block;
+}
+
+@media (max-width: 767.98px) {
+  .tumor-subtype-options-layout-hene {
+    gap: 0.5rem;
+  }
+
+  .tumor-subtype-erase-hene {
+    padding-top: 0;
+  }
+}
 /* Keep footer pinned to the bottom */
 /* Only this wrapper (form area) scrolls; header/footer remain fixed */
 .wrapper {

@@ -1354,7 +1354,7 @@
           &copy; Copyright <strong><span></span></strong>. All Rights Reserved
         </div>
         <div class="credits"></div>
-        <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">Version 1.9.4</div>
+        <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">Version 1.9.5</div>
       </div>
     </footer>
     <script>
@@ -1640,6 +1640,7 @@
             salivary: {
               All: "All",
               op9: "Major Salivary Gland",
+              op30: "Minor Salivary Gland",
               op10: "Oral cavity",
               op11: "Oropharynx",
               op12: "Hypopharynx",
@@ -1859,7 +1860,7 @@
               op17: "Lymphoepithelial carcinoma (non-nasopharyngeal), HPV-associated",
               op18: "Other HPV-associated histologic type not listed (specify)",
             };
-          } else if ((tumorSite === "op2" && hpvStatus === "neg") || tumorSite === "op3") {
+          } else if ((tumorSite === "op2" && (hpvStatus === "neg" || hpvStatus === "equ" || hpvStatus === "unk" || hpvStatus === "oth")) || tumorSite === "op3") {
             options = {
               All: "All",
               op5: "Histologic Type (oropharynx)",
@@ -5477,6 +5478,7 @@
           op7: "Subglottic larynx",
           op8: "Nasal cavity and paranasal sinus",
           op9: "Major Salivary Gland",
+          op30: "Minor Salivary Gland",
           op10: "Oral cavity",
           op11: "Oropharynx",
           op12: "Hypopharynx",
@@ -5500,8 +5502,8 @@
         };
         return mapping[option] || "-";
       }
-      function tsub_hene(data, type) {
-        if (!data || data.length === 0) return "-";
+      function tsub_hene(tst, data, type) {
+        if (!data) return "-";
         const mapping = {
           // Oral cavity
           op1: "Wet mucosa of upper lip",
@@ -5730,7 +5732,20 @@
           op197: "Other",
           op198: "Not specified",
         };
-
+        const minor_mapping = {
+          op31: "Oral cavity",
+          op32: "Oropharynx",
+          op33: "Hypopharynx",
+          op34: "Supraglottic larynx",
+          op35: "Glottic larynx",
+          op36: "Nasopharynx",
+          op37: "Nasal and paranasal sinuses",
+          // op38: "Subglottic larynx",
+          // op39: "Trachea",
+          // op40: "Cervical esophagus",
+        };
+        if (tst === "op30" && typeof data === "string" && type === "data") return minor_mapping[data] || "-";
+        if (["op17", "op18", "op19", "op27", "op28", "op29"].includes(tst) && typeof data === "string" && type === "data") return data || "-";
         const res = [];
         if (type === "data") {
           for (let i = 0; i < data.length; i++) {
@@ -5981,6 +5996,8 @@
           // Other
           op127: "Other histologic type not listed",
           op128: "Carcinoma, type cannot be determined",
+          op129: "Other histologic type not listed",
+          op130: "Carcinoma, type cannot be determined",
         };
         const res = [];
         if (type === "data") {
@@ -8123,6 +8140,7 @@
               "Number Of Nodes Tested": row?.sefData?.md?.nnt || "-",
               "Number Of Positive Nodes": row?.sefData?.md?.npn || "-",
               "Tumor Size": !row?.sefData?.md?.tsz || row?.sefData?.md?.tsz === "xx" ? "-" : row.sefData.md.tsz,
+              "sTILs Percent Scores": row?.sefData?.md?.sps || "-",
               "RCB Score": row?.sefData?.md?.rcbs || "-",
               "RCB Class": row?.sefData?.md?.rcbc || "-",
               ACT: decodeProcedureType(row?.sefData?.md?.act) || "-",
@@ -8155,7 +8173,6 @@
               "BIRADS Score": row?.sefData?.brf?.ht || "-",
               "PET CT SUV Max": row?.sefData?.brf?.pcsm || "-",
               "PET CT Volume": row?.sefData?.brf?.pcvm || "-",
-              "sTILs Percent Scores": row?.sefData?.brf?.sps || "-",
               "BR Specific form updated by": row?.sefData?.brf?.brfu || "-",
               "follow Up Time": formatTimestamp(Math.floor(row?.fwData?.timestamp) / 1000) || "-",
               "Last Followup status": decodeFollowUpType(row?.fwData?.fwlastTimestamp?.lfs) || "-",
@@ -8326,6 +8343,7 @@
               "Extranodal Extension (ENE)": ene_hene(row?.sefData?.md?.ene) || "-",
               "DISTANT METASTASIS": row?.sefData?.md?.disM || "-",
               "Tumor Size": !row?.sefData?.md?.tsz || row?.sefData?.md?.tsz === "xx" ? "-" : row.sefData.md.tsz,
+              "sTILs Percent Scores": row?.sefData?.md?.sps || "-",
               "Invasive Tumor Size": row?.sefData?.md?.invTS || "-",
               "Total Tumor Size": row?.sefData?.md?.tTS || "-",
               "Size of In Situ Carcinoma in Centimeters (cm)": row?.sefData?.md?.sSc || "-",
@@ -8348,7 +8366,6 @@
               Ki67: row?.sefData?.luf?.k67 || "-",
               "PET CT SUV Max": row?.sefData?.luf?.pcsm || "-",
               "PET CT Volume": row?.sefData?.luf?.pcvm || "-",
-              "sTILs Percent Scores": row?.sefData?.luf?.sps || "-",
               "LU Specific form updated by": row?.sefData?.luf?.lufu || "-",
               "follow Up Time": formatTimestamp(Math.floor(row?.fwData?.timestamp) / 1000) || "-",
               "Last Followup status": decodeFollowUpType(row?.fwData?.fwlastTimestamp?.lfs) || "-",
@@ -8443,9 +8460,9 @@
               "Data Entry By": row?.sefData?.ie?.sef_ub || "-",
               "Head & Neck location": ttyp_hene(row?.sefData?.md?.ttyp) || "-",
               "Tumor Site": tst_hene(row?.sefData?.md?.tst) || "-",
-              "Tumor Site (Other)": row?.sefData?.md?.tstOth || "-",
-              "Tumor Subsite": tsub_hene(row?.sefData?.md?.tsub, "data") || "-",
-              "Tumor Subsite (Other)": tsub_hene(row?.sefData?.md?.tsub, "other") || "-",
+              // "Tumor Site (Other)": row?.sefData?.md?.tstOth || "-",
+              "Tumor Subsite": tsub_hene(row?.sefData?.md?.tst, row?.sefData?.md?.tsub, "data") || "-",
+              "Tumor Subsite (Other)": tsub_hene(row?.sefData?.md?.tst, row?.sefData?.md?.tsub, "other") || "-",
               "HPV status": hpv_hene(row?.sefData?.md?.hpv),
               "Family History Cancer": decodeProcedureType(row?.sefData?.md?.fhc),
               "Family Relation": row?.sefData?.md?.fhcr || "-",
@@ -8548,6 +8565,7 @@
               "Extranodal Extension (ENE)": ene_hene(row?.sefData?.md?.ene) || "-",
               "DISTANT METASTASIS": row?.sefData?.md?.disM || "-",
               "Tumor Size": !row?.sefData?.md?.tsz || row?.sefData?.md?.tsz === "xx" ? "-" : row.sefData.md.tsz,
+              "sTILs Percent Scores": row?.sefData?.md?.sps || "-",
               ACT: decodeProcedureType(row?.sefData?.md?.act) || "-",
               "ACT Drug Cycles": row?.sefData?.md?.actdc || "-",
               "ACT Date of last Cycle": row?.sefData?.md?.actdls || "-",
@@ -8563,7 +8581,6 @@
               "Metadata updated by": row?.sefData?.md?.mdu || "-",
               "PET CT SUV Max": row?.sefData?.henef?.pcsm || "-",
               "PET CT Volume": row?.sefData?.henef?.pcvm || "-",
-              "sTILs Percent Scores": row?.sefData?.henef?.sps || "-",
               "HN Specific form updated by": row?.sefData?.henef?.henefu || "-",
               "follow Up Time": formatTimestamp(Math.floor(row?.fwData?.timestamp) / 1000) || "-",
               "Last Followup status": decodeFollowUpType(row?.fwData?.fwlastTimestamp?.lfs) || "-",
@@ -8909,9 +8926,6 @@
               "Age Of Menarche": row?.sefData?.emf?.am || "-",
               Parity: row?.sefData?.emf?.pty || "-",
               "No Of Children": row?.sefData?.emf?.noc || "-",
-              // "Age At First Childbirth": row?.sefData?.emf?.afc || "-",
-              // Breastfed: decodeProcedureType(row?.sefData?.emf?.bf) || "-",
-              // "Duration Breast feeding": row?.sefData?.emf?.dbf || "-",
               "Menopausal Status": row?.sefData?.emf?.ms || "-",
               ER: decodeProcedureType(row?.sefData?.emf?.er) || "-",
               PR: decodeProcedureType(row?.sefData?.emf?.pr) || "-",
@@ -8921,13 +8935,9 @@
               P53: row?.sefData?.emf?.p53 || "-",
               "Beta Catenin": row?.sefData?.emf?.betaC || "-",
               Others: row?.sefData?.emf?.oth || "-",
-              // HER2: decodeProcedureType(row?.sefData?.emf?.h2) || "-",
-              // Subtype: decodeProcedureType(row?.sefData?.emf?.sbt) || "-",
               Ki67: row?.sefData?.emf?.k67 || "-",
-              // "BIRADS Score": row?.sefData?.emf?.ht || "-",
               "PET CT SUV Max": row?.sefData?.emf?.pcsm || "-",
               "PET CT Volume": row?.sefData?.emf?.pcvm || "-",
-              // "sTILs Percent Scores": row?.sefData?.emf?.sps || "-",
               "EM Specific form updated by": row?.sefData?.emf?.emfu || "-",
               "follow Up Time": formatTimestamp(Math.floor(row?.fwData?.timestamp) / 1000) || "-",
               "Last Followup status": decodeFollowUpType(row?.fwData?.fwlastTimestamp?.lfs) || "-",
@@ -9066,7 +9076,6 @@
               "Histological Subtype (Malignant struma ovarii)": getData(row?.sefData?.md?.pst, "option41"),
               "Histological Subtype (Mixed malignant germ cell tumor)": getData(row?.sefData?.md?.pst, "option47"),
               "Histological Subtype (Other histologic type not listed)": getData(row?.sefData?.md?.pst, "option51"),
-              // "Other Subtype": row?.sefData?.md?.pstOt || "-",
               Grade: decodeGrade_ovry(row?.sefData?.md?.gd) || "-",
               "Grade (Other)": row?.sefData?.md?.gdOther || "-",
               "Ovarian Surface Involvement": osi_ovry(row?.sefData?.md?.osi) || "-",
@@ -9079,9 +9088,6 @@
               "Other Tissue / Organ Involvement (select all that apply)": ot_ovry(row?.sefData?.md?.ot) || "-",
               "Other Tissue / Organ Involvement (Other organs / tissue)": getData(row?.sefData?.md?.ot, "op14") || "-",
               "Other Tissue / Organ Involvement (Cannot be determined)": getData(row?.sefData?.md?.ot, "op14") || "-",
-              // Focality: row?.sefData?.md?.fc === "true" ? "Unifocal" : row?.sefData?.md?.fc === "false" ? "Multifocal" : "-",
-              // DCIS: decodeProcedureType(row?.sefData?.md?.dcis) || "-",
-              // "DCIS grade": row?.sefData?.md?.dcisgd || "-",
               "Largest Extrapelvic Peritoneal Focus (required only if applicable)": lep_ovry(row?.sefData?.md?.lep) || "-",
               "Largest Extrapelvic Peritoneal Focus (Other)": row?.sefData?.md?.lepOth || "-",
               "Peritoneal / Ascitic Fluid Involvement": pafi_ovry(row?.sefData?.md?.pafi) || "-",
@@ -9089,7 +9095,6 @@
               "Pleural fluid involvement": pafi_ovry(row?.sefData?.md?.pfi) || "-",
               "Pleural fluid involvement (Other)": row?.sefData?.md?.pfiOth || "-",
               LVI: decodeProcedureType(row?.sefData?.md?.lvi) || "-",
-              // PNI: decodeProcedureType(row?.sefData?.md?.pni) || "-",
               pTNM: row?.sefData?.md?.ptnm || "-",
               "IHC DETAILS p53 Immunohistochemistry": row?.sefData?.md?.ihcp53 || "-",
               "Biopsy HPE number": row?.sefData?.md?.biopsy || "-",
@@ -9107,8 +9112,6 @@
               "Number Of Positive Para-aortic Nodes": row?.sefData?.md?.ppan || "-",
               "Size of the largest deposit": row?.sefData?.md?.sld || "-",
               "Tumor Size": !row?.sefData?.md?.tsz || row?.sefData?.md?.tsz === "xx" ? "-" : row.sefData.md.tsz,
-              // "RCB Score": row?.sefData?.md?.rcbs || "-",
-              // "RCB Class": row?.sefData?.md?.rcbc || "-",
               ACT: decodeProcedureType(row?.sefData?.md?.act) || "-",
               "ACT Drug Cycles": row?.sefData?.md?.actdc || "-",
               "ACT Date of last Cycle": row?.sefData?.md?.actdls || "-",
@@ -9121,7 +9124,6 @@
               "PIDAC Date of last Cycle": row?.sefData?.md?.pidacD || "-",
               "PCI Score": row?.sefData?.md?.pci || "-",
               Radiotherapy: decodeProcedureType(row?.sefData?.md?.rd) || "-",
-              // "Dosage & Fractions": row?.sefData?.md?.rdd1 || "-",
               Technique: row?.sefData?.md?.rdd2 || "-",
               Quadrant: row?.sefData?.md?.rdd3 || "-",
               "Radiotherapy Date of last Cycle": row?.sefData?.md?.rtdls || "-",
@@ -9138,7 +9140,6 @@
               "Age Of Menarche": row?.sefData?.ovf?.am || "-",
               Parity: row?.sefData?.ovf?.pty || "-",
               "No Of Children": row?.sefData?.ovf?.noc || "-",
-              // "Age At First Childbirth": row?.sefData?.ovf?.afc || "-",
               Breastfed: decodeProcedureType(row?.sefData?.ovf?.bf) || "-",
               "Duration Breast feeding": row?.sefData?.ovf?.dbf || "-",
               "Menopausal Status": row?.sefData?.ovf?.ms || "-",
@@ -9147,15 +9148,9 @@
               "CA 125 Levels U/Ml ON FOLLOW UP": row?.sefData?.ovf?.caFU || "-",
               "CA 125 Levels U/Ml Other": row?.sefData?.ovf?.caO || "-",
               IHC: row?.sefData?.ovf?.ihc || "-",
-              // ER: decodeProcedureType(row?.sefData?.ovf?.er) || "-",
-              // PR: row?.sefData?.ovf?.pr || "-",
-              // HER2: decodeProcedureType(row?.sefData?.ovf?.h2) || "-",
-              // Subtype: decodeProcedureType(row?.sefData?.ovf?.sbt) || "-",
               Ki67: row?.sefData?.ovf?.k67 || "-",
-              // "BIRADS Score": row?.sefData?.ovf?.ht || "-",
               "PET CT SUV Max": row?.sefData?.ovf?.pcsm || "-",
               "PET CT Volume": row?.sefData?.ovf?.pcvm || "-",
-              // "sTILs Percent Scores": row?.sefData?.ovf?.sps || "-",
               "OV Specific form updated by": row?.sefData?.ovf?.ovfu || "-",
               "follow Up Time": formatTimestamp(Math.floor(row?.fwData?.timestamp) / 1000) || "-",
               "Last Followup status": decodeFollowUpType(row?.fwData?.fwlastTimestamp?.lfs) || "-",
@@ -9170,7 +9165,6 @@
               Remarks: row?.fwData?.fwlastTimestamp?.rmks || "-",
               "Treatment Completed": row?.fwData?.fwlastTimestamp?.tc || "-",
               "followUp updated by": row?.fwData?.fwlastTimestamp?.fw_ub || "-",
-
               "Shared Form Date - Time": formatTimestamp(row?.osData?.lastKey) || "-",
               "Shared Date": row?.osData?.oslastTimestamp?.doe || "-",
               "Shared Grid": row?.oSgrid,

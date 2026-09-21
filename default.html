@@ -6843,6 +6843,13 @@
                   </div>
 
                   <div class="row ml-1 mb-3">
+                    <label for="stils" class="col-sm-3 mb-1 col-form-label">sTILs Percent Scores</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="sps" placeholder="Percentage %" />
+                    </div>
+                  </div>
+
+                  <div class="row ml-1 mb-3">
                     <label for="rcbScore" class="col-sm-3 mb-1 col-form-label">RCB Scores</label>
                     <div class="col-sm-9">
                       <input type="number" class="form-control" id="rcbScores" placeholder="" />
@@ -9921,893 +9928,908 @@
                       <select id="tumorSite_hene" class="form-control">
                         <option value="">Select</option>
                       </select>
-                      <input type="text" class="form-control mt-2" id="tumorType_Oth_hene" disabled />
                     </div>
                   </div>
                   <div class="row ml-1 mb-3" id="tumorSubTypeContainer_hene" style="display: none">
                     <label for="tumorSubSite_hene" class="col-sm-3 mb-1 col-form-label">Tumor Subsite</label>
-                    <div class="col-sm-8">
-                      <div id="tumorType_op1_hene" style="display: none">
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op1_hene" name="tumorSubType_hene" class="custom-control-input" value="op1" />
-                          <label class="custom-control-label" for="tumorSubType_op1_hene">Wet mucosa of upper lip</label>
-                          <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op1_Oth_hene" disabled /> -->
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op2_hene" name="tumorSubType_hene" class="custom-control-input" value="op2" />
-                          <label class="custom-control-label" for="tumorSubType_op2_hene">Wet mucosa of lower lip</label>
-                          <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op2_Oth_hene" disabled /> -->
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op3_hene" name="tumorSubType_hene" class="custom-control-input" value="op3" />
-                          <label class="custom-control-label" for="tumorSubType_op3_hene">Wet mucosa of lip, NOS</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op4_hene" name="tumorSubType_hene" class="custom-control-input" value="op4" />
-                          <label class="custom-control-label" for="tumorSubType_op4_hene">Lateral border of tongue</label>
-                          <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op4_Oth_hene" disabled /> -->
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op5_hene" name="tumorSubType_hene" class="custom-control-input" value="op5" />
-                          <label class="custom-control-label" for="tumorSubType_op5_hene">Ventral surface of tongue</label>
-                          <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op5_Oth_hene" disabled /> -->
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op6_hene" name="tumorSubType_hene" class="custom-control-input" value="op6" />
-                          <label class="custom-control-label" for="tumorSubType_op6_hene">Dorsal surface of tongue</label>
-                          <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op6_Oth_hene" disabled /> -->
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op7_hene" name="tumorSubType_hene" class="custom-control-input" value="op7" />
-                          <label class="custom-control-label" for="tumorSubType_op7_hene">Anterior two-thirds of tongue</label>
-                          <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op7_Oth_hene" disabled /> -->
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op8_hene" name="tumorSubType_hene" class="custom-control-input" value="op8" />
-                          <label class="custom-control-label" for="tumorSubType_op8_hene">Tongue, NOS</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op9_hene" name="tumorSubType_hene" class="custom-control-input" value="op9" />
-                          <label class="custom-control-label" for="tumorSubType_op9_hene">Upper gingiva</label>
-                          <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op9_Oth_hene" disabled /> -->
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op10_hene" name="tumorSubType_hene" class="custom-control-input" value="op10" />
-                          <label class="custom-control-label" for="tumorSubType_op10_hene">Lower gingiva</label>
-                          <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op10_Oth_hene" disabled /> -->
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op11_hene" name="tumorSubType_hene" class="custom-control-input" value="op11" />
-                          <label class="custom-control-label" for="tumorSubType_op11_hene">Gingiva, NOS</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op12_hene" name="tumorSubType_hene" class="custom-control-input" value="op12" />
-                          <label class="custom-control-label" for="tumorSubType_op12_hene">Anterior floor of mouth</label>
-                          <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op12_Oth_hene" disabled /> -->
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op13_hene" name="tumorSubType_hene" class="custom-control-input" value="op13" />
-                          <label class="custom-control-label" for="tumorSubType_op13_hene">Lateral floor of mouth</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op14_hene" name="tumorSubType_hene" class="custom-control-input" value="op14" />
-                          <label class="custom-control-label" for="tumorSubType_op14_hene">Floor of mouth</label>
-                          <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op14_Oth_hene" disabled /> -->
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op15_hene" name="tumorSubType_hene" class="custom-control-input" value="op15" />
-                          <label class="custom-control-label" for="tumorSubType_op15_hene">Hard palate</label>
-                          <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op15_Oth_hene" disabled /> -->
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op16_hene" name="tumorSubType_hene" class="custom-control-input" value="op16" />
-                          <label class="custom-control-label" for="tumorSubType_op16_hene">Buccal mucosa</label>
-                          <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op16_Oth_hene" disabled /> -->
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op17_hene" name="tumorSubType_hene" class="custom-control-input" value="op17" />
-                          <label class="custom-control-label" for="tumorSubType_op17_hene">Vestibule of mouth, maxillary</label>
-                          <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op17_Oth_hene" disabled /> -->
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op18_hene" name="tumorSubType_hene" class="custom-control-input" value="op18" />
-                          <label class="custom-control-label" for="tumorSubType_op18_hene">Vestibule of mouth, mandibular</label>
-                          <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op18_Oth_hene" disabled /> -->
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op19_hene" name="tumorSubType_hene" class="custom-control-input" value="op19" />
-                          <label class="custom-control-label" for="tumorSubType_op19_hene">Alveolar process, maxillary</label>
-                          <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op19_Oth_hene" disabled /> -->
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op20_hene" name="tumorSubType_hene" class="custom-control-input" value="op20" />
-                          <label class="custom-control-label" for="tumorSubType_op20_hene">Alveolar process, mandibular</label>
-                          <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op20_Oth_hene" disabled /> -->
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op21_hene" name="tumorSubType_hene" class="custom-control-input" value="op21" />
-                          <label class="custom-control-label" for="tumorSubType_op21_hene">Retromolar area</label>
-                          <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op21_Oth_hene" disabled /> -->
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op22_hene" name="tumorSubType_hene" class="custom-control-input" value="op22" />
-                          <label class="custom-control-label" for="tumorSubType_op22_hene">Other</label>
-                          <input type="text" class="form-control mt-2" id="tumorSubType_op22_Oth_hene" placeholder="specify" disabled />
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op23_hene" name="tumorSubType_hene" class="custom-control-input" value="op23" />
-                          <label class="custom-control-label" for="tumorSubType_op23_hene">Not specified</label>
-                        </div>
+                    <div id="tumorSubType_opWrapper_hene" class="col-sm-9">
+                      <!-- <div class="col-sm-9"> -->
+                      <div id="tumorType_op17_19_op27_29_hene" style="display: none">
+                        <input type="text" class="form-control mt-2" id="tumorType_Oth_hene" disabled />
                       </div>
-                      <div id="tumorType_op2_hene" style="display: none">
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op24_hene" name="tumorSubType_hene" class="custom-control-input" value="op24" />
-                          <label class="custom-control-label" for="tumorSubType_op24_hene">Palatine tonsil</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op25_hene" name="tumorSubType_hene" class="custom-control-input" value="op25" />
-                          <label class="custom-control-label" for="tumorSubType_op25_hene">Tonsillar pillar</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op26_hene" name="tumorSubType_hene" class="custom-control-input" value="op26" />
-                          <label class="custom-control-label" for="tumorSubType_op26_hene">Tonsillar fossa</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op27_hene" name="tumorSubType_hene" class="custom-control-input" value="op27" />
-                          <label class="custom-control-label" for="tumorSubType_op27_hene">Lingual tonsil</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op28_hene" name="tumorSubType_hene" class="custom-control-input" value="op28" />
-                          <label class="custom-control-label" for="tumorSubType_op28_hene">Tonsil, NOS</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op29_hene" name="tumorSubType_hene" class="custom-control-input" value="op29" />
-                          <label class="custom-control-label" for="tumorSubType_op29_hene">Base of tongue</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op30_hene" name="tumorSubType_hene" class="custom-control-input" value="op30" />
-                          <label class="custom-control-label" for="tumorSubType_op30_hene">Soft palate</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op31_hene" name="tumorSubType_hene" class="custom-control-input" value="op31" />
-                          <label class="custom-control-label" for="tumorSubType_op31_hene">Uvula</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op32_hene" name="tumorSubType_hene" class="custom-control-input" value="op32" />
-                          <label class="custom-control-label" for="tumorSubType_op32_hene">Lateral wall of oropharynx</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op33_hene" name="tumorSubType_hene" class="custom-control-input" value="op33" />
-                          <label class="custom-control-label" for="tumorSubType_op33_hene">Posterior wall of oropharynx</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op34_hene" name="tumorSubType_hene" class="custom-control-input" value="op34" />
-                          <label class="custom-control-label" for="tumorSubType_op34_hene">Vallecula</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op35_hene" name="tumorSubType_hene" class="custom-control-input" value="op35" />
-                          <label class="custom-control-label" for="tumorSubType_op35_hene">Epiglottis, anterior surface (lingual aspect)</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op36_hene" name="tumorSubType_hene" class="custom-control-input" value="op36" />
-                          <label class="custom-control-label" for="tumorSubType_op36_hene">Other</label>
-                          <input type="text" class="form-control mt-2" id="tumorSubType_op36_Oth_hene" placeholder="specify" disabled />
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op37_hene" name="tumorSubType_hene" class="custom-control-input" value="op37" />
-                          <label class="custom-control-label" for="tumorSubType_op37_hene">Cannot be determined</label>
-                          <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op37_Oth_hene" placeholder="specify" disabled /> -->
-                        </div>
+                      <div id="tumorType_op30_hene" style="display: none">
+                        <select id="tumorSite_minor_hene" class="form-control" disabled>
+                          <option value="">Select</option>
+                        </select>
                       </div>
-                      <div id="tumorType_op3_hene" style="display: none">
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op38_hene" name="tumorSubType_hene" class="custom-control-input" value="op38" />
-                          <label class="custom-control-label" for="tumorSubType_op38_hene">Pyriform sinus</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op39_hene" name="tumorSubType_hene" class="custom-control-input" value="op39" />
-                          <label class="custom-control-label" for="tumorSubType_op39_hene">Aryepiglottic fold, hypopharyngeal aspect</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op40_hene" name="tumorSubType_hene" class="custom-control-input" value="op40" />
-                          <label class="custom-control-label" for="tumorSubType_op40_hene">Postcricoid</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op41_hene" name="tumorSubType_hene" class="custom-control-input" value="op41" />
-                          <label class="custom-control-label" for="tumorSubType_op41_hene">Posterior wall of hypopharynx</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op42_hene" name="tumorSubType_hene" class="custom-control-input" value="op42" />
-                          <label class="custom-control-label" for="tumorSubType_op42_hene">Other</label>
-                          <input type="text" class="form-control mt-2" id="tumorSubType_op42_Oth_hene" placeholder="specify" disabled />
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op43_hene" name="tumorSubType_hene" class="custom-control-input" value="op43" />
-                          <label class="custom-control-label" for="tumorSubType_op43_hene">Cannot be determined</label>
-                          <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op43_Oth_hene" placeholder="explain" disabled /> -->
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op44_hene" name="tumorSubType_hene" class="custom-control-input" value="op44" />
-                          <label class="custom-control-label" for="tumorSubType_op44_hene"> Not specified</label>
-                        </div>
-                      </div>
-                      <div id="tumorType_op4_hene" style="display: none">
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op45_hene" name="tumorSubType_hene" class="custom-control-input" value="op45" />
-                          <label class="custom-control-label" for="tumorSubType_op45_hene">Superior wall</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op46_hene" name="tumorSubType_hene" class="custom-control-input" value="op46" />
-                          <label class="custom-control-label" for="tumorSubType_op46_hene">Posterior wall</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op47_hene" name="tumorSubType_hene" class="custom-control-input" value="op47" />
-                          <label class="custom-control-label" for="tumorSubType_op47_hene">Nasopharyngeal tonsils (adenoids)</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op48_hene" name="tumorSubType_hene" class="custom-control-input" value="op48" />
-                          <label class="custom-control-label" for="tumorSubType_op48_hene">Anterior wall</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op49_hene" name="tumorSubType_hene" class="custom-control-input" value="op49" />
-                          <label class="custom-control-label" for="tumorSubType_op49_hene">Lateral wall (including lateral pharyngeal recess, [i.e., Rosenmüller fossa])</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op50_hene" name="tumorSubType_hene" class="custom-control-input" value="op50" />
-                          <label class="custom-control-label" for="tumorSubType_op50_hene">Other</label>
-                          <input type="text" class="form-control mt-2" id="tumorSubType_op50_Oth_hene" placeholder="specify" disabled />
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op51_hene" name="tumorSubType_hene" class="custom-control-input" value="op51" />
-                          <label class="custom-control-label" for="tumorSubType_op51_hene">Cannot be determined</label>
-                          <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op51_Oth_hene" placeholder="explain" disabled /> -->
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op52_hene" name="tumorSubType_hene" class="custom-control-input" value="op52" />
-                          <label class="custom-control-label" for="tumorSubType_op52_hene">Not specified</label>
-                        </div>
-                      </div>
-                      <div id="tumorType_op5_hene" style="display: none">
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op53_hene" name="tumorSubType_hene" class="custom-control-input" value="op53" />
-                          <label class="custom-control-label" for="tumorSubType_op53_hene">Epiglottis, posterior surface (laryngeal aspect)</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op54_hene" name="tumorSubType_hene" class="custom-control-input" value="op54" />
-                          <label class="custom-control-label" for="tumorSubType_op54_hene">Aryepiglottic folds (laryngeal aspect)</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op55_hene" name="tumorSubType_hene" class="custom-control-input" value="op55" />
-                          <label class="custom-control-label" for="tumorSubType_op55_hene">False vocal cord</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op56_hene" name="tumorSubType_hene" class="custom-control-input" value="op56" />
-                          <label class="custom-control-label" for="tumorSubType_op56_hene">Ventricle</label>
-                        </div>
-                      </div>
-                      <div id="tumorType_op6_hene" style="display: none">
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op57_hene" name="tumorSubType_hene" class="custom-control-input" value="op57" />
-                          <label class="custom-control-label" for="tumorSubType_op57_hene">True vocal cord</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op58_hene" name="tumorSubType_hene" class="custom-control-input" value="op58" />
-                          <label class="custom-control-label" for="tumorSubType_op58_hene">Anterior commissure</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op59_hene" name="tumorSubType_hene" class="custom-control-input" value="op59" />
-                          <label class="custom-control-label" for="tumorSubType_op59_hene">Posterior commissure</label>
-                        </div>
-                      </div>
-                      <div id="tumorType_op7_hene" style="display: none">
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op60_hene" name="tumorSubType_hene" class="custom-control-input" value="op60" />
-                          <label class="custom-control-label" for="tumorSubType_op60_hene">Not specified</label>
-                        </div>
-                      </div>
-                      <div id="tumorType_op8_hene" style="display: none">
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op61_hene" name="tumorSubType_hene" class="custom-control-input" value="op61" />
-                          <label class="custom-control-label" for="tumorSubType_op61_hene">Nasal septum</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op62_hene" name="tumorSubType_hene" class="custom-control-input" value="op62" />
-                          <label class="custom-control-label" for="tumorSubType_op62_hene">Nasal floor</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op63_hene" name="tumorSubType_hene" class="custom-control-input" value="op63" />
-                          <label class="custom-control-label" for="tumorSubType_op63_hene">Nasal lateral wall</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op64_hene" name="tumorSubType_hene" class="custom-control-input" value="op64" />
-                          <label class="custom-control-label" for="tumorSubType_op64_hene">Nasal vestibule</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op65_hene" name="tumorSubType_hene" class="custom-control-input" value="op65" />
-                          <label class="custom-control-label" for="tumorSubType_op65_hene">Nasal cavity, NOS</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op66_hene" name="tumorSubType_hene" class="custom-control-input" value="op66" />
-                          <label class="custom-control-label" for="tumorSubType_op66_hene">Middle ear</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op67_hene" name="tumorSubType_hene" class="custom-control-input" value="op67" />
-                          <label class="custom-control-label" for="tumorSubType_op67_hene">Paranasal sinus(es), maxillary</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op68_hene" name="tumorSubType_hene" class="custom-control-input" value="op68" />
-                          <label class="custom-control-label" for="tumorSubType_op68_hene">Paranasal sinus(es), ethmoid</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op69_hene" name="tumorSubType_hene" class="custom-control-input" value="op69" />
-                          <label class="custom-control-label" for="tumorSubType_op69_hene">Paranasal sinus(es), frontal</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op70_hene" name="tumorSubType_hene" class="custom-control-input" value="op70" />
-                          <label class="custom-control-label" for="tumorSubType_op70_hene">Paranasal sinus(es), sphenoid</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op71_hene" name="tumorSubType_hene" class="custom-control-input" value="op71" />
-                          <label class="custom-control-label" for="tumorSubType_op71_hene">Other</label>
-                          <input type="text" class="form-control mt-2" id="tumorSubType_op71_Oth_hene" placeholder="specify" disabled />
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op72_hene" name="tumorSubType_hene" class="custom-control-input" value="op72" />
-                          <label class="custom-control-label" for="tumorSubType_op72_hene">Not specified</label>
-                          <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op72_Oth_hene" placeholder="specify" disabled /> -->
-                        </div>
-                      </div>
-                      <div id="tumorType_op9_hene" style="display: none">
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op73_hene" name="tumorSubType_hene" class="custom-control-input" value="op73" />
-                          <label class="custom-control-label" for="tumorSubType_op73_hene">Parotid gland, superficial lobe</label>
-                          <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op73_Oth_hene" placeholder="specify" disabled /> -->
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op74_hene" name="tumorSubType_hene" class="custom-control-input" value="op74" />
-                          <label class="custom-control-label" for="tumorSubType_op74_hene">Parotid gland, deep lobe</label>
-                          <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op74_Oth_hene" placeholder="specify" disabled /> -->
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op75_hene" name="tumorSubType_hene" class="custom-control-input" value="op75" />
-                          <label class="custom-control-label" for="tumorSubType_op75_hene">Parotid gland, entire</label>
-                          <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op75_Oth_hene" placeholder="specify" disabled /> -->
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op76_hene" name="tumorSubType_hene" class="custom-control-input" value="op76" />
-                          <label class="custom-control-label" for="tumorSubType_op76_hene">Parotid gland, NOS</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op77_hene" name="tumorSubType_hene" class="custom-control-input" value="op77" />
-                          <label class="custom-control-label" for="tumorSubType_op77_hene">Submandibular gland</label>
-                          <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op77_Oth_hene" placeholder="specify" disabled /> -->
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op78_hene" name="tumorSubType_hene" class="custom-control-input" value="op78" />
-                          <label class="custom-control-label" for="tumorSubType_op78_hene">Sublingual gland</label>
-                          <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op78_Oth_hene" placeholder="specify" disabled /> -->
-                        </div>
-                      </div>
-                      <div id="tumorType_op10_hene" style="display: none">
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op79_hene" name="tumorSubType_hene" class="custom-control-input" value="op79" />
-                          <label class="custom-control-label" for="tumorSubType_op79_hene">Wet mucosa of upper lip</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op80_hene" name="tumorSubType_hene" class="custom-control-input" value="op80" />
-                          <label class="custom-control-label" for="tumorSubType_op80_hene">Wet mucosa of lower lip</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op81_hene" name="tumorSubType_hene" class="custom-control-input" value="op81" />
-                          <label class="custom-control-label" for="tumorSubType_op81_hene">Wet mucosa of lip, NOS</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op82_hene" name="tumorSubType_hene" class="custom-control-input" value="op82" />
-                          <label class="custom-control-label" for="tumorSubType_op82_hene">Lateral border of tongue</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op83_hene" name="tumorSubType_hene" class="custom-control-input" value="op83" />
-                          <label class="custom-control-label" for="tumorSubType_op83_hene">Ventral surface of tongue</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op84_hene" name="tumorSubType_hene" class="custom-control-input" value="op84" />
-                          <label class="custom-control-label" for="tumorSubType_op84_hene">Dorsal surface of tongue</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op85_hene" name="tumorSubType_hene" class="custom-control-input" value="op85" />
-                          <label class="custom-control-label" for="tumorSubType_op85_hene">Anterior two-thirds of tongue</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op86_hene" name="tumorSubType_hene" class="custom-control-input" value="op86" />
-                          <label class="custom-control-label" for="tumorSubType_op86_hene">Tongue, NOS</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op87_hene" name="tumorSubType_hene" class="custom-control-input" value="op87" />
-                          <label class="custom-control-label" for="tumorSubType_op87_hene">Upper gingiva</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op88_hene" name="tumorSubType_hene" class="custom-control-input" value="op88" />
-                          <label class="custom-control-label" for="tumorSubType_op88_hene">Lower gingiva</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op89_hene" name="tumorSubType_hene" class="custom-control-input" value="op89" />
-                          <label class="custom-control-label" for="tumorSubType_op89_hene">Gingiva, NOS</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op90_hene" name="tumorSubType_hene" class="custom-control-input" value="op90" />
-                          <label class="custom-control-label" for="tumorSubType_op90_hene">Anterior floor of mouth</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op91_hene" name="tumorSubType_hene" class="custom-control-input" value="op91" />
-                          <label class="custom-control-label" for="tumorSubType_op91_hene">Lateral floor of mouth</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op92_hene" name="tumorSubType_hene" class="custom-control-input" value="op92" />
-                          <label class="custom-control-label" for="tumorSubType_op92_hene">Hard palate</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op93_hene" name="tumorSubType_hene" class="custom-control-input" value="op93" />
-                          <label class="custom-control-label" for="tumorSubType_op93_hene">Buccal mucosa</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op94_hene" name="tumorSubType_hene" class="custom-control-input" value="op94" />
-                          <label class="custom-control-label" for="tumorSubType_op94_hene">Vestibule of mouth, maxillary</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op95_hene" name="tumorSubType_hene" class="custom-control-input" value="op95" />
-                          <label class="custom-control-label" for="tumorSubType_op95_hene">Vestibule of mouth, mandibular</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op96_hene" name="tumorSubType_hene" class="custom-control-input" value="op96" />
-                          <label class="custom-control-label" for="tumorSubType_op96_hene">Retromolar area</label>
-                          <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op96_Oth_hene" disabled /> -->
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op97_hene" name="tumorSubType_hene" class="custom-control-input" value="op97" />
-                          <label class="custom-control-label" for="tumorSubType_op97_hene">Other</label>
-                          <input type="text" class="form-control mt-2" id="tumorSubType_op97_Oth_hene" placeholder="specify" disabled />
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op98_hene" name="tumorSubType_hene" class="custom-control-input" value="op98" />
-                          <label class="custom-control-label" for="tumorSubType_op98_hene">Mandible (intraosseous)</label>
-                        </div>
-                      </div>
-                      <div id="tumorType_op11_hene" style="display: none">
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op99_hene" name="tumorSubType_hene" class="custom-control-input" value="op99" />
-                          <label class="custom-control-label" for="tumorSubType_op99_hene">Palatine tonsil</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op100_hene" name="tumorSubType_hene" class="custom-control-input" value="op100" />
-                          <label class="custom-control-label" for="tumorSubType_op100_hene">Tonsillar pillar</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op101_hene" name="tumorSubType_hene" class="custom-control-input" value="op101" />
-                          <label class="custom-control-label" for="tumorSubType_op101_hene">Tonsillar fossa</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op102_hene" name="tumorSubType_hene" class="custom-control-input" value="op102" />
-                          <label class="custom-control-label" for="tumorSubType_op102_hene">Lingual tonsil</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op103_hene" name="tumorSubType_hene" class="custom-control-input" value="op103" />
-                          <label class="custom-control-label" for="tumorSubType_op103_hene">Tonsil, NOS</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op104_hene" name="tumorSubType_hene" class="custom-control-input" value="op104" />
-                          <label class="custom-control-label" for="tumorSubType_op104_hene">Base of tongue</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op105_hene" name="tumorSubType_hene" class="custom-control-input" value="op105" />
-                          <label class="custom-control-label" for="tumorSubType_op105_hene">Soft palate</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op106_hene" name="tumorSubType_hene" class="custom-control-input" value="op106" />
-                          <label class="custom-control-label" for="tumorSubType_op106_hene">Uvula</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op107_hene" name="tumorSubType_hene" class="custom-control-input" value="op107" />
-                          <label class="custom-control-label" for="tumorSubType_op107_hene">Lateral wall of oropharynx</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op108_hene" name="tumorSubType_hene" class="custom-control-input" value="op108" />
-                          <label class="custom-control-label" for="tumorSubType_op108_hene">Posterior wall of oropharynx</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op109_hene" name="tumorSubType_hene" class="custom-control-input" value="op109" />
-                          <label class="custom-control-label" for="tumorSubType_op109_hene">Vallecula</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op110_hene" name="tumorSubType_hene" class="custom-control-input" value="op110" />
-                          <label class="custom-control-label" for="tumorSubType_op110_hene">Epiglottis, anterior surface (lingual aspect)</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op111_hene" name="tumorSubType_hene" class="custom-control-input" value="op111" />
-                          <label class="custom-control-label" for="tumorSubType_op111_hene">Other</label>
-                          <input type="text" class="form-control mt-2" id="tumorSubType_op111_Oth_hene" placeholder="specify" disabled />
-                        </div>
-                      </div>
-                      <div id="tumorType_op12_hene" style="display: none">
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op112_hene" name="tumorSubType_hene" class="custom-control-input" value="op112" />
-                          <label class="custom-control-label" for="tumorSubType_op112_hene">Pyriform sinus</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op113_hene" name="tumorSubType_hene" class="custom-control-input" value="op113" />
-                          <label class="custom-control-label" for="tumorSubType_op113_hene">Aryepiglottic fold, hypopharyngeal aspect</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op114_hene" name="tumorSubType_hene" class="custom-control-input" value="op114" />
-                          <label class="custom-control-label" for="tumorSubType_op114_hene">Postcricoid</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op115_hene" name="tumorSubType_hene" class="custom-control-input" value="op115" />
-                          <label class="custom-control-label" for="tumorSubType_op115_hene">Posterior wall of hypopharynx</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op116_hene" name="tumorSubType_hene" class="custom-control-input" value="op116" />
-                          <label class="custom-control-label" for="tumorSubType_op116_hene">Other</label>
-                          <input type="text" class="form-control mt-2" id="tumorSubType_op116_Oth_hene" placeholder="specify" disabled />
-                        </div>
-                      </div>
-                      <div id="tumorType_op13_hene" style="display: none">
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op117_hene" name="tumorSubType_hene" class="custom-control-input" value="op117" />
-                          <label class="custom-control-label" for="tumorSubType_op117_hene">Epiglottis, posterior surface (laryngeal aspect)</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op118_hene" name="tumorSubType_hene" class="custom-control-input" value="op118" />
-                          <label class="custom-control-label" for="tumorSubType_op118_hene">Aryepiglottic folds, laryngeal aspect</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op119_hene" name="tumorSubType_hene" class="custom-control-input" value="op119" />
-                          <label class="custom-control-label" for="tumorSubType_op119_hene">False vocal cord</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op120_hene" name="tumorSubType_hene" class="custom-control-input" value="op120" />
-                          <label class="custom-control-label" for="tumorSubType_op120_hene">Ventricle</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op121_hene" name="tumorSubType_hene" class="custom-control-input" value="op121" />
-                          <label class="custom-control-label" for="tumorSubType_op121_hene">Other</label>
-                          <input type="text" class="form-control mt-2" id="tumorSubType_op121_Oth_hene" placeholder="specify" disabled />
-                        </div>
-                      </div>
-                      <div id="tumorType_op14_hene" style="display: none">
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op122_hene" name="tumorSubType_hene" class="custom-control-input" value="op122" />
-                          <label class="custom-control-label" for="tumorSubType_op122_hene">True vocal cord</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op123_hene" name="tumorSubType_hene" class="custom-control-input" value="op123" />
-                          <label class="custom-control-label" for="tumorSubType_op123_hene">Anterior commissure</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op124_hene" name="tumorSubType_hene" class="custom-control-input" value="op124" />
-                          <label class="custom-control-label" for="tumorSubType_op124_hene">Posterior commissure</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op125_hene" name="tumorSubType_hene" class="custom-control-input" value="op125" />
-                          <label class="custom-control-label" for="tumorSubType_op125_hene">Other</label>
-                          <input type="text" class="form-control mt-2" id="tumorSubType_op125_Oth_hene" placeholder="specify" disabled />
-                        </div>
-                      </div>
-                      <div id="tumorType_op15_hene" style="display: none">
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op126_hene" name="tumorSubType_hene" class="custom-control-input" value="op126" />
-                          <label class="custom-control-label" for="tumorSubType_op126_hene">Superior wall</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op127_hene" name="tumorSubType_hene" class="custom-control-input" value="op127" />
-                          <label class="custom-control-label" for="tumorSubType_op127_hene">Posterior wall</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op128_hene" name="tumorSubType_hene" class="custom-control-input" value="op128" />
-                          <label class="custom-control-label" for="tumorSubType_op128_hene">Nasopharyngeal tonsils (adenoids)</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op129_hene" name="tumorSubType_hene" class="custom-control-input" value="op129" />
-                          <label class="custom-control-label" for="tumorSubType_op129_hene">Anterior wall</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op130_hene" name="tumorSubType_hene" class="custom-control-input" value="op130" />
-                          <label class="custom-control-label" for="tumorSubType_op130_hene">Lateral wall (including lateral pharyngeal recess [i.e., Rosenmüller fossa])</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op131_hene" name="tumorSubType_hene" class="custom-control-input" value="op131" />
-                          <label class="custom-control-label" for="tumorSubType_op131_hene">Other</label>
-                          <input type="text" class="form-control mt-2" id="tumorSubType_op131_Oth_hene" placeholder="specify" disabled />
-                        </div>
-                      </div>
-                      <div id="tumorType_op16_hene" style="display: none">
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op132_hene" name="tumorSubType_hene" class="custom-control-input" value="op132" />
-                          <label class="custom-control-label" for="tumorSubType_op132_hene">Nasal septum</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op133_hene" name="tumorSubType_hene" class="custom-control-input" value="op133" />
-                          <label class="custom-control-label" for="tumorSubType_op133_hene">Nasal floor</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op134_hene" name="tumorSubType_hene" class="custom-control-input" value="op134" />
-                          <label class="custom-control-label" for="tumorSubType_op134_hene">Nasal lateral wall</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op135_hene" name="tumorSubType_hene" class="custom-control-input" value="op135" />
-                          <label class="custom-control-label" for="tumorSubType_op135_hene">Nasal vestibule</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op136_hene" name="tumorSubType_hene" class="custom-control-input" value="op136" />
-                          <label class="custom-control-label" for="tumorSubType_op136_hene">Nasal cavity, NOS</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op137_hene" name="tumorSubType_hene" class="custom-control-input" value="op137" />
-                          <label class="custom-control-label" for="tumorSubType_op137_hene">Middle ear</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op138_hene" name="tumorSubType_hene" class="custom-control-input" value="op138" />
-                          <label class="custom-control-label" for="tumorSubType_op138_hene">Paranasal sinus(es), maxillary</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op139_hene" name="tumorSubType_hene" class="custom-control-input" value="op139" />
-                          <label class="custom-control-label" for="tumorSubType_op139_hene">Paranasal sinus(es), ethmoid</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op140_hene" name="tumorSubType_hene" class="custom-control-input" value="op140" />
-                          <label class="custom-control-label" for="tumorSubType_op140_hene">Paranasal sinus(es), frontal</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op141_hene" name="tumorSubType_hene" class="custom-control-input" value="op141" />
-                          <label class="custom-control-label" for="tumorSubType_op141_hene">Paranasal sinus(es), sphenoid</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op142_hene" name="tumorSubType_hene" class="custom-control-input" value="op142" />
-                          <label class="custom-control-label" for="tumorSubType_op142_hene">Other</label>
-                          <input type="text" class="form-control mt-2" id="tumorSubType_op142_Oth_hene" placeholder="specify" disabled />
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op143_hene" name="tumorSubType_hene" class="custom-control-input" value="op143" />
-                          <label class="custom-control-label" for="tumorSubType_op143_hene">Not specified</label>
-                        </div>
-                      </div>
-                      <div id="tumorType_op20_hene" style="display: none">
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op144_hene" name="tumorSubType_hene" class="custom-control-input" value="op144" />
-                          <label class="custom-control-label" for="tumorSubType_op144_hene">Wet mucosa of lower lip</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op145_hene" name="tumorSubType_hene" class="custom-control-input" value="op145" />
-                          <label class="custom-control-label" for="tumorSubType_op145_hene">Wet mucosa of lip, NOS</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op146_hene" name="tumorSubType_hene" class="custom-control-input" value="op146" />
-                          <label class="custom-control-label" for="tumorSubType_op146_hene">Lateral border of tongue</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op147_hene" name="tumorSubType_hene" class="custom-control-input" value="op147" />
-                          <label class="custom-control-label" for="tumorSubType_op147_hene">Ventral surface of tongue</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op148_hene" name="tumorSubType_hene" class="custom-control-input" value="op148" />
-                          <label class="custom-control-label" for="tumorSubType_op148_hene">Dorsal surface of tongue</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op149_hene" name="tumorSubType_hene" class="custom-control-input" value="op149" />
-                          <label class="custom-control-label" for="tumorSubType_op149_hene">Anterior two-thirds of tongue</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op150_hene" name="tumorSubType_hene" class="custom-control-input" value="op150" />
-                          <label class="custom-control-label" for="tumorSubType_op150_hene">Tongue, NOS</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op151_hene" name="tumorSubType_hene" class="custom-control-input" value="op151" />
-                          <label class="custom-control-label" for="tumorSubType_op151_hene">Upper gingiva</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op152_hene" name="tumorSubType_hene" class="custom-control-input" value="op152" />
-                          <label class="custom-control-label" for="tumorSubType_op152_hene">Lower gingiva</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op153_hene" name="tumorSubType_hene" class="custom-control-input" value="op153" />
-                          <label class="custom-control-label" for="tumorSubType_op153_hene">Gingiva, NOS</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op154_hene" name="tumorSubType_hene" class="custom-control-input" value="op154" />
-                          <label class="custom-control-label" for="tumorSubType_op154_hene">Anterior floor of mouth</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op155_hene" name="tumorSubType_hene" class="custom-control-input" value="op155" />
-                          <label class="custom-control-label" for="tumorSubType_op155_hene">Lateral floor of mouth</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op156_hene" name="tumorSubType_hene" class="custom-control-input" value="op156" />
-                          <label class="custom-control-label" for="tumorSubType_op156_hene">Hard palate</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op157_hene" name="tumorSubType_hene" class="custom-control-input" value="op157" />
-                          <label class="custom-control-label" for="tumorSubType_op157_hene">Buccal mucosa</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op158_hene" name="tumorSubType_hene" class="custom-control-input" value="op158" />
-                          <label class="custom-control-label" for="tumorSubType_op158_hene">Vestibule of mouth, maxillary</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op159_hene" name="tumorSubType_hene" class="custom-control-input" value="op159" />
-                          <label class="custom-control-label" for="tumorSubType_op159_hene">Vestibule of mouth, mandibular</label>
-                        </div>
-                      </div>
-                      <div id="tumorType_op21_hene" style="display: none">
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op160_hene" name="tumorSubType_hene" class="custom-control-input" value="op160" />
-                          <label class="custom-control-label" for="tumorSubType_op160_hene">Palatine tonsil</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op161_hene" name="tumorSubType_hene" class="custom-control-input" value="op161" />
-                          <label class="custom-control-label" for="tumorSubType_op161_hene">Tonsillar pillar</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op162_hene" name="tumorSubType_hene" class="custom-control-input" value="op162" />
-                          <label class="custom-control-label" for="tumorSubType_op162_hene">Tonsillar fossa</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op163_hene" name="tumorSubType_hene" class="custom-control-input" value="op163" />
-                          <label class="custom-control-label" for="tumorSubType_op163_hene">Lingual tonsil</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op164_hene" name="tumorSubType_hene" class="custom-control-input" value="op164" />
-                          <label class="custom-control-label" for="tumorSubType_op164_hene">Tonsil, NOS</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op165_hene" name="tumorSubType_hene" class="custom-control-input" value="op165" />
-                          <label class="custom-control-label" for="tumorSubType_op165_hene">Base of tongue</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op166_hene" name="tumorSubType_hene" class="custom-control-input" value="op166" />
-                          <label class="custom-control-label" for="tumorSubType_op166_hene">Soft palate</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op167_hene" name="tumorSubType_hene" class="custom-control-input" value="op167" />
-                          <label class="custom-control-label" for="tumorSubType_op167_hene">Uvula</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op168_hene" name="tumorSubType_hene" class="custom-control-input" value="op168" />
-                          <label class="custom-control-label" for="tumorSubType_op168_hene">Lateral wall of oropharynx</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op169_hene" name="tumorSubType_hene" class="custom-control-input" value="op169" />
-                          <label class="custom-control-label" for="tumorSubType_op169_hene">Posterior wall of oropharynx</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op170_hene" name="tumorSubType_hene" class="custom-control-input" value="op170" />
-                          <label class="custom-control-label" for="tumorSubType_op170_hene">Vallecula</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op171_hene" name="tumorSubType_hene" class="custom-control-input" value="op171" />
-                          <label class="custom-control-label" for="tumorSubType_op171_hene">Epiglottis, anterior surface (lingual aspect)</label>
-                        </div>
-                      </div>
-                      <div id="tumorType_op22_hene" style="display: none">
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op172_hene" name="tumorSubType_hene" class="custom-control-input" value="op172" />
-                          <label class="custom-control-label" for="tumorSubType_op172_hene">Pyriform sinus</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op173_hene" name="tumorSubType_hene" class="custom-control-input" value="op173" />
-                          <label class="custom-control-label" for="tumorSubType_op173_hene">Aryepiglottic fold, hypopharyngeal aspect</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op174_hene" name="tumorSubType_hene" class="custom-control-input" value="op174" />
-                          <label class="custom-control-label" for="tumorSubType_op174_hene">Postcricoid</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op175_hene" name="tumorSubType_hene" class="custom-control-input" value="op175" />
-                          <label class="custom-control-label" for="tumorSubType_op175_hene">Posterior wall of hypopharynx</label>
-                        </div>
-                      </div>
-                      <div id="tumorType_op23_hene" style="display: none">
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op176_hene" name="tumorSubType_hene" class="custom-control-input" value="op176" />
-                          <label class="custom-control-label" for="tumorSubType_op176_hene">Epiglottis, posterior surface (laryngeal aspect)</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op177_hene" name="tumorSubType_hene" class="custom-control-input" value="op177" />
-                          <label class="custom-control-label" for="tumorSubType_op177_hene">Aryepiglottic folds (laryngeal aspect)</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op178_hene" name="tumorSubType_hene" class="custom-control-input" value="op178" />
-                          <label class="custom-control-label" for="tumorSubType_op178_hene">False vocal cord</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op179_hene" name="tumorSubType_hene" class="custom-control-input" value="op179" />
-                          <label class="custom-control-label" for="tumorSubType_op179_hene">Ventricle</label>
-                        </div>
-                      </div>
-                      <div id="tumorType_op24_hene" style="display: none">
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op180_hene" name="tumorSubType_hene" class="custom-control-input" value="op180" />
-                          <label class="custom-control-label" for="tumorSubType_op180_hene">True vocal cord</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op181_hene" name="tumorSubType_hene" class="custom-control-input" value="op181" />
-                          <label class="custom-control-label" for="tumorSubType_op181_hene">Anterior commissure</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op182_hene" name="tumorSubType_hene" class="custom-control-input" value="op182" />
-                          <label class="custom-control-label" for="tumorSubType_op182_hene">Posterior commissure</label>
-                        </div>
-                      </div>
-                      <div id="tumorType_op25_hene" style="display: none">
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op183_hene" name="tumorSubType_hene" class="custom-control-input" value="op183" />
-                          <label class="custom-control-label" for="tumorSubType_op183_hene">Superior wall</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op184_hene" name="tumorSubType_hene" class="custom-control-input" value="op184" />
-                          <label class="custom-control-label" for="tumorSubType_op184_hene">Posterior wall</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op185_hene" name="tumorSubType_hene" class="custom-control-input" value="op185" />
-                          <label class="custom-control-label" for="tumorSubType_op185_hene">Nasopharyngeal tonsils (adenoids)</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op186_hene" name="tumorSubType_hene" class="custom-control-input" value="op186" />
-                          <label class="custom-control-label" for="tumorSubType_op186_hene">Anterior wall</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op187_hene" name="tumorSubType_hene" class="custom-control-input" value="op187" />
-                          <label class="custom-control-label" for="tumorSubType_op187_hene">Lateral wall (including lateral pharyngeal recess, [i.e., Rosenmüller fossa])</label>
-                        </div>
-                      </div>
-                      <div id="tumorType_op26_hene" style="display: none">
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op188_hene" name="tumorSubType_hene" class="custom-control-input" value="op188" />
-                          <label class="custom-control-label" for="tumorSubType_op188_hene">Nasal septum</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op189_hene" name="tumorSubType_hene" class="custom-control-input" value="op189" />
-                          <label class="custom-control-label" for="tumorSubType_op189_hene">Nasal floor</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op190_hene" name="tumorSubType_hene" class="custom-control-input" value="op190" />
-                          <label class="custom-control-label" for="tumorSubType_op190_hene">Nasal lateral wall</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op191_hene" name="tumorSubType_hene" class="custom-control-input" value="op191" />
-                          <label class="custom-control-label" for="tumorSubType_op191_hene">Nasal vestibule</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op192_hene" name="tumorSubType_hene" class="custom-control-input" value="op192" />
-                          <label class="custom-control-label" for="tumorSubType_op192_hene">Nasal cavity, NOS</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op193_hene" name="tumorSubType_hene" class="custom-control-input" value="op193" />
-                          <label class="custom-control-label" for="tumorSubType_op193_hene">Middle ear</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op194_hene" name="tumorSubType_hene" class="custom-control-input" value="op194" />
-                          <label class="custom-control-label" for="tumorSubType_op194_hene">Paranasal sinus(es), ethmoid</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op195_hene" name="tumorSubType_hene" class="custom-control-input" value="op195" />
-                          <label class="custom-control-label" for="tumorSubType_op195_hene">Paranasal sinus(es), frontal</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op196_hene" name="tumorSubType_hene" class="custom-control-input" value="op196" />
-                          <label class="custom-control-label" for="tumorSubType_op196_hene">Paranasal sinus(es), sphenoid</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op197_hene" name="tumorSubType_hene" class="custom-control-input" value="op197" />
-                          <label class="custom-control-label" for="tumorSubType_op197_hene">Other</label>
-                          <input type="text" class="form-control mt-2" id="tumorSubType_op197_Oth_hene" placeholder="specify" disabled />
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="tumorSubType_op198_hene" name="tumorSubType_hene" class="custom-control-input" value="op198" />
-                          <label class="custom-control-label" for="tumorSubType_op198_hene">Not specified</label>
-                        </div>
-                      </div>
+                      <!-- </div> -->
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-tumorSubTypeSite-hene">
-                      <!-- The icon will be dynamically inserted here -->
+                    <div id="tumorSubType_opContainer_hene" class="col-sm-9">
+                      <div class="tumor-subtype-options-layout-hene">
+                        <div class="tumor-subtype-options-list-hene">
+                          <div id="tumorType_op1_hene" style="display: none">
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op1_hene" name="tumorSubType_hene" class="custom-control-input" value="op1" />
+                              <label class="custom-control-label" for="tumorSubType_op1_hene">Wet mucosa of upper lip</label>
+                              <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op1_Oth_hene" disabled /> -->
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op2_hene" name="tumorSubType_hene" class="custom-control-input" value="op2" />
+                              <label class="custom-control-label" for="tumorSubType_op2_hene">Wet mucosa of lower lip</label>
+                              <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op2_Oth_hene" disabled /> -->
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op3_hene" name="tumorSubType_hene" class="custom-control-input" value="op3" />
+                              <label class="custom-control-label" for="tumorSubType_op3_hene">Wet mucosa of lip, NOS</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op4_hene" name="tumorSubType_hene" class="custom-control-input" value="op4" />
+                              <label class="custom-control-label" for="tumorSubType_op4_hene">Lateral border of tongue</label>
+                              <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op4_Oth_hene" disabled /> -->
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op5_hene" name="tumorSubType_hene" class="custom-control-input" value="op5" />
+                              <label class="custom-control-label" for="tumorSubType_op5_hene">Ventral surface of tongue</label>
+                              <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op5_Oth_hene" disabled /> -->
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op6_hene" name="tumorSubType_hene" class="custom-control-input" value="op6" />
+                              <label class="custom-control-label" for="tumorSubType_op6_hene">Dorsal surface of tongue</label>
+                              <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op6_Oth_hene" disabled /> -->
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op7_hene" name="tumorSubType_hene" class="custom-control-input" value="op7" />
+                              <label class="custom-control-label" for="tumorSubType_op7_hene">Anterior two-thirds of tongue</label>
+                              <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op7_Oth_hene" disabled /> -->
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op8_hene" name="tumorSubType_hene" class="custom-control-input" value="op8" />
+                              <label class="custom-control-label" for="tumorSubType_op8_hene">Tongue, NOS</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op9_hene" name="tumorSubType_hene" class="custom-control-input" value="op9" />
+                              <label class="custom-control-label" for="tumorSubType_op9_hene">Upper gingiva</label>
+                              <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op9_Oth_hene" disabled /> -->
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op10_hene" name="tumorSubType_hene" class="custom-control-input" value="op10" />
+                              <label class="custom-control-label" for="tumorSubType_op10_hene">Lower gingiva</label>
+                              <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op10_Oth_hene" disabled /> -->
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op11_hene" name="tumorSubType_hene" class="custom-control-input" value="op11" />
+                              <label class="custom-control-label" for="tumorSubType_op11_hene">Gingiva, NOS</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op12_hene" name="tumorSubType_hene" class="custom-control-input" value="op12" />
+                              <label class="custom-control-label" for="tumorSubType_op12_hene">Anterior floor of mouth</label>
+                              <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op12_Oth_hene" disabled /> -->
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op13_hene" name="tumorSubType_hene" class="custom-control-input" value="op13" />
+                              <label class="custom-control-label" for="tumorSubType_op13_hene">Lateral floor of mouth</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op14_hene" name="tumorSubType_hene" class="custom-control-input" value="op14" />
+                              <label class="custom-control-label" for="tumorSubType_op14_hene">Floor of mouth</label>
+                              <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op14_Oth_hene" disabled /> -->
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op15_hene" name="tumorSubType_hene" class="custom-control-input" value="op15" />
+                              <label class="custom-control-label" for="tumorSubType_op15_hene">Hard palate</label>
+                              <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op15_Oth_hene" disabled /> -->
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op16_hene" name="tumorSubType_hene" class="custom-control-input" value="op16" />
+                              <label class="custom-control-label" for="tumorSubType_op16_hene">Buccal mucosa</label>
+                              <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op16_Oth_hene" disabled /> -->
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op17_hene" name="tumorSubType_hene" class="custom-control-input" value="op17" />
+                              <label class="custom-control-label" for="tumorSubType_op17_hene">Vestibule of mouth, maxillary</label>
+                              <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op17_Oth_hene" disabled /> -->
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op18_hene" name="tumorSubType_hene" class="custom-control-input" value="op18" />
+                              <label class="custom-control-label" for="tumorSubType_op18_hene">Vestibule of mouth, mandibular</label>
+                              <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op18_Oth_hene" disabled /> -->
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op19_hene" name="tumorSubType_hene" class="custom-control-input" value="op19" />
+                              <label class="custom-control-label" for="tumorSubType_op19_hene">Alveolar process, maxillary</label>
+                              <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op19_Oth_hene" disabled /> -->
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op20_hene" name="tumorSubType_hene" class="custom-control-input" value="op20" />
+                              <label class="custom-control-label" for="tumorSubType_op20_hene">Alveolar process, mandibular</label>
+                              <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op20_Oth_hene" disabled /> -->
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op21_hene" name="tumorSubType_hene" class="custom-control-input" value="op21" />
+                              <label class="custom-control-label" for="tumorSubType_op21_hene">Retromolar area</label>
+                              <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op21_Oth_hene" disabled /> -->
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op22_hene" name="tumorSubType_hene" class="custom-control-input" value="op22" />
+                              <label class="custom-control-label" for="tumorSubType_op22_hene">Other</label>
+                              <input type="text" class="form-control mt-2" id="tumorSubType_op22_Oth_hene" placeholder="specify" disabled />
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op23_hene" name="tumorSubType_hene" class="custom-control-input" value="op23" />
+                              <label class="custom-control-label" for="tumorSubType_op23_hene">Not specified</label>
+                            </div>
+                          </div>
+                          <div id="tumorType_op2_hene" style="display: none">
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op24_hene" name="tumorSubType_hene" class="custom-control-input" value="op24" />
+                              <label class="custom-control-label" for="tumorSubType_op24_hene">Palatine tonsil</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op25_hene" name="tumorSubType_hene" class="custom-control-input" value="op25" />
+                              <label class="custom-control-label" for="tumorSubType_op25_hene">Tonsillar pillar</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op26_hene" name="tumorSubType_hene" class="custom-control-input" value="op26" />
+                              <label class="custom-control-label" for="tumorSubType_op26_hene">Tonsillar fossa</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op27_hene" name="tumorSubType_hene" class="custom-control-input" value="op27" />
+                              <label class="custom-control-label" for="tumorSubType_op27_hene">Lingual tonsil</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op28_hene" name="tumorSubType_hene" class="custom-control-input" value="op28" />
+                              <label class="custom-control-label" for="tumorSubType_op28_hene">Tonsil, NOS</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op29_hene" name="tumorSubType_hene" class="custom-control-input" value="op29" />
+                              <label class="custom-control-label" for="tumorSubType_op29_hene">Base of tongue</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op30_hene" name="tumorSubType_hene" class="custom-control-input" value="op30" />
+                              <label class="custom-control-label" for="tumorSubType_op30_hene">Soft palate</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op31_hene" name="tumorSubType_hene" class="custom-control-input" value="op31" />
+                              <label class="custom-control-label" for="tumorSubType_op31_hene">Uvula</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op32_hene" name="tumorSubType_hene" class="custom-control-input" value="op32" />
+                              <label class="custom-control-label" for="tumorSubType_op32_hene">Lateral wall of oropharynx</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op33_hene" name="tumorSubType_hene" class="custom-control-input" value="op33" />
+                              <label class="custom-control-label" for="tumorSubType_op33_hene">Posterior wall of oropharynx</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op34_hene" name="tumorSubType_hene" class="custom-control-input" value="op34" />
+                              <label class="custom-control-label" for="tumorSubType_op34_hene">Vallecula</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op35_hene" name="tumorSubType_hene" class="custom-control-input" value="op35" />
+                              <label class="custom-control-label" for="tumorSubType_op35_hene">Epiglottis, anterior surface (lingual aspect)</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op36_hene" name="tumorSubType_hene" class="custom-control-input" value="op36" />
+                              <label class="custom-control-label" for="tumorSubType_op36_hene">Other</label>
+                              <input type="text" class="form-control mt-2" id="tumorSubType_op36_Oth_hene" placeholder="specify" disabled />
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op37_hene" name="tumorSubType_hene" class="custom-control-input" value="op37" />
+                              <label class="custom-control-label" for="tumorSubType_op37_hene">Cannot be determined</label>
+                              <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op37_Oth_hene" placeholder="specify" disabled /> -->
+                            </div>
+                          </div>
+                          <div id="tumorType_op3_hene" style="display: none">
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op38_hene" name="tumorSubType_hene" class="custom-control-input" value="op38" />
+                              <label class="custom-control-label" for="tumorSubType_op38_hene">Pyriform sinus</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op39_hene" name="tumorSubType_hene" class="custom-control-input" value="op39" />
+                              <label class="custom-control-label" for="tumorSubType_op39_hene">Aryepiglottic fold, hypopharyngeal aspect</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op40_hene" name="tumorSubType_hene" class="custom-control-input" value="op40" />
+                              <label class="custom-control-label" for="tumorSubType_op40_hene">Postcricoid</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op41_hene" name="tumorSubType_hene" class="custom-control-input" value="op41" />
+                              <label class="custom-control-label" for="tumorSubType_op41_hene">Posterior wall of hypopharynx</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op42_hene" name="tumorSubType_hene" class="custom-control-input" value="op42" />
+                              <label class="custom-control-label" for="tumorSubType_op42_hene">Other</label>
+                              <input type="text" class="form-control mt-2" id="tumorSubType_op42_Oth_hene" placeholder="specify" disabled />
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op43_hene" name="tumorSubType_hene" class="custom-control-input" value="op43" />
+                              <label class="custom-control-label" for="tumorSubType_op43_hene">Cannot be determined</label>
+                              <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op43_Oth_hene" placeholder="explain" disabled /> -->
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op44_hene" name="tumorSubType_hene" class="custom-control-input" value="op44" />
+                              <label class="custom-control-label" for="tumorSubType_op44_hene"> Not specified</label>
+                            </div>
+                          </div>
+                          <div id="tumorType_op4_hene" style="display: none">
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op45_hene" name="tumorSubType_hene" class="custom-control-input" value="op45" />
+                              <label class="custom-control-label" for="tumorSubType_op45_hene">Superior wall</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op46_hene" name="tumorSubType_hene" class="custom-control-input" value="op46" />
+                              <label class="custom-control-label" for="tumorSubType_op46_hene">Posterior wall</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op47_hene" name="tumorSubType_hene" class="custom-control-input" value="op47" />
+                              <label class="custom-control-label" for="tumorSubType_op47_hene">Nasopharyngeal tonsils (adenoids)</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op48_hene" name="tumorSubType_hene" class="custom-control-input" value="op48" />
+                              <label class="custom-control-label" for="tumorSubType_op48_hene">Anterior wall</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op49_hene" name="tumorSubType_hene" class="custom-control-input" value="op49" />
+                              <label class="custom-control-label" for="tumorSubType_op49_hene">Lateral wall (including lateral pharyngeal recess, [i.e., Rosenmüller fossa])</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op50_hene" name="tumorSubType_hene" class="custom-control-input" value="op50" />
+                              <label class="custom-control-label" for="tumorSubType_op50_hene">Other</label>
+                              <input type="text" class="form-control mt-2" id="tumorSubType_op50_Oth_hene" placeholder="specify" disabled />
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op51_hene" name="tumorSubType_hene" class="custom-control-input" value="op51" />
+                              <label class="custom-control-label" for="tumorSubType_op51_hene">Cannot be determined</label>
+                              <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op51_Oth_hene" placeholder="explain" disabled /> -->
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op52_hene" name="tumorSubType_hene" class="custom-control-input" value="op52" />
+                              <label class="custom-control-label" for="tumorSubType_op52_hene">Not specified</label>
+                            </div>
+                          </div>
+                          <div id="tumorType_op5_hene" style="display: none">
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op53_hene" name="tumorSubType_hene" class="custom-control-input" value="op53" />
+                              <label class="custom-control-label" for="tumorSubType_op53_hene">Epiglottis, posterior surface (laryngeal aspect)</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op54_hene" name="tumorSubType_hene" class="custom-control-input" value="op54" />
+                              <label class="custom-control-label" for="tumorSubType_op54_hene">Aryepiglottic folds (laryngeal aspect)</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op55_hene" name="tumorSubType_hene" class="custom-control-input" value="op55" />
+                              <label class="custom-control-label" for="tumorSubType_op55_hene">False vocal cord</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op56_hene" name="tumorSubType_hene" class="custom-control-input" value="op56" />
+                              <label class="custom-control-label" for="tumorSubType_op56_hene">Ventricle</label>
+                            </div>
+                          </div>
+                          <div id="tumorType_op6_hene" style="display: none">
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op57_hene" name="tumorSubType_hene" class="custom-control-input" value="op57" />
+                              <label class="custom-control-label" for="tumorSubType_op57_hene">True vocal cord</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op58_hene" name="tumorSubType_hene" class="custom-control-input" value="op58" />
+                              <label class="custom-control-label" for="tumorSubType_op58_hene">Anterior commissure</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op59_hene" name="tumorSubType_hene" class="custom-control-input" value="op59" />
+                              <label class="custom-control-label" for="tumorSubType_op59_hene">Posterior commissure</label>
+                            </div>
+                          </div>
+                          <div id="tumorType_op7_hene" style="display: none">
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op60_hene" name="tumorSubType_hene" class="custom-control-input" value="op60" />
+                              <label class="custom-control-label" for="tumorSubType_op60_hene">Not specified</label>
+                            </div>
+                          </div>
+                          <div id="tumorType_op8_hene" style="display: none">
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op61_hene" name="tumorSubType_hene" class="custom-control-input" value="op61" />
+                              <label class="custom-control-label" for="tumorSubType_op61_hene">Nasal septum</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op62_hene" name="tumorSubType_hene" class="custom-control-input" value="op62" />
+                              <label class="custom-control-label" for="tumorSubType_op62_hene">Nasal floor</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op63_hene" name="tumorSubType_hene" class="custom-control-input" value="op63" />
+                              <label class="custom-control-label" for="tumorSubType_op63_hene">Nasal lateral wall</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op64_hene" name="tumorSubType_hene" class="custom-control-input" value="op64" />
+                              <label class="custom-control-label" for="tumorSubType_op64_hene">Nasal vestibule</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op65_hene" name="tumorSubType_hene" class="custom-control-input" value="op65" />
+                              <label class="custom-control-label" for="tumorSubType_op65_hene">Nasal cavity, NOS</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op66_hene" name="tumorSubType_hene" class="custom-control-input" value="op66" />
+                              <label class="custom-control-label" for="tumorSubType_op66_hene">Middle ear</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op67_hene" name="tumorSubType_hene" class="custom-control-input" value="op67" />
+                              <label class="custom-control-label" for="tumorSubType_op67_hene">Paranasal sinus(es), maxillary</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op68_hene" name="tumorSubType_hene" class="custom-control-input" value="op68" />
+                              <label class="custom-control-label" for="tumorSubType_op68_hene">Paranasal sinus(es), ethmoid</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op69_hene" name="tumorSubType_hene" class="custom-control-input" value="op69" />
+                              <label class="custom-control-label" for="tumorSubType_op69_hene">Paranasal sinus(es), frontal</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op70_hene" name="tumorSubType_hene" class="custom-control-input" value="op70" />
+                              <label class="custom-control-label" for="tumorSubType_op70_hene">Paranasal sinus(es), sphenoid</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op71_hene" name="tumorSubType_hene" class="custom-control-input" value="op71" />
+                              <label class="custom-control-label" for="tumorSubType_op71_hene">Other</label>
+                              <input type="text" class="form-control mt-2" id="tumorSubType_op71_Oth_hene" placeholder="specify" disabled />
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op72_hene" name="tumorSubType_hene" class="custom-control-input" value="op72" />
+                              <label class="custom-control-label" for="tumorSubType_op72_hene">Not specified</label>
+                              <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op72_Oth_hene" placeholder="specify" disabled /> -->
+                            </div>
+                          </div>
+                          <div id="tumorType_op9_hene" style="display: none">
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op73_hene" name="tumorSubType_hene" class="custom-control-input" value="op73" />
+                              <label class="custom-control-label" for="tumorSubType_op73_hene">Parotid gland, superficial lobe</label>
+                              <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op73_Oth_hene" placeholder="specify" disabled /> -->
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op74_hene" name="tumorSubType_hene" class="custom-control-input" value="op74" />
+                              <label class="custom-control-label" for="tumorSubType_op74_hene">Parotid gland, deep lobe</label>
+                              <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op74_Oth_hene" placeholder="specify" disabled /> -->
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op75_hene" name="tumorSubType_hene" class="custom-control-input" value="op75" />
+                              <label class="custom-control-label" for="tumorSubType_op75_hene">Parotid gland, entire</label>
+                              <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op75_Oth_hene" placeholder="specify" disabled /> -->
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op76_hene" name="tumorSubType_hene" class="custom-control-input" value="op76" />
+                              <label class="custom-control-label" for="tumorSubType_op76_hene">Parotid gland, NOS</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op77_hene" name="tumorSubType_hene" class="custom-control-input" value="op77" />
+                              <label class="custom-control-label" for="tumorSubType_op77_hene">Submandibular gland</label>
+                              <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op77_Oth_hene" placeholder="specify" disabled /> -->
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op78_hene" name="tumorSubType_hene" class="custom-control-input" value="op78" />
+                              <label class="custom-control-label" for="tumorSubType_op78_hene">Sublingual gland</label>
+                              <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op78_Oth_hene" placeholder="specify" disabled /> -->
+                            </div>
+                          </div>
+                          <div id="tumorType_op10_hene" style="display: none">
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op79_hene" name="tumorSubType_hene" class="custom-control-input" value="op79" />
+                              <label class="custom-control-label" for="tumorSubType_op79_hene">Wet mucosa of upper lip</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op80_hene" name="tumorSubType_hene" class="custom-control-input" value="op80" />
+                              <label class="custom-control-label" for="tumorSubType_op80_hene">Wet mucosa of lower lip</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op81_hene" name="tumorSubType_hene" class="custom-control-input" value="op81" />
+                              <label class="custom-control-label" for="tumorSubType_op81_hene">Wet mucosa of lip, NOS</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op82_hene" name="tumorSubType_hene" class="custom-control-input" value="op82" />
+                              <label class="custom-control-label" for="tumorSubType_op82_hene">Lateral border of tongue</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op83_hene" name="tumorSubType_hene" class="custom-control-input" value="op83" />
+                              <label class="custom-control-label" for="tumorSubType_op83_hene">Ventral surface of tongue</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op84_hene" name="tumorSubType_hene" class="custom-control-input" value="op84" />
+                              <label class="custom-control-label" for="tumorSubType_op84_hene">Dorsal surface of tongue</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op85_hene" name="tumorSubType_hene" class="custom-control-input" value="op85" />
+                              <label class="custom-control-label" for="tumorSubType_op85_hene">Anterior two-thirds of tongue</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op86_hene" name="tumorSubType_hene" class="custom-control-input" value="op86" />
+                              <label class="custom-control-label" for="tumorSubType_op86_hene">Tongue, NOS</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op87_hene" name="tumorSubType_hene" class="custom-control-input" value="op87" />
+                              <label class="custom-control-label" for="tumorSubType_op87_hene">Upper gingiva</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op88_hene" name="tumorSubType_hene" class="custom-control-input" value="op88" />
+                              <label class="custom-control-label" for="tumorSubType_op88_hene">Lower gingiva</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op89_hene" name="tumorSubType_hene" class="custom-control-input" value="op89" />
+                              <label class="custom-control-label" for="tumorSubType_op89_hene">Gingiva, NOS</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op90_hene" name="tumorSubType_hene" class="custom-control-input" value="op90" />
+                              <label class="custom-control-label" for="tumorSubType_op90_hene">Anterior floor of mouth</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op91_hene" name="tumorSubType_hene" class="custom-control-input" value="op91" />
+                              <label class="custom-control-label" for="tumorSubType_op91_hene">Lateral floor of mouth</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op92_hene" name="tumorSubType_hene" class="custom-control-input" value="op92" />
+                              <label class="custom-control-label" for="tumorSubType_op92_hene">Hard palate</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op93_hene" name="tumorSubType_hene" class="custom-control-input" value="op93" />
+                              <label class="custom-control-label" for="tumorSubType_op93_hene">Buccal mucosa</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op94_hene" name="tumorSubType_hene" class="custom-control-input" value="op94" />
+                              <label class="custom-control-label" for="tumorSubType_op94_hene">Vestibule of mouth, maxillary</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op95_hene" name="tumorSubType_hene" class="custom-control-input" value="op95" />
+                              <label class="custom-control-label" for="tumorSubType_op95_hene">Vestibule of mouth, mandibular</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op96_hene" name="tumorSubType_hene" class="custom-control-input" value="op96" />
+                              <label class="custom-control-label" for="tumorSubType_op96_hene">Retromolar area</label>
+                              <!-- <input type="text" class="form-control mt-2" id="tumorSubType_op96_Oth_hene" disabled /> -->
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op97_hene" name="tumorSubType_hene" class="custom-control-input" value="op97" />
+                              <label class="custom-control-label" for="tumorSubType_op97_hene">Other</label>
+                              <input type="text" class="form-control mt-2" id="tumorSubType_op97_Oth_hene" placeholder="specify" disabled />
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op98_hene" name="tumorSubType_hene" class="custom-control-input" value="op98" />
+                              <label class="custom-control-label" for="tumorSubType_op98_hene">Mandible (intraosseous)</label>
+                            </div>
+                          </div>
+                          <div id="tumorType_op11_hene" style="display: none">
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op99_hene" name="tumorSubType_hene" class="custom-control-input" value="op99" />
+                              <label class="custom-control-label" for="tumorSubType_op99_hene">Palatine tonsil</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op100_hene" name="tumorSubType_hene" class="custom-control-input" value="op100" />
+                              <label class="custom-control-label" for="tumorSubType_op100_hene">Tonsillar pillar</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op101_hene" name="tumorSubType_hene" class="custom-control-input" value="op101" />
+                              <label class="custom-control-label" for="tumorSubType_op101_hene">Tonsillar fossa</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op102_hene" name="tumorSubType_hene" class="custom-control-input" value="op102" />
+                              <label class="custom-control-label" for="tumorSubType_op102_hene">Lingual tonsil</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op103_hene" name="tumorSubType_hene" class="custom-control-input" value="op103" />
+                              <label class="custom-control-label" for="tumorSubType_op103_hene">Tonsil, NOS</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op104_hene" name="tumorSubType_hene" class="custom-control-input" value="op104" />
+                              <label class="custom-control-label" for="tumorSubType_op104_hene">Base of tongue</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op105_hene" name="tumorSubType_hene" class="custom-control-input" value="op105" />
+                              <label class="custom-control-label" for="tumorSubType_op105_hene">Soft palate</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op106_hene" name="tumorSubType_hene" class="custom-control-input" value="op106" />
+                              <label class="custom-control-label" for="tumorSubType_op106_hene">Uvula</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op107_hene" name="tumorSubType_hene" class="custom-control-input" value="op107" />
+                              <label class="custom-control-label" for="tumorSubType_op107_hene">Lateral wall of oropharynx</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op108_hene" name="tumorSubType_hene" class="custom-control-input" value="op108" />
+                              <label class="custom-control-label" for="tumorSubType_op108_hene">Posterior wall of oropharynx</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op109_hene" name="tumorSubType_hene" class="custom-control-input" value="op109" />
+                              <label class="custom-control-label" for="tumorSubType_op109_hene">Vallecula</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op110_hene" name="tumorSubType_hene" class="custom-control-input" value="op110" />
+                              <label class="custom-control-label" for="tumorSubType_op110_hene">Epiglottis, anterior surface (lingual aspect)</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op111_hene" name="tumorSubType_hene" class="custom-control-input" value="op111" />
+                              <label class="custom-control-label" for="tumorSubType_op111_hene">Other</label>
+                              <input type="text" class="form-control mt-2" id="tumorSubType_op111_Oth_hene" placeholder="specify" disabled />
+                            </div>
+                          </div>
+                          <div id="tumorType_op12_hene" style="display: none">
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op112_hene" name="tumorSubType_hene" class="custom-control-input" value="op112" />
+                              <label class="custom-control-label" for="tumorSubType_op112_hene">Pyriform sinus</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op113_hene" name="tumorSubType_hene" class="custom-control-input" value="op113" />
+                              <label class="custom-control-label" for="tumorSubType_op113_hene">Aryepiglottic fold, hypopharyngeal aspect</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op114_hene" name="tumorSubType_hene" class="custom-control-input" value="op114" />
+                              <label class="custom-control-label" for="tumorSubType_op114_hene">Postcricoid</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op115_hene" name="tumorSubType_hene" class="custom-control-input" value="op115" />
+                              <label class="custom-control-label" for="tumorSubType_op115_hene">Posterior wall of hypopharynx</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op116_hene" name="tumorSubType_hene" class="custom-control-input" value="op116" />
+                              <label class="custom-control-label" for="tumorSubType_op116_hene">Other</label>
+                              <input type="text" class="form-control mt-2" id="tumorSubType_op116_Oth_hene" placeholder="specify" disabled />
+                            </div>
+                          </div>
+                          <div id="tumorType_op13_hene" style="display: none">
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op117_hene" name="tumorSubType_hene" class="custom-control-input" value="op117" />
+                              <label class="custom-control-label" for="tumorSubType_op117_hene">Epiglottis, posterior surface (laryngeal aspect)</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op118_hene" name="tumorSubType_hene" class="custom-control-input" value="op118" />
+                              <label class="custom-control-label" for="tumorSubType_op118_hene">Aryepiglottic folds, laryngeal aspect</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op119_hene" name="tumorSubType_hene" class="custom-control-input" value="op119" />
+                              <label class="custom-control-label" for="tumorSubType_op119_hene">False vocal cord</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op120_hene" name="tumorSubType_hene" class="custom-control-input" value="op120" />
+                              <label class="custom-control-label" for="tumorSubType_op120_hene">Ventricle</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op121_hene" name="tumorSubType_hene" class="custom-control-input" value="op121" />
+                              <label class="custom-control-label" for="tumorSubType_op121_hene">Other</label>
+                              <input type="text" class="form-control mt-2" id="tumorSubType_op121_Oth_hene" placeholder="specify" disabled />
+                            </div>
+                          </div>
+                          <div id="tumorType_op14_hene" style="display: none">
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op122_hene" name="tumorSubType_hene" class="custom-control-input" value="op122" />
+                              <label class="custom-control-label" for="tumorSubType_op122_hene">True vocal cord</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op123_hene" name="tumorSubType_hene" class="custom-control-input" value="op123" />
+                              <label class="custom-control-label" for="tumorSubType_op123_hene">Anterior commissure</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op124_hene" name="tumorSubType_hene" class="custom-control-input" value="op124" />
+                              <label class="custom-control-label" for="tumorSubType_op124_hene">Posterior commissure</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op125_hene" name="tumorSubType_hene" class="custom-control-input" value="op125" />
+                              <label class="custom-control-label" for="tumorSubType_op125_hene">Other</label>
+                              <input type="text" class="form-control mt-2" id="tumorSubType_op125_Oth_hene" placeholder="specify" disabled />
+                            </div>
+                          </div>
+                          <div id="tumorType_op15_hene" style="display: none">
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op126_hene" name="tumorSubType_hene" class="custom-control-input" value="op126" />
+                              <label class="custom-control-label" for="tumorSubType_op126_hene">Superior wall</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op127_hene" name="tumorSubType_hene" class="custom-control-input" value="op127" />
+                              <label class="custom-control-label" for="tumorSubType_op127_hene">Posterior wall</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op128_hene" name="tumorSubType_hene" class="custom-control-input" value="op128" />
+                              <label class="custom-control-label" for="tumorSubType_op128_hene">Nasopharyngeal tonsils (adenoids)</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op129_hene" name="tumorSubType_hene" class="custom-control-input" value="op129" />
+                              <label class="custom-control-label" for="tumorSubType_op129_hene">Anterior wall</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op130_hene" name="tumorSubType_hene" class="custom-control-input" value="op130" />
+                              <label class="custom-control-label" for="tumorSubType_op130_hene">Lateral wall (including lateral pharyngeal recess [i.e., Rosenmüller fossa])</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op131_hene" name="tumorSubType_hene" class="custom-control-input" value="op131" />
+                              <label class="custom-control-label" for="tumorSubType_op131_hene">Other</label>
+                              <input type="text" class="form-control mt-2" id="tumorSubType_op131_Oth_hene" placeholder="specify" disabled />
+                            </div>
+                          </div>
+                          <div id="tumorType_op16_hene" style="display: none">
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op132_hene" name="tumorSubType_hene" class="custom-control-input" value="op132" />
+                              <label class="custom-control-label" for="tumorSubType_op132_hene">Nasal septum</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op133_hene" name="tumorSubType_hene" class="custom-control-input" value="op133" />
+                              <label class="custom-control-label" for="tumorSubType_op133_hene">Nasal floor</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op134_hene" name="tumorSubType_hene" class="custom-control-input" value="op134" />
+                              <label class="custom-control-label" for="tumorSubType_op134_hene">Nasal lateral wall</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op135_hene" name="tumorSubType_hene" class="custom-control-input" value="op135" />
+                              <label class="custom-control-label" for="tumorSubType_op135_hene">Nasal vestibule</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op136_hene" name="tumorSubType_hene" class="custom-control-input" value="op136" />
+                              <label class="custom-control-label" for="tumorSubType_op136_hene">Nasal cavity, NOS</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op137_hene" name="tumorSubType_hene" class="custom-control-input" value="op137" />
+                              <label class="custom-control-label" for="tumorSubType_op137_hene">Middle ear</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op138_hene" name="tumorSubType_hene" class="custom-control-input" value="op138" />
+                              <label class="custom-control-label" for="tumorSubType_op138_hene">Paranasal sinus(es), maxillary</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op139_hene" name="tumorSubType_hene" class="custom-control-input" value="op139" />
+                              <label class="custom-control-label" for="tumorSubType_op139_hene">Paranasal sinus(es), ethmoid</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op140_hene" name="tumorSubType_hene" class="custom-control-input" value="op140" />
+                              <label class="custom-control-label" for="tumorSubType_op140_hene">Paranasal sinus(es), frontal</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op141_hene" name="tumorSubType_hene" class="custom-control-input" value="op141" />
+                              <label class="custom-control-label" for="tumorSubType_op141_hene">Paranasal sinus(es), sphenoid</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op142_hene" name="tumorSubType_hene" class="custom-control-input" value="op142" />
+                              <label class="custom-control-label" for="tumorSubType_op142_hene">Other</label>
+                              <input type="text" class="form-control mt-2" id="tumorSubType_op142_Oth_hene" placeholder="specify" disabled />
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op143_hene" name="tumorSubType_hene" class="custom-control-input" value="op143" />
+                              <label class="custom-control-label" for="tumorSubType_op143_hene">Not specified</label>
+                            </div>
+                          </div>
+                          <div id="tumorType_op20_hene" style="display: none">
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op144_hene" name="tumorSubType_hene" class="custom-control-input" value="op144" />
+                              <label class="custom-control-label" for="tumorSubType_op144_hene">Wet mucosa of lower lip</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op145_hene" name="tumorSubType_hene" class="custom-control-input" value="op145" />
+                              <label class="custom-control-label" for="tumorSubType_op145_hene">Wet mucosa of lip, NOS</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op146_hene" name="tumorSubType_hene" class="custom-control-input" value="op146" />
+                              <label class="custom-control-label" for="tumorSubType_op146_hene">Lateral border of tongue</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op147_hene" name="tumorSubType_hene" class="custom-control-input" value="op147" />
+                              <label class="custom-control-label" for="tumorSubType_op147_hene">Ventral surface of tongue</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op148_hene" name="tumorSubType_hene" class="custom-control-input" value="op148" />
+                              <label class="custom-control-label" for="tumorSubType_op148_hene">Dorsal surface of tongue</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op149_hene" name="tumorSubType_hene" class="custom-control-input" value="op149" />
+                              <label class="custom-control-label" for="tumorSubType_op149_hene">Anterior two-thirds of tongue</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op150_hene" name="tumorSubType_hene" class="custom-control-input" value="op150" />
+                              <label class="custom-control-label" for="tumorSubType_op150_hene">Tongue, NOS</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op151_hene" name="tumorSubType_hene" class="custom-control-input" value="op151" />
+                              <label class="custom-control-label" for="tumorSubType_op151_hene">Upper gingiva</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op152_hene" name="tumorSubType_hene" class="custom-control-input" value="op152" />
+                              <label class="custom-control-label" for="tumorSubType_op152_hene">Lower gingiva</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op153_hene" name="tumorSubType_hene" class="custom-control-input" value="op153" />
+                              <label class="custom-control-label" for="tumorSubType_op153_hene">Gingiva, NOS</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op154_hene" name="tumorSubType_hene" class="custom-control-input" value="op154" />
+                              <label class="custom-control-label" for="tumorSubType_op154_hene">Anterior floor of mouth</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op155_hene" name="tumorSubType_hene" class="custom-control-input" value="op155" />
+                              <label class="custom-control-label" for="tumorSubType_op155_hene">Lateral floor of mouth</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op156_hene" name="tumorSubType_hene" class="custom-control-input" value="op156" />
+                              <label class="custom-control-label" for="tumorSubType_op156_hene">Hard palate</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op157_hene" name="tumorSubType_hene" class="custom-control-input" value="op157" />
+                              <label class="custom-control-label" for="tumorSubType_op157_hene">Buccal mucosa</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op158_hene" name="tumorSubType_hene" class="custom-control-input" value="op158" />
+                              <label class="custom-control-label" for="tumorSubType_op158_hene">Vestibule of mouth, maxillary</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op159_hene" name="tumorSubType_hene" class="custom-control-input" value="op159" />
+                              <label class="custom-control-label" for="tumorSubType_op159_hene">Vestibule of mouth, mandibular</label>
+                            </div>
+                          </div>
+                          <div id="tumorType_op21_hene" style="display: none">
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op160_hene" name="tumorSubType_hene" class="custom-control-input" value="op160" />
+                              <label class="custom-control-label" for="tumorSubType_op160_hene">Palatine tonsil</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op161_hene" name="tumorSubType_hene" class="custom-control-input" value="op161" />
+                              <label class="custom-control-label" for="tumorSubType_op161_hene">Tonsillar pillar</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op162_hene" name="tumorSubType_hene" class="custom-control-input" value="op162" />
+                              <label class="custom-control-label" for="tumorSubType_op162_hene">Tonsillar fossa</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op163_hene" name="tumorSubType_hene" class="custom-control-input" value="op163" />
+                              <label class="custom-control-label" for="tumorSubType_op163_hene">Lingual tonsil</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op164_hene" name="tumorSubType_hene" class="custom-control-input" value="op164" />
+                              <label class="custom-control-label" for="tumorSubType_op164_hene">Tonsil, NOS</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op165_hene" name="tumorSubType_hene" class="custom-control-input" value="op165" />
+                              <label class="custom-control-label" for="tumorSubType_op165_hene">Base of tongue</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op166_hene" name="tumorSubType_hene" class="custom-control-input" value="op166" />
+                              <label class="custom-control-label" for="tumorSubType_op166_hene">Soft palate</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op167_hene" name="tumorSubType_hene" class="custom-control-input" value="op167" />
+                              <label class="custom-control-label" for="tumorSubType_op167_hene">Uvula</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op168_hene" name="tumorSubType_hene" class="custom-control-input" value="op168" />
+                              <label class="custom-control-label" for="tumorSubType_op168_hene">Lateral wall of oropharynx</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op169_hene" name="tumorSubType_hene" class="custom-control-input" value="op169" />
+                              <label class="custom-control-label" for="tumorSubType_op169_hene">Posterior wall of oropharynx</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op170_hene" name="tumorSubType_hene" class="custom-control-input" value="op170" />
+                              <label class="custom-control-label" for="tumorSubType_op170_hene">Vallecula</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op171_hene" name="tumorSubType_hene" class="custom-control-input" value="op171" />
+                              <label class="custom-control-label" for="tumorSubType_op171_hene">Epiglottis, anterior surface (lingual aspect)</label>
+                            </div>
+                          </div>
+                          <div id="tumorType_op22_hene" style="display: none">
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op172_hene" name="tumorSubType_hene" class="custom-control-input" value="op172" />
+                              <label class="custom-control-label" for="tumorSubType_op172_hene">Pyriform sinus</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op173_hene" name="tumorSubType_hene" class="custom-control-input" value="op173" />
+                              <label class="custom-control-label" for="tumorSubType_op173_hene">Aryepiglottic fold, hypopharyngeal aspect</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op174_hene" name="tumorSubType_hene" class="custom-control-input" value="op174" />
+                              <label class="custom-control-label" for="tumorSubType_op174_hene">Postcricoid</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op175_hene" name="tumorSubType_hene" class="custom-control-input" value="op175" />
+                              <label class="custom-control-label" for="tumorSubType_op175_hene">Posterior wall of hypopharynx</label>
+                            </div>
+                          </div>
+                          <div id="tumorType_op23_hene" style="display: none">
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op176_hene" name="tumorSubType_hene" class="custom-control-input" value="op176" />
+                              <label class="custom-control-label" for="tumorSubType_op176_hene">Epiglottis, posterior surface (laryngeal aspect)</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op177_hene" name="tumorSubType_hene" class="custom-control-input" value="op177" />
+                              <label class="custom-control-label" for="tumorSubType_op177_hene">Aryepiglottic folds (laryngeal aspect)</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op178_hene" name="tumorSubType_hene" class="custom-control-input" value="op178" />
+                              <label class="custom-control-label" for="tumorSubType_op178_hene">False vocal cord</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op179_hene" name="tumorSubType_hene" class="custom-control-input" value="op179" />
+                              <label class="custom-control-label" for="tumorSubType_op179_hene">Ventricle</label>
+                            </div>
+                          </div>
+                          <div id="tumorType_op24_hene" style="display: none">
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op180_hene" name="tumorSubType_hene" class="custom-control-input" value="op180" />
+                              <label class="custom-control-label" for="tumorSubType_op180_hene">True vocal cord</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op181_hene" name="tumorSubType_hene" class="custom-control-input" value="op181" />
+                              <label class="custom-control-label" for="tumorSubType_op181_hene">Anterior commissure</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op182_hene" name="tumorSubType_hene" class="custom-control-input" value="op182" />
+                              <label class="custom-control-label" for="tumorSubType_op182_hene">Posterior commissure</label>
+                            </div>
+                          </div>
+                          <div id="tumorType_op25_hene" style="display: none">
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op183_hene" name="tumorSubType_hene" class="custom-control-input" value="op183" />
+                              <label class="custom-control-label" for="tumorSubType_op183_hene">Superior wall</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op184_hene" name="tumorSubType_hene" class="custom-control-input" value="op184" />
+                              <label class="custom-control-label" for="tumorSubType_op184_hene">Posterior wall</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op185_hene" name="tumorSubType_hene" class="custom-control-input" value="op185" />
+                              <label class="custom-control-label" for="tumorSubType_op185_hene">Nasopharyngeal tonsils (adenoids)</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op186_hene" name="tumorSubType_hene" class="custom-control-input" value="op186" />
+                              <label class="custom-control-label" for="tumorSubType_op186_hene">Anterior wall</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op187_hene" name="tumorSubType_hene" class="custom-control-input" value="op187" />
+                              <label class="custom-control-label" for="tumorSubType_op187_hene">Lateral wall (including lateral pharyngeal recess, [i.e., Rosenmüller fossa])</label>
+                            </div>
+                          </div>
+                          <div id="tumorType_op26_hene" style="display: none">
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op188_hene" name="tumorSubType_hene" class="custom-control-input" value="op188" />
+                              <label class="custom-control-label" for="tumorSubType_op188_hene">Nasal septum</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op189_hene" name="tumorSubType_hene" class="custom-control-input" value="op189" />
+                              <label class="custom-control-label" for="tumorSubType_op189_hene">Nasal floor</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op190_hene" name="tumorSubType_hene" class="custom-control-input" value="op190" />
+                              <label class="custom-control-label" for="tumorSubType_op190_hene">Nasal lateral wall</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op191_hene" name="tumorSubType_hene" class="custom-control-input" value="op191" />
+                              <label class="custom-control-label" for="tumorSubType_op191_hene">Nasal vestibule</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op192_hene" name="tumorSubType_hene" class="custom-control-input" value="op192" />
+                              <label class="custom-control-label" for="tumorSubType_op192_hene">Nasal cavity, NOS</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op193_hene" name="tumorSubType_hene" class="custom-control-input" value="op193" />
+                              <label class="custom-control-label" for="tumorSubType_op193_hene">Middle ear</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op194_hene" name="tumorSubType_hene" class="custom-control-input" value="op194" />
+                              <label class="custom-control-label" for="tumorSubType_op194_hene">Paranasal sinus(es), ethmoid</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op195_hene" name="tumorSubType_hene" class="custom-control-input" value="op195" />
+                              <label class="custom-control-label" for="tumorSubType_op195_hene">Paranasal sinus(es), frontal</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op196_hene" name="tumorSubType_hene" class="custom-control-input" value="op196" />
+                              <label class="custom-control-label" for="tumorSubType_op196_hene">Paranasal sinus(es), sphenoid</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op197_hene" name="tumorSubType_hene" class="custom-control-input" value="op197" />
+                              <label class="custom-control-label" for="tumorSubType_op197_hene">Other</label>
+                              <input type="text" class="form-control mt-2" id="tumorSubType_op197_Oth_hene" placeholder="specify" disabled />
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="tumorSubType_op198_hene" name="tumorSubType_hene" class="custom-control-input" value="op198" />
+                              <label class="custom-control-label" for="tumorSubType_op198_hene">Not specified</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-1 mt-2 erase-icon-container-tumorSubTypeSite-hene tumor-subtype-erase-hene">
+                          <!-- The icon will be dynamically inserted here -->
+                        </div>
+                      </div>
                     </div>
                   </div>
 
@@ -11227,12 +11249,12 @@
                         <div class="custom-control custom-checkbox">
                           <input type="checkbox" id="pSubType_op21_hene" name="pSubType_hene" class="custom-control-input" value="op21" />
                           <label class="custom-control-label" for="pSubType_op21_hene">Other histologic type not listed</label>
-                          <input type="text" class="form-control" id="pSubType_op21_Oth_hene" placeholder="specify" disabled />
+                          <!-- <input type="text" class="form-control" id="pSubType_op21_Oth_hene" placeholder="specify" disabled /> -->
                         </div>
                         <div class="custom-control custom-checkbox">
                           <input type="checkbox" id="pSubType_op22_hene" name="pSubType_hene" class="custom-control-input" value="op22" />
                           <label class="custom-control-label" for="pSubType_op22_hene">Carcinoma, type cannot be determined</label>
-                          <input type="text" class="form-control" id="pSubType_op22_Oth_hene" placeholder="" disabled />
+                          <!-- <input type="text" class="form-control" id="pSubType_op22_Oth_hene" placeholder="" disabled /> -->
                         </div>
                       </div>
                       <div id="pType_op5_hene">
@@ -11369,12 +11391,12 @@
                         <div class="custom-control custom-checkbox">
                           <input type="checkbox" id="pSubType_op55_hene" name="pSubType_hene" class="custom-control-input" value="op55" />
                           <label class="custom-control-label" for="pSubType_op55_hene">Other histologic type not listed</label>
-                          <input type="text" class="form-control" id="pSubType_op55_Oth_hene" placeholder="specify" disabled />
+                          <!-- <input type="text" class="form-control" id="pSubType_op55_Oth_hene" placeholder="specify" disabled /> -->
                         </div>
                         <div class="custom-control custom-checkbox">
                           <input type="checkbox" id="pSubType_op56_hene" name="pSubType_hene" class="custom-control-input" value="op56" />
                           <label class="custom-control-label" for="pSubType_op56_hene">Carcinoma, type cannot be determined</label>
-                          <input type="text" class="form-control" id="pSubType_op56_Oth_hene" placeholder="" disabled />
+                          <!-- <input type="text" class="form-control" id="pSubType_op56_Oth_hene" placeholder="" disabled /> -->
                         </div>
                       </div>
                       <div id="pType_op19_hene">
@@ -11450,12 +11472,12 @@
                         <div class="custom-control custom-checkbox">
                           <input type="checkbox" id="pSubType_op72_hene" name="pSubType_hene" class="custom-control-input" value="op72" />
                           <label class="custom-control-label" for="pSubType_op72_hene">Other histologic type not listed</label>
-                          <input type="text" class="form-control" id="pSubType_op72_Oth_hene" placeholder="specify" disabled />
+                          <!-- <input type="text" class="form-control" id="pSubType_op72_Oth_hene" placeholder="specify" disabled /> -->
                         </div>
                         <div class="custom-control custom-checkbox">
                           <input type="checkbox" id="pSubType_op73_hene" name="pSubType_hene" class="custom-control-input" value="op73" />
                           <label class="custom-control-label" for="pSubType_op73_hene">Carcinoma, type cannot be determined</label>
-                          <input type="text" class="form-control" id="pSubType_op73_Oth_hene" placeholder="" disabled />
+                          <!-- <input type="text" class="form-control" id="pSubType_op73_Oth_hene" placeholder="" disabled /> -->
                         </div>
                       </div>
                       <div id="pType_op23_hene">
@@ -11555,12 +11577,12 @@
                         <div class="custom-control custom-checkbox">
                           <input type="checkbox" id="pSubType_op95_hene" name="pSubType_hene" class="custom-control-input" value="op95" />
                           <label class="custom-control-label" for="pSubType_op95_hene">Other histologic type not listed</label>
-                          <input type="text" class="form-control" id="pSubType_op95_Oth_hene" placeholder="" disabled />
+                          <!-- <input type="text" class="form-control" id="pSubType_op95_Oth_hene" placeholder="" disabled /> -->
                         </div>
                         <div class="custom-control custom-checkbox">
                           <input type="checkbox" id="pSubType_op96_hene" name="pSubType_hene" class="custom-control-input" value="op96" />
                           <label class="custom-control-label" for="pSubType_op96_hene">Carcinoma, type cannot be determined</label>
-                          <input type="text" class="form-control" id="pSubType_op96_Oth_hene" placeholder="" disabled />
+                          <!-- <input type="text" class="form-control" id="pSubType_op96_Oth_hene" placeholder="" disabled /> -->
                         </div>
                       </div>
                       <div id="pType_op27_hene">
@@ -11697,12 +11719,24 @@
                         <div class="custom-control custom-checkbox">
                           <input type="checkbox" id="pSubType_op127_hene" name="pSubType_hene" class="custom-control-input" value="op127" />
                           <label class="custom-control-label" for="pSubType_op127_hene">Other histologic type not listed</label>
-                          <input type="text" class="form-control" id="pSubType_op127_Oth_hene" placeholder="" disabled />
+                          <!-- <input type="text" class="form-control" id="pSubType_op127_Oth_hene" placeholder="" disabled /> -->
                         </div>
                         <div class="custom-control custom-checkbox">
                           <input type="checkbox" id="pSubType_op128_hene" name="pSubType_hene" class="custom-control-input" value="op128" />
                           <label class="custom-control-label" for="pSubType_op128_hene">Carcinoma, type cannot be determined</label>
-                          <input type="text" class="form-control" id="pSubType_op128_Oth_hene" placeholder="" disabled />
+                          <!-- <input type="text" class="form-control" id="pSubType_op128_Oth_hene" placeholder="" disabled /> -->
+                        </div>
+                      </div>
+                      <div id="pType_op39_53_hene">
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" id="pSubType_op129_hene" name="pSubType_hene" class="custom-control-input" value="op129" />
+                          <label class="custom-control-label" for="pSubType_op129_hene">Other histologic type not listed</label>
+                          <input type="text" class="form-control" id="pSubType_op129_Oth_hene" placeholder="" disabled />
+                        </div>
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" id="pSubType_op130_hene" name="pSubType_hene" class="custom-control-input" value="op130" />
+                          <label class="custom-control-label" for="pSubType_op130_hene">Carcinoma, type cannot be determined</label>
+                          <input type="text" class="form-control" id="pSubType_op130_Oth_hene" placeholder="" disabled />
                         </div>
                       </div>
                     </div>
@@ -12558,6 +12592,13 @@
                   </div>
 
                   <div class="row ml-1 mb-3">
+                    <label for="stils" class="col-sm-3 mb-1 col-form-label">sTILs Percent Scores</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="sps_hene" placeholder="Percentage %" />
+                    </div>
+                  </div>
+
+                  <div class="row ml-1 mb-3">
                     <label for="ACT_hene" class="col-sm-3 mb-1 col-form-label">ACT</label>
                     <div class="col-sm-8">
                       <div class="custom-control custom-radio custom-control-inline">
@@ -13309,6 +13350,13 @@
                           <input type="text" class="form-control" id="tumorSizeH_lung" placeholder="cm" />
                         </div>
                       </div>
+                    </div>
+                  </div>
+
+                  <div class="row ml-1 mb-3">
+                    <label for="stils_lung" class="col-sm-3 mb-1 col-form-label">sTILs Percent Scores</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="sps_lung" placeholder="Percentage %" />
                     </div>
                   </div>
 
@@ -17221,12 +17269,7 @@
                       <input type="text" class="form-control" id="pcvm" placeholder="" />
                     </div>
                   </div>
-                  <div class="row ml-1 mb-3">
-                    <label for="stils" class="col-sm-2 mb-1 col-form-label">sTILs Percent Scores</label>
-                    <div class="col-sm-10 mt-2">
-                      <input type="text" class="form-control" id="sps" placeholder="Percentage %" />
-                    </div>
-                  </div>
+
                   <div class="col-12">
                     <div class="row" style="justify-content: space-around">
                       <div class="col-4 mt-6" style="text-align: center">
@@ -17674,12 +17717,7 @@
                       <input type="text" class="form-control" id="pcvm_hene" placeholder="" />
                     </div>
                   </div>
-                  <div class="row ml-1 mb-3">
-                    <label for="stils" class="col-sm-2 mb-1 col-form-label">sTILs Percent Scores</label>
-                    <div class="col-sm-10 mt-2">
-                      <input type="text" class="form-control" id="sps_hene" placeholder="Percentage %" />
-                    </div>
-                  </div>
+
                   <div class="col-12">
                     <div class="row" style="justify-content: space-around">
                       <div class="col-4 mt-6" style="text-align: center">
@@ -17748,12 +17786,7 @@
                       <input type="text" class="form-control" id="pcvm_lung" placeholder="" />
                     </div>
                   </div>
-                  <div class="row ml-1 mb-3">
-                    <label for="stils_lung" class="col-sm-2 mb-1 col-form-label">sTILs Percent Scores</label>
-                    <div class="col-sm-10 mt-2">
-                      <input type="text" class="form-control" id="sps_lung" placeholder="Percentage %" />
-                    </div>
-                  </div>
+
                   <div class="col-12">
                     <div class="row" style="justify-content: space-around">
                       <div class="col-4 mt-6" style="text-align: center">
@@ -18545,7 +18578,7 @@
           &copy; Copyright <strong><span></span></strong>. All Rights Reserved
         </div>
         <div class="credits"></div>
-        <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">Version 1.9.4</div>
+        <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">Version 1.9.5</div>
       </div>
     </footer>
 
@@ -18781,6 +18814,7 @@
           },
           salivary: {
             op9: "Major Salivary Gland",
+            op30: "Minor Salivary Gland",
             op10: "Oral cavity",
             op11: "Oropharynx",
             op12: "Hypopharynx",
@@ -18806,6 +18840,18 @@
           },
         };
 
+        const tumorType_Site_minor_hene = {
+          op31: "Oral cavity",
+          op32: "Oropharynx",
+          op33: "Hypopharynx",
+          op34: "Supraglottic larynx",
+          op35: "Glottic larynx",
+          op36: "Nasopharynx",
+          op37: "Nasal and paranasal sinuses",
+          // op38: "Subglottic larynx",
+          // op39: "Trachea",
+          // op40: "Cervical esophagus",
+        };
         function initializeDoubleOption(primaryId, secondaryId) {
           const primarySelect = document.getElementById(primaryId);
           const secondarySelect = document.getElementById(secondaryId);
@@ -18829,8 +18875,6 @@
               mainOption = mteOptions_hene;
             } else if (primaryId === "tumorType_hene" && secondaryId === "tumorSite_hene") {
               mainOption = tumorType_Site_hene;
-            } else if (primaryId === "tumorType_hene" && secondaryId === "pType_hene") {
-              mainOption = type_pt_hene;
             } else {
               mainOption = figoOptionsByStage_endm;
             }
@@ -18871,12 +18915,52 @@
               }
             }
             if (primaryId === "tumorType_hene" && secondaryId === "tumorSite_hene") {
+              if (secondarySelect.value === "op30") {
+                // enable tumorSite_minor_hene
+                const tumorSiteMinorSelect = document.getElementById("tumorSite_minor_hene");
+                if (tumorSiteMinorSelect) {
+                  tumorSiteMinorSelect.innerHTML = '<option value="">Select</option>';
+                  tumorSiteMinorSelect.value = "";
+                  tumorSiteMinorSelect.disabled = isReadOnlyMode;
+
+                  const optionEntries = Array.isArray(tumorType_Site_minor_hene)
+                    ? tumorType_Site_minor_hene.map(function (value) {
+                        return { value: value, label: value };
+                      })
+                    : Object.entries(tumorType_Site_minor_hene).map(function ([value, label]) {
+                        return { value: value, label: label };
+                      });
+
+                  optionEntries.forEach(function (entry) {
+                    if (entry.value === "") {
+                      return;
+                    }
+
+                    const option = document.createElement("option");
+                    option.value = entry.value;
+                    option.textContent = entry.label;
+                    tumorSiteMinorSelect.appendChild(option);
+                  });
+                }
+              } else {
+                // disable tumorSite_minor_hene
+                const tumorSiteMinorSelect = document.getElementById("tumorSite_minor_hene");
+                if (tumorSiteMinorSelect) {
+                  tumorSiteMinorSelect.innerHTML = '<option value="">Select</option>';
+                  tumorSiteMinorSelect.value = "";
+                  tumorSiteMinorSelect.disabled = true;
+                }
+              }
+              const otherInputWrapper = document.getElementById("tumorType_op17_19_op27_29_hene");
               const otherInput = document.getElementById("tumorType_Oth_hene");
-              if (otherInput) {
+              if (otherInput && otherInputWrapper) {
                 const shouldEnableOther = ["op17", "op18", "op19", "op27", "op28", "op29"].includes(secondarySelect.value);
                 otherInput.disabled = secondarySelect.disabled || !shouldEnableOther || isReadOnlyMode;
                 if (!shouldEnableOther) {
+                  otherInputWrapper.style.display = "none";
                   otherInput.value = "";
+                } else {
+                  otherInputWrapper.style.display = "block";
                 }
               }
             }
@@ -31303,8 +31387,19 @@
         // Head and Neck Tumor Subtype
         function tumorTyp_tumorSubTyp_hene() {
           const option = $("#tumorSite_hene").val();
-          const showSubType = ["op1", "op2", "op3", "op4", "op5", "op6", "op7", "op8", "op9", "op10", "op11", "op12", "op13", "op14", "op15", "op16", "op20", "op21", "op22", "op23", "op24", "op25", "op26"].includes(option);
-          $("#tumorSubTypeContainer_hene").toggle(showSubType);
+          const option_minor = option === "op30" ? $("#tumorSite_minor_hene").val() : "";
+
+          const showMinorSubType = ["op31", "op32", "op33", "op34", "op35", "op36", "op37"].includes(option_minor);
+          const showMinorSiteSelect = option === "op30";
+          const showSubWraperType = ["op17", "op18", "op19", "op27", "op28", "op29"].includes(option);
+          const showCheckboxSubType = ["op1", "op2", "op3", "op4", "op5", "op6", "op7", "op8", "op9", "op10", "op11", "op12", "op13", "op14", "op15", "op16", "op20", "op21", "op22", "op23", "op24", "op25", "op26"].includes(option);
+          const showSubtypeHelper = showSubWraperType || showMinorSiteSelect;
+          const showSubTypeRow = showCheckboxSubType || showSubtypeHelper;
+
+          $("#tumorSubTypeContainer_hene").toggle(showSubTypeRow);
+          $("#tumorSubType_opWrapper_hene").toggle(showSubtypeHelper);
+          $("#tumorSubType_opContainer_hene").toggle(showCheckboxSubType);
+          $(".erase-icon-container-tumorSubTypeSite-hene").toggle(showCheckboxSubType);
 
           $("#tumorType_op1_hene").toggle(option === "op1");
           $("#tumorType_op2_hene").toggle(option === "op2");
@@ -31315,6 +31410,7 @@
           $("#tumorType_op7_hene").toggle(option === "op7");
           $("#tumorType_op8_hene").toggle(option === "op8");
           $("#tumorType_op9_hene").toggle(option === "op9");
+          $("#tumorType_op30_hene").toggle(showMinorSiteSelect);
           $("#tumorType_op10_hene").toggle(option === "op10");
           $("#tumorType_op11_hene").toggle(option === "op11");
           $("#tumorType_op12_hene").toggle(option === "op12");
@@ -31329,6 +31425,7 @@
           $("#tumorType_op24_hene").toggle(option === "op24");
           $("#tumorType_op25_hene").toggle(option === "op25");
           $("#tumorType_op26_hene").toggle(option === "op26");
+          $("#tumorType_op17_19_op27_29_hene").toggle(["op17", "op18", "op19", "op27", "op28", "op29"].includes(option));
 
           if (option === "op2") {
             $("#hpv_sts_container_hene").show();
@@ -31357,7 +31454,7 @@
           previousTumorSite_hene = option;
         }
         tumorTyp_tumorSubTyp_hene();
-        $("#tumorSite_hene,#tumorType_hene").on("change", function () {
+        $("#tumorSite_hene,#tumorSite_minor_hene,#tumorType_hene").on("change", function () {
           tumorTyp_tumorSubTyp_hene();
           pTyp_pSubTyp_hene();
         });
@@ -31426,7 +31523,7 @@
             "op53",
             "op54",
           ].includes(option);
-          const supportsOtherType = ["op9", "op18", "op43", "op58"].includes(option);
+          const supportsOtherType = ["op4", "op26", "op30", "op54", "op9", "op22", "op18", "op43", "op58"].includes(option);
           const enableOtherType = supportsOtherType || isReadOnlyViewMode(mode);
           $("#histological_subtype").toggle(showSubType);
           $("#pType_Oth_hene")
@@ -31453,9 +31550,9 @@
           $("#pType_op27_hene").toggle(option === "op27");
           $("#pType_op28_hene").toggle(option === "op28");
           $("#pType_op29_hene").toggle(option === "op29");
-          $("#pType_op30_hene").toggle(
-            option === "op30" ||
-              option === "op39" ||
+          $("#pType_op30_hene").toggle(option === "op30" || option === "op54");
+          $("#pType_op39_53_hene").toggle(
+            option === "op39" ||
               option === "op40" ||
               option === "op41" ||
               option === "op42" ||
@@ -31469,7 +31566,6 @@
               option === "op50" ||
               option === "op51" ||
               option === "op52" ||
-              option === "op54" ||
               option === "op53",
           );
 
@@ -35851,30 +35947,35 @@
                     document.getElementById("tumorType_hene").value = mdDataArr?.ttyp || "";
                     document.getElementById("tumorType_hene").dispatchEvent(new Event("change"));
                     document.getElementById("tumorSite_hene").value = mdDataArr?.tst || "";
-                    document.getElementById("tumorType_Oth_hene").value = mdDataArr?.tstOth || "";
                     document.getElementById("tumorSite_hene").dispatchEvent(new Event("change"));
                     if (mdDataArr.tsub) {
-                      const data = Array.isArray(mdDataArr.tsub) ? mdDataArr.tsub : [mdDataArr.tsub];
+                      if (mdDataArr?.tst === "op30") {
+                        document.getElementById("tumorSite_minor_hene").value = mdDataArr?.tsub || "";
+                      } else if (["op17", "op18", "op19", "op27", "op28", "op29"].includes(mdDataArr?.tst)) {
+                        document.getElementById("tumorType_Oth_hene").value = mdDataArr?.tsub || "";
+                      } else {
+                        const data = Array.isArray(mdDataArr.tsub) ? mdDataArr.tsub : [mdDataArr.tsub];
 
-                      data.forEach((item) => {
-                        const subtypeValue = item?.op;
-                        const checkbox = document.querySelector(`input[name="tumorSubType_hene"][value="${subtypeValue}"]`);
+                        data.forEach((item) => {
+                          const subtypeValue = item?.op;
+                          const checkbox = document.querySelector(`input[name="tumorSubType_hene"][value="${subtypeValue}"]`);
 
-                        if (!checkbox) {
-                          return;
-                        }
-
-                        checkbox.checked = true;
-
-                        if (item?.text) {
-                          const otherInput = document.getElementById(`tumorSubType_${subtypeValue}_Oth_hene`);
-
-                          if (otherInput) {
-                            otherInput.value = item.text || "";
-                            otherInput.disabled = isReadOnlyViewMode(mode);
+                          if (!checkbox) {
+                            return;
                           }
-                        }
-                      });
+
+                          checkbox.checked = true;
+
+                          if (item?.text) {
+                            const otherInput = document.getElementById(`tumorSubType_${subtypeValue}_Oth_hene`);
+
+                            if (otherInput) {
+                              otherInput.value = item.text || "";
+                              otherInput.disabled = isReadOnlyViewMode(mode);
+                            }
+                          }
+                        });
+                      }
                     }
                     document.getElementById("clinicalStage_hene").value = mdDataArr.cs || "";
                     document.getElementById("pType_hene").value = mdDataArr?.pt || "";
@@ -37344,30 +37445,35 @@
                       document.getElementById("tumorType_hene").value = mdDataArr?.ttyp || "";
                       document.getElementById("tumorType_hene").dispatchEvent(new Event("change"));
                       document.getElementById("tumorSite_hene").value = mdDataArr?.tst || "";
-                      document.getElementById("tumorType_Oth_hene").value = mdDataArr?.tstOth || "";
                       document.getElementById("tumorSite_hene").dispatchEvent(new Event("change"));
                       if (mdDataArr.tsub) {
-                        const data = Array.isArray(mdDataArr.tsub) ? mdDataArr.tsub : [mdDataArr.tsub];
+                        if (mdDataArr?.tst === "op30") {
+                          document.getElementById("tumorSite_minor_hene").value = mdDataArr?.tsub || "";
+                        } else if (["op17", "op18", "op19", "op27", "op28", "op29"].includes(mdDataArr?.tst)) {
+                          document.getElementById("tumorType_Oth_hene").value = mdDataArr?.tsub || "";
+                        } else {
+                          const data = Array.isArray(mdDataArr.tsub) ? mdDataArr.tsub : [mdDataArr.tsub];
 
-                        data.forEach((item) => {
-                          const subtypeValue = item?.op;
-                          const checkbox = document.querySelector(`input[name="tumorSubType_hene"][value="${subtypeValue}"]`);
+                          data.forEach((item) => {
+                            const subtypeValue = item?.op;
+                            const checkbox = document.querySelector(`input[name="tumorSubType_hene"][value="${subtypeValue}"]`);
 
-                          if (!checkbox) {
-                            return;
-                          }
-
-                          checkbox.checked = true;
-
-                          if (item?.text) {
-                            const otherInput = document.getElementById(`tumorSubType_${subtypeValue}_Oth_hene`);
-
-                            if (otherInput) {
-                              otherInput.value = item.text || "";
-                              otherInput.disabled = isReadOnlyViewMode(mode);
+                            if (!checkbox) {
+                              return;
                             }
-                          }
-                        });
+
+                            checkbox.checked = true;
+
+                            if (item?.text) {
+                              const otherInput = document.getElementById(`tumorSubType_${subtypeValue}_Oth_hene`);
+
+                              if (otherInput) {
+                                otherInput.value = item.text || "";
+                                otherInput.disabled = isReadOnlyViewMode(mode);
+                              }
+                            }
+                          });
+                        }
                       }
 
                       document.getElementById("pType_hene").value = mdDataArr?.pt || "";
