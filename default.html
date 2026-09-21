@@ -175,7 +175,7 @@
                       <option value="anal">Anal Cancer</option>
                       <option value="esph">Esophagus Cancer</option>
                       <option value="gast">Gastric Cancer</option>
-                      <option value="pncr" disabled>Pancreas</option>
+                      <!-- <option value="pncr" disabled>Pancreas</option>
                       <option value="utrs" disabled>Uterus</option>
                       <option value="omnt" disabled>Omentum</option>
                       <option value="vlva" disabled>Vulva</option>
@@ -187,7 +187,7 @@
                       <option value="urt" disabled>Ureter</option>
                       <option value="thy" disabled>Thyroid</option>
                       <option value="lymph" disabled>Lymph node</option>
-                      <option value="soft" disabled>Soft tissue</option>
+                      <option value="soft" disabled>Soft tissue</option> -->
                     </select>
                   </div>
                 </div>
@@ -31296,7 +31296,7 @@
         function positiveNodes_hene() {
           let positiveNodes_hene = parseInt($("#positiveNodes_hene").val(), 10);
 
-          if (positiveNodes_hene === 0 || $("#positiveNodes_hene").val() === "") {
+          if (positiveNodes_hene === 0) {
             $("#nodalSite_container_hene").hide();
             $("#llnT_container_hene").hide();
             $("#nodeSize_container_hene").hide();

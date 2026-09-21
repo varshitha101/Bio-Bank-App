@@ -5923,68 +5923,8 @@ function saveToFirebase(data, patientInfo) {
       nextSection = localStorage.getItem("lastSection") && localStorage.getItem("lastSection") !== "undefined" ? localStorage.getItem("lastSection") : nextSection;
 
       const cancer_type = data?.ie?.ct;
-      let formattedData;
-      if (cancer_type === "brst") {
-        formattedData = {
-          ie: data.ie,
-          md: data.md,
-          brf: data.brf,
-        };
-      } else if (cancer_type === "endm") {
-        formattedData = {
-          ie: data.ie,
-          md: data.md,
-          emf: data.brf,
-        };
-      } else if (cancer_type === "ceix") {
-        formattedData = {
-          ie: data.ie,
-          md: data.md,
-          cvf: data.brf,
-        };
-      } else if (cancer_type === "ovry") {
-        formattedData = {
-          ie: data.ie,
-          md: data.md,
-          ovf: data.brf,
-        };
-      } else if (cancer_type === "hene") {
-        formattedData = {
-          ie: data.ie,
-          md: data.md,
-          henef: data.brf,
-        };
-      } else if (cancer_type === "lung") {
-        formattedData = {
-          ie: data.ie,
-          md: data.md,
-          luf: data.brf,
-        };
-      } else if (cancer_type === "colo") {
-        formattedData = {
-          ie: data.ie,
-          md: data.md,
-          cof: data.brf,
-        };
-      } else if (cancer_type === "anal") {
-        formattedData = {
-          ie: data.ie,
-          md: data.md,
-          anf: data.brf,
-        };
-      } else if (cancer_type === "gast") {
-        formattedData = {
-          ie: data.ie,
-          md: data.md,
-          gtf: data.brf,
-        };
-      } else if (cancer_type === "esph") {
-        formattedData = {
-          ie: data.ie,
-          md: data.md,
-          etf: data.brf,
-        };
-      }
+      const formattedData = getFormattedData(data, cancer_type);
+
       db.ref(`sef/${cancer_type}/${bioBankId}/${nextSection}/${timestamp}`)
         .set(formattedData)
         .then(() => {
@@ -6044,7 +5984,30 @@ function saveToFirebase(data, patientInfo) {
     console.warn("Biobank ID or MRN Number is missing");
   }
 }
+function getFormattedData(data, cancer_type) {
+  const fieldMap = {
+    brst: "brf",
+    endm: "emf",
+    ceix: "cvf",
+    ovry: "ovf",
+    hene: "henef",
+    lung: "luf",
+    colo: "cof",
+    anal: "anf",
+    gast: "gtf",
+    esph: "etf",
+  };
 
+  const field = fieldMap[cancer_type];
+
+  if (!field) return undefined;
+
+  return {
+    ie: data.ie,
+    md: data.md,
+    [field]: data.brf,
+  };
+}
 function updateToFirebase(data, patientInfo) {
   const bioBankId = document.getElementById("bioBankId").value;
   const mrnData = document.getElementById("mrnNo").value;
@@ -6056,68 +6019,7 @@ function updateToFirebase(data, patientInfo) {
   if (bioBankId && mrnData && bioBankId !== "" && mrnData !== "") {
     const cancer_type = data?.ie?.ct;
     db.ref(`sef/${cancer_type}/${bioBankId}`).once("value", (snapshot) => {
-      let formattedData;
-      if (cancer_type === "brst") {
-        formattedData = {
-          ie: data.ie,
-          md: data.md,
-          brf: data.brf,
-        };
-      } else if (cancer_type === "endm") {
-        formattedData = {
-          ie: data.ie,
-          md: data.md,
-          emf: data.brf,
-        };
-      } else if (cancer_type === "ceix") {
-        formattedData = {
-          ie: data.ie,
-          md: data.md,
-          cvf: data.brf,
-        };
-      } else if (cancer_type === "ovry") {
-        formattedData = {
-          ie: data.ie,
-          md: data.md,
-          ovf: data.brf,
-        };
-      } else if (cancer_type === "hene") {
-        formattedData = {
-          ie: data.ie,
-          md: data.md,
-          henef: data.brf,
-        };
-      } else if (cancer_type === "lung") {
-        formattedData = {
-          ie: data.ie,
-          md: data.md,
-          luf: data.brf,
-        };
-      } else if (cancer_type === "colo") {
-        formattedData = {
-          ie: data.ie,
-          md: data.md,
-          cof: data.brf,
-        };
-      } else if (cancer_type === "anal") {
-        formattedData = {
-          ie: data.ie,
-          md: data.md,
-          anf: data.brf,
-        };
-      } else if (cancer_type === "gast") {
-        formattedData = {
-          ie: data.ie,
-          md: data.md,
-          gtf: data.brf,
-        };
-      } else if (cancer_type === "esph") {
-        formattedData = {
-          ie: data.ie,
-          md: data.md,
-          etf: data.brf,
-        };
-      }
+      const formattedData = getFormattedData(data, cancer_type);
 
       if (snapshot && snapshot.exists()) {
         const sections = snapshot.val();
