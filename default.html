@@ -31296,7 +31296,7 @@
         function positiveNodes_hene() {
           let positiveNodes_hene = parseInt($("#positiveNodes_hene").val(), 10);
 
-          if (positiveNodes_hene === 0) {
+          if (positiveNodes_hene === 0 || $("#positiveNodes_hene").val() === "") {
             $("#nodalSite_container_hene").hide();
             $("#llnT_container_hene").hide();
             $("#nodeSize_container_hene").hide();
@@ -35804,12 +35804,46 @@
                   if (cancer_type === "hene") {
                     if (ieDataArr.sx) document.querySelector(`input[name="customRadio_hene"][value="${ieDataArr.sx}"]`).checked = true || "";
                     if (mdDataArr.fhc) document.querySelector(`input[name="RadioFHabit_hene"][value="${mdDataArr.fhc}"]`).checked = true;
-
                     familyHabitToggle_hene();
                     document.getElementById("familyRelation_hene").value = mdDataArr.fhcr || "";
                     document.getElementById("familyCancerType_hene").value = mdDataArr.fhct || "";
 
+                    document.getElementById("tumorType_hene").value = mdDataArr?.ttyp || "";
+                    document.getElementById("tumorType_hene").dispatchEvent(new Event("change"));
+                    document.getElementById("tumorSite_hene").value = mdDataArr?.tst || "";
+                    document.getElementById("tumorSite_hene").dispatchEvent(new Event("change"));
+                    if (mdDataArr.tsub) {
+                      if (mdDataArr?.tst === "op30") {
+                        document.getElementById("tumorSite_minor_hene").value = mdDataArr?.tsub || "";
+                      } else if (["op17", "op18", "op19", "op27", "op28", "op29"].includes(mdDataArr?.tst)) {
+                        document.getElementById("tumorType_Oth_hene").value = mdDataArr?.tsub || "";
+                      } else {
+                        const data = Array.isArray(mdDataArr.tsub) ? mdDataArr.tsub : [mdDataArr.tsub];
+
+                        data.forEach((item) => {
+                          const subtypeValue = item?.op;
+                          const checkbox = document.querySelector(`input[name="tumorSubType_hene"][value="${subtypeValue}"]`);
+
+                          if (!checkbox) {
+                            return;
+                          }
+
+                          checkbox.checked = true;
+
+                          if (item?.text) {
+                            const otherInput = document.getElementById(`tumorSubType_${subtypeValue}_Oth_hene`);
+
+                            if (otherInput) {
+                              otherInput.value = item.text || "";
+                              otherInput.disabled = isReadOnlyViewMode(mode);
+                            }
+                          }
+                        });
+                      }
+                    }
                     if (mdDataArr.hpv) document.querySelector(`input[name="HPV_sts_hene"][value="${mdDataArr.hpv}"]`).checked = true;
+                    document.getElementById("tumorType_hene").dispatchEvent(new Event("change"));
+
                     if (mdDataArr.fh) document.querySelector(`input[name="RadioFdHabit_hene"][value="${mdDataArr.fh}"]`).checked = true;
                     if (mdDataArr.hac) document.querySelector(`input[name="RadioAlcoholHabit_hene"][value="${mdDataArr.hac}"]`).checked = true;
                     if (mdDataArr.hs) document.querySelector(`input[name="RadioSmokeHabit_hene"][value="${mdDataArr.hs}"]`).checked = true;
@@ -35944,39 +35978,6 @@
                       });
                     }
 
-                    document.getElementById("tumorType_hene").value = mdDataArr?.ttyp || "";
-                    document.getElementById("tumorType_hene").dispatchEvent(new Event("change"));
-                    document.getElementById("tumorSite_hene").value = mdDataArr?.tst || "";
-                    document.getElementById("tumorSite_hene").dispatchEvent(new Event("change"));
-                    if (mdDataArr.tsub) {
-                      if (mdDataArr?.tst === "op30") {
-                        document.getElementById("tumorSite_minor_hene").value = mdDataArr?.tsub || "";
-                      } else if (["op17", "op18", "op19", "op27", "op28", "op29"].includes(mdDataArr?.tst)) {
-                        document.getElementById("tumorType_Oth_hene").value = mdDataArr?.tsub || "";
-                      } else {
-                        const data = Array.isArray(mdDataArr.tsub) ? mdDataArr.tsub : [mdDataArr.tsub];
-
-                        data.forEach((item) => {
-                          const subtypeValue = item?.op;
-                          const checkbox = document.querySelector(`input[name="tumorSubType_hene"][value="${subtypeValue}"]`);
-
-                          if (!checkbox) {
-                            return;
-                          }
-
-                          checkbox.checked = true;
-
-                          if (item?.text) {
-                            const otherInput = document.getElementById(`tumorSubType_${subtypeValue}_Oth_hene`);
-
-                            if (otherInput) {
-                              otherInput.value = item.text || "";
-                              otherInput.disabled = isReadOnlyViewMode(mode);
-                            }
-                          }
-                        });
-                      }
-                    }
                     document.getElementById("clinicalStage_hene").value = mdDataArr.cs || "";
                     document.getElementById("pType_hene").value = mdDataArr?.pt || "";
                     document.getElementById("pType_hene").disabled = isReadOnlyViewMode(mode);
@@ -37301,14 +37302,47 @@
                     }
                     if (cancer_type === "hene") {
                       if (ieDataArr.sx) document.querySelector(`input[name="customRadio_hene"][value="${ieDataArr.sx}"]`).checked = true || "";
-                      if (mdDataArr.fhc !== "") {
-                        document.querySelector(`input[name="RadioFHabit_hene"][value="${mdDataArr.fhc}"]`).checked = true;
-                      }
+                      if (mdDataArr.fhc) document.querySelector(`input[name="RadioFHabit_hene"][value="${mdDataArr.fhc}"]`).checked = true;
+
                       familyHabitToggle_hene();
                       document.getElementById("familyRelation_hene").value = mdDataArr.fhcr || "";
                       document.getElementById("familyCancerType_hene").value = mdDataArr.fhct || "";
+                      document.getElementById("tumorType_hene").value = mdDataArr?.ttyp || "";
+                      document.getElementById("tumorType_hene").dispatchEvent(new Event("change"));
+                      document.getElementById("tumorSite_hene").value = mdDataArr?.tst || "";
+                      document.getElementById("tumorSite_hene").dispatchEvent(new Event("change"));
+                      if (mdDataArr.tsub) {
+                        if (mdDataArr?.tst === "op30") {
+                          document.getElementById("tumorSite_minor_hene").value = mdDataArr?.tsub || "";
+                        } else if (["op17", "op18", "op19", "op27", "op28", "op29"].includes(mdDataArr?.tst)) {
+                          document.getElementById("tumorType_Oth_hene").value = mdDataArr?.tsub || "";
+                        } else {
+                          const data = Array.isArray(mdDataArr.tsub) ? mdDataArr.tsub : [mdDataArr.tsub];
 
+                          data.forEach((item) => {
+                            const subtypeValue = item?.op;
+                            const checkbox = document.querySelector(`input[name="tumorSubType_hene"][value="${subtypeValue}"]`);
+
+                            if (!checkbox) {
+                              return;
+                            }
+
+                            checkbox.checked = true;
+
+                            if (item?.text) {
+                              const otherInput = document.getElementById(`tumorSubType_${subtypeValue}_Oth_hene`);
+
+                              if (otherInput) {
+                                otherInput.value = item.text || "";
+                                otherInput.disabled = isReadOnlyViewMode(mode);
+                              }
+                            }
+                          });
+                        }
+                      }
                       if (mdDataArr.hpv) document.querySelector(`input[name="HPV_sts_hene"][value="${mdDataArr.hpv}"]`).checked = true;
+                      document.getElementById("tumorType_hene").dispatchEvent(new Event("change"));
+
                       if (mdDataArr.fh) document.querySelector(`input[name="RadioFdHabit_hene"][value="${mdDataArr.fh}"]`).checked = true;
                       if (mdDataArr.hac) document.querySelector(`input[name="RadioAlcoholHabit_hene"][value="${mdDataArr.hac}"]`).checked = true;
                       if (mdDataArr.hs) document.querySelector(`input[name="RadioSmokeHabit_hene"][value="${mdDataArr.hs}"]`).checked = true;
@@ -37442,39 +37476,6 @@
                         });
                       }
                       ExistComorbidity_hene();
-                      document.getElementById("tumorType_hene").value = mdDataArr?.ttyp || "";
-                      document.getElementById("tumorType_hene").dispatchEvent(new Event("change"));
-                      document.getElementById("tumorSite_hene").value = mdDataArr?.tst || "";
-                      document.getElementById("tumorSite_hene").dispatchEvent(new Event("change"));
-                      if (mdDataArr.tsub) {
-                        if (mdDataArr?.tst === "op30") {
-                          document.getElementById("tumorSite_minor_hene").value = mdDataArr?.tsub || "";
-                        } else if (["op17", "op18", "op19", "op27", "op28", "op29"].includes(mdDataArr?.tst)) {
-                          document.getElementById("tumorType_Oth_hene").value = mdDataArr?.tsub || "";
-                        } else {
-                          const data = Array.isArray(mdDataArr.tsub) ? mdDataArr.tsub : [mdDataArr.tsub];
-
-                          data.forEach((item) => {
-                            const subtypeValue = item?.op;
-                            const checkbox = document.querySelector(`input[name="tumorSubType_hene"][value="${subtypeValue}"]`);
-
-                            if (!checkbox) {
-                              return;
-                            }
-
-                            checkbox.checked = true;
-
-                            if (item?.text) {
-                              const otherInput = document.getElementById(`tumorSubType_${subtypeValue}_Oth_hene`);
-
-                              if (otherInput) {
-                                otherInput.value = item.text || "";
-                                otherInput.disabled = isReadOnlyViewMode(mode);
-                              }
-                            }
-                          });
-                        }
-                      }
 
                       document.getElementById("pType_hene").value = mdDataArr?.pt || "";
                       document.getElementById("pType_hene").disabled = isReadOnlyViewMode(mode);

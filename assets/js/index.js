@@ -40,6 +40,14 @@ const firebaseConfig = {
   // measurementId: "G-TQFN0LVYQ9",
 };
 
+// For Pending Follow-up
+// const THREE_MONTH_IN_MIN = 3 * 30 * 24 * 60; // Approximation of 3 months in minutes
+const THREE_MONTH_IN_MIN = 10; // set to 10 min for testing
+
+// For Pending Entries
+// const SEVEN_DAYS_IN_MIN = 7 * 24 * 60; // 7 day approximation
+const SEVEN_DAYS_IN_MIN = 3; // set to 3 min for testing
+
 let currentBloodBoxIndex = 0;
 let boxKeys = [];
 const BOX_GRID_ROWS = "ABCDEFGHIJ";
@@ -5945,9 +5953,7 @@ function saveToFirebase(data, patientInfo) {
         });
 
       const dueDate = new Date();
-      // const threeMonthInMinutes = 3 * 30 * 24 * 60; // Approximation of 3 months in minutes
-      const threeMonthInMinutes = 10; // 10 min
-      dueDate.setMinutes(dueDate.getMinutes() + threeMonthInMinutes);
+      dueDate.setMinutes(dueDate.getMinutes() + THREE_MONTH_IN_MIN);
 
       const bioBankPath = `pfw/${bioBankId}`;
 
@@ -10000,7 +10006,14 @@ function fillMdForm_hene(mdData) {
     document.getElementById("bm_hene").value = mdData?.bm || "";
     document.getElementById("af_hene").value = mdData?.addF || "";
     if (mdData?.mC) document.querySelector(`input[name="mC_hene"][value="${mdData.mC}"]`).checked = true || "";
-    if (mdData?.rlnS) document.querySelector(`input[name="rlnsts_hene"][value="${mdData.rlnS}"]`).checked = true || "";
+    if (mdData?.rlnS) {
+      const rlnsts = document.querySelector(`input[name="rlnsts_hene"][value="${mdData.rlnS}"]`);
+
+      if (rlnsts) {
+        rlnsts.checked = true;
+        rlnsts.dispatchEvent(new Event("change"));
+      }
+    }
 
     document.getElementById("nodesTested_hene").value = mdData?.nnt || "";
     document.getElementById("positiveNodes_hene").value = mdData?.npn || "";
@@ -11532,9 +11545,7 @@ function submitFollowup() {
         .then(() => {
           const timePFW = new Date();
 
-          // const threeMonthInMinutes = 3 * 30 * 24 * 60; // Approximation of 3 months in minutes
-          const threeMonthInMinutes = 10; // Approximation of 10 min For testing
-          timePFW.setMinutes(timePFW.getMinutes() + threeMonthInMinutes);
+          timePFW.setMinutes(timePFW.getMinutes() + THREE_MONTH_IN_MIN);
 
           const selectedStatus = document.querySelector('input[name="livestatus"]:checked').value;
           const lastfollow = document.querySelector('input[name="flexRadioDefault"]:checked').value;
@@ -12963,8 +12974,6 @@ function fetchPendingEntries() {
   if (!pEntrySelect) {
     console.warn('fetchPendingEntries: element with id="pEntry" not found; skipping listener and pagination setup.');
   }
-  // const sevenDaysInMinutes = 7 * 24 * 60; // 7 day
-  const sevenDaysInMinutes = 3; // 3 min For testing
 
   const currentTime = Date.now();
 
@@ -13000,7 +13009,7 @@ function fetchPendingEntries() {
                       : ct === "gast"
                         ? dataEntry?.md?.pt === "" && dataEntry?.md?.pst === ""
                         : false;
-            const res = dataEntry && histResult && differenceInMinutes > sevenDaysInMinutes;
+            const res = dataEntry && histResult && differenceInMinutes > SEVEN_DAYS_IN_MIN;
             if (res) {
               tableData.push({
                 bioBankId: bioBankId,
