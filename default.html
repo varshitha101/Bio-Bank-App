@@ -3309,7 +3309,9 @@
                         <option value="Dr. Arjun Kashyap">Dr. Arjun Kashyap</option>
                         <option value="Dr.Sharath Chandra">Dr.Sharath Chandra</option>
                         <option value="Dr. Sunil Kalmath">Dr. Sunil Kalmath</option>
+                        <option value="Other">Others</option>
                       </select>
+                      <input type="text" class="form-control mt-2" id="otherDr_lung" placeholder="" disabled />
                     </div>
                   </div>
 
@@ -7319,7 +7321,7 @@
                           <select id="gtrPositiveType_ovry" class="form-control">
                             <option value="">Select Type</option>
                             <option value="somatic">Somatic</option>
-                            <option value="germine">Germine</option>
+                            <option value="germline">germline</option>
                             <option value="both">Both</option>
                           </select>
                         </div>
@@ -7333,7 +7335,7 @@
                     </div>
                   </div>
                   <div class="row ml-1 mb-3" id="BRCA_NGS_ovry" style="display: none">
-                    <label for="brca_ngs_ovry" class="col-sm-3 mb-1 col-form-label">BRCA NGS</label>
+                    <label for="brca_ngs_ovry" class="col-sm-3 mb-1 col-form-label">BRCA NGS Panel</label>
                     <div class="col-sm-9">
                       <input type="text" class="form-control" id="brca_ngs_ovry" placeholder="" />
                     </div>
@@ -7935,7 +7937,7 @@
                       <input type="date" class="form-control" id="surgery_date_ovry" placeholder="" />
                     </div>
                   </div>
-                  <div class="row ml-1 mb-3">
+                  <!-- <div class="row ml-1 mb-3">
                     <label for="mutation_report_available_ovry" class="col-sm-3 mb-1 col-form-label">Mutation report available Y/N</label>
                     <div class="col-sm-8">
                       <div class="custom-control custom-radio custom-control-inline">
@@ -7947,10 +7949,10 @@
                         <label class="custom-control-label" for="mutationReportNo_ovry">No</label>
                       </div>
                     </div>
-                    <div class="col-sm-1 mt-2 erase-icon-container-mutation_report_available-ovry">
-                      <!-- The icon will be dynamically inserted here -->
-                    </div>
-                  </div>
+                    <div class="col-sm-1 mt-2 erase-icon-container-mutation_report_available-ovry"> -->
+                  <!-- The icon will be dynamically inserted here -->
+                  <!-- </div>
+                  </div> -->
                   <div class="row ml-1 mb-3">
                     <label for="biopsy_site_ovry" class="col-sm-3 mb-1 col-form-label">Biopsy_site</label>
                     <div class="col-sm-9">
@@ -8052,7 +8054,12 @@
                       </div>
                     </div>
                   </div>
-
+                  <div class="row ml-1 mb-3">
+                    <label for="stils" class="col-sm-3 mb-1 col-form-label">sTILs Percent Scores</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="sps_ovry" placeholder="Percentage %" />
+                    </div>
+                  </div>
                   <div class="row ml-1 mb-3">
                     <label for="ACT_ovry" class="col-sm-3 mb-1 col-form-label">ACT</label>
                     <div class="col-sm-8">
@@ -8125,7 +8132,7 @@
                       <input type="date" class="form-control" id="nipecDateLastCycle_ovry" placeholder="Select Date" />
                     </div>
                   </div>
-                  <div class="row ml-1 mb-3">
+                  <div class="row ml-1 mb-3" id="pidacDC">
                     <label for="PIDAC_ovry" class="col-sm-3 mb-1 col-form-label">PIDAC</label>
                     <div class="col-sm-8">
                       <div class="custom-control custom-radio custom-control-inline">
@@ -8141,7 +8148,7 @@
                       <!-- The icon will be dynamically inserted here -->
                     </div>
                   </div>
-                  <div class="row ml-1 mb-3" id="pidacDC">
+                  <div class="row ml-1 mb-3" id="pidacDLC">
                     <label for="PIDAC_Cycles_ovry" class="col-sm-3 mb-1 col-form-label">PIDAC Date of last Cycle</label>
                     <div class="col-sm-9">
                       <input type="date" class="form-control" id="pidacDrugCycles_ovry" placeholder="" />
@@ -9022,7 +9029,12 @@
                       </div>
                     </div>
                   </div>
-
+                  <div class="row ml-1 mb-3">
+                    <label for="stils" class="col-sm-3 mb-1 col-form-label">sTILs Percent Scores</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="sps_endm" placeholder="Percentage %" />
+                    </div>
+                  </div>
                   <div class="row ml-1 mb-3">
                     <label for="ACT_endm" class="col-sm-3 mb-1 col-form-label">ACT</label>
                     <div class="col-sm-8">
@@ -9762,7 +9774,12 @@
                       </div>
                     </div>
                   </div>
-
+                  <div class="row ml-1 mb-3">
+                    <label for="stils" class="col-sm-3 mb-1 col-form-label">sTILs Percent Scores</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="sps_ceix" placeholder="Percentage %" />
+                    </div>
+                  </div>
                   <div class="row ml-1 mb-3">
                     <label for="ACT_ceix" class="col-sm-3 mb-1 col-form-label">ACT</label>
                     <div class="col-sm-8">
@@ -14234,6 +14251,12 @@
                     </div>
                   </div>
                   <div class="row ml-1 mb-3">
+                    <label for="stils" class="col-sm-3 mb-1 col-form-label">sTILs Percent Scores</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="sps_anal" placeholder="Percentage %" />
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
                     <label for="tDep_anal" class="col-sm-3 mb-1 col-form-label">Tumor Deposits</label>
                     <div class="col-sm">
                       <div class="row">
@@ -15111,6 +15134,12 @@
                           <input type="text" class="form-control" id="tumorSizeH_colo" placeholder="cm" />
                         </div>
                       </div>
+                    </div>
+                  </div>
+                  <div class="row ml-1 mb-3">
+                    <label for="stils" class="col-sm-3 mb-1 col-form-label">sTILs Percent Scores</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="sps_colo" placeholder="Percentage %" />
                     </div>
                   </div>
                   <div class="row ml-1 mb-3">
@@ -16039,7 +16068,12 @@
                       </div>
                     </div>
                   </div>
-
+                  <div class="row ml-1 mb-3">
+                    <label for="stils" class="col-sm-3 mb-1 col-form-label">sTILs Percent Scores</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="sps_esph" placeholder="Percentage %" />
+                    </div>
+                  </div>
                   <div class="row ml-1 mb-3">
                     <label for="ACT_esph" class="col-sm-3 mb-1 col-form-label">ACT</label>
                     <div class="col-sm-8">
@@ -16951,7 +16985,12 @@
                       </div>
                     </div>
                   </div>
-
+                  <div class="row ml-1 mb-3">
+                    <label for="stils" class="col-sm-3 mb-1 col-form-label">sTILs Percent Scores</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="sps_gast" placeholder="Percentage %" />
+                    </div>
+                  </div>
                   <div class="row ml-1 mb-3">
                     <label for="ACT_gast" class="col-sm-3 mb-1 col-form-label">ACT</label>
                     <div class="col-sm-8">
@@ -17649,7 +17688,7 @@
                       <input type="text" class="form-control" id="ca_125_O_ovry" placeholder="" />
                     </div>
                   </div>
-                  <div class="row ml-1 mb-3">
+                  <!-- <div class="row ml-1 mb-3">
                     <label for="ihc_ovry" class="col-sm-2 mb-1 col-form-label">IHC</label>
                     <div class="col-sm-10 mt-2">
                       <input type="text" class="form-control" id="ihc_ovry" placeholder="" />
@@ -17661,7 +17700,7 @@
                     <div class="col-sm-10 mt-2">
                       <input type="number" class="form-control" id="k67_ovry" placeholder="Percentage %" />
                     </div>
-                  </div>
+                  </div> -->
 
                   <div class="row ml-1 mb-3">
                     <label for="CT SUV Max_ovry" class="col-sm-2 mb-1 col-form-label">PET CT SUV Max</label>
@@ -18578,7 +18617,7 @@
           &copy; Copyright <strong><span></span></strong>. All Rights Reserved
         </div>
         <div class="credits"></div>
-        <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">Version 1.9.5</div>
+        <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">Version 1.9.6</div>
       </div>
     </footer>
 
@@ -24628,6 +24667,17 @@
         }
         doctor_hene();
         $("#surgeonName_hene").on("change", doctor_hene);
+        function doctor_lung() {
+          if (mode === "undefined") {
+            if ($("#surgeonName_lung").val() === "Other") {
+              $("#otherDr_lung").prop("disabled", false);
+            } else {
+              $("#otherDr_lung").prop("disabled", true).val("");
+            }
+          }
+        }
+        doctor_lung();
+        $("#surgeonName_lung").on("change", doctor_lung);
 
         // Breast
         function familyHabitToggle() {
@@ -30714,6 +30764,67 @@
           RadioTYes_endm();
         });
         // Ovary
+        function LC_ovry() {
+          const hipecSelected = $("#LC_HIPEC_ovry").is(":checked");
+          const nipecSelected = $("#LC_NIPEC_ovry").is(":checked");
+          const pidacSelected = $("#LC_PIDAC_ovry").is(":checked");
+
+          // HIPEC
+          $("#hipecDC").toggle(hipecSelected);
+          $("#hipecDLC").toggle(hipecSelected);
+
+          if (!hipecSelected) {
+            $("#hipecDrugCycles_ovry").val("");
+            $("#hipecDateLastCycle_ovry").val("");
+          }
+
+          // NIPEC
+          $("#nipecDC").toggle(nipecSelected);
+          $("#nipecDLC").toggle(nipecSelected);
+
+          if (!nipecSelected) {
+            $("#nipecDrugCycles_ovry").val("");
+            $("#nipecDateLastCycle_ovry").val("");
+          }
+
+          // PIDAC
+          $("#pidacDC").toggle(pidacSelected);
+
+          if (!pidacSelected) {
+            $("#PIDACYes_ovry").prop("checked", false);
+            $("#PIDACNo_ovry").prop("checked", false);
+            $("#pidacDrugCycles_ovry").val("");
+            $("#pidacDLC").hide();
+          }
+
+          // Check PIDAC Yes/No after PIDAC selection changes
+          PIDAC_ovry();
+        }
+
+        LC_ovry();
+
+        $('input[name="LC_ovry"]').change(function () {
+          LC_ovry();
+        });
+
+        function PIDAC_ovry() {
+          const pidacSelected = $("#LC_PIDAC_ovry").is(":checked");
+          const pidacYes = $("#PIDACYes_ovry").is(":checked");
+
+          // Show date only when PIDAC is selected AND Yes is selected
+          if (pidacSelected && pidacYes) {
+            $("#pidacDLC").show();
+          } else {
+            $("#pidacDLC").hide();
+            $("#pidacDrugCycles_ovry").val("");
+          }
+        }
+
+        PIDAC_ovry();
+
+        $('input[name="PIDAC_ovry"]').change(function () {
+          PIDAC_ovry();
+        });
         function RadioTYes_ovry() {
           if ($("#RTYes_ovry").is(":checked")) {
             // $("#rtDC1_ovry").show();
@@ -33609,10 +33720,10 @@
             groupName: "ot_ovry",
             containerClass: "erase-icon-container-ot-ovry",
           },
-          {
-            groupName: "mutation_report_available_ovry",
-            containerClass: "erase-icon-container-mutation_report_available-ovry",
-          },
+          // {
+          //   groupName: "mutation_report_available_ovry",
+          //   containerClass: "erase-icon-container-mutation_report_available-ovry",
+          // },
           {
             groupName: "ACT_ovry",
             containerClass: "erase-icon-container-ACT-ovry",

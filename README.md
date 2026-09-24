@@ -439,3 +439,9 @@ General Form Updates:
 
 
 <hr>
+
+### Version 1.9.6
+
+- Fixe
+
+<hr>

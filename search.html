@@ -1354,7 +1354,7 @@
           &copy; Copyright <strong><span></span></strong>. All Rights Reserved
         </div>
         <div class="credits"></div>
-        <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">Version 1.9.5</div>
+        <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">Version 1.9.6</div>
       </div>
     </footer>
     <script>
@@ -5328,7 +5328,7 @@
       function gtrP_ovry(option) {
         const mapping = {
           somatic: "Somatic",
-          germine: "Germine",
+          germline: "germline",
           both: "Both",
         };
         return mapping[option] || "-";
@@ -7417,6 +7417,8 @@
               "Number Of Positive Nodes": row?.sefData?.md?.npn || "-",
               "Additional findings": row?.sefData?.md?.af || "-",
               "Tumor Size": !row?.sefData?.md?.tsz || row?.sefData?.md?.tsz === "xx" ? "-" : row.sefData.md.tsz,
+              "sTILs Percent Scores": row?.sefData?.md?.sps || "-",
+
               ACT: decodeProcedureType(row?.sefData?.md?.act) || "-",
               "ACT Drug Cycles": row?.sefData?.md?.actdc || "-",
               "ACT Date of last Cycle": row?.sefData?.md?.actdls || "-",
@@ -7596,6 +7598,8 @@
               "Number Of Positive Nodes": row?.sefData?.md?.npn || "-",
               "Additional findings": row?.sefData?.md?.af || "-",
               "Tumor Size": !row?.sefData?.md?.tsz || row?.sefData?.md?.tsz === "xx" ? "-" : row.sefData.md.tsz,
+              "sTILs Percent Scores": row?.sefData?.md?.sps || "-",
+
               ACT: decodeProcedureType(row?.sefData?.md?.act) || "-",
               "ACT Drug Cycles": row?.sefData?.md?.actdc || "-",
               "ACT Date of last Cycle": row?.sefData?.md?.actdls || "-",
@@ -7791,6 +7795,8 @@
               "Number Of Nodes Tested": row?.sefData?.md?.nnt || "-",
               "Number Of Positive Nodes": row?.sefData?.md?.npn || "-",
               "Tumor Size": !row?.sefData?.md?.tsz || row?.sefData?.md?.tsz === "xx" ? "-" : row.sefData.md.tsz,
+              "sTILs Percent Scores": row?.sefData?.md?.sps || "-",
+
               "Tumor Deposits": decode_tDep_anal(row?.sefData?.md?.tDep) || "-",
               "Tumor Deposits (Other)": row?.sefData?.md?.tDepOth || "-",
               "If Tumor Deposits present": decode_tDepP_anal(row?.sefData?.md?.tDepP) || "-",
@@ -7990,6 +7996,8 @@
               "Number Of Nodes Tested": row?.sefData?.md?.nnt || "-",
               "Number Of Positive Nodes": row?.sefData?.md?.npn || "-",
               "Tumor Size": !row?.sefData?.md?.tsz || row?.sefData?.md?.tsz === "xx" ? "-" : row.sefData.md.tsz,
+              "sTILs Percent Scores": row?.sefData?.md?.sps || "-",
+
               "Tumor Deposits": decode_tDep_anal(row?.sefData?.md?.tDep) || "-",
               "Tumor Deposits (Other)": row?.sefData?.md?.tDepOth || "-",
               "If Tumor Deposits present": decode_tDepP_anal(row?.sefData?.md?.tDepP) || "-",
@@ -8140,6 +8148,7 @@
               "Number Of Nodes Tested": row?.sefData?.md?.nnt || "-",
               "Number Of Positive Nodes": row?.sefData?.md?.npn || "-",
               "Tumor Size": !row?.sefData?.md?.tsz || row?.sefData?.md?.tsz === "xx" ? "-" : row.sefData.md.tsz,
+
               "sTILs Percent Scores": row?.sefData?.md?.sps || "-",
               "RCB Score": row?.sefData?.md?.rcbs || "-",
               "RCB Class": row?.sefData?.md?.rcbc || "-",
@@ -8734,6 +8743,8 @@
               "Number Of Para-aortic Nodes Tested": row?.sefData?.md?.pant || "-",
               "Number Of Positive Para-aortic Nodes": row?.sefData?.md?.ppan || "-",
               "Tumor Size": !row?.sefData?.md?.tsz || row?.sefData?.md?.tsz === "xx" ? "-" : row.sefData.md.tsz,
+              "sTILs Percent Scores": row?.sefData?.md?.sps || "-",
+
               ACT: decodeProcedureType(row?.sefData?.md?.act) || "-",
               "ACT Drug Cycles": row?.sefData?.md?.actdc || "-",
               "ACT Date of last Cycle": row?.sefData?.md?.actdls || "-",
@@ -8911,6 +8922,8 @@
               "Number Of Para-aortic Nodes Tested": row?.sefData?.md?.pant || "-",
               "Number Of Positive Para-aortic Nodes": row?.sefData?.md?.ppan || "-",
               "Tumor Size": !row?.sefData?.md?.tsz || row?.sefData?.md?.tsz === "xx" ? "-" : row.sefData.md.tsz,
+              "sTILs Percent Scores": row?.sefData?.md?.sps || "-",
+
               // "RCB Score": row?.sefData?.md?.rcbs || "-",
               // "RCB Class": row?.sefData?.md?.rcbc || "-",
               ACT: decodeProcedureType(row?.sefData?.md?.act) || "-",
@@ -9070,7 +9083,7 @@
               "Genetic Testing Results": decodeProcedureType(row?.sefData?.md?.gtr) || "-",
               "If Genetic Testing Results is positive": gtrP_ovry(row?.sefData?.md?.gtrP) || "-",
               HRD: row?.sefData?.md?.hrd || "-",
-              "BRCA NGS": row?.sefData?.md?.brca || "-",
+              "BRCA NGS Panel": row?.sefData?.md?.brca || "-",
               "Genetic Testing Description": row?.sefData?.md?.gtd || "-",
               "Speciment Integrity": row?.sefData?.md?.si ? (row?.sefData?.md?.si === "intact" ? "Capsule Intact" : row?.sefData?.md?.si === "ruptured" ? "Capsule Ruptured" : "-") : "-" || "-",
               "Histological Subtype": pst_ovry(row?.sefData?.md?.pst) || "-",
@@ -9106,7 +9119,7 @@
               "Surgery HPE number": row?.sefData?.md?.surHpe || "-",
               Biopsy_date: row?.sefData?.md?.bish || "-",
               Surgery_date: row?.sefData?.md?.surD || "-",
-              "Mutation report available Y/N": decodeProcedureType(row?.sefData?.md?.mra) || "-",
+              // "Mutation report available Y/N": decodeProcedureType(row?.sefData?.md?.mra) || "-",
               Biopsy_site: row?.sefData?.md?.bioS || "-",
               Biopsy_diagnosis: row?.sefData?.md?.bioD || "-",
               "FIGO stage 2021": row?.sefData?.md?.as || "-",
@@ -9117,6 +9130,8 @@
               "Number Of Positive Para-aortic Nodes": row?.sefData?.md?.ppan || "-",
               "Size of the largest deposit": row?.sefData?.md?.sld || "-",
               "Tumor Size": !row?.sefData?.md?.tsz || row?.sefData?.md?.tsz === "xx" ? "-" : row.sefData.md.tsz,
+              "sTILs Percent Scores": row?.sefData?.md?.sps || "-",
+
               ACT: decodeProcedureType(row?.sefData?.md?.act) || "-",
               "ACT Drug Cycles": row?.sefData?.md?.actdc || "-",
               "ACT Date of last Cycle": row?.sefData?.md?.actdls || "-",
