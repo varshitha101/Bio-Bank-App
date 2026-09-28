@@ -442,6 +442,23 @@ General Form Updates:
 
 ### Version 1.9.6
 
-- Fixe
+   - Fixed the issue where "Histological Type" did not populate at Resection to Event and Biopsy to Resection.
+   - Resolved the issue where the NART and related questions were not populating in Excel.
+   - Resolved the issue where "Regional lymph nodes present" and related fields were not hiding.
+   - Added "Others" to the "Surgeon name" field in Lung Cancer.
+   - Added "sTILs Percent Scores" to all other cancer types.
+   - Updated the option from "germine" to "germline" in the "Genetic Testing Results" field for Ovarian Cancer.
+   - Replaced "BRCA NGS" with "BRCA NGS Panel" in Ovarian Cancer.
+   - Removed the field "Mutation report available Y/N" below "Surgery date" in Form 2 for Ovarian Cancer.
+   - Configured Locoregional Chemotherapy in Ovarian Cancer so that selecting HIPEC, NIPEC, or PIDAC displays the related fields.
+   - Removed IHC and KI67 from Form 3 in Ovarian Cancer.
+
+<hr>
+
+### Version 1.9.7
+
+   - Resolved an issue where "Dosage & Fractions" were not displayed in Excel for Head and Neck Cancer.
+   - Added "Surgeon Name (Other)" column in Excel for Lung Cancer.
+   - Removed the 'IHC' and 'KI67' columns from the Excel export for Ovarian cancer.
 
 <hr>

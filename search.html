@@ -1354,7 +1354,7 @@
           &copy; Copyright <strong><span></span></strong>. All Rights Reserved
         </div>
         <div class="credits"></div>
-        <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">Version 1.9.6</div>
+        <div class="version" style="float: right; font-size: 12px; color: rgb(255, 255, 255)">Version 1.9.7</div>
       </div>
     </footer>
     <script>
@@ -8218,6 +8218,7 @@
               "Procedure Types": decodeProcedureType(row?.sefData?.ie?.tpr),
               "Details of Procedure": row?.sefData?.ie?.dpr || "-",
               "Surgeon Name": row?.sefData?.ie?.srn || "-",
+              "Surgeon Name (Other)": row?.sefData?.ie?.srnOth || "-",
               "Event Sample": decodeProcedureType(row?.sefData?.ie?.mts) || "-",
               "Event Info": decodeProcedureType(row?.sefData?.ie?.es) || "-",
               "Denovo Event": decodeProcedureType(row?.sefData?.ie?.dm) || "-",
@@ -8449,7 +8450,7 @@
               "NACT date of last cycle": row?.sefData?.ie?.nactdlc || "-",
               NART: decodeProcedureType(row?.sefData?.ie?.nart) || "-",
               // "NART Drug Cycle": row?.sefData?.ie?.nartc || "-",
-              "Dosage & Fractions": row?.sefData?.ie?.nartdc || "-",
+              "Dosage & Fractions ": row?.sefData?.ie?.nartdc || "-",
               Techniquecycle: row?.sefData?.ie?.narttc || "-",
               "RT date of last cycle": row?.sefData?.ie?.nartdcc || "-",
               "All sample Received together?": decodeProcedureType(row?.sefData?.ie?.scpt) || "-",
@@ -9167,8 +9168,8 @@
               "CA 125 Levels U/Ml post NACT": row?.sefData?.ovf?.caP || "-",
               "CA 125 Levels U/Ml ON FOLLOW UP": row?.sefData?.ovf?.caFU || "-",
               "CA 125 Levels U/Ml Other": row?.sefData?.ovf?.caO || "-",
-              IHC: row?.sefData?.ovf?.ihc || "-",
-              Ki67: row?.sefData?.ovf?.k67 || "-",
+              // IHC: row?.sefData?.ovf?.ihc || "-",
+              // Ki67: row?.sefData?.ovf?.k67 || "-",
               "PET CT SUV Max": row?.sefData?.ovf?.pcsm || "-",
               "PET CT Volume": row?.sefData?.ovf?.pcvm || "-",
               "OV Specific form updated by": row?.sefData?.ovf?.ovfu || "-",
